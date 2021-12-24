@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SemakanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,8 +22,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('/testing', function () {
-    return view('test');
+Route::get('/login', function () {
+    return view('login');
 });
+
+Route::post('/semak_nric', [SemakanController::class, 'check_espek']);
 
 require __DIR__.'/auth.php';
