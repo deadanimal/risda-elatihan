@@ -9,11 +9,10 @@
 
     <div class="row">
         <div class="col text-center">
-            <a href="#upload-image" data-bs-toggle="modal" data-bs-target="">
-                <img src="/img/dp.jpg" alt="profile_picture" max-width="318px" style="border-radius: 25px; border: 2px solid #73AD21;">
-            </a>
+            <img src="/img/dp.jpg" alt="profile_picture" max-width="318px"
+                style="border-radius: 25px; border: 2px solid #73AD21;">
 
-            <div class="modal fade" id="upload-image" tabindex="-1" role="dialog" aria-hidden="true">
+            {{-- <div class="modal fade" id="upload-image" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
                     <div class="modal-content position-relative">
                         <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
@@ -55,7 +54,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 
@@ -63,22 +62,20 @@
         <div class="col">
             <ul class="nav nav-pills" id="pill-myTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="pill-home-tab" data-bs-toggle="tab"
-                        href="#peribadi" role="tab" aria-controls="peribadi" aria-selected="true">
+                    <a class="nav-link active" id="pill-home-tab" data-bs-toggle="tab" href="#peribadi" role="tab"
+                        aria-controls="peribadi" aria-selected="true">
                         PERIBADI
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="pill-profile-tab" data-bs-toggle="tab"
-                        href="#kebun" role="tab" aria-controls="kebun"
-                        aria-selected="false">
+                    <a class="nav-link" id="pill-profile-tab" data-bs-toggle="tab" href="#kebun" role="tab"
+                        aria-controls="kebun" aria-selected="false">
                         KEBUN
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="pill-contact-tab" data-bs-toggle="tab"
-                        href="#akaun-saya" role="tab" aria-controls="akaun-saya"
-                        aria-selected="false">
+                    <a class="nav-link" id="pill-contact-tab" data-bs-toggle="tab" href="#akaun-saya" role="tab"
+                        aria-controls="akaun-saya" aria-selected="false">
                         AKAUN SAYA
                     </a>
                 </li>
@@ -97,7 +94,7 @@
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">NO. PERMOHONAN (TS)</label>
-                                        <input class="form-control" type="text" readonly/>
+                                        <input class="form-control" type="text" />
                                     </div>
                                 </div>
                             </div>
@@ -105,13 +102,13 @@
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">NO. KAD PENGENALAN</label>
-                                        <input class="form-control" type="text" value="{{$profil['No_KP']}}" readonly/>
+                                        <input class="form-control" type="text" value="{{ $profil['No_KP'] }}" readonly />
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">NO. KAD PENGENALAN KIR</label>
-                                        <input class="form-control" type="text" readonly/>
+                                        <input class="form-control" type="text" />
                                     </div>
                                 </div>
                             </div>
@@ -119,7 +116,8 @@
                                 <div class="col">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">NAMA</label>
-                                        <input class="form-control" type="text" value="{{$profil['Nama_PK']}}" readonly/>
+                                        <input class="form-control" type="text" value="{{ $profil['Nama_PK'] }}"
+                                            readonly />
                                     </div>
                                 </div>
                             </div>
@@ -127,7 +125,7 @@
                                 <div class="col">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">Emel</label>
-                                        <input class="form-control" type="text" value="{{$user['email']}}" readonly/>
+                                        <input class="form-control" type="text" value="{{ $user['email'] }}" readonly />
                                     </div>
                                 </div>
                             </div>
@@ -135,13 +133,14 @@
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">TARIKH LAHIR</label>
-                                        <input class="form-control" type="date"/ readonly>
+                                        <input class="form-control" type="date" />
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">JANTINA</label>
-                                        <input class="form-control" type="text" value="{{$profil['Jantina']}}" readonly />
+                                        <input class="form-control" type="text" value="{{ $profil['Jantina'] }}"
+                                            readonly />
                                     </div>
                                 </div>
                             </div>
@@ -149,13 +148,15 @@
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">KETURUNAN</label>
-                                        <input class="form-control" type="text" value="{{$profil['Bangsa']}}" readonly/>
+                                        <input class="form-control" type="text" value="{{ $profil['Bangsa'] }}"
+                                            readonly />
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">NO. TELEFON BIMBIT</label>
-                                        <input class="form-control" type="text" value="{{$profil['Telefon']}}" readonly />
+                                        <input class="form-control" type="text" value="{{ $profil['Telefon'] }}"
+                                            readonly />
                                     </div>
                                 </div>
                             </div>
@@ -163,7 +164,7 @@
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">STATUS ISI RUMAH</label>
-                                        <input class="form-control" type="text" readonly/>
+                                        <input class="form-control" type="text" readonly />
                                     </div>
                                 </div>
                                 <div class="col-6">
@@ -177,7 +178,7 @@
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">SKIM</label>
-                                        <input class="form-control" type="text" readonly/>
+                                        <input class="form-control" type="text" readonly />
                                     </div>
                                 </div>
                                 <div class="col-6">
@@ -191,9 +192,11 @@
                                 <div class="col">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">ALAMAT</label>
-                                        <input class="form-control mb-3" type="text" value="{{$profil['Nombor']}}, {{$profil['Jalan']}}" readonly/>
-                                        <input class="form-control mb-3" type="text" value="{{$profil['Nama_Kampung']}}" readonly/>
-                                        <input class="form-control mb-3" type="text" readonly/>
+                                        <input class="form-control mb-3" type="text"
+                                            value="{{ $profil['Nombor'] }}, {{ $profil['Jalan'] }}" readonly />
+                                        <input class="form-control mb-3" type="text" value="{{ $profil['Nama_Kampung'] }}"
+                                            readonly />
+                                        <input class="form-control mb-3" type="text" readonly />
                                     </div>
                                 </div>
                             </div>
@@ -201,13 +204,15 @@
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">POSKOD</label>
-                                        <input class="form-control" type="text" value="{{$profil['Poskod']}}" readonly/>
+                                        <input class="form-control" type="text" value="{{ $profil['Poskod'] }}"
+                                            readonly />
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">NEGERI</label>
-                                        <input class="form-control" type="text" value="{{$profil['Negeri']}}" readonly />
+                                        <input class="form-control" type="text" value="{{ $profil['Negeri'] }}"
+                                            readonly />
                                     </div>
                                 </div>
                             </div>
@@ -215,13 +220,15 @@
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">DAERAH</label>
-                                        <input class="form-control" type="text" value="{{$profil['Daerah']}}" readonly/>
+                                        <input class="form-control" type="text" value="{{ $profil['Daerah'] }}"
+                                            readonly />
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">MUKIM</label>
-                                        <input class="form-control" type="text" value="{{$profil['Mukim']}}" readonly />
+                                        <input class="form-control" type="text" value="{{ $profil['Mukim'] }}"
+                                            readonly />
                                     </div>
                                 </div>
                             </div>
@@ -229,7 +236,7 @@
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">PARLIMEN</label>
-                                        <input class="form-control" type="text" value="" readonly/>
+                                        <input class="form-control" type="text" value="" readonly />
                                     </div>
                                 </div>
                                 <div class="col-6">
@@ -243,13 +250,15 @@
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">KAMPUNG</label>
-                                        <input class="form-control" type="text" value="{{$profil['Kampung']}}" readonly/>
+                                        <input class="form-control" type="text" value="{{ $profil['Kampung'] }}"
+                                            readonly />
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">SEKSYEN</label>
-                                        <input class="form-control" type="text" value="{{$profil['Seksyen']}}" readonly />
+                                        <input class="form-control" type="text" value="{{ $profil['Seksyen'] }}"
+                                            readonly />
                                     </div>
                                 </div>
                             </div>
@@ -263,113 +272,117 @@
                             <h5>MAKLUMAT KEBUN</h5>
                         </div>
                     </div>
-                    @foreach ($tanah as $key=>$tanah)
-                    <div class="row ms-5 mt-4" >
-                        <div class="col">
+                    @foreach ($tanah as $key => $tanah)
+                        <div class="row ms-5 mt-4">
+                            <div class="col">
 
-                            <div class="row">
-                                <div class="col">
-                                    <h5 class="risda-dg">KEBUN {{$key+1}}</h5>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label class="form-label risda-g">ALAMAT KEBUN</label>
-                                        <input class="form-control mb-3" type="text" value="" readonly/>
-                                        <input class="form-control mb-3" type="text" value="" readonly/>
-                                        <input class="form-control mb-3" type="text" readonly/>
+                                <div class="row">
+                                    <div class="col">
+                                        <h5 class="risda-dg">KEBUN {{ $key + 1 }}</h5>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="mb-3">
-                                        <label class="form-label risda-g">POSKOD</label>
-                                        <input class="form-control" type="text"  readonly/>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="mb-3">
+                                            <label class="form-label risda-g">ALAMAT KEBUN</label>
+                                            <input class="form-control mb-3" type="text" value="" readonly />
+                                            <input class="form-control mb-3" type="text" value="" readonly />
+                                            <input class="form-control mb-3" type="text" readonly />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-6">
-                                    <div class="mb-3">
-                                        <label class="form-label risda-g">NEGERI</label>
-                                        <input class="form-control" type="text"  readonly />
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label class="form-label risda-g">POSKOD</label>
+                                            <input class="form-control" type="text" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label class="form-label risda-g">NEGERI</label>
+                                            <input class="form-control" type="text" readonly />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="mb-3">
-                                        <label class="form-label risda-g">DAERAH</label>
-                                        <input class="form-control" type="text"  readonly/>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label class="form-label risda-g">DAERAH</label>
+                                            <input class="form-control" type="text" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label class="form-label risda-g">MUKIM</label>
+                                            <input class="form-control" type="text" readonly />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-6">
-                                    <div class="mb-3">
-                                        <label class="form-label risda-g">MUKIM</label>
-                                        <input class="form-control" type="text"  readonly />
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label class="form-label risda-g">PARLIMEN</label>
+                                            <input class="form-control" type="text" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label class="form-label risda-g">DUN</label>
+                                            <input class="form-control" type="text" readonly />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="mb-3">
-                                        <label class="form-label risda-g">PARLIMEN</label>
-                                        <input class="form-control" type="text"  readonly/>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label class="form-label risda-g">KAMPUNG</label>
+                                            <input class="form-control" type="text" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label class="form-label risda-g">SEKSYEN</label>
+                                            <input class="form-control" type="text" readonly />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-6">
-                                    <div class="mb-3">
-                                        <label class="form-label risda-g">DUN</label>
-                                        <input class="form-control" type="text"  readonly />
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label class="form-label risda-g">NO. GERAN</label>
+                                            <input class="form-control" type="text" value="{{ $tanah['No_Geran'] }}"
+                                                readonly />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label class="form-label risda-g">NO. LOT</label>
+                                            <input class="form-control" type="text" value="{{ $tanah['No_Lot'] }}"
+                                                readonly />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="mb-3">
-                                        <label class="form-label risda-g">KAMPUNG</label>
-                                        <input class="form-control" type="text" readonly/>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label class="form-label risda-g">JENIS TANAMAN</label>
+                                            <input class="form-control" type="text" value="{{ $tanah['Syarat'] }}"
+                                                readonly />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label class="form-label risda-g">LUAS KEBUN</label>
+                                            <input class="form-control" type="text"
+                                                value="{{ $tanah['Luas_Pemilikan'] }}" readonly />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-6">
-                                    <div class="mb-3">
-                                        <label class="form-label risda-g">SEKSYEN</label>
-                                        <input class="form-control" type="text" readonly />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="mb-3">
-                                        <label class="form-label risda-g">NO. GERAN</label>
-                                        <input class="form-control" type="text" value="{{$tanah['No_Geran']}}" readonly/>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="mb-3">
-                                        <label class="form-label risda-g">NO. LOT</label>
-                                        <input class="form-control" type="text" value="{{$tanah['No_Lot']}}" readonly />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="mb-3">
-                                        <label class="form-label risda-g">JENIS TANAMAN</label>
-                                        <input class="form-control" type="text" value="{{$tanah['Syarat']}}" readonly/>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="mb-3">
-                                        <label class="form-label risda-g">LUAS KEBUN</label>
-                                        <input class="form-control" type="text" value="{{$tanah['Luas_Pemilikan']}}" readonly/>
-                                    </div>
-                                </div>
-                            </div>
-                            
 
+
+                            </div>
                         </div>
-                    </div>
                     @endforeach
                 </div>
                 <div class="tab-pane fade" id="akaun-saya" role="tabpanel" aria-labelledby="contact-tab">
@@ -382,13 +395,14 @@
                         <div class="col-6">
                             <div class="mb-3">
                                 <label class="form-label risda-g">TARIKH AKAUN DICIPTA</label>
-                                <input class="form-control" type="text" value="{{date('d / m / Y', strtotime($user['created_at']))}}" readonly/>
+                                <input class="form-control" type="text"
+                                    value="{{ date('d / m / Y', strtotime($user['created_at'])) }}" readonly />
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="mb-3">
                                 <label class="form-label risda-g">STATUS AKAUN</label>
-                                <input class="form-control" type="text"  readonly />
+                                <input class="form-control" type="text" readonly />
                             </div>
                         </div>
                     </div>

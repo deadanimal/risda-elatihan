@@ -107,6 +107,37 @@
             transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
         }
 
+        .btn-primary,
+        .navbar-vertical .btn-purchase,
+        .tox .tox-menu__footer .tox-button:last-child,
+        .tox .tox-dialog__footer .tox-button:last-child {
+            color: #fff;
+            background-color: #009640;
+            border-color: #009640;
+            -webkit-box-shadow: inset 0 1px 0 rgb(255 255 255 / 15%), 0 1px 1px rgb(0 0 0 / 8%);
+            box-shadow: inset 0 1px 0 rgb(255 255 255 / 15%), 0 1px 1px rgb(0 0 0 / 8%);
+        }
+
+        .btn-primary:hover,
+        .navbar-vertical .btn-purchase:hover,
+        .tox .tox-menu__footer .tox-button:hover:last-child,
+        .tox .tox-dialog__footer .tox-button:hover:last-child {
+            color: #fff;
+            background-color: #0F5E31;
+            border-color: #0F5E31;
+        }
+
+        .btn-outline-primary {
+            color: #009640;
+            border-color: #009640;
+        }
+
+        .btn-outline-primary:hover {
+            color: #fff;
+            background-color: #0F5E31;
+            border-color: #0F5E31;
+        }
+
     </style>
     <?php
     use Illuminate\Support\Facades\Auth;

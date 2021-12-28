@@ -60,7 +60,7 @@
                                                                 Saya</label>
                                                         </div>
                                                         <div class="col-lg-6 text-end">
-                                                            <a class="fs--1" href="#">Lupa kata laluan</a>
+                                                            <a class="fs--1" href="/lupa_katalaluan">Terlupa Kata Laluan?</a>
                                                         </div>
                                                     </div>
                                                 </div>

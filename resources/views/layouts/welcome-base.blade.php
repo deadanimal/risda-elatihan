@@ -25,9 +25,6 @@
     <meta name="theme-color" content="#ffffff">
     <script src="../../../assets/js/config.js"></script>
     <script src="../../../vendors/overlayscrollbars/OverlayScrollbars.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="sweetalert2.all.min.js"></script>
-
 
 
     <!-- ===============================================-->
@@ -61,34 +58,8 @@
 
 
 <body>
+
     <style>
-        .nav-pills .nav-link {
-            background-color: rgb(233, 233, 233);
-            color: #009640;
-            border: 0;
-            border-radius: 0.25rem;
-        }
-
-        .nav-pills .nav-link.active,
-        .nav-pills .show>.nav-link {
-            color: #fff;
-            background-color: #009640;
-        }
-
-        .text-primary {
-            color: #009640 !important;
-        }
-
-        .form-check-input:checked {
-            background-color: #009640;
-            border-color: #009640;
-        }
-
-        a {
-            color: #009640;
-            text-decoration: none;
-        }
-
         .btn-primary,
         .navbar-vertical .btn-purchase,
         .tox .tox-menu__footer .tox-button:last-child,
@@ -119,14 +90,38 @@
             background-color: #0F5E31;
             border-color: #0F5E31;
         }
+
     </style>
     <!-- ===============================================-->
     <!--    Main Content-->
     <!-- ===============================================-->
     <main class="main" id="top">
-        <img src="/img/bg.jpeg" alt="latar" width="100%" height="100%" style="position: absolute; z-index: -1;">
-        @yield('content')
+        <div class="container-fluid">
+            <script>
+                var isFluid = JSON.parse(localStorage.getItem('isFluid'));
+                if (isFluid) {
+                    var container = document.querySelector('[data-layout]');
+                    container.classList.remove('container');
+                    container.classList.add('container-fluid');
+                }
+            </script>
+            <div class="row min-vh-100 bg-100">
+
+                @yield('log')
+
+                <div class="col-6 d-none d-lg-block position-relative">
+                    <div class="bg-holder"
+                        style="background-image:url(img/pokok.jpg);background-position: 50% 20%;">
+                    </div>
+                    <!--/.bg-holder-->
+
+                </div>
+            </div>
+        </div>
     </main>
+    <!-- ===============================================-->
+    <!--    End of Main Content-->
+    <!-- ===============================================-->
 
 
     <!-- ===============================================-->
@@ -141,18 +136,6 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
     <script src="../../../vendors/list.js/list.min.js"></script>
     <script src="../../../assets/js/theme.js"></script>
-
-    <script>
-        function tukar() {
-            let b = $('#pilihan option:selected').text();
-
-            if (b == 'No. Kad Pengenalan') {
-                $('#label_pk').html('No. Kad Pengenalan');
-            } else if (b == 'Email') {
-                $('#label_pk').html('Email');
-            }
-        }
-    </script>
 
 </body>
 

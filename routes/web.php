@@ -27,6 +27,10 @@ Route::get('/login', function () {
     return view('login');
 });
 
+Route::get('/lupa_katalaluan', function () {
+    return view('auth.forgot-password');
+});
+
 Route::get('/test', function () {
     return view('test');
 });
