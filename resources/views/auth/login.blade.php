@@ -36,6 +36,7 @@
                                                 </select>
                                             </div>
                                             <form method="POST" action="{{ route('login') }}">
+                                                @csrf
                                                 <div class="mb-3">
                                                     <label class="form-label" for="card-email" id="label_pk">No.
                                                         Kad Pengenalan</label>

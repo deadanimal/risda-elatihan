@@ -8,18 +8,32 @@
                         <h3 class="h5">Pendaftaran Pekebun Kecil</h3>
                     </div>
                     <div class="card-body">
-                        <form action="#">
+                        <form action="/daftar_pengguna" method="POST">
+                            @csrf
                             <div class="mb-3">
                                 <label class="form-label" >Nama Pekebun Kecil</label>
-                                <input class="form-control" type="text" value="{{$data['Nama_PK']}}" readonly/>
+                                <input class="form-control" name="name" type="text" value="{{$data['Nama_PK']}}" readonly/>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" >No. Kad Pengenalan</label>
-                                <input class="form-control" type="text" value="{{$data['No_KP']}}" readonly/>
+                                <input class="form-control" name="no_KP" type="text" value="{{$data['No_KP']}}" readonly/>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" >E-mel</label>
+                                <input class="form-control" type="email" name="email"/>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" >Kata Laluan</label>
-                                <input class="form-control" type="password"/>
+                                <input class="form-control" name="password" type="password"/>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" >Pengesahan Kata Laluan</label>
+                                <input class="form-control" name="password_confirmation" type="password"/>
+                            </div>
+                            <div class="row">
+                                <div class="col text-center">
+                                    <button type="submit" class="btn btn-primary me-1 mb-1">Hantar</button>
+                                </div>
                             </div>
                         </form>
                     </div>

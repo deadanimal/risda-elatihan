@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SemakanController;
+use App\Http\Controllers\ProfilController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,13 @@ Route::get('/login', function () {
     return view('login');
 });
 
+Route::get('/test', function () {
+    return view('test');
+});
+
+Route::resource('/profil', ProfilController::class);
+
 Route::post('/semak_nric', [SemakanController::class, 'check_espek']);
+Route::post('/daftar_pengguna', [SemakanController::class, 'daftar_pengguna']);
 
 require __DIR__.'/auth.php';
