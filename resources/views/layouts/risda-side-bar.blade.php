@@ -31,7 +31,13 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col text-center mb-3">
-                                <img src="/img/dp.jpg" alt="profile_picture" width="50%" style="border-radius: 25px;">
+                                @if (Auth::user()->gambar_profil == null)
+                                    <img src="/img/dp.jpg" alt="profile_picture"
+                                        style="border-radius: 25px; border: 2px solid #73AD21; width:108px; height:108.9px; object-fit: cover;">
+                                @else
+                                    <img src="/{{ Auth::user()->gambar_profil }}" alt="profile_picture"
+                                        style="border-radius: 25px; border: 2px solid #73AD21; width:108px; height:108.9px; object-fit: cover;">
+                                @endif
                             </div>
                         </div>
                         <h3 class="h5 text-white text-center"><strong>{{ Auth::user()->name }}</strong></h3>
@@ -53,7 +59,8 @@
                                                     class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
                                                     data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
-                                            <form action="#" method="POST">
+                                            <form action="/profil/{{ Auth::id() }}" method="POST">
+                                                @method('PUT')
                                                 @csrf
                                                 <div class="modal-body p-0">
                                                     <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
@@ -64,18 +71,20 @@
 
                                                         <div class="mb-3">
                                                             <label class="col-form-label">Kata Laluan Sekarang:</label>
-                                                            <input class="form-control" type="text" name="kl_sekarang"/>
+                                                            <input class="form-control" type="password"
+                                                                name="kl_sekarang" />
                                                         </div>
                                                         <div class="mb-3">
                                                             <label class="col-form-label">Kata Laluan Baru:</label>
-                                                            <input class="form-control" type="text" name="kl_baru"/>
+                                                            <input class="form-control" type="password" name="kl_baru" />
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button class="btn btn-secondary" type="button"
                                                         data-bs-dismiss="modal">Batal</button>
-                                                    <button class="btn btn-primary" type="button">Tukar Kata Laluan </button>
+                                                    <button class="btn btn-success" type="submit">Tukar Kata Laluan
+                                                    </button>
                                                 </div>
                                             </form>
                                         </div>

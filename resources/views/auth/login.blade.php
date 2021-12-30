@@ -29,7 +29,7 @@
                                                 </div>
                                             </div>
                                             <div class="mb-3 col-lg-6">
-                                                <select name="" class="form-control" onchange="tukar()" id="pilihan">
+                                                <select name="id_type" class="form-control" onchange="tukar()" id="pilihan">
                                                     {{-- <option value="" selected hidden>Jenis ID</option> --}}
                                                     <option value="ic">No. Kad Pengenalan</option>
                                                     <option value="email">Email</option>
@@ -37,26 +37,31 @@
                                             </div>
                                             <form method="POST" action="{{ route('login') }}">
                                                 @csrf
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="card-email" id="label_pk">No.
+                                                <div class="mb-3" id="nric">
+                                                    <label class="form-label"  >No.
                                                         Kad Pengenalan</label>
-                                                    <input class="form-control" id="card-email" type="email" name="email"
-                                                        :value="old('email')" required autofocus />
+                                                    <input class="form-control" type="text" name="no_KP"
+                                                        :value="old('no_KP')" />
+                                                </div>
+                                                <div class="mb-3" id="emel" style="display:none">
+                                                    <label class="form-label"  >Emel</label>
+                                                    <input class="form-control" type="email" name="email"
+                                                        :value="old('email')" autofocus />
                                                 </div>
                                                 <div class="mb-3">
                                                     <div class="d-flex justify-content-between">
-                                                        <label class="form-label" for="card-password">Kata
+                                                        <label class="form-label" >Kata
                                                             Laluan</label>
                                                     </div>
-                                                    <input class="form-control" id="card-password" type="password"
+                                                    <input class="form-control" type="password"
                                                         name="password" required autocomplete="current-password" />
                                                 </div>
                                                 <div class="form-check mb-0">
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <input class="form-check-input" type="checkbox"
-                                                                id="card-checkbox" checked="checked" />
-                                                            <label class="form-check-label" for="card-checkbox">Ingati
+                                                                checked="checked" />
+                                                            <label class="form-check-label" >Ingati
                                                                 Saya</label>
                                                         </div>
                                                         <div class="col-lg-6 text-end">
@@ -106,25 +111,25 @@
                                             </div>
                                             <form method="POST" action="{{ route('login') }}">
                                                 <div class="mb-3">
-                                                    <label class="form-label" for="card-email" id="label_pk">No.
+                                                    <label class="form-label"  id="label_pk">No.
                                                         Kad Pengenalan</label>
-                                                    <input class="form-control" id="card-email" type="email" name="email"
+                                                    <input class="form-control" type="email" name="email"
                                                         :value="old('email')" required autofocus />
                                                 </div>
                                                 <div class="mb-3">
                                                     <div class="d-flex justify-content-between">
-                                                        <label class="form-label" for="card-password">Kata
+                                                        <label class="form-label" >Kata
                                                             Laluan</label>
                                                     </div>
-                                                    <input class="form-control" id="card-password" type="password"
+                                                    <input class="form-control" type="password"
                                                         name="password" required autocomplete="current-password" />
                                                 </div>
                                                 <div class="form-check mb-0">
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <input class="form-check-input" type="checkbox"
-                                                                id="card-checkbox" checked="checked" />
-                                                            <label class="form-check-label" for="card-checkbox">Ingati
+                                                                checked="checked" />
+                                                            <label class="form-check-label" >Ingati
                                                                 Saya</label>
                                                         </div>
                                                         <div class="col-lg-6 text-end">
@@ -174,25 +179,25 @@
                                             </div>
                                             <form method="POST" action="{{ route('login') }}">
                                                 <div class="mb-3">
-                                                    <label class="form-label" for="card-email" id="label_pk">No.
+                                                    <label class="form-label"  id="label_pk">No.
                                                         Kad Pengenalan</label>
-                                                    <input class="form-control" id="card-email" type="email" name="email"
+                                                    <input class="form-control" type="email" name="email"
                                                         :value="old('email')" required autofocus />
                                                 </div>
                                                 <div class="mb-3">
                                                     <div class="d-flex justify-content-between">
-                                                        <label class="form-label" for="card-password">Kata
+                                                        <label class="form-label" >Kata
                                                             Laluan</label>
                                                     </div>
-                                                    <input class="form-control" id="card-password" type="password"
+                                                    <input class="form-control" type="password"
                                                         name="password" required autocomplete="current-password" />
                                                 </div>
                                                 <div class="form-check mb-0">
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <input class="form-check-input" type="checkbox"
-                                                                id="card-checkbox" checked="checked" />
-                                                            <label class="form-check-label" for="card-checkbox">Ingati
+                                                                checked="checked" />
+                                                            <label class="form-check-label" >Ingati
                                                                 Saya</label>
                                                         </div>
                                                         <div class="col-lg-6 text-end">
@@ -231,4 +236,18 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function tukar() {
+            let b = $('#pilihan option:selected').text();
+
+            if (b == 'No. Kad Pengenalan') {
+                $('#nric').show().find(':input').attr('required', true);
+                $('#emel').hide().find(':input').attr('required', false);;
+            } else if (b == 'Email') {
+                $('#nric').hide().find(':input').attr('required', false);;
+                $('#emel').show().find(':input').attr('required', true);;
+            }
+        }
+    </script>
 @stop

@@ -25,6 +25,7 @@
     <meta name="theme-color" content="#ffffff">
     <script src="../../../assets/js/config.js"></script>
     <script src="../../../vendors/overlayscrollbars/OverlayScrollbars.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
     <!-- ===============================================-->

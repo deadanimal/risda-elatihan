@@ -28,6 +28,8 @@
     <script src="../vendors/overlayscrollbars/OverlayScrollbars.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="vendors/dropzone/dropzone.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="sweetalert2.all.min.js"></script>
 
 
     <!-- ===============================================-->
@@ -157,6 +159,8 @@
             <div class="col-9 p-0">
                 <div class="content p-5" style="background-color:white">
                     @yield('content')
+                    {{-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                    @include('sweet::alert') --}}
                 </div>
             </div>
         </div>
@@ -185,7 +189,6 @@
     <script src="../vendors/dayjs/dayjs.min.js"></script>
     <script src="../vendors/fontawesome/all.min.js"></script>
     <script src="../vendors/lodash/lodash.min.js"></script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
     <script src="../vendors/list.js/list.min.js"></script>
     <script src="../assets/js/theme.js"></script>
 

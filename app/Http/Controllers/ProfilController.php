@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProfilRequest;
 use App\Http\Requests\UpdateProfilRequest;
 use App\Models\Profil;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Hash;
 
 class ProfilController extends Controller
 {
@@ -30,11 +32,11 @@ class ProfilController extends Controller
         $profil = json_decode($data, true);
         $profil = $profil[0];
         $tanah = $profil['Tanah'];
-        
+
         return view('profil.index', [
-            'profil'=>$profil,
-            'user'=>$user,
-            'tanah'=>$tanah
+            'profil' => $profil,
+            'user' => $user,
+            'tanah' => $tanah
         ]);
     }
 
@@ -88,9 +90,28 @@ class ProfilController extends Controller
      * @param  \App\Models\Profil  $profil
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProfilRequest $request, Profil $profil)
+    public function update(UpdateProfilRequest $request, User $profil)
     {
-        //
+        if ($request->gambar_profil) {
+            $id_pengguna = Auth::id();
+            $gambar_profil = time() . '_' . $id_pengguna . '.' . $request->gambar_profil->extension();
+
+            $request->gambar_profil->move(public_path('img/profil'), $gambar_profil);
+            $profil->gambar_profil = 'img/profil/'.$gambar_profil;
+            $profil->save();
+
+            return back()
+                ->with('success', 'Gambar profil sudah berjaya dikemaskini')
+                ->with('image', $gambar_profil);
+        }
+        if (password_verify($request->kl_sekarang, $profil->password)) {
+            $profil->password = Hash::make($request->kl_baru);
+            $profil->save();
+
+            return back()->with('success', 'Kata laluan berjaya dikemaskini');
+        } else {
+            return back()->with('error', 'Kata laluan tidak sah');
+        }
     }
 
     /**

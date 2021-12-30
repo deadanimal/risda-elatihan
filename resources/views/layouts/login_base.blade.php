@@ -26,7 +26,7 @@
     <script src="../../../assets/js/config.js"></script>
     <script src="../../../vendors/overlayscrollbars/OverlayScrollbars.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="sweetalert2.all.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 
@@ -138,21 +138,10 @@
     <script src="../../../vendors/is/is.min.js"></script>
     <script src="../../../vendors/fontawesome/all.min.js"></script>
     <script src="../../../vendors/lodash/lodash.min.js"></script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
     <script src="../../../vendors/list.js/list.min.js"></script>
     <script src="../../../assets/js/theme.js"></script>
 
-    <script>
-        function tukar() {
-            let b = $('#pilihan option:selected').text();
-
-            if (b == 'No. Kad Pengenalan') {
-                $('#label_pk').html('No. Kad Pengenalan');
-            } else if (b == 'Email') {
-                $('#label_pk').html('Email');
-            }
-        }
-    </script>
+    
 
 </body>
 
