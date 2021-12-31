@@ -24,12 +24,18 @@ class ProfilController extends Controller
     public function index()
     {
         $user = Auth::user();
+
         $data = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', '1cc11a9fec81dc1f99f353f403d6f5bac620aa8f')
             ->get('https://www4.risda.gov.my/espek/portalpkprofiltanah/?nokp=' . $user->no_KP)
             ->getBody()
             ->getContents();
 
         $profil = json_decode($data, true);
+        if(!empty($profil['message'])){
+            return view('profil.test1',[
+                'user'=>$user
+            ]);
+        }
         $profil = $profil[0];
         $tanah = $profil['Tanah'];
 
@@ -100,17 +106,21 @@ class ProfilController extends Controller
             $profil->gambar_profil = 'img/profil/'.$gambar_profil;
             $profil->save();
 
-            return back()
-                ->with('success', 'Gambar profil sudah berjaya dikemaskini')
-                ->with('image', $gambar_profil);
+            alert()->success('Gambar profil telah dikemaskini.', 'Berjaya');
+            return back();
+            // return back()
+            //     ->with('success', 'Gambar profil sudah berjaya dikemaskini')
+            //     ->with('image', $gambar_profil);
         }
         if (password_verify($request->kl_sekarang, $profil->password)) {
             $profil->password = Hash::make($request->kl_baru);
             $profil->save();
 
-            return back()->with('success', 'Kata laluan berjaya dikemaskini');
+            alert()->success('Kata laluan telah dikemaskini.', 'Berjaya');
+            return back();
         } else {
-            return back()->with('error', 'Kata laluan tidak sah');
+            alert()->error('Kata laluan yang dimasukkan tidak sepadan.', 'Tidak Berjaya');
+            return back();
         }
     }
 

@@ -25,7 +25,7 @@
     <meta name="theme-color" content="#ffffff">
     <script src="../../../assets/js/config.js"></script>
     <script src="../../../vendors/overlayscrollbars/OverlayScrollbars.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
     <!-- ===============================================-->
@@ -59,7 +59,7 @@
 
 
 <body>
-
+    @include('sweet::alert')
     <style>
         .btn-primary,
         .navbar-vertical .btn-purchase,

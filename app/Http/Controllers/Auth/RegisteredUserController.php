@@ -51,7 +51,7 @@ class RegisteredUserController extends Controller
             'no_KP' => $request->no_KP,
         ]);
 
-        // event(new Registered($user));
+        event(new Registered($user));
 
         $data_pk = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', '1cc11a9fec81dc1f99f353f403d6f5bac620aa8f')
             ->get('https://www4.risda.gov.my/espek/portalpkprofiltanah/?nokp=' . $request->no_KP)
@@ -59,7 +59,7 @@ class RegisteredUserController extends Controller
             ->getContents();
 
         $data_pk = json_decode($data_pk, true);
-dd($data_pk);
+        
         $pk = PekebunKecil::create([
             'id_Pengguna' => $user['id'],
             'Jantina_ID' => $data_pk['Jantina_ID'],
@@ -128,9 +128,8 @@ dd($data_pk);
             }
         }
 
-        Mail::to($request->email)->send(new PendaftaranPK());
-        Auth::login($user);
-
-        return redirect(RouteServiceProvider::HOME);
+        Mail::to($request->email)->send(new PendaftaranPK($user));
+        alert()->success('Sila semak email anda untuk notifikasi pendaftaran.','Pendaftaran Berjaya');
+        return redirect('/');
     }
 }

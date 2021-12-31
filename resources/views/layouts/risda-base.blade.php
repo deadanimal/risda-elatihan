@@ -28,8 +28,7 @@
     <script src="../vendors/overlayscrollbars/OverlayScrollbars.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="vendors/dropzone/dropzone.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="sweetalert2.all.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
     <!-- ===============================================-->
@@ -68,6 +67,7 @@
 
 
 <body>
+    @include('sweet::alert')
     <style>
         .risda-dg {
             color: #0F5E31;
@@ -109,6 +109,14 @@
             transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
         }
 
+        .nav-link:hover,
+        .nav-link:focus {
+            color: #fff;
+            background-color: #0F5E31;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
         .btn-primary,
         .navbar-vertical .btn-purchase,
         .tox .tox-menu__footer .tox-button:last-child,
@@ -140,6 +148,37 @@
             border-color: #0F5E31;
         }
 
+        .nav-link-side {
+            /* display: block; */
+            padding: 0.5rem 1rem;
+            color: #fff;
+            -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+            -o-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .nav-link-side {
+                -webkit-transition: none;
+                -o-transition: none;
+                transition: none;
+            }
+        }
+
+        .nav-link-side:hover,
+        .nav-link-side:focus {
+            color: #fff;
+            background-color: #0F5E31;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .nav-link-side.disabled {
+            color: #748194;
+            pointer-events: none;
+            cursor: default;
+        }
+
     </style>
     <?php
     use Illuminate\Support\Facades\Auth;
@@ -158,6 +197,16 @@
             </div>
             <div class="col-9 p-0">
                 <div class="content p-5" style="background-color:white">
+                    {{-- @if (session('success'))
+                        <div class="alert alert-success ">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    @if (session('error'))
+                        <div class="alert alert-danger ">
+                            {{ session('error') }}
+                        </div>
+                    @endif --}}
                     @yield('content')
                     {{-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
                     @include('sweet::alert') --}}
@@ -191,6 +240,8 @@
     <script src="../vendors/lodash/lodash.min.js"></script>
     <script src="../vendors/list.js/list.min.js"></script>
     <script src="../assets/js/theme.js"></script>
+
+
 
     <script>
         $(document).ready(function() {

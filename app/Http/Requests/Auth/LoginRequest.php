@@ -50,9 +50,11 @@ class LoginRequest extends FormRequest
             if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
                 RateLimiter::hit($this->throttleKey());
     
+                alert()->error('Sila pastikan ID dan kata laluan betul.');
                 throw ValidationException::withMessages([
                     'email' => __('auth.failed'),
                 ]);
+                
             }
 
             RateLimiter::clear($this->throttleKey());

@@ -41,7 +41,8 @@
                                                     <label class="form-label"  >No.
                                                         Kad Pengenalan</label>
                                                     <input class="form-control" type="text" name="no_KP"
-                                                        :value="old('no_KP')" />
+                                                        :value="old('no_KP')" maxlength="12" size="12"
+                                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
                                                 </div>
                                                 <div class="mb-3" id="emel" style="display:none">
                                                     <label class="form-label"  >Emel</label>

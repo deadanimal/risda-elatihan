@@ -425,7 +425,7 @@
                 <div class="tab-pane fade" id="akaun-saya" role="tabpanel" aria-labelledby="contact-tab">
                     <div class="row">
                         <div class="col">
-                            <h5>MAKLUMAT KEBUN</h5>
+                            <h5>AKAUN SAYA</h5>
                         </div>
                     </div>
                     <div class="row">

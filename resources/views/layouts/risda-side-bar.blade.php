@@ -11,9 +11,14 @@
         color: white;
     }
 
-    .nav-link-text {
+    /* .nav-link-text {
         color: white;
     }
+
+    .nav-link-text.active {
+        color: white;
+        background-color: #009640;
+    } */
 
 </style>
 
@@ -76,7 +81,8 @@
                                                         </div>
                                                         <div class="mb-3">
                                                             <label class="col-form-label">Kata Laluan Baru:</label>
-                                                            <input class="form-control" type="password" name="kl_baru" />
+                                                            <input class="form-control" type="password"
+                                                                name="kl_baru" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -122,23 +128,17 @@
                     <hr class="mb-0 navbar-vertical-divider" />
                 </div>
             </div>
-            <a class="nav-link" href="/dashboard" role="button">
-                <div class="d-flex align-items-center">
-                    <span class="nav-link-icon text-white">
-                        <span class="fas fa-calendar-alt"></span>
-                    </span>
-                    <span class="nav-link-text ps-1"> DASHBOARD</span>
+            <a class="nav-link py-0" href="/dashboard" role="button">
+                <div class="d-flex align-items-center nav-link-side px-0">
+                    <span class=" px-3"><span class="fas fa-calendar-alt"></span> DASHBOARD</span>
                 </div>
             </a>
-            <a class="nav-link" href="/pengurusan_pengguna" role="button">
-                <div class="d-flex align-items-center">
-                    <span class="nav-link-icon text-white">
-                        <span class="fas fa-comments"></span>
-                    </span>
-                    <span class="nav-link-text ps-1"> PENGURUSAN PENGGUNA</span>
+            <a class="nav-link py-0" href="#" role="button">
+                <div class="d-flex align-items-center nav-link-side px-0">
+                    <span class=" px-3"><span class="fas fa-comments"></span> PENGURUSAN PENGGUNA</span>
                 </div>
             </a>
-            {{-- <a class="nav-link dropdown-indicator" href="#email" role="button" data-bs-toggle="collapse"
+            {{-- <a class="nav-link-side dropdown-indicator" href="#email" role="button" data-bs-toggle="collapse"
                 aria-expanded="false" aria-controls="email">
                 <div class="d-flex align-items-center"><span class="nav-link-icon"><span
                             class="fas fa-envelope-open"></span></span><span class="nav-link-text ps-1">Email</span>

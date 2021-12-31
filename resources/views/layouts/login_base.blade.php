@@ -26,7 +26,7 @@
     <script src="../../../assets/js/config.js"></script>
     <script src="../../../vendors/overlayscrollbars/OverlayScrollbars.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
 
@@ -61,6 +61,7 @@
 
 
 <body>
+    @include('sweet::alert')
     <style>
         .nav-pills .nav-link {
             background-color: rgb(233, 233, 233);
