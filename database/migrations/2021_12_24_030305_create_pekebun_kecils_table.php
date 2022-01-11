@@ -13,7 +13,7 @@ class CreatePekebunKecilsTable extends Migration
      */
     public function up()
     {
-        Schema::create('pekebun_kecil', function (Blueprint $table) {
+        Schema::create('pekebun_kecils', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->foreignId('id_Pengguna')->constrained('users');

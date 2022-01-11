@@ -130,14 +130,106 @@
             </div>
             <a class="nav-link py-0" href="/dashboard" role="button">
                 <div class="d-flex align-items-center nav-link-side px-0">
-                    <span class=" px-3"><span class="fas fa-calendar-alt"></span> DASHBOARD</span>
+                    <span class=" px-3"><span class="fas fa-home"></span> DASHBOARD</span>
                 </div>
             </a>
-            <a class="nav-link py-0" href="#" role="button">
+            <a class="nav-link py-0 dropdown-indicator" href="#utiliti" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="utiliti">
                 <div class="d-flex align-items-center nav-link-side px-0">
-                    <span class=" px-3"><span class="fas fa-comments"></span> PENGURUSAN PENGGUNA</span>
+                    <span class=" px-3"><span class="fas fa-clone"></span> UTILITI</span>
                 </div>
             </a>
+            <ul class="nav-item collapse false my-1" id="utiliti">
+                <li class="nav-item">
+                    <a class="nav-link py-0 dropdown-indicator" href="#negeri" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="negeri">
+                        <div class="d-flex align-items-center nav-link-side">
+                            <span class="px-0">Kod Lokasi</span>
+                        </div>
+                    </a>
+                    <ul class="nav-item collapse false my-1" id="negeri">
+                        <li class="nav-item">
+                            <a class="nav-link py-0" href="/utiliti/negeri">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">Kod Negeri</span>
+                                </div>
+                            </a>
+        
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-0" href="/utiliti/daerah">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">Kod Daerah</span>
+                                </div>
+                            </a>
+        
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-0" href="#">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">Kod Mukim</span>
+                                </div>
+                            </a>
+        
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-0" href="#">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">Kod Parlimen</span>
+                                </div>
+                            </a>
+        
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-0" href="#">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">Kod Dun</span>
+                                </div>
+                            </a>
+        
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-0" href="#">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">Kod Kampung</span>
+                                </div>
+                            </a>
+        
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-0" href="#">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">Kod Seksyen</span>
+                                </div>
+                            </a>
+        
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-0" href="#">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">Kod Stesen</span>
+                                </div>
+                            </a>
+        
+                        </li>
+                    </ul>
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link py-0" href="../app/events/event-detail.html">
+                        <div class="d-flex align-items-center nav-link-side">
+                            <span class="px-0">Kod Kursus</span>
+                        </div>
+                    </a>
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link py-0" href="../app/events/event-list.html">
+                        <div class="d-flex align-items-center nav-link-side">
+                            <span class="px-0">Kod Status</span>
+                        </div>
+                    </a>
+
+                </li>
+            </ul>
             {{-- <a class="nav-link-side dropdown-indicator" href="#email" role="button" data-bs-toggle="collapse"
                 aria-expanded="false" aria-controls="email">
                 <div class="d-flex align-items-center"><span class="nav-link-icon"><span

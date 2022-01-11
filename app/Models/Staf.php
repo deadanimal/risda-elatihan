@@ -5,11 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tanah extends Model
+class Staf extends Model
 {
     use HasFactory;
-    public function tanaman()
-    {
-        return $this->hasMany(Tanaman::class);
-    }
 }

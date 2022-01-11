@@ -45,7 +45,7 @@
                                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
                                                 </div>
                                                 <div class="mb-3" id="emel" style="display:none">
-                                                    <label class="form-label"  >Emel</label>
+                                                    <label class="form-label"  >E-mel</label>
                                                     <input class="form-control" type="email" name="email"
                                                         :value="old('email')" autofocus />
                                                 </div>
@@ -111,9 +111,9 @@
                                                 </div>
                                             </div>
                                             <form method="POST" action="{{ route('login') }}">
+                                                @csrf
                                                 <div class="mb-3">
-                                                    <label class="form-label"  id="label_pk">No.
-                                                        Kad Pengenalan</label>
+                                                    <label class="form-label"  id="label_pk">E-mel</label>
                                                     <input class="form-control" type="email" name="email"
                                                         :value="old('email')" required autofocus />
                                                 </div>
@@ -179,9 +179,9 @@
                                                 </div>
                                             </div>
                                             <form method="POST" action="{{ route('login') }}">
+                                                @csrf
                                                 <div class="mb-3">
-                                                    <label class="form-label"  id="label_pk">No.
-                                                        Kad Pengenalan</label>
+                                                    <label class="form-label"  id="label_pk">E-mel</label>
                                                     <input class="form-control" type="email" name="email"
                                                         :value="old('email')" required autofocus />
                                                 </div>

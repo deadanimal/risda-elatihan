@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tanah extends Model
+class Negeri extends Model
 {
     use HasFactory;
-    public function tanaman()
+    public function daerahs()
     {
-        return $this->hasMany(Tanaman::class);
+        return $this->hasMany(Daerah::class);
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Requests\StoreProfilRequest;
 use App\Http\Requests\UpdateProfilRequest;
 use App\Models\Profil;
 use App\Models\User;
+use App\Models\PekebunKecil;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Hash;
@@ -25,25 +26,46 @@ class ProfilController extends Controller
     {
         $user = Auth::user();
 
-        $data = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', '1cc11a9fec81dc1f99f353f403d6f5bac620aa8f')
+        // check staf
+        $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
+            ->get('https://www4.risda.gov.my/fire/getallstaff/')
+            ->getBody()
+            ->getContents();
+
+        $data_staf = json_decode($data_staf, true);
+        foreach ($data_staf as $key => $staf) {
+            if ($staf['nokp'] == $user->no_KP) {
+
+                return view('profil.index_staf', [
+                    'user'=>$user,
+                    'staf' => $staf
+                ]);
+            }
+        }
+
+        // check pekebun kecil
+        $profil = PekebunKecil::where('id_Pengguna', $user->id)->first();
+        $data_pk = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', '1cc11a9fec81dc1f99f353f403d6f5bac620aa8f')
             ->get('https://www4.risda.gov.my/espek/portalpkprofiltanah/?nokp=' . $user->no_KP)
             ->getBody()
             ->getContents();
 
-        $profil = json_decode($data, true);
-        if(!empty($profil['message'])){
-            return view('profil.test1',[
-                'user'=>$user
+        $data_pk = json_decode($data_pk, true);
+
+        // check if not pk
+        if (!empty($data_pk['message'])) {
+            alert()->error('No. Kad Pengenalan tiada dalam pangkalan data e-SPEK');
+            return back();
+        } else {
+            $data = $data_pk[0];
+            $tanah = $data['Tanah'];
+            return view('pendaftaran.pk', [
+                'pk' => $data,
+                'user' => $user,
+                'tanah' => $tanah,
+                'profil' => $profil
             ]);
         }
-        $profil = $profil[0];
-        $tanah = $profil['Tanah'];
-
-        return view('profil.index', [
-            'profil' => $profil,
-            'user' => $user,
-            'tanah' => $tanah
-        ]);
     }
 
     /**
@@ -84,7 +106,7 @@ class ProfilController extends Controller
      * @param  \App\Models\Profil  $profil
      * @return \Illuminate\Http\Response
      */
-    public function edit(Profil $profil)
+    public function edit(User $profil)
     {
         //
     }
@@ -98,29 +120,41 @@ class ProfilController extends Controller
      */
     public function update(UpdateProfilRequest $request, User $profil)
     {
+        // update profile picture
         if ($request->gambar_profil) {
             $id_pengguna = Auth::id();
             $gambar_profil = time() . '_' . $id_pengguna . '.' . $request->gambar_profil->extension();
 
             $request->gambar_profil->move(public_path('img/profil'), $gambar_profil);
-            $profil->gambar_profil = 'img/profil/'.$gambar_profil;
+            $profil->gambar_profil = 'img/profil/' . $gambar_profil;
             $profil->save();
 
             alert()->success('Gambar profil telah dikemaskini.', 'Berjaya');
             return back();
-            // return back()
-            //     ->with('success', 'Gambar profil sudah berjaya dikemaskini')
-            //     ->with('image', $gambar_profil);
         }
-        if (password_verify($request->kl_sekarang, $profil->password)) {
-            $profil->password = Hash::make($request->kl_baru);
-            $profil->save();
 
-            alert()->success('Kata laluan telah dikemaskini.', 'Berjaya');
-            return back();
-        } else {
-            alert()->error('Kata laluan yang dimasukkan tidak sepadan.', 'Tidak Berjaya');
-            return back();
+        // update password
+        if ($request->kl_sekarang) {
+            if (password_verify($request->kl_sekarang, $profil->password)) {
+                $profil->password = Hash::make($request->kl_baru);
+                $profil->save();
+
+                alert()->success('Kata laluan telah dikemaskini.', 'Berjaya');
+                return back();
+            } else {
+                alert()->error('Kata laluan yang dimasukkan tidak sepadan.', 'Tidak Berjaya');
+                return back();
+            }
+        }
+
+        // update information (phone number only)
+        if ($request->telefon) {
+            $pekebun_kecil = PekebunKecil::where('id_Pengguna', Auth::id())->first();
+            $pekebun_kecil->Telefon = $request->telefon;
+            $pekebun_kecil->save();
+
+            alert()->success('Nombor telefon bimbit anda telah dikemaskini', 'Berjaya');
+            return redirect('/profil');
         }
     }
 

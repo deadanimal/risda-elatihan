@@ -4,11 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -30,28 +28,11 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
-        $user = User::where('no_KP', $request->no_KP)->get()->first();
-        // dd($request);
-        // $request->authenticate();
+        $request->authenticate();
 
-        if ($user == null) {
-            alert()->error('Akaun anda tiada dalam rekod kami.');
-            return back();
-        }
-        $this->validate($request, [
-            'password' => 'required',
-        ]);
+        $request->session()->regenerate();
 
-        if (Hash::check($request->password, $user->password)) {
-            $request->authenticate();
-            $request->session()->regenerate();
-
-            alert()->success('Log masuk berjaya');
-            return redirect()->intended(RouteServiceProvider::HOME);
-        } else {
-            alert()->error('Sila masukkan kata laluan yang betul.');
-            return back();
-        }
+        return redirect()->intended(RouteServiceProvider::HOME);
     }
 
     /**

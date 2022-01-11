@@ -11,10 +11,10 @@
         <div class="col text-center">
             <a href="#upload-image" data-bs-toggle="modal" data-bs-target="">
                 @if (Auth::user()->gambar_profil == null)
-                    <img src="/img/dp.jpg" alt="profile_picture"
+                    <img src="/img/dp.jpg" alt="pke_picture"
                         style="border-radius: 25px; border: 2px solid #73AD21; width:318px; height:337px; object-fit: cover;">
                 @else
-                    <img src="/{{Auth::user()->gambar_profil}}" alt="profile_picture"
+                    <img src="/{{ Auth::user()->gambar_profil }}" alt="pke_picture"
                         style="border-radius: 25px; border: 2px solid #73AD21; width:318px; height:337px; object-fit: cover;">
                 @endif
             </a>
@@ -31,11 +31,12 @@
                                 <h4 class="mb-1" id="title">Muat Naik Gambar </h4>
                             </div>
                             <div class="p-2 pb-0">
-                                <form action="/profil/{{ Auth::id() }}" class="dropzone" method="POST" enctype="multipart/form-data">
-                                    @method('PUT') 
+                                <form action="/profil/{{ Auth::id() }}" class="dropzone" method="POST"
+                                    enctype="multipart/form-data">
+                                    @method('PUT')
                                     @csrf
                                     <div class="fallback">
-                                        <input name="gambar_profil" type="file" multiple />
+                                        <input name="gambar_pk" type="file" multiple />
                                     </div>
                                     <div class="modal-footer">
                                         <button class="btn btn-secondary" type="button"
@@ -47,11 +48,11 @@
                                     @method('PUT')
                                     @csrf
                                     <div class="mb-3">
-                                        <input class="form-control" type="file" name="gambar_profil"/>
+                                        <input class="form-control" type="file" name="gambar_pk"/>
                                     </div>
                                     <div class="dropzone dropzone-single p-0" data-dropzone="data-dropzone">
                                         <div class="fallback">
-                                            <input type="file" name="gambar_profil" multiple />
+                                            <input type="file" name="gambar_pk" multiple />
                                         </div>
                                         <div class="dz-preview dz-preview-single">
                                             <div class="dz-preview-cover dz-complete">
@@ -104,7 +105,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="pill-profile-tab" data-bs-toggle="tab" href="#kebun" role="tab"
+                    <a class="nav-link" id="pill-pke-tab" data-bs-toggle="tab" href="#kebun" role="tab"
                         aria-controls="kebun" aria-selected="false">
                         KEBUN
                     </a>
@@ -138,7 +139,7 @@
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">NO. KAD PENGENALAN</label>
-                                        <input class="form-control" type="text" value="{{ $profil['No_KP'] }}"
+                                        <input class="form-control" type="text" value="{{ $pk['No_KP'] }}"
                                             readonly />
                                     </div>
                                 </div>
@@ -153,7 +154,7 @@
                                 <div class="col">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">NAMA</label>
-                                        <input class="form-control" type="text" value="{{ $profil['Nama_PK'] }}"
+                                        <input class="form-control" type="text" value="{{ $pk['Nama_PK'] }}"
                                             readonly />
                                     </div>
                                 </div>
@@ -176,7 +177,7 @@
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">JANTINA</label>
-                                        <input class="form-control" type="text" value="{{ $profil['Jantina'] }}"
+                                        <input class="form-control" type="text" value="{{ $pk['Jantina'] }}"
                                             readonly />
                                     </div>
                                 </div>
@@ -185,7 +186,7 @@
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">KETURUNAN</label>
-                                        <input class="form-control" type="text" value="{{ $profil['Bangsa'] }}"
+                                        <input class="form-control" type="text" value="{{ $pk['Bangsa'] }}"
                                             readonly />
                                     </div>
                                 </div>
@@ -230,9 +231,9 @@
                                     <div class="mb-3">
                                         <label class="form-label risda-g">ALAMAT</label>
                                         <input class="form-control mb-3" type="text"
-                                            value="{{ $profil['Nombor'] }}, {{ $profil['Jalan'] }}" readonly />
-                                        <input class="form-control mb-3" type="text" value="{{ $profil['Nama_Kampung'] }}"
-                                            readonly />
+                                            value="{{ $pk['Nombor'] }}, {{ $pk['Jalan'] }}" readonly />
+                                        <input class="form-control mb-3" type="text"
+                                            value="{{ $pk['Nama_Kampung'] }}" readonly />
                                         <input class="form-control mb-3" type="text" readonly />
                                     </div>
                                 </div>
@@ -241,14 +242,14 @@
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">POSKOD</label>
-                                        <input class="form-control" type="text" value="{{ $profil['Poskod'] }}"
+                                        <input class="form-control" type="text" value="{{ $pk['Poskod'] }}"
                                             readonly />
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">NEGERI</label>
-                                        <input class="form-control" type="text" value="{{ $profil['Negeri'] }}"
+                                        <input class="form-control" type="text" value="{{ $pk['Negeri'] }}"
                                             readonly />
                                     </div>
                                 </div>
@@ -257,14 +258,14 @@
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">DAERAH</label>
-                                        <input class="form-control" type="text" value="{{ $profil['Daerah'] }}"
+                                        <input class="form-control" type="text" value="{{ $pk['Daerah'] }}"
                                             readonly />
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">MUKIM</label>
-                                        <input class="form-control" type="text" value="{{ $profil['Mukim'] }}"
+                                        <input class="form-control" type="text" value="{{ $pk['Mukim'] }}"
                                             readonly />
                                     </div>
                                 </div>
@@ -287,14 +288,14 @@
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">KAMPUNG</label>
-                                        <input class="form-control" type="text" value="{{ $profil['Kampung'] }}"
+                                        <input class="form-control" type="text" value="{{ $pk['Kampung'] }}"
                                             readonly />
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">SEKSYEN</label>
-                                        <input class="form-control" type="text" value="{{ $profil['Seksyen'] }}"
+                                        <input class="form-control" type="text" value="{{ $pk['Seksyen'] }}"
                                             readonly />
                                     </div>
                                 </div>
@@ -303,7 +304,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="kebun" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="tab-pane fade" id="kebun" role="tabpanel" aria-labelledby="pke-tab">
                     <div class="row">
                         <div class="col">
                             <h5>MAKLUMAT KEBUN</h5>
@@ -443,8 +444,46 @@
                             </div>
                         </div>
                     </div>
-
-
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col text-end">
+                    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#edit_telefon">
+                        Kemaskini No. Telefon Bimbit
+                    </button>
+                </div>
+                <div class="modal fade" id="edit_telefon" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+                        <div class="modal-content position-relative">
+                            <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
+                                <button
+                                    class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
+                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body p-0">
+                                <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
+                                    <h4 class="mb-1" id="modalExampleDemoLabel">Kemaskini Nombor Telefon</h4>
+                                </div>
+                                <div class="p-4 pb-0">
+                                    <form action="/profil/{{ Auth::id() }}" method="POST">
+                                        @method('PUT')
+                                        @csrf
+                                        <div class="mb-3">
+                                            <label class="col-form-label risda-g"
+                                                for="recipient-name">NO. TELEFON BIMBIT</label>
+                                            <input class="form-control" name="telefon" placeholder="01XXXXXXXX" type="number" maxlength="12"
+                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
+                                        </div>
+                                        <div class="modal-footer px-0">
+                                            <button class="btn btn-secondary" type="button"
+                                                data-bs-dismiss="modal">Batal</button>
+                                            <button class="btn btn-primary" type="submit">Kemaskini</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

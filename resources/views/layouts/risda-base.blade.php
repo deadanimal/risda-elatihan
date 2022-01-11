@@ -30,6 +30,9 @@
     <script src="vendors/dropzone/dropzone.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+    <script type="text/javascript" src="../assets/js/datatables.min.js"></script>
+    <script type="text/javascript" src="../assets/js/datatables.js"></script>
+
 
     <!-- ===============================================-->
     <!--    Stylesheets-->
@@ -48,6 +51,8 @@
     <link href="../assets/css/theme.min.css" rel="stylesheet" id="style-default">
     <link href="../assets/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
     <link href="../assets/css/user.min.css" rel="stylesheet" id="user-style-default">
+    <link rel="stylesheet" type="text/css" href="../assets/css/datatables.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/datatables.min.css" />
     <script>
         var isRTL = JSON.parse(localStorage.getItem('isRTL'));
         if (isRTL) {
@@ -137,6 +142,21 @@
             border-color: #0F5E31;
         }
 
+        .btn-check:focus+.btn-primary,
+        .navbar-vertical .btn-check:focus+.btn-purchase,
+        .tox .tox-menu__footer .btn-check:focus+.tox-button:last-child,
+        .tox .tox-dialog__footer .btn-check:focus+.tox-button:last-child,
+        .btn-primary:focus,
+        .navbar-vertical .btn-purchase:focus,
+        .tox .tox-menu__footer .tox-button:focus:last-child,
+        .tox .tox-dialog__footer .tox-button:focus:last-child {
+            color: #fff;
+            background-color: #009640;
+            border-color: #009640;
+            -webkit-box-shadow: inset 0 1px 0 rgb(255 255 255 / 15%), 0 1px 1px rgb(0 0 0 / 8%), 0 0 0 0 rgb(76 143 233 / 50%);
+            box-shadow: inset 0 1px 0 rgb(255 255 255 / 15%), 0 1px 1px rgb(0 0 0 / 8%), 0 0 0 0 rgb(76 143 233 / 50%);
+        }
+
         .btn-outline-primary {
             color: #009640;
             border-color: #009640;
@@ -179,6 +199,45 @@
             cursor: default;
         }
 
+        li {
+            display: list-item;
+            color: #009640;
+            text-align: -webkit-match-parent;
+        }
+
+        .page-item.active .page-link {
+            z-index: 3;
+            color: var(--falcon-pagination-active-color);
+            background-color: #009640;
+            border-color: #009640;
+        }
+
+        .dropdown-indicator:after {
+            content: "";
+            display: block;
+            position: absolute;
+            right: 5 px;
+            height: 0.4 rem;
+            width: 0.4 rem;
+            border-right: 1 px solid white;
+            border-bottom: 1 px solid white;
+            top: 50%;
+            -webkit-transform: translateY(-50%) rotate(45deg);
+            -ms-transform: translateY(-50%) rotate(45deg);
+            transform: translateY(-50%) rotate(45deg);
+            -webkit-transition: all .2s ease-in-out;
+            -o-transition: all .2s ease-in-out;
+            transition: all .2s ease-in-out;
+            -webkit-transform-origin: center;
+            -ms-transform-origin: center;
+            transform-origin: center;
+            -webkit-transition-property: border-color, -webkit-transform;
+            transition-property: border-color, -webkit-transform;
+            -o-transition-property: transform, border-color;
+            transition-property: transform, border-color;
+            transition-property: transform, border-color, -webkit-transform;
+        }
+
     </style>
     <?php
     use Illuminate\Support\Facades\Auth;
@@ -214,6 +273,16 @@
             </div>
         </div>
 
+        <footer class="risda-bg-dg">
+            <div class="row p-4">
+                <div class="col">
+                    <div class="text-600 text-white">
+                        Copyright © 2021 SISTEM MAKLUMAT LATIHAN (e-LATIHAN)
+                    </div>
+                </div>
+            </div>
+        </footer>
+
     </main>
     <!-- ===============================================-->
     <!--    End of Main Content-->
@@ -248,7 +317,7 @@
             setInterval(() => {
                 const today = new Date();
                 let day = today.getDate();
-                let month = today.getMonth();
+                let month = today.getMonth()+1;
                 let year = today.getFullYear();
                 let h = today.getHours();
                 let m = today.getMinutes();

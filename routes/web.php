@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SemakanController;
 use App\Http\Controllers\ProfilController;
-
+use App\Http\Controllers\NegeriController;
+use App\Http\Controllers\DaerahController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,6 +37,11 @@ Route::get('/test', function () {
 });
 
 Route::resource('/profil', ProfilController::class);
+Route::resource('/utiliti/negeri', NegeriController::class);
+Route::resource('/utiliti/daerah', DaerahController::class);
+
+// Route::put('/test/{id}', [DaerahController::class, 'update']);
+// Route::post('/utiliti/daerah/{id}/delete', [DaerahController::class, 'destroy']);
 
 Route::post('/semak_nric', [SemakanController::class, 'check_espek']);
 Route::post('/daftar_pengguna', [SemakanController::class, 'daftar_pengguna']);

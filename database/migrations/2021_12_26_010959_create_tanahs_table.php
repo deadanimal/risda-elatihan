@@ -13,10 +13,10 @@ class CreateTanahsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tanah', function (Blueprint $table) {
+        Schema::create('tanahs', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreignId('id_pekebun_kecil')->constrained('pekebun_kecil');
+            $table->foreignId('id_pekebun_kecil')->constrained('pekebun_kecils');
             $table->string('U_Tanah_ID')->nullable();
             $table->string('No_Geran')->nullable();
             $table->string('No_Lot')->nullable();

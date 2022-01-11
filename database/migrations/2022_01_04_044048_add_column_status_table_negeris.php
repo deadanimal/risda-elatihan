@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterTableUsers extends Migration
+class AddColumnStatusTableNegeris extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class AlterTableUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('jenis_pengguna')->nullable();
-            $table->string('no_KP')->nullable();
-            $table->string('status_akaun')->nullable();
-            $table->string('email')->nullable()->change();
+        Schema::table('negeris', function (Blueprint $table) {
+            $table->string('status')->nullable();
+            $table->dropForeign(['id_utiliti']);
+            $table->dropColumn('id_utiliti');
         });
     }
 

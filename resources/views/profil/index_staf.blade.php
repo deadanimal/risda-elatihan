@@ -136,7 +136,7 @@
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">NO. PEKERJA</label>
-                                        <input class="form-control" type="text" readonly />
+                                        <input class="form-control" type="text" value="{{$staf['nopekerja']}}" readonly />
                                     </div>
                                 </div>
                             </div>
@@ -161,13 +161,13 @@
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">NO. TELEFON BIMBIT</label>
-                                        <input class="form-control" type="text" 
+                                        <input class="form-control" type="text" value="{{$staf['notel']}}"
                                             readonly />
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="mb-3">
-                                        <label class="form-label risda-g">NO. TELEFON BIMBIT</label>
+                                        <label class="form-label risda-g">NO. TELEFON PEJABAT</label>
                                         <input class="form-control" type="text" 
                                             readonly />
                                     </div>
@@ -189,13 +189,13 @@
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">JAWATAN</label>
-                                        <input class="form-control" type="text" readonly />
+                                        <input class="form-control" type="text" value="{{$staf['Jawatan']}}" readonly />
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">GRED</label>
-                                        <input class="form-control" type="text" readonly />
+                                        <input class="form-control" type="text" value="{{$staf['Gred']}}" readonly />
                                     </div>
                                 </div>
                             </div>
@@ -203,7 +203,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row mt-4">
                         <div class="col">
                             <h5>PUSAT TANGGUNGJAWAB</h5>
                         </div>
@@ -215,14 +215,14 @@
                                 <div class="col">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">NAMA PUSAT TANGGUNGJAWAB</label>
-                                        <input class="form-control" type="text" readonly />
+                                        <input class="form-control" type="text" value="{{$staf['NamaPT']}}" readonly />
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row mt-4">
                         <div class="col">
                             <h5>PENYELIA</h5>
                         </div>
@@ -268,6 +268,21 @@
                     <div class="row">
                         <div class="col">
                             <h5>AKAUN SAYA</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label class="form-label risda-g">PERANAN</label>
+                                <input class="form-control" type="text"
+                                    value="" readonly />
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label class="form-label risda-g">TAHAP CAPAIAN</label>
+                                <input class="form-control" type="text" readonly />
+                            </div>
                         </div>
                     </div>
                     <div class="row">
