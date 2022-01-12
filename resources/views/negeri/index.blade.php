@@ -77,7 +77,7 @@
                                     <td>{{ $negeri->Negeri_Rkod }}</td>
                                     <td>{{ $negeri->Negeri }}</td>
                                     <td>
-                                        @if ($negeri->status == '1')
+                                        @if ($negeri->status_negeri == '1')
                                             <span class="badge badge-soft-success">Aktif</span>
                                         @else
                                             <span class="badge badge-soft-danger">Tidak Aktif</span>

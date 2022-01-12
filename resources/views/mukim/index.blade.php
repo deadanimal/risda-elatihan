@@ -23,6 +23,22 @@
         </div>
     </form>
 
+    <form action="#">
+        <div class="row mt-3 justify-content-center">
+
+            <div class="col-auto">
+                <label class="col-form-label">DAERAH:</label>
+            </div>
+            <div class="col-5">
+                <input class="form-control form-control-sm" type="number" name="search_daerah" />
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary btn-sm">Cari</button>
+            </div>
+
+        </div>
+    </form>
+
     <div class="row mt-5">
         <div class="col">
             <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#tambah-negeri">
@@ -40,27 +56,38 @@
                                 <h4 class="mb-1" id="modalExampleDemoLabel">TAMBAH </h4>
                             </div>
                             <div class="p-4 pb-0">
-                                <form action="/utiliti/daerah" method="POST">
+                                <form action="/utiliti/mukim" method="POST">
                                     @csrf
                                     <div class="mb-3">
                                         <label class="col-form-label">NEGERI</label>
                                         <select class="form-select" name="U_Negeri_ID">
                                             <option selected="" hidden>Sila Pilih</option>
                                             @foreach ($negeri as $negeri)
-                                                @if ($negeri->status_negeri == '1')
+                                                @if ($negeri->status == '1')
                                                     <option value="{{ $negeri->id }}">{{ $negeri->Negeri }}</option>
                                                 @endif
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="mb-3">
-                                        <label class="col-form-label">KOD DAERAH</label>
-                                        <input class="form-control" type="number" name="Daerah_Rkod"
+                                        <label class="col-form-label">DAERAH</label>
+                                        <select class="form-select" name="U_Daerah_ID">
+                                            <option selected="" hidden>Sila Pilih</option>
+                                            @foreach ($daerah as $daerah)
+                                                @if ($daerah->status == '1')
+                                                    <option value="{{ $daerah->id }}">{{ $daerah->Daerah }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="col-form-label">KOD MUKIM</label>
+                                        <input class="form-control" type="number" name="Mukim_Rkod"
                                             value="{{ $bil }}" readonly />
                                     </div>
                                     <div class="mb-3">
-                                        <label class="col-form-label">DAERAH</label>
-                                        <input class="form-control" type="text" name="Daerah" />
+                                        <label class="col-form-label">MUKIM</label>
+                                        <input class="form-control" type="text" name="Mukim" />
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label">STATUS</label>
@@ -91,22 +118,24 @@
                         <thead class="bg-200">
                             <tr>
                                 <th class="sort">BIL.</th>
+                                <th class="sort">KOD MUKIM</th>
+                                <th class="sort">MUKIM</th>
                                 <th class="sort">NEGERI</th>
-                                <th class="sort">KOD DAERAH</th>
                                 <th class="sort">DAERAH</th>
                                 <th class="sort">STATUS</th>
                                 <th class="sort">TINDAKAN</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white">
-                            @foreach ($daerah as $key => $daerah)
+                            @foreach ($mukim as $key => $mukim)
                                 <tr>
                                     <td>{{ $key + 1 }}.</td>
-                                    <td>{{ $daerah->Negeri }}</td>
-                                    <td>{{ $daerah->Daerah_Rkod }}</td>
-                                    <td>{{ $daerah->Daerah }}</td>
+                                    <td>{{ $mukim->Mukim_Rkod }}</td>
+                                    <td>{{ $mukim->Mukim }}</td>
+                                    <td>{{ $mukim->Negeri }}</td>
+                                    <td>{{ $mukim->Daerah }}</td>
                                     <td>
-                                        @if ($daerah->status_daerah == '1')
+                                        @if ($mukim->status_mukim == '1')
                                             <span class="badge badge-soft-success">Aktif</span>
                                         @else
                                             <span class="badge badge-soft-danger">Tidak Aktif</span>
@@ -114,17 +143,17 @@
                                     </td>
                                     <td>
                                         <button class="btn btn-primary" type="button" data-bs-toggle="modal"
-                                            data-bs-target="#edit_daerah_{{ $daerah->id }}">
+                                            data-bs-target="#edit_mukim_{{ $mukim->id }}">
                                             <i class="fas fa-pen"></i>
                                         </button>
 
                                         <button class="btn risda-bg-dg text-white" type="button" data-bs-toggle="modal"
-                                            data-bs-target="#delete_daerah_{{ $daerah->id }}">
+                                            data-bs-target="#delete_mukim_{{ $mukim->id }}">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </td>
                                 </tr>
-                                <div class="modal fade" id="edit_daerah_{{ $daerah->id }}" tabindex="-1" role="dialog"
+                                <div class="modal fade" id="edit_mukim_{{ $mukim->id }}" tabindex="-1" role="dialog"
                                     aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document"
                                         style="max-width: 500px">
@@ -140,14 +169,14 @@
                                                     </h4>
                                                 </div>
                                                 <div class="p-4 pb-0">
-                                                    <form action="/utiliti/daerah/{{ $daerah->id }}" method="POST">
+                                                    <form action="/utiliti/mukim/{{ $mukim->id }}" method="POST">
                                                         @method('PUT')
                                                         @csrf
                                                         <div class="mb-3">
                                                             <label class="col-form-label">NEGERI</label>
                                                             <select class="form-select" name="U_Negeri_ID">
-                                                                <option selected="" value="{{ $daerah->U_Negeri_ID }}"
-                                                                    hidden>{{ $daerah->Negeri }}</option>
+                                                                <option selected="" value="{{ $mukim->U_Negeri_ID }}"
+                                                                    hidden>{{ $mukim->Negeri }}</option>
                                                                 @foreach ($neg2 as $neg)
                                                                     @if ($neg['status'] == '1')
                                                                         <option value="{{ $neg->id }}">
@@ -157,19 +186,32 @@
                                                             </select>
                                                         </div>
                                                         <div class="mb-3">
-                                                            <label class="col-form-label">KOD DAERAH</label>
-                                                            <input class="form-control" type="number" name="Daerah_Rkod"
-                                                                value="{{ $daerah->Daerah_Rkod }}" readonly />
+                                                            <label class="col-form-label">DAERAH</label>
+                                                            <select class="form-select" name="U_Daerah_ID">
+                                                                <option selected="" value="{{ $mukim->U_Daerah_ID }}"
+                                                                    hidden>{{ $mukim->Daerah }}</option>
+                                                                @foreach ($dae2 as $dae)
+                                                                    @if ($dae['status'] == '1')
+                                                                        <option value="{{ $neg->id }}">
+                                                                            {{ $dae->Daerah }}</option>
+                                                                    @endif
+                                                                @endforeach
+                                                            </select>
                                                         </div>
                                                         <div class="mb-3">
-                                                            <label class="col-form-label">DAERAH</label>
-                                                            <input class="form-control" type="text" name="Daerah"
-                                                                value="{{ $daerah->Daerah }}" />
+                                                            <label class="col-form-label">KOD MUKIM</label>
+                                                            <input class="form-control" type="number" name="Mukim_Rkod"
+                                                                value="{{ $mukim->Mukim_Rkod }}" readonly />
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="col-form-label">MUKIM</label>
+                                                            <input class="form-control" type="text" name="Mukim"
+                                                                value="{{ $mukim->Mukim }}" />
                                                         </div>
                                                         <div class="mb-3">
                                                             <label class="col-form-label">STATUS</label>
                                                             <div class="form-check form-switch">
-                                                                @if ($daerah->status == '1')
+                                                                @if ($mukim->status == '1')
                                                                     <input class="form-check-input" type="checkbox"
                                                                         name="status" checked="" />
                                                                     <label class="form-check-label">Aktif</label>
@@ -192,7 +234,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="modal fade" id="delete_daerah_{{ $daerah->id }}" tabindex="-1"
+                                <div class="modal fade" id="delete_mukim_{{ $mukim->id }}" tabindex="-1"
                                     role="dialog" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document"
                                         style="max-width: 500px">
@@ -207,14 +249,14 @@
                                                     <div class="col text-center m-3">
                                                         <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
                                                         <br>
-                                                        Anda pasti untuk menghapus {{ $daerah->Daerah }}?
+                                                        Anda pasti untuk menghapus {{ $mukim->Mukim }}?
 
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button class="btn btn-secondary" type="button"
                                                         data-bs-dismiss="modal">Batal</button>
-                                                    <form method="POST" action="/utiliti/daerah/{{ $daerah->id }}">
+                                                    <form method="POST" action="/utiliti/mukim/{{ $mukim->id }}">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button class="btn btn-primary" type="submit">Hapus
@@ -237,7 +279,7 @@
 
     <script>
         $(document).ready(function() {
-            $('#table_daerah').DataTable();
+            $('#table_mukim').DataTable();
         });
     </script>
 @endsection

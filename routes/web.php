@@ -5,6 +5,7 @@ use App\Http\Controllers\SemakanController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\NegeriController;
 use App\Http\Controllers\DaerahController;
+use App\Http\Controllers\MukimController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,6 +40,7 @@ Route::get('/test', function () {
 Route::resource('/profil', ProfilController::class);
 Route::resource('/utiliti/negeri', NegeriController::class);
 Route::resource('/utiliti/daerah', DaerahController::class);
+Route::resource('/utiliti/mukim', MukimController::class);
 
 // Route::put('/test/{id}', [DaerahController::class, 'update']);
 // Route::post('/utiliti/daerah/{id}/delete', [DaerahController::class, 'destroy']);

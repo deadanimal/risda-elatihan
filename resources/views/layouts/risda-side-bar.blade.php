@@ -163,7 +163,7 @@
         
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link py-0" href="#">
+                            <a class="nav-link py-0" href="/utiliti/mukim">
                                 <div class="d-flex align-items-center nav-link-side">
                                     <span class="px-0">Kod Mukim</span>
                                 </div>

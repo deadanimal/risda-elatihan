@@ -68,7 +68,7 @@ class DaerahController extends Controller
         } else {
             $status = 0;
         }
-        $daerah->status = $status;
+        $daerah->status_daerah = $status;
         // dd($daerah);
         $daerah->save();
         return redirect('/utiliti/daerah');
@@ -113,7 +113,7 @@ class DaerahController extends Controller
         } else {
             $status = 0;
         }
-        $daerah->status = $status;
+        $daerah->status_daerah = $status;
 
         $daerah->save();
         return redirect('/utiliti/daerah');
@@ -128,7 +128,6 @@ class DaerahController extends Controller
     public function destroy(Daerah $daerah)
     {
         $daerah->delete();
-        dd("masuk ja");
         return redirect('/utiliti/daerah');
     }
 }

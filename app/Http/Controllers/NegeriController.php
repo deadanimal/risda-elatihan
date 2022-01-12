@@ -60,7 +60,7 @@ class NegeriController extends Controller
         } else {
             $status = 0;
         }
-        $negeri->status = $status;
+        $negeri->status_negeri = $status;
 
         $negeri->save();
         return redirect('/utiliti/negeri');
@@ -106,7 +106,7 @@ class NegeriController extends Controller
         } else {
             $status = 0;
         }
-        $negeri->status = $status;
+        $negeri->status_negeri = $status;
 
         $negeri->save();
         return redirect('/utiliti/negeri');
