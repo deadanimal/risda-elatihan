@@ -28,7 +28,7 @@ class NegeriController extends Controller
         }
         $bil = $bil + 1;
         $bil = sprintf("%02d", $bil);
-        return view('negeri.index', [
+        return view('utiliti.lokasi.negeri.index', [
             'negeri' => $negeri,
             'bil' => $bil
         ]);

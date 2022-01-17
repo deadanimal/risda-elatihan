@@ -171,7 +171,7 @@
         
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link py-0" href="#">
+                            <a class="nav-link py-0" href="/utiliti/parlimen">
                                 <div class="d-flex align-items-center nav-link-side">
                                     <span class="px-0">Kod Parlimen</span>
                                 </div>
@@ -179,7 +179,7 @@
         
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link py-0" href="#">
+                            <a class="nav-link py-0" href="/utiliti/dun">
                                 <div class="d-flex align-items-center nav-link-side">
                                     <span class="px-0">Kod Dun</span>
                                 </div>
@@ -187,7 +187,7 @@
         
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link py-0" href="#">
+                            <a class="nav-link py-0" href="/utiliti/kampung">
                                 <div class="d-flex align-items-center nav-link-side">
                                     <span class="px-0">Kod Kampung</span>
                                 </div>
@@ -195,7 +195,7 @@
         
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link py-0" href="#">
+                            <a class="nav-link py-0" href="/utiliti/seksyen">
                                 <div class="d-flex align-items-center nav-link-side">
                                     <span class="px-0">Kod Seksyen</span>
                                 </div>
@@ -203,7 +203,7 @@
         
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link py-0" href="#">
+                            <a class="nav-link py-0" href="/utiliti/stesen">
                                 <div class="d-flex align-items-center nav-link-side">
                                     <span class="px-0">Kod Stesen</span>
                                 </div>
@@ -212,6 +212,40 @@
                         </li>
                     </ul>
 
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link py-0" href="#kumpulan" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="kumpulan">
+                        <div class="d-flex align-items-center nav-link-side">
+                            <span class="px-0">Kod Kumpulan</span>
+                        </div>
+                    </a>
+
+                    <ul class="nav-item collapse false my-1" id="kumpulan">
+                        <li class="nav-item">
+                            <a class="nav-link py-0" href="/utiliti/kategori_agensi">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">Kategori Agensi</span>
+                                </div>
+                            </a>
+        
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-0" href="/agensi">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">Senarai Agensi</span>
+                                </div>
+                            </a>
+        
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-0" href="/utiliti/pusat_tanggungjawab">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">Pusat Tanggungjawab</span>
+                                </div>
+                            </a>
+        
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link py-0" href="../app/events/event-detail.html">

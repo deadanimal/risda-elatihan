@@ -37,6 +37,7 @@
                                             </div>
                                             <form method="POST" action="{{ route('login') }}">
                                                 @csrf
+                                                <input type="hidden" name="pengguna" value="pk">
                                                 <div class="mb-3" id="nric">
                                                     <label class="form-label"  >No.
                                                         Kad Pengenalan</label>
@@ -112,10 +113,13 @@
                                             </div>
                                             <form method="POST" action="{{ route('login') }}">
                                                 @csrf
-                                                <div class="mb-3">
-                                                    <label class="form-label"  id="label_pk">E-mel</label>
-                                                    <input class="form-control" type="email" name="email"
-                                                        :value="old('email')" required autofocus />
+                                                <input type="hidden" value="staf" name="pengguna">
+                                                <div class="mb-3" id="nric">
+                                                    <label class="form-label"  >No.
+                                                        Kad Pengenalan</label>
+                                                    <input class="form-control" type="text" name="no_KP"
+                                                        :value="old('no_KP')" maxlength="12" size="12"
+                                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
                                                 </div>
                                                 <div class="mb-3">
                                                     <div class="d-flex justify-content-between">
@@ -180,10 +184,13 @@
                                             </div>
                                             <form method="POST" action="{{ route('login') }}">
                                                 @csrf
-                                                <div class="mb-3">
-                                                    <label class="form-label"  id="label_pk">E-mel</label>
-                                                    <input class="form-control" type="email" name="email"
-                                                        :value="old('email')" required autofocus />
+                                                <input type="hidden" value="ep" name="pengguna">
+                                                <div class="mb-3" id="nric">
+                                                    <label class="form-label"  >No.
+                                                        Kad Pengenalan</label>
+                                                    <input class="form-control" type="text" name="no_KP"
+                                                        :value="old('no_KP')" maxlength="12" size="12"
+                                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
                                                 </div>
                                                 <div class="mb-3">
                                                     <div class="d-flex justify-content-between">

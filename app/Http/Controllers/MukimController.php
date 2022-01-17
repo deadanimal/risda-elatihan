@@ -27,19 +27,19 @@ class MukimController extends Controller
         $daerah = Daerah::all();
         $dae2 = Daerah::all();
 
-        $mukim = Mukim::join('negeris', 'mukims.U_Negeri_ID', 'negeris.id')
-        ->join('daerahs', 'mukims.U_Daerah_ID', 'daerahs.id')
+        $mukim = Negeri::join('daerahs', 'negeris.id', 'daerahs.U_Negeri_ID')
+        ->join('mukims', 'daerahs.id', 'mukims.U_Daerah_ID')
         ->get();
         
         $bil_muk = Mukim::orderBy('id', 'desc')->first();
         if ($bil_muk != null) {
-            $bil = $bil_muk->Daerah_Rkod;
+            $bil = $bil_muk->Mukim_Rkod;
         }else{
             $bil = 0;
         }
         $bil = $bil + 1;
         $bil = sprintf("%02d", $bil);
-        return view('mukim.index', [
+        return view('utiliti.lokasi.mukim.index', [
             'negeri' => $negeri,
             'neg2' => $neg2,
             'daerah' => $daerah,
@@ -56,7 +56,7 @@ class MukimController extends Controller
      */
     public function create()
     {
-        //
+        return view('mukim.create');
     }
 
     /**
@@ -91,7 +91,7 @@ class MukimController extends Controller
      */
     public function show(Mukim $mukim)
     {
-        //
+        return $mukim;
     }
 
     /**
@@ -102,7 +102,9 @@ class MukimController extends Controller
      */
     public function edit(Mukim $mukim)
     {
-        //
+        return view('mukim.edit', [
+            'mukim' => $mukim
+        ]);
     }
 
     /**
@@ -124,7 +126,6 @@ class MukimController extends Controller
             $status = 0;
         }
         $mukim->status_mukim = $status;
-        // dd($mukim);
         $mukim->save();
         return redirect('/utiliti/mukim');
     }

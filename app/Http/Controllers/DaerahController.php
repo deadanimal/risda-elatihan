@@ -22,7 +22,8 @@ class DaerahController extends Controller
     {
         $negeri = Negeri::all();
         $neg2 = Negeri::all();
-        $daerah = Daerah::join('negeris', 'daerahs.U_Negeri_ID', 'negeris.id')->get();
+        $daerah = Negeri::join('daerahs', 'negeris.id', 'daerahs.U_Negeri_ID')
+        ->select('*')->get();
         // dd($daerah);
         $bil_dae = Daerah::orderBy('id', 'desc')->first();
         if ($bil_dae != null) {
@@ -32,7 +33,8 @@ class DaerahController extends Controller
         }
         $bil = $bil + 1;
         $bil = sprintf("%02d", $bil);
-        return view('daerah.index', [
+
+        return view('utiliti.lokasi.daerah.index', [
             'negeri' => $negeri,
             'neg2' => $neg2,
             'daerah' => $daerah,
@@ -103,8 +105,9 @@ class DaerahController extends Controller
      * @param  \App\Models\Daerah  $daerah
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateDaerahRequest $request, Daerah $daerah)
+    public function update(UpdateDaerahRequest $request, $daerah)
     {
+        $daerah = Daerah::find($daerah);
         $daerah->U_Negeri_ID = $request->U_Negeri_ID;
         $daerah->Daerah_Rkod = $request->Daerah_Rkod;
         $daerah->Daerah = $request->Daerah;
@@ -125,8 +128,9 @@ class DaerahController extends Controller
      * @param  \App\Models\Daerah  $daerah
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Daerah $daerah)
+    public function destroy($daerah)
     {
+        $daerah = Daerah::find($daerah);
         $daerah->delete();
         return redirect('/utiliti/daerah');
     }

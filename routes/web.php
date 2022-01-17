@@ -3,9 +3,20 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SemakanController;
 use App\Http\Controllers\ProfilController;
+
 use App\Http\Controllers\NegeriController;
 use App\Http\Controllers\DaerahController;
 use App\Http\Controllers\MukimController;
+use App\Http\Controllers\ParlimenController;
+use App\Http\Controllers\DunController;
+use App\Http\Controllers\KampungController;
+use App\Http\Controllers\SeksyenController;
+use App\Http\Controllers\StesenController;
+
+use App\Http\Controllers\KategoriAgensiController;
+use App\Http\Controllers\AgensiController;
+use App\Http\Controllers\PegawaiAgensiController;
+use App\Http\Controllers\PusatTanggungjawabController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,15 +48,25 @@ Route::get('/test', function () {
     return view('test');
 });
 
-Route::resource('/profil', ProfilController::class);
-Route::resource('/utiliti/negeri', NegeriController::class);
-Route::resource('/utiliti/daerah', DaerahController::class);
-Route::resource('/utiliti/mukim', MukimController::class);
-
-// Route::put('/test/{id}', [DaerahController::class, 'update']);
-// Route::post('/utiliti/daerah/{id}/delete', [DaerahController::class, 'destroy']);
-
 Route::post('/semak_nric', [SemakanController::class, 'check_espek']);
 Route::post('/daftar_pengguna', [SemakanController::class, 'daftar_pengguna']);
 
-require __DIR__.'/auth.php';
+Route::resources([
+    '/profil' => ProfilController::class,
+
+    '/utiliti/negeri' => NegeriController::class,
+    '/utiliti/daerah' => DaerahController::class,
+    '/utiliti/mukim' => MukimController::class,
+    '/utiliti/parlimen' => ParlimenController::class,
+    '/utiliti/dun' => DunController::class,
+    '/utiliti/kampung' => KampungController::class,
+    '/utiliti/seksyen' => SeksyenController::class,
+    '/utiliti/stesen' => StesenController::class,
+
+    '/utiliti/kategori_agensi' => KategoriAgensiController::class,
+    '/agensi' => AgensiController::class,
+    '/pegawai_agensi' => PegawaiAgensiController::class,
+    '/utiliti/pusat_tanggungjawab' => PusatTanggungjawabController::class,
+]);
+
+require __DIR__ . '/auth.php';
