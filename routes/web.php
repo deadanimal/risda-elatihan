@@ -29,6 +29,8 @@ use App\Http\Controllers\SumberController;
 use App\Http\Controllers\BidangKursusController;
 use App\Http\Controllers\KategoriKursusController;
 use App\Http\Controllers\KodKursusController;
+use App\Http\Controllers\CetakKodQRController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,7 +40,7 @@ use App\Http\Controllers\KodKursusController;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 Route::get('/', function () {
     return view('welcome');
@@ -92,5 +94,88 @@ Route::resources([
     '/utiliti/kategori_kursus' => KategoriKursusController::class,
     '/utiliti/kod_kursus' => KodKursusController::class,
 ]);
+
+Route::resource('/profil', ProfilController::class);
+Route::resource('/utiliti/negeri', NegeriController::class);
+Route::resource('/utiliti/daerah', DaerahController::class);
+
+//Peserta ULS
+Route::prefix('/uls')->group(function () {
+    //Permohonan Peserta
+    Route::group(['prefix' => '/permohonan', 'middleware' => 'UlsPeserta'], function () {
+        Route::get('statuspermohonan', [PermohonanController::class, 'indexULS']);
+        Route::get('kehadiran/{kod_kursus}', [KehadiranController::class, 'indexULS']);
+    });
+
+    //rekod kehadiran
+    Route::group(['prefix' => '/kehadiran'], function () {
+        Route::get('/', [KehadiranController::class, 'fromUlsQR']);
+    });
+
+});
+
+//Peserta ULPK
+Route::prefix('/ulpk')->group(function () {
+    //Permohonan Peserta
+    Route::group(['prefix' => '/permohonan', 'middleware' => 'UlpkPeserta'], function () {
+        Route::get('statuspermohonan', [PermohonanController::class, 'indexULPK']);
+        Route::get('kehadiran/{kod_kursus}', [KehadiranController::class, 'indexULPK']);
+    });
+
+    //rekod kehadiran
+    Route::group(['prefix' => '/kehadiran'], function () {
+        Route::get('/', [KehadiranController::class, 'fromUlpkQR']);
+    });
+
+});
+
+//Urus Setia ULS
+Route::group(['prefix' => 'us-uls', 'middleware' => 'UlsUrusSetia'], function () {
+
+    Route::prefix('kehadiran')->group(function () {
+        //dari QR  - merekod kehadiran
+        Route::resource('cetakkodQR', CetakKodQRController::class);
+        Route::prefix('ke-kursus')->group(function () {
+            //kehadiran
+            Route::get('merekod-kehadiran', [KehadiranController::class, 'admin_kehadiran_peserta_UsUls']);
+            Route::get('rekod-kehadiran-peserta', [KehadiranController::class, 'admin_rekod_kehadiran_peserta_UsUls']);
+
+            //pengesahan
+            Route::get('mengesahkan-kehadiran', [KehadiranController::class, 'admin_mengesahkan_peserta_UsUls']);
+            Route::get('rekod-pengesahan-peserta', [KehadiranController::class, 'admin_mengesahkan_kehadiran_peserta_UsUls']);
+        });
+    });
+
+    //pengajian lanjutan
+    Route::get('/pengajian-lanjutan', [PengajianLanjutanController::class, 'indexUls']);
+    Route::get('/pengajian-lanjutan-yuran', [PengajianLanjutanController::class, 'yuranUls']);
+
+});
+
+//Urus Setia ULPK
+Route::group(['prefix' => 'us-ulpk', 'middleware' => 'UlpkUrusSetia'], function () {
+
+    Route::prefix('kehadiran')->group(function () {
+        //dari QR  - merekod kehadiran
+
+        Route::prefix('ke-kursus')->group(function () {
+            //kehadiran
+            Route::get('merekod-kehadiran', [KehadiranController::class, 'admin_kehadiran_peserta_UsUlpk']);
+            Route::get('rekod-kehadiran-peserta', [KehadiranController::class, 'admin_rekod_kehadiran_peserta_UsUlpk']);
+
+            //pengesahan
+            Route::get('mengesahkan-kehadiran', [KehadiranController::class, 'admin_mengesahkan_peserta_UsUlpk']);
+            Route::get('rekod-pengesahan-peserta', [KehadiranController::class, 'admin_mengesahkan_kehadiran_peserta_UsUlpk']);
+        });
+    });
+
+    //pengajian lanjutan
+    Route::get('/pengajian-lanjutan', [PengajianLanjutanController::class, 'indexUlpk']);
+    Route::get('/pengajian-lanjutan-yuran', [PengajianLanjutanController::class, 'yuranUlpk']);
+
+});
+
+// Route::put('/test/{id}', [DaerahController::class, 'update']);
+// Route::post('/utiliti/daerah/{id}/delete', [DaerahController::class, 'destroy']);
 
 require __DIR__ . '/auth.php';

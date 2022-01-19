@@ -93,8 +93,8 @@
                                         </button>
                                     </td>
                                 </tr>
-                                <div class="modal fade" id="edit_negeri_{{ $negeri->id }}" tabindex="-1"
-                                    role="dialog" aria-hidden="true">
+                                <div class="modal fade" id="edit_negeri_{{ $negeri->id }}" tabindex="-1" role="dialog"
+                                    aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document"
                                         style="max-width: 500px">
                                         <div class="modal-content position-relative">
@@ -114,8 +114,7 @@
                                                         @csrf
                                                         <div class="mb-3">
                                                             <label class="col-form-label">KOD NEGERI</label>
-                                                            <input class="form-control" type="number"
-                                                                name="Negeri_Rkod"
+                                                            <input class="form-control" type="number" name="Negeri_Rkod"
                                                                 value="{{ $negeri->Negeri_Rkod }}" readonly />
                                                         </div>
                                                         <div class="mb-3">
@@ -149,8 +148,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="modal fade" id="delete_negeri_{{ $negeri->id }}" tabindex="-1" role="dialog" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+                                <div class="modal fade" id="delete_negeri_{{ $negeri->id }}" tabindex="-1"
+                                    role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document"
+                                        style="max-width: 500px">
                                         <div class="modal-content position-relative">
                                             <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
                                                 <button
@@ -163,7 +164,7 @@
                                                         <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
                                                         <br>
                                                         Anda pasti untuk menghapus {{ $negeri->Negeri }}?
-    
+
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
@@ -175,10 +176,10 @@
                                                         <button class="btn btn-primary" type="submit">Hapus
                                                         </button>
                                                     </form>
-    
+
                                                 </div>
                                             </div>
-    
+
                                         </div>
                                     </div>
                                 </div>
@@ -190,9 +191,4 @@
         </div>
     </div>
 
-    <script>
-        $(document).ready(function() {
-            $('#table_negeri').DataTable();
-        });
-    </script>
 @endsection
