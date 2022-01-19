@@ -34,6 +34,9 @@
     <script type="text/javascript" src="/assets/js/datatables.js"></script>
     <script src="/assets/js/flatpickr.js"></script>
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css"
+        rel="stylesheet">
+
 
     <!-- ===============================================-->
     <!--    Stylesheets-->
@@ -100,10 +103,15 @@
             color: white;
         }
 
+        .nav-link.active {
+            background-color: #0F5E31;
+            color: white;
+        }
+
         .nav-pills .nav-link.active,
         .nav-pills .show>.nav-link {
             color: #fff;
-            background-color: #009640;
+            background-color: #0F5E31;
         }
 
         .nav-link {
@@ -292,6 +300,8 @@
     <!-- ===============================================-->
     <!--    JavaScripts-->
     <!-- ===============================================-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
     <script src="/vendors/popper/popper.min.js"></script>
     <script src="/vendors/bootstrap/bootstrap.min.js"></script>
     <script src="/vendors/anchorjs/anchor.min.js"></script>
@@ -311,6 +321,7 @@
     <script src="/vendors/list.js/list.min.js"></script>
     <script src="/assets/js/theme.js"></script>
 
+    <script src="/js/sweetalert2.all.min.js"></script>
 
 
     <script>
@@ -318,7 +329,7 @@
             setInterval(() => {
                 const today = new Date();
                 let day = today.getDate();
-                let month = today.getMonth()+1;
+                let month = today.getMonth() + 1;
                 let year = today.getFullYear();
                 let h = today.getHours();
                 let m = today.getMinutes();
@@ -331,6 +342,11 @@
                 document.getElementById("date").innerHTML =
                     day + "/" + month + "/" + year;
             }, 1000);
+
+
+
+            $('.datatable').DataTable();
+
         });
     </script>
 </body>
