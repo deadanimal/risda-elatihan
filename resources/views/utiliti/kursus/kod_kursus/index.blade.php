@@ -281,7 +281,7 @@
 
         $(function() {
             $("#datepicker").datepicker({
-                dateFormat: 'yy'
+                dateFormat: 'y'
             });
         });​
     </script>
