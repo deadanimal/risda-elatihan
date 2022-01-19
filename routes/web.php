@@ -17,6 +17,18 @@ use App\Http\Controllers\KategoriAgensiController;
 use App\Http\Controllers\AgensiController;
 use App\Http\Controllers\PegawaiAgensiController;
 use App\Http\Controllers\PusatTanggungjawabController;
+
+use App\Http\Controllers\JulatTahunanController;
+
+use App\Http\Controllers\StatusPelaksanaanController;
+
+use App\Http\Controllers\AgamaController;
+use App\Http\Controllers\BangsaController;
+use App\Http\Controllers\SumberController;
+
+use App\Http\Controllers\BidangKursusController;
+use App\Http\Controllers\KategoriKursusController;
+use App\Http\Controllers\KodKursusController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -67,6 +79,18 @@ Route::resources([
     '/agensi' => AgensiController::class,
     '/pegawai_agensi' => PegawaiAgensiController::class,
     '/utiliti/pusat_tanggungjawab' => PusatTanggungjawabController::class,
+
+    '/utiliti/julat_tahunan' => JulatTahunanController::class,
+
+    '/utiliti/status_pelaksanaan' => StatusPelaksanaanController::class,
+
+    '/utiliti/agama' => AgamaController::class,
+    '/utiliti/bangsa' => BangsaController::class,
+    '/utiliti/sumber' => SumberController::class,
+
+    '/utiliti/bidang_kursus' => BidangKursusController::class,
+    '/utiliti/kategori_kursus' => KategoriKursusController::class,
+    '/utiliti/kod_kursus' => KodKursusController::class,
 ]);
 
 require __DIR__ . '/auth.php';

@@ -248,20 +248,114 @@
                     </ul>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link py-0" href="#julat" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="julat">
+                        <div class="d-flex align-items-center nav-link-side">
+                            <span class="px-0">Kod Julat</span>
+                        </div>
+                    </a>
+                    <ul class="nav-item collapse false my-1" id="julat">
+                        <li class="nav-item">
+                            <a class="nav-link py-0" href="/utiliti/julat_tahunan">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">Julat Tahunan</span>
+                                </div>
+                            </a>
+        
+                        </li>
+                    </ul>
+                </li>
+                {{-- <li class="nav-item">
                     <a class="nav-link py-0" href="../app/events/event-detail.html">
                         <div class="d-flex align-items-center nav-link-side">
                             <span class="px-0">Kod Kursus</span>
                         </div>
                     </a>
 
-                </li>
+                </li> --}}
                 <li class="nav-item">
-                    <a class="nav-link py-0" href="../app/events/event-list.html">
+                    <a class="nav-link py-0" href="#status" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="status">
                         <div class="d-flex align-items-center nav-link-side">
                             <span class="px-0">Kod Status</span>
                         </div>
                     </a>
+                    <ul class="nav-item collapse false my-1" id="status">
+                        <li class="nav-item">
+                            <a class="nav-link py-0" href="/utiliti/status_pelaksanaan">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">Status Pelaksanaan</span>
+                                </div>
+                            </a>
+        
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link py-0" href="#generik" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="generik">
+                        <div class="d-flex align-items-center nav-link-side">
+                            <span class="px-0">Kod Generik</span>
+                        </div>
+                    </a>
 
+                    <ul class="nav-item collapse false my-1" id="generik">
+                        <li class="nav-item">
+                            <a class="nav-link py-0" href="/utiliti/agama">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">Agama</span>
+                                </div>
+                            </a>
+        
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-0" href="/utiliti/bangsa">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">Bangsa</span>
+                                </div>
+                            </a>
+        
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-0" href="/utiliti/sumber">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">Sumber</span>
+                                </div>
+                            </a>
+        
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link py-0" href="#kursus" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="kursus">
+                        <div class="d-flex align-items-center nav-link-side">
+                            <span class="px-0">Kod Kursus</span>
+                        </div>
+                    </a>
+
+                    <ul class="nav-item collapse false my-1" id="kursus">
+                        <li class="nav-item">
+                            <a class="nav-link py-0" href="/utiliti/bidang_kursus">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">Bidang Kursus</span>
+                                </div>
+                            </a>
+        
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-0" href="/utiliti/kategori_kursus">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">Kategori Kursus</span>
+                                </div>
+                            </a>
+        
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-0" href="/utiliti/kod_kursus">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">Kod Kursus</span>
+                                </div>
+                            </a>
+        
+                        </li>
+                    </ul>
                 </li>
             </ul>
             {{-- <a class="nav-link-side dropdown-indicator" href="#email" role="button" data-bs-toggle="collapse"

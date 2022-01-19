@@ -32,6 +32,7 @@
 
     <script type="text/javascript" src="/assets/js/datatables.min.js"></script>
     <script type="text/javascript" src="/assets/js/datatables.js"></script>
+    <script src="/assets/js/flatpickr.js"></script>
 
 
     <!-- ===============================================-->
