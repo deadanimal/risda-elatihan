@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateProfilRequest;
 use App\Models\Profil;
 use App\Models\User;
 use App\Models\PekebunKecil;
+use App\Models\Staf;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Hash;
@@ -35,10 +36,13 @@ class ProfilController extends Controller
         $data_staf = json_decode($data_staf, true);
         foreach ($data_staf as $key => $staf) {
             if ($staf['nokp'] == $user->no_KP) {
-
+                $profil = Staf::where('id_Pengguna', $user->id)->first();
+                $jenis = 'Staf';
                 return view('profil.index_staf', [
-                    'user'=>$user,
-                    'staf' => $staf
+                    'user' => $user,
+                    'staf' => $staf,
+                    'jenis' => $jenis,
+                    'profil'=>$profil
                 ]);
             }
         }
@@ -59,11 +63,13 @@ class ProfilController extends Controller
         } else {
             $data = $data_pk[0];
             $tanah = $data['Tanah'];
-            return view('pendaftaran.pk', [
+            $jenis = 'PK';
+            return view('profil.index', [
                 'pk' => $data,
                 'user' => $user,
                 'tanah' => $tanah,
-                'profil' => $profil
+                'profil' => $profil,
+                'jenis' => $jenis
             ]);
         }
     }
@@ -149,9 +155,16 @@ class ProfilController extends Controller
 
         // update information (phone number only)
         if ($request->telefon) {
-            $pekebun_kecil = PekebunKecil::where('id_Pengguna', Auth::id())->first();
-            $pekebun_kecil->Telefon = $request->telefon;
-            $pekebun_kecil->save();
+            if ($request->jenis == 'PK') {
+                $pekebun_kecil = PekebunKecil::where('id_Pengguna', Auth::id())->first();
+                $pekebun_kecil->Telefon = $request->telefon;
+                $pekebun_kecil->save();
+            } else {
+                $staf = Staf::where('id_Pengguna', Auth::id())->first();
+                $staf->notel = $request->telefon;
+                $staf->save();
+            }
+
 
             alert()->success('Nombor telefon bimbit anda telah dikemaskini', 'Berjaya');
             return redirect('/profil');

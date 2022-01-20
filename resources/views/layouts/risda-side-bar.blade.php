@@ -557,6 +557,30 @@
                             </a>
         
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-0" href="/utiliti/gred_pegawai">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">Gred Pegawai</span>
+                                </div>
+                            </a>
+        
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-0" href="/utiliti/elaun_cuti_kursus">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">Elaun/Cuti Kursus</span>
+                                </div>
+                            </a>
+        
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-0" href="/utiliti/kod_objek">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">Kod Objek</span>
+                                </div>
+                            </a>
+        
+                        </li>
                     </ul>
                 </li>
             </ul>

@@ -29,6 +29,10 @@ use App\Http\Controllers\SumberController;
 use App\Http\Controllers\BidangKursusController;
 use App\Http\Controllers\KategoriKursusController;
 use App\Http\Controllers\KodKursusController;
+use App\Http\Controllers\GredPegawaiController;
+use App\Http\Controllers\ElaunCutiController;
+use App\Http\Controllers\ObjekController;
+
 use App\Http\Controllers\CetakKodQRController;
 
 /*
@@ -93,11 +97,11 @@ Route::resources([
     '/utiliti/bidang_kursus' => BidangKursusController::class,
     '/utiliti/kategori_kursus' => KategoriKursusController::class,
     '/utiliti/kod_kursus' => KodKursusController::class,
+    '/utiliti/gred_pegawai' => GredPegawaiController::class,
+    '/utiliti/elaun_cuti_kursus' => ElaunCutiController::class,
+    '/utiliti/kod_objek' => ObjekController::class,
 ]);
 
-Route::resource('/profil', ProfilController::class);
-Route::resource('/utiliti/negeri', NegeriController::class);
-Route::resource('/utiliti/daerah', DaerahController::class);
 
 //Peserta ULS
 Route::prefix('/uls')->group(function () {
