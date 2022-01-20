@@ -171,7 +171,7 @@
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">TARIKH LAHIR</label>
-                                        <input class="form-control" type="date" / readonly>
+                                        <input class="form-control" type="text" readonly />
                                     </div>
                                 </div>
                                 <div class="col-6">
@@ -468,6 +468,7 @@
                                     <form action="/profil/{{ Auth::id() }}" method="POST">
                                         @method('PUT')
                                         @csrf
+                                        <input type="hidden" value="{{$jenis}}" name="jenis">
                                         <div class="mb-3">
                                             <label class="col-form-label risda-g"
                                                 for="recipient-name">NO. TELEFON BIMBIT</label>

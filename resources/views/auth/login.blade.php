@@ -92,6 +92,11 @@
                                                             data-fa-transform="grow-8"></span> facebook</a>
                                                 </div>
                                             </div>
+                                            <div class="row mt-3">
+                                                <div class="col text-center">
+                                                    <a href="/register" class="risda-g">Tiada Akaun? Daftar Sekarang</a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -138,7 +143,7 @@
                                                                 Saya</label>
                                                         </div>
                                                         <div class="col-lg-6 text-end">
-                                                            <a class="fs--1" href="#">Lupa kata laluan</a>
+                                                            <a class="fs--1" href="/lupa_katalaluan">Terlupa Kata Laluan?</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -161,6 +166,11 @@
                                                     <a class="btn btn-outline-facebook btn-sm d-block w-100" href="#"><span
                                                             class="fab fa-facebook-square me-2"
                                                             data-fa-transform="grow-8"></span> facebook</a>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="col text-center">
+                                                    <a href="/register" class="risda-g">Tiada Akaun? Daftar Sekarang</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -209,7 +219,7 @@
                                                                 Saya</label>
                                                         </div>
                                                         <div class="col-lg-6 text-end">
-                                                            <a class="fs--1" href="#">Lupa kata laluan</a>
+                                                            <a class="fs--1" href="/lupa_katalaluan">Terlupa Kata Laluan?</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -232,6 +242,11 @@
                                                     <a class="btn btn-outline-facebook btn-sm d-block w-100" href="#"><span
                                                             class="fab fa-facebook-square me-2"
                                                             data-fa-transform="grow-8"></span> facebook</a>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="col text-center">
+                                                    <a href="/register" class="risda-g">Tiada Akaun? Daftar Sekarang</a>
                                                 </div>
                                             </div>
                                         </div>

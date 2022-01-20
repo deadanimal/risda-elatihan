@@ -3,11 +3,9 @@
     <div class="row">
         <div class="col">
             <h1 class="mb-0 risda-dg"><strong>UTILITI</strong></h1>
-            <h5 class="risda-dg">KATEGORI KURSUS</h5>
+            <h5 class="risda-dg">KOD OBJEK</h5>
         </div>
     </div>
-
-    <hr class="risda-g">
 
     <div class="row mt-5">
         <div class="col">
@@ -26,41 +24,16 @@
                                 <h4 class="mb-1" id="modalExampleDemoLabel">TAMBAH </h4>
                             </div>
                             <div class="p-4 pb-0">
-                                <form action="/utiliti/kategori_kursus" method="POST">
+                                <form action="/utiliti/kod_objek" method="POST">
                                     @csrf
                                     <div class="mb-3">
-                                        <label class="col-form-label">UNIT LATIHAN</label>
-                                        <select class="form-select" name="UL_kategori_Kursus">
-                                            <option selected="" hidden>Sila Pilih</option>
-                                            <option value="Staf">Staf</option>
-                                            <option value="Pekebun Kecil">Pekebun Kecil</option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="col-form-label">BIDANG KURSUS</label>
-                                        <select class="form-select" name="U_Bidang_Kursus">
-                                            <option selected="" hidden>Sila Pilih</option>
-                                            @foreach ($bidangKursus as $BK)
-                                                <option value="{{ $BK->id }}">{{ $BK->nama_Bidang_Kursus }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="col-form-label">JENIS LATIHAN</label>
-                                        <select class="form-select" name="jenis_kategori_Kursus">
-                                            <option selected="" hidden>Sila Pilih</option>
-                                            <option value="Dalaman">Dalaman</option>
-                                            <option value="Luaran">Luaran</option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="col-form-label">KOD KATEGORI KURSUS</label>
-                                        <input class="form-control" type="number" name="kod_Kategori_Kursus"
+                                        <label class="col-form-label">KOD OBJEK</label>
+                                        <input class="form-control" type="number" name="kod_Objek"
                                             value="{{ $bil }}" readonly />
                                     </div>
                                     <div class="mb-3">
-                                        <label class="col-form-label">KATEGORI KURSUS</label>
-                                        <input class="form-control" type="text" name="nama_Kategori_Kursus" />
+                                        <label class="col-form-label">OBJEK</label>
+                                        <input class="form-control" type="text" name="nama_Objek" />
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label">STATUS</label>
@@ -87,26 +60,24 @@
         <div class="col">
             <div class="card">
                 <div class="card-body">
-                    <table id="table_negeri" class="table table-striped" style="width:100%">
+                    <table id="table_negeri" class="table datatable table-striped" style="width:100%">
                         <thead class="bg-200">
                             <tr>
                                 <th class="sort">BIL.</th>
-                                <th class="sort">UNIT LATIHAN</th>
-                                <th class="sort">KOD KATEGORI KURSUS</th>
-                                <th class="sort">KATEGORI KURSUS</th>
+                                <th class="sort">KOD OBJEK</th>
+                                <th class="sort">OBJEK</th>
                                 <th class="sort">STATUS</th>
                                 <th class="sort">TINDAKAN</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white">
-                            @foreach ($kategoriKursus as $key => $KK)
+                            @foreach ($objek as $key => $ob)
                                 <tr>
                                     <td>{{ $key + 1 }}.</td>
-                                    <td>{{ $KK->UL_Kategori_Kursus }}</td>
-                                    <td>{{ $KK->kod_Kategori_Kursus }}</td>
-                                    <td>{{ $KK->nama_Kategori_Kursus }}</td>
+                                    <td>{{ $ob->kod_Objek }}</td>
+                                    <td>{{ $ob->nama_Objek }}</td>
                                     <td>
-                                        @if ($KK->status_Kategori_Kursus == '1')
+                                        @if ($ob->status_Objek == '1')
                                             <span class="badge badge-soft-success">Aktif</span>
                                         @else
                                             <span class="badge badge-soft-danger">Tidak Aktif</span>
@@ -114,15 +85,15 @@
                                     </td>
                                     <td>
                                         <button class="btn btn-primary" type="button" data-bs-toggle="modal"
-                                            data-bs-target="#edit_BK_{{ $KK->id }}"><i
+                                            data-bs-target="#edit_negeri_{{ $ob->id }}"><i
                                                 class="fas fa-pen"></i></button>
                                         <button class="btn risda-bg-dg text-white" type="button" data-bs-toggle="modal"
-                                            data-bs-target="#delete_BK_{{ $KK->id }}">
+                                            data-bs-target="#delete_negeri_{{ $ob->id }}">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </td>
                                 </tr>
-                                <div class="modal fade" id="edit_BK_{{ $KK->id }}" tabindex="-1" role="dialog"
+                                <div class="modal fade" id="edit_negeri_{{ $ob->id }}" tabindex="-1" role="dialog"
                                     aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document"
                                         style="max-width: 500px">
@@ -134,51 +105,27 @@
                                             </div>
                                             <div class="modal-body p-0">
                                                 <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
-                                                    <h4 class="mb-1">KEMASKINI
+                                                    <h4 class="mb-1" id="modalExampleDemoLabel">KEMASKINI
                                                     </h4>
                                                 </div>
                                                 <div class="p-4 pb-0">
-                                                    <form action="/utiliti/kategori_kursus/{{ $KK->id }}"
-                                                        method="POST">
+                                                    <form action="/utiliti/kod_objek/{{ $ob->id }}" method="POST">
                                                         @method('PUT')
                                                         @csrf
                                                         <div class="mb-3">
-                                                            <label class="col-form-label">UNIT LATIHAN</label>
-                                                            <select class="form-select" name="UL_Kategori_Kursus">
-                                                                <option selected="" hidden
-                                                                    value="{{ $KK->UL_Kategori_Kursus }}">
-                                                                    {{ $KK->UL_Kategori_Kursus }}</option>
-                                                                <option value="Staf">Staf</option>
-                                                                <option value="Pekebun Kecil">Pekebun Kecil</option>
-                                                            </select>
+                                                            <label class="col-form-label">KOD OBJEK</label>
+                                                            <input class="form-control" type="number" name="kod_Objek"
+                                                                value="{{ $ob->kod_Objek }}" readonly />
                                                         </div>
                                                         <div class="mb-3">
-                                                            <label class="col-form-label">BIDANG KURSUS</label>
-                                                            <select class="form-select" name="UL_Kategori_Kursus">
-                                                                <option selected="" hidden
-                                                                    value="{{ $KK->U_Bidang_Kursus }}">
-                                                                    {{ $KK->Bidang_Kursus }}</option>
-                                                                @foreach ($bidangKursus as $bk2)
-                                                                <option value="{{ $bidangKursus->id }}">{{ $bidangKursus->kategori_Kursus }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label class="col-form-label">KOD KATEGORI KURSUS</label>
-                                                            <input class="form-control" type="number"
-                                                                name="kod_Kategori_Kursus"
-                                                                value="{{ $KK->kod_Kategori_Kursus }}" readonly />
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label class="col-form-label">KATEGORI KURSUS</label>
-                                                            <input class="form-control" type="text"
-                                                                name="nama_kategori_Kursus"
-                                                                value="{{ $KK->nama_Kategori_Kursus }}" />
+                                                            <label class="col-form-label">OBJEK</label>
+                                                            <input class="form-control" type="text" name="nama_Objek"
+                                                                value="{{ $ob->nama_Objek }}" />
                                                         </div>
                                                         <div class="mb-3">
                                                             <label class="col-form-label">STATUS</label>
                                                             <div class="form-check form-switch">
-                                                                @if ($KK->status_Kategori_Kursus == '1')
+                                                                @if ($ob->status_Objek == '1')
                                                                     <input class="form-check-input" type="checkbox"
                                                                         name="status" checked="" />
                                                                     <label class="form-check-label">Aktif</label>
@@ -192,7 +139,8 @@
                                                         <div class="modal-footer">
                                                             <button class="btn btn-secondary" type="button"
                                                                 data-bs-dismiss="modal">Batal</button>
-                                                            <button class="btn btn-primary" type="submit">Simpan </button>
+                                                            <button class="btn btn-primary" type="submit">Simpan
+                                                            </button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -200,8 +148,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="modal fade" id="delete_BK_{{ $KK->id }}" tabindex="-1" role="dialog"
-                                    aria-hidden="true">
+                                <div class="modal fade" id="delete_negeri_{{ $ob->id }}" tabindex="-1"
+                                    role="dialog" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document"
                                         style="max-width: 500px">
                                         <div class="modal-content position-relative">
@@ -215,15 +163,14 @@
                                                     <div class="col text-center m-3">
                                                         <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
                                                         <br>
-                                                        Anda pasti untuk menghapus {{ $KK->nama_kategori_Kursus }}?
+                                                        Anda pasti untuk menghapus {{ $ob->nama_Objek }}?
 
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button class="btn btn-secondary" type="button"
                                                         data-bs-dismiss="modal">Batal</button>
-                                                    <form method="POST"
-                                                        action="/utiliti/kategori_kursus/{{ $KK->id }}">
+                                                    <form method="POST" action="/utiliti/kod_objek/{{ $ob->id }}">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button class="btn btn-primary" type="submit">Hapus
@@ -244,5 +191,4 @@
         </div>
     </div>
 
-    
 @endsection

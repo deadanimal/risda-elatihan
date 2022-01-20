@@ -36,6 +36,11 @@
                                 </div>
                             </div>
                         </form>
+                        <div class="row mt-3">
+                            <div class="col text-center">
+                                <a href="/login" class="risda-g">Sudah ada akaun?Log Masuk Sekarang</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
