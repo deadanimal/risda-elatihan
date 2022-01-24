@@ -7,40 +7,56 @@
         </div>
     </div>
 
-    <form action="#">
+    <form action="#" id="form_search">
         <div class="row mt-3 justify-content-center">
 
             <div class="col-auto">
                 <label class="col-form-label">NEGERI:</label>
             </div>
             <div class="col-5">
-                <input class="form-control form-control-sm" type="number" name="search_negeri" />
+                <select class="form-select" name="negeri_search" id="negeri_search">
+                    <option selected="" hidden></option>
+                    @foreach ($negeri as $n)
+                        @if ($n->status_negeri == '1')
+                            <option value="{{ $n->id }}">{{ $n->Negeri }}</option>
+                        @endif
+                    @endforeach
+                </select>
             </div>
 
         </div>
-    </form>
-
-    <form action="#">
         <div class="row mt-3 justify-content-center">
 
             <div class="col-auto">
                 <label class="col-form-label">DAERAH:</label>
             </div>
             <div class="col-5">
-                <input class="form-control form-control-sm" type="number" name="search_daerah" />
+                <select class="form-select" id="daerah_search" name="daerah_search">
+                    <option selected="" hidden></option>
+                    @foreach ($daerah as $d)
+                        @if ($d->status_daerah == '1')
+                            <option value="{{ $d->id }}">{{ $d->Daerah }}</option>
+                        @endif
+                    @endforeach
+                </select>
             </div>
 
         </div>
-    </form>
 
-    <form action="#">
         <div class="row mt-3 justify-content-center">
 
             <div class="col-auto">
                 <label class="col-form-label">MUKIM:</label>
             </div>
             <div class="col-5">
-                <input class="form-control form-control-sm" type="number" name="search_daerah" />
+                <select class="form-select" id="mukim_search" name="mukim_search">
+                    <option selected="" hidden></option>
+                    @foreach ($mukim as $m)
+                        @if ($m->status_mukim == '1')
+                            <option value="{{ $m->id }}">{{ $m->Mukim }}</option>
+                        @endif
+                    @endforeach
+                </select>
             </div>
 
         </div>
@@ -147,7 +163,16 @@
                                 <th class="sort">TINDAKAN</th>
                             </tr>
                         </thead>
-                        <tbody class="bg-white">
+                        <tbody class="bg-white" id="t_seksyen_negeri">
+
+                        </tbody>
+                        <tbody class="bg-white" id="t_seksyen_daerah">
+
+                        </tbody>
+                        <tbody class="bg-white" id="t_seksyen_mukim">
+
+                        </tbody>
+                        <tbody class="bg-white" id="t_normal">
                             @foreach ($seksyen as $key => $s)
                                 <tr>
                                     <td>{{ $key + 1 }}.</td>
@@ -317,10 +342,49 @@
     <script>
         $(document).ready(function() {
             $('#table_dun').DataTable();
+
+            $('#t_seksyen_negeri').hide();
+            $('#t_seksyen_daerah').hide();
+            $('#t_seksyen_mukim').hide();
+            $('#t_normal').show();
         });
     </script>
 
     <script>
+        $('#negeri_search').change(function() {
+
+            $('#form_search select[name=daerah_search]').html("");
+            var drh_sc = @json($daerah->toArray());
+            console.log(drh_sc);
+
+            let option_new = "";
+            $('#form_search select[name=daerah_search]').append(
+                `<option value='' hidden>Sila Pilih</option>`);
+            drh_sc.forEach(element => {
+                if (this.value == element.U_Negeri_ID) {
+                    $('#form_search select[name=daerah_search]').append(
+                        `<option value=${element.id}>${element.Daerah}</option>`);
+                }
+            });
+        });
+
+        $('#daerah_search').change(function() {
+
+            $('#form_search select[name=mukim_search]').html("");
+            var mukim_sc = @json($mukim->toArray());
+            console.log(mukim_sc);
+
+            let option_new = "";
+            $('#form_search select[name=mukim_search]').append(
+                `<option value='' hidden>Sila Pilih</option>`);
+            mukim_sc.forEach(element => {
+                if (this.value == element.U_Daerah_ID) {
+                    $('#form_search select[name=mukim_search]').append(
+                        `<option value=${element.id}>${element.Mukim}</option>`);
+                }
+            });
+        });
+
         $('#ngri').change(function() {
 
             $('#form1 select[name=U_Daerah_ID]').html("");
@@ -376,6 +440,134 @@
                 if (this.value == element.U_Daerah_ID) {
                     $('#form2 select[name=U_Mukim_ID]').append(
                         `<option value=${element.id}>${element.Mukim}</option>`);
+                }
+            });
+        });
+
+        $('#negeri_search').change(function() {
+            $('#t_normal').hide();
+            $('#t_seksyen_daerah').hide();
+            $('#t_seksyen_negeri').show();
+            $('#t_seksyen_mukim').hide();
+
+            $('#t_seksyen_negeri').html("");
+            var sks_tb = @json($seksyen->toArray());
+            console.log(sks_tb);
+
+            let option_new = "";
+            var i = 0;
+            sks_tb.forEach(element => {
+
+                if (this.value == element.U_Negeri_ID) {
+                    $('#t_seksyen_negeri').append(
+                        `
+                                <tr>
+                                    <td>` + (i = i + 1) + `.</td>
+                                    <td>${ element.Seksyen_kod }</td>
+                                    <td>${ element.Seksyen }</td>
+                                    <td>` +
+                        (element.status_seksyen == '1' ?
+                            '<span class="badge badge-soft-success">Aktif</span>' :
+                            '<span class="badge badge-soft-danger">Tidak Aktif</span>') +
+                        `</td>
+                                    <td>
+                                        <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                                            data-bs-target="#edit_seksyen_${ element.id }">
+                                            <i class="fas fa-pen"></i>
+                                        </button>
+
+                                        <button class="btn risda-bg-dg text-white" type="button" data-bs-toggle="modal"
+                                            data-bs-target="#delete_seksyen_${ element.id }">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>`);
+                }
+            });
+        });
+
+        $('#daerah_search').change(function() {
+            $('#t_normal').hide();
+            $('#t_seksyen_daerah').show();
+            $('#t_seksyen_negeri').hide();
+            $('#t_seksyen_mukim').hide();
+
+            $('#t_seksyen_daerah').html("");
+            var sks_tb2 = @json($seksyen->toArray());
+            console.log(sks_tb2);
+
+            let option_new = "";
+            var i = 0;
+            sks_tb2.forEach(element => {
+
+                if (this.value == element.U_Daerah_ID) {
+                    console.log('check');
+                    $('#t_seksyen_daerah').append(
+                        `
+                                <tr>
+                                    <td>` + (i = i + 1) + `.</td>
+                                    <td>${ element.Seksyen_kod }</td>
+                                    <td>${ element.Seksyen }</td>
+                                    <td>` +
+                        (element.status_seksyen == '1' ?
+                            '<span class="badge badge-soft-success">Aktif</span>' :
+                            '<span class="badge badge-soft-danger">Tidak Aktif</span>') +
+                        `</td>
+                                    <td>
+                                        <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                                            data-bs-target="#edit_seksyen_${ element.id }">
+                                            <i class="fas fa-pen"></i>
+                                        </button>
+
+                                        <button class="btn risda-bg-dg text-white" type="button" data-bs-toggle="modal"
+                                            data-bs-target="#delete_seksyen_${ element.id }">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>`);
+                }
+            });
+        });
+
+        $('#mukim_search').change(function() {
+            $('#t_normal').hide();
+            $('#t_seksyen_daerah').hide();
+            $('#t_seksyen_negeri').hide();
+            $('#t_seksyen_mukim').show();
+
+            $('#t_seksyen_mukim').html("");
+            var sks_tb3 = @json($seksyen->toArray());
+            console.log(sks_tb3);
+
+            let option_new = "";
+            var i = 0;
+            sks_tb3.forEach(element => {
+
+                if (this.value == element.U_Mukim_ID) {
+                    console.log('check2');
+                    $('#t_seksyen_mukim').append(
+                        `
+                                <tr>
+                                    <td>` + (i = i + 1) + `.</td>
+                                    <td>${ element.Seksyen_kod }</td>
+                                    <td>${ element.Seksyen }</td>
+                                    <td>` +
+                        (element.status_seksyen == '1' ?
+                            '<span class="badge badge-soft-success">Aktif</span>' :
+                            '<span class="badge badge-soft-danger">Tidak Aktif</span>') +
+                        `</td>
+                                    <td>
+                                        <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                                            data-bs-target="#edit_seksyen_${ element.id }">
+                                            <i class="fas fa-pen"></i>
+                                        </button>
+
+                                        <button class="btn risda-bg-dg text-white" type="button" data-bs-toggle="modal"
+                                            data-bs-target="#delete_seksyen_${ element.id }">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>`);
                 }
             });
         });
