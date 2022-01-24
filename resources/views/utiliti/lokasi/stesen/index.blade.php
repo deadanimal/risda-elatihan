@@ -7,53 +7,74 @@
         </div>
     </div>
 
-    <form action="#">
+    <form action="#" id="form_search">
         <div class="row mt-3 justify-content-center">
 
             <div class="col-auto">
                 <label class="col-form-label">NEGERI:</label>
             </div>
             <div class="col-5">
-                <input class="form-control form-control-sm" type="number" name="search_negeri" />
+                <select class="form-select" name="negeri_search" id="negeri_search">
+                    <option selected="" hidden></option>
+                    @foreach ($negeri as $n)
+                        @if ($n->status_negeri == '1')
+                            <option value="{{ $n->id }}">{{ $n->Negeri }}</option>
+                        @endif
+                    @endforeach
+                </select>
             </div>
 
         </div>
-    </form>
-
-    <form action="#">
         <div class="row mt-3 justify-content-center">
 
             <div class="col-auto">
                 <label class="col-form-label">DAERAH:</label>
             </div>
             <div class="col-5">
-                <input class="form-control form-control-sm" type="number" name="search_daerah" />
+                <select class="form-select" id="daerah_search" name="daerah_search">
+                    <option selected="" hidden></option>
+                    @foreach ($daerah as $d)
+                        @if ($d->status_daerah == '1')
+                            <option value="{{ $d->id }}">{{ $d->Daerah }}</option>
+                        @endif
+                    @endforeach
+                </select>
             </div>
 
         </div>
-    </form>
 
-    <form action="#">
         <div class="row mt-3 justify-content-center">
 
             <div class="col-auto">
                 <label class="col-form-label">MUKIM:</label>
             </div>
             <div class="col-5">
-                <input class="form-control form-control-sm" type="number" name="search_daerah" />
+                <select class="form-select" id="mukim_search" name="mukim_search">
+                    <option selected="" hidden></option>
+                    @foreach ($mukim as $m)
+                        @if ($m->status_mukim == '1')
+                            <option value="{{ $m->id }}">{{ $m->Mukim }}</option>
+                        @endif
+                    @endforeach
+                </select>
             </div>
 
         </div>
-    </form>
 
-    <form action="#">
         <div class="row mt-3 justify-content-center">
 
             <div class="col-auto">
                 <label class="col-form-label">KAMPUNG:</label>
             </div>
             <div class="col-5">
-                <input class="form-control form-control-sm" type="number" name="search_daerah" />
+                <select class="form-select" id="kampung_search" name="kampung_search">
+                    <option selected="" hidden></option>
+                    @foreach ($kampung as $k)
+                        @if ($k->status_kampung == '1')
+                            <option value="{{ $k->id }}">{{ $k->Mukim }}</option>
+                        @endif
+                    @endforeach
+                </select>
             </div>
 
         </div>

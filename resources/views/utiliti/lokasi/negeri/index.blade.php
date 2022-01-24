@@ -60,7 +60,7 @@
         <div class="col">
             <div class="card">
                 <div class="card-body">
-                    <table id="table_negeri" class="table table-striped" style="width:100%">
+                    <table id="table_negeri" class="table datatable table-striped" style="width:100%">
                         <thead class="bg-200">
                             <tr>
                                 <th class="sort">BIL.</th>
