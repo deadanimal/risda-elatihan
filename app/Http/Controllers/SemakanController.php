@@ -55,7 +55,7 @@ class SemakanController extends Controller
                 // create staff
                 $user = new User;
                 $user->name = $staf['nama'];
-                $user->email = 'najhan.najib@pipeline-network.com'; #tukar email staf
+                $user->email = 'applicantsppeps01@gmail.com'; #tukar email staf
                 $user->password = Hash::make($randomString);
                 $user->no_KP = $staf['nokp'];
                 $user->jenis_pengguna = 'Staf';
