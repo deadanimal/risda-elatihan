@@ -59,7 +59,7 @@ class SumberController extends Controller
         $sumber->status_sumber = $status;
 
         $sumber->save();
-        return redirect('/utiliti/sumber');
+        return redirect('/utiliti/generik/sumber');
     }
 
     /**
@@ -103,7 +103,7 @@ class SumberController extends Controller
         $sumber->status_sumber = $status;
 
         $sumber->save();
-        return redirect('/utiliti/sumber');
+        return redirect('/utiliti/generik/sumber');
     }
 
     /**
@@ -115,6 +115,6 @@ class SumberController extends Controller
     public function destroy(Sumber $sumber)
     {
         $sumber->delete();
-        return redirect('/utiliti/sumber');
+        return redirect('/utiliti/generik/sumber');
     }
 }

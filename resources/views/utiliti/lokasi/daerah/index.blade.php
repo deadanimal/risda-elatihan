@@ -7,6 +7,8 @@
         </div>
     </div>
 
+    <hr class="risda-g">
+
     <form action="#">
         <div class="row mt-3 justify-content-center">
 
