@@ -5,30 +5,67 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreKehadiranRequest;
 use App\Http\Requests\UpdateKehadiranRequest;
 use App\Models\Kehadiran;
+use App\Models\KodKursus;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KehadiranController extends Controller
 {
 
     public function indexULS($kod_kursus)
     {
+        function displayDates($date1, $date2, $format = 'Y-m-d')
+        {
+            $dates = array();
+            $current = strtotime($date1);
+            $date2 = strtotime($date2);
+            $stepVal = '+1 day';
+            while ($current <= $date2) {
+                $dates[] = date($format, $current);
+                $current = strtotime($stepVal, $current);
+            }
+            return $dates;
+        }
+
+        $kod_kursuss = KodKursus::where('kod_Kursus', $kod_kursus)->firstorFail();
+        $kehadiran = Kehadiran::where('kod_kursus', $kod_kursus)->where('no_pekerja', Auth::user()->id)
+            ->orderBy('tarikh', 'ASC')->get();
+
+        $hari = ['Pertama', 'Kedua', 'Ketiga', 'Keempat', 'Kelima', 'Keenam'];
+
+        $date = displayDates($kod_kursuss->jadualkursus->tarikh_mula, $kod_kursuss->jadualkursus->tarikh_tamat);
+
         return view('uls.peserta.permohonan.kehadiran', [
-            'kod_kursus' => $kod_kursus,
+            'kod_kursus' => $kod_kursuss,
+            'kehadiran' => $kehadiran,
+            'hari' => $hari,
+            'date' => $date,
         ]);
+
     }
     public function indexULPK($kod_kursus)
     {
+        $kod_kursus = KodKursus::where('kod_Kursus', $kod_kursus)->firstorFail();
         return view('ulpk.peserta.permohonan.kehadiran', [
             'kod_kursus' => $kod_kursus,
         ]);
     }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function fromUlsQR()
+    public function fromUlsQR(Kehadiran $kehadiran)
     {
-        return view('uls.peserta.permohonan.kehadiranQR');
+        $kod_kursus = KodKursus::where('kod_Kursus', $kehadiran->kod_kursus)->firstorFail();
+        $calonasal = User::where('jenis_pengguna', 'Peserta ULS')->get();
+        return view('uls.peserta.permohonan.kehadiranQR', [
+            'kehadiran' => $kehadiran,
+            'kod_kursus' => $kod_kursus,
+            'calonAsal' => $calonasal,
+        ]);
     }
     public function fromUlpkQR()
     {
@@ -42,7 +79,7 @@ class KehadiranController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -51,10 +88,29 @@ class KehadiranController extends Controller
      * @param  \App\Http\Requests\StoreKehadiranRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreKehadiranRequest $request)
+    public function store(Request $request)
     {
-        Kehadiran::create($request->all());
-        return redirect('/permohonan/kehadiran/' . $request->kod_kursus)->with('kod_kursus', $request->kod_kursus);
+        $kehadiran = Kehadiran::where('id', $request->id_kehadiran)->firstorFail();
+        $kehadiran->update($request->all());
+        return back();
+    }
+
+    public function storeQR(Request $request, Kehadiran $kehadiran)
+    {
+        if ($request->status == "CALON ASAL") {
+            $kehadiran->update([
+                'tarikh_imbasQR' => now()->toDateString(),
+                'masa_imbasQR' => now()->toTimeString(),
+            ]);
+        } elseif ($request->status == "PENGGANTI") {
+            $kehadiran->update([
+                'tarikh_imbasQR' => now()->toDateString(),
+                'masa_imbasQR' => now()->toTimeString(),
+                'nama_pengganti' => $request->nama_peserta,
+                'noKP_pengganti' => $request->no_kp_peserta,
+            ]);
+        }
+        return back();
     }
 
     /**
@@ -65,7 +121,7 @@ class KehadiranController extends Controller
      */
     public function show(Kehadiran $kehadiran)
     {
-        //
+
     }
 
     /**
@@ -88,7 +144,9 @@ class KehadiranController extends Controller
      */
     public function update(UpdateKehadiranRequest $request, Kehadiran $kehadiran)
     {
-        //
+        dd($kehadiran->status_kehadiran);
+        $kehadiran->update(['status_kehadiran' => $request->status_kehadiran]);
+        return back();
     }
 
     /**

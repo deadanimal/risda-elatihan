@@ -39,7 +39,7 @@
                     <p class="pt-2 fw-bold">TAHUN</p>
                 </div>
                 <div class="col-2">
-                    <input type="text" value="2021" class="form-control mb-3">
+                    <input type="text" class="form-control mb-3" value="{{ $kod_kursus->tahun_Kursus }}" readonly>
                 </div>
             </div>
             <div class="col-9 d-inline-flex">
@@ -47,7 +47,7 @@
                     <p class="pt-2 fw-bold">UNIT LATIHAN</p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control mb-3">
+                    <input type="text" class="form-control mb-3" value="{{ $kod_kursus->UL_Kod_Kursus }}" readonly>
                 </div>
             </div>
             <div class="col-9 d-inline-flex">
@@ -55,7 +55,7 @@
                     <p class="pt-2 fw-bold">KOD NAMA KURSUS</p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control mb-3">
+                    <input type="text" class="form-control mb-3" value="{{ $kod_kursus->kod_Kursus }}" readonly>
                 </div>
             </div>
             <div class="col-9 d-inline-flex">
@@ -63,7 +63,7 @@
                     <p class="pt-2 fw-bold">NAMA KURSUS</p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control mb-3">
+                    <input type="text" class="form-control mb-3" value="{{ $kod_kursus->tajuk_Kursus }}" readonly>
                 </div>
             </div>
             <div class="col-9 d-inline-flex">
@@ -71,7 +71,7 @@
                     <p class="pt-2 fw-bold">TARIKH KURSUS</p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control mb-3">
+                    <input type="text" class="form-control mb-3" value="{{ $kod_kursus->tarikh_daftar_Kursus }}" readonly>
                 </div>
             </div>
 
@@ -106,9 +106,10 @@
                             <th scope="col">ALASAN</th>
                         </tr>
                     </thead>
+
                     <tbody>
                         <tr>
-                            <td rowspan="2" class="align-middle">02/04/2021</td>
+                            <td rowspan="2" class="align-middle">{{ $kod_kursus->tarikh_daftar_Kursus }}</td>
                             <td rowspan="2" class="align-middle">PERTAMA</td>
                             <td>1</td>
                             <td>8-9</td>
@@ -335,5 +336,8 @@
                 }
             });
         }
+
+
+        
     </script>
 @endsection

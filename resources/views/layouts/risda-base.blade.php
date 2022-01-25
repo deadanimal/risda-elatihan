@@ -21,18 +21,20 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
     <link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
     <link rel="manifest" href="/assets/img/favicons/manifest.json">
-    <link href="vendors/dropzone/dropzone.min.css" rel="stylesheet" />
+    {{-- <link href="vendors/dropzone/dropzone.min.css" rel="stylesheet" /> --}}
     <meta name="msapplication-TileImage" content="/assets/img/favicons/mstile-150x150.png">
     <meta name="theme-color" content="#ffffff">
     <script src="/assets/js/config.js"></script>
     <script src="/vendors/overlayscrollbars/OverlayScrollbars.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="vendors/dropzone/dropzone.min.js"></script>
+    {{-- <script src="vendors/dropzone/dropzone.min.js"></script> --}}
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script type="text/javascript" src="/assets/js/datatables.min.js"></script>
     <script type="text/javascript" src="/assets/js/datatables.js"></script>
     <script src="/assets/js/flatpickr.js"></script>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css"
         rel="stylesheet">
@@ -58,6 +60,8 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/datatables.css" />
     <link rel="stylesheet" type="text/css" href="/assets/css/datatables.min.css" />
     <script>
+        var APP_URL = {!! json_encode(url('/')) !!}
+
         var isRTL = JSON.parse(localStorage.getItem('isRTL'));
         if (isRTL) {
             var linkDefault = document.getElementById('style-default');
@@ -78,6 +82,10 @@
 <body>
     @include('sweet::alert')
     <style>
+        .form-control {
+            border-color: #009640;
+        }
+
         .risda-dg {
             color: #0F5E31;
         }
@@ -323,7 +331,6 @@
 
     <script src="/js/sweetalert2.all.min.js"></script>
 
-
     <script>
         $(document).ready(function() {
             setInterval(() => {
@@ -346,6 +353,13 @@
 
 
             $('.datatable').DataTable();
+
+            $(".tahun").datepicker({
+                format: "yyyy",
+                viewMode: "years",
+                minViewMode: "years",
+                autoclose: true
+            });
 
         });
     </script>

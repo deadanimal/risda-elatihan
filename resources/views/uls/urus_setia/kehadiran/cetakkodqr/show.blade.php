@@ -6,9 +6,7 @@
             color: rgb(15, 94, 49);
         }
 
-        .form-control {
-            border-color: rgb(0, 150, 64);
-        }
+
 
         table>thead>tr {
             background-color: rgb(0, 150, 64);
@@ -49,7 +47,7 @@
                     <p class="pt-2 fw-bold">KOD NAMA KURSUS</p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control mb-3 tahun">
+                    <input type="text" class="form-control mb-3" readonly value="{{ $kod_kursus->kod_Kursus }}">
                 </div>
             </div>
             <div class="col-9 d-inline-flex">
@@ -57,7 +55,7 @@
                     <p class="pt-2 fw-bold">UNIT LATIHAN</p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control mb-3">
+                    <input type="text" class="form-control mb-3" readonly value="{{ $kod_kursus->UL_Kod_Kursus }}">
                 </div>
             </div>
             <div class="col-9 d-inline-flex">
@@ -65,7 +63,7 @@
                     <p class="pt-2 fw-bold">NAMA KURSUS</p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control mb-3">
+                    <input type="text" class="form-control mb-3" readonly value="{{ $kod_kursus->tajuk_Kursus }}">
                 </div>
             </div>
             <div class="col-9 d-inline-flex">
@@ -73,7 +71,7 @@
                     <p class="pt-2 fw-bold">TARIKH KURSUS</p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control mb-3">
+                    <input type="text" class="form-control mb-3" readonly value="{{ $kod_kursus->tarikh_daftar_Kursus }}">
                 </div>
             </div>
             <div class="col-9 d-inline-flex">
@@ -81,7 +79,7 @@
                     <p class="pt-2 fw-bold">TEMPAT KURSUS</p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control mb-3">
+                    <input type="text" class="form-control mb-3" readonly value="{{ $kod_kursus->tempat_khusus }}">
                 </div>
             </div>
         </div>
@@ -102,32 +100,62 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td rowspan="2">02-04-2021</td>
-                                    <td rowspan="2">PERTAMA</td>
-                                    <td>1</td>
-                                    <td>8-9</td>
-                                    <td></td>
-                                    <td><a href="#" class="btn btn-sm btn-primary"><span class="fas fa-print"></span></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>9-10</td>
-                                    <td></td>
-                                    <td><a href="" class="btn btn-sm btn-primary"><span class="fas fa-print"></span></a>
-                                </tr>
+                                @foreach ($kehadiran as $k)
+                                    @if ($k->sesi == 1)
+                                        <tr>
+                                            <td rowspan="2" class="align-middle">{{ $k->tarikh }}</td>
+                                            <td rowspan="2" class="align-middle">{{ $hari[$loop->index / 2] }}</td>
+                                            <td>{{ $k->sesi }}</td>
+                                            <td>{{ $k->masa }}</td>
+                                            <td>
+                                                <div class="qrcode" id="qrcode{{ $k->id }}"></div>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-sm btn-primary"
+                                                    onclick="qr({{ $k->id }})"><span
+                                                        class="fas fa-print"></span></button>
+                                            </td>
+                                        </tr>
+
+                                    @else
+                                        <tr>
+                                            <td>{{ $k->sesi }}</td>
+                                            <td>{{ $k->masa }}</td>
+                                            <td>
+                                                <div class="qrcode" id="qrcode{{ $k->id }}"></div>
+
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-sm btn-primary"
+                                                    onclick="qr({{ $k->id }})"><span
+                                                        class="fas fa-print"></span></button>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
+
         </div>
 
 
         <script>
-            // $(document).ready(function() {
-            //     $('.table').DataTable();
-            // });
+            function qr(id) {
+
+                var btnid = "qrcode" + id;
+                var outUrl = APP_URL + "/uls/kehadiran/" + id;
+                new QRCode(document.getElementById(btnid), {
+                    text: outUrl,
+                    width: 90,
+                    height: 90,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+            }
         </script>
     @endsection
