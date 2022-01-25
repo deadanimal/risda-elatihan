@@ -74,7 +74,7 @@ class KodKursusController extends Controller
         $kodKursus->status_Kod_Kursus = $status;
         // dd($kodKursus);
         $kodKursus->save();
-        return redirect('/utiliti/kod_kursus');
+        return redirect('/utiliti/kursus/kod_kursus');
     }
 
     /**
@@ -123,7 +123,7 @@ class KodKursusController extends Controller
         $kodKursus->status_Kod_Kursus = $status;
         // dd($kodKursus);
         $kodKursus->save();
-        return redirect('/utiliti/kod_kursus');
+        return redirect('/utiliti/kursus/kod_kursus');
     }
 
     /**
@@ -135,6 +135,6 @@ class KodKursusController extends Controller
     public function destroy(KodKursus $kodKursus)
     {
         $kodKursus->delete();
-        return redirect('/utiliti/kod_kursus');
+        return redirect('/utiliti/kursus/kod_kursus');
     }
 }

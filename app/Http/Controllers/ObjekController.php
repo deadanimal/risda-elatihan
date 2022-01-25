@@ -64,7 +64,7 @@ class ObjekController extends Controller
 
         $objek->save();
         alert()->success('Maklumat telah ditambah', 'Tambah');
-        return redirect('/utiliti/kod_objek');
+        return redirect('/utiliti/kursus/kod_objek');
     }
 
     /**
@@ -110,7 +110,7 @@ class ObjekController extends Controller
 
         $objek->save();
         alert()->success('Maklumat telah dikemaskini', 'Kemaskini');
-        return redirect('/utiliti/kod_objek');
+        return redirect('/utiliti/kursus/kod_objek');
     }
 
     /**
@@ -124,6 +124,6 @@ class ObjekController extends Controller
         $objek=Objek::find($objek);
         $objek->delete();
         alert()->success('Maklumat telah dihapuskan', 'Hapus');
-        return redirect('/utiliti/kod_objek');
+        return redirect('/utiliti/kursus/kod_objek');
     }
 }

@@ -59,7 +59,7 @@ class StatusPelaksanaanController extends Controller
         $statusPelaksanaan->status_status_pelaksanaan = $status;
 
         $statusPelaksanaan->save();
-        return redirect('/utiliti/status_pelaksanaan');
+        return redirect('/utiliti/status/status_pelaksanaan');
     }
 
     /**
@@ -103,7 +103,7 @@ class StatusPelaksanaanController extends Controller
         $statusPelaksanaan->status_status_pelaksanaan = $status;
 
         $statusPelaksanaan->save();
-        return redirect('/utiliti/status_pelaksanaan');
+        return redirect('/utiliti/status/status_pelaksanaan');
     }
 
     /**
@@ -115,6 +115,6 @@ class StatusPelaksanaanController extends Controller
     public function destroy(StatusPelaksanaan $statusPelaksanaan)
     {
         $statusPelaksanaan->delete();
-        return redirect('/utiliti/status_pelaksanaan');
+        return redirect('/utiliti/status/status_pelaksanaan');
     }
 }

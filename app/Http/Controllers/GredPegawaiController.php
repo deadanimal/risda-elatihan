@@ -56,7 +56,7 @@ class GredPegawaiController extends Controller
 
         $gredPegawai->save();
         alert()->success('Maklumat telah ditambah', 'Tambah');
-        return redirect('/utiliti/gred_pegawai');
+        return redirect('/utiliti/kursus/gred_pegawai');
     }
 
     /**
@@ -102,7 +102,7 @@ class GredPegawaiController extends Controller
 
         $gredPegawai->save();
         alert()->success('Maklumat telah dikemaskini', 'Kemaskini');
-        return redirect('/utiliti/gred_pegawai');
+        return redirect('/utiliti/kursus/gred_pegawai');
     }
 
     /**
@@ -115,6 +115,6 @@ class GredPegawaiController extends Controller
     {
         $gredPegawai->delete();
         alert()->success('Maklumat telah dihapuskan', 'Hapus');
-        return redirect('/utiliti/gred_pegawai');
+        return redirect('/utiliti/kursus/gred_pegawai');
     }
 }

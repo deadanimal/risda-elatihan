@@ -64,7 +64,7 @@ class BidangKursusController extends Controller
         $bidangKursus->status_Bidang_Kursus = $status;
 
         $bidangKursus->save();
-        return redirect('/utiliti/bidang_kursus');
+        return redirect('/utiliti/kursus/bidang_kursus');
     }
 
     /**
@@ -109,7 +109,7 @@ class BidangKursusController extends Controller
         $bidangKursus->status_Bidang_Kursus = $status;
 
         $bidangKursus->save();
-        return redirect('/utiliti/bidang_kursus');
+        return redirect('/utiliti/kursus/bidang_kursus');
     }
 
     /**
@@ -121,6 +121,6 @@ class BidangKursusController extends Controller
     public function destroy(BidangKursus $bidangKursus)
     {
         $bidangKursus->delete();
-        return redirect('/utiliti/bidang_kursus');
+        return redirect('/utiliti/kursus/bidang_kursus');
     }
 }

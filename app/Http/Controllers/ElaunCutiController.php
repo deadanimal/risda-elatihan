@@ -71,7 +71,7 @@ class ElaunCutiController extends Controller
 
         $elaunCuti->save();
         alert()->success('Maklumat telah ditambah', 'Tambah');
-        return redirect('/utiliti/elaun_cuti_kursus');
+        return redirect('/utiliti/kursus/elaun_cuti_kursus');
     }
 
     /**
@@ -119,7 +119,7 @@ class ElaunCutiController extends Controller
 
         $elaunCuti->save();
         alert()->success('Maklumat telah dikemaskini', 'Kemaskini');
-        return redirect('/utiliti/elaun_cuti_kursus');
+        return redirect('/utiliti/kursus/elaun_cuti_kursus');
     }
 
     /**
@@ -132,6 +132,6 @@ class ElaunCutiController extends Controller
     {
         $elaunCuti->delete()();
         alert()->success('Maklumat telah dihapuskan', 'Hapus');
-        return redirect('/utiliti/elaun_cuti_kursus');
+        return redirect('/utiliti/kursus/elaun_cuti_kursus');
     }
 }

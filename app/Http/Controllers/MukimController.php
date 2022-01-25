@@ -80,7 +80,7 @@ class MukimController extends Controller
         $mukim->status_mukim = $status;
         // dd($mukim);
         $mukim->save();
-        return redirect('/utiliti/mukim');
+        return redirect('/utiliti/lokasi/mukim');
     }
 
     /**
@@ -127,7 +127,7 @@ class MukimController extends Controller
         }
         $mukim->status_mukim = $status;
         $mukim->save();
-        return redirect('/utiliti/mukim');
+        return redirect('/utiliti/lokasi/mukim');
     }
 
     /**
@@ -139,6 +139,6 @@ class MukimController extends Controller
     public function destroy(Mukim $mukim)
     {
         $mukim->delete();
-        return redirect('/utiliti/mukim');
+        return redirect('/utiliti/lokasi/mukim');
     }
 }
