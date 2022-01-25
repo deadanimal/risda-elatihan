@@ -26,7 +26,7 @@
                                 <h4 class="mb-1" id="modalExampleDemoLabel">TAMBAH </h4>
                             </div>
                             <div class="p-4 pb-0">
-                                <form action="/utiliti/kod_kursus" method="POST">
+                                <form action="/utiliti/kursus/kod_kursus" method="POST">
                                     @csrf
                                     <div class="mb-3">
                                         <label class="col-form-label">UNIT LATIHAN</label>
@@ -154,7 +154,7 @@
                                                     </h4>
                                                 </div>
                                                 <div class="p-4 pb-0">
-                                                    <form action="/utiliti/kod_kursus/{{ $KK->id }}" method="POST">
+                                                    <form action="/utiliti/kursus/kod_kursus/{{ $KK->id }}" method="POST">
                                                         @method('PUT')
                                                         @csrf
                                                         <div class="mb-3">
@@ -260,7 +260,7 @@
                                                 <div class="modal-footer">
                                                     <button class="btn btn-secondary" type="button"
                                                         data-bs-dismiss="modal">Batal</button>
-                                                    <form method="POST" action="/utiliti/kod_kursus/{{ $KK->id }}">
+                                                    <form method="POST" action="/utiliti/kursus/kod_kursus/{{ $KK->id }}">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button class="btn btn-primary" type="submit">Hapus

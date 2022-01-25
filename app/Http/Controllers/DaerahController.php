@@ -73,7 +73,7 @@ class DaerahController extends Controller
         $daerah->status_daerah = $status;
         // dd($daerah);
         $daerah->save();
-        return redirect('/utiliti/daerah');
+        return redirect('/utiliti/lokasi/daerah');
     }
 
     /**
@@ -119,7 +119,7 @@ class DaerahController extends Controller
         $daerah->status_daerah = $status;
 
         $daerah->save();
-        return redirect('/utiliti/daerah');
+        return redirect('/utiliti/lokasi/daerah');
     }
 
     /**
@@ -132,6 +132,6 @@ class DaerahController extends Controller
     {
         $daerah = Daerah::find($daerah);
         $daerah->delete();
-        return redirect('/utiliti/daerah');
+        return redirect('/utiliti/lokasi/daerah');
     }
 }

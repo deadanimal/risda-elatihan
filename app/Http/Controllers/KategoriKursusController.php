@@ -68,7 +68,7 @@ class KategoriKursusController extends Controller
         $kategoriKursus->status_Kategori_Kursus = $status;
         // dd($kategoriKursus);
         $kategoriKursus->save();
-        return redirect('/utiliti/kategori_kursus');
+        return redirect('/utiliti/kursus/kategori_kursus');
     }
 
     /**
@@ -115,7 +115,7 @@ class KategoriKursusController extends Controller
         $kategoriKursus->status_Kategori_Kursus = $status;
         // dd($kategoriKursus);
         $kategoriKursus->save();
-        return redirect('/utiliti/kategori_kursus');
+        return redirect('/utiliti/kursus/kategori_kursus');
     }
 
     /**
@@ -127,6 +127,6 @@ class KategoriKursusController extends Controller
     public function destroy(KategoriKursus $kategoriKursus)
     {
         $kategoriKursus->delete();
-        return redirect('/utiliti/kategori_kursus');
+        return redirect('/utiliti/kursus/kategori_kursus');
     }
 }

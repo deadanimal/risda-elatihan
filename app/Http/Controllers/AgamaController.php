@@ -63,7 +63,7 @@ class AgamaController extends Controller
         $agama->status_agama = $status;
 
         $agama->save();
-        return redirect('/utiliti/agama');
+        return redirect('/utiliti/generik/agama');
     }
 
     /**
@@ -107,7 +107,7 @@ class AgamaController extends Controller
         $agama->status_agama = $status;
 
         $agama->save();
-        return redirect('/utiliti/agama');
+        return redirect('/utiliti/generik/agama');
     }
 
     /**
@@ -119,6 +119,6 @@ class AgamaController extends Controller
     public function destroy(Agama $agama)
     {
         $agama->delete();
-        return redirect('/utiliti/agama');
+        return redirect('/utiliti/generik/agama');
     }
 }

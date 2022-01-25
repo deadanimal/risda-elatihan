@@ -70,7 +70,7 @@ class ParlimenController extends Controller
         }
         $parlimen->status_parlimen = $status;
         $parlimen->save();
-        return redirect('/utiliti/parlimen');
+        return redirect('/utiliti/lokasi/parlimen');
     }
 
     /**
@@ -115,7 +115,7 @@ class ParlimenController extends Controller
         }
         $parlimen->status_parlimen = $status;
         $parlimen->save();
-        return redirect('/utiliti/parlimen');
+        return redirect('/utiliti/lokasi/parlimen');
     }
 
     /**
@@ -128,6 +128,6 @@ class ParlimenController extends Controller
     {
         $parlimen = Parlimen::find($parlimen);
         $parlimen->delete();
-        return redirect('/utiliti/parlimen');
+        return redirect('/utiliti/lokasi/parlimen');
     }
 }

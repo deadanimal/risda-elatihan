@@ -79,7 +79,7 @@
                                 <h4 class="mb-1" id="modalExampleDemoLabel">TAMBAH </h4>
                             </div>
                             <div class="p-4 pb-0">
-                                <form id="form1" action="/utiliti/seksyen" method="POST">
+                                <form id="form1" action="/utiliti/lokasi/seksyen" method="POST">
                                     @csrf
                                     <div class="mb-3">
                                         <label class="col-form-label">NEGERI</label>
@@ -214,7 +214,7 @@
                                                     </h4>
                                                 </div>
                                                 <div class="p-4 pb-0">
-                                                    <form id="form2" action="/utiliti/seksyen/{{ $s->id }}"
+                                                    <form id="form2" action="/utiliti/lokasi/seksyen/{{ $s->id }}"
                                                         method="POST">
                                                         @method('PUT')
                                                         @csrf
@@ -318,7 +318,7 @@
                                                 <div class="modal-footer">
                                                     <button class="btn btn-secondary" type="button"
                                                         data-bs-dismiss="modal">Batal</button>
-                                                    <form method="POST" action="/utiliti/seksyen/{{ $s->id }}">
+                                                    <form method="POST" action="/utiliti/lokasi/seksyen/{{ $s->id }}">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button class="btn btn-primary" type="submit">Hapus
