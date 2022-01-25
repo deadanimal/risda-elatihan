@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kehadiran;
+use App\Models\KodKursus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,10 +16,12 @@ class CetakKodQRController extends Controller
      */
     public function index()
     {
+        $kod_kursus = KodKursus::all();
+
         if (Route::getCurrentRoute()->getPrefix() == "us-uls/kehadiran") {
-            return view('uls.urus_setia.kehadiran.cetakkodqr.index');
+            return view('uls.urus_setia.kehadiran.cetakkodqr.index', ['kod_kursus' => $kod_kursus]);
         } elseif (Route::getCurrentRoute()->getPrefix() == "us-ulpk/kehadiran") {
-            return view('ulpk.urus_setia.kehadiran.cetakkodqr.index');
+            return view('ulpk.urus_setia.kehadiran.cetakkodqr.index', ['kod_kursus' => $kod_kursus]);
         }
     }
 
@@ -46,15 +49,24 @@ class CetakKodQRController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Kehadiran  $kehadiran
+     * @param  \App\Models\KodKursus  $kehadiran
      * @return \Illuminate\Http\Response
      */
-    public function show(Kehadiran $kehadiran)
+    public function show($kod_kursus)
     {
+        $k = KodKursus::where('id', $kod_kursus)->firstorFail();
+        $kehadiran = Kehadiran::where('kod_kursus', $k->kod_Kursus)
+            ->orderBy('tarikh', 'ASC')->get();
+        $hari = ['Pertama', 'Kedua', 'Ketiga', 'Keempat', 'Kelima', 'Keenam'];
+
         if (Route::getCurrentRoute()->getPrefix() == "us-uls/kehadiran") {
-            return view('uls.urus_setia.kehadiran.cetakkodqr.show');
+            return view('uls.urus_setia.kehadiran.cetakkodqr.show', [
+                'kod_kursus' => $k,
+                'kehadiran' => $kehadiran,
+                'hari' => $hari,
+            ]);
         } elseif (Route::getCurrentRoute()->getPrefix() == "us-ulpk/kehadiran") {
-            return view('ulpk.urus_setia.kehadiran.cetakkodqr.show');
+            return view('ulpk.urus_setia.kehadiran.cetakkodqr.show', ['kod_kursus' => $k]);
         }
 
     }

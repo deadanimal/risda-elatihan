@@ -1,35 +1,32 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SemakanController;
-use App\Http\Controllers\ProfilController;
-
-use App\Http\Controllers\NegeriController;
-use App\Http\Controllers\DaerahController;
-use App\Http\Controllers\MukimController;
-use App\Http\Controllers\ParlimenController;
-use App\Http\Controllers\DunController;
-use App\Http\Controllers\KampungController;
-use App\Http\Controllers\SeksyenController;
-use App\Http\Controllers\StesenController;
-
-use App\Http\Controllers\KategoriAgensiController;
-use App\Http\Controllers\AgensiController;
-use App\Http\Controllers\PegawaiAgensiController;
-use App\Http\Controllers\PusatTanggungjawabController;
-
-use App\Http\Controllers\JulatTahunanController;
-
-use App\Http\Controllers\StatusPelaksanaanController;
-
 use App\Http\Controllers\AgamaController;
+use App\Http\Controllers\AgensiController;
 use App\Http\Controllers\BangsaController;
-use App\Http\Controllers\SumberController;
-
 use App\Http\Controllers\BidangKursusController;
-use App\Http\Controllers\KategoriKursusController;
-use App\Http\Controllers\KodKursusController;
 use App\Http\Controllers\CetakKodQRController;
+use App\Http\Controllers\DaerahController;
+use App\Http\Controllers\DunController;
+use App\Http\Controllers\JulatTahunanController;
+use App\Http\Controllers\KampungController;
+use App\Http\Controllers\KategoriAgensiController;
+use App\Http\Controllers\KategoriKursusController;
+use App\Http\Controllers\KehadiranController;
+use App\Http\Controllers\KodKursusController;
+use App\Http\Controllers\MukimController;
+use App\Http\Controllers\NegeriController;
+use App\Http\Controllers\ParlimenController;
+use App\Http\Controllers\PegawaiAgensiController;
+use App\Http\Controllers\PengajianLanjutanController;
+use App\Http\Controllers\PermohonanController;
+use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\PusatTanggungjawabController;
+use App\Http\Controllers\SeksyenController;
+use App\Http\Controllers\SemakanController;
+use App\Http\Controllers\StatusPelaksanaanController;
+use App\Http\Controllers\StesenController;
+use App\Http\Controllers\SumberController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -100,19 +97,22 @@ Route::resource('/utiliti/negeri', NegeriController::class);
 Route::resource('/utiliti/daerah', DaerahController::class);
 
 //Peserta ULS
-Route::prefix('/uls')->group(function () {
+Route::group(['prefix' => '/uls', 'middleware' => ['UlsPeserta', 'auth']], function () {
     //Permohonan Peserta
-    Route::group(['prefix' => '/permohonan', 'middleware' => 'UlsPeserta'], function () {
+    Route::prefix('/permohonan')->group(function () {
         Route::get('statuspermohonan', [PermohonanController::class, 'indexULS']);
         Route::get('kehadiran/{kod_kursus}', [KehadiranController::class, 'indexULS']);
     });
 
     //rekod kehadiran
-    Route::group(['prefix' => '/kehadiran'], function () {
-        Route::get('/', [KehadiranController::class, 'fromUlsQR']);
+    Route::prefix('kehadiran/')->group(function () {
+        Route::get('{kehadiran}', [KehadiranController::class, 'fromUlsQR']);
+        Route::post('update/{kehadiran}', [KehadiranController::class, 'storeQR']);
     });
 
 });
+
+Route::resource('/permohonan/kehadiran', KehadiranController::class);
 
 //Peserta ULPK
 Route::prefix('/ulpk')->group(function () {
@@ -123,9 +123,9 @@ Route::prefix('/ulpk')->group(function () {
     });
 
     //rekod kehadiran
-    Route::group(['prefix' => '/kehadiran'], function () {
-        Route::get('/', [KehadiranController::class, 'fromUlpkQR']);
-    });
+    // Route::group(['prefix' => '/kehadiran'], function () {
+    //     Route::get('/', [KehadiranController::class, 'fromUlpkQR']);
+    // });
 
 });
 

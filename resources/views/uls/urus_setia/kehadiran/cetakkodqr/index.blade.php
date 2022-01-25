@@ -40,7 +40,8 @@
                     <p class="pt-2 fw-bold">TAHUN</p>
                 </div>
                 <div class="col-2">
-                    <input type="text" class="form-control mb-3 tahun" placeholder="Sila Pilih">
+                    <input type="text" class="form-control mb-3 tahun" placeholder="Sila Pilih" id="tahun"
+                        autocomplete="off">
                 </div>
             </div>
             <div class="col-9 d-inline-flex">
@@ -48,7 +49,7 @@
                     <p class="pt-2 fw-bold">UNIT LATIHAN</p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control mb-3">
+                    <input type="text" value="Staff" class="form-control mb-3" readonly>
                 </div>
             </div>
         </div>
@@ -70,24 +71,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Kod1</td>
-                            <td>Kursus1</td>
-                            <td>1/1/11</td>
-                            <td>Dewan1</td>
-                            <td class="text-end"><a href="/us-uls/kehadiran/cetakkodQR/1"
-                                    class="btn btn-primary btn-sm">Cetak QR Code</a></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Kod2</td>
-                            <td>Kursus2</td>
-                            <td>2/2/22</td>
-                            <td>Dewan2</td>
-                            <td class="text-end"><a href="" class="btn btn-primary btn-sm">Cetak QR Code</a></td>
+                        @foreach ($kod_kursus as $k)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $k->kod_Kursus }}</td>
+                                <td>{{ $k->tajuk_Kursus }}</td>
+                                <td>{{ $k->tarikh_daftar_Kursus }}</td>
+                                <td>{{ $k->tempat_khusus }}</td>
+                                <td class="text-end"><a href="/us-uls/kehadiran/cetakkodQR/{{ $k->id }}"
+                                        class="btn btn-primary btn-sm">Cetak QR Code</a></td>
+                            </tr>
+                        @endforeach
 
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -96,11 +91,16 @@
 
         <script>
             $(document).ready(function() {
-                $(".tahun").datepicker({
-                    format: "yyyy",
-                    viewMode: "years",
-                    minViewMode: "years",
-                    autoclose: true,
+                // $("#tahun").datepicker({
+                //     format: "yyyy",
+                //     viewMode: "years",
+                //     minViewMode: "years",
+                //     autoclose: true,
+
+                // });
+
+                $('.tahun').bind('onSelect', function() {
+                    console.log("a");
                 });
             });
         </script>
