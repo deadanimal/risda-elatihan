@@ -7,6 +7,8 @@
         </div>
     </div>
 
+    <hr class="risda-g">
+
     <div class="row mt-5">
         <div class="col">
             <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#tambah-negeri">
