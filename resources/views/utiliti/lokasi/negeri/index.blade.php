@@ -24,7 +24,7 @@
                                 <h4 class="mb-1" id="modalExampleDemoLabel">TAMBAH </h4>
                             </div>
                             <div class="p-4 pb-0">
-                                <form action="/utiliti/negeri" method="POST">
+                                <form action="/utiliti/lokasi/negeri" method="POST">
                                     @csrf
                                     <div class="mb-3">
                                         <label class="col-form-label">KOD NEGERI</label>
@@ -60,7 +60,7 @@
         <div class="col">
             <div class="card">
                 <div class="card-body">
-                    <table id="table_negeri" class="table table-striped" style="width:100%">
+                    <table id="table_negeri" class="table datatable table-striped" style="width:100%">
                         <thead class="bg-200">
                             <tr>
                                 <th class="sort">BIL.</th>
@@ -109,7 +109,7 @@
                                                     </h4>
                                                 </div>
                                                 <div class="p-4 pb-0">
-                                                    <form action="/utiliti/negeri/{{ $negeri->id }}" method="POST">
+                                                    <form action="/utiliti/lokasi/negeri/{{ $negeri->id }}" method="POST">
                                                         @method('PUT')
                                                         @csrf
                                                         <div class="mb-3">
@@ -170,7 +170,7 @@
                                                 <div class="modal-footer">
                                                     <button class="btn btn-secondary" type="button"
                                                         data-bs-dismiss="modal">Batal</button>
-                                                    <form method="POST" action="/utiliti/negeri/{{ $negeri->id }}">
+                                                    <form method="POST" action="/utiliti/lokasi/negeri/{{ $negeri->id }}">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button class="btn btn-primary" type="submit">Hapus

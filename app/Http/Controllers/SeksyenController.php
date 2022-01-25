@@ -87,7 +87,7 @@ class SeksyenController extends Controller
         }
         $seksyen->status_seksyen = $status;
         $seksyen->save();
-        return redirect('/utiliti/seksyen');
+        return redirect('/utiliti/lokasi/seksyen');
     }
 
     /**
@@ -134,7 +134,7 @@ class SeksyenController extends Controller
         }
         $seksyen->status_seksyen = $status;
         $seksyen->save();
-        return redirect('/utiliti/seksyen');
+        return redirect('/utiliti/lokasi/seksyen');
     }
 
     /**
@@ -146,6 +146,6 @@ class SeksyenController extends Controller
     public function destroy(Seksyen $seksyen)
     {
         $seksyen->delete();
-        return redirect('/utiliti/seksyen');
+        return redirect('/utiliti/lokasi/seksyen');
     }
 }

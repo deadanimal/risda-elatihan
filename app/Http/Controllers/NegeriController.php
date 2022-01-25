@@ -63,7 +63,7 @@ class NegeriController extends Controller
         $negeri->status_negeri = $status;
 
         $negeri->save();
-        return redirect('/utiliti/negeri');
+        return redirect('/utiliti/lokasi/negeri');
     }
 
     /**
@@ -109,7 +109,7 @@ class NegeriController extends Controller
         $negeri->status_negeri = $status;
 
         $negeri->save();
-        return redirect('/utiliti/negeri');
+        return redirect('/utiliti/lokasi/negeri');
     }
 
     /**
@@ -121,6 +121,6 @@ class NegeriController extends Controller
     public function destroy(Negeri $negeri)
     {
         $negeri->delete();
-        return redirect('/utiliti/negeri');
+        return redirect('/utiliti/lokasi/negeri');
     }
 }

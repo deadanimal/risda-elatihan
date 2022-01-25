@@ -26,7 +26,7 @@
                                 <h4 class="mb-1" id="modalExampleDemoLabel">TAMBAH </h4>
                             </div>
                             <div class="p-4 pb-0">
-                                <form action="/utiliti/kod_kursus" method="POST">
+                                <form action="/utiliti/kursus/kod_kursus" method="POST">
                                     @csrf
                                     <div class="mb-3">
                                         <label class="col-form-label">UNIT LATIHAN</label>
@@ -38,8 +38,8 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label">TAHUN</label>
-                                        <input class="form-control datetimepicker" id="datepicker" type="text"
-                                            placeholder="0000" data-options='{"disableMobile":true}' />
+                                        <input class="form-control" id="datepicker" type="text" placeholder="0000"
+                                            autocomplete="off" />
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label">TARIKH DAFTAR</label>
@@ -99,7 +99,7 @@
         <div class="col">
             <div class="card">
                 <div class="card-body">
-                    <table id="table_negeri" class="table table-striped" style="width:100%">
+                    <table class="table datatable table-striped" style="width:100%">
                         <thead class="bg-200">
                             <tr>
                                 <th class="sort">BIL.</th>
@@ -154,13 +154,15 @@
                                                     </h4>
                                                 </div>
                                                 <div class="p-4 pb-0">
-                                                    <form action="/utiliti/kod_kursus/{{ $KK->id }}" method="POST">
+                                                    <form action="/utiliti/kursus/kod_kursus/{{ $KK->id }}" method="POST">
                                                         @method('PUT')
                                                         @csrf
                                                         <div class="mb-3">
                                                             <label class="col-form-label">UNIT LATIHAN</label>
                                                             <select class="form-select" name="UL_Kod_Kursus">
-                                                                <option selected="" hidden value="{{$KK->UL_Kod_Kursus}}">{{$KK->UL_Kod_Kursus}}</option>
+                                                                <option selected="" hidden
+                                                                    value="{{ $KK->UL_Kod_Kursus }}">
+                                                                    {{ $KK->UL_Kod_Kursus }}</option>
                                                                 <option value="Staf">Staf</option>
                                                                 <option value="Pekebun Kecil">Pekebun Kecil</option>
                                                             </select>
@@ -168,18 +170,21 @@
                                                         <div class="mb-3">
                                                             <label class="col-form-label">TAHUN</label>
                                                             <input class="form-control datetimepicker" id="datepicker"
-                                                                type="text" value="{{$KK->tahun_Kursus}}"
+                                                                type="text" value="{{ $KK->tahun_Kursus }}"
                                                                 data-options='{"disableMobile":true}' />
                                                         </div>
                                                         <div class="mb-3">
                                                             <label class="col-form-label">TARIKH DAFTAR</label>
-                                                            <input class="form-control datetimepicker" id="datepicker2" value="{{$KK->tarikh_daftar_Kursus}}"
-                                                                type="text" data-options='{"disableMobile":true}' />
+                                                            <input class="form-control datetimepicker" id="datepicker2"
+                                                                value="{{ $KK->tarikh_daftar_Kursus }}" type="text"
+                                                                data-options='{"disableMobile":true}' />
                                                         </div>
                                                         <div class="mb-3">
                                                             <label class="col-form-label">BIDANG KURSUS</label>
                                                             <select class="form-select" name="U_Bidang_Kursus">
-                                                                <option selected="" hidden value="{{$KK->U_Bidang_Kursus}}">{{$KK->nama_Bidang_Kursus}}</option>
+                                                                <option selected="" hidden
+                                                                    value="{{ $KK->U_Bidang_Kursus }}">
+                                                                    {{ $KK->nama_Bidang_Kursus }}</option>
                                                                 @foreach ($bidangKursus as $BK2)
                                                                     <option value="{{ $BK2->id }}">
                                                                         {{ $BK2->nama_Bidang_Kursus }}</option>
@@ -189,7 +194,9 @@
                                                         <div class="mb-3">
                                                             <label class="col-form-label">KATEGORI KURSUS</label>
                                                             <select class="form-select" name="U_Kategori_Kursus">
-                                                                <option selected="" hidden value="{{$KK->U_Kategori_Kursus}}">{{$KK->nama_Kategori_Kursus}}</option>
+                                                                <option selected="" hidden
+                                                                    value="{{ $KK->U_Kategori_Kursus }}">
+                                                                    {{ $KK->nama_Kategori_Kursus }}</option>
                                                                 @foreach ($kategoriKursus as $kat)
                                                                     <option value="{{ $kat->id }}">
                                                                         {{ $kat->nama_Kategori_Kursus }}</option>
@@ -203,7 +210,8 @@
                                                         </div>
                                                         <div class="mb-3">
                                                             <label class="col-form-label">TAJUK KURSUS</label>
-                                                            <input class="form-control" type="text" name="tajuk_Kursus" value="{{$KK->tajuk_Kursus}}" />
+                                                            <input class="form-control" type="text" name="tajuk_Kursus"
+                                                                value="{{ $KK->tajuk_Kursus }}" />
                                                         </div>
                                                         <div class="mb-3">
                                                             <label class="col-form-label">STATUS</label>
@@ -252,8 +260,7 @@
                                                 <div class="modal-footer">
                                                     <button class="btn btn-secondary" type="button"
                                                         data-bs-dismiss="modal">Batal</button>
-                                                    <form method="POST"
-                                                        action="/utiliti/kod_kursus/{{ $KK->id }}">
+                                                    <form method="POST" action="/utiliti/kursus/kod_kursus/{{ $KK->id }}">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button class="btn btn-primary" type="submit">Hapus
@@ -276,13 +283,13 @@
 
     <script>
         $(document).ready(function() {
-            $('#table_negeri').DataTable();
-        });
 
-        $(function() {
             $("#datepicker").datepicker({
-                dateFormat: 'yy'
+                format: "yyyy",
+                viewMode: "years",
+                minViewMode: "years",
+                autoclose: true
             });
-        });​
+        });
     </script>
 @endsection

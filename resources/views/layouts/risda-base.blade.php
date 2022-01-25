@@ -336,7 +336,8 @@
             setInterval(() => {
                 const today = new Date();
                 let day = today.getDate();
-                let month = today.getMonth() + 1;
+                const bulan = ['Januari', 'Februari', 'Mac', 'April', 'May', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember'];
+                let month = bulan[today.getMonth()];
                 let year = today.getFullYear();
                 let h = today.getHours();
                 let m = today.getMinutes();
@@ -344,10 +345,9 @@
                 if (m < 10) m = "0" + m;
                 if (s < 10) s = "0" + s;
                 if (day < 10) day = "0" + day;
-                if (month < 10) month = "0" + month;
                 document.getElementById("time").innerHTML = h + ":" + m + ":" + s;
                 document.getElementById("date").innerHTML =
-                    day + "/" + month + "/" + year;
+                    day + " " + month + " " + year;
             }, 1000);
 
 

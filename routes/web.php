@@ -27,6 +27,9 @@ use App\Http\Controllers\StatusPelaksanaanController;
 use App\Http\Controllers\StesenController;
 use App\Http\Controllers\SumberController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GredPegawaiController;
+use App\Http\Controllers\ElaunCutiController;
+use App\Http\Controllers\ObjekController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,36 +68,36 @@ Route::post('/daftar_pengguna', [SemakanController::class, 'daftar_pengguna']);
 Route::resources([
     '/profil' => ProfilController::class,
 
-    '/utiliti/negeri' => NegeriController::class,
-    '/utiliti/daerah' => DaerahController::class,
-    '/utiliti/mukim' => MukimController::class,
-    '/utiliti/parlimen' => ParlimenController::class,
-    '/utiliti/dun' => DunController::class,
-    '/utiliti/kampung' => KampungController::class,
-    '/utiliti/seksyen' => SeksyenController::class,
-    '/utiliti/stesen' => StesenController::class,
+    '/utiliti/lokasi/negeri' => NegeriController::class,
+    '/utiliti/lokasi/daerah' => DaerahController::class,
+    '/utiliti/lokasi/mukim' => MukimController::class,
+    '/utiliti/lokasi/parlimen' => ParlimenController::class,
+    '/utiliti/lokasi/dun' => DunController::class,
+    '/utiliti/lokasi/kampung' => KampungController::class,
+    '/utiliti/lokasi/seksyen' => SeksyenController::class,
+    '/utiliti/lokasi/stesen' => StesenController::class,
 
-    '/utiliti/kategori_agensi' => KategoriAgensiController::class,
-    '/agensi' => AgensiController::class,
-    '/pegawai_agensi' => PegawaiAgensiController::class,
-    '/utiliti/pusat_tanggungjawab' => PusatTanggungjawabController::class,
+    '/utiliti/kumpulan/kategori_agensi' => KategoriAgensiController::class,
+    '/utiliti/kumpulan/agensi' => AgensiController::class,
+    '/utiliti/kumpulan/pegawai_agensi' => PegawaiAgensiController::class,
+    '/utiliti/kumpulan/pusat_tanggungjawab' => PusatTanggungjawabController::class,
 
-    '/utiliti/julat_tahunan' => JulatTahunanController::class,
+    '/utiliti/julat/julat_tahunan' => JulatTahunanController::class,
 
-    '/utiliti/status_pelaksanaan' => StatusPelaksanaanController::class,
+    '/utiliti/status/status_pelaksanaan' => StatusPelaksanaanController::class,
 
-    '/utiliti/agama' => AgamaController::class,
-    '/utiliti/bangsa' => BangsaController::class,
-    '/utiliti/sumber' => SumberController::class,
+    '/utiliti/generik/agama' => AgamaController::class,
+    '/utiliti/generik/bangsa' => BangsaController::class,
+    '/utiliti/generik/sumber' => SumberController::class,
 
-    '/utiliti/bidang_kursus' => BidangKursusController::class,
-    '/utiliti/kategori_kursus' => KategoriKursusController::class,
-    '/utiliti/kod_kursus' => KodKursusController::class,
+    '/utiliti/kursus/bidang_kursus' => BidangKursusController::class,
+    '/utiliti/kursus/kategori_kursus' => KategoriKursusController::class,
+    '/utiliti/kursus/kod_kursus' => KodKursusController::class,
+    '/utiliti/kursus/gred_pegawai' => GredPegawaiController::class,
+    '/utiliti/kursus/elaun_cuti_kursus' => ElaunCutiController::class,
+    '/utiliti/kursus/kod_objek' => ObjekController::class,
 ]);
 
-Route::resource('/profil', ProfilController::class);
-Route::resource('/utiliti/negeri', NegeriController::class);
-Route::resource('/utiliti/daerah', DaerahController::class);
 
 //Peserta ULS
 Route::group(['prefix' => '/uls', 'middleware' => ['UlsPeserta', 'auth']], function () {
@@ -176,6 +179,6 @@ Route::group(['prefix' => 'us-ulpk', 'middleware' => 'UlpkUrusSetia'], function 
 });
 
 // Route::put('/test/{id}', [DaerahController::class, 'update']);
-// Route::post('/utiliti/daerah/{id}/delete', [DaerahController::class, 'destroy']);
+// Route::post('/utiliti/lokasi/daerah/{id}/delete', [DaerahController::class, 'destroy']);
 
 require __DIR__ . '/auth.php';

@@ -62,7 +62,7 @@ class JulatTahunanController extends Controller
         $julatTahunan->status_julat_tahunan = $status;
 
         $julatTahunan->save();
-        return redirect('/utiliti/julat_tahunan');
+        return redirect('/utiliti/julat/julat_tahunan');
     }
 
     /**
@@ -109,7 +109,7 @@ class JulatTahunanController extends Controller
         $julatTahunan->status_julat_tahunan = $status;
 
         $julatTahunan->save();
-        return redirect('/utiliti/julat_tahunan');
+        return redirect('/utiliti/julat/julat_tahunan');
     }
 
     /**
@@ -121,6 +121,6 @@ class JulatTahunanController extends Controller
     public function destroy(JulatTahunan $julatTahunan)
     {
         $julatTahunan->delete();
-        return redirect('/utiliti/julat_tahunan');
+        return redirect('/utiliti/julat/julat_tahunan');
     }
 }

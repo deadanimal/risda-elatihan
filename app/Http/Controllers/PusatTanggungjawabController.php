@@ -70,7 +70,7 @@ class PusatTanggungjawabController extends Controller
         $pusatTanggungjawab->status_PT = $status;
 
         $pusatTanggungjawab->save();
-        return redirect('/utiliti/pusat_tanggungjawab');
+        return redirect('/utiliti/kumpulan/pusat_tanggungjawab');
     }
 
     /**
@@ -122,7 +122,7 @@ class PusatTanggungjawabController extends Controller
         $pusatTanggungjawab->status_PT = $status;
 
         $pusatTanggungjawab->save();
-        return redirect('/utiliti/pusat_tanggungjawab');
+        return redirect('/utiliti/kumpulan/pusat_tanggungjawab');
     }
 
     /**
@@ -134,6 +134,6 @@ class PusatTanggungjawabController extends Controller
     public function destroy(PusatTanggungjawab $pusatTanggungjawab)
     {
         $pusatTanggungjawab->delete();
-        return redirect('/utiliti/pusat_tanggungjawab');
+        return redirect('/utiliti/kumpulan/pusat_tanggungjawab');
     }
 }
