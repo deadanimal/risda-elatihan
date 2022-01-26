@@ -58,7 +58,7 @@ class SemakanController extends Controller
                 $user->email = 'applicantsppeps01@gmail.com'; #tukar email staf
                 $user->password = Hash::make($randomString);
                 $user->no_KP = $staf['nokp'];
-                $user->jenis_pengguna = 'Staf';
+                $user->jenis_pengguna = 'Urus Setia ULS';
 
                 $user->save();
 
@@ -122,7 +122,19 @@ class SemakanController extends Controller
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
             $user->no_KP = $request->no_KP;
-            $user->jenis_pengguna = 'Staf';
+            $user->jenis_pengguna = 'Urus Setia ULS';
+
+            $user->save();
+            Mail::to($request->email)->send(new PendaftaranPK($user));
+            alert()->success('Sila semak email anda untuk notifikasi pendaftaran.', 'Pendaftaran Berjaya');
+            return redirect('/');
+        }else if ($request->no_KP == '000000000002') {
+            $user = new User;
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->no_KP = $request->no_KP;
+            $user->jenis_pengguna = 'Peserta ULS';
 
             $user->save();
             Mail::to($request->email)->send(new PendaftaranPK($user));
@@ -135,7 +147,7 @@ class SemakanController extends Controller
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
             $user->no_KP = $request->no_KP;
-            $user->jenis_pengguna = 'Pekebun Kecil';
+            $user->jenis_pengguna = 'Peserta ULS';
 
             $user->save();
 
