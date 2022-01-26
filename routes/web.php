@@ -29,6 +29,7 @@ use App\Http\Controllers\SumberController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GredPegawaiController;
 use App\Http\Controllers\ElaunCutiController;
+use App\Http\Controllers\JadualKursusController;
 use App\Http\Controllers\ObjekController;
 
 /*
@@ -96,6 +97,8 @@ Route::resources([
     '/utiliti/kursus/gred_pegawai' => GredPegawaiController::class,
     '/utiliti/kursus/elaun_cuti_kursus' => ElaunCutiController::class,
     '/utiliti/kursus/kod_objek' => ObjekController::class,
+
+    '/pengurusan_kursus/semak_jadual' => JadualKursusController::class,
 ]);
 
 

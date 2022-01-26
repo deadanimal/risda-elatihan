@@ -8,6 +8,10 @@ use App\Models\JadualKursus;
 
 class JadualKursusController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +19,10 @@ class JadualKursusController extends Controller
      */
     public function index()
     {
-        //
+        $jadualKursus = JadualKursus::all();
+        return view('pengurusan_kursus.jadual_kursus.index',[
+            'jadual'=>$jadualKursus
+        ]);
     }
 
     /**
@@ -25,7 +32,7 @@ class JadualKursusController extends Controller
      */
     public function create()
     {
-        //
+        return view('pengurusan_kursus.jadual_kursus.create');
     }
 
     /**
@@ -36,7 +43,18 @@ class JadualKursusController extends Controller
      */
     public function store(StoreJadualKursusRequest $request)
     {
-        //
+        $jadualKursus = new JadualKursus;
+        $jadualKursus->create($request->all());
+        if($request->status_kursus == 'on'){
+            $status = 1;
+        }else{
+            $status = 0;
+        }
+        $jadualKursus->kursus_status = $status;
+        $jadualKursus->save();
+
+        alert()->success('Maklumat telah disimipan', 'Berjaya Disimpan');
+        return redirect('/pengurusan_kursus/semak_jadual');
     }
 
     /**
@@ -58,7 +76,9 @@ class JadualKursusController extends Controller
      */
     public function edit(JadualKursus $jadualKursus)
     {
-        //
+        return view('pengurusan_kursus.jadual_kursus.edit',[
+            'jadual'=>$jadualKursus
+        ]);
     }
 
     /**
@@ -70,7 +90,17 @@ class JadualKursusController extends Controller
      */
     public function update(UpdateJadualKursusRequest $request, JadualKursus $jadualKursus)
     {
-        //
+        $jadualKursus->create($request->all());
+        if($request->status_kursus == 'on'){
+            $status = 1;
+        }else{
+            $status = 0;
+        }
+        $jadualKursus->kursus_status = $status;
+        $jadualKursus->save();
+
+        alert()->success('Maklumat telah dikemaskini', 'Kemaskini');
+        return redirect('/pengurusan_kursus/semak_jadual');
     }
 
     /**
@@ -81,6 +111,9 @@ class JadualKursusController extends Controller
      */
     public function destroy(JadualKursus $jadualKursus)
     {
-        //
+        $jadualKursus->delete();
+
+        alert()->success('Maklumat telah dihapus', 'Hapus');
+        return redirect('/pengurusan_kursus/semak_jadual');
     }
 }
