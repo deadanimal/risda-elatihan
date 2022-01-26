@@ -156,18 +156,7 @@
                                                 <hr class="bg-300" />
                                                 <div class="divider-content-center">atau log masuk dengan</div>
                                             </div>
-                                            <div class="row g-2 mt-2">
-                                                <div class="col-sm-6">
-                                                    <a class="btn btn-outline-google-plus btn-sm d-block w-100"
-                                                        href="#"><span class="fab fa-google-plus-g me-2"
-                                                            data-fa-transform="grow-8"></span> google</a>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <a class="btn btn-outline-facebook btn-sm d-block w-100" href="#"><span
-                                                            class="fab fa-facebook-square me-2"
-                                                            data-fa-transform="grow-8"></span> facebook</a>
-                                                </div>
-                                            </div>
+                                            
                                             <div class="row mt-3">
                                                 <div class="col text-center">
                                                     <a href="/register" class="risda-g">Tiada Akaun? Daftar Sekarang</a>
@@ -228,22 +217,7 @@
                                                         name="submit">Log Masuk</button>
                                                 </div>
                                             </form>
-                                            <div class="position-relative mt-4">
-                                                <hr class="bg-300" />
-                                                <div class="divider-content-center">atau log masuk dengan</div>
-                                            </div>
-                                            <div class="row g-2 mt-2">
-                                                <div class="col-sm-6">
-                                                    <a class="btn btn-outline-google-plus btn-sm d-block w-100"
-                                                        href="#"><span class="fab fa-google-plus-g me-2"
-                                                            data-fa-transform="grow-8"></span> google</a>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <a class="btn btn-outline-facebook btn-sm d-block w-100" href="#"><span
-                                                            class="fab fa-facebook-square me-2"
-                                                            data-fa-transform="grow-8"></span> facebook</a>
-                                                </div>
-                                            </div>
+                                            
                                             <div class="row mt-3">
                                                 <div class="col text-center">
                                                     <a href="/register" class="risda-g">Tiada Akaun? Daftar Sekarang</a>
