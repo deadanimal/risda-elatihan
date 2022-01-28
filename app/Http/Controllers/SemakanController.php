@@ -31,6 +31,21 @@ class SemakanController extends Controller
             return view('pendaftaran.staf', [
                 'nric' => $nric
             ]);
+        }elseif($nric == '000000000002'){
+            $data = [];
+            return view('pendaftaran.staf', [
+                'nric' => $nric
+            ]);
+        }elseif($nric == '000000000003'){
+            $data = [];
+            return view('pendaftaran.staf', [
+                'nric' => $nric
+            ]);
+        }elseif($nric == '000000000004'){
+            $data = [];
+            return view('pendaftaran.staf', [
+                'nric' => $nric
+            ]);
         }
 
         // check staf
@@ -135,6 +150,30 @@ class SemakanController extends Controller
             $user->password = Hash::make($request->password);
             $user->no_KP = $request->no_KP;
             $user->jenis_pengguna = 'Peserta ULS';
+
+            $user->save();
+            Mail::to($request->email)->send(new PendaftaranPK($user));
+            alert()->success('Sila semak email anda untuk notifikasi pendaftaran.', 'Pendaftaran Berjaya');
+            return redirect('/');
+        }else if ($request->no_KP == '000000000003') {
+            $user = new User;
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->no_KP = $request->no_KP;
+            $user->jenis_pengguna = 'Urus Setia ULPK';
+
+            $user->save();
+            Mail::to($request->email)->send(new PendaftaranPK($user));
+            alert()->success('Sila semak email anda untuk notifikasi pendaftaran.', 'Pendaftaran Berjaya');
+            return redirect('/');
+        }else if ($request->no_KP == '000000000004') {
+            $user = new User;
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->no_KP = $request->no_KP;
+            $user->jenis_pengguna = 'Peserta ULPK';
 
             $user->save();
             Mail::to($request->email)->send(new PendaftaranPK($user));

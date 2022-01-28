@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreJadualKursusRequest;
 use App\Http\Requests\UpdateJadualKursusRequest;
+use App\Models\BidangKursus;
 use App\Models\JadualKursus;
+use App\Models\KategoriKursus;
+use App\Models\KodKursus;
+use App\Models\StatusPelaksanaan;
 
 class JadualKursusController extends Controller
 {
@@ -20,8 +24,9 @@ class JadualKursusController extends Controller
     public function index()
     {
         $jadualKursus = JadualKursus::all();
-        return view('pengurusan_kursus.jadual_kursus.index',[
-            'jadual'=>$jadualKursus
+        $bidang = BidangKursus::all();
+        return view('pengurusan_kursus.semak_jadual.index',[
+            'jadual'=>$jadualKursus,
         ]);
     }
 
@@ -32,7 +37,16 @@ class JadualKursusController extends Controller
      */
     public function create()
     {
-        return view('pengurusan_kursus.jadual_kursus.create');
+        $bidang = BidangKursus::all();
+        $kategori = KategoriKursus::all();
+        $tajuk = KodKursus::all();
+        $status_pelaksanaan = StatusPelaksanaan::all();
+        return view('pengurusan_kursus.semak_jadual.create',[
+            'bidang'=>$bidang,
+            'kategori'=>$kategori,
+            'tajuk'=>$tajuk,
+            'status_pelaksanaan'=>$status_pelaksanaan
+        ]);
     }
 
     /**
