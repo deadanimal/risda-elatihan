@@ -15,17 +15,17 @@
         </div>
     </div>
 
-    <form action="#" method="post">
+    <form action="/pengurusan_kursus/peruntukan_peserta" method="post">
         @csrf
         <input type="hidden" name="pp_jadual_kursus" value="{{$jadualKursus->id}}">
         <div class="row justify-content-lg-center mt-3">
             <div class="col-lg-10 ">
 
                 <div class="row">
-                    <div class="col-lg-2 p-0">
+                    <div class="col-lg-3 p-0">
                         <label class="col-form-label">NEGERI</label>
                     </div>
-                    <div class="col-lg-10">
+                    <div class="col-lg-9">
                         <select class="form-select  form-control" name="pp_negeri" id="pp_negeri">
                             <option selected="" aria-placeholder="Sila Pilih" hidden></option>
                             @foreach ($negeri as $n)
@@ -38,10 +38,10 @@
                 </div>
 
                 <div class="row mt-2">
-                    <div class="col-lg-2 p-0">
+                    <div class="col-lg-3 p-0">
                         <label class="col-form-label">PUSAT TANGGUNGJAWAB</label>
                     </div>
-                    <div class="col-lg-10">
+                    <div class="col-lg-9">
                         <select class="form-select form-control" name="pp_pusat_tanggungjawab" id="pp_pusat_tanggungjawab">
                             <option selected="" aria-placeholder="Sila Pilih" hidden></option>
                             @foreach ($pusat_tanggungjawab as $pt)
@@ -52,10 +52,10 @@
                 </div>
 
                 <div class="row mt-2">
-                    <div class="col-lg-2 p-0">
+                    <div class="col-lg-3 p-0">
                         <label class="col-form-label">PERUNTUKAN CALON</label>
                     </div>
-                    <div class="col-lg-10">
+                    <div class="col-lg-9">
                         <input type="text" class="form-control" name="pp_peruntukan_calon">
                     </div>
                 </div>
@@ -63,7 +63,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row mt-4">
             <div class="col">
                 <button class="btn btn-sm btn-primary" type="submit">
                     <i class="fas fa-plus"></i> TAMBAH
@@ -72,7 +72,7 @@
         </div>
     </form>
 
-    <div class="row">
+    <div class="row mt-4">
         <div class="col">
             <div class="card">
                 <div class="card-body">
@@ -108,22 +108,22 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row mt-4 justify-content-end">
         <div class="col-lg-4">
-            <div class="row justify-content-end">
+            <div class="row">
                 <div class="col-lg-6">
                     <label class="col-form-label">JUMLAH CALON</label>
                 </div>
                 <div class="col-lg-6">
-                    <input type="text" disabled id="total_calon">
+                    <input type="text" disabled value="{{$total_calon}}" class="form-control text-center">
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="row">
+    <div class="row mt-4">
         <div class="col text-end">
-            <a href="#" class="btn btn-primary">Seterusnya</a>
+            <a href="/pengurusan_kursus/aturcara/{{$jadualKursus->id}}" class="btn btn-primary">Seterusnya</a>
         </div>
     </div>
 @endsection

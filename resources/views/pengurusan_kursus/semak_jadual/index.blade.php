@@ -99,7 +99,7 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white" id="t_normal">
-                            @foreach ($jadual as $j)
+                            @foreach ($jadual as $key => $j)
                                 <tr>
                                     <td>{{ $key + 1 }}.</td>
                                     <td>{{ $j->kursus_kod_nama_kursus }}</td>
