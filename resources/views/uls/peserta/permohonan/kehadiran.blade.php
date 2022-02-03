@@ -118,8 +118,8 @@
                                     <td>
                                         @if ($k->status_kehadiran == null)
                                             <button class="btn btn-primary mx-0" type="button"
-                                                onclick="passdata({{ $k->id }})" data-bs-toggle="modal"
-                                                data-bs-target="#pengesahan-kehadiran">Pengesahan
+                                                onclick="passdata({{ $k->id }},'sebelum-kursus')"
+                                                data-bs-toggle="modal" data-bs-target="#pengesahan-kehadiran">Pengesahan
                                                 Kehadiran</button>
 
                                         @else
@@ -127,11 +127,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if ($k->alasan_ketidakhadiran == null)
-                                            Null
-                                        @else
-                                            {{ $k->alasan_ketidakhadiran }}
-                                        @endif
+                                        {{ $k->alasan_ketidakhadiran ?? '' }}
                                     </td>
                                 </tr>
 
@@ -142,19 +138,15 @@
                                     <td>
                                         @if ($k->status_kehadiran == null)
                                             <button class="btn btn-primary mx-0" type="button"
-                                                onclick="passdata({{ $k->id }})" data-bs-toggle="modal"
-                                                data-bs-target="#pengesahan-kehadiran">Pengesahan
+                                                onclick="passdata({{ $k->id }},'sebelum-kursus')"
+                                                data-bs-toggle="modal" data-bs-target="#pengesahan-kehadiran">Pengesahan
                                                 Kehadiran</button>
                                         @else
                                             {{ $k->status_kehadiran }}
                                         @endif
                                     </td>
                                     <td>
-                                        @if ($k->alasan_ketidakhadiran == null)
-                                            Null
-                                        @else
-                                            {{ $k->alasan_ketidakhadiran }}
-                                        @endif
+                                        {{ $k->alasan_ketidakhadiran ?? '' }}
                                     </td>
                                 </tr>
                             @endif
@@ -171,7 +163,7 @@
                             <th scope="col">HARI</th>
                             <th scope="col">SESI</th>
                             <th scope="col">MASA</th>
-                            <th scope="col">STATUS KEHADIRAN <br> SEBELUM KURSUS</th>
+                            <th scope="col">STATUS KEHADIRAN <br> KE KURSUS</th>
                             <th scope="col">ALASAN</th>
                         </tr>
                     </thead>
@@ -185,22 +177,18 @@
                                     <td>{{ $k->sesi }}</td>
                                     <td>{{ $k->masa }}</td>
                                     <td>
-                                        @if ($k->status_kehadiran == null)
+                                        @if ($k->status_kehadiran_ke_kursus == null)
                                             <button class="btn btn-primary mx-0" type="button"
-                                                onclick="passdata({{ $k->id }})" data-bs-toggle="modal"
+                                                onclick="passdata({{ $k->id }},'ke-kursus')" data-bs-toggle="modal"
                                                 data-bs-target="#pengesahan-kehadiran">Pengesahan
                                                 Kehadiran</button>
 
                                         @else
-                                            {{ $k->status_kehadiran }}
+                                            {{ $k->status_kehadiran_ke_kursus }}
                                         @endif
                                     </td>
                                     <td>
-                                        @if ($k->alasan_ketidakhadiran == null)
-                                            Null
-                                        @else
-                                            {{ $k->alasan_ketidakhadiran }}
-                                        @endif
+                                        {{ $k->alasan_ketidakhadiran_ke_kursus ?? '' }}
                                     </td>
                                 </tr>
 
@@ -209,21 +197,17 @@
                                     <td>{{ $k->sesi }}</td>
                                     <td>{{ $k->masa }}</td>
                                     <td>
-                                        @if ($k->status_kehadiran == null)
+                                        @if ($k->status_kehadiran_ke_kursus == null)
                                             <button class="btn btn-primary mx-0" type="button"
-                                                onclick="passdata({{ $k->id }})" data-bs-toggle="modal"
+                                                onclick="passdata({{ $k->id }},'ke-kursus')" data-bs-toggle="modal"
                                                 data-bs-target="#pengesahan-kehadiran">Pengesahan
                                                 Kehadiran</button>
                                         @else
-                                            {{ $k->status_kehadiran }}
+                                            {{ $k->status_kehadiran_ke_kursus }}
                                         @endif
                                     </td>
                                     <td>
-                                        @if ($k->alasan_ketidakhadiran == null)
-                                            Null
-                                        @else
-                                            {{ $k->alasan_ketidakhadiran }}
-                                        @endif
+                                        {{ $k->alasan_ketidakhadiran_ke_kursus ?? '' }}
                                     </td>
                                 </tr>
                             @endif
@@ -271,7 +255,8 @@
                                                         TIDAK HADIR</option>
                                                 </select>
                                             </div>
-                                            <input type="hidden" class="kehadiran-update-id" name="id_kehadiran">
+                                            <input type="hidden" id="kehadiran-update-id" name="id_kehadiran">
+                                            <input type="hidden" id="jenis_kehadiran" name="jenis_kehadiran">
                                         </div>
                                         <div class="col-8 d-inline-flex mt-5">
                                             <div class="col-5 kehadiran-alasan">
@@ -354,8 +339,10 @@
 
         });
 
-        function passdata(data) {
-            $('.kehadiran-update-id').val(data);
+        function passdata(data, data2) {
+            $('#kehadiran-update-id').val(data);
+            console.log(data2);
+            $("#jenis_kehadiran").val(data2);
         }
     </script>
 

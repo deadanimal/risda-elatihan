@@ -50,7 +50,7 @@
                     <p class="pt-2 fw-bold">UNIT LATIHAN</p>
                 </div>
                 <div class="col-6">
-                    <input type="text" class="form-control mb-3">
+                    <input type="text" class="form-control mb-3" value="Staff">
                 </div>
             </div>
 
@@ -71,24 +71,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Kod1</td>
-                            <td>Kursus1</td>
-                            <td>1/1/11</td>
-                            <td class="risda-g fw-bold">SEDANG <br> DILAKSANAKAN</td>
-                            <td class=" text-end"><a href="/kehadiran/ke-kursus/rekod-pengesahan-peserta"
-                                    class="btn btn-primary btn-sm">SAHKAN KEHADIRAN</a></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Kod2</td>
-                            <td>Kursus2</td>
-                            <td>2/2/22</td>
-                            <td class="risda-g fw-bold">SEDANG <br> DILAKSANAKAN</td>
-                            <td class="text-end"><a href="" class="btn btn-primary btn-sm">SAHKAN KEHADIRAN</a></td>
-
-                        </tr>
+                        @foreach ($kod_kursus as $k)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $k->kod_Kursus }}</td>
+                                <td>{{ $k->tajuk_Kursus }}</td>
+                                <td>{{ $k->tarikh_daftar_Kursus }}</td>
+                                @if ($k->status_Kod_Kursus == 1)
+                                    <td class="risda-g fw-bold">SEDANG <br> DILAKSANAKAN</td>
+                                @else
+                                    <td class="risda-g fw-bold">TIDAK <br> AKTIF</td>
+                                @endif
+                                <td class=" text-end"><a href="{{ route('mengesah-kehadiran-peserta', $k->id) }}"
+                                        class="btn btn-primary btn-sm">REKOD KEHADIRAN</a></td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
