@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AgamaController;
 use App\Http\Controllers\AgensiController;
+use App\Http\Controllers\AturcaraController;
 use App\Http\Controllers\BangsaController;
 use App\Http\Controllers\BidangKursusController;
 use App\Http\Controllers\CetakKodQRController;
@@ -30,7 +31,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GredPegawaiController;
 use App\Http\Controllers\ElaunCutiController;
 use App\Http\Controllers\JadualKursusController;
+use App\Http\Controllers\KelayakanElauncutiController;
+use App\Http\Controllers\NotaRujukanController;
 use App\Http\Controllers\ObjekController;
+use App\Http\Controllers\PenceramahKonsultanController;
 use App\Http\Controllers\PeruntukanPesertaController;
 
 /*
@@ -101,6 +105,10 @@ Route::resources([
 
     '/pengurusan_kursus/semak_jadual' => JadualKursusController::class,
     '/pengurusan_kursus/peruntukan_peserta'=> PeruntukanPesertaController::class,
+    '/pengurusan_kursus/aturcara'=> AturcaraController::class,
+    '/pengurusan_kursus/nota_rujukan'=> NotaRujukanController::class,
+    '/pengurusan_kursus/penceramah_konsultan'=> PenceramahKonsultanController::class,
+    '/pengurusan_kursus/kelayakan_elaun_cuti'=> KelayakanElauncutiController::class,
 ]);
 
 

@@ -60,16 +60,14 @@ class JadualKursusController extends Controller
      */
     public function store(StoreJadualKursusRequest $request)
     {
-        $jadualKursus = new JadualKursus;
-        if($request->status_kursus == 'on'){
+        $jadualKursus = new JadualKursus($request->all());
+        if($request->status == 'on'){
             $status = 1;
         }else{
             $status = 0;
         }
         $jadualKursus->kursus_status = $status;
-        $jadualKursus->create($request->all());
-
-        dd($jadualKursus->id);
+        $jadualKursus->save();
 
         alert()->success('Maklumat telah disimipan', 'Berjaya Disimpan');
         return redirect('/pengurusan_kursus/peruntukan_peserta/'.$jadualKursus->id);
