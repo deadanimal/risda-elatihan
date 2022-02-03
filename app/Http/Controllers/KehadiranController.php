@@ -91,7 +91,19 @@ class KehadiranController extends Controller
     public function store(Request $request)
     {
         $kehadiran = Kehadiran::where('id', $request->id_kehadiran)->firstorFail();
-        $kehadiran->update($request->all());
+        if ($request->jenis_kehadiran == "sebelum-kursus") {
+            $kehadiran->update([
+                'status_kehadiran' => $request->status_kehadiran,
+                'alasan_ketidakhadiran' => $request->alasan_ketidakhadiran,
+            ]);
+
+        } elseif ($request->jenis_kehadiran == "ke-kursus") {
+            $kehadiran->update([
+                'status_kehadiran_ke_kursus' => $request->status_kehadiran,
+                'alasan_ketidakhadiran_ke_kursus' => $request->alasan_ketidakhadiran,
+            ]);
+
+        }
         return back();
     }
 
@@ -161,21 +173,85 @@ class KehadiranController extends Controller
     }
 
     // Urus Setia Uls
-    public function admin_kehadiran_peserta_UsUls()
+    // Kehadiran
+    public function admin_rekod_kehadiran_peserta_UsUls(KodKursus $kod_kursus)
     {
-        return view('uls.urus_setia.kehadiran.kehadiran-ke-kursus.merekod-kehadiran');
+
+        $kehadiran = Kehadiran::all();
+
+        $pesertaUls = User::where('jenis_pengguna', 'Peserta ULS')->get();
+
+        $hari = ['Pertama', 'Kedua', 'Ketiga', 'Keempat', 'Kelima', 'Keenam', 'Ketujuh', 'Kelapan', 'Kesembilan', 'Kesepuluh'];
+
+        return view('uls.urus_setia.kehadiran.kehadiran-ke-kursus.rekod-kehadiran-peserta', [
+            'kod_kursus' => $kod_kursus,
+            'hari' => $hari,
+            'kehadiran' => $kehadiran,
+            'pesertaUls' => $pesertaUls,
+        ]);
+
     }
-    public function admin_rekod_kehadiran_peserta_UsUls()
+
+    public function update_kehadiran_peserta_UsUls(Request $request, Kehadiran $kehadiran)
     {
-        return view('uls.urus_setia.kehadiran.kehadiran-ke-kursus.rekod-kehadiran-peserta');
+        if ($request->status_staff == "Calon Asal") {
+            $kehadiran->update([
+                'status_kehadiran_ke_kursus' => $request->status_kehadiran,
+            ]);
+        } elseif ($request->status_staff == "Pengganti") {
+            $kehadiran->update([
+                'status_kehadiran_ke_kursus' => $request->status_kehadiran,
+                'nama_pengganti' => $request->nama_pengganti,
+                'noKP_pengganti' => $request->kad_pengenalan_pengganti,
+            ]);
+        }
+        return back();
     }
-    public function admin_mengesahkan_peserta_UsUls()
+    public function update_kehadiran_peserta_UsUls2(Request $request, Kehadiran $kehadiran)
     {
-        return view('uls.urus_setia.kehadiran.kehadiran-ke-kursus.mengesahkan-kehadiran');
+        if ($request->jenis_kehadiran == "1") {
+            $kehadiran->update([
+                'alasan_ketidakhadiran' => $request->alasan,
+            ]);
+        } elseif ($request->jenis_kehadiran == "2") {
+            $kehadiran->update([
+                'alasan_ketidakhadiran_ke_kursus' => $request->alasan,
+            ]);
+        }
+        return back();
     }
-    public function admin_mengesahkan_kehadiran_peserta_UsUls()
+
+    // Pengesahan
+    public function admin_mengesahkan_kehadiran_peserta_UsUls(KodKursus $kod_kursus)
     {
-        return view('uls.urus_setia.kehadiran.kehadiran-ke-kursus.rekod-pengesahan-peserta');
+        $kehadiran = Kehadiran::all();
+
+        $pesertaUls = User::where('jenis_pengguna', 'Peserta ULS')->get();
+
+        $hari = ['Pertama', 'Kedua', 'Ketiga', 'Keempat', 'Kelima', 'Keenam', 'Ketujuh', 'Kelapan', 'Kesembilan', 'Kesepuluh'];
+
+        return view('uls.urus_setia.kehadiran.kehadiran-ke-kursus.rekod-pengesahan-peserta', [
+            'kod_kursus' => $kod_kursus,
+            'hari' => $hari,
+            'kehadiran' => $kehadiran,
+            'pesertaUls' => $pesertaUls,
+        ]);
+
+    }
+
+    public function update_pengesahan_peserta_UsUls(Request $request)
+    {
+        $kehadiran = array_keys($request->pengesahan);
+
+        foreach ($kehadiran as $k) {
+            $kehadi = Kehadiran::find($k);
+            $kehadi->update([
+                'pengesahan' => "DISAHKAN",
+            ]);
+
+        }
+
+        return back();
     }
 
     // Urus Setia Ulpk

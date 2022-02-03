@@ -7,6 +7,9 @@ use App\Http\Controllers\BidangKursusController;
 use App\Http\Controllers\CetakKodQRController;
 use App\Http\Controllers\DaerahController;
 use App\Http\Controllers\DunController;
+use App\Http\Controllers\ElaunCutiController;
+use App\Http\Controllers\GredPegawaiController;
+use App\Http\Controllers\JadualKursusController;
 use App\Http\Controllers\JulatTahunanController;
 use App\Http\Controllers\KampungController;
 use App\Http\Controllers\KategoriAgensiController;
@@ -15,6 +18,7 @@ use App\Http\Controllers\KehadiranController;
 use App\Http\Controllers\KodKursusController;
 use App\Http\Controllers\MukimController;
 use App\Http\Controllers\NegeriController;
+use App\Http\Controllers\ObjekController;
 use App\Http\Controllers\ParlimenController;
 use App\Http\Controllers\PegawaiAgensiController;
 use App\Http\Controllers\PengajianLanjutanController;
@@ -26,11 +30,8 @@ use App\Http\Controllers\SemakanController;
 use App\Http\Controllers\StatusPelaksanaanController;
 use App\Http\Controllers\StesenController;
 use App\Http\Controllers\SumberController;
+use App\Models\KodKursus;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\GredPegawaiController;
-use App\Http\Controllers\ElaunCutiController;
-use App\Http\Controllers\JadualKursusController;
-use App\Http\Controllers\ObjekController;
 
 /*
 |--------------------------------------------------------------------------
@@ -101,7 +102,6 @@ Route::resources([
     '/pengurusan_kursus/semak_jadual' => JadualKursusController::class,
 ]);
 
-
 //Peserta ULS
 Route::group(['prefix' => '/uls', 'middleware' => ['UlsPeserta', 'auth']], function () {
     //Permohonan Peserta
@@ -143,12 +143,29 @@ Route::group(['prefix' => 'us-uls', 'middleware' => 'UlsUrusSetia'], function ()
         Route::resource('cetakkodQR', CetakKodQRController::class);
         Route::prefix('ke-kursus')->group(function () {
             //kehadiran
-            Route::get('merekod-kehadiran', [KehadiranController::class, 'admin_kehadiran_peserta_UsUls']);
-            Route::get('rekod-kehadiran-peserta', [KehadiranController::class, 'admin_rekod_kehadiran_peserta_UsUls']);
+            Route::get('merekod-kehadiran', function () {
+                return view('uls.urus_setia.kehadiran.kehadiran-ke-kursus.merekod-kehadiran', [
+                    'kod_kursus' => KodKursus::all(),
+                ]);
+            });
+
+            Route::get('rekod-kehadiran-peserta/{kod_kursus}', [KehadiranController::class, 'admin_rekod_kehadiran_peserta_UsUls'])
+                ->name('rekod-kehadiran-peserta');
+
+            Route::put('update-rekod-kehadiran-peserta/{kehadiran}', [KehadiranController::class, 'update_kehadiran_peserta_UsUls']);
+            Route::put('update-rekod-kehadiran-peserta2/{kehadiran}', [KehadiranController::class, 'update_kehadiran_peserta_UsUls2']);
 
             //pengesahan
-            Route::get('mengesahkan-kehadiran', [KehadiranController::class, 'admin_mengesahkan_peserta_UsUls']);
-            Route::get('rekod-pengesahan-peserta', [KehadiranController::class, 'admin_mengesahkan_kehadiran_peserta_UsUls']);
+            Route::get('mengesahkan-kehadiran', function () {
+                return view('uls.urus_setia.kehadiran.kehadiran-ke-kursus.mengesahkan-kehadiran', [
+                    'kod_kursus' => KodKursus::all(),
+                ]);
+            });
+
+            Route::get('rekod-pengesahan-peserta/{kod_kursus}', [KehadiranController::class, 'admin_mengesahkan_kehadiran_peserta_UsUls'])
+                ->name('mengesah-kehadiran-peserta');
+            Route::post('update-rekod-pengesahan-peserta', [KehadiranController::class, 'update_pengesahan_peserta_UsUls'])
+                ->name('update-rekod-pengesahan-peserta');
         });
     });
 
