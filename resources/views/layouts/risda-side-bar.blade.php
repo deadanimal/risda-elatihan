@@ -331,7 +331,24 @@
                 </a>
             @endcan
 
-
+            <a class="nav-link py-0 dropdown-indicator" href="#pengurusan_kursus" role="button"
+                data-bs-toggle="collapse" aria-expanded="{{ Request::is('pengurusan_kursus/*') ? 'true' : 'false' }}"
+                aria-controls="pengurusan_kursus">
+                <div class="d-flex align-items-center nav-link-side px-0">
+                    <span class=" px-3"><span class="fas fa-clone"></span> PENGURUSAN KURSUS</span>
+                </div>
+            </a>
+            <ul class="nav-item collapse {{ Request::is('pengurusan_kursus/*') ? 'show' : 'false' }} my-1"
+                id="pengurusan_kursus">
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('pengurusan_kursus/*') ? 'active' : '' }} py-0"
+                        href="/pengurusan_kursus/semak_jadual">
+                        <div class="d-flex align-items-center nav-link-side">
+                            <span class="px-0">Semak Jadual</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
 
             <a class="nav-link py-0 dropdown-indicator" href="#utiliti" role="button" data-bs-toggle="collapse"
                 aria-expanded="{{ Request::is('utiliti/*') ? 'true' : 'false' }}" aria-controls="utiliti">
@@ -342,14 +359,17 @@
             <ul class="nav-item collapse {{ Request::is('utiliti/*') ? 'show' : 'false' }} my-1" id="utiliti">
                 <li class="nav-item">
                     <a class="nav-link py-0 dropdown-indicator" href="#negeri" role="button" data-bs-toggle="collapse"
-                        aria-expanded="{{ Request::is('utiliti/lokasi/*') ? 'true' : 'false' }}" aria-controls="negeri">
+                        aria-expanded="{{ Request::is('utiliti/lokasi/*') ? 'true' : 'false' }}"
+                        aria-controls="negeri">
                         <div class="d-flex align-items-center nav-link-side">
                             <span class="px-0">Kod Lokasi</span>
                         </div>
                     </a>
-                    <ul class="nav-item collapse {{ Request::is('utiliti/lokasi/*') ? 'show' : 'false' }} my-1" id="negeri">
+                    <ul class="nav-item collapse {{ Request::is('utiliti/lokasi/*') ? 'show' : 'false' }} my-1"
+                        id="negeri">
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/lokasi/negeri') ? 'active' : '' }} py-0" href="/utiliti/lokasi/negeri">
+                            <a class="nav-link {{ Request::is('utiliti/lokasi/negeri') ? 'active' : '' }} py-0"
+                                href="/utiliti/lokasi/negeri">
                                 <div class="d-flex align-items-center nav-link-side">
                                     <span class="px-0">Kod Negeri</span>
                                 </div>
@@ -357,7 +377,8 @@
 
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/lokasi/daerah') ? 'active' : '' }} py-0" href="/utiliti/lokasi/daerah">
+                            <a class="nav-link {{ Request::is('utiliti/lokasi/daerah') ? 'active' : '' }} py-0"
+                                href="/utiliti/lokasi/daerah">
                                 <div class="d-flex align-items-center nav-link-side">
                                     <span class="px-0">Kod Daerah</span>
                                 </div>
@@ -365,7 +386,8 @@
 
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/lokasi/mukim') ? 'active' : '' }} py-0" href="/utiliti/lokasi/mukim">
+                            <a class="nav-link {{ Request::is('utiliti/lokasi/mukim') ? 'active' : '' }} py-0"
+                                href="/utiliti/lokasi/mukim">
                                 <div class="d-flex align-items-center nav-link-side">
                                     <span class="px-0">Kod Mukim</span>
                                 </div>
@@ -373,7 +395,8 @@
 
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/lokasi/parlimen') ? 'active' : '' }} py-0" href="/utiliti/lokasi/parlimen">
+                            <a class="nav-link {{ Request::is('utiliti/lokasi/parlimen') ? 'active' : '' }} py-0"
+                                href="/utiliti/lokasi/parlimen">
                                 <div class="d-flex align-items-center nav-link-side">
                                     <span class="px-0">Kod Parlimen</span>
                                 </div>
@@ -381,7 +404,8 @@
 
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/lokasi/dun') ? 'active' : '' }} py-0" href="/utiliti/lokasi/dun">
+                            <a class="nav-link {{ Request::is('utiliti/lokasi/dun') ? 'active' : '' }} py-0"
+                                href="/utiliti/lokasi/dun">
                                 <div class="d-flex align-items-center nav-link-side">
                                     <span class="px-0">Kod Dun</span>
                                 </div>
@@ -389,7 +413,8 @@
 
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/lokasi/kampung') ? 'active' : '' }} py-0" href="/utiliti/lokasi/kampung">
+                            <a class="nav-link {{ Request::is('utiliti/lokasi/kampung') ? 'active' : '' }} py-0"
+                                href="/utiliti/lokasi/kampung">
                                 <div class="d-flex align-items-center nav-link-side">
                                     <span class="px-0">Kod Kampung</span>
                                 </div>
@@ -397,7 +422,8 @@
 
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/lokasi/seksyen') ? 'active' : '' }} py-0" href="/utiliti/lokasi/seksyen">
+                            <a class="nav-link {{ Request::is('utiliti/lokasi/seksyen') ? 'active' : '' }} py-0"
+                                href="/utiliti/lokasi/seksyen">
                                 <div class="d-flex align-items-center nav-link-side">
                                     <span class="px-0">Kod Seksyen</span>
                                 </div>
@@ -405,7 +431,8 @@
 
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/lokasi/stesen') ? 'active' : '' }} py-0" href="/utiliti/lokasi/stesen">
+                            <a class="nav-link {{ Request::is('utiliti/lokasi/stesen') ? 'active' : '' }} py-0"
+                                href="/utiliti/lokasi/stesen">
                                 <div class="d-flex align-items-center nav-link-side">
                                     <span class="px-0">Kod Stesen</span>
                                 </div>
@@ -416,162 +443,191 @@
 
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link py-0" href="#kumpulan" role="button" data-bs-toggle="collapse" aria-expanded="{{ Request::is('utiliti/kumpulan/*') ? 'true' : 'false' }}" aria-controls="kumpulan">
+                    <a class="nav-link py-0" href="#kumpulan" role="button" data-bs-toggle="collapse"
+                        aria-expanded="{{ Request::is('utiliti/kumpulan/*') ? 'true' : 'false' }}"
+                        aria-controls="kumpulan">
                         <div class="d-flex align-items-center nav-link-side">
                             <span class="px-0">Kod Kumpulan</span>
                         </div>
                     </a>
 
-                    <ul class="nav-item collapse {{ Request::is('utiliti/kumpulan/*') ? 'show' : 'false' }} my-1" id="kumpulan">
+                    <ul class="nav-item collapse {{ Request::is('utiliti/kumpulan/*') ? 'show' : 'false' }} my-1"
+                        id="kumpulan">
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/kumpulan/kategori_agensi') ? 'active' : '' }} py-0" href="/utiliti/kumpulan/kategori_agensi">
+                            <a class="nav-link {{ Request::is('utiliti/kumpulan/kategori_agensi') ? 'active' : '' }} py-0"
+                                href="/utiliti/kumpulan/kategori_agensi">
                                 <div class="d-flex align-items-center nav-link-side">
                                     <span class="px-0">Kategori Agensi</span>
                                 </div>
                             </a>
-        
+
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/kumpulan/agensi') ? 'active' : '' }} py-0" href="/utiliti/kumpulan/agensi">
+                            <a class="nav-link {{ Request::is('utiliti/kumpulan/agensi') ? 'active' : '' }} py-0"
+                                href="/utiliti/kumpulan/agensi">
                                 <div class="d-flex align-items-center nav-link-side">
                                     <span class="px-0">Senarai Agensi</span>
                                 </div>
                             </a>
-        
+
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/kumpulan/pusat_tanggungjawab') ? 'active' : '' }} py-0" href="/utiliti/kumpulan/pusat_tanggungjawab">
+                            <a class="nav-link {{ Request::is('utiliti/kumpulan/pusat_tanggungjawab') ? 'active' : '' }} py-0"
+                                href="/utiliti/kumpulan/pusat_tanggungjawab">
                                 <div class="d-flex align-items-center nav-link-side">
                                     <span class="px-0">Pusat Tanggungjawab</span>
                                 </div>
                             </a>
-        
+
                         </li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link py-0" href="#julat" role="button" data-bs-toggle="collapse" aria-expanded="{{ Request::is('utiliti/julat/*') ? 'true' : 'false' }}" aria-controls="julat">
+                    <a class="nav-link py-0" href="#julat" role="button" data-bs-toggle="collapse"
+                        aria-expanded="{{ Request::is('utiliti/julat/*') ? 'true' : 'false' }}"
+                        aria-controls="julat">
                         <div class="d-flex align-items-center nav-link-side">
                             <span class="px-0">Kod Julat</span>
                         </div>
                     </a>
-                    <ul class="nav-item collapse {{ Request::is('utiliti/julat/*') ? 'show' : 'false' }} my-1" id="julat">
+                    <ul class="nav-item collapse {{ Request::is('utiliti/julat/*') ? 'show' : 'false' }} my-1"
+                        id="julat">
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/julat/julat_tahunan') ? 'active' : '' }} py-0" href="/utiliti/julat/julat_tahunan">
+                            <a class="nav-link {{ Request::is('utiliti/julat/julat_tahunan') ? 'active' : '' }} py-0"
+                                href="/utiliti/julat/julat_tahunan">
                                 <div class="d-flex align-items-center nav-link-side">
                                     <span class="px-0">Julat Tahunan</span>
                                 </div>
                             </a>
-        
+
                         </li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link py-0" href="#status" role="button" data-bs-toggle="collapse" aria-expanded="{{ Request::is('utiliti/status/*') ? 'true' : 'false' }}" aria-controls="status">
+                    <a class="nav-link py-0" href="#status" role="button" data-bs-toggle="collapse"
+                        aria-expanded="{{ Request::is('utiliti/status/*') ? 'true' : 'false' }}"
+                        aria-controls="status">
                         <div class="d-flex align-items-center nav-link-side">
                             <span class="px-0">Kod Status</span>
                         </div>
                     </a>
-                    <ul class="nav-item collapse {{ Request::is('utiliti/status/*') ? 'show' : 'false' }} my-1" id="status">
+                    <ul class="nav-item collapse {{ Request::is('utiliti/status/*') ? 'show' : 'false' }} my-1"
+                        id="status">
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/status/status_pelaksanaan') ? 'active' : '' }} py-0" href="/utiliti/status/status_pelaksanaan">
+                            <a class="nav-link {{ Request::is('utiliti/status/status_pelaksanaan') ? 'active' : '' }} py-0"
+                                href="/utiliti/status/status_pelaksanaan">
                                 <div class="d-flex align-items-center nav-link-side">
                                     <span class="px-0">Status Pelaksanaan</span>
                                 </div>
                             </a>
-        
+
                         </li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link py-0" href="#generik" role="button" data-bs-toggle="collapse" aria-expanded="{{ Request::is('utiliti/generik/*') ? 'true' : 'false' }}" aria-controls="generik">
+                    <a class="nav-link py-0" href="#generik" role="button" data-bs-toggle="collapse"
+                        aria-expanded="{{ Request::is('utiliti/generik/*') ? 'true' : 'false' }}"
+                        aria-controls="generik">
                         <div class="d-flex align-items-center nav-link-side">
                             <span class="px-0">Kod Generik</span>
                         </div>
                     </a>
 
-                    <ul class="nav-item collapse {{ Request::is('utiliti/generik/*') ? 'show' : 'false' }} my-1" id="generik">
+                    <ul class="nav-item collapse {{ Request::is('utiliti/generik/*') ? 'show' : 'false' }} my-1"
+                        id="generik">
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/generik/agama') ? 'active' : '' }} py-0" href="/utiliti/generik/agama">
+                            <a class="nav-link {{ Request::is('utiliti/generik/agama') ? 'active' : '' }} py-0"
+                                href="/utiliti/generik/agama">
                                 <div class="d-flex align-items-center nav-link-side">
                                     <span class="px-0">Agama</span>
                                 </div>
                             </a>
-        
+
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/generik/bangsa') ? 'active' : '' }} py-0" href="/utiliti/generik/bangsa">
+                            <a class="nav-link {{ Request::is('utiliti/generik/bangsa') ? 'active' : '' }} py-0"
+                                href="/utiliti/generik/bangsa">
                                 <div class="d-flex align-items-center nav-link-side">
                                     <span class="px-0">Bangsa</span>
                                 </div>
                             </a>
-        
+
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/generik/sumber') ? 'active' : '' }} py-0" href="/utiliti/generik/sumber">
+                            <a class="nav-link {{ Request::is('utiliti/generik/sumber') ? 'active' : '' }} py-0"
+                                href="/utiliti/generik/sumber">
                                 <div class="d-flex align-items-center nav-link-side">
                                     <span class="px-0">Sumber</span>
                                 </div>
                             </a>
-        
+
                         </li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link py-0" href="#kursus" role="button" data-bs-toggle="collapse" aria-expanded="{{ Request::is('utiliti/kursus/*') ? 'true' : 'false' }}" aria-controls="kursus">
+                    <a class="nav-link py-0" href="#kursus" role="button" data-bs-toggle="collapse"
+                        aria-expanded="{{ Request::is('utiliti/kursus/*') ? 'true' : 'false' }}"
+                        aria-controls="kursus">
                         <div class="d-flex align-items-center nav-link-side">
                             <span class="px-0">Kod Kursus</span>
                         </div>
                     </a>
 
-                    <ul class="nav-item collapse {{ Request::is('utiliti/kursus/*') ? 'show' : 'false' }} my-1" id="kursus">
+                    <ul class="nav-item collapse {{ Request::is('utiliti/kursus/*') ? 'show' : 'false' }} my-1"
+                        id="kursus">
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/kursus/bidang_kursus') ? 'active' : '' }} py-0" href="/utiliti/kursus/bidang_kursus">
+                            <a class="nav-link {{ Request::is('utiliti/kursus/bidang_kursus') ? 'active' : '' }} py-0"
+                                href="/utiliti/kursus/bidang_kursus">
                                 <div class="d-flex align-items-center nav-link-side">
                                     <span class="px-0">Bidang Kursus</span>
                                 </div>
                             </a>
-        
+
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/kursus/kategori_kursus') ? 'active' : '' }} py-0" href="/utiliti/kursus/kategori_kursus">
+                            <a class="nav-link {{ Request::is('utiliti/kursus/kategori_kursus') ? 'active' : '' }} py-0"
+                                href="/utiliti/kursus/kategori_kursus">
                                 <div class="d-flex align-items-center nav-link-side">
                                     <span class="px-0">Kategori Kursus</span>
                                 </div>
                             </a>
-        
+
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/kursus/kod_kursus') ? 'active' : '' }} py-0" href="/utiliti/kursus/kod_kursus">
+                            <a class="nav-link {{ Request::is('utiliti/kursus/kod_kursus') ? 'active' : '' }} py-0"
+                                href="/utiliti/kursus/kod_kursus">
                                 <div class="d-flex align-items-center nav-link-side">
                                     <span class="px-0">Kod Kursus</span>
                                 </div>
                             </a>
-        
+
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/kursus/gred_pegawai') ? 'active' : '' }} py-0" href="/utiliti/kursus/gred_pegawai">
+                            <a class="nav-link {{ Request::is('utiliti/kursus/gred_pegawai') ? 'active' : '' }} py-0"
+                                href="/utiliti/kursus/gred_pegawai">
                                 <div class="d-flex align-items-center nav-link-side">
                                     <span class="px-0">Gred Pegawai</span>
                                 </div>
                             </a>
-        
+
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/kursus/elaun_cuti_kursus') ? 'active' : '' }} py-0" href="/utiliti/kursus/elaun_cuti_kursus">
+                            <a class="nav-link {{ Request::is('utiliti/kursus/elaun_cuti_kursus') ? 'active' : '' }} py-0"
+                                href="/utiliti/kursus/elaun_cuti_kursus">
                                 <div class="d-flex align-items-center nav-link-side">
                                     <span class="px-0">Elaun/Cuti Kursus</span>
                                 </div>
                             </a>
-        
+
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/kursus/kod_objek') ? 'active' : '' }} py-0" href="/utiliti/kursus/kod_objek">
+                            <a class="nav-link {{ Request::is('utiliti/kursus/kod_objek') ? 'active' : '' }} py-0"
+                                href="/utiliti/kursus/kod_objek">
                                 <div class="d-flex align-items-center nav-link-side">
                                     <span class="px-0">Kod Objek</span>
                                 </div>
                             </a>
-        
+
                         </li>
                     </ul>
                 </li>
