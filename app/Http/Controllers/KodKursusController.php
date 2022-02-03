@@ -20,13 +20,13 @@ class KodKursusController extends Controller
         $bidangKursus = BidangKursus::all();
         $kategoriKursus = KategoriKursus::all();
         $kodKursus = BidangKursus::join('kategori_kursuses', 'bidang_kursuses.id', 'kategori_kursuses.U_Bidang_Kursus')
-        ->join('kod_kursuses', 'kategori_kursuses.id', 'kod_kursuses.U_Kategori_Kursus')
-        ->select('*')->get();
+            ->join('kod_kursuses', 'kategori_kursuses.id', 'kod_kursuses.U_Kategori_Kursus')
+            ->select('*')->get();
         // dd($kategoriKursus);
         $bil_kk = KodKursus::orderBy('id', 'desc')->first();
         if ($bil_kk != null) {
             $bil = $bil_kk->kod_Kursus;
-        }else{
+        } else {
             $bil = 0;
         }
         $bil = $bil + 1;
@@ -35,7 +35,7 @@ class KodKursusController extends Controller
         return view('utiliti.kursus.kod_kursus.index', [
             'bidangKursus' => $bidangKursus,
             'kategoriKursus' => $kategoriKursus,
-            'kodKursus'=>$kodKursus,
+            'kodKursus' => $kodKursus,
             'bil' => $bil
         ]);
     }
@@ -106,8 +106,9 @@ class KodKursusController extends Controller
      * @param  \App\Models\KodKursus  $kodKursus
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateKodKursusRequest $request, KodKursus $kodKursus)
+    public function update(UpdateKodKursusRequest $request, $id)
     {
+        $kodKursus = KodKursus::find($id);
         $kodKursus->UL_Kod_Kursus = $request->UL_Kod_Kursus;
         $kodKursus->tahun_Kursus = $request->tahun_Kursus;
         $kodKursus->tarikh_daftar_Kursus = $request->tarikh_daftar_Kursus;
@@ -132,8 +133,9 @@ class KodKursusController extends Controller
      * @param  \App\Models\KodKursus  $kodKursus
      * @return \Illuminate\Http\Response
      */
-    public function destroy(KodKursus $kodKursus)
+    public function destroy($id)
     {
+        $kodKursus = KodKursus::find($id);
         $kodKursus->delete();
         return redirect('/utiliti/kursus/kod_kursus');
     }

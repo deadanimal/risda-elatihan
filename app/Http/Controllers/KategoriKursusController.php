@@ -9,6 +9,10 @@ use App\Models\BidangKursus;
 
 class KategoriKursusController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -100,8 +104,9 @@ class KategoriKursusController extends Controller
      * @param  \App\Models\KategoriKursus  $kategoriKursus
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateKategoriKursusRequest $request, KategoriKursus $kategoriKursus)
+    public function update(UpdateKategoriKursusRequest $request, $id)
     {
+        $kategoriKursus = KategoriKursus::find($id);
         $kategoriKursus->UL_Kategori_Kursus = $request->UL_Kategori_Kursus;
         $kategoriKursus->U_Bidang_Kursus = $request->U_Bidang_Kursus;
         $kategoriKursus->jenis_Kategori_Kursus = $request->jenis_Kategori_Kursus;
@@ -124,8 +129,9 @@ class KategoriKursusController extends Controller
      * @param  \App\Models\KategoriKursus  $kategoriKursus
      * @return \Illuminate\Http\Response
      */
-    public function destroy(KategoriKursus $kategoriKursus)
+    public function destroy($id)
     {
+        $kategoriKursus = KategoriKursus::find($id);
         $kategoriKursus->delete();
         return redirect('/utiliti/kursus/kategori_kursus');
     }

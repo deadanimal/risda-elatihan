@@ -26,7 +26,7 @@
                                 <h4 class="mb-1" id="modalExampleDemoLabel">TAMBAH </h4>
                             </div>
                             <div class="p-4 pb-0">
-                                <form action="/utiliti/kursus/kod_kursus" method="POST">
+                                <form action="/utiliti/kursus/kod_kursus" method="POST" id="form_add">
                                     @csrf
                                     <div class="mb-3">
                                         <label class="col-form-label">UNIT LATIHAN</label>
@@ -39,16 +39,16 @@
                                     <div class="mb-3">
                                         <label class="col-form-label">TAHUN</label>
                                         <input class="form-control" id="datepicker" type="text" placeholder="0000"
-                                            autocomplete="off" />
+                                            autocomplete="off" name="tahun_Kursus" />
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label">TARIKH DAFTAR</label>
                                         <input class="form-control datetimepicker" id="datepicker2" type="text"
-                                            data-options='{"disableMobile":true}' />
+                                            data-options='{"disableMobile":true}' name="tarikh_daftar_Kursus" />
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label">BIDANG KURSUS</label>
-                                        <select class="form-select" name="U_Bidang_Kursus">
+                                        <select class="form-select" name="U_Bidang_Kursus" id="bid">
                                             <option selected="" hidden>Sila Pilih</option>
                                             @foreach ($bidangKursus as $BK)
                                                 <option value="{{ $BK->id }}">{{ $BK->nama_Bidang_Kursus }}</option>
@@ -119,7 +119,11 @@
                                     <td>{{ $KK->UL_Kod_Kursus }}</td>
                                     <td>{{ $KK->kod_Kursus }}</td>
                                     <td>{{ $KK->tajuk_Kursus }}</td>
-                                    <td>button</td>
+                                    <td>
+                                        <a href="#" class="btn btn-primary btn-sm">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                    </td>
                                     <td>{{ $KK->tahun_Kursus }}</td>
                                     <td>
                                         @if ($KK->status_Kod_Kursus == '1')
@@ -129,10 +133,10 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                                        <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
                                             data-bs-target="#edit_BK_{{ $KK->id }}"><i
                                                 class="fas fa-pen"></i></button>
-                                        <button class="btn risda-bg-dg text-white" type="button" data-bs-toggle="modal"
+                                        <button class="btn risda-bg-dg text-white btn-sm" type="button" data-bs-toggle="modal"
                                             data-bs-target="#delete_BK_{{ $KK->id }}">
                                             <i class="fas fa-trash"></i>
                                         </button>
@@ -154,7 +158,8 @@
                                                     </h4>
                                                 </div>
                                                 <div class="p-4 pb-0">
-                                                    <form action="/utiliti/kursus/kod_kursus/{{ $KK->id }}" method="POST">
+                                                    <form action="/utiliti/kursus/kod_kursus/{{ $KK->id }}"
+                                                        method="POST">
                                                         @method('PUT')
                                                         @csrf
                                                         <div class="mb-3">
@@ -260,7 +265,8 @@
                                                 <div class="modal-footer">
                                                     <button class="btn btn-secondary" type="button"
                                                         data-bs-dismiss="modal">Batal</button>
-                                                    <form method="POST" action="/utiliti/kursus/kod_kursus/{{ $KK->id }}">
+                                                    <form method="POST"
+                                                        action="/utiliti/kursus/kod_kursus/{{ $KK->id }}">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button class="btn btn-primary" type="submit">Hapus
@@ -289,6 +295,38 @@
                 viewMode: "years",
                 minViewMode: "years",
                 autoclose: true
+            });
+        });
+
+        $('#bid').change(function() {
+
+            $('#form_add select[name=U_Kategori_Kursus]').html("");
+            var kat_kur = @json($kategoriKursus->toArray());
+            console.log(kat_kur);
+
+            let option_new = "";
+            $('#form_add select[name=U_Kategori_Kursus]').append(
+                        `<option value='' hidden>Sila Pilih</option>`);
+            kat_kur.forEach(element => {
+                if (this.value == element.U_Bidang_Kursus) {
+                    $('#form_add select[name=U_Kategori_Kursus]').append(
+                        `<option value=${element.id}>${element.nama_Kategori_Kursus}</option>`);
+                }
+            });
+        });
+
+        $('#bid_upd').change(function() {
+
+            $('#form_upd select[name=U_Kategori_Kursus]').html("");
+            var kat_upd = @json($kategoriKursus->toArray());
+            console.log(kat_upd);
+
+            let option_new = "";
+            kat_upd.forEach(element => {
+                if (this.value == element.U_Bidang_Kursus) {
+                    $('#form_upd select[name=U_Kategori_Kursus]').append(
+                        `<option value=${element.id}>${element.nama_Kategori_Kursus}</option>`);
+                }
             });
         });
     </script>
