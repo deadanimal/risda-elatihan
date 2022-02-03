@@ -32,6 +32,7 @@ use App\Http\Controllers\StesenController;
 use App\Http\Controllers\SumberController;
 use App\Models\KodKursus;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PeruntukanPesertaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -100,6 +101,7 @@ Route::resources([
     '/utiliti/kursus/kod_objek' => ObjekController::class,
 
     '/pengurusan_kursus/semak_jadual' => JadualKursusController::class,
+    '/pengurusan_kursus/peruntukan_peserta'=> PeruntukanPesertaController::class,
 ]);
 
 //Peserta ULS

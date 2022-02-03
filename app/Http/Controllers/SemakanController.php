@@ -174,6 +174,18 @@ class SemakanController extends Controller
             Mail::to($request->email)->send(new PendaftaranPK($user));
             alert()->success('Sila semak email anda untuk notifikasi pendaftaran.', 'Pendaftaran Berjaya');
             return redirect('/');
+        } else if ($request->no_KP == '000000000005') {
+            $user = new User;
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->no_KP = $request->no_KP;
+            $user->jenis_pengguna = 'Peserta ULPK';
+
+            $user->save();
+            Mail::to($request->email)->send(new PendaftaranPK($user));
+            alert()->success('Sila semak email anda untuk notifikasi pendaftaran.', 'Pendaftaran Berjaya');
+            return redirect('/');
         } else {
 
             $user = new User;
