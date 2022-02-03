@@ -31,6 +31,7 @@ use App\Http\Controllers\GredPegawaiController;
 use App\Http\Controllers\ElaunCutiController;
 use App\Http\Controllers\JadualKursusController;
 use App\Http\Controllers\ObjekController;
+use App\Http\Controllers\PeruntukanPesertaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -99,6 +100,7 @@ Route::resources([
     '/utiliti/kursus/kod_objek' => ObjekController::class,
 
     '/pengurusan_kursus/semak_jadual' => JadualKursusController::class,
+    '/pengurusan_kursus/peruntukan_peserta'=> PeruntukanPesertaController::class,
 ]);
 
 
