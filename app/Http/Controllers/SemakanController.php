@@ -193,7 +193,7 @@ class SemakanController extends Controller
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
             $user->no_KP = $request->no_KP;
-            $user->jenis_pengguna = 'Peserta ULS';
+            $user->jenis_pengguna = 'Peserta ULPK';
 
             $user->save();
 
