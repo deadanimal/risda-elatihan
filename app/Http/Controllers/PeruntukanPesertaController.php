@@ -97,8 +97,12 @@ class PeruntukanPesertaController extends Controller
      * @param  \App\Models\PeruntukanPeserta  $peruntukanPeserta
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PeruntukanPeserta $peruntukanPeserta)
+    public function destroy( $id)
     {
-        //
+        $peruntukanPeserta = PeruntukanPeserta::find($id);
+        $peruntukanPeserta->delete();
+        alert()->success('Maklumat telah dihapuskan', 'Berjaya');
+
+        return back();
     }
 }
