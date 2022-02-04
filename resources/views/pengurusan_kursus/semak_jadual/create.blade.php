@@ -248,7 +248,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col">
-                        <label class="col-form-label">NO. FT</label>
+                        <label class="col-form-label">NOTA RUJUKAN</label>
                         <input type="file" class="form-control" name="nota_rujukan">
                     </div>
                 </div>

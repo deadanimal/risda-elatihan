@@ -109,7 +109,7 @@
                                     <td>0</td>
                                     <td>{{ $j->kursus_status_pelaksanaan }}</td>
                                     <td>
-                                        <a href="/pengurusan_kursus/semak_jadual/edit">
+                                        <a href="/pengurusan_kursus/semak_jadual/{{$j->id}}/edit" class="btn btn-sm btn-primary">
                                             <i class="fas fa-pen"></i>
                                         </a>
                                     </td>
