@@ -26,11 +26,11 @@
                                 <h4 class="mb-1" id="modalExampleDemoLabel">TAMBAH </h4>
                             </div>
                             <div class="p-4 pb-0">
-                                <form action="/utiliti/kursus/kategori_kursus" method="POST">
+                                <form action="/utiliti/kursus/kategori_kursus" method="POST" id="form1">
                                     @csrf
                                     <div class="mb-3">
                                         <label class="col-form-label">UNIT LATIHAN</label>
-                                        <select class="form-select" name="UL_Kategori_Kursus">
+                                        <select class="form-select" name="UL_Kategori_Kursus" id="unitlatihan">
                                             <option selected="" hidden>Sila Pilih</option>
                                             <option value="Staf">Staf</option>
                                             <option value="Pekebun Kecil">Pekebun Kecil</option>
@@ -38,16 +38,16 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label">BIDANG KURSUS</label>
-                                        <select class="form-select" name="U_Bidang_Kursus">
+                                        <select class="form-select" name="U_Bidang_Kursus" id="kod_bidang">
                                             <option selected="" hidden>Sila Pilih</option>
-                                            @foreach ($bidangKursus as $BK)
+                                            {{-- @foreach ($bidangKursus as $BK)
                                                 <option value="{{ $BK->id }}">{{ $BK->nama_Bidang_Kursus }}</option>
-                                            @endforeach
+                                            @endforeach --}}
                                         </select>
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label">JENIS LATIHAN</label>
-                                        <select class="form-select" name="jenis_kategori_Kursus">
+                                        <select class="form-select" name="jenis_kategori_Kursus" id="jenis_kategori">
                                             <option selected="" hidden>Sila Pilih</option>
                                             <option value="Dalaman">Dalaman</option>
                                             <option value="Luaran">Luaran</option>
@@ -55,8 +55,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label">KOD KATEGORI KURSUS</label>
-                                        <input class="form-control" type="number" name="kod_Kategori_Kursus"
-                                            value="{{ $bil }}" readonly />
+                                        <input class="form-control" type="text" name="kod_Kategori_Kursus" id="kod_kat"/>
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label">KATEGORI KURSUS</label>
@@ -144,7 +143,8 @@
                                                         @csrf
                                                         <div class="mb-3">
                                                             <label class="col-form-label">UNIT LATIHAN</label>
-                                                            <select class="form-select form-control" name="UL_Kategori_Kursus">
+                                                            <select class="form-select form-control"
+                                                                name="UL_Kategori_Kursus">
                                                                 <option selected="" hidden
                                                                     value="{{ $KK->UL_Kategori_Kursus }}">
                                                                     {{ $KK->UL_Kategori_Kursus }}</option>
@@ -159,7 +159,8 @@
                                                                     value="{{ $KK->U_Bidang_Kursus }}">
                                                                     {{ $KK->nama_Bidang_Kursus }}</option>
                                                                 @foreach ($bidangKursus as $bk2)
-                                                                <option value="{{ $bk2->id }}">{{ $bk2->nama_Bidang_Kursus }}</option>
+                                                                    <option value="{{ $bk2->id }}">
+                                                                        {{ $bk2->nama_Bidang_Kursus }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -244,5 +245,43 @@
         </div>
     </div>
 
-    
+    <script>
+        $('#unitlatihan').change(function() {
+
+            $('#form1 select[name=U_Bidang_Kursus]').html("");
+            var bid = @json($bidangKursus->toArray());
+            console.log(bid);
+
+            let option_new = "";
+            $('#form1 select[name=U_Bidang_Kursus]').append(
+                        `<option selected='' value='' hidden>Sila Pilih</option>`);
+            bid.forEach(element => {
+                if (this.value == element.UL_Bidang_Kursus) {
+                    $('#form1 select[name=U_Bidang_Kursus]').append(
+                        `<option value=${element.id} class=${element.kod_Bidang_Kursus}>${element.nama_Bidang_Kursus}</option>`);
+                }
+            });
+        });
+
+        $('#jenis_kategori').change(function() {
+            var kod_ul = $('#unitlatihan option:selected').val();
+            var kod_bid = $('#kod_bidang option:selected').attr('class');
+            var kod_jenis = $('#jenis_kategori option:selected').val();
+
+            console.log(kod_bid, kod_jenis);
+
+            if (kod_ul == 'Staf') {
+                if (kod_jenis == 'Dalaman') {
+                    $('#kod_kat').val('DS'+kod_bid);
+                } else {
+                    $('#kod_kat').val('LS'+kod_bid);
+                }
+            } else {
+                $('#kod_kat').val('PK'+kod_bid);
+            }
+            // check sini sambung
+        })
+    </script>
+
+
 @endsection
