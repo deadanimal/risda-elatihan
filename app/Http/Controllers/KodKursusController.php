@@ -28,7 +28,7 @@ class KodKursusController extends Controller
             ->select('*')->get();
         // dd($kategoriKursus);
 
-        $bil_staf = KodKursus::orderBy('id', 'desc')->where('UL_Kod_Kursus', 'Staf')->get();
+        $bil_staf = KodKursus::where('UL_Kod_Kursus', 'Staf')->get();
         $bil_pk = KodKursus::orderBy('id', 'desc')->where('UL_Kod_Kursus', 'Pekebun Kecil')->get();
 
         return view('utiliti.kursus.kod_kursus.index', [

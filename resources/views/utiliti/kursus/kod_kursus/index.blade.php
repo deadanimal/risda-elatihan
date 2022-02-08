@@ -43,7 +43,8 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label">TARIKH DAFTAR</label>
-                                        <input class="form-control" type="date" name="tarikh_daftar_Kursus" data-date-format="dd/mm/yyyy"/>
+                                        <input class="form-control" type="date" name="tarikh_daftar_Kursus"
+                                            data-date-format="dd/mm/yyyy" />
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label">BIDANG KURSUS</label>
@@ -343,35 +344,29 @@
             var kod_staf = @json($bil_staf->toArray());
             console.log(kod_staf.length);
             if (kod_staf.length != 0) {
-                var bil_kat_kur = 0;
                 console.log(kod_staf);
+                var bil_kat_kur = 1;
                 kod_staf.forEach(element => {
                     kod_kategori = element.U_Kategori_Kursus;
-                    console.log(id_kat, kod_kategori);
+                    console.log('id kursus = ' + id_kat, 'id kursus dalam db = ' + kod_kategori);
                     if (id_kat == kod_kategori) {
                         if (element.no_kod_Kursus != null) {
+                            console.log('masuk', element.no_kod_Kursus);
                             bil_kat_kur = parseInt(element.no_kod_Kursus) + 1;
-                            bil_kat_kur = bil_kat_kur.toLocaleString('en-US', {
-                                minimumIntegerDigits: 3,
-                                useGrouping: false
-                            });
                         }
-                    } else {
-                        bil_kat_kur = parseInt(bil_kat_kur) + 1;
-                        bil_kat_kur = bil_kat_kur.toLocaleString('en-US', {
-                            minimumIntegerDigits: 3,
-                            useGrouping: false
-                        });
                     }
                 })
+                console.log(bil_kat_kur + ' j');
             } else {
-                var bil_kat_kur = 0;
-                bil_kat_kur = parseInt(bil_kat_kur) + 1;
-                bil_kat_kur = bil_kat_kur.toLocaleString('en-US', {
-                    minimumIntegerDigits: 3,
-                    useGrouping: false
-                });
+                var bil_kat_kur = 1;
             }
+
+            bil_kat_kur = bil_kat_kur.toLocaleString('en-US', {
+                minimumIntegerDigits: 3,
+                useGrouping: false
+            });
+
+            console.log(bil_kat_kur + ' k');
 
             var kod_pk = @json($bil_pk);
 
