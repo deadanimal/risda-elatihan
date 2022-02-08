@@ -47,7 +47,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label">JENIS LATIHAN</label>
-                                        <select class="form-select" name="jenis_kategori_Kursus" id="jenis_kategori">
+                                        <select class="form-select" name="jenis_Kategori_Kursus" id="jenis_kategori">
                                             <option selected="" hidden>Sila Pilih</option>
                                             <option value="Dalaman">Dalaman</option>
                                             <option value="Luaran">Luaran</option>
@@ -55,7 +55,8 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label">KOD KATEGORI KURSUS</label>
-                                        <input class="form-control" type="text" name="kod_Kategori_Kursus" id="kod_kat"/>
+                                        <input class="form-control" type="text" name="kod_Kategori_Kursus" id="kod_kat" />
+                                        <input type="hidden" name="no_kod_KK" id="no_kod_KK">
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label">KATEGORI KURSUS</label>
@@ -86,7 +87,7 @@
         <div class="col">
             <div class="card">
                 <div class="card-body">
-                    <table id="table_negeri" class="table table-striped" style="width:100%">
+                    <table id="table_negeri " class="table datatable table-striped" style="width:100%">
                         <thead class="bg-200">
                             <tr>
                                 <th class="sort">BIL.</th>
@@ -123,8 +124,7 @@
                                 </tr>
                                 <div class="modal fade" id="edit_BK_{{ $KK->id }}" tabindex="-1" role="dialog"
                                     aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document"
-                                        style="max-width: 500px">
+                                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                         <div class="modal-content position-relative">
                                             <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
                                                 <button
@@ -165,10 +165,21 @@
                                                             </select>
                                                         </div>
                                                         <div class="mb-3">
+                                                            <label class="col-form-label">JENIS LATIHAN</label>
+                                                            <select class="form-select" name="jenis_Kategori_Kursus"
+                                                                id="jenis_kategori">
+                                                                <option selected=""
+                                                                    value="{{ $KK->jenis_Kategori_Kursus }}" hidden>
+                                                                    {{ $KK->jenis_Kategori_Kursus }}</option>
+                                                                <option value="Dalaman">Dalaman</option>
+                                                                <option value="Luaran">Luaran</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="mb-3">
                                                             <label class="col-form-label">KOD KATEGORI KURSUS</label>
-                                                            <input class="form-control" type="number"
+                                                            <input class="form-control" type="text"
                                                                 name="kod_Kategori_Kursus"
-                                                                value="{{ $KK->kod_Kategori_Kursus }}" readonly />
+                                                                value="{{ $KK->kod_Kategori_Kursus }}" />
                                                         </div>
                                                         <div class="mb-3">
                                                             <label class="col-form-label">KATEGORI KURSUS</label>
@@ -250,15 +261,15 @@
 
             $('#form1 select[name=U_Bidang_Kursus]').html("");
             var bid = @json($bidangKursus->toArray());
-            console.log(bid);
 
             let option_new = "";
             $('#form1 select[name=U_Bidang_Kursus]').append(
-                        `<option selected='' value='' hidden>Sila Pilih</option>`);
+                `<option selected='' value='' hidden>Sila Pilih</option>`);
             bid.forEach(element => {
                 if (this.value == element.UL_Bidang_Kursus) {
                     $('#form1 select[name=U_Bidang_Kursus]').append(
-                        `<option value=${element.id} class=${element.kod_Bidang_Kursus}>${element.nama_Bidang_Kursus}</option>`);
+                        `<option value=${element.id} class=${element.kod_Bidang_Kursus}>${element.nama_Bidang_Kursus}</option>`
+                        );
                 }
             });
         });
@@ -268,18 +279,66 @@
             var kod_bid = $('#kod_bidang option:selected').attr('class');
             var kod_jenis = $('#jenis_kategori option:selected').val();
 
-            console.log(kod_bid, kod_jenis);
+            var kod_ds = @json($bil_ds->toArray());
+            var bil_ds = 0;
+            kod_ds.forEach(element => {
+                kod_bidang = element.U_Bidang_Kursus.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                });
+                if (kod_bid == kod_bidang) {
+                    if (element.no_kod_KK != null) {
+                        bil_ds = parseInt(element.no_kod_KK) + 1;
+                        bil_ds = bil_ds.toLocaleString('en-US', {
+                            minimumIntegerDigits: 2,
+                            useGrouping: false
+                        });
+                    } else {
+                        bil_ds = parseInt(bil_ds) + 1;
+                        bil_ds = bil_ds.toLocaleString('en-US', {
+                            minimumIntegerDigits: 2,
+                            useGrouping: false
+                        });
+                    }
+                }
+            })
+
+            var kod_ls = @json($bil_ls->toArray());
+            var bil_ls = 0;
+            kod_ls.forEach(element => {
+                kod_bidang = element.U_Bidang_Kursus.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                });
+                if (kod_bid == kod_bidang) {
+                    bil_ls = parseInt(element.no_kod_KK) + 1;
+                    bil_ls = bil_ls.toLocaleString('en-US', {
+                        minimumIntegerDigits: 2,
+                        useGrouping: false
+                    });
+                } else {
+                    bil_ls = parseInt(bil_ls) + 1;
+                    bil_ls = bil_ls.toLocaleString('en-US', {
+                        minimumIntegerDigits: 2,
+                        useGrouping: false
+                    });
+                }
+            })
+
+            var kod_pk = @json($bil_pk);
 
             if (kod_ul == 'Staf') {
                 if (kod_jenis == 'Dalaman') {
-                    $('#kod_kat').val('DS'+kod_bid);
+                    $('#kod_kat').val('DS' + kod_bid + bil_ds);
+                    $('#no_kod_KK').val(bil_ds);
                 } else {
-                    $('#kod_kat').val('LS'+kod_bid);
+                    $('#kod_kat').val('LS' + kod_bid + bil_ls);
+                    $('#no_kod_KK').val(bil_ls);
                 }
             } else {
-                $('#kod_kat').val('PK'+kod_bid);
+                $('#kod_kat').val('PK' + kod_bid + kod_pk);
+                $('#no_kod_KK').val(kod_pk);
             }
-            // check sini sambung
         })
     </script>
 
