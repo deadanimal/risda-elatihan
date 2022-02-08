@@ -30,7 +30,7 @@
                                     @csrf
                                     <div class="mb-3">
                                         <label class="col-form-label">UNIT LATIHAN</label>
-                                        <select class="form-select" name="UL_Kod_Kursus">
+                                        <select class="form-select" name="UL_Kod_Kursus" id="unitlatihan">
                                             <option selected="" hidden>Sila Pilih</option>
                                             <option value="Staf">Staf</option>
                                             <option value="Pekebun Kecil">Pekebun Kecil</option>
@@ -38,37 +38,36 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label">TAHUN</label>
-                                        <input class="form-control" id="datepicker" type="text" placeholder="0000"
+                                        <input class="form-control datepicker" type="text" placeholder="0000"
                                             autocomplete="off" name="tahun_Kursus" />
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label">TARIKH DAFTAR</label>
-                                        <input class="form-control datetimepicker" id="datepicker2" type="text"
-                                            data-options='{"disableMobile":true}' name="tarikh_daftar_Kursus" />
+                                        <input class="form-control" type="date" name="tarikh_daftar_Kursus" data-date-format="dd/mm/yyyy"/>
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label">BIDANG KURSUS</label>
                                         <select class="form-select" name="U_Bidang_Kursus" id="bid">
                                             <option selected="" hidden>Sila Pilih</option>
-                                            @foreach ($bidangKursus as $BK)
+                                            {{-- @foreach ($bidangKursus as $BK)
                                                 <option value="{{ $BK->id }}">{{ $BK->nama_Bidang_Kursus }}</option>
-                                            @endforeach
+                                            @endforeach --}}
                                         </select>
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label">KATEGORI KURSUS</label>
-                                        <select class="form-select" name="U_Kategori_Kursus">
+                                        <select class="form-select" name="U_Kategori_Kursus" id="kat_kur">
                                             <option selected="" hidden>Sila Pilih</option>
-                                            @foreach ($kategoriKursus as $kat)
+                                            {{-- @foreach ($kategoriKursus as $kat)
                                                 <option value="{{ $kat->id }}">{{ $kat->nama_Kategori_Kursus }}
                                                 </option>
-                                            @endforeach
+                                            @endforeach --}}
                                         </select>
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label">KOD KURSUS</label>
-                                        <input class="form-control" type="number" name="kod_Kursus"
-                                            value="{{ $bil }}" readonly />
+                                        <input class="form-control" type="text" name="kod_Kursus" id="kod_kur" />
+                                        <input type="hidden" name="no_kod_Kursus" id="no_kod_Kursus">
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label">TAJUK KURSUS</label>
@@ -136,8 +135,8 @@
                                         <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
                                             data-bs-target="#edit_BK_{{ $KK->id }}"><i
                                                 class="fas fa-pen"></i></button>
-                                        <button class="btn risda-bg-dg text-white btn-sm" type="button" data-bs-toggle="modal"
-                                            data-bs-target="#delete_BK_{{ $KK->id }}">
+                                        <button class="btn risda-bg-dg text-white btn-sm" type="button"
+                                            data-bs-toggle="modal" data-bs-target="#delete_BK_{{ $KK->id }}">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </td>
@@ -174,13 +173,13 @@
                                                         </div>
                                                         <div class="mb-3">
                                                             <label class="col-form-label">TAHUN</label>
-                                                            <input class="form-control datetimepicker" id="datepicker"
+                                                            <input class="form-control datetimepicker datepicker"
                                                                 type="text" value="{{ $KK->tahun_Kursus }}"
                                                                 data-options='{"disableMobile":true}' />
                                                         </div>
                                                         <div class="mb-3">
                                                             <label class="col-form-label">TARIKH DAFTAR</label>
-                                                            <input class="form-control datetimepicker" id="datepicker2"
+                                                            <input class="form-control datetimepicker datepicker2"
                                                                 value="{{ $KK->tarikh_daftar_Kursus }}" type="text"
                                                                 data-options='{"disableMobile":true}' />
                                                         </div>
@@ -290,7 +289,7 @@
     <script>
         $(document).ready(function() {
 
-            $("#datepicker").datepicker({
+            $(".datepicker").datepicker({
                 format: "yyyy",
                 viewMode: "years",
                 minViewMode: "years",
@@ -298,22 +297,93 @@
             });
         });
 
-        $('#bid').change(function() {
+        // pilih UL keluar bidang
+        $('#unitlatihan').change(function() {
+            $('#form_add select[name=U_Bidang_Kursus]').html("");
+            var bid = @json($bidangKursus->toArray());
+            console.log(bid);
+            let option_new = "";
+            $('#form_add select[name=U_Bidang_Kursus]').append(
+                `<option selected='' value='' hidden>Sila Pilih</option>`);
+            bid.forEach(element => {
+                if (this.value == element.UL_Bidang_Kursus) {
+                    $('#form_add select[name=U_Bidang_Kursus]').append(
+                        `<option value=${element.id} class=${element.kod_Bidang_Kursus}>${element.nama_Bidang_Kursus}</option>`
+                    );
+                }
+            });
+        });
 
+        // pilih bidang keluar kategori
+        $('#bid').change(function() {
             $('#form_add select[name=U_Kategori_Kursus]').html("");
             var kat_kur = @json($kategoriKursus->toArray());
             console.log(kat_kur);
 
             let option_new = "";
             $('#form_add select[name=U_Kategori_Kursus]').append(
-                        `<option value='' hidden>Sila Pilih</option>`);
+                `<option value='' hidden>Sila Pilih</option>`);
             kat_kur.forEach(element => {
                 if (this.value == element.U_Bidang_Kursus) {
                     $('#form_add select[name=U_Kategori_Kursus]').append(
-                        `<option value=${element.id}>${element.nama_Kategori_Kursus}</option>`);
+                        `<option value=${element.id} class=${element.no_kod_KK} nama=${element.kod_Kategori_Kursus}>${element.nama_Kategori_Kursus}</option>`
+                    );
                 }
             });
         });
+
+        // pilih kategori keluar kodkursus
+        $('#kat_kur').change(function() {
+            var kod_ul = $('#unitlatihan option:selected').val();
+            var kod_bid = $('#kod_bidang option:selected').attr('class');
+            var kod_kur = $('#kat_kur option:selected').attr('class');
+            var id_kat = $('#kat_kur option:selected').val();
+            var nama = $('#kat_kur option:selected').attr('nama');
+
+            var kod_staf = @json($bil_staf->toArray());
+            console.log(kod_staf.length);
+            if (kod_staf.length != 0) {
+                var bil_kat_kur = 0;
+                console.log(kod_staf);
+                kod_staf.forEach(element => {
+                    kod_kategori = element.U_Kategori_Kursus;
+                    console.log(id_kat, kod_kategori);
+                    if (id_kat == kod_kategori) {
+                        if (element.no_kod_Kursus != null) {
+                            bil_kat_kur = parseInt(element.no_kod_Kursus) + 1;
+                            bil_kat_kur = bil_kat_kur.toLocaleString('en-US', {
+                                minimumIntegerDigits: 3,
+                                useGrouping: false
+                            });
+                        }
+                    } else {
+                        bil_kat_kur = parseInt(bil_kat_kur) + 1;
+                        bil_kat_kur = bil_kat_kur.toLocaleString('en-US', {
+                            minimumIntegerDigits: 3,
+                            useGrouping: false
+                        });
+                    }
+                })
+            } else {
+                var bil_kat_kur = 0;
+                bil_kat_kur = parseInt(bil_kat_kur) + 1;
+                bil_kat_kur = bil_kat_kur.toLocaleString('en-US', {
+                    minimumIntegerDigits: 3,
+                    useGrouping: false
+                });
+            }
+
+            var kod_pk = @json($bil_pk);
+
+            if (kod_ul == 'Staf') {
+                $('#kod_kur').val(nama + bil_kat_kur);
+                $('#no_kod_Kursus').val(bil_kat_kur);
+            } else {
+                $('#kod_kat').val('PK' + kod_bid + kod_pk);
+                $('#no_kod_KK').val(kod_pk);
+            }
+        });
+
 
         $('#bid_upd').change(function() {
 
