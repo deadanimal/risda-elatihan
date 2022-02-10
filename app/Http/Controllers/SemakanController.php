@@ -21,22 +21,37 @@ class SemakanController extends Controller
         $nric = $request->nric;
 
         // testing
-        if ($nric == '000000000001') {
+        if ($nric == '621003065611') {
             $data = [];
             return view('pendaftaran.staf', [
                 'nric' => $nric,
             ]);
-        }elseif($nric == '000000000002'){
+        }elseif($nric == '670208055215'){
             $data = [];
             return view('pendaftaran.staf', [
                 'nric' => $nric
             ]);
-        }elseif($nric == '000000000003'){
+        }elseif($nric == '840209115186'){
             $data = [];
             return view('pendaftaran.staf', [
                 'nric' => $nric
             ]);
-        }elseif($nric == '000000000004'){
+        }elseif($nric == '861120495509'){
+            $data = [];
+            return view('pendaftaran.staf', [
+                'nric' => $nric
+            ]);
+        }elseif($nric == '660421015422'){
+            $data = [];
+            return view('pendaftaran.staf', [
+                'nric' => $nric
+            ]);
+        }elseif($nric == '610916015420'){
+            $data = [];
+            return view('pendaftaran.staf', [
+                'nric' => $nric
+            ]);
+        }elseif($nric == '980410025195'){
             $data = [];
             return view('pendaftaran.staf', [
                 'nric' => $nric
@@ -126,7 +141,19 @@ class SemakanController extends Controller
 
     public function daftar_pengguna(Request $request)
     {
-        if ($request->no_KP == '000000000001') {
+        if ($request->no_KP == '621003065611') {
+            $user = new User;
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->no_KP = $request->no_KP;
+            $user->jenis_pengguna = 'AdminBTM';
+
+            $user->save();
+            Mail::to($request->email)->send(new PendaftaranPK($user));
+            alert()->success('Sila semak email anda untuk notifikasi pendaftaran.', 'Pendaftaran Berjaya');
+            return redirect('/');
+        }else if ($request->no_KP == '670208055215') {
             $user = new User;
             $user->name = $request->name;
             $user->email = $request->email;
@@ -138,7 +165,7 @@ class SemakanController extends Controller
             Mail::to($request->email)->send(new PendaftaranPK($user));
             alert()->success('Sila semak email anda untuk notifikasi pendaftaran.', 'Pendaftaran Berjaya');
             return redirect('/');
-        } else if ($request->no_KP == '000000000002') {
+        } else if ($request->no_KP == '840209115186') {
             $user = new User;
             $user->name = $request->name;
             $user->email = $request->email;
@@ -150,7 +177,7 @@ class SemakanController extends Controller
             Mail::to($request->email)->send(new PendaftaranPK($user));
             alert()->success('Sila semak email anda untuk notifikasi pendaftaran.', 'Pendaftaran Berjaya');
             return redirect('/');
-        }else if ($request->no_KP == '000000000003') {
+        }else if ($request->no_KP == '861120495509') {
             $user = new User;
             $user->name = $request->name;
             $user->email = $request->email;
@@ -162,7 +189,7 @@ class SemakanController extends Controller
             Mail::to($request->email)->send(new PendaftaranPK($user));
             alert()->success('Sila semak email anda untuk notifikasi pendaftaran.', 'Pendaftaran Berjaya');
             return redirect('/');
-        }else if ($request->no_KP == '000000000004') {
+        }else if ($request->no_KP == '660421015422') {
             $user = new User;
             $user->name = $request->name;
             $user->email = $request->email;
@@ -174,13 +201,25 @@ class SemakanController extends Controller
             Mail::to($request->email)->send(new PendaftaranPK($user));
             alert()->success('Sila semak email anda untuk notifikasi pendaftaran.', 'Pendaftaran Berjaya');
             return redirect('/');
-        } else if ($request->no_KP == '000000000005') {
+        } else if ($request->no_KP == '610916015420') {
             $user = new User;
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
             $user->no_KP = $request->no_KP;
             $user->jenis_pengguna = 'Peserta ULPK';
+
+            $user->save();
+            Mail::to($request->email)->send(new PendaftaranPK($user));
+            alert()->success('Sila semak email anda untuk notifikasi pendaftaran.', 'Pendaftaran Berjaya');
+            return redirect('/');
+        } else if ($request->no_KP == '980410025195') {
+            $user = new User;
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->no_KP = $request->no_KP;
+            $user->jenis_pengguna = 'Agen Pelaksana ULS';
 
             $user->save();
             Mail::to($request->email)->send(new PendaftaranPK($user));
@@ -193,7 +232,7 @@ class SemakanController extends Controller
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
             $user->no_KP = $request->no_KP;
-            $user->jenis_pengguna = 'Peserta ULPK';
+            $user->jenis_pengguna = 'Peserta ULS';
 
             $user->save();
 
