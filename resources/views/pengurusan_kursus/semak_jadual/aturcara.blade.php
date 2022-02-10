@@ -120,9 +120,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <label class="col-form-label">MASA</label>
-                                    <input class="form-control datetimepicker" name="ac_masa[]]"
-                                        id="timepicker1" type="text" placeholder="H:i"
-                                        data-options='{"enableTime":true,"noCalendar":true,"dateFormat":"H:i","disableMobile":true}' />
+                                    <input class="form-control" name="ac_masa[]" type="time" placeholder="H:i"/>
                                 </div>
                             </div>
                             <div class="row">

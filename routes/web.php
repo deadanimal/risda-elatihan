@@ -37,6 +37,7 @@ use App\Http\Controllers\KelayakanElauncutiController;
 use App\Http\Controllers\NotaRujukanController;
 use App\Http\Controllers\PenceramahKonsultanController;
 use App\Http\Controllers\PeruntukanPesertaController;
+use App\Http\Controllers\UtilitiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +72,50 @@ Route::get('/test', function () {
 
 Route::post('/semak_nric', [SemakanController::class, 'check_espek']);
 Route::post('/daftar_pengguna', [SemakanController::class, 'daftar_pengguna']);
+
+Route::group(['middleware' => 'AdminBTM'], function () {
+
+    Route::resources([
+        '/profil' => ProfilController::class,
+    
+        '/utiliti/lokasi/negeri' => NegeriController::class,
+        '/utiliti/lokasi/daerah' => DaerahController::class,
+        '/utiliti/lokasi/mukim' => MukimController::class,
+        '/utiliti/lokasi/parlimen' => ParlimenController::class,
+        '/utiliti/lokasi/dun' => DunController::class,
+        '/utiliti/lokasi/kampung' => KampungController::class,
+        '/utiliti/lokasi/seksyen' => SeksyenController::class,
+        '/utiliti/lokasi/stesen' => StesenController::class,
+    
+        '/utiliti/kumpulan/kategori_agensi' => KategoriAgensiController::class,
+        '/utiliti/kumpulan/agensi' => AgensiController::class,
+        '/utiliti/kumpulan/pegawai_agensi' => PegawaiAgensiController::class,
+        '/utiliti/kumpulan/pusat_tanggungjawab' => PusatTanggungjawabController::class,
+    
+        '/utiliti/julat/julat_tahunan' => JulatTahunanController::class,
+    
+        '/utiliti/status/status_pelaksanaan' => StatusPelaksanaanController::class,
+    
+        '/utiliti/generik/agama' => AgamaController::class,
+        '/utiliti/generik/bangsa' => BangsaController::class,
+        '/utiliti/generik/sumber' => SumberController::class,
+    
+        '/utiliti/kursus/bidang_kursus' => BidangKursusController::class,
+        '/utiliti/kursus/kategori_kursus' => KategoriKursusController::class,
+        '/utiliti/kursus/kod_kursus' => KodKursusController::class,
+        '/utiliti/kursus/gred_pegawai' => GredPegawaiController::class,
+        '/utiliti/kursus/elaun_cuti_kursus' => ElaunCutiController::class,
+        '/utiliti/kursus/kod_objek' => ObjekController::class,
+    
+        '/pengurusan_kursus/semak_jadual' => JadualKursusController::class,
+        '/pengurusan_kursus/peruntukan_peserta'=> PeruntukanPesertaController::class,
+        '/pengurusan_kursus/aturcara'=> AturcaraController::class,
+        '/pengurusan_kursus/nota_rujukan'=> NotaRujukanController::class,
+        '/pengurusan_kursus/penceramah_konsultan'=> PenceramahKonsultanController::class,
+        '/pengurusan_kursus/kelayakan_elaun_cuti'=> KelayakanElauncutiController::class,
+    ]);
+
+});
 
 Route::resources([
     '/profil' => ProfilController::class,
@@ -113,7 +158,7 @@ Route::resources([
 ]);
 
 //Peserta ULS
-Route::group(['prefix' => '/uls', 'middleware' => ['UlsPeserta', 'auth']], function () {
+Route::group(['prefix' => '/uls', 'middleware' => ['UlsPeserta', 'AdminBTM', 'auth' ]], function () {
     //Permohonan Peserta
     Route::prefix('/permohonan')->group(function () {
         Route::get('statuspermohonan', [PermohonanController::class, 'indexULS']);
@@ -133,7 +178,7 @@ Route::resource('/permohonan/kehadiran', KehadiranController::class);
 //Peserta ULPK
 Route::prefix('/ulpk')->group(function () {
     //Permohonan Peserta
-    Route::group(['prefix' => '/permohonan', 'middleware' => 'UlpkPeserta'], function () {
+    Route::group(['prefix' => '/permohonan', 'middleware' => ['UlpkPeserta','AdminBTM']], function () {
         Route::get('statuspermohonan', [PermohonanController::class, 'indexULPK']);
         Route::get('kehadiran/{kod_kursus}', [KehadiranController::class, 'indexULPK']);
     });
@@ -146,7 +191,7 @@ Route::prefix('/ulpk')->group(function () {
 });
 
 //Urus Setia ULS
-Route::group(['prefix' => 'us-uls', 'middleware' => 'UlsUrusSetia'], function () {
+Route::group(['prefix' => 'us-uls', 'middleware' => ['UlsUrusSetia' , 'AdminBTM']], function () {
 
     Route::prefix('kehadiran')->group(function () {
         //dari QR  - merekod kehadiran
@@ -186,7 +231,7 @@ Route::group(['prefix' => 'us-uls', 'middleware' => 'UlsUrusSetia'], function ()
 });
 
 //Urus Setia ULPK
-Route::group(['prefix' => 'us-ulpk', 'middleware' => 'UlpkUrusSetia'], function () {
+Route::group(['prefix' => 'us-ulpk', 'middleware' => ['UlpkUrusSetia','AdminBTM']], function () {
 
     Route::prefix('kehadiran')->group(function () {
         //dari QR  - merekod kehadiran
@@ -210,5 +255,9 @@ Route::group(['prefix' => 'us-ulpk', 'middleware' => 'UlpkUrusSetia'], function 
 
 // Route::put('/test/{id}', [DaerahController::class, 'update']);
 // Route::post('/utiliti/lokasi/daerah/{id}/delete', [DaerahController::class, 'destroy']);
+
+Route::get('/testing', [UtilitiController::class, 'test_user_list']);
+Route::delete('/delete/{id}', [UtilitiController::class, 'test_user_delete']);
+
 
 require __DIR__ . '/auth.php';

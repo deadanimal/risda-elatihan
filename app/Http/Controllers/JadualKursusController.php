@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreJadualKursusRequest;
 use App\Http\Requests\UpdateJadualKursusRequest;
+use App\Models\Agensi;
 use App\Models\BidangKursus;
 use App\Models\JadualKursus;
 use App\Models\KategoriKursus;
@@ -40,15 +41,23 @@ class JadualKursusController extends Controller
      */
     public function create()
     {
+        $hari_ini = date("Y-m-d");
+        // dd($hari_ini);
+
         $bidang = BidangKursus::all();
         $kategori = KategoriKursus::all();
         $tajuk = KodKursus::all();
         $status_pelaksanaan = StatusPelaksanaan::all();
+        $tempat = Agensi::all();
+        $pengendali = Agensi::all();
         return view('pengurusan_kursus.semak_jadual.create',[
             'bidang'=>$bidang,
             'kategori'=>$kategori,
             'kod_kursus'=>$tajuk,
-            'status_pelaksanaan'=>$status_pelaksanaan
+            'status_pelaksanaan'=>$status_pelaksanaan,
+            'hari_ini'=>$hari_ini,
+            'pengendali'=>$pengendali,
+            'tempat'=>$tempat
         ]);
     }
 

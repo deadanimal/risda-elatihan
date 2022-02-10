@@ -15,9 +15,9 @@
         </div>
     </div>
 
-    <form action="/pengurusan_kursus/peruntukan_peserta" method="post">
+    <form action="/pengurusan_kursus/peruntukan_peserta" method="post" id="form1">
         @csrf
-        <input type="hidden" name="pp_jadual_kursus" value="{{$jadualKursus->id}}">
+        <input type="hidden" name="pp_jadual_kursus" value="{{ $jadualKursus->id }}">
         <div class="row justify-content-lg-center mt-3">
             <div class="col-lg-10 ">
 
@@ -88,55 +88,56 @@
                         </thead>
                         <tbody class="bg-white" id="t_normal">
                             @foreach ($peruntukan_peserta as $key => $pp)
-                            <tr>
-                                <td>{{ $key + 1 }}.</td>
-                                <td>{{ $pp->pp_negeri }}</td>
-                                <td>{{ $pp->pp_pusat_tanggungjawab }}</td>
-                                <td>{{ $pp->pp_peruntukan_calon }}</td>
-                                <td>
-                                    <button class="btn risda-bg-dg text-white" type="button" data-bs-toggle="modal"
+                                <tr>
+                                    <td>{{ $key + 1 }}.</td>
+                                    <td>{{ $pp->pp_negeri }}</td>
+                                    <td>{{ $pp->pp_pusat_tanggungjawab }}</td>
+                                    <td>{{ $pp->pp_peruntukan_calon }}</td>
+                                    <td>
+                                        <button class="btn risda-bg-dg text-white" type="button" data-bs-toggle="modal"
                                             data-bs-target="#delete_{{ $pp->id }}">
                                             <i class="fas fa-trash"></i>
                                         </button>
-                                </td>
-                            </tr>
-                            <div class="modal fade" id="delete_{{ $pp->id }}" tabindex="-1" role="dialog"
-                                aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document"
-                                    style="max-width: 500px">
-                                    <div class="modal-content position-relative">
-                                        <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
-                                            <button
-                                                class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
-                                                data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body p-0">
-                                            <div class="row">
-                                                <div class="col text-center m-3">
-                                                    <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
-                                                    <br>
-                                                    Anda pasti untuk menghapuskan data?
+                                    </td>
+                                </tr>
+                                <div class="modal fade" id="delete_{{ $pp->id }}" tabindex="-1" role="dialog"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document"
+                                        style="max-width: 500px">
+                                        <div class="modal-content position-relative">
+                                            <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
+                                                <button
+                                                    class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
+                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body p-0">
+                                                <div class="row">
+                                                    <div class="col text-center m-3">
+                                                        <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
+                                                        <br>
+                                                        Anda pasti untuk menghapuskan data?
+
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-secondary" type="button"
+                                                        data-bs-dismiss="modal">Batal</button>
+                                                    <form method="POST"
+                                                        action="/pengurusan_kursus/peruntukan_peserta/{{ $pp->id }}">
+                                                        @method('DELETE')
+                                                        @csrf
+                                                        <button class="btn btn-primary" type="submit">Hapus
+                                                        </button>
+                                                    </form>
 
                                                 </div>
                                             </div>
-                                            <div class="modal-footer">
-                                                <button class="btn btn-secondary" type="button"
-                                                    data-bs-dismiss="modal">Batal</button>
-                                                <form method="POST" action="/pengurusan_kursus/peruntukan_peserta/{{ $pp->id }}">
-                                                    @method('DELETE')
-                                                    @csrf
-                                                    <button class="btn btn-primary" type="submit">Hapus
-                                                    </button>
-                                                </form>
 
-                                            </div>
                                         </div>
-
                                     </div>
                                 </div>
-                            </div>
                             @endforeach
-                            
+
                         </tbody>
                     </table>
                 </div>
@@ -151,7 +152,7 @@
                     <label class="col-form-label">JUMLAH CALON</label>
                 </div>
                 <div class="col-lg-6">
-                    <input type="text" disabled value="{{$total_calon}}" class="form-control text-center">
+                    <input type="text" disabled value="{{ $total_calon }}" class="form-control text-center">
                 </div>
             </div>
         </div>
@@ -159,7 +160,27 @@
 
     <div class="row mt-4">
         <div class="col text-end">
-            <a href="/pengurusan_kursus/aturcara/{{$jadualKursus->id}}" class="btn btn-primary">Seterusnya</a>
+            <a href="/pengurusan_kursus/aturcara/{{ $jadualKursus->id }}" class="btn btn-primary">Seterusnya</a>
         </div>
     </div>
+
+    <script>
+
+        $('#pp_negeri').change(function() {
+
+            $('#form1 select[name=pp_pusat_tanggungjawab]').html("");
+            var pt = @json($pusat_tanggungjawab->toArray());
+            console.log(pt);
+
+            let option_new = "";
+            $('#form1 select[name=pp_pusat_tanggungjawab]').append(
+                        `<option value='' selected='' hidden>Sila Pilih</option>`);
+            pt.forEach(element => {
+                if (this.value == element.kod_Negeri_PT) {
+                    $('#form1 select[name=pp_pusat_tanggungjawab]').append(
+                        `<option value=${element.id}>${element.nama_PT}</option>`);
+                }
+            });
+        });
+    </script>
 @endsection
