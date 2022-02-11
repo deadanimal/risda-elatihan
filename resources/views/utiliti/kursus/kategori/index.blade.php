@@ -104,7 +104,7 @@
                                     <td>{{ $key + 1 }}.</td>
                                     <td>{{ $KK->UL_Kategori_Kursus }}</td>
                                     <td>{{ $KK->kod_Kategori_Kursus }}</td>
-                                    <td>{{ $KK->nama_Kategori_Kursus }}</td>
+                                    <td>{{ $KK->nama_Kategori_Kursus }} {{$KK->no_kod_KK}}</td>
                                     <td>
                                         @if ($KK->status_Kategori_Kursus == '1')
                                             <span class="badge badge-soft-success">Aktif</span>
