@@ -302,6 +302,7 @@
                     }
                 }
             })
+            console.log(bil_ds);
 
             var kod_ls = @json($bil_ls->toArray());
             var bil_ls = 0;
