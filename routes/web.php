@@ -141,6 +141,8 @@ Route::group(['prefix' => 'us-uls', 'middleware' => 'UlsUrusSetia'], function ()
     Route::prefix('kehadiran')->group(function () {
         //dari QR  - merekod kehadiran
         Route::resource('cetakkodQR', CetakKodQRController::class);
+
+        Route::get('printQR/{id}', [CetakKodQRController::class, 'printQR'])->name('printQR');
         Route::prefix('ke-kursus')->group(function () {
             //kehadiran
             Route::get('merekod-kehadiran', function () {

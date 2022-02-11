@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             JadualKursusSeeder::class,
             KehadiranSeeder::class,
             PermohonanSeeder::class,
+            PermissionSeeder::class,
         ]);
 
         // \App\Models\User::factory(10)->create();

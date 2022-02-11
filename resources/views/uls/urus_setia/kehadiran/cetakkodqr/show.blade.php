@@ -27,7 +27,7 @@
     <div class="container">
         <div class="row mt-3 mb-2">
             <div class="col-12 mb-2">
-                <p class="h1 mb-0 fw-bold" style="color: rgb(43,93,53); letter-spacing: 5px;">KEHADIRAN</p>
+                <p class="h1 mb-0 fw-bold" style="color: rgb(43,93,53);  ">KEHADIRAN</p>
                 <p class="h5" style="color: rgb(43,93,53); ">CETAK KOD QR KURSUS</p>
             </div>
         </div>
@@ -108,12 +108,12 @@
                                             <td>{{ $k->sesi }}</td>
                                             <td>{{ $k->masa }}</td>
                                             <td>
-                                                <div class="qrcode" id="qrcode{{ $k->id }}"></div>
+                                                <div class="qrcode" id="{{ $k->id }}"></div>
                                             </td>
                                             <td>
-                                                <button class="btn btn-sm btn-primary"
-                                                    onclick="qr({{ $k->id }})"><span
-                                                        class="fas fa-print"></span></button>
+                                                <a class="btn btn-sm btn-primary"
+                                                    href="{{ route('printQR', $k->id) }}"><span
+                                                        class="fas fa-print"></span></a>
                                             </td>
                                         </tr>
 
@@ -122,13 +122,13 @@
                                             <td>{{ $k->sesi }}</td>
                                             <td>{{ $k->masa }}</td>
                                             <td>
-                                                <div class="qrcode" id="qrcode{{ $k->id }}"></div>
+                                                <div class="qrcode" id="{{ $k->id }}"></div>
 
                                             </td>
                                             <td>
-                                                <button class="btn btn-sm btn-primary"
-                                                    onclick="qr({{ $k->id }})"><span
-                                                        class="fas fa-print"></span></button>
+                                                <a class="btn btn-sm btn-primary"
+                                                    href="{{ route('printQR', $k->id) }}"><span
+                                                        class="fas fa-print"></span></a>
                                             </td>
                                         </tr>
                                     @endif
@@ -144,18 +144,19 @@
 
 
         <script>
-            function qr(id) {
-
-                var btnid = "qrcode" + id;
-                var outUrl = APP_URL + "/uls/kehadiran/" + id;
-                new QRCode(document.getElementById(btnid), {
-                    text: outUrl,
-                    width: 90,
-                    height: 90,
-                    colorDark: "#000000",
-                    colorLight: "#ffffff",
-                    correctLevel: QRCode.CorrectLevel.H
+            $(document).ready(function() {
+                let qr = $(".qrcode");
+                jQuery.each(qr, function(key, val) {
+                    var outUrl = APP_URL + "/uls/kehadiran/" + val.id;
+                    new QRCode(document.getElementById(val.id), {
+                        text: outUrl,
+                        width: 90,
+                        height: 90,
+                        colorDark: "#000000",
+                        colorLight: "#ffffff",
+                        correctLevel: QRCode.CorrectLevel.H
+                    });
                 });
-            }
+            });
         </script>
     @endsection
