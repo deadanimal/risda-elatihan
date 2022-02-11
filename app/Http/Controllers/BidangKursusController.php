@@ -130,9 +130,12 @@ class BidangKursusController extends Controller
      * @param  \App\Models\BidangKursus  $bidangKursus
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BidangKursus $bidangKursus)
+    public function destroy($bidangKursus)
     {
+        $bidangKursus = BidangKursus::find($bidangKursus);
         $bidangKursus->delete();
+
+        alert()->success('Berjaya dihapus','Hapus');
         return redirect('/utiliti/kursus/bidang_kursus');
     }
 }
