@@ -26,17 +26,17 @@ class SemakanController extends Controller
             return view('pendaftaran.staf', [
                 'nric' => $nric,
             ]);
-        }elseif($nric == '670208055215'){
+        } elseif($nric == '670208055215'){
             $data = [];
             return view('pendaftaran.staf', [
-                'nric' => $nric
+                'nric' => $nric,
             ]);
-        }elseif($nric == '840209115186'){
+        } elseif($nric == '840209115186'){
             $data = [];
             return view('pendaftaran.staf', [
-                'nric' => $nric
+                'nric' => $nric,
             ]);
-        }elseif($nric == '861120495509'){
+        } elseif($nric == '861120495509'){
             $data = [];
             return view('pendaftaran.staf', [
                 'nric' => $nric
@@ -54,7 +54,7 @@ class SemakanController extends Controller
         }elseif($nric == '980410025195'){
             $data = [];
             return view('pendaftaran.staf', [
-                'nric' => $nric
+                'nric' => $nric,
             ]);
         }
 

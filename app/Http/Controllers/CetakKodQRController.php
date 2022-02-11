@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kehadiran;
 use App\Models\KodKursus;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -103,5 +104,15 @@ class CetakKodQRController extends Controller
     public function destroy(Kehadiran $kehadiran)
     {
         //
+    }
+
+    public function printQR($id)
+    {
+
+        $pdf = Pdf::loadView('uls.urus_setia.kehadiran.cetakkodqr.printQR', ['id' => $id]);
+
+        return view('uls.urus_setia.kehadiran.cetakkodqr.printQR', ['id' => $id]);
+        // return $pdf->stream("dompdf_out.pdf", array("Attachment" => false));
+
     }
 }

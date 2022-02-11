@@ -19,7 +19,7 @@
     <div class="container">
         <div class="row mt-3 mb-2">
             <div class="col-12 mb-2">
-                <p class="h1 mb-0 fw-bold" style="color: rgb(43,93,53); letter-spacing: 5px;">PERMOHONAN KURSUS</p>
+                <p class="h1 mb-0 fw-bold" style="color: rgb(43,93,53);  ">PERMOHONAN KURSUS</p>
                 <p class="h5" style="color: rgb(43,93,53); ">STATUS PERMOHONAN</p>
             </div>
         </div>
@@ -108,7 +108,6 @@
                     </thead>
                     <tbody>
                         @foreach ($kehadiran as $k)
-
                             @if ($k->sesi == 1)
                                 <tr>
                                     <td rowspan="2" class="align-middle">{{ $k->tarikh }}</td>
@@ -169,7 +168,6 @@
                     </thead>
                     <tbody>
                         @foreach ($kehadiran as $k)
-
                             @if ($k->sesi == 1)
                                 <tr>
                                     <td rowspan="2" class="align-middle">{{ $k->tarikh }}</td>

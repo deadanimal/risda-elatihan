@@ -20,7 +20,7 @@
     <div class="container">
         <div class="row mt-3 mb-2">
             <div class="col-12 mb-2">
-                <p class="h1 mb-0 fw-bold" style="color: rgb(43,93,53); letter-spacing: 5px;">KEHADIRAN</p>
+                <p class="h1 mb-0 fw-bold" style="color: rgb(43,93,53);  ">KEHADIRAN</p>
                 <p class="h5" style="color: rgb(43,93,53); ">CETAK KOD QR KURSUS</p>
             </div>
         </div>
