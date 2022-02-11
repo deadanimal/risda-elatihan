@@ -30,7 +30,7 @@
                                     @csrf
                                     <div class="mb-3">
                                         <label class="col-form-label">UNIT LATIHAN</label>
-                                        <select class="form-select" name="UL_kategori_Kursus">
+                                        <select class="form-select" name="UL_Kategori_Kursus">
                                             <option selected="" hidden>Sila Pilih</option>
                                             <option value="Staf">Staf</option>
                                             <option value="Pekebun Kecil">Pekebun Kecil</option>
@@ -144,7 +144,7 @@
                                                         @csrf
                                                         <div class="mb-3">
                                                             <label class="col-form-label">UNIT LATIHAN</label>
-                                                            <select class="form-select" name="UL_Kategori_Kursus">
+                                                            <select class="form-select form-control" name="UL_Kategori_Kursus">
                                                                 <option selected="" hidden
                                                                     value="{{ $KK->UL_Kategori_Kursus }}">
                                                                     {{ $KK->UL_Kategori_Kursus }}</option>
@@ -154,12 +154,12 @@
                                                         </div>
                                                         <div class="mb-3">
                                                             <label class="col-form-label">BIDANG KURSUS</label>
-                                                            <select class="form-select" name="UL_Kategori_Kursus">
+                                                            <select class="form-select form-control" name="U_Bidang_Kursus">
                                                                 <option selected="" hidden
                                                                     value="{{ $KK->U_Bidang_Kursus }}">
-                                                                    {{ $KK->Bidang_Kursus }}</option>
+                                                                    {{ $KK->nama_Bidang_Kursus }}</option>
                                                                 @foreach ($bidangKursus as $bk2)
-                                                                <option value="{{ $bidangKursus->id }}">{{ $bidangKursus->kategori_Kursus }}</option>
+                                                                <option value="{{ $bk2->id }}">{{ $bk2->nama_Bidang_Kursus }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -172,7 +172,7 @@
                                                         <div class="mb-3">
                                                             <label class="col-form-label">KATEGORI KURSUS</label>
                                                             <input class="form-control" type="text"
-                                                                name="nama_kategori_Kursus"
+                                                                name="nama_Kategori_Kursus"
                                                                 value="{{ $KK->nama_Kategori_Kursus }}" />
                                                         </div>
                                                         <div class="mb-3">

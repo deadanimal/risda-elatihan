@@ -23,7 +23,7 @@
                     <label class="col-form-label">UNIT LATIHAN:</label>
                 </div>
                 <div class="col-lg-10">
-                    <select class="form-select" name="search_UL" id="search_UL">
+                    <select class="form-select  form-control" name="search_UL" id="search_UL">
                         <option selected="" aria-placeholder="Sila Pilih" hidden></option>
                         <option value="Staf">Staf</option>
                         <option value="Pekebun Kecil">Pekebun Kecil</option>
@@ -61,7 +61,7 @@
                     <label class="col-form-label">TEMPAT KURSUS:</label>
                 </div>
                 <div class="col-lg-10">
-                    <select class="form-select" name="search_TK" id="search_TK">
+                    <select class="form-select form-control" name="search_TK" id="search_TK">
                         <option selected="" aria-placeholder="Sila Pilih" hidden></option>
                         @foreach ($jadual as $t)
                             <option value="{{ $t->kursus_tempat }}">{{ $t->kursus_tempat }}</option>

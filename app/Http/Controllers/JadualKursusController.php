@@ -8,6 +8,9 @@ use App\Models\BidangKursus;
 use App\Models\JadualKursus;
 use App\Models\KategoriKursus;
 use App\Models\KodKursus;
+use App\Models\Negeri;
+use App\Models\PeruntukanPeserta;
+use App\Models\PusatTanggungjawab;
 use App\Models\StatusPelaksanaan;
 
 class JadualKursusController extends Controller
@@ -44,7 +47,7 @@ class JadualKursusController extends Controller
         return view('pengurusan_kursus.semak_jadual.create',[
             'bidang'=>$bidang,
             'kategori'=>$kategori,
-            'tajuk'=>$tajuk,
+            'kod_kursus'=>$tajuk,
             'status_pelaksanaan'=>$status_pelaksanaan
         ]);
     }
@@ -58,17 +61,18 @@ class JadualKursusController extends Controller
     public function store(StoreJadualKursusRequest $request)
     {
         $jadualKursus = new JadualKursus;
-        $jadualKursus->create($request->all());
         if($request->status_kursus == 'on'){
             $status = 1;
         }else{
             $status = 0;
         }
         $jadualKursus->kursus_status = $status;
-        $jadualKursus->save();
+        $jadualKursus->create($request->all());
+
+        dd($jadualKursus->id);
 
         alert()->success('Maklumat telah disimipan', 'Berjaya Disimpan');
-        return redirect('/pengurusan_kursus/semak_jadual');
+        return redirect('/pengurusan_kursus/peruntukan_peserta/'.$jadualKursus->id);
     }
 
     /**
