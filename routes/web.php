@@ -117,46 +117,6 @@ Route::group(['middleware' => 'AdminBTM'], function () {
 
 });
 
-Route::resources([
-    '/profil' => ProfilController::class,
-
-    '/utiliti/lokasi/negeri' => NegeriController::class,
-    '/utiliti/lokasi/daerah' => DaerahController::class,
-    '/utiliti/lokasi/mukim' => MukimController::class,
-    '/utiliti/lokasi/parlimen' => ParlimenController::class,
-    '/utiliti/lokasi/dun' => DunController::class,
-    '/utiliti/lokasi/kampung' => KampungController::class,
-    '/utiliti/lokasi/seksyen' => SeksyenController::class,
-    '/utiliti/lokasi/stesen' => StesenController::class,
-
-    '/utiliti/kumpulan/kategori_agensi' => KategoriAgensiController::class,
-    '/utiliti/kumpulan/agensi' => AgensiController::class,
-    '/utiliti/kumpulan/pegawai_agensi' => PegawaiAgensiController::class,
-    '/utiliti/kumpulan/pusat_tanggungjawab' => PusatTanggungjawabController::class,
-
-    '/utiliti/julat/julat_tahunan' => JulatTahunanController::class,
-
-    '/utiliti/status/status_pelaksanaan' => StatusPelaksanaanController::class,
-
-    '/utiliti/generik/agama' => AgamaController::class,
-    '/utiliti/generik/bangsa' => BangsaController::class,
-    '/utiliti/generik/sumber' => SumberController::class,
-
-    '/utiliti/kursus/bidang_kursus' => BidangKursusController::class,
-    '/utiliti/kursus/kategori_kursus' => KategoriKursusController::class,
-    '/utiliti/kursus/kod_kursus' => KodKursusController::class,
-    '/utiliti/kursus/gred_pegawai' => GredPegawaiController::class,
-    '/utiliti/kursus/elaun_cuti_kursus' => ElaunCutiController::class,
-    '/utiliti/kursus/kod_objek' => ObjekController::class,
-
-    '/pengurusan_kursus/semak_jadual' => JadualKursusController::class,
-    '/pengurusan_kursus/peruntukan_peserta'=> PeruntukanPesertaController::class,
-    '/pengurusan_kursus/aturcara'=> AturcaraController::class,
-    '/pengurusan_kursus/nota_rujukan'=> NotaRujukanController::class,
-    '/pengurusan_kursus/penceramah_konsultan'=> PenceramahKonsultanController::class,
-    '/pengurusan_kursus/kelayakan_elaun_cuti'=> KelayakanElauncutiController::class,
-]);
-
 //Peserta ULS
 Route::group(['prefix' => '/uls', 'middleware' => ['UlsPeserta', 'AdminBTM', 'auth' ]], function () {
     //Permohonan Peserta

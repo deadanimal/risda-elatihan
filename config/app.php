@@ -175,8 +175,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        //DOMPDF
-        Barryvdh\DomPDF\ServiceProvider::class,
+        // //DOMPDF
+        // Barryvdh\DomPDF\ServiceProvider::class,
 
         //Spatie Permission
         Spatie\Permission\PermissionServiceProvider::class,
