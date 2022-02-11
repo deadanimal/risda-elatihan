@@ -104,7 +104,7 @@
                                     <td>{{ $key + 1 }}.</td>
                                     <td>{{ $KK->UL_Kategori_Kursus }}</td>
                                     <td>{{ $KK->kod_Kategori_Kursus }}</td>
-                                    <td>{{ $KK->nama_Kategori_Kursus }} {{$KK->no_kod_KK}}</td>
+                                    <td>{{ $KK->nama_Kategori_Kursus }} {{$KK->no_kod_KK}} {{$KK->U_Bidang_Kursus}}</td>
                                     <td>
                                         @if ($KK->status_Kategori_Kursus == '1')
                                             <span class="badge badge-soft-success">Aktif</span>
@@ -268,7 +268,7 @@
             bid.forEach(element => {
                 if (this.value == element.UL_Bidang_Kursus) {
                     $('#form1 select[name=U_Bidang_Kursus]').append(
-                        `<option value=${element.id} class=${element.kod_Bidang_Kursus}>${element.nama_Bidang_Kursus}</option>`
+                        `<option value=${element.id} class=${element.kod_Bidang_Kursus}>${element.nama_Bidang_Kursus} & ${element.id}</option>`
                     );
                 }
             });
