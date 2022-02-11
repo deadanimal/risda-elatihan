@@ -280,7 +280,7 @@
             var kod_jenis = $('#jenis_kategori option:selected').val();
 
             var kod_ds = @json($bil_ds->toArray());
-            var bil_ds = 0;
+            var bil_ds = 1;
             kod_ds.forEach(element => {
                 kod_bidang = element.U_Bidang_Kursus.toLocaleString('en-US', {
                     minimumIntegerDigits: 2,
@@ -294,7 +294,6 @@
                             useGrouping: false
                         });
                     } else {
-                        bil_ds = parseInt(bil_ds) + 1;
                         bil_ds = bil_ds.toLocaleString('en-US', {
                             minimumIntegerDigits: 2,
                             useGrouping: false
