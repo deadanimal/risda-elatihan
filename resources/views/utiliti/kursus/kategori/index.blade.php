@@ -292,24 +292,14 @@
                     if (kod_bid == kod_bidang) {
                         if (element.no_kod_KK != null) {
                             bil_ds = parseInt(element.no_kod_KK) + 1;
-                            bil_ds = bil_ds.toLocaleString('en-US', {
-                                minimumIntegerDigits: 2,
-                                useGrouping: false
-                            });
-                        } else {
-                            bil_ds = bil_ds.toLocaleString('en-US', {
-                                minimumIntegerDigits: 2,
-                                useGrouping: false
-                            });
                         }
                     }
                 });
-            } else {
-                bil_ds = bil_ds.toLocaleString('en-US', {
-                    minimumIntegerDigits: 2,
-                    useGrouping: false
-                });
             }
+            bil_ds = bil_ds.toLocaleString('en-US', {
+                minimumIntegerDigits: 2,
+                useGrouping: false
+            });
 
             var kod_ls = @json($bil_ls->toArray());
             var bil_ls = 1;
@@ -321,23 +311,14 @@
                     });
                     if (kod_bid == kod_bidang) {
                         bil_ls = parseInt(element.no_kod_KK) + 1;
-                        bil_ls = bil_ls.toLocaleString('en-US', {
-                            minimumIntegerDigits: 2,
-                            useGrouping: false
-                        });
-                    } else {
-                        bil_ls = bil_ls.toLocaleString('en-US', {
-                            minimumIntegerDigits: 2,
-                            useGrouping: false
-                        });
                     }
                 });
-            } else {
-                bil_ls = bil_ls.toLocaleString('en-US', {
-                    minimumIntegerDigits: 2,
-                    useGrouping: false
-                });
             }
+
+            bil_ls = bil_ls.toLocaleString('en-US', {
+                minimumIntegerDigits: 2,
+                useGrouping: false
+            });
 
             var kod_pk = @json($bil_pk);
 
