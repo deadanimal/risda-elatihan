@@ -283,6 +283,7 @@
             var bil_ds = 1;
             console.log(kod_bid);
             if (kod_ds.length != 0) {
+                console.log('a');
                 kod_ds.forEach(element => {
                     kod_bidang = element.U_Bidang_Kursus.toLocaleString('en-US', {
                         minimumIntegerDigits: 2,
@@ -290,7 +291,9 @@
                     });
                     console.log(kod_bid, kod_bidang);
                     if (kod_bid == kod_bidang) {
+                        console.log('b');
                         if (element.no_kod_KK != null) {
+                            console.log('c');
                             bil_ds = parseInt(element.no_kod_KK) + 1;
                         }
                     }
