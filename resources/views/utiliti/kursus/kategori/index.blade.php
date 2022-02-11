@@ -276,9 +276,14 @@
 
         $('#jenis_kategori').change(function() {
             var kod_ul = $('#unitlatihan option:selected').val();
-            var kod_bid = $('#kod_bidang option:selected').val();
+            var kod_bid = $('#kod_bidang option:selected').attr('class');
             var kod_jenis = $('#jenis_kategori option:selected').val();
-
+            var id_bid = $('#kod_bidang option:selected').val();
+            id_bid = parseInt(id_bid);
+            id_bid = id_bid.toLocaleString('en-US', {
+                minimumIntegerDigits: 2,
+                useGrouping: false
+            });
             var kod_ds = @json($bil_ds->toArray());
             var bil_ds = 1;
             console.log(kod_bid);
@@ -289,8 +294,9 @@
                         minimumIntegerDigits: 2,
                         useGrouping: false
                     });
-                    console.log(kod_bid, kod_bidang);
-                    if (kod_bid == kod_bidang) {
+
+                    console.log('check = ' + id_bid, kod_bidang);
+                    if (id_bid == kod_bidang) {
                         console.log('b');
                         if (element.no_kod_KK != null) {
                             console.log('c');
@@ -303,6 +309,7 @@
                 minimumIntegerDigits: 2,
                 useGrouping: false
             });
+            console.log('last = ' + bil_ds);
 
             var kod_ls = @json($bil_ls->toArray());
             var bil_ls = 1;
@@ -312,7 +319,7 @@
                         minimumIntegerDigits: 2,
                         useGrouping: false
                     });
-                    if (kod_bid == kod_bidang) {
+                    if (id_bid == kod_bidang) {
                         bil_ls = parseInt(element.no_kod_KK) + 1;
                     }
                 });
