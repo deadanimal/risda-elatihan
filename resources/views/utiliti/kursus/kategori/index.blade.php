@@ -269,7 +269,7 @@
                 if (this.value == element.UL_Bidang_Kursus) {
                     $('#form1 select[name=U_Bidang_Kursus]').append(
                         `<option value=${element.id} class=${element.kod_Bidang_Kursus}>${element.nama_Bidang_Kursus}</option>`
-                        );
+                    );
                 }
             });
         });
@@ -281,49 +281,63 @@
 
             var kod_ds = @json($bil_ds->toArray());
             var bil_ds = 1;
-            kod_ds.forEach(element => {
-                kod_bidang = element.U_Bidang_Kursus.toLocaleString('en-US', {
+            console.log(kod_bid);
+            if (kod_ds.length != 0) {
+                kod_ds.forEach(element => {
+                    kod_bidang = element.U_Bidang_Kursus.toLocaleString('en-US', {
+                        minimumIntegerDigits: 2,
+                        useGrouping: false
+                    });
+                    console.log(kod_bid, kod_bidang);
+                    if (kod_bid == kod_bidang) {
+                        if (element.no_kod_KK != null) {
+                            bil_ds = parseInt(element.no_kod_KK) + 1;
+                            bil_ds = bil_ds.toLocaleString('en-US', {
+                                minimumIntegerDigits: 2,
+                                useGrouping: false
+                            });
+                        } else {
+                            bil_ds = bil_ds.toLocaleString('en-US', {
+                                minimumIntegerDigits: 2,
+                                useGrouping: false
+                            });
+                        }
+                    }
+                });
+            } else {
+                bil_ds = bil_ds.toLocaleString('en-US', {
                     minimumIntegerDigits: 2,
                     useGrouping: false
                 });
-                if (kod_bid == kod_bidang) {
-                    if (element.no_kod_KK != null) {
-                        bil_ds = parseInt(element.no_kod_KK) + 1;
-                        bil_ds = bil_ds.toLocaleString('en-US', {
+            }
+
+            var kod_ls = @json($bil_ls->toArray());
+            var bil_ls = 1;
+            if (kod_ls.length != 0) {
+                kod_ls.forEach(element => {
+                    kod_bidang = element.U_Bidang_Kursus.toLocaleString('en-US', {
+                        minimumIntegerDigits: 2,
+                        useGrouping: false
+                    });
+                    if (kod_bid == kod_bidang) {
+                        bil_ls = parseInt(element.no_kod_KK) + 1;
+                        bil_ls = bil_ls.toLocaleString('en-US', {
                             minimumIntegerDigits: 2,
                             useGrouping: false
                         });
                     } else {
-                        bil_ds = bil_ds.toLocaleString('en-US', {
+                        bil_ls = bil_ls.toLocaleString('en-US', {
                             minimumIntegerDigits: 2,
                             useGrouping: false
                         });
                     }
-                }
-            })
-            console.log(bil_ds);
-
-            var kod_ls = @json($bil_ls->toArray());
-            var bil_ls = 0;
-            kod_ls.forEach(element => {
-                kod_bidang = element.U_Bidang_Kursus.toLocaleString('en-US', {
+                });
+            } else {
+                bil_ls = bil_ls.toLocaleString('en-US', {
                     minimumIntegerDigits: 2,
                     useGrouping: false
                 });
-                if (kod_bid == kod_bidang) {
-                    bil_ls = parseInt(element.no_kod_KK) + 1;
-                    bil_ls = bil_ls.toLocaleString('en-US', {
-                        minimumIntegerDigits: 2,
-                        useGrouping: false
-                    });
-                } else {
-                    bil_ls = parseInt(bil_ls) + 1;
-                    bil_ls = bil_ls.toLocaleString('en-US', {
-                        minimumIntegerDigits: 2,
-                        useGrouping: false
-                    });
-                }
-            })
+            }
 
             var kod_pk = @json($bil_pk);
 
