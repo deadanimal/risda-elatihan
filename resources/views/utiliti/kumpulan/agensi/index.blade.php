@@ -35,7 +35,7 @@
 
     <div class="row mt-5">
         <div class="col">
-            <a class="btn btn-sm btn-primary" href="/agensi/create">
+            <a class="btn btn-sm btn-primary" href="/utiliti/kumpulan/agensi/create">
                 <i class="fas fa-plus"></i> TAMBAH
             </a>
         </div>

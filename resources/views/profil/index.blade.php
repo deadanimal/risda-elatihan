@@ -193,8 +193,13 @@
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">NO. TELEFON BIMBIT</label>
+                                        @if ($profil != null)
                                         <input class="form-control" type="text" value="{{ $profil['Telefon'] }}"
-                                            readonly />
+                                        readonly />
+                                        @else
+                                        <input class="form-control" type="text" value=""
+                                        readonly />
+                                        @endif
                                     </div>
                                 </div>
                             </div>

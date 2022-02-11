@@ -24,16 +24,24 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        // Gate::define('UlpkPeserta', function (User $user) {
-        //     return $user->jenis_pengguna === "Peserta ULPK";
-        // });
+        Gate::define('UlsPeserta', function (User $user) {
+            return $user->jenis_pengguna === "Peserta ULS";
+        });
 
-        // Gate::define('UlsUrusSetia', function (User $user) {
-        //     return $user->jenis_pengguna === "Urus Setia ULS";
-        // });
+        Gate::define('UlpkPeserta', function (User $user) {
+            return $user->jenis_pengguna === "Peserta ULPK";
+        });
 
-        // Gate::define('UlsUrusUlpk', function (User $user) {
-        //     return $user->jenis_pengguna === "Urus Setia ULS";
-        // });
+        Gate::define('UlsUrusSetia', function (User $user) {
+            return $user->jenis_pengguna === "Urus Setia ULS";
+        });
+
+        Gate::define('UlsUrusUlpk', function (User $user) {
+            return $user->jenis_pengguna === "Urus Setia ULS";
+        });
+
+        Gate::define('AdminBTM', function (User $user) {
+            return $user->jenis_pengguna === "AdminBTM";
+        });
     }
 }

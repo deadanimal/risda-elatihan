@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUtilitiRequest;
 use App\Http\Requests\UpdateUtilitiRequest;
+use App\Models\PekebunKecil;
+use App\Models\Staf;
+use App\Models\Tanah;
+use App\Models\Tanaman;
+use App\Models\User;
 use App\Models\Utiliti;
 
 class UtilitiController extends Controller
@@ -82,5 +87,45 @@ class UtilitiController extends Controller
     public function destroy(Utiliti $utiliti)
     {
         //
+    }
+
+    // test
+    public function test_user_list()
+    {
+        $user = User::all();
+        return view('test_list', [
+            'user'=>$user
+        ]);
+    }
+
+    public function test_user_delete($id)
+    {
+        $pekebun = PekebunKecil::where('id_pengguna', $id)->first();
+        
+        if ($pekebun != null) {
+            
+            $tanah = Tanah::where('id_pekebun_kecil', $pekebun->id)->first();
+            if ($tanah != null) {
+                $tanaman = Tanaman::where('id_tanah', $tanah->id)->get();
+
+                foreach ($tanaman as $key => $t) {
+                    $t->delete();
+                    
+                }
+                $tanah->delete();
+                
+                
+            }
+            $pekebun->delete();
+            
+        }
+        
+        $staf = Staf::where('id_pengguna', $id)->first();
+        if ($staf != null) {
+            $staf->delete();
+        }
+        $user = User::find($id);
+        $user->delete();
+        return redirect('/testing');
     }
 }

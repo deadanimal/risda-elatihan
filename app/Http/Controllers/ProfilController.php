@@ -27,50 +27,153 @@ class ProfilController extends Controller
     {
         $user = Auth::user();
 
-        // check staf
-        $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
-            ->get('https://www4.risda.gov.my/fire/getallstaff/')
-            ->getBody()
-            ->getContents();
+        if ($user->jenis_pengguna == 'AdminBTM') {
+            $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
+                ->get('https://www4.risda.gov.my/fire/getallstaff/')
+                ->getBody()
+                ->getContents();
 
-        $data_staf = json_decode($data_staf, true);
-        foreach ($data_staf as $key => $staf) {
-            if ($staf['nokp'] == $user->no_KP) {
-                $profil = Staf::where('id_Pengguna', $user->id)->first();
-                $jenis = 'Staf';
-                return view('profil.index_staf', [
+            $data_staf = json_decode($data_staf, true);
+            foreach ($data_staf as $key => $staf) {
+                if ($staf['nokp'] == $user->no_KP) {
+                    $profil = Staf::where('id_Pengguna', $user->id)->first();
+                    $jenis = 'Staf';
+                    return view('profil.index_staf', [
+                        'user' => $user,
+                        'staf' => $staf,
+                        'jenis' => $jenis,
+                        'profil' => $profil
+                    ]);
+                }
+            }
+        } elseif ($user->jenis_pengguna == 'Urus Setia ULS') {
+            $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
+                ->get('https://www4.risda.gov.my/fire/getallstaff/')
+                ->getBody()
+                ->getContents();
+
+            $data_staf = json_decode($data_staf, true);
+            foreach ($data_staf as $key => $staf) {
+                if ($staf['nokp'] == $user->no_KP) {
+                    $profil = Staf::where('id_Pengguna', $user->id)->first();
+                    $jenis = 'Staf';
+                    return view('profil.index_staf', [
+                        'user' => $user,
+                        'staf' => $staf,
+                        'jenis' => $jenis,
+                        'profil' => $profil
+                    ]);
+                }
+            }
+        } elseif ($user->jenis_pengguna == 'Peserta ULS') {
+            $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
+                ->get('https://www4.risda.gov.my/fire/getallstaff/')
+                ->getBody()
+                ->getContents();
+
+            $data_staf = json_decode($data_staf, true);
+            foreach ($data_staf as $key => $staf) {
+                if ($staf['nokp'] == $user->no_KP) {
+                    $profil = Staf::where('id_Pengguna', $user->id)->first();
+                    $jenis = 'Staf';
+                    return view('profil.index_staf', [
+                        'user' => $user,
+                        'staf' => $staf,
+                        'jenis' => $jenis,
+                        'profil' => $profil
+                    ]);
+                }
+            }
+        } elseif ($user->jenis_pengguna == 'Urus Setia ULPK') {
+            $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
+                ->get('https://www4.risda.gov.my/fire/getallstaff/')
+                ->getBody()
+                ->getContents();
+
+            $data_staf = json_decode($data_staf, true);
+            foreach ($data_staf as $key => $staf) {
+                if ($staf['nokp'] == $user->no_KP) {
+                    $profil = Staf::where('id_Pengguna', $user->id)->first();
+                    $jenis = 'Staf';
+                    return view('profil.index_staf', [
+                        'user' => $user,
+                        'staf' => $staf,
+                        'jenis' => $jenis,
+                        'profil' => $profil
+                    ]);
+                }
+            }
+        } elseif ($user->jenis_pengguna == 'Peserta ULPK') {
+            $profil = PekebunKecil::where('id_Pengguna', $user->id)->first();
+            $data_pk = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', '1cc11a9fec81dc1f99f353f403d6f5bac620aa8f')
+                ->get('https://www4.risda.gov.my/espek/portalpkprofiltanah/?nokp=' . $user->no_KP)
+                ->getBody()
+                ->getContents();
+
+            $data_pk = json_decode($data_pk, true);
+
+            // check if not pk
+            if (!empty($data_pk['message'])) {
+                alert()->error('No. Kad Pengenalan tiada dalam pangkalan data e-SPEK');
+                return back();
+            } else {
+                $data = $data_pk[0];
+                $tanah = $data['Tanah'];
+                $jenis = 'PK';
+                return view('profil.index', [
+                    'pk' => $data,
                     'user' => $user,
-                    'staf' => $staf,
-                    'jenis' => $jenis,
-                    'profil'=>$profil
+                    'tanah' => $tanah,
+                    'profil' => $profil,
+                    'jenis' => $jenis
                 ]);
             }
-        }
-
-        // check pekebun kecil
-        $profil = PekebunKecil::where('id_Pengguna', $user->id)->first();
-        $data_pk = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', '1cc11a9fec81dc1f99f353f403d6f5bac620aa8f')
-            ->get('https://www4.risda.gov.my/espek/portalpkprofiltanah/?nokp=' . $user->no_KP)
-            ->getBody()
-            ->getContents();
-
-        $data_pk = json_decode($data_pk, true);
-
-        // check if not pk
-        if (!empty($data_pk['message'])) {
-            alert()->error('No. Kad Pengenalan tiada dalam pangkalan data e-SPEK');
-            return back();
         } else {
-            $data = $data_pk[0];
-            $tanah = $data['Tanah'];
-            $jenis = 'PK';
-            return view('profil.index', [
-                'pk' => $data,
-                'user' => $user,
-                'tanah' => $tanah,
-                'profil' => $profil,
-                'jenis' => $jenis
-            ]);
+            // check staf
+            $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
+                ->get('https://www4.risda.gov.my/fire/getallstaff/')
+                ->getBody()
+                ->getContents();
+
+            $data_staf = json_decode($data_staf, true);
+            foreach ($data_staf as $key => $staf) {
+                if ($staf['nokp'] == $user->no_KP) {
+                    $profil = Staf::where('id_Pengguna', $user->id)->first();
+                    $jenis = 'Staf';
+                    return view('profil.index_staf', [
+                        'user' => $user,
+                        'staf' => $staf,
+                        'jenis' => $jenis,
+                        'profil' => $profil
+                    ]);
+                }
+            }
+
+            // check pekebun kecil
+            $profil = PekebunKecil::where('id_Pengguna', $user->id)->first();
+            $data_pk = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', '1cc11a9fec81dc1f99f353f403d6f5bac620aa8f')
+                ->get('https://www4.risda.gov.my/espek/portalpkprofiltanah/?nokp=' . $user->no_KP)
+                ->getBody()
+                ->getContents();
+
+            $data_pk = json_decode($data_pk, true);
+
+            // check if not pk
+            if (!empty($data_pk['message'])) {
+                alert()->error('No. Kad Pengenalan tiada dalam pangkalan data e-SPEK');
+                return back();
+            } else {
+                $data = $data_pk[0];
+                $tanah = $data['Tanah'];
+                $jenis = 'PK';
+                return view('profil.index', [
+                    'pk' => $data,
+                    'user' => $user,
+                    'tanah' => $tanah,
+                    'profil' => $profil,
+                    'jenis' => $jenis
+                ]);
+            }
         }
     }
 

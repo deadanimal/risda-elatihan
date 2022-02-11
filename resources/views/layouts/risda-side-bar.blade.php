@@ -331,251 +331,401 @@
                 </a>
             @endcan
 
+            @can('AdminBTM')
 
+                <a class="nav-link py-0 dropdown-indicator" href="#kehadiran" role="button" data-bs-toggle="collapse"
+                    aria-expanded="{{ Request::is('us-uls/kehadiran/*') ? 'true' : 'false' }}" aria-controls="kehadiran">
+                    <div class="d-flex align-items-center nav-link-side px-0">
+                        <span class="px-3"><span class="far fa-address-book"></span> KEHADIRAN</span>
+                    </div>
+                </a>
+                <ul class="nav-item collapse {{ Request::is('us-uls/kehadiran/*') ? 'show' : 'false' }} my-1"
+                    id="kehadiran">
+                    <li class="nav-item">
+                        <a class="nav-link py-0 dropdown-indicator" href="#kehadiran-ke-kursus" role="button"
+                            data-bs-toggle="collapse"
+                            aria-expanded="{{ Request::is('us-uls/kehadiran/ke-kursus/*') ? 'true' : 'false' }}"
+                            aria-controls="kehadiran-ke-kursus">
+                            <div class="d-flex align-items-center nav-link-side">
+                                <span class="px-0">KEHADIRAN KE KURSUS</span>
+                            </div>
+                        </a>
+                        <ul class="nav-item collapse {{ Request::is('us-uls/kehadiran/ke-kursus/*') ? 'show' : 'false' }} my-1"
+                            id="kehadiran-ke-kursus">
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is('us-uls/kehadiran/ke-kursus/merekod-kehadiran') ? 'active' : '' }} py-0"
+                                    href="/us-uls/kehadiran/ke-kursus/merekod-kehadiran">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">MEREKOD KEHADIRAN</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link py-0  {{ Request::is('us-uls/kehadiran/ke-kursus/mengesahkan-kehadiran') ? 'active' : '' }}"
+                                    href="/us-uls/kehadiran/ke-kursus/mengesahkan-kehadiran">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">MENGESAHKAN KEHADIRAN</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-0" href="#">
+                            <div class="d-flex align-items-center nav-link-side">
+                                <span class="px-0">KEHADIRAN KE PUSAT LATIHAN</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('us-uls/kehadiran/cetakkodQR') ? 'active' : '' }} py-0"
+                            href="/us-uls/kehadiran/cetakkodQR">
+                            <div class="d-flex align-items-center nav-link-side">
+                                <span class="px-0">CETAK KOD QR KURSUS</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-0" href="#">
+                            <div class="d-flex align-items-center nav-link-side">
+                                <span class="px-0">CETAK KOD QR PUSAT LATIHAN</span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <a class="nav-link py-0 {{ Request::is('us-uls/pengajian-lanjutan') ? 'active' : '' }}"
+                    href="/us-uls/pengajian-lanjutan" role="button">
+                    <div class="d-flex align-items-center nav-link-side px-0">
+                        <span class="px-3"><span class="far fa-address-book"></span> PENGAJIAN LANJUTAN</span>
+                    </div>
+                </a>
+                <a class="nav-link py-0 dropdown-indicator" href="#permohonan" role="button" data-bs-toggle="collapse"
+                    aria-expanded="{{ Request::is('ulpk/permohonan/*') ? 'true' : 'false' }}" aria-controls="permohonan">
+                    <div class="d-flex align-items-center nav-link-side px-0">
+                        <span class="px-3"><span class="fas fa-file-alt"></span> PERMOHONAN KURSUS</span>
+                    </div>
+                </a>
+                <ul class="nav-item collapse {{ Request::is('ulpk/permohonan/*') ? 'show' : 'false' }} my-1"
+                    id="permohonan">
+                    <li class="nav-item">
+                        <a class="nav-link py-0" href="#">
+                            <div class="d-flex align-items-center nav-link-side">
+                                <span class="px-0">KATALOG KURSUS</span>
+                            </div>
+                        </a>
 
-            <a class="nav-link py-0 dropdown-indicator" href="#utiliti" role="button" data-bs-toggle="collapse"
-                aria-expanded="{{ Request::is('utiliti/*') ? 'true' : 'false' }}" aria-controls="utiliti">
-                <div class="d-flex align-items-center nav-link-side px-0">
-                    <span class=" px-3"><span class="fas fa-clone"></span> UTILITI</span>
-                </div>
-            </a>
-            <ul class="nav-item collapse {{ Request::is('utiliti/*') ? 'show' : 'false' }} my-1" id="utiliti">
-                <li class="nav-item">
-                    <a class="nav-link py-0 dropdown-indicator" href="#negeri" role="button" data-bs-toggle="collapse"
-                        aria-expanded="{{ Request::is('utiliti/lokasi/*') ? 'true' : 'false' }}" aria-controls="negeri">
-                        <div class="d-flex align-items-center nav-link-side">
-                            <span class="px-0">Kod Lokasi</span>
-                        </div>
-                    </a>
-                    <ul class="nav-item collapse {{ Request::is('utiliti/lokasi/*') ? 'show' : 'false' }} my-1" id="negeri">
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/lokasi/negeri') ? 'active' : '' }} py-0" href="/utiliti/lokasi/negeri">
-                                <div class="d-flex align-items-center nav-link-side">
-                                    <span class="px-0">Kod Negeri</span>
-                                </div>
-                            </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('ulpk/permohonan/statuspermohonan/') ? 'active' : '' }} py-0"
+                            href="/ulpk/permohonan/statuspermohonan">
+                            <div class="d-flex align-items-center nav-link-side">
+                                <span class="px-0">STATUS PERMOHONAN</span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <a class="nav-link py-0 dropdown-indicator" href="#pengurusan_kursus" role="button"
+                    data-bs-toggle="collapse"
+                    aria-expanded="{{ Request::is('pengurusan_kursus/*') ? 'true' : 'false' }}"
+                    aria-controls="pengurusan_kursus">
+                    <div class="d-flex align-items-center nav-link-side px-0">
+                        <span class=" px-3"><span class="fas fa-clone"></span> PENGURUSAN KURSUS</span>
+                    </div>
+                </a>
+                <ul class="nav-item collapse {{ Request::is('pengurusan_kursus/*') ? 'show' : 'false' }} my-1"
+                    id="pengurusan_kursus">
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('pengurusan_kursus/*') ? 'active' : '' }} py-0"
+                            href="/pengurusan_kursus/semak_jadual">
+                            <div class="d-flex align-items-center nav-link-side">
+                                <span class="px-0">Semak Jadual</span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <a class="nav-link py-0 dropdown-indicator" href="#utiliti" role="button" data-bs-toggle="collapse"
+                    aria-expanded="{{ Request::is('utiliti/*') ? 'true' : 'false' }}" aria-controls="utiliti">
+                    <div class="d-flex align-items-center nav-link-side px-0">
+                        <span class=" px-3"><span class="fas fa-clone"></span> UTILITI</span>
+                    </div>
+                </a>
+                <ul class="nav-item collapse {{ Request::is('utiliti/*') ? 'show' : 'false' }} my-1" id="utiliti">
+                    <li class="nav-item">
+                        <a class="nav-link py-0 dropdown-indicator" href="#negeri" role="button" data-bs-toggle="collapse"
+                            aria-expanded="{{ Request::is('utiliti/lokasi/*') ? 'true' : 'false' }}"
+                            aria-controls="negeri">
+                            <div class="d-flex align-items-center nav-link-side">
+                                <span class="px-0">Kod Lokasi</span>
+                            </div>
+                        </a>
+                        <ul class="nav-item collapse {{ Request::is('utiliti/lokasi/*') ? 'show' : 'false' }} my-1"
+                            id="negeri">
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is('utiliti/lokasi/negeri') ? 'active' : '' }} py-0"
+                                    href="/utiliti/lokasi/negeri">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">Kod Negeri</span>
+                                    </div>
+                                </a>
 
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/lokasi/daerah') ? 'active' : '' }} py-0" href="/utiliti/lokasi/daerah">
-                                <div class="d-flex align-items-center nav-link-side">
-                                    <span class="px-0">Kod Daerah</span>
-                                </div>
-                            </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is('utiliti/lokasi/daerah') ? 'active' : '' }} py-0"
+                                    href="/utiliti/lokasi/daerah">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">Kod Daerah</span>
+                                    </div>
+                                </a>
 
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/lokasi/mukim') ? 'active' : '' }} py-0" href="/utiliti/lokasi/mukim">
-                                <div class="d-flex align-items-center nav-link-side">
-                                    <span class="px-0">Kod Mukim</span>
-                                </div>
-                            </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is('utiliti/lokasi/mukim') ? 'active' : '' }} py-0"
+                                    href="/utiliti/lokasi/mukim">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">Kod Mukim</span>
+                                    </div>
+                                </a>
 
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/lokasi/parlimen') ? 'active' : '' }} py-0" href="/utiliti/lokasi/parlimen">
-                                <div class="d-flex align-items-center nav-link-side">
-                                    <span class="px-0">Kod Parlimen</span>
-                                </div>
-                            </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is('utiliti/lokasi/parlimen') ? 'active' : '' }} py-0"
+                                    href="/utiliti/lokasi/parlimen">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">Kod Parlimen</span>
+                                    </div>
+                                </a>
 
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/lokasi/dun') ? 'active' : '' }} py-0" href="/utiliti/lokasi/dun">
-                                <div class="d-flex align-items-center nav-link-side">
-                                    <span class="px-0">Kod Dun</span>
-                                </div>
-                            </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is('utiliti/lokasi/dun') ? 'active' : '' }} py-0"
+                                    href="/utiliti/lokasi/dun">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">Kod Dun</span>
+                                    </div>
+                                </a>
 
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/lokasi/kampung') ? 'active' : '' }} py-0" href="/utiliti/lokasi/kampung">
-                                <div class="d-flex align-items-center nav-link-side">
-                                    <span class="px-0">Kod Kampung</span>
-                                </div>
-                            </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is('utiliti/lokasi/kampung') ? 'active' : '' }} py-0"
+                                    href="/utiliti/lokasi/kampung">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">Kod Kampung</span>
+                                    </div>
+                                </a>
 
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/lokasi/seksyen') ? 'active' : '' }} py-0" href="/utiliti/lokasi/seksyen">
-                                <div class="d-flex align-items-center nav-link-side">
-                                    <span class="px-0">Kod Seksyen</span>
-                                </div>
-                            </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is('utiliti/lokasi/seksyen') ? 'active' : '' }} py-0"
+                                    href="/utiliti/lokasi/seksyen">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">Kod Seksyen</span>
+                                    </div>
+                                </a>
 
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/lokasi/stesen') ? 'active' : '' }} py-0" href="/utiliti/lokasi/stesen">
-                                <div class="d-flex align-items-center nav-link-side">
-                                    <span class="px-0">Kod Stesen</span>
-                                </div>
-                            </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is('utiliti/lokasi/stesen') ? 'active' : '' }} py-0"
+                                    href="/utiliti/lokasi/stesen">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">Kod Stesen</span>
+                                    </div>
+                                </a>
 
-                        </li>
-                    </ul>
+                            </li>
+                        </ul>
 
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link py-0" href="#kumpulan" role="button" data-bs-toggle="collapse" aria-expanded="{{ Request::is('utiliti/kumpulan/*') ? 'true' : 'false' }}" aria-controls="kumpulan">
-                        <div class="d-flex align-items-center nav-link-side">
-                            <span class="px-0">Kod Kumpulan</span>
-                        </div>
-                    </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-0" href="#kumpulan" role="button" data-bs-toggle="collapse"
+                            aria-expanded="{{ Request::is('utiliti/kumpulan/*') ? 'true' : 'false' }}"
+                            aria-controls="kumpulan">
+                            <div class="d-flex align-items-center nav-link-side">
+                                <span class="px-0">Kod Kumpulan</span>
+                            </div>
+                        </a>
 
-                    <ul class="nav-item collapse {{ Request::is('utiliti/kumpulan/*') ? 'show' : 'false' }} my-1" id="kumpulan">
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/kumpulan/kategori_agensi') ? 'active' : '' }} py-0" href="/utiliti/kumpulan/kategori_agensi">
-                                <div class="d-flex align-items-center nav-link-side">
-                                    <span class="px-0">Kategori Agensi</span>
-                                </div>
-                            </a>
-        
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/kumpulan/agensi') ? 'active' : '' }} py-0" href="/utiliti/kumpulan/agensi">
-                                <div class="d-flex align-items-center nav-link-side">
-                                    <span class="px-0">Senarai Agensi</span>
-                                </div>
-                            </a>
-        
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/kumpulan/pusat_tanggungjawab') ? 'active' : '' }} py-0" href="/utiliti/kumpulan/pusat_tanggungjawab">
-                                <div class="d-flex align-items-center nav-link-side">
-                                    <span class="px-0">Pusat Tanggungjawab</span>
-                                </div>
-                            </a>
-        
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link py-0" href="#julat" role="button" data-bs-toggle="collapse" aria-expanded="{{ Request::is('utiliti/julat/*') ? 'true' : 'false' }}" aria-controls="julat">
-                        <div class="d-flex align-items-center nav-link-side">
-                            <span class="px-0">Kod Julat</span>
-                        </div>
-                    </a>
-                    <ul class="nav-item collapse {{ Request::is('utiliti/julat/*') ? 'show' : 'false' }} my-1" id="julat">
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/julat/julat_tahunan') ? 'active' : '' }} py-0" href="/utiliti/julat/julat_tahunan">
-                                <div class="d-flex align-items-center nav-link-side">
-                                    <span class="px-0">Julat Tahunan</span>
-                                </div>
-                            </a>
-        
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link py-0" href="#status" role="button" data-bs-toggle="collapse" aria-expanded="{{ Request::is('utiliti/status/*') ? 'true' : 'false' }}" aria-controls="status">
-                        <div class="d-flex align-items-center nav-link-side">
-                            <span class="px-0">Kod Status</span>
-                        </div>
-                    </a>
-                    <ul class="nav-item collapse {{ Request::is('utiliti/status/*') ? 'show' : 'false' }} my-1" id="status">
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/status/status_pelaksanaan') ? 'active' : '' }} py-0" href="/utiliti/status/status_pelaksanaan">
-                                <div class="d-flex align-items-center nav-link-side">
-                                    <span class="px-0">Status Pelaksanaan</span>
-                                </div>
-                            </a>
-        
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link py-0" href="#generik" role="button" data-bs-toggle="collapse" aria-expanded="{{ Request::is('utiliti/generik/*') ? 'true' : 'false' }}" aria-controls="generik">
-                        <div class="d-flex align-items-center nav-link-side">
-                            <span class="px-0">Kod Generik</span>
-                        </div>
-                    </a>
+                        <ul class="nav-item collapse {{ Request::is('utiliti/kumpulan/*') ? 'show' : 'false' }} my-1"
+                            id="kumpulan">
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is('utiliti/kumpulan/kategori_agensi') ? 'active' : '' }} py-0"
+                                    href="/utiliti/kumpulan/kategori_agensi">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">Kategori Agensi</span>
+                                    </div>
+                                </a>
 
-                    <ul class="nav-item collapse {{ Request::is('utiliti/generik/*') ? 'show' : 'false' }} my-1" id="generik">
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/generik/agama') ? 'active' : '' }} py-0" href="/utiliti/generik/agama">
-                                <div class="d-flex align-items-center nav-link-side">
-                                    <span class="px-0">Agama</span>
-                                </div>
-                            </a>
-        
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/generik/bangsa') ? 'active' : '' }} py-0" href="/utiliti/generik/bangsa">
-                                <div class="d-flex align-items-center nav-link-side">
-                                    <span class="px-0">Bangsa</span>
-                                </div>
-                            </a>
-        
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/generik/sumber') ? 'active' : '' }} py-0" href="/utiliti/generik/sumber">
-                                <div class="d-flex align-items-center nav-link-side">
-                                    <span class="px-0">Sumber</span>
-                                </div>
-                            </a>
-        
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link py-0" href="#kursus" role="button" data-bs-toggle="collapse" aria-expanded="{{ Request::is('utiliti/kursus/*') ? 'true' : 'false' }}" aria-controls="kursus">
-                        <div class="d-flex align-items-center nav-link-side">
-                            <span class="px-0">Kod Kursus</span>
-                        </div>
-                    </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is('utiliti/kumpulan/agensi') ? 'active' : '' }} py-0"
+                                    href="/utiliti/kumpulan/agensi">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">Senarai Agensi</span>
+                                    </div>
+                                </a>
 
-                    <ul class="nav-item collapse {{ Request::is('utiliti/kursus/*') ? 'show' : 'false' }} my-1" id="kursus">
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/kursus/bidang_kursus') ? 'active' : '' }} py-0" href="/utiliti/kursus/bidang_kursus">
-                                <div class="d-flex align-items-center nav-link-side">
-                                    <span class="px-0">Bidang Kursus</span>
-                                </div>
-                            </a>
-        
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/kursus/kategori_kursus') ? 'active' : '' }} py-0" href="/utiliti/kursus/kategori_kursus">
-                                <div class="d-flex align-items-center nav-link-side">
-                                    <span class="px-0">Kategori Kursus</span>
-                                </div>
-                            </a>
-        
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/kursus/kod_kursus') ? 'active' : '' }} py-0" href="/utiliti/kursus/kod_kursus">
-                                <div class="d-flex align-items-center nav-link-side">
-                                    <span class="px-0">Kod Kursus</span>
-                                </div>
-                            </a>
-        
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/kursus/gred_pegawai') ? 'active' : '' }} py-0" href="/utiliti/kursus/gred_pegawai">
-                                <div class="d-flex align-items-center nav-link-side">
-                                    <span class="px-0">Gred Pegawai</span>
-                                </div>
-                            </a>
-        
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/kursus/elaun_cuti_kursus') ? 'active' : '' }} py-0" href="/utiliti/kursus/elaun_cuti_kursus">
-                                <div class="d-flex align-items-center nav-link-side">
-                                    <span class="px-0">Elaun/Cuti Kursus</span>
-                                </div>
-                            </a>
-        
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('utiliti/kursus/kod_objek') ? 'active' : '' }} py-0" href="/utiliti/kursus/kod_objek">
-                                <div class="d-flex align-items-center nav-link-side">
-                                    <span class="px-0">Kod Objek</span>
-                                </div>
-                            </a>
-        
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is('utiliti/kumpulan/pusat_tanggungjawab') ? 'active' : '' }} py-0"
+                                    href="/utiliti/kumpulan/pusat_tanggungjawab">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">Pusat Tanggungjawab</span>
+                                    </div>
+                                </a>
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-0" href="#julat" role="button" data-bs-toggle="collapse"
+                            aria-expanded="{{ Request::is('utiliti/julat/*') ? 'true' : 'false' }}"
+                            aria-controls="julat">
+                            <div class="d-flex align-items-center nav-link-side">
+                                <span class="px-0">Kod Julat</span>
+                            </div>
+                        </a>
+                        <ul class="nav-item collapse {{ Request::is('utiliti/julat/*') ? 'show' : 'false' }} my-1"
+                            id="julat">
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is('utiliti/julat/julat_tahunan') ? 'active' : '' }} py-0"
+                                    href="/utiliti/julat/julat_tahunan">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">Julat Tahunan</span>
+                                    </div>
+                                </a>
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-0" href="#status" role="button" data-bs-toggle="collapse"
+                            aria-expanded="{{ Request::is('utiliti/status/*') ? 'true' : 'false' }}"
+                            aria-controls="status">
+                            <div class="d-flex align-items-center nav-link-side">
+                                <span class="px-0">Kod Status</span>
+                            </div>
+                        </a>
+                        <ul class="nav-item collapse {{ Request::is('utiliti/status/*') ? 'show' : 'false' }} my-1"
+                            id="status">
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is('utiliti/status/status_pelaksanaan') ? 'active' : '' }} py-0"
+                                    href="/utiliti/status/status_pelaksanaan">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">Status Pelaksanaan</span>
+                                    </div>
+                                </a>
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-0" href="#generik" role="button" data-bs-toggle="collapse"
+                            aria-expanded="{{ Request::is('utiliti/generik/*') ? 'true' : 'false' }}"
+                            aria-controls="generik">
+                            <div class="d-flex align-items-center nav-link-side">
+                                <span class="px-0">Kod Generik</span>
+                            </div>
+                        </a>
+
+                        <ul class="nav-item collapse {{ Request::is('utiliti/generik/*') ? 'show' : 'false' }} my-1"
+                            id="generik">
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is('utiliti/generik/agama') ? 'active' : '' }} py-0"
+                                    href="/utiliti/generik/agama">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">Agama</span>
+                                    </div>
+                                </a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is('utiliti/generik/bangsa') ? 'active' : '' }} py-0"
+                                    href="/utiliti/generik/bangsa">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">Bangsa</span>
+                                    </div>
+                                </a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is('utiliti/generik/sumber') ? 'active' : '' }} py-0"
+                                    href="/utiliti/generik/sumber">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">Sumber</span>
+                                    </div>
+                                </a>
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-0" href="#kursus" role="button" data-bs-toggle="collapse"
+                            aria-expanded="{{ Request::is('utiliti/kursus/*') ? 'true' : 'false' }}"
+                            aria-controls="kursus">
+                            <div class="d-flex align-items-center nav-link-side">
+                                <span class="px-0">Kod Kursus</span>
+                            </div>
+                        </a>
+
+                        <ul class="nav-item collapse {{ Request::is('utiliti/kursus/*') ? 'show' : 'false' }} my-1"
+                            id="kursus">
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is('utiliti/kursus/bidang_kursus') ? 'active' : '' }} py-0"
+                                    href="/utiliti/kursus/bidang_kursus">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">Bidang Kursus</span>
+                                    </div>
+                                </a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is('utiliti/kursus/kategori_kursus') ? 'active' : '' }} py-0"
+                                    href="/utiliti/kursus/kategori_kursus">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">Kategori Kursus</span>
+                                    </div>
+                                </a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is('utiliti/kursus/kod_kursus') ? 'active' : '' }} py-0"
+                                    href="/utiliti/kursus/kod_kursus">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">Kod Kursus</span>
+                                    </div>
+                                </a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is('utiliti/kursus/gred_pegawai') ? 'active' : '' }} py-0"
+                                    href="/utiliti/kursus/gred_pegawai">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">Gred Pegawai</span>
+                                    </div>
+                                </a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is('utiliti/kursus/elaun_cuti_kursus') ? 'active' : '' }} py-0"
+                                    href="/utiliti/kursus/elaun_cuti_kursus">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">Elaun/Cuti Kursus</span>
+                                    </div>
+                                </a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is('utiliti/kursus/kod_objek') ? 'active' : '' }} py-0"
+                                    href="/utiliti/kursus/kod_objek">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">Kod Objek</span>
+                                    </div>
+                                </a>
+
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            @endcan
 
             {{-- <a class="nav-link-side dropdown-indicator" href="#email" role="button" data-bs-toggle="collapse"
                 aria-expanded="false" aria-controls="email">

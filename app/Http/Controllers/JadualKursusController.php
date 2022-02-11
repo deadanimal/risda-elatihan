@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreJadualKursusRequest;
 use App\Http\Requests\UpdateJadualKursusRequest;
+use App\Models\Agensi;
 use App\Models\BidangKursus;
 use App\Models\JadualKursus;
 use App\Models\KategoriKursus;
@@ -40,15 +41,23 @@ class JadualKursusController extends Controller
      */
     public function create()
     {
+        $hari_ini = date("Y-m-d");
+        // dd($hari_ini);
+
         $bidang = BidangKursus::all();
         $kategori = KategoriKursus::all();
         $tajuk = KodKursus::all();
         $status_pelaksanaan = StatusPelaksanaan::all();
+        $tempat = Agensi::all();
+        $pengendali = Agensi::all();
         return view('pengurusan_kursus.semak_jadual.create',[
             'bidang'=>$bidang,
             'kategori'=>$kategori,
             'kod_kursus'=>$tajuk,
-            'status_pelaksanaan'=>$status_pelaksanaan
+            'status_pelaksanaan'=>$status_pelaksanaan,
+            'hari_ini'=>$hari_ini,
+            'pengendali'=>$pengendali,
+            'tempat'=>$tempat
         ]);
     }
 
@@ -60,16 +69,14 @@ class JadualKursusController extends Controller
      */
     public function store(StoreJadualKursusRequest $request)
     {
-        $jadualKursus = new JadualKursus;
-        if($request->status_kursus == 'on'){
+        $jadualKursus = new JadualKursus($request->all());
+        if($request->status == 'on'){
             $status = 1;
         }else{
             $status = 0;
         }
         $jadualKursus->kursus_status = $status;
-        $jadualKursus->create($request->all());
-
-        dd($jadualKursus->id);
+        $jadualKursus->save();
 
         alert()->success('Maklumat telah disimipan', 'Berjaya Disimpan');
         return redirect('/pengurusan_kursus/peruntukan_peserta/'.$jadualKursus->id);
@@ -94,8 +101,16 @@ class JadualKursusController extends Controller
      */
     public function edit(JadualKursus $jadualKursus)
     {
-        return view('pengurusan_kursus.jadual_kursus.edit',[
-            'jadual'=>$jadualKursus
+        $bidang = BidangKursus::all();
+        $kategori = KategoriKursus::all();
+        $kod_kursus = KodKursus::all();
+        $status_pelaksanaan = StatusPelaksanaan::all();
+        return view('pengurusan_kursus.semak_jadual.edit',[
+            'jadual'=>$jadualKursus,
+            'bidang'=>$bidang,
+            'kategori'=>$kategori,
+            'kod_kursus'=>$kod_kursus,
+            'status_pelaksanaan'=>$status_pelaksanaan
         ]);
     }
 
@@ -108,17 +123,18 @@ class JadualKursusController extends Controller
      */
     public function update(UpdateJadualKursusRequest $request, JadualKursus $jadualKursus)
     {
-        $jadualKursus->create($request->all());
-        if($request->status_kursus == 'on'){
+
+        if($request->status == 'on'){
             $status = 1;
         }else{
             $status = 0;
         }
+        $input = $request->all();
         $jadualKursus->kursus_status = $status;
-        $jadualKursus->save();
+        $jadualKursus->fill($input)->save();
 
-        alert()->success('Maklumat telah dikemaskini', 'Kemaskini');
-        return redirect('/pengurusan_kursus/semak_jadual');
+        alert()->success('Maklumat telah disimipan', 'Berjaya Disimpan');
+        return redirect('/pengurusan_kursus/peruntukan_peserta/'.$jadualKursus->id);
     }
 
     /**

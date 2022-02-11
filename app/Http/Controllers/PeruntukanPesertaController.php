@@ -39,8 +39,8 @@ class PeruntukanPesertaController extends Controller
      */
     public function store(StorePeruntukanPesertaRequest $request)
     {
-        $peruntukanPeserta = new PeruntukanPeserta;
-        $peruntukanPeserta->create($request->all());
+        $peruntukanPeserta = new PeruntukanPeserta($request->all());
+        $peruntukanPeserta->save();
         alert()->success('Maklumat telah disimipan', 'Berjaya Disimpan');
         return redirect('/pengurusan_kursus/peruntukan_peserta/'.$request->pp_jadual_kursus);
     }
@@ -56,13 +56,15 @@ class PeruntukanPesertaController extends Controller
         $jadualKursus = JadualKursus::where('id', $id)->firstorFail();
         $negeri = Negeri::all();
         $pusat_tanggungjawab = PusatTanggungjawab::all();
-        $peruntukan_peserta = PeruntukanPeserta::where('id', $jadualKursus->id)->get();
+        $peruntukan_peserta = PeruntukanPeserta::where('pp_jadual_kursus', $jadualKursus->id)->get();
+        $total_calon = PeruntukanPeserta::where('pp_jadual_kursus', $jadualKursus->id)->sum('pp_peruntukan_calon');
 
         return view('pengurusan_kursus.semak_jadual.peruntukan_peserta',[
             'jadualKursus'=>$jadualKursus,
             'negeri'=>$negeri,
             'pusat_tanggungjawab'=>$pusat_tanggungjawab,
-            'peruntukan_peserta'=>$peruntukan_peserta
+            'peruntukan_peserta'=>$peruntukan_peserta,
+            'total_calon'=>$total_calon
         ]);
     }
 
@@ -95,8 +97,12 @@ class PeruntukanPesertaController extends Controller
      * @param  \App\Models\PeruntukanPeserta  $peruntukanPeserta
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PeruntukanPeserta $peruntukanPeserta)
+    public function destroy( $id)
     {
-        //
+        $peruntukanPeserta = PeruntukanPeserta::find($id);
+        $peruntukanPeserta->delete();
+        alert()->success('Maklumat telah dihapuskan', 'Berjaya');
+
+        return back();
     }
 }

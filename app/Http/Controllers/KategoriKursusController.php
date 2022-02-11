@@ -24,19 +24,24 @@ class KategoriKursusController extends Controller
         $kategoriKursus = BidangKursus::join('kategori_kursuses', 'bidang_kursuses.id', 'kategori_kursuses.U_Bidang_Kursus')
         ->select('*')->get();
         // dd($kategoriKursus);
-        $bil_kk = KategoriKursus::orderBy('id', 'desc')->first();
-        if ($bil_kk != null) {
-            $bil = $bil_kk->kod_Kategori_Kursus;
+
+        $bil_ds = KategoriKursus::where('UL_Kategori_Kursus', 'Staf')->where('jenis_Kategori_Kursus', 'Dalaman')->get();
+        $bil_ls = KategoriKursus::where('UL_Kategori_Kursus', 'Staf')->where('jenis_Kategori_Kursus', 'Luaran')->get();
+        $bil_pk = KategoriKursus::orderBy('id', 'desc')->where('UL_Kategori_Kursus', 'Pekebun Kecil')->first();
+        if ($bil_pk != null) {
+            $bil_pk = $bil_pk->no_kod_KK;
         }else{
-            $bil = 0;
+            $bil_pk = 0;
         }
-        $bil = $bil + 1;
-        $bil = sprintf("%02d", $bil);
+        $bil_pk = (int)$bil_pk + 1;
+        $bil_pk = sprintf("%02d", $bil_pk);
 
         return view('utiliti.kursus.kategori.index', [
             'bidangKursus' => $bidangKursus,
             'kategoriKursus' => $kategoriKursus,
-            'bil' => $bil
+            'bil_ds' => $bil_ds,
+            'bil_ls' => $bil_ls,
+            'bil_pk' => $bil_pk,
         ]);
     }
 
@@ -63,6 +68,7 @@ class KategoriKursusController extends Controller
         $kategoriKursus->U_Bidang_Kursus = $request->U_Bidang_Kursus;
         $kategoriKursus->jenis_Kategori_Kursus = $request->jenis_Kategori_Kursus;
         $kategoriKursus->kod_Kategori_Kursus = $request->kod_Kategori_Kursus;
+        $kategoriKursus->no_kod_KK = $request->no_kod_KK;
         $kategoriKursus->nama_Kategori_Kursus = $request->nama_Kategori_Kursus;
         if ($request->status == 'on') {
             $status = 1;

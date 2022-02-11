@@ -46,7 +46,7 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label class="col-form-label">TARIKH DAFTAR</label>
-                            <input class="form-control" type="date" name="kursus_tarikh_daftar" />
+                            <input class="form-control" type="date" name="kursus_tarikh_daftar" value="{{$hari_ini}}"/>
                         </div>
                     </div>
                 </div>
@@ -86,14 +86,7 @@
                 <div class="row mb-3">
                     <div class="col">
                         <label class="col-form-label">SIRI KURSUS</label>
-                        <select class="form-select form-control" name="id_siri" id="siri">
-                            <option selected="" hidden>Sila Pilih</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
+                        <input type="number" name="id_siri" id="siri" class="form-control">
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -108,7 +101,7 @@
                     <div class="col">
                         <div class="mb-3">
                             <label class="col-form-label">KOD NAMA KURSUS</label>
-                            <input class="form-control" type="text" name="kursus_kod_nama_kursus" />
+                            <input class="form-control" type="text" name="kursus_kod_nama_kursus" id="kod_siri_kk"/>
                         </div>
                     </div>
                 </div>
@@ -157,7 +150,7 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label class="col-form-label">TARIKH TUTUP TAWARAN</label>
-                            <input class="form-control datetimepicker" type="date" name="kursus_tarikh_tutup" />
+                            <input class="form-control" type="date" name="kursus_tarikh_tutup" />
                         </div>
                     </div>
                 </div>
@@ -199,8 +192,8 @@
                         <label class="col-form-label">PENGENDALI LATIHAN</label>
                         <select class="form-select form-control" name="kursus_pengendali_latihan">
                             <option selected="" hidden>Sila Pilih</option>
-                            @foreach ($kod_kursus as $pl)
-                                <option value="{{ $pl->id }}">{{ $pl->pengendali_latihan }}</option>
+                            @foreach ($pengendali as $pl)
+                                <option value="{{ $pl->id }}">{{ $pl->nama_Agensi }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -216,8 +209,8 @@
                         <label class="col-form-label">TEMPAT KURSUS</label>
                         <select class="form-select form-control" name="kursus_tempat">
                             <option selected="" hidden>Sila Pilih</option>
-                            @foreach ($kod_kursus as $tk)
-                                <option value="{{ $tk->id }}">{{ $tk->tempat_khusus }}</option>
+                            @foreach ($tempat as $tk)
+                                <option value="{{ $tk->id }}">{{ $tk->nama_Agensi }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -246,12 +239,12 @@
                         <input type="text" class="form-control" name="kursus_metodologi">
                     </div>
                 </div>
-                <div class="row mb-3">
+                {{-- <div class="row mb-3">
                     <div class="col">
-                        <label class="col-form-label">NO. FT</label>
+                        <label class="col-form-label">NOTA RUJUKAN</label>
                         <input type="file" class="form-control" name="nota_rujukan">
                     </div>
-                </div>
+                </div> --}}
                 <div class="row mb-3">
                     <div class="col">
                         <label class="col-form-label">NO. FT</label>
@@ -311,17 +304,20 @@
             kod_kur.forEach(element => {
                 if (this.value == element.U_Kategori_Kursus) {
                     $('#form_add select[name=kod_kursus]').append(
-                        `<option value=${element.id}>${element.tajuk_Kursus}</option>`);
+                        `<option value=${element.id} class=${element.kod_Kursus} >${element.tajuk_Kursus}</option>`);
                 }
             });
         });
 
         $('#siri').change(function() {
             var tajuk = $('#tajuk option:selected').text();
-            var siri = $('#siri option:selected').text();
+            var siri = $('#siri').val();
             var tahun = $('#tahun').val();
+            var kod = $('#tajuk option:selected').attr('class');
+            console.log(kod);
             console.log(tajuk, siri, tahun);
             $('#nama_kursus').val('Kursus ' + tajuk + ' ' + 'Siri ' + siri + ' ' + tahun);
+            $('#kod_siri_kk').val(kod + siri);
         });
 
         $('#tm').change(function() {
