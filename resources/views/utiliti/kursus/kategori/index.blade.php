@@ -268,7 +268,7 @@
             bid.forEach(element => {
                 if (this.value == element.UL_Bidang_Kursus) {
                     $('#form1 select[name=U_Bidang_Kursus]').append(
-                        `<option value=${element.id} class=${element.kod_Bidang_Kursus}>${element.nama_Bidang_Kursus} & ${element.id}</option>`
+                        `<option value=${element.id} class=${element.kod_Bidang_Kursus}>${element.nama_Bidang_Kursus} & ${element.kod_Bidang_Kursus}</option>`
                     );
                 }
             });
