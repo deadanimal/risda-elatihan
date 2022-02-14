@@ -357,7 +357,7 @@
                                         </button>
                                     </td>
                                     <td>
-                                        <a href="/agensi/{{ $a->id }}/edit" class="btn btn-primary"><i
+                                        <a href="/agensi/${ element.id }/edit" class="btn btn-primary"><i
                                                 class="fas fa-pen"></i></a>
 
                                         <button class="btn risda-bg-dg text-white" type="button" data-bs-toggle="modal"

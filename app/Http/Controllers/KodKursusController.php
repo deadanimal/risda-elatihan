@@ -31,12 +31,17 @@ class KodKursusController extends Controller
         $bil_staf = KodKursus::where('UL_Kod_Kursus', 'Staf')->get();
         $bil_pk = KodKursus::orderBy('id', 'desc')->where('UL_Kod_Kursus', 'Pekebun Kecil')->get();
 
+        $tahun_ini = date("Y");
+        $hari_ini = date("Y-m-d");
+
         return view('utiliti.kursus.kod_kursus.index', [
             'bidangKursus' => $bidangKursus,
             'kategoriKursus' => $kategoriKursus,
             'kodKursus' => $kodKursus,
             'bil_staf' => $bil_staf,
             'bil_pk' => $bil_pk,
+            'tahun_ini' => $tahun_ini,
+            'hari_ini' => $hari_ini
         ]);
     }
 

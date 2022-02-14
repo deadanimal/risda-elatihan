@@ -22,7 +22,7 @@ class ObjekController extends Controller
         $objek = Objek::all();
         $bil_obj = Objek::orderBy('id', 'desc')->first();
         if ($bil_obj != null) {
-            $bil = $bil_obj->kod_Agama;
+            $bil = $bil_obj->kod_Objek;
         }else{
             $bil = 0;
         }
