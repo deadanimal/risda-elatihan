@@ -15,7 +15,7 @@
                     <h5>MAKLUMAT AGENSI</h5>
                 </div>
             </div>
-            <form action="/agensi" method="POST">
+            <form action="/utiliti/kumpulan/agensi" method="POST">
                 @csrf
                 <div class="row ms-5 mt-4">
                     <div class="col">

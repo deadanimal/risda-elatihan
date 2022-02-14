@@ -27,7 +27,7 @@ class KategoriKursusController extends Controller
 
         $bil_ds = KategoriKursus::where('UL_Kategori_Kursus', 'Staf')->where('jenis_Kategori_Kursus', 'Dalaman')->get();
         $bil_ls = KategoriKursus::where('UL_Kategori_Kursus', 'Staf')->where('jenis_Kategori_Kursus', 'Luaran')->get();
-        $bil_pk = KategoriKursus::orderBy('id', 'desc')->where('UL_Kategori_Kursus', 'Pekebun Kecil')->get();
+        $bil_pk = KategoriKursus::where('UL_Kategori_Kursus', 'Pekebun Kecil')->get();
 
         return view('utiliti.kursus.kategori.index', [
             'bidangKursus' => $bidangKursus,
