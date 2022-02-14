@@ -76,9 +76,8 @@
                             <tr>
                                 <th class="sort">BIL.</th>
                                 <th class="sort">KOD JULAT TAHUNAN</th>
-                                {{-- <th class="sort">JULAT TAHUNAN</th> --}}
-                                <th class="sort">TAHUN MULA</th>
-                                <th class="sort">TAHUN TAMAT</th>
+                                <th class="sort">JULAT TAHUNAN</th>
+                                <th class="sort">KETERANGAN</th>
                                 <th class="sort">STATUS</th>
                                 <th class="sort">TINDAKAN</th>
                             </tr>
@@ -88,9 +87,8 @@
                                 <tr>
                                     <td>{{ $key + 1 }}.</td>
                                     <td>{{ $J->kod_Julat_tahunan }}</td>
-                                    {{-- <td>{{ $J->tahun_Mula }}</td> --}}
-                                    <td>{{ $J->tahun_Mula }}</td>
-                                    <td>{{ $J->tahun_Tamat }}</td>
+                                    <td>{{ $J->tahun_Mula }} - {{ $J->tahun_Tamat }}</td>
+                                    <td>{{ $J->keterangan_Julat_tahunan }}</td>
                                     <td>
                                         @if ($J->status_julat_tahunan == '1')
                                             <span class="badge badge-soft-success">Aktif</span>
