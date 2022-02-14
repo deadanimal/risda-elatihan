@@ -332,6 +332,26 @@
                 });
 
                 var kod_pk = @json($bil_pk);
+                var bil_pk = 1;
+                if (kod_pk.length != 0) {
+                    console.log(kod_pk);
+                    kod_pk.forEach(element => {
+                        kod_bidang = element.U_Bidang_Kursus.toLocaleString('en-US', {
+                            minimumIntegerDigits: 2,
+                            useGrouping: false
+                        });
+                        console.log('kod id_bid = '+id_bid, 'kod kod_bidang = '+kod_bidang);
+                        if (id_bid == kod_bidang) {
+                            console.log('no kk'+element.no_kod_KK);
+                            bil_pk = parseInt(element.no_kod_KK) + 1;
+                        }
+                    });
+                }
+
+                bil_pk = bil_pk.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                });
 
                 if (kod_ul == 'Staf') {
                     if (kod_jenis == 'Dalaman') {
@@ -342,8 +362,8 @@
                         $('#no_kod_KK').val(bil_ls);
                     }
                 } else {
-                    $('#kod_kat').val('PK' + kod_bid + kod_pk);
-                    $('#no_kod_KK').val(kod_pk);
+                    $('#kod_kat').val('PK' + kod_bid + bil_pk);
+                    $('#no_kod_KK').val(bil_pk);
                 }
             }
         });
@@ -404,7 +424,7 @@
                     minimumIntegerDigits: 2,
                     useGrouping: false
                 });
-// check sini
+
                 var kod_pk = @json($bil_pk->toArray());
                 var bil_pk = 1;
                 if (kod_pk.length != 0) {
@@ -416,7 +436,7 @@
                         });
                         console.log('kod id_bid = '+id_bid, 'kod kod_bidang = '+kod_bidang);
                         if (id_bid == kod_bidang) {
-                            console.log(element.no_kod_KK);
+                            console.log('no kk'+element.no_kod_KK);
                             bil_pk = parseInt(element.no_kod_KK) + 1;
                         }
                     });

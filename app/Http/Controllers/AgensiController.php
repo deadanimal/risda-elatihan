@@ -73,7 +73,7 @@ class AgensiController extends Controller
         $agensi->U_Daerah_ID = $request->U_Daerah_ID;
 
         $agensi->save();
-        return redirect('/pegawai_agensi/'.$agensi->id);
+        return redirect('/utiliti/kumpulan/agensi');
     }
 
     /**
@@ -129,7 +129,7 @@ class AgensiController extends Controller
         $agensi->U_Daerah_ID = $request->U_Daerah_ID;
 
         $agensi->save();
-        return redirect('/pegawai_agensi/'.$agensi->id);
+        return redirect('/utiliti/kumpulan/agensi');
     }
 
     /**
@@ -141,6 +141,6 @@ class AgensiController extends Controller
     public function destroy(Agensi $agensi)
     {
         $agensi->delete();
-        return redirect('/agensi');
+        return redirect('/utiliti/kumpulan/agensi');
     }
 }
