@@ -27,14 +27,7 @@ class KategoriKursusController extends Controller
 
         $bil_ds = KategoriKursus::where('UL_Kategori_Kursus', 'Staf')->where('jenis_Kategori_Kursus', 'Dalaman')->get();
         $bil_ls = KategoriKursus::where('UL_Kategori_Kursus', 'Staf')->where('jenis_Kategori_Kursus', 'Luaran')->get();
-        $bil_pk = KategoriKursus::orderBy('id', 'desc')->where('UL_Kategori_Kursus', 'Pekebun Kecil')->first();
-        if ($bil_pk != null) {
-            $bil_pk = $bil_pk->no_kod_KK;
-        }else{
-            $bil_pk = 0;
-        }
-        $bil_pk = (int)$bil_pk + 1;
-        $bil_pk = sprintf("%02d", $bil_pk);
+        $bil_pk = KategoriKursus::orderBy('id', 'desc')->where('UL_Kategori_Kursus', 'Pekebun Kecil')->get();
 
         return view('utiliti.kursus.kategori.index', [
             'bidangKursus' => $bidangKursus,
