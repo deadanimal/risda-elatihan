@@ -22,7 +22,7 @@
                 <div class="row mb-2">
                     <div class="col-lg-7">
                         <label class="col-form-label p-0">UNIT LATIHAN</label>
-                        <select class="form-select form-control" name="kursus_unit_latihan">
+                        <select class="form-select form-control" name="kursus_unit_latihan" id="unitlatihan">
                             <option selected="" hidden>Sila Pilih</option>
                             <option value="Staf">Staf</option>
                             <option value="Pekebun Kecil">Pekebun Kecil</option>
@@ -40,13 +40,15 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label class="col-form-label">TAHUN</label>
-                            <input class="form-control tahun" type="text" name="tahun" id="tahun" />
+                            <input class="form-control tahun" type="text" name="tahun" id="tahun"
+                                value="{{ $tahun_ini }}" readonly />
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label class="col-form-label">TARIKH DAFTAR</label>
-                            <input class="form-control" type="date" name="kursus_tarikh_daftar" value="{{$hari_ini}}"/>
+                            <input class="form-control" type="date" name="kursus_tarikh_daftar"
+                                value="{{ $hari_ini }}" readonly />
                         </div>
                     </div>
                 </div>
@@ -86,7 +88,7 @@
                 <div class="row mb-3">
                     <div class="col">
                         <label class="col-form-label">SIRI KURSUS</label>
-                        <input type="number" name="id_siri" id="siri" class="form-control">
+                        <input type="number" name="id_siri" id="siri" class="form-control" min="1" max="99">
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -101,7 +103,7 @@
                     <div class="col">
                         <div class="mb-3">
                             <label class="col-form-label">KOD NAMA KURSUS</label>
-                            <input class="form-control" type="text" name="kursus_kod_nama_kursus" id="kod_siri_kk"/>
+                            <input class="form-control" type="text" name="kursus_kod_nama_kursus" id="kod_siri_kk" />
                         </div>
                     </div>
                 </div>
@@ -277,6 +279,22 @@
             });
         });
 
+        $('#unitlatihan').change(function() {
+
+            $('#form_add select[name=kursus_bidang]').html("");
+            var bid = @json($bidang->toArray());
+            let option_new = "";
+            $('#form_add select[name=kursus_bidang]').append(
+                `<option selected='' value='' hidden>Sila Pilih</option>`);
+            bid.forEach(element => {
+                if (this.value == element.UL_Bidang_Kursus) {
+                    $('#form_add select[name=kursus_bidang]').append(
+                        `<option value=${element.id} class=${element.kod_Bidang_Kursus}>${element.nama_Bidang_Kursus}</option>`
+                    );
+                }
+            });
+        });
+
         $('#kursus_bidang').change(function() {
             $('#form_add select[name=kod_kategori]').html("");
             var kat_kur = @json($kategori->toArray());
@@ -304,7 +322,8 @@
             kod_kur.forEach(element => {
                 if (this.value == element.U_Kategori_Kursus) {
                     $('#form_add select[name=kod_kursus]').append(
-                        `<option value=${element.id} class=${element.kod_Kursus} >${element.tajuk_Kursus}</option>`);
+                        `<option value=${element.id} class=${element.kod_Kursus} >${element.tajuk_Kursus}</option>`
+                    );
                 }
             });
         });
@@ -316,7 +335,7 @@
             var kod = $('#tajuk option:selected').attr('class');
             console.log(kod);
             console.log(tajuk, siri, tahun);
-            $('#nama_kursus').val('Kursus ' + tajuk + ' ' + 'Siri ' + siri + ' ' + tahun);
+            $('#nama_kursus').val(tajuk + ' ' + 'Siri ' + siri + ' ' + tahun);
             $('#kod_siri_kk').val(kod + siri);
         });
 
@@ -332,7 +351,7 @@
             if (isNaN(tempoh)) {
                 console.log('check')
                 $('#tk').val('');
-            }else{
+            } else {
                 $('#tk').val(tempoh);
             }
 
@@ -350,7 +369,7 @@
             if (isNaN(tempoh)) {
                 console.log('check')
                 $('#tk').val('');
-            }else{
+            } else {
                 $('#tk').val(tempoh);
             }
 
