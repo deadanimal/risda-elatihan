@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreJadualKursusRequest;
 use App\Http\Requests\UpdateJadualKursusRequest;
 use App\Models\Agensi;
+use App\Models\Aturcara;
 use App\Models\BidangKursus;
 use App\Models\JadualKursus;
 use App\Models\KategoriKursus;
+use App\Models\KelayakanElauncuti;
 use App\Models\KodKursus;
 use App\Models\Negeri;
+use App\Models\NotaRujukan;
+use App\Models\PenceramahKonsultan;
 use App\Models\PeruntukanPeserta;
 use App\Models\PusatTanggungjawab;
 use App\Models\StatusPelaksanaan;
@@ -143,8 +147,36 @@ class JadualKursusController extends Controller
      * @param  \App\Models\JadualKursus  $jadualKursus
      * @return \Illuminate\Http\Response
      */
-    public function destroy(JadualKursus $jadualKursus)
+    public function destroy($id)
     {
+
+        // aturcara
+        $aturcara = Aturcara::where('ac_jadual_kursus', $id)->get();
+        foreach ($aturcara as $key => $ac) {
+            $ac->delete();
+        }
+        // kelayakan elauncuti
+        $elauncuti = KelayakanElauncuti::where('kec_jadual_kursus', $id)->get();
+        foreach ($elauncuti as $key => $ec) {
+            $ec->delete();
+        }
+        // nota rujukan
+        $notarujukan = NotaRujukan::where('nr_jadual_kursus', $id)->get();
+        foreach ($notarujukan as $key => $nr) {
+            $nr->delete();
+        }
+        // penceramah konsultan
+        $penceramah = PenceramahKonsultan::where('pc_jadual_kursus', $id)->get();
+        foreach ($penceramah as $key => $pc) {
+            $pc->delete();
+        }
+        // peruntukan peserta
+        $peruntukanpeserta = PeruntukanPeserta::where('pp_jadual_kursus', $id)->get();
+        foreach ($peruntukanpeserta as $key => $pp) {
+            $pp->delete();
+        }
+        
+        $jadualKursus = JadualKursus::find($id);
         $jadualKursus->delete();
 
         alert()->success('Maklumat telah dihapus', 'Hapus');
