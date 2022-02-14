@@ -18,7 +18,7 @@ class KategoriAgensiController extends Controller
         $kategori = KategoriAgensi::all();
         $bil_neg = KategoriAgensi::orderBy('id', 'desc')->first();
         if ($bil_neg != null) {
-            $bil = $bil_neg->kategori_agensi_kod;
+            $bil = $bil_neg->Kategori_Agensi_kod;
         }else{
             $bil = 0;
         }
