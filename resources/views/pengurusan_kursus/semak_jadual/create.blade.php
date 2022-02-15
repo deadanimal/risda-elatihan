@@ -111,7 +111,7 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label class="col-form-label">TARIKH MULA KURSUS</label>
-                            <input class="form-control" type="date" name="tarikh_mula" id="tm" />
+                            <input class="form-control" type="date" name="tarikh_mula" id="tm" min="<?php echo date("Y-m-d"); ?>"/>
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -124,7 +124,7 @@
                 <div class="row mb-0">
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label class="col-form-label">TEMPOH KURSUS</label>
+                            <label class="col-form-label">TEMPOH KURSUS (HARI)</label>
                             <input class="form-control" type="text" name="bilangan_hari" id="tk" />
                         </div>
                     </div>
@@ -152,7 +152,7 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label class="col-form-label">TARIKH TUTUP TAWARAN</label>
-                            <input class="form-control" type="date" name="kursus_tarikh_tutup" />
+                            <input class="form-control" type="date" name="kursus_tarikh_tutup" min="<?php echo date("Y-m-d"); ?>"/>
                         </div>
                     </div>
                 </div>
@@ -328,13 +328,25 @@
             });
         });
 
-        $('#siri').change(function() {
+        $('#tajuk').change(function() {
             var tajuk = $('#tajuk option:selected').text();
-            var siri = $('#siri').val();
             var tahun = $('#tahun').val();
             var kod = $('#tajuk option:selected').attr('class');
+            var kod_tajuk = $('#tajuk option:selected').val();
+
+            // cari available siri
+            var list_siri = @json($jadual->toArray());
+            var siri = 1;
+            list_siri.forEach(element =>{
+                var tajuk_list = element.kod_kursus;
+                if(tajuk_list === kod_tajuk){
+                    siri = parseInt(element.id_siri) +1;
+                }
+            });      
+
             console.log(kod);
             console.log(tajuk, siri, tahun);
+            $('#siri').val(siri);
             $('#nama_kursus').val(tajuk + ' ' + 'Siri ' + siri + ' ' + tahun);
             $('#kod_siri_kk').val(kod + siri);
         });
