@@ -1,5 +1,9 @@
 @extends('layouts.risda-base')
 @section('content')
+@php
+    use App\Models\StatusPelaksanaan;
+    use App\Models\Agensi;
+@endphp
     <div class="row">
         <div class="col">
             <h1 class="mb-0 risda-dg"><strong>PENGURUSAN KURSUS</strong></h1>
@@ -105,9 +109,21 @@
                                     <td>{{ $j->kursus_kod_nama_kursus }}</td>
                                     <td>{{ $j->kursus_nama }}</td>
                                     <td>{{ $j->tarikh_mula }}</td>
-                                    <td>{{ $j->kursus_tempat }}</td>
+                                    <td>
+                                        @php
+                                            $kursus_tempat = Agensi::where('id', $j->kursus_tempat)->first();
+                                            $kursus_tempat = $kursus_tempat->nama_Agensi;
+                                        @endphp
+                                        {{ $kursus_tempat }}
+                                    </td>
                                     <td>0</td>
-                                    <td>{{ $j->kursus_status_pelaksanaan }}</td>
+                                    <td>
+                                        @php
+                                            $status_pelaksanaan = StatusPelaksanaan::where('id', $j->kursus_status_pelaksanaan)->first();
+                                            $status_pelaksanaan = $status_pelaksanaan->Status_Pelaksanaan;
+                                        @endphp
+                                        {{ $status_pelaksanaan }}
+                                    </td>
                                     <td>
                                         <a href="/pengurusan_kursus/semak_jadual/{{$j->id}}/edit" class="btn btn-sm btn-primary">
                                             <i class="fas fa-pen"></i>
