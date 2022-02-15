@@ -80,6 +80,7 @@ class KodKursusController extends Controller
         $kodKursus->status_Kod_Kursus = $status;
         // dd($kodKursus);
         $kodKursus->save();
+        alert()->success('Maklumat telah disimpan', 'Berjaya');
         return redirect('/utiliti/kursus/kod_kursus');
     }
 
@@ -130,6 +131,7 @@ class KodKursusController extends Controller
         $kodKursus->status_Kod_Kursus = $status;
         // dd($kodKursus);
         $kodKursus->save();
+        alert()->success('Maklumat telah dikemaskin', 'Berjaya');
         return redirect('/utiliti/kursus/kod_kursus');
     }
 
@@ -143,6 +145,7 @@ class KodKursusController extends Controller
     {
         $kodKursus = KodKursus::find($id);
         $kodKursus->delete();
+        alert()->success('Maklumat telah dihapus','Berjaya');
         return redirect('/utiliti/kursus/kod_kursus');
     }
 }

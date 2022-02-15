@@ -76,6 +76,7 @@ class BidangKursusController extends Controller
         $bidangKursus->status_Bidang_Kursus = $status;
 
         $bidangKursus->save();
+        alert()->success('Maklumat telah disimpan', 'Berjaya');
         return redirect('/utiliti/kursus/bidang_kursus');
     }
 
@@ -121,6 +122,7 @@ class BidangKursusController extends Controller
         $bidangKursus->status_Bidang_Kursus = $status;
 
         $bidangKursus->save();
+        alert()->success('Maklumat telah dikemaskini', 'Berjaya');
         return redirect('/utiliti/kursus/bidang_kursus');
     }
 

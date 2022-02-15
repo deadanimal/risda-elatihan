@@ -6,6 +6,7 @@ use App\Http\Requests\StoreKategoriKursusRequest;
 use App\Http\Requests\UpdateKategoriKursusRequest;
 use App\Models\KategoriKursus;
 use App\Models\BidangKursus;
+use App\Models\KodKursus;
 
 class KategoriKursusController extends Controller
 {
@@ -71,6 +72,7 @@ class KategoriKursusController extends Controller
         $kategoriKursus->status_Kategori_Kursus = $status;
         // dd($kategoriKursus);
         $kategoriKursus->save();
+        alert()->success('Maklumat telah disimpan', 'Berjaya');
         return redirect('/utiliti/kursus/kategori_kursus');
     }
 
@@ -119,6 +121,7 @@ class KategoriKursusController extends Controller
         $kategoriKursus->status_Kategori_Kursus = $status;
         // dd($kategoriKursus);
         $kategoriKursus->save();
+        alert()->success('Maklumat telah dikemaskini', 'Berjaya');
         return redirect('/utiliti/kursus/kategori_kursus');
     }
 
@@ -130,8 +133,13 @@ class KategoriKursusController extends Controller
      */
     public function destroy($id)
     {
+        $kod_kursus = KodKursus::where('U_Kategori_Kursus', $id)->get();
+        foreach ($kod_kursus as $key => $kk) {
+            $kk->delete();
+        }
         $kategoriKursus = KategoriKursus::find($id);
         $kategoriKursus->delete();
+        alert()->success('Maklumat telah dihapus', 'Berjaya');
         return redirect('/utiliti/kursus/kategori_kursus');
     }
 }
