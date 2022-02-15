@@ -45,6 +45,7 @@ class JadualKursusController extends Controller
      */
     public function create()
     {
+        $jadualKursus = JadualKursus::all();
         $hari_ini = date("Y-m-d");
         $tahun_ini = date("Y");
         $bidang = BidangKursus::all();
@@ -61,7 +62,8 @@ class JadualKursusController extends Controller
             'hari_ini'=>$hari_ini,
             'pengendali'=>$pengendali,
             'tempat'=>$tempat,
-            'tahun_ini' => $tahun_ini
+            'tahun_ini' => $tahun_ini,
+            'jadual'=>$jadualKursus,
         ]);
     }
 

@@ -42,7 +42,7 @@
                             <label class="col-form-label">TARIKH AWAL:</label>
                         </div>
                         <div class="col-lg-8">
-                            <input class="form-control datetimepicker" id="search_TA" type="text" placeholder="d/m/y"
+                            <input class="form-control datetimepicker" id="search_TA" type="text" placeholder="dd/mm/yyyy"
                                 data-options='{"disableMobile":true}' />
                         </div>
                     </div>
@@ -53,7 +53,7 @@
                             <label class="col-form-label">TARIKH AKHIR:</label>
                         </div>
                         <div class="col-lg-8">
-                            <input class="form-control datetimepicker" id="search_TL" type="text" placeholder="d/m/y"
+                            <input class="form-control datetimepicker" id="search_TL" type="text" placeholder="dd/mm/yyyy"
                                 data-options='{"disableMobile":true}' />
                         </div>
                     </div>
@@ -111,16 +111,25 @@
                                     <td>{{ $j->tarikh_mula }}</td>
                                     <td>
                                         @php
-                                            $kursus_tempat = Agensi::where('id', $j->kursus_tempat)->first();
-                                            $kursus_tempat = $kursus_tempat->nama_Agensi;
+                                            if ($j->kursus_tempat != 'Sila Pilih') {
+                                                $kursus_tempat = Agensi::where('id', $j->kursus_tempat)->first();
+                                                $kursus_tempat = $kursus_tempat->nama_Agensi;
+                                            }else{
+                                                $kursus_tempat = 'Tiada Maklumat';
+                                            }
                                         @endphp
                                         {{ $kursus_tempat }}
                                     </td>
                                     <td>0</td>
                                     <td>
                                         @php
-                                            $status_pelaksanaan = StatusPelaksanaan::where('id', $j->kursus_status_pelaksanaan)->first();
-                                            $status_pelaksanaan = $status_pelaksanaan->Status_Pelaksanaan;
+                                            if ($j->kursus_status_pelaksanaan != 'Sila Pilih') {
+                                                $status_pelaksanaan = StatusPelaksanaan::where('id', $j->kursus_status_pelaksanaan)->first();
+                                                $status_pelaksanaan = $status_pelaksanaan->Status_Pelaksanaan;
+                                            }else{
+                                                $status_pelaksanaan = 'Tiada Maklumat';
+                                            }
+                                            
                                         @endphp
                                         {{ $status_pelaksanaan }}
                                     </td>
