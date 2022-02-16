@@ -161,7 +161,7 @@
                                             <div class="modal-footer">
                                                 <button class="btn btn-secondary" type="button"
                                                     data-bs-dismiss="modal">Batal</button>
-                                                <form method="POST" action="/agensi/{{ $a->id }}">
+                                                <form method="POST" action="/utiliti/kumpulan/agensi/{{ $a->id }}">
                                                     @method('DELETE')
                                                     @csrf
                                                     <button class="btn btn-primary" type="submit">Hapus
@@ -178,7 +178,8 @@
                         <tbody class="bg-white" id="t_normal">
                             @foreach ($agensi as $key => $a)
                                 <tr>
-                                    <td>{{ $key + 1 }}.</td>
+                                    {{-- <td>{{ $key + 1 }}.</td> --}}
+                                    <td>{{$a->id}}</td>
                                     <td>{{ $a->no_KP_Agensi }}</td>
                                     <td>{{ $a->nama_Agensi }}</td>
                                     <td>{{ $a->alamat_Agensi_baris1 }}</td>
@@ -191,7 +192,7 @@
                                         </button>
                                     </td>
                                     <td>
-                                        <a href="/agensi/{{ $a->id }}/edit" class="btn btn-sm btn-primary"><i
+                                        <a href="/utiliti/kumpulan/agensi/{{ $a->id }}/edit" class="btn btn-sm btn-primary"><i
                                                 class="fas fa-pen"></i></a>
 
                                         <button class="btn btn-sm risda-bg-dg text-white" type="button" data-bs-toggle="modal"
@@ -300,7 +301,7 @@
                                                 <div class="modal-footer">
                                                     <button class="btn btn-secondary" type="button"
                                                         data-bs-dismiss="modal">Batal</button>
-                                                    <form method="POST" action="/agensi/{{ $a->id }}">
+                                                    <form method="POST" action="/utiliti/kumpulan/agensi/{{ $a->id }}">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button class="btn btn-primary" type="submit">Hapus
@@ -357,7 +358,7 @@
                                         </button>
                                     </td>
                                     <td>
-                                        <a href="/agensi/${ element.id }/edit" class="btn btn-sm btn-primary"><i
+                                        <a href="/utiliti/kumpulan/agensi/${ element.id }/edit" class="btn btn-sm btn-primary"><i
                                                 class="fas fa-pen"></i></a>
 
                                         <button class="btn btn-sm risda-bg-dg text-white" type="button" data-bs-toggle="modal"
