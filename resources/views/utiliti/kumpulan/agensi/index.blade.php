@@ -178,8 +178,7 @@
                         <tbody class="bg-white" id="t_normal">
                             @foreach ($agensi as $key => $a)
                                 <tr>
-                                    {{-- <td>{{ $key + 1 }}.</td> --}}
-                                    <td>{{$a->id}}</td>
+                                    <td>{{ $key + 1 }}.</td>
                                     <td>{{ $a->no_KP_Agensi }}</td>
                                     <td>{{ $a->nama_Agensi }}</td>
                                     <td>{{ $a->alamat_Agensi_baris1 }}</td>
