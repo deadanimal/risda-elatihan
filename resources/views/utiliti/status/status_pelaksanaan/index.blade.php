@@ -75,7 +75,7 @@
                         <tbody class="bg-white">
                             @foreach ($statusPelaksanaan as $key => $sp)
                                 <tr>
-                                    <td>{{ $key + 1 }}.</td>
+                                    <td>{{ $sp->id }}.</td>
                                     <td>{{ $sp->kod_Status_Pelaksanaan }}</td>
                                     <td>{{ $sp->Status_Pelaksanaan }}</td>
                                     <td>
