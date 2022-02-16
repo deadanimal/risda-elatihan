@@ -110,7 +110,8 @@
                                     <td>{{ $j->kursus_nama }}</td>
                                     <td>{{ $j->tarikh_mula }}</td>
                                     <td>
-                                        @php
+                                        {{$j->kursus_tempat}}
+                                        {{-- @php
                                             if ($j->kursus_tempat != 'Sila Pilih') {
                                                 $kursus_tempat = Agensi::where('id', $j->kursus_tempat)->first();
                                                 $kursus_tempat = $kursus_tempat->nama_Agensi;
@@ -118,7 +119,7 @@
                                                 $kursus_tempat = 'Tiada Maklumat';
                                             }
                                         @endphp
-                                        {{ $kursus_tempat }}
+                                        {{ $kursus_tempat }} --}}
                                     </td>
                                     <td>0</td>
                                     <td>
