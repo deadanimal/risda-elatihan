@@ -123,7 +123,8 @@
                                     </td>
                                     <td>0</td>
                                     <td>
-                                        @php
+                                        {{$j->kursus_status_pelaksanaan}}
+                                        {{-- @php
                                             if ($j->kursus_status_pelaksanaan != 'Sila Pilih') {
                                                 $status_pelaksanaan = StatusPelaksanaan::where('id', $j->kursus_status_pelaksanaan)->first();
                                                 $status_pelaksanaan = $status_pelaksanaan->Status_Pelaksanaan;
@@ -132,7 +133,7 @@
                                             }
                                             
                                         @endphp
-                                        {{ $status_pelaksanaan }}
+                                        {{ $status_pelaksanaan }} --}}
                                     </td>
                                     <td>
                                         <a href="/pengurusan_kursus/semak_jadual/{{$j->id}}/edit" class="btn btn-sm btn-primary">
