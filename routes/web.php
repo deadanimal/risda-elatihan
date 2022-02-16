@@ -37,6 +37,7 @@ use App\Http\Controllers\KelayakanElauncutiController;
 use App\Http\Controllers\NotaRujukanController;
 use App\Http\Controllers\PenceramahKonsultanController;
 use App\Http\Controllers\PeruntukanPesertaController;
+use App\Http\Controllers\SemakPermohonanController;
 use App\Http\Controllers\UtilitiController;
 
 /*
@@ -113,6 +114,8 @@ Route::group(['middleware' => 'AdminBTM'], function () {
         '/pengurusan_kursus/nota_rujukan'=> NotaRujukanController::class,
         '/pengurusan_kursus/penceramah_konsultan'=> PenceramahKonsultanController::class,
         '/pengurusan_kursus/kelayakan_elaun_cuti'=> KelayakanElauncutiController::class,
+
+        '/permohonan_kursus/semakan_permohonan'=> SemakPermohonanController::class,
     ]);
 
 });
