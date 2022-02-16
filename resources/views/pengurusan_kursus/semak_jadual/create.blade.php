@@ -88,14 +88,14 @@
                 <div class="row mb-3">
                     <div class="col">
                         <label class="col-form-label">SIRI KURSUS</label>
-                        <input type="number" name="id_siri" id="siri" class="form-control" min="1" max="99">
+                        <input type="number" name="id_siri" id="siri" class="form-control" min="1" max="99" readonly>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
                         <div class="mb-3">
                             <label class="col-form-label">NAMA KURSUS</label>
-                            <input class="form-control" type="text" name="kursus_nama" id="nama_kursus" value="" />
+                            <input class="form-control" type="text" name="kursus_nama" id="nama_kursus" value="" readonly/>
                         </div>
                     </div>
                 </div>
@@ -103,7 +103,7 @@
                     <div class="col">
                         <div class="mb-3">
                             <label class="col-form-label">KOD NAMA KURSUS</label>
-                            <input class="form-control" type="text" name="kursus_kod_nama_kursus" id="kod_siri_kk" />
+                            <input class="form-control" type="text" name="kursus_kod_nama_kursus" id="kod_siri_kk" readonly/>
                         </div>
                     </div>
                 </div>

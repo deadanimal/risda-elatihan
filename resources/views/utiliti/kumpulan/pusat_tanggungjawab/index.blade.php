@@ -33,8 +33,7 @@
                                     @csrf
                                     <div class="mb-3">
                                         <label class="col-form-label">KOD PUSAT TANGGUNGJAWAB</label>
-                                        <input class="form-control" type="number" name="kod_PT"
-                                            value="{{ $bil }}" readonly />
+                                        <input class="form-control" type="number" name="kod_PT" />
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label">PUSAT TANGGUNGJAWAB</label>
