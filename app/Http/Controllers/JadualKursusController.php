@@ -58,7 +58,6 @@ class JadualKursusController extends Controller
             $tempat = Agensi::where('kategori_agensi', $kod_tempat->id)->get();
         }else{
             $tempat = null;
-            $check_tempat = 'Tiada';
         }
         $pengendali = Agensi::all();
         return view('pengurusan_kursus.semak_jadual.create',[
@@ -71,7 +70,6 @@ class JadualKursusController extends Controller
             'tempat'=>$tempat,
             'tahun_ini' => $tahun_ini,
             'jadual'=>$jadualKursus,
-            'ct' => $check_tempat,
         ]);
     }
 
