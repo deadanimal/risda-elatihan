@@ -8,6 +8,7 @@ use App\Models\Agensi;
 use App\Models\Aturcara;
 use App\Models\BidangKursus;
 use App\Models\JadualKursus;
+use App\Models\KategoriAgensi;
 use App\Models\KategoriKursus;
 use App\Models\KelayakanElauncuti;
 use App\Models\KodKursus;
@@ -52,7 +53,13 @@ class JadualKursusController extends Controller
         $kategori = KategoriKursus::all();
         $tajuk = KodKursus::all();
         $status_pelaksanaan = StatusPelaksanaan::all();
-        $tempat = Agensi::all();
+        $kod_tempat = KategoriAgensi::where('Kategori_Agensi', 'Tempat Kursus')->first();
+        if ($kod_tempat != null) {
+            $tempat = Agensi::where('kategori_agensi', $kod_tempat->id)->get();
+        }else{
+            $tempat = null;
+            $check_tempat = 'Tiada';
+        }
         $pengendali = Agensi::all();
         return view('pengurusan_kursus.semak_jadual.create',[
             'bidang'=>$bidang,
@@ -64,6 +71,7 @@ class JadualKursusController extends Controller
             'tempat'=>$tempat,
             'tahun_ini' => $tahun_ini,
             'jadual'=>$jadualKursus,
+            'ct' => $check_tempat,
         ]);
     }
 
@@ -105,8 +113,9 @@ class JadualKursusController extends Controller
      * @param  \App\Models\JadualKursus  $jadualKursus
      * @return \Illuminate\Http\Response
      */
-    public function edit(JadualKursus $jadualKursus)
+    public function edit($id)
     {
+        $jadualKursus = JadualKursus::find($id);
         $bidang = BidangKursus::all();
         $kategori = KategoriKursus::all();
         $kod_kursus = KodKursus::all();
