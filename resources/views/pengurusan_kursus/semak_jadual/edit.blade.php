@@ -39,10 +39,17 @@
                     </div>
                     <div class="col-lg-3">
                         <label class="col-form-label">STATUS</label>
+                        @if ($jadual->kursus_status == '1')
                         <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" name="status" />
+                            <input class="form-check-input" checked="" type="checkbox" name="status" />
                             <label class="form-check-label">Aktif</label>
                         </div>
+                        @else
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" checked="" type="checkbox" name="status" />
+                            <label class="form-check-label">Aktif</label>
+                        </div>
+                        @endif
                     </div>
                 </div>
                 <div class="row">

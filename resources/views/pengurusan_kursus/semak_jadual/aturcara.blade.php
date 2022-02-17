@@ -45,9 +45,9 @@
 
                             </div>
 
-                            <div class="row">
+                            <div class="row mt-4">
                                 <div class="col">
-                                    <button type="submit" class="btn btn-primary">Test</button>
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
                                 </div>
                             </div>
 
@@ -95,7 +95,10 @@
     </div>
 
     <div class="row mt-4">
-        <div class="col text-end">
+        <div class="col-lg-6">
+            <a href="/pengurusan_kursus/peruntukan_peserta/{{$id}}" class="btn btn-primary">Kembali</a>
+        </div>
+        <div class="col-lg-6 text-end">
             <a href="/pengurusan_kursus/nota_rujukan/{{$id}}" class="btn btn-primary">Seterusnya</a>
         </div>
     </div>
@@ -116,7 +119,7 @@
                             `<div class="row">
                                 <div class="col-lg-6">
                                     <label class="col-form-label">SESI</label>
-                                    <input type="text" class="form-control" value="` + j + `" name="ac_sesi[]">
+                                    <input type="text" class="form-control" readonly value="` + j + `" name="ac_sesi[]">
                                 </div>
                                 <div class="col-lg-6">
                                     <label class="col-form-label">MASA</label>
