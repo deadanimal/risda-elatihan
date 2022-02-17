@@ -1,5 +1,9 @@
 @extends('layouts.risda-base')
 @section('content')
+    @php
+    use App\Models\Negeri;
+    use App\Models\PusatTanggungjawab;
+    @endphp
     <div class="row">
         <div class="col">
             <h1 class="mb-0 risda-dg"><strong>PENGURUSAN KURSUS</strong></h1>
@@ -27,7 +31,7 @@
                     </div>
                     <div class="col-lg-9">
                         <select class="form-select  form-control" name="pp_negeri" id="pp_negeri">
-                            <option selected="" aria-placeholder="Sila Pilih" hidden></option>
+                            <option selected="" value="" hidden>Sila Pilih</option>
                             @foreach ($negeri as $n)
                                 @if ($n->status_negeri == '1')
                                     <option value="{{ $n->id }}">{{ $n->Negeri }}</option>
@@ -43,7 +47,7 @@
                     </div>
                     <div class="col-lg-9">
                         <select class="form-select form-control" name="pp_pusat_tanggungjawab" id="pp_pusat_tanggungjawab">
-                            <option selected="" aria-placeholder="Sila Pilih" hidden></option>
+                            <option selected="" value="" hidden>Sila Pilih</option>
                             @foreach ($pusat_tanggungjawab as $pt)
                                 <option value="{{ $pt->id }}">{{ $pt->nama_PT }}</option>
                             @endforeach
@@ -56,7 +60,7 @@
                         <label class="col-form-label">PERUNTUKAN CALON</label>
                     </div>
                     <div class="col-lg-9">
-                        <input type="text" class="form-control" name="pp_peruntukan_calon">
+                        <input type="number" class="form-control" name="pp_peruntukan_calon">
                     </div>
                 </div>
 
@@ -90,8 +94,20 @@
                             @foreach ($peruntukan_peserta as $key => $pp)
                                 <tr>
                                     <td>{{ $key + 1 }}.</td>
-                                    <td>{{ $pp->pp_negeri }}</td>
-                                    <td>{{ $pp->pp_pusat_tanggungjawab }}</td>
+                                    <td>
+                                        @php
+                                            $negeriPP = Negeri::find($pp->pp_negeri);
+                                            $negeriPP = $negeriPP->Negeri
+                                        @endphp
+                                        {{$negeriPP}}
+                                    </td>
+                                    <td>
+                                        @php
+                                            $ptPP = PusatTanggungjawab::find($pp->pp_pusat_tanggungjawab);
+                                            $ptPP = $ptPP->nama_PT;
+                                        @endphp
+                                        {{$ptPP}}
+                                    </td>
                                     <td>{{ $pp->pp_peruntukan_calon }}</td>
                                     <td>
                                         <button class="btn risda-bg-dg text-white" type="button" data-bs-toggle="modal"
@@ -159,13 +175,15 @@
     </div>
 
     <div class="row mt-4">
-        <div class="col text-end">
+        <div class="col-lg-6">
+            <a href="/pengurusan_kursus/semak_jadual/{{ $jadualKursus->id }}/edit" class="btn btn-primary">Kembali</a>
+        </div>
+        <div class="col-lg-6 text-end">
             <a href="/pengurusan_kursus/aturcara/{{ $jadualKursus->id }}" class="btn btn-primary">Seterusnya</a>
         </div>
     </div>
 
     <script>
-
         $('#pp_negeri').change(function() {
 
             $('#form1 select[name=pp_pusat_tanggungjawab]').html("");
@@ -174,7 +192,7 @@
 
             let option_new = "";
             $('#form1 select[name=pp_pusat_tanggungjawab]').append(
-                        `<option value='' selected='' hidden>Sila Pilih</option>`);
+                `<option value='' selected='' hidden>Sila Pilih</option>`);
             pt.forEach(element => {
                 if (this.value == element.kod_Negeri_PT) {
                     $('#form1 select[name=pp_pusat_tanggungjawab]').append(

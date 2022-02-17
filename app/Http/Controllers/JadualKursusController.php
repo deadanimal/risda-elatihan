@@ -136,9 +136,9 @@ class JadualKursusController extends Controller
      * @param  \App\Models\JadualKursus  $jadualKursus
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateJadualKursusRequest $request, JadualKursus $jadualKursus)
+    public function update(UpdateJadualKursusRequest $request, $id)
     {
-
+        $jadualKursus = JadualKursus::find($id);
         if($request->status == 'on'){
             $status = 1;
         }else{
