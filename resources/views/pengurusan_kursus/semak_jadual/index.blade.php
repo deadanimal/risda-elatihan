@@ -110,8 +110,8 @@
                                     <td>{{ $j->kursus_nama }}</td>
                                     <td>{{ $j->tarikh_mula }}</td>
                                     <td>
-                                        {{$j->kursus_tempat}}
-                                        {{-- @php
+                                        {{-- {{$j->kursus_tempat}} --}}
+                                        @php
                                             if ($j->kursus_tempat != 'Sila Pilih') {
                                                 $kursus_tempat = Agensi::where('id', $j->kursus_tempat)->first();
                                                 $kursus_tempat = $kursus_tempat->nama_Agensi;
@@ -119,12 +119,12 @@
                                                 $kursus_tempat = 'Tiada Maklumat';
                                             }
                                         @endphp
-                                        {{ $kursus_tempat }} --}}
+                                        {{ $kursus_tempat }}
                                     </td>
                                     <td>0</td>
                                     <td>
-                                        {{$j->kursus_status_pelaksanaan}}
-                                        {{-- @php
+                                        {{-- {{$j->kursus_status_pelaksanaan}} --}}
+                                        @php
                                             if ($j->kursus_status_pelaksanaan != 'Sila Pilih') {
                                                 $status_pelaksanaan = StatusPelaksanaan::where('id', $j->kursus_status_pelaksanaan)->first();
                                                 $status_pelaksanaan = $status_pelaksanaan->Status_Pelaksanaan;
@@ -133,7 +133,7 @@
                                             }
                                             
                                         @endphp
-                                        {{ $status_pelaksanaan }} --}}
+                                        {{ $status_pelaksanaan }}
                                     </td>
                                     <td>
                                         <a href="/pengurusan_kursus/semak_jadual/{{$j->id}}/edit" class="btn btn-sm btn-primary">
