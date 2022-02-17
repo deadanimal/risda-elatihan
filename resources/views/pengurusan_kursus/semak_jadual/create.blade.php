@@ -95,7 +95,8 @@
                     <div class="col">
                         <div class="mb-3">
                             <label class="col-form-label">NAMA KURSUS</label>
-                            <input class="form-control" type="text" name="kursus_nama" id="nama_kursus" value="" readonly/>
+                            <input class="form-control" type="text" name="kursus_nama" id="nama_kursus" value=""
+                                readonly />
                         </div>
                     </div>
                 </div>
@@ -103,7 +104,8 @@
                     <div class="col">
                         <div class="mb-3">
                             <label class="col-form-label">KOD NAMA KURSUS</label>
-                            <input class="form-control" type="text" name="kursus_kod_nama_kursus" id="kod_siri_kk" readonly/>
+                            <input class="form-control" type="text" name="kursus_kod_nama_kursus" id="kod_siri_kk"
+                                readonly />
                         </div>
                     </div>
                 </div>
@@ -111,7 +113,8 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label class="col-form-label">TARIKH MULA KURSUS</label>
-                            <input class="form-control" type="date" name="tarikh_mula" id="tm" min="<?php echo date("Y-m-d"); ?>"/>
+                            <input class="form-control" type="date" name="tarikh_mula" id="tm"
+                                min="<?php echo date('Y-m-d'); ?>" />
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -152,7 +155,8 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label class="col-form-label">TARIKH TUTUP TAWARAN</label>
-                            <input class="form-control" type="date" name="kursus_tarikh_tutup" min="<?php echo date("Y-m-d"); ?>"/>
+                            <input class="form-control" type="date" name="kursus_tarikh_tutup"
+                                min="<?php echo date('Y-m-d'); ?>" />
                         </div>
                     </div>
                 </div>
@@ -206,23 +210,38 @@
                         <input type="text" class="form-control" name="kursus_catatan">
                     </div>
                 </div>
-                <div class="row mb-3">
-                    <div class="col">
-                        <label class="col-form-label">TEMPAT KURSUS</label>
-                        <select class="form-select form-control" name="kursus_tempat">
-                            <option selected="" hidden>Sila Pilih</option>
-                            @foreach ($tempat as $tk)
-                                <option value="{{ $tk->id }}">{{ $tk->nama_Agensi }}</option>
-                            @endforeach
-                        </select>
+                @if ($tempat == null)
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label class="col-form-label">TEMPAT KURSUS</label>
+                            <label class="col-form-label text-danger font-italic">KATEGORI "Tempat Kursus" TIADA DIDALAM
+                                SENARAI
+                                AGENSI. SILA TAMBAH DI BAHAGIAN AGENSI (UTILITI->KOD KUMPULAN) UNTUK MENERUSKAN PENAMBAHAN
+                                JADUAL KURSUS</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col">
-                        <label class="col-form-label">ALAMAT TEMPAT KURSUS</label>
-                        <textarea class="form-control" rows="3" name="kursus_alamat_tempat_kursus"></textarea>
+                @else
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label class="col-form-label">TEMPAT KURSUS</label>
+                            <select class="form-select form-control" name="kursus_tempat" id="tempat">
+                                <option selected="" hidden>Sila Pilih</option>
+                                @foreach ($tempat as $tk)
+                                    <option value="{{ $tk->id }}">{{ $tk->nama_Agensi }}</option>
+                                @endforeach
+                            </select>
+
+                        </div>
                     </div>
-                </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label class="col-form-label">ALAMAT TEMPAT KURSUS</label>
+                            <textarea class="form-control" rows="3" name="kursus_alamat_tempat_kursus"
+                                id="alamat"></textarea>
+                        </div>
+                    </div>
+                @endif
+
                 <div class="row mb-3">
                     <div class="col">
                         <label class="col-form-label">OBJEKTIF</label>
@@ -260,11 +279,19 @@
                     </div>
                 </div>
 
-                <div class="row mb-3">
-                    <div class="col text-end">
-                        <button type="submit" class="btn btn-primary">Seterusnya</button>
+                @if ($tempat == null)
+                    <div class="row mb-3">
+                        <div class="col text-end">
+                            <button type="submit" class="btn btn-secondary" disabled>Seterusnya</button>
+                        </div>
                     </div>
-                </div>
+                @else
+                    <div class="row mb-3">
+                        <div class="col text-end">
+                            <button type="submit" class="btn btn-primary">Seterusnya</button>
+                        </div>
+                    </div>
+                @endif
             </form>
         </div>
     </div>
@@ -337,12 +364,12 @@
             // cari available siri
             var list_siri = @json($jadual->toArray());
             var siri = 1;
-            list_siri.forEach(element =>{
+            list_siri.forEach(element => {
                 var tajuk_list = element.kod_kursus;
-                if(tajuk_list === kod_tajuk){
-                    siri = parseInt(element.id_siri) +1;
+                if (tajuk_list === kod_tajuk) {
+                    siri = parseInt(element.id_siri) + 1;
                 }
-            });      
+            });
 
             console.log(kod);
             console.log(tajuk, siri, tahun);
@@ -385,6 +412,23 @@
                 $('#tk').val(tempoh);
             }
 
+        });
+// check balik bwh ni
+        $('#tempat').change(function() {
+            var tempatkursus = this.val();
+            var check = @json($tempat);
+            if (check == null) {
+                console.log('salah');
+            }else{
+                var list_tempat = @json($tempat);
+                var alamat = '';
+                list_tempat.forEach(element => {
+                    if (tempat_kursus === element.id) {
+                        alamat = element.alamat_Agensi_baris1;
+                    }
+                });
+                $('#alamat').val(alamat);
+            }
         });
     </script>
 @endsection
