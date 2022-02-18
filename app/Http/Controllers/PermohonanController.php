@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePermohonanRequest;
 use App\Http\Requests\UpdatePermohonanRequest;
 use App\Models\Permohonan;
+use Illuminate\Support\Facades\Route;
 
 class PermohonanController extends Controller
 {
@@ -24,6 +25,16 @@ class PermohonanController extends Controller
         return view('ulpk.peserta.permohonan.statuspermohonan', [
             'permohonan' => Permohonan::all(),
         ]);
+    }
+
+    public function katelog()
+    {
+        $route = Route::getCurrentRoute()->getPrefix();
+
+        if ($route == "uls/permohonan") {
+            return view('uls.peserta.permohonan.katelog');
+        }
+
     }
 
     /**

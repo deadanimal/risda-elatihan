@@ -26,32 +26,32 @@ class SemakanController extends Controller
             return view('pendaftaran.staf', [
                 'nric' => $nric,
             ]);
-        } elseif($nric == '670208055215'){
+        } elseif ($nric == '670208055215') {
             $data = [];
             return view('pendaftaran.staf', [
                 'nric' => $nric,
             ]);
-        } elseif($nric == '840209115186'){
+        } elseif ($nric == '840209115186') {
             $data = [];
             return view('pendaftaran.staf', [
                 'nric' => $nric,
             ]);
-        } elseif($nric == '861120495509'){
+        } elseif ($nric == '861120495509') {
             $data = [];
             return view('pendaftaran.staf', [
-                'nric' => $nric
+                'nric' => $nric,
             ]);
-        }elseif($nric == '660421015422'){
+        } elseif ($nric == '660421015422') {
             $data = [];
             return view('pendaftaran.staf', [
-                'nric' => $nric
+                'nric' => $nric,
             ]);
-        }elseif($nric == '610916015420'){
+        } elseif ($nric == '610916015420') {
             $data = [];
             return view('pendaftaran.staf', [
-                'nric' => $nric
+                'nric' => $nric,
             ]);
-        }elseif($nric == '980410025195'){
+        } elseif ($nric == '980410025195') {
             $data = [];
             return view('pendaftaran.staf', [
                 'nric' => $nric,
@@ -148,19 +148,19 @@ class SemakanController extends Controller
             $user->password = Hash::make($request->password);
             $user->no_KP = $request->no_KP;
             $user->jenis_pengguna = 'AdminBTM';
-
+            // $user->assignRole('AdminBTM');
             $user->save();
             Mail::to($request->email)->send(new PendaftaranPK($user));
             alert()->success('Sila semak email anda untuk notifikasi pendaftaran.', 'Pendaftaran Berjaya');
             return redirect('/');
-        }else if ($request->no_KP == '670208055215') {
+        } else if ($request->no_KP == '670208055215') {
             $user = new User;
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
             $user->no_KP = $request->no_KP;
             $user->jenis_pengguna = 'Urus Setia ULS';
-
+            $user->assignRole('Urus Setia ULS');
             $user->save();
             Mail::to($request->email)->send(new PendaftaranPK($user));
             alert()->success('Sila semak email anda untuk notifikasi pendaftaran.', 'Pendaftaran Berjaya');
@@ -172,31 +172,31 @@ class SemakanController extends Controller
             $user->password = Hash::make($request->password);
             $user->no_KP = $request->no_KP;
             $user->jenis_pengguna = 'Peserta ULS';
-
+            $user->assignRole('Peserta ULS');
             $user->save();
             Mail::to($request->email)->send(new PendaftaranPK($user));
             alert()->success('Sila semak email anda untuk notifikasi pendaftaran.', 'Pendaftaran Berjaya');
             return redirect('/');
-        }else if ($request->no_KP == '861120495509') {
+        } else if ($request->no_KP == '861120495509') {
             $user = new User;
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
             $user->no_KP = $request->no_KP;
             $user->jenis_pengguna = 'Urus Setia ULPK';
-
+            $user->assignRole('Urus Setia ULPK');
             $user->save();
             Mail::to($request->email)->send(new PendaftaranPK($user));
             alert()->success('Sila semak email anda untuk notifikasi pendaftaran.', 'Pendaftaran Berjaya');
             return redirect('/');
-        }else if ($request->no_KP == '660421015422') {
+        } else if ($request->no_KP == '660421015422') {
             $user = new User;
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
             $user->no_KP = $request->no_KP;
             $user->jenis_pengguna = 'Peserta ULPK';
-
+            $user->assignRole('Urus Setia ULPK');
             $user->save();
             Mail::to($request->email)->send(new PendaftaranPK($user));
             alert()->success('Sila semak email anda untuk notifikasi pendaftaran.', 'Pendaftaran Berjaya');
@@ -208,7 +208,7 @@ class SemakanController extends Controller
             $user->password = Hash::make($request->password);
             $user->no_KP = $request->no_KP;
             $user->jenis_pengguna = 'Peserta ULPK';
-
+            $user->assignRole('Peserta ULPK');
             $user->save();
             Mail::to($request->email)->send(new PendaftaranPK($user));
             alert()->success('Sila semak email anda untuk notifikasi pendaftaran.', 'Pendaftaran Berjaya');
