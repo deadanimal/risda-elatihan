@@ -9,9 +9,19 @@ class JadualKursus extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    protected $with = ['kehadiran'];
+    protected $with = ['kehadiran', 'penceramah'];
+
     public function kehadiran()
     {
         return $this->hasMany(Kehadiran::class);
+    }
+    public function kodkursuss()
+    {
+        return $this->belongsTo(KodKursus::class, 'kod_Kursus', 'kod_kursus');
+    }
+
+    public function penceramah()
+    {
+        return $this->hasMany(PenceramahKonsultan::class, 'pc_jadual_kursus');
     }
 }

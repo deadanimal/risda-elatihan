@@ -271,8 +271,8 @@
             <div class="col-3 p-0" style="background-color: #009640;">
                 @include('layouts.risda-side-bar')
             </div>
-            <div class="col-9 p-0">
-                <div class="content p-5" style="background-color:white">
+            <div class="col-9 p-0" style="background-color:white">
+                <div class="content p-5">
                     {{-- @if (session('success'))
                         <div class="alert alert-success ">
                             {{ session('success') }}
@@ -336,7 +336,9 @@
             setInterval(() => {
                 const today = new Date();
                 let day = today.getDate();
-                const bulan = ['Januari', 'Februari', 'Mac', 'April', 'May', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember'];
+                const bulan = ['Januari', 'Februari', 'Mac', 'April', 'May', 'Jun', 'Julai', 'Ogos',
+                    'September', 'Oktober', 'November', 'Disember'
+                ];
                 let month = bulan[today.getMonth()];
                 let year = today.getFullYear();
                 let h = today.getHours();
