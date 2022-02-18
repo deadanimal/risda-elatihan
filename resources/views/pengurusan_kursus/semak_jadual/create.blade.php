@@ -362,7 +362,7 @@
             var kod_tajuk = $('#tajuk option:selected').val();
 
             // cari available siri
-            var list_siri = @json($jadual->toArray());
+            var list_siri = @json($list_jadual->toArray());
             var siri = 1;
             list_siri.forEach(element => {
                 var tajuk_list = element.kod_kursus;
@@ -413,22 +413,37 @@
             }
 
         });
-// check balik bwh ni
+        // check balik bwh ni
         $('#tempat').change(function() {
-            var tempatkursus = this.val();
-            var check = @json($tempat);
-            if (check == null) {
-                console.log('salah');
-            }else{
-                var list_tempat = @json($tempat);
-                var alamat = '';
-                list_tempat.forEach(element => {
-                    if (tempat_kursus === element.id) {
-                        alamat = element.alamat_Agensi_baris1;
-                    }
-                });
-                $('#alamat').val(alamat);
-            }
+            var tempatkursus = $('#tempat').val();
+            console.log(tempatkursus);
+            // var check = @json($tempat->toArray());
+            var list_tempat = @json($tempat->toArray());
+            var list_negeri = @json($negeri->toArray());
+            var list_daerah = @json($daerah->toArray());
+            var alamat = '';
+            list_tempat.forEach(element => {
+                if (tempatkursus == element.id) {
+                    alamat = element.alamat_Agensi_baris1;
+                    poskod = element.poskod;
+                    kod_daerah = element.U_Daerah_ID;
+                    kod_negeri = element.U_Negeri_ID;
+
+                    list_negeri.forEach(element2 => {
+                        if (kod_negeri == element2.id) {
+                            negeri = element2.Negeri;
+                        }
+                    });
+
+                    list_daerah.forEach(element3 => {
+                        if (kod_daerah == element3.id) {
+                            daerah = element3.Daerah;
+                        }
+                    });
+                }
+            });
+            console.log(alamat, poskod, negeri, daerah);
+            $('#alamat').val(alamat + ', ' + poskod + ' ' + daerah + ', ' + negeri);
         });
     </script>
 @endsection
