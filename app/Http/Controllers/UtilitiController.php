@@ -10,6 +10,7 @@ use App\Models\Tanah;
 use App\Models\Tanaman;
 use App\Models\User;
 use App\Models\Utiliti;
+use Illuminate\Support\Facades\Request;
 
 class UtilitiController extends Controller
 {
@@ -126,6 +127,14 @@ class UtilitiController extends Controller
         }
         $user = User::find($id);
         $user->delete();
+        return redirect('/testing');
+    }
+
+    public function test_user_update_role(UpdateUtilitiRequest $request, $id)
+    {
+        $pengguna = User::find($id);
+        $pengguna->assignRole($request->peranan);
+        alert()->success('dah tukar role', 'jadi');
         return redirect('/testing');
     }
 }
