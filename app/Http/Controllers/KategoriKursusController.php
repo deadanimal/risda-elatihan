@@ -6,6 +6,7 @@ use App\Http\Requests\StoreKategoriKursusRequest;
 use App\Http\Requests\UpdateKategoriKursusRequest;
 use App\Models\KategoriKursus;
 use App\Models\BidangKursus;
+use App\Models\KodKursus;
 
 class KategoriKursusController extends Controller
 {
@@ -27,14 +28,7 @@ class KategoriKursusController extends Controller
 
         $bil_ds = KategoriKursus::where('UL_Kategori_Kursus', 'Staf')->where('jenis_Kategori_Kursus', 'Dalaman')->get();
         $bil_ls = KategoriKursus::where('UL_Kategori_Kursus', 'Staf')->where('jenis_Kategori_Kursus', 'Luaran')->get();
-        $bil_pk = KategoriKursus::orderBy('id', 'desc')->where('UL_Kategori_Kursus', 'Pekebun Kecil')->first();
-        if ($bil_pk != null) {
-            $bil_pk = $bil_pk->no_kod_KK;
-        }else{
-            $bil_pk = 0;
-        }
-        $bil_pk = (int)$bil_pk + 1;
-        $bil_pk = sprintf("%02d", $bil_pk);
+        $bil_pk = KategoriKursus::where('UL_Kategori_Kursus', 'Pekebun Kecil')->get();
 
         return view('utiliti.kursus.kategori.index', [
             'bidangKursus' => $bidangKursus,
@@ -78,6 +72,7 @@ class KategoriKursusController extends Controller
         $kategoriKursus->status_Kategori_Kursus = $status;
         // dd($kategoriKursus);
         $kategoriKursus->save();
+        alert()->success('Maklumat telah disimpan', 'Berjaya');
         return redirect('/utiliti/kursus/kategori_kursus');
     }
 
@@ -126,6 +121,7 @@ class KategoriKursusController extends Controller
         $kategoriKursus->status_Kategori_Kursus = $status;
         // dd($kategoriKursus);
         $kategoriKursus->save();
+        alert()->success('Maklumat telah dikemaskini', 'Berjaya');
         return redirect('/utiliti/kursus/kategori_kursus');
     }
 
@@ -137,8 +133,13 @@ class KategoriKursusController extends Controller
      */
     public function destroy($id)
     {
+        $kod_kursus = KodKursus::where('U_Kategori_Kursus', $id)->get();
+        foreach ($kod_kursus as $key => $kk) {
+            $kk->delete();
+        }
         $kategoriKursus = KategoriKursus::find($id);
         $kategoriKursus->delete();
+        alert()->success('Maklumat telah dihapus', 'Berjaya');
         return redirect('/utiliti/kursus/kategori_kursus');
     }
 }

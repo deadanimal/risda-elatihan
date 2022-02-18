@@ -123,8 +123,11 @@
     </div>
 
     <div class="row mt-3">
-        <div class="col text-end">
-            <a href="/pengurusan_kursus/semak_jadual" class="btn btn-primary">Seterusnya</a>
+        <div class="col-lg-6">
+            <a href="/pengurusan_kursus/penceramah_konsultan/{{$id}}" class="btn btn-primary">Kembali</a>
+        </div>
+        <div class="col-lg-6 text-end">
+            <a href="/pengurusan_kursus/semak_jadual" class="btn btn-primary">Selesai</a>
         </div>
     </div>
 @endsection

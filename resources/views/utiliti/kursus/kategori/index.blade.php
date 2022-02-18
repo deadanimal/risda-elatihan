@@ -269,77 +269,198 @@
                 if (this.value == element.UL_Bidang_Kursus) {
                     $('#form1 select[name=U_Bidang_Kursus]').append(
                         `<option value=${element.id} class=${element.kod_Bidang_Kursus}>${element.nama_Bidang_Kursus}</option>`
-                        );
+                    );
                 }
             });
+        });
+
+        $('#kod_bidang').change(function() {
+            var kod_ul = $('#unitlatihan option:selected').val();
+            var kod_bid = $('#kod_bidang option:selected').attr('class');
+            var kod_jenis = $('#jenis_kategori option:selected').val();
+            var id_bid = $('#kod_bidang option:selected').val();
+            id_bid = parseInt(id_bid);
+            id_bid = id_bid.toLocaleString('en-US', {
+                minimumIntegerDigits: 2,
+                useGrouping: false
+            });
+            var kod_ds = @json($bil_ds->toArray());
+            var bil_ds = 1;
+            console.log(kod_jenis);
+            if (kod_jenis !== "Sila Pilih") {
+                if (kod_ds.length != 0) {
+                    console.log('a');
+                    kod_ds.forEach(element => {
+                        kod_bidang = element.U_Bidang_Kursus.toLocaleString('en-US', {
+                            minimumIntegerDigits: 2,
+                            useGrouping: false
+                        });
+
+                        console.log('check = ' + id_bid, kod_bidang);
+                        if (id_bid == kod_bidang) {
+                            console.log('b');
+                            if (element.no_kod_KK != null) {
+                                console.log('c');
+                                bil_ds = parseInt(element.no_kod_KK) + 1;
+                            }
+                        }
+                    });
+                }
+                bil_ds = bil_ds.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                });
+                console.log('last = ' + bil_ds);
+
+                var kod_ls = @json($bil_ls->toArray());
+                var bil_ls = 1;
+                if (kod_ls.length != 0) {
+                    kod_ls.forEach(element => {
+                        kod_bidang = element.U_Bidang_Kursus.toLocaleString('en-US', {
+                            minimumIntegerDigits: 2,
+                            useGrouping: false
+                        });
+                        if (id_bid == kod_bidang) {
+                            bil_ls = parseInt(element.no_kod_KK) + 1;
+                        }
+                    });
+                }
+
+                bil_ls = bil_ls.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                });
+
+                var kod_pk = @json($bil_pk);
+                var bil_pk = 1;
+                if (kod_pk.length != 0) {
+                    console.log(kod_pk);
+                    kod_pk.forEach(element => {
+                        kod_bidang = element.U_Bidang_Kursus.toLocaleString('en-US', {
+                            minimumIntegerDigits: 2,
+                            useGrouping: false
+                        });
+                        console.log('kod id_bid = '+id_bid, 'kod kod_bidang = '+kod_bidang);
+                        if (id_bid == kod_bidang) {
+                            console.log('no kk'+element.no_kod_KK);
+                            bil_pk = parseInt(element.no_kod_KK) + 1;
+                        }
+                    });
+                }
+
+                bil_pk = bil_pk.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                });
+
+                if (kod_ul == 'Staf') {
+                    if (kod_jenis == 'Dalaman') {
+                        $('#kod_kat').val('DS' + kod_bid + bil_ds);
+                        $('#no_kod_KK').val(bil_ds);
+                    } else {
+                        $('#kod_kat').val('LS' + kod_bid + bil_ls);
+                        $('#no_kod_KK').val(bil_ls);
+                    }
+                } else {
+                    $('#kod_kat').val('PK' + kod_bid + bil_pk);
+                    $('#no_kod_KK').val(bil_pk);
+                }
+            }
         });
 
         $('#jenis_kategori').change(function() {
             var kod_ul = $('#unitlatihan option:selected').val();
             var kod_bid = $('#kod_bidang option:selected').attr('class');
             var kod_jenis = $('#jenis_kategori option:selected').val();
-
+            var id_bid = $('#kod_bidang option:selected').val();
+            id_bid = parseInt(id_bid);
+            id_bid = id_bid.toLocaleString('en-US', {
+                minimumIntegerDigits: 2,
+                useGrouping: false
+            });
             var kod_ds = @json($bil_ds->toArray());
-            var bil_ds = 0;
-            kod_ds.forEach(element => {
-                kod_bidang = element.U_Bidang_Kursus.toLocaleString('en-US', {
-                    minimumIntegerDigits: 2,
-                    useGrouping: false
-                });
-                if (kod_bid == kod_bidang) {
-                    if (element.no_kod_KK != null) {
-                        bil_ds = parseInt(element.no_kod_KK) + 1;
-                        bil_ds = bil_ds.toLocaleString('en-US', {
+            var bil_ds = 1;
+            console.log(kod_bid);
+            if (typeof kod_bid !== "undefined") {
+                if (kod_ds.length != 0) {
+                    console.log('a');
+                    kod_ds.forEach(element => {
+                        kod_bidang = element.U_Bidang_Kursus.toLocaleString('en-US', {
                             minimumIntegerDigits: 2,
                             useGrouping: false
                         });
+
+                        console.log('check = ' + id_bid, kod_bidang);
+                        if (id_bid == kod_bidang) {
+                            console.log('b');
+                            if (element.no_kod_KK != null) {
+                                console.log('c');
+                                bil_ds = parseInt(element.no_kod_KK) + 1;
+                            }
+                        }
+                    });
+                }
+                bil_ds = bil_ds.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                });
+                console.log('last = ' + bil_ds);
+
+                var kod_ls = @json($bil_ls->toArray());
+                var bil_ls = 1;
+                if (kod_ls.length != 0) {
+                    kod_ls.forEach(element => {
+                        kod_bidang = element.U_Bidang_Kursus.toLocaleString('en-US', {
+                            minimumIntegerDigits: 2,
+                            useGrouping: false
+                        });
+                        if (id_bid == kod_bidang) {
+                            bil_ls = parseInt(element.no_kod_KK) + 1;
+                        }
+                    });
+                }
+
+                bil_ls = bil_ls.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                });
+
+                var kod_pk = @json($bil_pk->toArray());
+                var bil_pk = 1;
+                if (kod_pk.length != 0) {
+                    console.log(kod_pk);
+                    kod_pk.forEach(element => {
+                        kod_bidang = element.U_Bidang_Kursus.toLocaleString('en-US', {
+                            minimumIntegerDigits: 2,
+                            useGrouping: false
+                        });
+                        console.log('kod id_bid = '+id_bid, 'kod kod_bidang = '+kod_bidang);
+                        if (id_bid == kod_bidang) {
+                            console.log('no kk'+element.no_kod_KK);
+                            bil_pk = parseInt(element.no_kod_KK) + 1;
+                        }
+                    });
+                }
+
+                bil_pk = bil_pk.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                });
+
+                if (kod_ul == 'Staf') {
+                    if (kod_jenis == 'Dalaman') {
+                        $('#kod_kat').val('DS' + kod_bid + bil_ds);
+                        $('#no_kod_KK').val(bil_ds);
                     } else {
-                        bil_ds = parseInt(bil_ds) + 1;
-                        bil_ds = bil_ds.toLocaleString('en-US', {
-                            minimumIntegerDigits: 2,
-                            useGrouping: false
-                        });
+                        $('#kod_kat').val('LS' + kod_bid + bil_ls);
+                        $('#no_kod_KK').val(bil_ls);
                     }
-                }
-            })
-
-            var kod_ls = @json($bil_ls->toArray());
-            var bil_ls = 0;
-            kod_ls.forEach(element => {
-                kod_bidang = element.U_Bidang_Kursus.toLocaleString('en-US', {
-                    minimumIntegerDigits: 2,
-                    useGrouping: false
-                });
-                if (kod_bid == kod_bidang) {
-                    bil_ls = parseInt(element.no_kod_KK) + 1;
-                    bil_ls = bil_ls.toLocaleString('en-US', {
-                        minimumIntegerDigits: 2,
-                        useGrouping: false
-                    });
                 } else {
-                    bil_ls = parseInt(bil_ls) + 1;
-                    bil_ls = bil_ls.toLocaleString('en-US', {
-                        minimumIntegerDigits: 2,
-                        useGrouping: false
-                    });
+                    $('#kod_kat').val('PK' + kod_bid + bil_pk);
+                    $('#no_kod_KK').val(bil_pk);
                 }
-            })
-
-            var kod_pk = @json($bil_pk);
-
-            if (kod_ul == 'Staf') {
-                if (kod_jenis == 'Dalaman') {
-                    $('#kod_kat').val('DS' + kod_bid + bil_ds);
-                    $('#no_kod_KK').val(bil_ds);
-                } else {
-                    $('#kod_kat').val('LS' + kod_bid + bil_ls);
-                    $('#no_kod_KK').val(bil_ls);
-                }
-            } else {
-                $('#kod_kat').val('PK' + kod_bid + kod_pk);
-                $('#no_kod_KK').val(kod_pk);
             }
-        })
+        });
     </script>
 
 

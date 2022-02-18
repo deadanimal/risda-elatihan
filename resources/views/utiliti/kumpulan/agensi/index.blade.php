@@ -161,7 +161,7 @@
                                             <div class="modal-footer">
                                                 <button class="btn btn-secondary" type="button"
                                                     data-bs-dismiss="modal">Batal</button>
-                                                <form method="POST" action="/agensi/{{ $a->id }}">
+                                                <form method="POST" action="/utiliti/kumpulan/agensi/{{ $a->id }}">
                                                     @method('DELETE')
                                                     @csrf
                                                     <button class="btn btn-primary" type="submit">Hapus
@@ -185,16 +185,16 @@
                                     <td>{{ $a->no_Telefon_Agensi }}</td>
                                     <td>{{ $a->no_Faks_Agensi }}</td>
                                     <td>
-                                        <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                                        <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal"
                                             data-bs-target="#contact_agensi_{{ $a->id }}">
                                             <i class="fas fa-address-book"></i>
                                         </button>
                                     </td>
                                     <td>
-                                        <a href="/agensi/{{ $a->id }}/edit" class="btn btn-primary"><i
+                                        <a href="/utiliti/kumpulan/agensi/{{ $a->id }}/edit" class="btn btn-sm btn-primary"><i
                                                 class="fas fa-pen"></i></a>
 
-                                        <button class="btn risda-bg-dg text-white" type="button" data-bs-toggle="modal"
+                                        <button class="btn btn-sm risda-bg-dg text-white" type="button" data-bs-toggle="modal"
                                             data-bs-target="#delete_agensi_{{ $a->id }}">
                                             <i class="fas fa-trash"></i>
                                         </button>
@@ -300,7 +300,7 @@
                                                 <div class="modal-footer">
                                                     <button class="btn btn-secondary" type="button"
                                                         data-bs-dismiss="modal">Batal</button>
-                                                    <form method="POST" action="/agensi/{{ $a->id }}">
+                                                    <form method="POST" action="/utiliti/kumpulan/agensi/{{ $a->id }}">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button class="btn btn-primary" type="submit">Hapus
@@ -351,16 +351,16 @@
                                     <td>${ element.no_Telefon_Agensi }</td>
                                     <td>${ element.no_Faks_Agensi }</td>
                                     <td>
-                                        <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                                        <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal"
                                             data-bs-target="#contact_agensi_${ element.id }">
                                             <i class="fas fa-address-book"></i>
                                         </button>
                                     </td>
                                     <td>
-                                        <a href="/agensi/{{ $a->id }}/edit" class="btn btn-primary"><i
+                                        <a href="/utiliti/kumpulan/agensi/${ element.id }/edit" class="btn btn-sm btn-primary"><i
                                                 class="fas fa-pen"></i></a>
 
-                                        <button class="btn risda-bg-dg text-white" type="button" data-bs-toggle="modal"
+                                        <button class="btn btn-sm risda-bg-dg text-white" type="button" data-bs-toggle="modal"
                                             data-bs-target="#delete_agensi_${ element.id }">
                                             <i class="fas fa-trash"></i>
                                         </button>

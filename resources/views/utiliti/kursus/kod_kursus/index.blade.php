@@ -38,13 +38,13 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label">TAHUN</label>
-                                        <input class="form-control datepicker" type="text" placeholder="0000"
-                                            autocomplete="off" name="tahun_Kursus" />
+                                        <input class="form-control datepicker" type="text"
+                                            autocomplete="off" name="tahun_Kursus" value="{{$tahun_ini}}" readonly/>
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label">TARIKH DAFTAR</label>
                                         <input class="form-control" type="date" name="tarikh_daftar_Kursus"
-                                            data-date-format="dd/mm/yyyy" />
+                                            data-date-format="dd/mm/yyyy" readonly value="{{$hari_ini}}"/>
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label">BIDANG KURSUS</label>

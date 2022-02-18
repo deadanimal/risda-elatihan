@@ -76,6 +76,7 @@ class BidangKursusController extends Controller
         $bidangKursus->status_Bidang_Kursus = $status;
 
         $bidangKursus->save();
+        alert()->success('Maklumat telah disimpan', 'Berjaya');
         return redirect('/utiliti/kursus/bidang_kursus');
     }
 
@@ -121,6 +122,7 @@ class BidangKursusController extends Controller
         $bidangKursus->status_Bidang_Kursus = $status;
 
         $bidangKursus->save();
+        alert()->success('Maklumat telah dikemaskini', 'Berjaya');
         return redirect('/utiliti/kursus/bidang_kursus');
     }
 
@@ -130,9 +132,12 @@ class BidangKursusController extends Controller
      * @param  \App\Models\BidangKursus  $bidangKursus
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BidangKursus $bidangKursus)
+    public function destroy($bidangKursus)
     {
+        $bidangKursus = BidangKursus::find($bidangKursus);
         $bidangKursus->delete();
+
+        alert()->success('Berjaya dihapus','Hapus');
         return redirect('/utiliti/kursus/bidang_kursus');
     }
 }

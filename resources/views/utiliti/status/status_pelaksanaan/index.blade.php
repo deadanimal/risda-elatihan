@@ -26,7 +26,7 @@
                                 <h4 class="mb-1" id="modalExampleDemoLabel">TAMBAH </h4>
                             </div>
                             <div class="p-4 pb-0">
-                                <form action="/utiliti/status/status_pelaksanaan" method="POST">
+                                <form action="/utiliti/status_pelaksanaan" method="POST">
                                     @csrf
                                     <div class="mb-3">
                                         <label class="col-form-label">KOD STATUS PELAKSANAAN</label>
@@ -111,7 +111,7 @@
                                                     </h4>
                                                 </div>
                                                 <div class="p-4 pb-0">
-                                                    <form action="/utiliti/status/status_pelaksanaan/{{ $sp->id }}" method="POST">
+                                                    <form action="/utiliti/status_pelaksanaan/{{ $sp->id }}" method="POST">
                                                         @method('PUT')
                                                         @csrf
                                                         <div class="mb-3">
@@ -173,7 +173,7 @@
                                                     <button class="btn btn-secondary" type="button"
                                                         data-bs-dismiss="modal">Batal</button>
                                                     <form method="POST"
-                                                        action="/utiliti/status/status_pelaksanaan/{{ $sp->id }}">
+                                                        action="/utiliti/status_pelaksanaan/{{ $sp->id }}">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button class="btn btn-primary" type="submit">Hapus

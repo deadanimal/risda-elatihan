@@ -23,31 +23,22 @@
 
                 <div class="row">
                     <div class="col-lg-3 p-0">
-                        <label class="col-form-label">NO. KAD PENGENALAN</label>
-                    </div>
-                    <div class="col-lg-9">
-                        <input type="text" name="pc_nric" class="form-control">
-                        {{-- <select class="form-select  form-control" name="nr_nota_rujukan" id="nr_nota_rujukan">
-                            <option selected="" aria-placeholder="Sila Pilih" hidden></option>
-                        </select> --}}
-                    </div>
-                </div>
-
-                <div class="row mt-2">
-                    <div class="col-lg-3 p-0">
                         <label class="col-form-label">NAMA PENCERAMAH / KONSULTAN</label>
                     </div>
-                    <div class="col-lg-9">
-                        <input type="text" class="form-control" name="pc_nama">
-                    </div>
-                </div>
-
-                <div class="row mt-2">
-                    <div class="col-lg-3 p-0">
-                        <label class="col-form-label">NO. TELEFON</label>
-                    </div>
-                    <div class="col-lg-9">
-                        <input type="text" class="form-control" name="pc_notelefon">
+                    <div class="col-lg-9 p-0">
+                        @if ($list_pk == null)
+                            <label class="col-form-label text-danger">KATEGORI "Penceramah" TIADA DIDALAM
+                                SENARAI
+                                AGENSI. SILA TAMBAH DI BAHAGIAN AGENSI (UTILITI->KOD KUMPULAN) UNTUK MENERUSKAN PENAMBAHAN
+                                JADUAL KURSUS</label>
+                        @else
+                            <select class="form-select  form-control" name="pc_id" id="">
+                                <option selected="" value="" hidden>Sila Pilih</option>
+                                @foreach ($list_pk as $lpk)
+                                    <option value="{{ $lpk->id }}">{{ $lpk->nama_Agensi }}</option>
+                                @endforeach
+                            </select>
+                        @endif
                     </div>
                 </div>
 
@@ -81,10 +72,10 @@
                             @foreach ($penceramahKonsultan as $key => $pc)
                                 <tr>
                                     <td>{{ $key + 1 }}.</td>
-                                    <td>{{ $pc->pc_nric }}</td>
-                                    <td>{{ $pc->pc_nama }}</td>
-                                    <td>{{ $pc->pc_notelefon }}</td>
-                                    
+                                    <td>{{ $pc->no_KP_Agensi }}</td>
+                                    <td>{{ $pc->nama_Agensi }}</td>
+                                    <td>{{ $pc->no_Telefon_Agensi }}</td>
+
                                     <td>
                                         <button class="btn risda-bg-dg text-white" type="button" data-bs-toggle="modal"
                                             data-bs-target="#delete_{{ $pc->id }}">
@@ -114,7 +105,8 @@
                                                 <div class="modal-footer">
                                                     <button class="btn btn-secondary" type="button"
                                                         data-bs-dismiss="modal">Batal</button>
-                                                    <form method="POST" action="/pengurusan_kursus/penceramah_konsultan/{{ $pc->id }}">
+                                                    <form method="POST"
+                                                        action="/pengurusan_kursus/penceramah_konsultan/{{ $pc->id }}">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button class="btn btn-primary" type="submit">Hapus
@@ -137,8 +129,11 @@
     </div>
 
     <div class="row mt-3">
-        <div class="col text-end">
-            <a href="/pengurusan_kursus/kelayakan_elaun_cuti/{{$id}}" class="btn btn-primary">Seterusnya</a>
+        <div class="col-lg-6">
+            <a href="/pengurusan_kursus/nota_rujukan/{{ $id }}" class="btn btn-primary">Kembali</a>
+        </div>
+        <div class="col-lg-6 text-end">
+            <a href="/pengurusan_kursus/kelayakan_elaun_cuti/{{ $id }}" class="btn btn-primary">Seterusnya</a>
         </div>
     </div>
 @endsection
