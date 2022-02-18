@@ -233,5 +233,6 @@ Route::group(['prefix' => 'us-ulpk', 'middleware' => ['UlpkUrusSetia', 'AdminBTM
 
 Route::get('/testing', [UtilitiController::class, 'test_user_list']);
 Route::delete('/delete/{id}', [UtilitiController::class, 'test_user_delete']);
+Route::put('/update_role/{id}', [UtilitiController::class, 'test_user_update_role']);
 
 require __DIR__ . '/auth.php';

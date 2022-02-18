@@ -13,7 +13,7 @@ class UpdateUtilitiRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
