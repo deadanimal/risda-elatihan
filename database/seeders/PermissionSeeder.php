@@ -16,25 +16,12 @@ class PermissionSeeder extends Seeder
     public function run()
     {
         // Reset cached roles and permissions
-        // app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
-
-        // $permissions = [
-        // 'permohonan kursus',
-        // 'katelog kursus',
-        // 'status permohonan',
-        // 'kehadiran',
-        // 'pengajian lanjutan',
-        // 'penilaian',
-        // ];
-
-        // create permissions
-        // foreach ($permissions as $permission) {
-        //     Permission::create([
-        //         'name' => $permission,
-        //     ]);
-        // }
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         $permissions = [
+            'permohonan kursus',
+            'katelog kursus',
+            'status permohonan',
             'kehadiran',
             'pengajian lanjutan',
             'penilaian',
@@ -50,24 +37,23 @@ class PermissionSeeder extends Seeder
         // create roles and assign created permissions
 
         //Peserta ULS
-        // $pesertaUls = Role::create(['name' => 'Peserta ULS']);
-        // $pesertaUls = Role::where('name', 'Peserta ULS')->first();
+        $pesertaUls = Role::create(['name' => 'Peserta ULS']);
 
-        // $pesertaULSPermission = [
-        //     'permohonan kursus',
-        //     'katelog kursus',
-        //     'status permohonan',
-        // ];
+        $pesertaULSPermission = [
+            'permohonan kursus',
+            'katelog kursus',
+            'status permohonan',
+        ];
 
-        // foreach ($pesertaULSPermission as $permission) {
-        //     $pesertaUls->givePermissionTo($permission);
-        // }
+        foreach ($pesertaULSPermission as $permission) {
+            $pesertaUls->givePermissionTo($permission);
+        }
 
         //Peserta ULPK
-        // $role = Role::create(['name' => 'Peserta ULPK']);
+        $role = Role::create(['name' => 'Peserta ULPK']);
 
         // //Urus Setia ULS
-        // $role = Role::create(['name' => 'Urus Setia ULS']);
+        $role = Role::create(['name' => 'Urus Setia ULS']);
         $urussetiaUls = Role::where('name', 'Urus Setia ULS')->first();
 
         $urussetiaULSPermission = [
@@ -81,7 +67,7 @@ class PermissionSeeder extends Seeder
         }
 
         // //Urus Setia ULPK
-        // $role = Role::create(['name' => 'Urus Setia ULPK']);
+        $role = Role::create(['name' => 'Urus Setia ULPK']);
 
     }
 }
