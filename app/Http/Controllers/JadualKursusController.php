@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateJadualKursusRequest;
 use App\Models\Agensi;
 use App\Models\Aturcara;
 use App\Models\BidangKursus;
+use App\Models\Daerah;
 use App\Models\JadualKursus;
 use App\Models\KategoriAgensi;
 use App\Models\KategoriKursus;
@@ -60,6 +61,9 @@ class JadualKursusController extends Controller
             $tempat = null;
         }
         $pengendali = Agensi::all();
+        $list_jadual = JadualKursus::all();
+        $negeri = Negeri::all();
+        $daerah = Daerah::all();
         return view('pengurusan_kursus.semak_jadual.create',[
             'bidang'=>$bidang,
             'kategori'=>$kategori,
@@ -70,6 +74,9 @@ class JadualKursusController extends Controller
             'tempat'=>$tempat,
             'tahun_ini' => $tahun_ini,
             'jadual'=>$jadualKursus,
+            'list_jadual'=>$list_jadual,
+            'negeri'=>$negeri,
+            'daerah'=>$daerah
         ]);
     }
 
@@ -114,6 +121,7 @@ class JadualKursusController extends Controller
     public function edit($id)
     {
         $jadualKursus = JadualKursus::find($id);
+        $list_jadual = JadualKursus::all();
         $bidang = BidangKursus::all();
         $kategori = KategoriKursus::all();
         $kod_kursus = KodKursus::all();
@@ -123,7 +131,8 @@ class JadualKursusController extends Controller
             'bidang'=>$bidang,
             'kategori'=>$kategori,
             'kod_kursus'=>$kod_kursus,
-            'status_pelaksanaan'=>$status_pelaksanaan
+            'status_pelaksanaan'=>$status_pelaksanaan,
+            'list_jadual'=>$list_jadual
         ]);
     }
 

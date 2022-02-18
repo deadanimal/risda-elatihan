@@ -30,7 +30,7 @@
                 <div class="row mb-2">
                     <div class="col-lg-7">
                         <label class="col-form-label p-0">UNIT LATIHAN</label>
-                        <select class="form-select form-control" name="kursus_unit_latihan">
+                        <select class="form-select form-control" name="kursus_unit_latihan" id="unitlatihan">
                             <option selected="" hidden value="{{ $jadual->kursus_unit_latihan }}">
                                 {{ $jadual->kursus_unit_latihan }}</option>
                             <option value="Staf">Staf</option>
@@ -96,9 +96,6 @@
                                 @endphp
                                 {{ $kategoriKursus }}
                             </option>
-                            @foreach ($kategori as $k)
-                                <option value="{{ $k->id }}">{{ $k->nama_Kategori_Kursus }}</option>
-                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -113,9 +110,6 @@
                                 @endphp
                                 {{ $kodKursus }}
                             </option>
-                            @foreach ($kod_kursus as $t)
-                                <option value="{{ $t->id }}">{{ $t->tajuk_Kursus }}</option>
-                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -141,7 +135,7 @@
                         <div class="mb-3">
                             <label class="col-form-label">KOD NAMA KURSUS</label>
                             <input class="form-control" type="text" name="kursus_kod_nama_kursus"
-                                value="{{ $jadual->kursus_kod_nama_kursus }}" readonly />
+                                value="{{ $jadual->kursus_kod_nama_kursus }}" readonly id="kod_siri_kk"/>
                         </div>
                     </div>
                 </div>
@@ -337,6 +331,41 @@
                 minViewMode: "years",
                 autoclose: true
             });
+
+            // UL - Bidang
+            var id_ul = $('#unitlatihan option:selected').val();
+            $('#form_add select[name=kursus_bidang]').html("");
+            var bid = @json($bidang->toArray());
+            let option_new1 = "";
+            bid.forEach(element => {
+                if (id_ul === element.UL_Bidang_Kursus) {
+                    $('#form_add select[name=kursus_bidang]').append(
+                        `<option value=${element.id} class=${element.kod_Bidang_Kursus}>${element.nama_Bidang_Kursus}</option>`
+                    );
+                }
+            });
+
+            // Bidang - Kategori
+            var id_bidang = $('#kursus_bidang option:selected').val();
+            var kat_kur = @json($kategori->toArray());
+            kat_kur.forEach(element => {
+                console.log(id_bidang);
+                if (id_bidang == element.U_Bidang_Kursus) {
+                    $('#form_add select[name=kod_kategori]').append(
+                        `<option value=${element.id}>${element.nama_Kategori_Kursus}</option>`);
+                }
+            });
+
+            // Kategori - Tajuk
+            var id_kategori = $('#kursus_kategori option:selected').val();
+            var kod_kur = @json($kod_kursus->toArray());
+            kod_kur.forEach(element => {
+                if (id_kategori == element.U_Kategori_Kursus) {
+                    $('#form_add select[name=kod_kursus]').append(
+                        `<option value=${element.id} class=${element.kod_Kursus} >${element.tajuk_Kursus}</option>`
+                    );
+                }
+            });
         });
 
         $('#unitlatihan').change(function() {
@@ -395,7 +424,8 @@
             var kod_tajuk = $('#tajuk option:selected').val();
 
             // cari available siri
-            var list_siri = @json($jadual->toArray());
+            var list_siri = @json($list_jadual->toArray());
+            console.log('Siri: '+ list_siri);
             var siri = 1;
             list_siri.forEach(element => {
                 var tajuk_list = element.kod_kursus;
