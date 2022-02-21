@@ -117,6 +117,7 @@ Route::group(['middleware' => 'AdminBTM'], function () {
         '/pengurusan_kursus/kelayakan_elaun_cuti'=> KelayakanElauncutiController::class,
 
         '/permohonan_kursus/semakan_permohonan'=> SemakPermohonanController::class,
+        
     ]);
 
 });
@@ -126,7 +127,7 @@ Route::group(['prefix' => '/uls', 'middleware' => ['can:permohonan kursus']], fu
     //Permohonan Peserta
     Route::group(['prefix' => '/permohonan', 'middleware' => 'can:katelog kursus'], function () {
         Route::get('statuspermohonan', [PermohonanController::class, 'indexULS']);
-        Route::get('katelog-kursus', [PermohonanController::class, 'katelog']);
+        Route::get('katelog-kursus', [PermohonanController::class, 'index']);
         Route::get('kehadiran/{kod_kursus}', [KehadiranController::class, 'indexULS']);
     });
 
@@ -234,5 +235,11 @@ Route::group(['prefix' => 'us-ulpk', 'middleware' => ['UlpkUrusSetia', 'AdminBTM
 Route::get('/testing', [UtilitiController::class, 'test_user_list']);
 Route::delete('/delete/{id}', [UtilitiController::class, 'test_user_delete']);
 Route::put('/update_role/{id}', [UtilitiController::class, 'test_user_update_role']);
+
+Route::get('testjap', [PermohonanController::class, 'katelog']);
+
+Route::get('/permohonan_kursus/katalog_kursus/pendaftaran/{id}', [PermohonanController::class, 'permohonan']);
+
+Route::resource('/permohonan_kursus/katalog_kursus', PermohonanController::class);
 
 require __DIR__ . '/auth.php';

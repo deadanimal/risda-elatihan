@@ -177,7 +177,7 @@
                 </a>
                 <ul class="nav-item collapse {{ Request::is('ulpk/permohonan/*') ? 'show' : '' }} my-1" id="permohonan">
                     <li class="nav-item">
-                        <a class="nav-link py-0" href="#">
+                        <a class="nav-link py-0" href="">
                             <div class="d-flex align-items-center nav-link-side">
                                 <span class="px-0">KATALOG KURSUS</span>
                             </div>
@@ -460,7 +460,7 @@
                 <ul class="nav-item collapse {{ Request::is('ulpk/permohonan/*') ? 'show' : 'false' }} my-1"
                     id="permohonan">
                     <li class="nav-item">
-                        <a class="nav-link py-0" href="#">
+                        <a class="nav-link py-0" href="/permohonan_kursus/katalog_kursus">
                             <div class="d-flex align-items-center nav-link-side">
                                 <span class="px-0">KATALOG KURSUS</span>
                             </div>
