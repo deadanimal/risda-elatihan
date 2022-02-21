@@ -37,7 +37,7 @@
             <div class="col-lg-3">
                 <div class="card h-100">
                     <div class="card-body risda-bg-g text-white text-center">
-                        <p class="card-text my-0 p-0">TEMPAT KURSUS</p>
+                        <p class="card-text my-0 p-0">TARIKH KURSUS</p>
                         <h5 class="card-title text-white my-0 p-0">{{ date('d/m/Y', strtotime($jadual->tarikh_mula)) }}
                         </h5>
                     </div>
@@ -54,7 +54,7 @@
             <div class="col-lg-3">
                 <div class="card h-100">
                     <div class="card-body risda-bg-g text-white text-center">
-                        <p class="card-text my-0 p-0">TARIKH KURSUS</p>
+                        <p class="card-text my-0 p-0">TEMPAT KURSUS</p>
                         <h5 class="card-title text-white my-0 p-0">
                             @php
                                 $tempat = Agensi::find($jadual->kursus_tempat);
