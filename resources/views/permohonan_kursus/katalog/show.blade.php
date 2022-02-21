@@ -35,16 +35,16 @@
 
         <div class="row mt-5">
             <div class="col-lg-3">
-                <div class="card">
+                <div class="card h-100">
                     <div class="card-body risda-bg-g text-white text-center">
-                        <p class="card-text my-0 p-0">TARIKH KURSUS</p>
+                        <p class="card-text my-0 p-0">TEMPAT KURSUS</p>
                         <h5 class="card-title text-white my-0 p-0">{{ date('d/m/Y', strtotime($jadual->tarikh_mula)) }}
                         </h5>
                     </div>
                 </div>
             </div>
             <div class="col-lg-3">
-                <div class="card">
+                <div class="card h-100">
                     <div class="card-body risda-bg-g text-white text-center">
                         <p class="card-text my-0 p-0">TEMPOH KURSUS</p>
                         <h5 class="card-title text-white my-0 p-0">{{ $jadual->bilangan_hari }} HARI</h5>
@@ -52,7 +52,7 @@
                 </div>
             </div>
             <div class="col-lg-3">
-                <div class="card">
+                <div class="card h-100">
                     <div class="card-body risda-bg-g text-white text-center">
                         <p class="card-text my-0 p-0">TARIKH KURSUS</p>
                         <h5 class="card-title text-white my-0 p-0">
@@ -66,7 +66,7 @@
                 </div>
             </div>
             <div class="col-lg-3">
-                <div class="card">
+                <div class="card h-100">
                     <div class="card-body risda-bg-g text-white text-center">
                         <p class="card-text my-0 p-0">MASA PENDAFTARAN</p>
                         <h5 class="card-title text-white my-0 p-0">{{$jadual->kursus_masa_pendaftaran}}</h5>
@@ -76,7 +76,7 @@
         </div>
         <div class="row mt-3">
             <div class="col-lg-3">
-                <div class="card">
+                <div class="card h-100">
                     <div class="card-body risda-bg-g text-white text-center">
                         <p class="card-text my-0 p-0">TARIKH BUKA PERMOHONAN</p>
                         <h5 class="card-title text-white my-0 p-0">{{ date('d/m/Y', strtotime($jadual->kursus_tarikh_daftar)) }}
@@ -85,7 +85,7 @@
                 </div>
             </div>
             <div class="col-lg-3">
-                <div class="card">
+                <div class="card h-100">
                     <div class="card-body risda-bg-g text-white text-center">
                         <p class="card-text my-0 p-0">TARIKH TUTUP PERMOHONAN</p>
                         <h5 class="card-title text-white my-0 p-0">{{ date('d/m/Y', strtotime($jadual->kursus_tarikh_tutup)) }}</h5>
