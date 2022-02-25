@@ -56,13 +56,27 @@
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($permohonan as $p)
+                                                        @if ($p->jadualKursus->tarikh_mula >= $hari_ini)
                                                         <tr style="text-center">
                                                             <td>{{ $loop->iteration }}.</td>
-                                                            <td>{{ $p->kod_kursus }}</td>
-                                                            <td>{{ $p->kodkursus->tajuk_Kursus ?? '' }}</td>
-                                                            <td>{{ $p->kodkursus->tarikh_daftar_Kursus ?? '' }}
+                                                            <td>{{ $p->jadualKursus->kursus_kod_nama_kursus }}</td>
+                                                            <td>{{ $p->jadualKursus->kursus_nama }}</td>
+                                                            <td>{{ date('d/m/Y', strtotime($p->jadualKursus->tarikh_mula)) }}
                                                             </td>
-                                                            <td>{{ $p->status_permohonan }}
+                                                            <td>
+                                                                @if ($p->status_permohonan == 0)
+                                                                    Belum Disemak
+                                                                @elseif($p->status_permohonan == 1)
+                                                                    Belum Disemak (Sokongan)
+                                                                @elseif($p->status_permohonan == 2)
+                                                                    Disokong
+                                                                @elseif($p->status_permohonan == 3)
+                                                                    Tidak Disokong
+                                                                @elseif($p->status_permohonan == 4)
+                                                                    Lulus
+                                                                @elseif($p->status_permohonan == 5)
+                                                                    Tidak Lulus
+                                                                @endif
                                                             </td>
                                                             <td class="text-end" style="width:210px;">
                                                                 <div class="d-grid gap-2">
@@ -74,6 +88,7 @@
                                                                 </div>
                                                             </td>
                                                         </tr>
+                                                        @endif
                                                     @endforeach
                                                 </tbody>
                                             </table>
@@ -83,14 +98,68 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="pill-tab-profile" role="tabpanel" aria-labelledby="profile-tab">Food
-                        truck
-                        fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore
-                        velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft
-                        beer
-                        twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad
-                        vinyl
-                        cillum PBR. Homo nostrud organic. </div>
+                    <div class="tab-pane fade" id="pill-tab-profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="row">
+                            <div class="col-12">
+                                <p class="h3 mt-3">Senarai Permohonan</p>
+                            </div>
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="table-responsive scrollbar text-center">
+                                            <table class="table table-permohonan datatable">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="fw-bold text-dark" scope="col">BIL.</th>
+                                                        <th class="fw-bold text-dark" scope="col">KOD KURSUS</th>
+                                                        <th class="fw-bold text-dark" scope="col">NAMA KURSUS</th>
+                                                        <th class="fw-bold text-dark" scope="col">TARIKH KURSUS</th>
+                                                        <th class="fw-bold text-dark" scope="col">STATUS</th>
+                                                        <th class="fw-bold text-dark" scope="col">TINDAKAN</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($permohonan as $p)
+                                                        @if ($p->jadualKursus->tarikh_mula < $hari_ini)
+                                                        <tr style="text-center">
+                                                            <td>{{ $loop->iteration }}.</td>
+                                                            <td>{{ $p->jadualKursus->kursus_kod_nama_kursus }}</td>
+                                                            <td>{{ $p->jadualKursus->kursus_nama }}</td>
+                                                            <td>{{ date('d/m/Y', strtotime($p->jadualKursus->tarikh_mula)) }}
+                                                            </td>
+                                                            <td>
+                                                                @if ($p->status_permohonan == 0)
+                                                                    Belum Disemak
+                                                                @elseif($p->status_permohonan == 1)
+                                                                    Belum Disemak (Sokongan)
+                                                                @elseif($p->status_permohonan == 2)
+                                                                    Disokong
+                                                                @elseif($p->status_permohonan == 3)
+                                                                    Tidak Disokong
+                                                                @elseif($p->status_permohonan == 4)
+                                                                    Lulus
+                                                                @elseif($p->status_permohonan == 5)
+                                                                    Tidak Lulus
+                                                                @endif
+                                                            </td>
+                                                            <td class="text-end" style="width:210px !important">
+                                                                <div class="d-grid gap-2">
+                                                                    <a class="btn btn-primary btn-sm" href="#">
+                                                                        Cetak Surat Tawaran
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        @endif
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>

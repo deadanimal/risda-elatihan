@@ -1,8 +1,11 @@
 @extends('layouts.risda-base')
 @section('content')
+@php
+    use Illuminate\Support\Facades\Http;
+@endphp
     <div class="row">
         <div class="col">
-            <h1 class="mb-0 risda-dg"><strong>PERMOHONAN KURSUS</strong></h1>
+            <h1 class="mb-0 risda-dg"><strong>PENGURUSAN PESERTA</strong></h1>
             <h5 class="risda-dg">SEMAKAN PERMOHONAN</h5>
         </div>
     </div>
@@ -57,6 +60,49 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white" id="t_normal">
+                            @foreach ($pemohon as $key => $p)
+                                <tr>
+                                    <td>{{ $key + 1 }}.</td>
+                                    <td>{{ date('H:i, d/m/Y', strtotime($p->created_at)) }}</td>
+                                    <td>{{ $p->peserta->no_KP }}</td>
+                                    <td>{{ $p->peserta->name }}</td>
+                                    @php
+                                        $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
+                                            ->get('https://www4.risda.gov.my/fire/getallstaff/')
+                                            ->getBody()
+                                            ->getContents();
+                                        
+                                        $data_staf = json_decode($data_staf, true);
+                                        foreach ($data_staf as $key => $s) {
+                                            if ($s['nokp'] == $p->peserta->no_KP) {
+                                                $staf = $s;
+                                            }
+                                        }
+                                    @endphp
+                                    <td>{{$staf['NamaPT']}}</td>
+                                    <td> </td>
+                                    <td>{{ $p->jadualKursus->kursus_kod_nama_kursus }}</td>
+                                    <td>{{ $p->jadualKursus->kursus_nama }}</td>
+                                    <td>
+                                        @if ($p->status_permohonan == 0)
+                                            Belum Disemak
+                                        @elseif($p->status_permohonan == 1)
+                                            Belum Disemak (Sokongan)
+                                        @elseif($p->status_permohonan == 2)
+                                            Disokong
+                                        @elseif($p->status_permohonan == 3)
+                                            Tidak Disokong
+                                        @elseif($p->status_permohonan == 4)
+                                            Lulus
+                                        @elseif($p->status_permohonan == 5)
+                                            Tidak Lulus
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <a href="/permohonan_kursus/semakan_permohonan/{{$p->id}}" class="btn btn-primary btn-sm">Butiran</a>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

@@ -77,7 +77,7 @@
         }
     </script>
 </head>
-
+<img src="/img/risda-banner.jpg" alt="banner" width="100%">
 
 <body>
     @include('sweet::alert')
@@ -255,40 +255,138 @@
             transition-property: transform, border-color, -webkit-transform;
         }
 
+        @media (min-width: 601px) {
+            .navbar-vertical.navbar-expand-xl {
+                max-width: 350px;
+                top: 0;
+                height: 100%;
+                margin: 0;
+            }
+
+            .navbar-vertical.navbar-expand-xl .navbar-collapse {
+                width: 100%;
+                height: 100%;
+                background: #009640;
+            }
+
+            .navbar-vertical.navbar-expand-xl .navbar-vertical-content {
+                width: 100%;
+                height: 100%;
+                padding: 0.5rem 0 0 0;
+            }
+
+            .navbar-vertical {
+                position: absolute;
+                background: #009640;
+                max-width: 350px;
+            }
+
+            .navbar-vertical-content {
+                background: #009640;
+                width: 350px;
+            }
+
+            .navbar-nav {
+                background: #009640;
+                width: 350px;
+            }
+
+            .risda-m {
+                margin-left: 350px;
+            }
+
+            .navbar-vertical .navbar-collapse .navbar-vertical-content {
+                padding: 0 1rem;
+                -webkit-box-orient: vertical;
+                -webkit-box-direction: normal;
+                -ms-flex-direction: column;
+                flex-direction: column;
+                max-height: 100%;
+            }
+        }
+
+        @media only screen and (max-width: 600px) {
+            .risda-m {
+                margin-left: 0px;
+            }
+
+            .navbar-vertical {
+                position: absolute;
+                background: #009640;
+                max-width: 100%;
+            }
+
+            .navbar-vertical.navbar-expand-xl {
+                max-width: 100%;
+                top: 40px;
+                height: auto;
+                margin: 0;
+
+            }
+
+            .navbar-vertical.navbar-expand-xl .navbar-collapse {
+                width: 100%;
+                height: auto;
+                background: #009640;
+            }
+
+            .navbar-vertical.navbar-expand-xl .navbar-vertical-content {
+                width: 100%;
+                height: auto;
+                padding: 0.5rem 0 0 0;
+            }
+
+            .navbar-vertical {
+                position: absolute;
+                background: #009640;
+                max-width: 100%;
+            }
+
+            .navbar-vertical-content {
+                background: #009640;
+                width: 100%;
+            }
+        }
+
     </style>
     <?php
     use Illuminate\Support\Facades\Auth;
     ?>
-    <nav class="">
+    {{-- <nav class="">
         <img src="/img/risda-banner.jpg" alt="banner" width="100%">
-    </nav>
+    </nav> --}}
 
     <!-- ===============================================-->
     <!--    Main Content-->
     <!-- ===============================================-->
     <main class="main" id="top">
-        <div class="row">
-            <div class="col-3 p-0" style="background-color: #009640;">
-                @include('layouts.risda-side-bar')
-            </div>
-            <div class="col-9 p-0" style="background-color:white">
-                <div class="content p-5">
-                    {{-- @if (session('success'))
-                        <div class="alert alert-success ">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-                    @if (session('error'))
-                        <div class="alert alert-danger ">
-                            {{ session('error') }}
-                        </div>
-                    @endif --}}
-                    @yield('content')
+        <div class="container-fluid px-0" data-layout="container">
+            @include('layouts.risda-side-bar')
+            <div class="row">
+                {{-- <div class="col-3 p-0" style="background-color: #009640;">
+            @include('layouts.risda-side-bar')
+          </div> --}}
+                {{-- <div class="col p-0" style="background-color:white"> --}}
+                <div class="content" style="background: white">
+                    <button class="btn navbar-toggler-humburger-icon navbar-toggler me-1 me-sm-3" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse"
+                        aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation">
+                        <span class="navbar-toggle-icon">
+                            <span class="toggle-line"></span>
+                        </span>
+                    </button>
+
+                    <div class="row px-4 risda-m">
+                        @yield('content')
+                    </div>
+
                     {{-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-                    @include('sweet::alert') --}}
+                  @include('sweet::alert') --}}
                 </div>
+                {{-- </div> --}}
             </div>
         </div>
+
 
         <footer class="risda-bg-dg">
             <div class="row p-4">
