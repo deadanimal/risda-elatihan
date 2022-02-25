@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePermohonanRequest;
 use App\Http\Requests\UpdatePermohonanRequest;
+use App\Models\Agensi;
 use App\Models\JadualKursus;
+use App\Models\KategoriAgensi;
+use App\Models\KategoriKursus;
+use App\Models\KodKursus;
 use App\Models\Permohonan;
 use App\Models\Staf;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +29,8 @@ class PermohonanController extends Controller
     public function indexULS()
     {
         return view('uls.peserta.permohonan.statuspermohonan', [
-            'permohonan' => Permohonan::all(),
+            'permohonan' => Permohonan::where('no_pekerja', Auth::id())->get(),
+            'hari_ini' => date("Y-m-d"),
         ]);
     }
     public function indexULPK()
@@ -48,9 +53,17 @@ class PermohonanController extends Controller
 
     public function index()
     {
-        $jadual = JadualKursus::all();
+        $kategori = KategoriKursus::where('UL_Kategori_Kursus','Staf')->get();
+        $tajuk = KodKursus::where('UL_Kod_Kursus', 'Staf')->get();
+        // dd($tajuk);
+        $kat_tempat = KategoriAgensi::where('Kategori_Agensi', 'Tempat Kursus')->first()->id;
+        $lokasi = Agensi::where('kategori_agensi', $kat_tempat)->get();
+        $jadual = JadualKursus::where('kursus_unit_latihan', 'Staf')->get();
         return view('permohonan_kursus.katalog.index', [
             'jadual' => $jadual,
+            'kategori' => $kategori,
+            'tajuk' => $tajuk,
+            'lokasi'=> $lokasi
         ]);
     }
 
@@ -110,9 +123,13 @@ class PermohonanController extends Controller
      * @param  \App\Models\Permohonan  $permohonan
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePermohonanRequest $request, Permohonan $permohonan)
+    public function update(UpdatePermohonanRequest $request, $id)
     {
-        //
+        $permohonan = Permohonan::find($id);
+        $permohonan->status_permohonan = $request->status_permohonan;
+        $permohonan->save();
+        alert()->success('Status permohonan telah dikemaskini', 'Berjaya');
+        return redirect('/permohonan_kursus/semakan_permohonan');
     }
 
     /**

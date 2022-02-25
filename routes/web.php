@@ -56,6 +56,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/sidebar', function () {
+    return view('sidebar-new');
+});
+
+Route::get('/sample', function () {
+    return view('sample');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
@@ -116,7 +124,7 @@ Route::group(['middleware' => 'AdminBTM'], function () {
         '/pengurusan_kursus/penceramah_konsultan'=> PenceramahKonsultanController::class,
         '/pengurusan_kursus/kelayakan_elaun_cuti'=> KelayakanElauncutiController::class,
 
-        '/permohonan_kursus/semakan_permohonan'=> SemakPermohonanController::class,
+        // '/permohonan_kursus/semakan_permohonan'=> SemakPermohonanController::class,
         
     ]);
 
@@ -141,6 +149,7 @@ Route::group(['prefix' => '/uls', 'middleware' => ['can:permohonan kursus']], fu
 
 //from scan qrcode
 Route::resource('/permohonan/kehadiran', KehadiranController::class);
+Route::post('/pengesahan_kehadiran', [KehadiranController::class, 'store']);
 
 //Peserta ULPK
 Route::prefix('/ulpk')->group(function () {
@@ -241,5 +250,6 @@ Route::get('testjap', [PermohonanController::class, 'katelog']);
 Route::get('/permohonan_kursus/katalog_kursus/pendaftaran/{id}', [PermohonanController::class, 'permohonan']);
 
 Route::resource('/permohonan_kursus/katalog_kursus', PermohonanController::class);
+Route::resource('/permohonan_kursus/semakan_permohonan', SemakPermohonanController::class);
 
 require __DIR__ . '/auth.php';

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreKehadiranRequest;
 use App\Http\Requests\UpdateKehadiranRequest;
+use App\Models\Aturcara;
+use App\Models\JadualKursus;
 use App\Models\Kehadiran;
 use App\Models\KodKursus;
 use App\Models\User;
@@ -28,21 +30,25 @@ class KehadiranController extends Controller
             return $dates;
         }
 
-        $kod_kursuss = KodKursus::where('kod_Kursus', $kod_kursus)->firstorFail();
-        $kehadiran = Kehadiran::where('kod_kursus', $kod_kursus)->where('no_pekerja', Auth::user()->id)
-            ->orderBy('tarikh', 'ASC')->get();
+        $kod_kursuss = JadualKursus::where('id', $kod_kursus)->firstorFail();
+        $kehadiran = Aturcara::where('ac_jadual_kursus', $kod_kursus)
+            ->orderBy('ac_hari', 'ASC')
+            ->orderBy('ac_sesi', 'ASC')
+            ->get();
+
+
 
         $hari = ['Pertama', 'Kedua', 'Ketiga', 'Keempat', 'Kelima', 'Keenam'];
 
-        $date = displayDates($kod_kursuss->jadualkursus->tarikh_mula, $kod_kursuss->jadualkursus->tarikh_tamat);
-
+        $date = displayDates($kod_kursuss->tarikh_mula, $kod_kursuss->tarikh_tamat);
+        // dd($kehadiran);
         return view('uls.peserta.permohonan.kehadiran', [
             'kod_kursus' => $kod_kursuss,
             'kehadiran' => $kehadiran,
             'hari' => $hari,
             'date' => $date,
+            'id_jadual' => $kod_kursus,
         ]);
-
     }
     public function indexULPK($kod_kursus)
     {
@@ -79,7 +85,6 @@ class KehadiranController extends Controller
      */
     public function create()
     {
-
     }
 
     /**
@@ -90,20 +95,20 @@ class KehadiranController extends Controller
      */
     public function store(Request $request)
     {
-        $kehadiran = Kehadiran::where('id', $request->id_kehadiran)->firstorFail();
-        if ($request->jenis_kehadiran == "sebelum-kursus") {
-            $kehadiran->update([
-                'status_kehadiran' => $request->status_kehadiran,
-                'alasan_ketidakhadiran' => $request->alasan_ketidakhadiran,
-            ]);
-
-        } elseif ($request->jenis_kehadiran == "ke-kursus") {
-            $kehadiran->update([
-                'status_kehadiran_ke_kursus' => $request->status_kehadiran,
-                'alasan_ketidakhadiran_ke_kursus' => $request->alasan_ketidakhadiran,
-            ]);
-
+        if ($request->jenis_input == '1') {
+            $kehadiran = Kehadiran::find($request->id_keh);
+            if ($kehadiran == null) {
+                alert()->error('Sila isi maklumat status kehadiran sebelum ke kursus.', 'Gagal');
+                return back();
+            }
+            $kehadiran->status_kehadiran_ke_kursus = $request->status_kehadiran_ke_kursus;
+            $kehadiran->alasan_ketidakhadiran_ke_kursus = $request->alasan_ketidakhadiran_ke_kursus;
+            $kehadiran->save();
+        } else {
+            $kehadiran = new Kehadiran($request->all());
+            $kehadiran->save();
         }
+
         return back();
     }
 
@@ -133,7 +138,6 @@ class KehadiranController extends Controller
      */
     public function show(Kehadiran $kehadiran)
     {
-
     }
 
     /**
@@ -189,7 +193,6 @@ class KehadiranController extends Controller
             'kehadiran' => $kehadiran,
             'pesertaUls' => $pesertaUls,
         ]);
-
     }
 
     public function update_kehadiran_peserta_UsUls(Request $request, Kehadiran $kehadiran)
@@ -236,7 +239,6 @@ class KehadiranController extends Controller
             'kehadiran' => $kehadiran,
             'pesertaUls' => $pesertaUls,
         ]);
-
     }
 
     public function update_pengesahan_peserta_UsUls(Request $request)
@@ -248,7 +250,6 @@ class KehadiranController extends Controller
             $kehadi->update([
                 'pengesahan' => "DISAHKAN",
             ]);
-
         }
 
         return back();
@@ -271,5 +272,4 @@ class KehadiranController extends Controller
     {
         return view('ulpk.urus_setia.kehadiran.kehadiran-ke-kursus.rekod-pengesahan-peserta');
     }
-
 }
