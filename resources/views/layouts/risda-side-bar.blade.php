@@ -282,34 +282,45 @@
                             </div>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link py-0" href="#">
-                            <div class="d-flex align-items-center nav-link-side">
-                                <span class="px-0">PENILAIAN PRE TEST DAN POST TEST</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link py-0" href="#">
-                            <div class="d-flex align-items-center nav-link-side">
-                                <span class="px-0">KEBERKESANAN KURSUS</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link py-0" href="#">
-                            <div class="d-flex align-items-center nav-link-side">
-                                <span class="px-0">PENILAIAN AJEN PELAKSANA</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link py-0" href="#">
-                            <div class="d-flex align-items-center nav-link-side">
-                                <span class="px-0">CETAK KOD QR</span>
-                            </div>
-                        </a>
-                    </li>
+                    @role('Urus Setia ULS')
+                        <li class="nav-item">
+                            <a class="nav-link py-0" href="{{ Route('pre-post-test.index') }}">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">PENILAIAN PRE TEST DAN POST TEST</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-0" href="#">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">KEBERKESANAN KURSUS</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-0" href="#">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">PENILAIAN AJEN PELAKSANA</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-0" href="#">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">CETAK KOD QR</span>
+                                </div>
+                            </a>
+                        </li>
+                    @endrole
+                    @role('Peserta ULS')
+                        <li class="nav-item">
+                            <a class="nav-link py-0" href="{{ route('jawabPrePost') }}">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">PENILAIAN PRE TEST DAN POST TEST</span>
+                                </div>
+                            </a>
+                        </li>
+                    @endrole
 
                 </ul>
             @endcan
