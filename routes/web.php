@@ -159,6 +159,7 @@ Route::middleware('auth')->group(function () {
             //Permohonan Peserta
             Route::group(['prefix' => '/permohonan', 'middleware' => ['UlpkPeserta', 'AdminBTM']], function () {
                 Route::get('statuspermohonan', [PermohonanController::class, 'indexULPK']);
+                Route::get('katelog-kursus', [PermohonanController::class, 'katalog_ulpk']);
                 Route::get('kehadiran/{kod_kursus}', [KehadiranController::class, 'indexULPK']);
             });
 
