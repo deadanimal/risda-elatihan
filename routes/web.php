@@ -84,10 +84,11 @@ Route::get('/test', function () {
     return view('test');
 });
 
-Route::post('/semak_nric', [SemakanController::class, 'check_espek']);
-Route::post('/daftar_pengguna', [SemakanController::class, 'daftar_pengguna']);
+Route::middleware('auth')->group(function () {
 
-Route::middleware('auth', function () {
+    Route::post('/semak_nric', [SemakanController::class, 'check_espek']);
+    Route::post('/daftar_pengguna', [SemakanController::class, 'daftar_pengguna']);
+
     Route::group(['middleware' => 'AdminBTM'], function () {
 
         Route::resources([
@@ -277,7 +278,6 @@ Route::middleware('auth', function () {
 
     Route::resource('/permohonan_kursus/katalog_kursus', PermohonanController::class);
     Route::resource('/permohonan_kursus/semakan_permohonan', SemakPermohonanController::class);
-
 });
 
 require __DIR__ . '/auth.php';
