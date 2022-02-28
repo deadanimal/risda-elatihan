@@ -43,6 +43,7 @@ class PermissionSeeder extends Seeder
             'permohonan kursus',
             'katelog kursus',
             'status permohonan',
+            'penilaian',
         ];
 
         foreach ($pesertaULSPermission as $permission) {
