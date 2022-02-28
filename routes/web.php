@@ -140,7 +140,7 @@ Route::middleware('auth')->group(function () {
         //Permohonan Peserta
         Route::group(['prefix' => '/permohonan', 'middleware' => 'can:katelog kursus'], function () {
             Route::get('statuspermohonan', [PermohonanController::class, 'indexULS']);
-            Route::get('katelog-kursus', [PermohonanController::class, 'index']);
+            Route::get('katelog-kursus', [PermohonanController::class, 'katalog_uls']);
             Route::get('kehadiran/{kod_kursus}', [KehadiranController::class, 'indexULS']);
         });
 
