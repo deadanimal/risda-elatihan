@@ -60,6 +60,14 @@ Route::get('/falcon', function () {
     return view('falcon');
 });
 
+Route::get('/sidebar', function () {
+    return view('sidebar-new');
+});
+
+Route::get('/sample', function () {
+    return view('sample');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
@@ -113,7 +121,7 @@ Route::middleware('auth', function () {
             '/utiliti/kursus/gred_pegawai' => GredPegawaiController::class,
             '/utiliti/kursus/elaun_cuti_kursus' => ElaunCutiController::class,
             '/utiliti/kursus/kod_objek' => ObjekController::class,
-
+          
             '/pengurusan_kursus/semak_jadual' => JadualKursusController::class,
             '/pengurusan_kursus/peruntukan_peserta' => PeruntukanPesertaController::class,
             '/pengurusan_kursus/aturcara' => AturcaraController::class,
@@ -124,6 +132,13 @@ Route::middleware('auth', function () {
             '/permohonan_kursus/semakan_permohonan' => SemakPermohonanController::class,
         ]);
 
+//Peserta ULS
+Route::group(['prefix' => '/uls', 'middleware' => ['can:permohonan kursus']], function () {
+    //Permohonan Peserta
+    Route::group(['prefix' => '/permohonan', 'middleware' => 'can:katelog kursus'], function () {
+        Route::get('statuspermohonan', [PermohonanController::class, 'indexULS']);
+        Route::get('katelog-kursus', [PermohonanController::class, 'index']);
+        Route::get('kehadiran/{kod_kursus}', [KehadiranController::class, 'indexULS']);
     });
 
     //Peserta ULS
@@ -134,7 +149,7 @@ Route::middleware('auth', function () {
             Route::get('katelog-kursus', [PermohonanController::class, 'katelog']);
             Route::get('kehadiran/{kod_kursus}', [KehadiranController::class, 'indexULS']);
         });
-
+      
         //rekod kehadiran
         Route::group(['prefix' => 'kehadiran/', 'middleware' => 'can:status permohonan'], function () {
             Route::get('{kehadiran}', [KehadiranController::class, 'fromUlsQR']);
@@ -145,6 +160,7 @@ Route::middleware('auth', function () {
 
     //from scan qrcode
     Route::resource('/permohonan/kehadiran', KehadiranController::class);
+    Route::post('/pengesahan_kehadiran', [KehadiranController::class, 'store']);
 
     //Peserta ULPK
     Route::prefix('/ulpk')->group(function () {
@@ -249,6 +265,16 @@ Route::middleware('auth', function () {
 
     Route::delete('/delete/{id}', [UtilitiController::class, 'test_user_delete']);
 });
+      
 Route::get('/testing', [UtilitiController::class, 'test_user_list']);
+Route::delete('/delete/{id}', [UtilitiController::class, 'test_user_delete']);
+Route::put('/update_role/{id}', [UtilitiController::class, 'test_user_update_role']);
+
+Route::get('testjap', [PermohonanController::class, 'katelog']);
+
+Route::get('/permohonan_kursus/katalog_kursus/pendaftaran/{id}', [PermohonanController::class, 'permohonan']);
+
+Route::resource('/permohonan_kursus/katalog_kursus', PermohonanController::class);
+Route::resource('/permohonan_kursus/semakan_permohonan', SemakPermohonanController::class);
 
 require __DIR__ . '/auth.php';

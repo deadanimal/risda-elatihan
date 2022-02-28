@@ -39,7 +39,7 @@
                     <p class="pt-2 fw-bold">TAHUN</p>
                 </div>
                 <div class="col-2">
-                    <input type="text" class="form-control mb-3" value="{{ $kod_kursus->tahun_Kursus }}" readonly>
+                    <input type="text" class="form-control mb-3" value="{{ $kod_kursus->tahun }}" readonly>
                 </div>
             </div>
             <div class="col-9 d-inline-flex">
@@ -47,7 +47,7 @@
                     <p class="pt-2 fw-bold">UNIT LATIHAN</p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control mb-3" value="{{ $kod_kursus->UL_Kod_Kursus }}" readonly>
+                    <input type="text" class="form-control mb-3" value="{{ $kod_kursus->kursus_unit_latihan }}" readonly>
                 </div>
             </div>
             <div class="col-9 d-inline-flex">
@@ -55,7 +55,8 @@
                     <p class="pt-2 fw-bold">KOD NAMA KURSUS</p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control mb-3" value="{{ $kod_kursus->kod_Kursus }}" readonly>
+                    <input type="text" class="form-control mb-3" value="{{ $kod_kursus->kursus_kod_nama_kursus }}"
+                        readonly>
                 </div>
             </div>
             <div class="col-9 d-inline-flex">
@@ -63,7 +64,7 @@
                     <p class="pt-2 fw-bold">NAMA KURSUS</p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control mb-3" value="{{ $kod_kursus->tajuk_Kursus }}" readonly>
+                    <input type="text" class="form-control mb-3" value="{{ $kod_kursus->kursus_nama }}" readonly>
                 </div>
             </div>
             <div class="col-9 d-inline-flex">
@@ -71,7 +72,7 @@
                     <p class="pt-2 fw-bold">TARIKH KURSUS</p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control mb-3" value="{{ $kod_kursus->tarikh_daftar_Kursus }}" readonly>
+                    <input type="text" class="form-control mb-3" value="{{ $kod_kursus->tarikh_mula }}" readonly>
                 </div>
             </div>
 
@@ -108,48 +109,105 @@
                     </thead>
                     <tbody>
                         @foreach ($kehadiran as $k)
-                            @if ($k->sesi == 1)
-                                <tr>
-                                    <td rowspan="2" class="align-middle">{{ $k->tarikh }}</td>
-                                    <td rowspan="2" class="align-middle">{{ $hari[$loop->index / 2] }}</td>
-                                    <td>{{ $k->sesi }}</td>
-                                    <td>{{ $k->masa }}</td>
-                                    <td>
-                                        @if ($k->status_kehadiran == null)
-                                            <button class="btn btn-primary mx-0" type="button"
-                                                onclick="passdata({{ $k->id }},'sebelum-kursus')"
-                                                data-bs-toggle="modal" data-bs-target="#pengesahan-kehadiran">Pengesahan
-                                                Kehadiran</button>
+                            <tr>
+                                <td class="align-middle">{{ $date[$k->ac_hari - 1] }}</td>
+                                <td class="align-middle">{{ $hari[$k->ac_hari - 1] }}</td>
+                                <td>{{ $k->ac_sesi }}</td>
+                                <td>{{ $k->ac_masa }}</td>
+                                <td>
+                                    @if ($k->status_kehadiran['status_kehadiran'] == null)
+                                        <button class="btn btn-primary mx-0" type="button"
+                                            onclick="" data-bs-toggle="modal"
+                                            data-bs-target="#pengesahan-kehadiran-sebelum{{ $k->id }}">Pengesahan
+                                            Kehadiran</button>
+                                            {{-- passdata({{ $k->id }},'sebelum-kursus') --}}
+                                    @else
+                                        {{ $k->status_kehadiran->status_kehadiran }}
+                                    @endif
+                                </td>
+                                <td>
+                                    {{ $k->status_kehadiran['alasan_ketidakhadiran'] }}
+                                </td>
+                            </tr>
 
-                                        @else
-                                            {{ $k->status_kehadiran }}
-                                        @endif
-                                    </td>
-                                    <td>
-                                        {{ $k->alasan_ketidakhadiran ?? '' }}
-                                    </td>
-                                </tr>
-
-                            @else
-                                <tr>
-                                    <td>{{ $k->sesi }}</td>
-                                    <td>{{ $k->masa }}</td>
-                                    <td>
-                                        @if ($k->status_kehadiran == null)
-                                            <button class="btn btn-primary mx-0" type="button"
-                                                onclick="passdata({{ $k->id }},'sebelum-kursus')"
-                                                data-bs-toggle="modal" data-bs-target="#pengesahan-kehadiran">Pengesahan
-                                                Kehadiran</button>
-                                        @else
-                                            {{ $k->status_kehadiran }}
-                                        @endif
-                                    </td>
-                                    <td>
-                                        {{ $k->alasan_ketidakhadiran ?? '' }}
-                                    </td>
-                                </tr>
-                            @endif
-
+                            <div class="modal fade" id="pengesahan-kehadiran-sebelum{{ $k->id }}"
+                                data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1"
+                                aria-labelledby="pengesahan-kehadiranLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg mt-6" role="document">
+                                    <div class="modal-content border-0">
+                                        <div class="position-absolute top-0 end-0 mt-3 me-3 z-index-1">
+                                            <button
+                                                class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
+                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body p-0">
+                                            <div class="bg-light rounded-top-lg py-3 ps-4 pe-6">
+                                                <h4 class="mb-1 fw-bold" id="pengesahan-kehadiranLabel"
+                                                    style="color: rgb(15,94,49)">PENGESAHAN
+                                                    KEHADIRAN</h4>
+                                            </div>
+                                            <div class="container p-4">
+                                                <form method="post" action="/pengesahan_kehadiran">
+                                                    @csrf
+                                                    <div class="card">
+                                                        <div class="card body">
+                                                            <div class="row justify-content-center my-5">
+                                                                <div class="col-8 d-inline-flex">
+                                                                    <div class="col-5">
+                                                                        <p class="h5 mt-1">Status
+                                                                            Kehadiran</p>
+                                                                    </div>
+                                                                    <div class="col-7">
+                                                                        <select class="form-control" name="status_kehadiran" onchange="kehadiranalasan2(this,{{$k->id}})">
+                                                                            <option disabled hidden selected>Sila Pilih</option>
+                                                                            <option value="HADIR">HADIR
+                                                                            </option>
+                                                                            <option value="TIDAK HADIR">
+                                                                                TIDAK HADIR</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <input type="hidden" name="tarikh"
+                                                                        value="{{ $date[$k->ac_hari - 1] }}">
+                                                                    <input type="hidden" name="sesi"
+                                                                        value="{{ $k->ac_sesi }}">
+                                                                    <input type="hidden" name="masa"
+                                                                        value="{{ $k->ac_masa }}">
+                                                                    <input type="hidden" name="jadual_kursus_id"
+                                                                        value="{{ $id_jadual }}">
+                                                                    <input type="hidden" name="no_pekerja"
+                                                                        value="{{ Auth::id() }}">
+                                                                    <input type="hidden" name="kod_kursus"
+                                                                        value="{{ $k->jadual->kursus_kod_nama_kursus }}">
+                                                                    <input type="hidden" name="jadual_kursus_ref"
+                                                                        value="{{ $k->id }}">
+                                                                    {{-- <input type="hidden" id="kehadiran-update-id"
+                                                                        name="id_kehadiran">
+                                                                    <input type="hidden" id="jenis_kehadiran"
+                                                                        name="jenis_kehadiran"> --}}
+                                                                </div>
+                                                                <div class="col-8 d-inline-flex mt-5" >
+                                                                    <div class="col-5 d-none" id="alasan-{{$k->id}}">
+                                                                        <p class="h5 mt-1">Alasan</ dp>
+                                                                    </div>
+                                                                    <div class="col-7 d-none" id="alasan2-{{$k->id}}">
+                                                                        <input type="text" class="form-control"
+                                                                            name="alasan_ketidakhadiran">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-end mt-4">
+                                                        <button type="submit" class="btn btn-sm btn-primary"><span
+                                                                class="far fa-paper-plane"></span>
+                                                            Hantar</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         @endforeach
                     </tbody>
                 </table>
@@ -168,48 +226,87 @@
                     </thead>
                     <tbody>
                         @foreach ($kehadiran as $k)
-                            @if ($k->sesi == 1)
-                                <tr>
-                                    <td rowspan="2" class="align-middle">{{ $k->tarikh }}</td>
-                                    <td rowspan="2" class="align-middle">{{ $hari[$loop->index / 2] }}</td>
-                                    <td>{{ $k->sesi }}</td>
-                                    <td>{{ $k->masa }}</td>
-                                    <td>
-                                        @if ($k->status_kehadiran_ke_kursus == null)
-                                            <button class="btn btn-primary mx-0" type="button"
-                                                onclick="passdata({{ $k->id }},'ke-kursus')" data-bs-toggle="modal"
-                                                data-bs-target="#pengesahan-kehadiran">Pengesahan
-                                                Kehadiran</button>
+                            <tr>
+                                <td class="align-middle">{{ $date[$k->ac_hari - 1] }}</td>
+                                <td class="align-middle">{{ $hari[$k->ac_hari - 1] }}</td>
+                                <td>{{ $k->ac_sesi }}</td>
+                                <td>{{ $k->ac_masa }}</td>
+                                <td>
+                                    @if ($k->status_kehadiran['status_kehadiran_ke_kursus'] == null)
+                                        <button class="btn btn-primary mx-0" type="button" data-bs-toggle="modal" data-bs-target="#pengesahan-kehadiran{{$k->id}}">
+                                            Pengesahan Kehadiran
+                                        </button>
+                                    @else
+                                        {{ $k->status_kehadiran['status_kehadiran_ke_kursus'] }}
+                                    @endif
+                                </td>
+                                <td>
+                                    {{ $k->status_kehadiran['alasan_ketidakhadiran_ke_kursus'] ?? '' }}
+                                </td>
+                            </tr>
 
-                                        @else
-                                            {{ $k->status_kehadiran_ke_kursus }}
-                                        @endif
-                                    </td>
-                                    <td>
-                                        {{ $k->alasan_ketidakhadiran_ke_kursus ?? '' }}
-                                    </td>
-                                </tr>
-
-                            @else
-                                <tr>
-                                    <td>{{ $k->sesi }}</td>
-                                    <td>{{ $k->masa }}</td>
-                                    <td>
-                                        @if ($k->status_kehadiran_ke_kursus == null)
-                                            <button class="btn btn-primary mx-0" type="button"
-                                                onclick="passdata({{ $k->id }},'ke-kursus')" data-bs-toggle="modal"
-                                                data-bs-target="#pengesahan-kehadiran">Pengesahan
-                                                Kehadiran</button>
-                                        @else
-                                            {{ $k->status_kehadiran_ke_kursus }}
-                                        @endif
-                                    </td>
-                                    <td>
-                                        {{ $k->alasan_ketidakhadiran_ke_kursus ?? '' }}
-                                    </td>
-                                </tr>
-                            @endif
-
+                            <div class="modal fade" id="pengesahan-kehadiran{{ $k->id }}"
+                                data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1"
+                                aria-labelledby="pengesahan-kehadiranLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg mt-6" role="document">
+                                    <div class="modal-content border-0">
+                                        <div class="position-absolute top-0 end-0 mt-3 me-3 z-index-1">
+                                            <button
+                                                class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
+                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body p-0">
+                                            <div class="bg-light rounded-top-lg py-3 ps-4 pe-6">
+                                                <h4 class="mb-1 fw-bold" id="pengesahan-kehadiranLabel"
+                                                    style="color: rgb(15,94,49)">PENGESAHAN
+                                                    KEHADIRAN</h4>
+                                            </div>
+                                            <div class="container p-4">
+                                                <form method="post" action="/pengesahan_kehadiran">
+                                                    @csrf
+                                                    <div class="card">
+                                                        <div class="card body">
+                                                            <div class="row justify-content-center my-5">
+                                                                <div class="col-8 d-inline-flex">
+                                                                    <div class="col-5">
+                                                                        <p class="h5 mt-1">Status
+                                                                            Kehadiran</p>
+                                                                    </div>
+                                                                    <div class="col-7">
+                                                                        <select class="form-control" name="status_kehadiran_ke_kursus" onchange="kehadiranalasan(this,{{$k->id}})">
+                                                                            <option disabled hidden selected>Sila Pilih</option>
+                                                                            <option value="HADIR">HADIR
+                                                                            </option>
+                                                                            <option value="TIDAK HADIR">
+                                                                                TIDAK HADIR</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <input type="hidden" name="jenis_input" value="1">
+                                                                    <input type="hidden" name="id_keh" value="{{$k->status_kehadiran['id']}}">
+                                                                </div>
+                                                                <div class="col-8 d-inline-flex mt-5" >
+                                                                    <div class="col-5 d-none" id="alasan-sec-{{$k->id}}">
+                                                                        <p class="h5 mt-1">Alasan</p>
+                                                                    </div>
+                                                                    <div class="col-7 d-none" id="alasan2-sec-{{$k->id}}">
+                                                                        <input type="text" class="form-control"
+                                                                            name="alasan_ketidakhadiran_ke_kursus">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-end mt-4">
+                                                        <button type="submit" class="btn btn-sm btn-primary"><span
+                                                                class="far fa-paper-plane"></span>
+                                                            Hantar</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         @endforeach
                     </tbody>
                 </table>
@@ -218,71 +315,9 @@
     </div>
 
 
-    <div class="modal fade" id="pengesahan-kehadiran" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1"
-        aria-labelledby="pengesahan-kehadiranLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg mt-6" role="document">
-            <div class="modal-content border-0">
-                <div class="position-absolute top-0 end-0 mt-3 me-3 z-index-1">
-                    <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
-                        data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-0">
-                    <div class="bg-light rounded-top-lg py-3 ps-4 pe-6">
-                        <h4 class="mb-1 fw-bold" id="pengesahan-kehadiranLabel" style="color: rgb(15,94,49)">PENGESAHAN
-                            KEHADIRAN</h4>
-                    </div>
-                    <div class="container p-4">
-                        <form method="post" action="/permohonan/kehadiran">
-                            @csrf
-                            <div class="card">
-                                <div class="card body">
-                                    <div class="row justify-content-center my-5">
-                                        <div class="col-8 d-inline-flex">
-                                            <div class="col-5">
-                                                <p class="h5 mt-1">Status
-                                                    Kehadiran</p>
-                                            </div>
-                                            <div class="col-7">
-                                                <select class="form-control" id="kehadiran-select"
-                                                    name="status_kehadiran">
-                                                    <option disabled hidden selected>Sila Pilih
-                                                    </option>
-                                                    <option value="HADIR">HADIR
-                                                    </option>
-                                                    <option value="TIDAK HADIR">
-                                                        TIDAK HADIR</option>
-                                                </select>
-                                            </div>
-                                            <input type="hidden" id="kehadiran-update-id" name="id_kehadiran">
-                                            <input type="hidden" id="jenis_kehadiran" name="jenis_kehadiran">
-                                        </div>
-                                        <div class="col-8 d-inline-flex mt-5">
-                                            <div class="col-5 kehadiran-alasan">
-                                                <p class="h5 mt-1">Alasan</p>
-                                            </div>
-                                            <div class="col-7 kehadiran-alasan">
-                                                <input type="text" class="form-control" name="alasan_ketidakhadiran">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="text-end mt-4">
-                                <button id="btn-submit-pengesahan" type="submit" class="btn btn-sm btn-primary"><span
-                                        class="far fa-paper-plane"></span>
-                                    Hantar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
     <script>
         $(document).ready(function() {
-            $(".kehadiran-alasan").hide();
+
             $("#table-kehadiran-ke-kursus").hide();
             $("#table-kehadiran-sebelum-kursus").hide();
 
@@ -298,17 +333,39 @@
             });
 
 
-            $("#kehadiran-select").change(function() {
-                if (this.value == "TIDAK HADIR") {
-                    $(".kehadiran-alasan").show();
-                } else {
-                    $(".kehadiran-alasan").hide();
-                }
-
-            });
-
-
         });
+
+        function kehadiranalasan2(el,id) {
+            let val = el.value;
+            newid = "#alasan-"+id
+            newid2 = "#alasan2-"+id
+            console.log(val,newid);
+
+            if (val == "TIDAK HADIR") {
+                $(newid).removeClass('d-none');
+                $(newid2).removeClass('d-none');
+            }
+            if (val == "HADIR") {
+                $(newid).addClass('d-none');
+                $(newid2).addClass('d-none');
+            }
+        }
+
+        function kehadiranalasan(el,id) {
+            let val = el.value;
+            newid = "#alasan-sec-"+id
+            newid2 = "#alasan2-sec-"+id
+            console.log(val,newid);
+
+            if (val == "TIDAK HADIR") {
+                $(newid).removeClass('d-none');
+                $(newid2).removeClass('d-none');
+            }
+            if (val == "HADIR") {
+                $(newid).addClass('d-none');
+                $(newid2).addClass('d-none');
+            }
+        }
 
         $('#btn-submit-pengesahan').on('click', function(e) {
             e.preventDefault();
@@ -337,11 +394,11 @@
 
         });
 
-        function passdata(data, data2) {
-            $('#kehadiran-update-id').val(data);
-            console.log(data2);
-            $("#jenis_kehadiran").val(data2);
-        }
+        // function passdata(data, data2) {
+        //     $('#kehadiran-update-id').val(data);
+        //     console.log(data2);
+        //     $("#jenis_kehadiran").val(data2);
+        // }
     </script>
 
     <script>
