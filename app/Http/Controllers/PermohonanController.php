@@ -51,7 +51,7 @@ class PermohonanController extends Controller
         }
     }
 
-    public function index()
+    public function katalog_uls()
     {
         $kategori = KategoriKursus::where('UL_Kategori_Kursus','Staf')->get();
         $tajuk = KodKursus::where('UL_Kod_Kursus', 'Staf')->get();
@@ -59,6 +59,22 @@ class PermohonanController extends Controller
         $kat_tempat = KategoriAgensi::where('Kategori_Agensi', 'Tempat Kursus')->first()->id;
         $lokasi = Agensi::where('kategori_agensi', $kat_tempat)->get();
         $jadual = JadualKursus::where('kursus_unit_latihan', 'Staf')->get();
+        return view('permohonan_kursus.katalog.index', [
+            'jadual' => $jadual,
+            'kategori' => $kategori,
+            'tajuk' => $tajuk,
+            'lokasi'=> $lokasi
+        ]);
+    }
+
+    public function katalog_ulpk()
+    {
+        $kategori = KategoriKursus::where('UL_Kategori_Kursus','Pekebun Kecil')->get();
+        $tajuk = KodKursus::where('UL_Kod_Kursus', 'Pekebun Kecil')->get();
+        // dd($tajuk);
+        $kat_tempat = KategoriAgensi::where('Kategori_Agensi', 'Tempat Kursus')->first()->id;
+        $lokasi = Agensi::where('kategori_agensi', $kat_tempat)->get();
+        $jadual = JadualKursus::where('kursus_unit_latihan', 'Pekebun Kecil')->get();
         return view('permohonan_kursus.katalog.index', [
             'jadual' => $jadual,
             'kategori' => $kategori,

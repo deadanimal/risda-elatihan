@@ -203,7 +203,7 @@
                         <ul class="nav-item collapse {{ Request::is('ulpk/permohonan/*') ? 'show' : '' }} my-1"
                             id="permohonan">
                             <li class="nav-item">
-                                <a class="nav-link py-0" href="">
+                                <a class="nav-link py-0" href="/ulpk/permohonan/katelog-kursus">
                                     <div class="d-flex align-items-center nav-link-side">
                                         <span class="px-0">KATALOG KURSUS</span>
                                     </div>
@@ -508,7 +508,35 @@
                         </a>
                     @endcan
 
+                    {{-- admin BTM --}}
                     @can('AdminBTM')
+                        <a class="nav-link py-0 dropdown-indicator" href="#pengurusan_pengguna" role="button"
+                            data-bs-toggle="collapse"
+                            aria-expanded="{{ Request::is('pengurusan_pengguna/*') ? 'true' : 'false' }}"
+                            aria-controls="kehadiran">
+                            <div class="d-flex align-items-center nav-link-side px-0">
+                                <span class="px-3"><span class="far fa-address-book"></span> PENGURUSAN
+                                    PENGGUNA</span>
+                            </div>
+                        </a>
+                        <ul class="nav-item collapse {{ Request::is('pengurusan_pengguna/*') ? 'show' : 'false' }} my-1"
+                            id="pengurusan_pengguna">
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is('pengurusan_pengguna/senarai_pengguna') ? 'active' : '' }} py-0"
+                                    href="#">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">SENARAI PENGGUNA</span>
+                                    </div>
+                                </a>
+
+                                <a class="nav-link {{ Request::is('pengurusan_pengguna/peranan') ? 'active' : '' }} py-0"
+                                    href="/pengurusan_pengguna/peranan">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">KEBENARAN PENGGUNA</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
                         <a class="nav-link py-0 dropdown-indicator" href="#kehadiran" role="button"
                             data-bs-toggle="collapse"
                             aria-expanded="{{ Request::is('us-uls/kehadiran/*') ? 'true' : 'false' }}"

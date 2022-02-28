@@ -196,7 +196,7 @@ class SemakanController extends Controller
             $user->password = Hash::make($request->password);
             $user->no_KP = $request->no_KP;
             $user->jenis_pengguna = 'Peserta ULPK';
-            $user->assignRole('Urus Setia ULPK');
+            $user->assignRole('Peserta ULPK');
             $user->save();
             Mail::to($request->email)->send(new PendaftaranPK($user));
             alert()->success('Sila semak email anda untuk notifikasi pendaftaran.', 'Pendaftaran Berjaya');

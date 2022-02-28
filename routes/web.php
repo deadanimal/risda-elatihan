@@ -26,7 +26,9 @@ use App\Http\Controllers\ParlimenController;
 use App\Http\Controllers\PegawaiAgensiController;
 use App\Http\Controllers\PenceramahKonsultanController;
 use App\Http\Controllers\PengajianLanjutanController;
+use App\Http\Controllers\PengurusanPenggunaController;
 use App\Http\Controllers\PenilaianPesertaController;
+use App\Http\Controllers\PerananController;
 use App\Http\Controllers\PermohonanController;
 use App\Http\Controllers\PeruntukanPesertaController;
 use App\Http\Controllers\PrePostTestController;
@@ -129,7 +131,6 @@ Route::middleware('auth')->group(function () {
             '/pengurusan_kursus/nota_rujukan' => NotaRujukanController::class,
             '/pengurusan_kursus/penceramah_konsultan' => PenceramahKonsultanController::class,
             '/pengurusan_kursus/kelayakan_elaun_cuti' => KelayakanElauncutiController::class,
-
             '/permohonan_kursus/semakan_permohonan' => SemakPermohonanController::class,
         ]);
     });
@@ -157,7 +158,6 @@ Route::middleware('auth')->group(function () {
                 Route::get('{kehadiran}', [KehadiranController::class, 'fromUlsQR']);
                 Route::post('update/{kehadiran}', [KehadiranController::class, 'storeQR']);
             });
-
         });
 
         //from scan qrcode
@@ -275,7 +275,9 @@ Route::middleware('auth')->group(function () {
     Route::get('testjap', [PermohonanController::class, 'katelog']);
 
     Route::get('/permohonan_kursus/katalog_kursus/pendaftaran/{id}', [PermohonanController::class, 'permohonan']);
-
+  
+    Route::resource('/pengurusan_pengguna/peranan', PerananController::class);
+    Route::get('/pengurusan_pengguna/senarai_pengguna/urusetia', [PengurusanPenggunaController::class, 'urusetia']);
     Route::resource('/permohonan_kursus/katalog_kursus', PermohonanController::class);
     Route::resource('/permohonan_kursus/semakan_permohonan', SemakPermohonanController::class);
 });
