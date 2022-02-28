@@ -219,7 +219,98 @@
                                 </a>
                             </li>
                         </ul>
-                    @endcan
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-0" href="#">
+                            <div class="d-flex align-items-center nav-link-side">
+                                <span class="px-0">KEHADIRAN KE PUSAT LATIHAN</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('us-uls/kehadiran/cetakkodQR') ? 'active' : '' }} py-0"
+                            href="/us-uls/kehadiran/cetakkodQR">
+                            <div class="d-flex align-items-center nav-link-side">
+                                <span class="px-0">CETAK KOD QR KURSUS</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-0" href="#">
+                            <div class="d-flex align-items-center nav-link-side">
+                                <span class="px-0">CETAK KOD QR PUSAT LATIHAN</span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            @endcan
+
+            @can('pengajian lanjutan')
+                <a class="nav-link py-0 {{ Request::is('us-uls/pengajian-lanjutan') ? 'active' : '' }}"
+                    href="/us-uls/pengajian-lanjutan" role="button">
+                    <div class="d-flex align-items-center nav-link-side px-0">
+                        <span class="px-3"><span class="far fa-address-book"></span> PENGAJIAN LANJUTAN</span>
+                    </div>
+                </a>
+            @endcan
+
+            @can('penilaian')
+                <a class="nav-link py-0 dropdown-indicator" href="#penilaian" role="button" data-bs-toggle="collapse"
+                    aria-expanded="{{ Request::is('penilaian/*') ? 'true' : 'false' }}" aria-controls="penilaian">
+                    <div class="d-flex align-items-center nav-link-side px-0">
+                        <span class="px-3"><span class="fab fa-wpforms"></span> PENILAIAN</span>
+                    </div>
+                </a>
+                <ul class="nav-item collapse {{ Request::is('penilaian/*') ? 'show' : 'false' }} my-1" id="penilaian">
+                    <li class="nav-item">
+                        <a class="nav-link py-0" href="/penilaian/penilaian-kursus">
+                            <div class="d-flex align-items-center nav-link-side">
+                                <span class="px-0">PENILAIAN KURSUS</span>
+                            </div>
+                        </a>
+                    </li>
+                    @role('Urus Setia ULS')
+                        <li class="nav-item">
+                            <a class="nav-link py-0" href="{{ Route('pre-post-test.index') }}">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">PENILAIAN PRE TEST DAN POST TEST</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-0" href="#">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">KEBERKESANAN KURSUS</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-0" href="#">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">PENILAIAN AJEN PELAKSANA</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-0" href="#">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">CETAK KOD QR</span>
+                                </div>
+                            </a>
+                        </li>
+                    @endrole
+                    @role('Peserta ULS')
+                        <li class="nav-item">
+                            <a class="nav-link py-0" href="{{ route('jawabPrePost') }}">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">PENILAIAN PRE TEST DAN POST TEST</span>
+                                </div>
+                            </a>
+                        </li>
+                    @endrole
+
+                </ul>
+            @endcan
 
                     @can('kehadiran')
                         <a class="nav-link py-0 dropdown-indicator" href="#kehadiran" role="button"
