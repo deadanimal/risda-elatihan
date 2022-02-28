@@ -121,7 +121,7 @@ Route::middleware('auth', function () {
             '/utiliti/kursus/gred_pegawai' => GredPegawaiController::class,
             '/utiliti/kursus/elaun_cuti_kursus' => ElaunCutiController::class,
             '/utiliti/kursus/kod_objek' => ObjekController::class,
-          
+
             '/pengurusan_kursus/semak_jadual' => JadualKursusController::class,
             '/pengurusan_kursus/peruntukan_peserta' => PeruntukanPesertaController::class,
             '/pengurusan_kursus/aturcara' => AturcaraController::class,
@@ -131,6 +131,8 @@ Route::middleware('auth', function () {
 
             '/permohonan_kursus/semakan_permohonan' => SemakPermohonanController::class,
         ]);
+    });
+});
 
 //Peserta ULS
 Route::group(['prefix' => '/uls', 'middleware' => ['can:permohonan kursus']], function () {
@@ -149,7 +151,7 @@ Route::group(['prefix' => '/uls', 'middleware' => ['can:permohonan kursus']], fu
             Route::get('katelog-kursus', [PermohonanController::class, 'katelog']);
             Route::get('kehadiran/{kod_kursus}', [KehadiranController::class, 'indexULS']);
         });
-      
+
         //rekod kehadiran
         Route::group(['prefix' => 'kehadiran/', 'middleware' => 'can:status permohonan'], function () {
             Route::get('{kehadiran}', [KehadiranController::class, 'fromUlsQR']);
@@ -265,7 +267,7 @@ Route::group(['prefix' => '/uls', 'middleware' => ['can:permohonan kursus']], fu
 
     Route::delete('/delete/{id}', [UtilitiController::class, 'test_user_delete']);
 });
-      
+
 Route::get('/testing', [UtilitiController::class, 'test_user_list']);
 Route::delete('/delete/{id}', [UtilitiController::class, 'test_user_delete']);
 Route::put('/update_role/{id}', [UtilitiController::class, 'test_user_update_role']);
