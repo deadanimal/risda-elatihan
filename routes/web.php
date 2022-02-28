@@ -26,7 +26,9 @@ use App\Http\Controllers\ParlimenController;
 use App\Http\Controllers\PegawaiAgensiController;
 use App\Http\Controllers\PenceramahKonsultanController;
 use App\Http\Controllers\PengajianLanjutanController;
+use App\Http\Controllers\PengurusanPenggunaController;
 use App\Http\Controllers\PenilaianPesertaController;
+use App\Http\Controllers\PerananController;
 use App\Http\Controllers\PermohonanController;
 use App\Http\Controllers\PeruntukanPesertaController;
 use App\Http\Controllers\ProfilController;
@@ -135,7 +137,7 @@ Route::group(['prefix' => '/uls', 'middleware' => ['can:permohonan kursus']], fu
     //Permohonan Peserta
     Route::group(['prefix' => '/permohonan', 'middleware' => 'can:katelog kursus'], function () {
         Route::get('statuspermohonan', [PermohonanController::class, 'indexULS']);
-        Route::get('katelog-kursus', [PermohonanController::class, 'index']);
+        Route::get('katelog-kursus', [PermohonanController::class, 'katalog_uls']);
         Route::get('kehadiran/{kod_kursus}', [KehadiranController::class, 'indexULS']);
     });
 
@@ -154,8 +156,9 @@ Route::post('/pengesahan_kehadiran', [KehadiranController::class, 'store']);
 //Peserta ULPK
 Route::prefix('/ulpk')->group(function () {
     //Permohonan Peserta
-    Route::group(['prefix' => '/permohonan', 'middleware' => ['UlpkPeserta', 'AdminBTM']], function () {
+    Route::group(['prefix' => '/permohonan', 'middleware' => 'can:katelog kursus'], function () {
         Route::get('statuspermohonan', [PermohonanController::class, 'indexULPK']);
+        Route::get('katelog-kursus', [PermohonanController::class, 'katalog_ulpk']);
         Route::get('kehadiran/{kod_kursus}', [KehadiranController::class, 'indexULPK']);
     });
 
@@ -251,5 +254,8 @@ Route::get('/permohonan_kursus/katalog_kursus/pendaftaran/{id}', [PermohonanCont
 
 Route::resource('/permohonan_kursus/katalog_kursus', PermohonanController::class);
 Route::resource('/permohonan_kursus/semakan_permohonan', SemakPermohonanController::class);
+Route::resource('/pengurusan_pengguna/peranan', PerananController::class);
+
+Route::get('/pengurusan_pengguna/senarai_pengguna/urusetia', [PengurusanPenggunaController::class, 'urusetia']);
 
 require __DIR__ . '/auth.php';
