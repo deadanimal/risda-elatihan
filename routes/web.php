@@ -144,20 +144,10 @@ Route::middleware('auth')->group(function () {
             Route::get('kehadiran/{kod_kursus}', [KehadiranController::class, 'indexULS']);
         });
 
-        //Peserta ULS
-        Route::group(['prefix' => '/uls', 'middleware' => ['can:permohonan kursus']], function () {
-            //Permohonan Peserta
-            Route::group(['prefix' => '/permohonan', 'middleware' => 'can:katelog kursus'], function () {
-                Route::get('statuspermohonan', [PermohonanController::class, 'indexULS']);
-                Route::get('katelog-kursus', [PermohonanController::class, 'katelog']);
-                Route::get('kehadiran/{kod_kursus}', [KehadiranController::class, 'indexULS']);
-            });
-
-            //rekod kehadiran
-            Route::group(['prefix' => 'kehadiran/', 'middleware' => 'can:status permohonan'], function () {
-                Route::get('{kehadiran}', [KehadiranController::class, 'fromUlsQR']);
-                Route::post('update/{kehadiran}', [KehadiranController::class, 'storeQR']);
-            });
+        //rekod kehadiran
+        Route::group(['prefix' => 'kehadiran/', 'middleware' => 'can:status permohonan'], function () {
+            Route::get('{kehadiran}', [KehadiranController::class, 'fromUlsQR']);
+            Route::post('update/{kehadiran}', [KehadiranController::class, 'storeQR']);
         });
 
         //from scan qrcode
