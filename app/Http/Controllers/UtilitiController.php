@@ -11,6 +11,7 @@ use App\Models\Tanaman;
 use App\Models\User;
 use App\Models\Utiliti;
 use Illuminate\Support\Facades\Request;
+use Spatie\Permission\Models\Role;
 
 class UtilitiController extends Controller
 {
@@ -94,8 +95,10 @@ class UtilitiController extends Controller
     public function test_user_list()
     {
         $user = User::all();
+        $role = Role::all();
         return view('test_list', [
-            'user'=>$user
+            'user'=>$user,
+            'role'=>$role
         ]);
     }
 
