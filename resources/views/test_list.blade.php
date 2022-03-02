@@ -9,10 +9,9 @@
                 @csrf
                 <select name="peranan" class="form-control">
                     <option value="">Sila Pilih</option>
-                    <option value="Peserta ULS">Peserta ULS</option>
-                    <option value="Peserta ULPK">Peserta ULPK</option>
-                    <option value="Urus Setia ULS">Urus Setia ULS</option>
-                    <option value="Urus Setia ULPK">Urus Setia ULPK</option>
+                    @foreach ($role as $r)
+                    <option value="{{$r->name}}">{{$r->name}}</option>
+                    @endforeach
                 </select>
                 <button type="submit" class="btn btn-primary">Update role</button>
             </form>
