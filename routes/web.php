@@ -132,7 +132,16 @@ Route::middleware('auth')->group(function () {
             '/pengurusan_kursus/penceramah_konsultan' => PenceramahKonsultanController::class,
             '/pengurusan_kursus/kelayakan_elaun_cuti' => KelayakanElauncutiController::class,
             '/permohonan_kursus/semakan_permohonan' => SemakPermohonanController::class,
+            
+            // '/pengurusan_pengguna/pengguna' => PengurusanPenggunaController::class,
         ]);
+
+        
+
+        Route::get('/pengurusan_pengguna/pengguna/staf', [PengurusanPenggunaController::class, 'staf']);
+        Route::get('/pengurusan_pengguna/pengguna/pekebun_kecil', [PengurusanPenggunaController::class, 'pekebun_kecil']);
+        Route::get('/pengurusan_pengguna/pengguna/ejen_pelaksana', [PengurusanPenggunaController::class, 'ejen_pelaksana']);
+        Route::put('/pengurusan_pengguna/pengguna/{id}', [PengurusanPenggunaController::class, 'update']);
     });
 
     //Peserta ULS
@@ -211,7 +220,6 @@ Route::middleware('auth')->group(function () {
                 Route::get('/pengajian-lanjutan', [PengajianLanjutanController::class, 'indexUls']);
                 Route::get('/pengajian-lanjutan-yuran', [PengajianLanjutanController::class, 'yuranUls']);
             });
-
         });
 
         //penilaian
@@ -227,7 +235,6 @@ Route::middleware('auth')->group(function () {
                 Route::get('/jawab-pre-post-test', [PrePostTestController::class, 'jawabPrePost'])->name('jawabPrePost');
                 Route::get('/mula-penilaian-pre-test/{jadual_kursus}', [PrePostTestController::class, 'mulaPenilaian'])->name('mulaPenilaian');
             });
-
         });
 
         //Urus Setia ULPK
@@ -250,7 +257,6 @@ Route::middleware('auth')->group(function () {
             //pengajian lanjutan
             Route::get('/pengajian-lanjutan', [PengajianLanjutanController::class, 'indexUlpk']);
             Route::get('/pengajian-lanjutan-yuran', [PengajianLanjutanController::class, 'yuranUlpk']);
-
         });
 
         // Route::put('/test/{id}', [DaerahController::class, 'update']);
@@ -266,11 +272,12 @@ Route::middleware('auth')->group(function () {
     Route::get('testjap', [PermohonanController::class, 'katelog']);
 
     Route::get('/permohonan_kursus/katalog_kursus/pendaftaran/{id}', [PermohonanController::class, 'permohonan']);
-  
-    Route::resource('/pengurusan_pengguna/peranan', PerananController::class);
-    Route::get('/pengurusan_pengguna/senarai_pengguna/urusetia', [PengurusanPenggunaController::class, 'urusetia']);
+
     Route::resource('/permohonan_kursus/katalog_kursus', PermohonanController::class);
     Route::resource('/permohonan_kursus/semakan_permohonan', SemakPermohonanController::class);
+
+    Route::resource('/pengurusan_pengguna/peranan', PerananController::class);
+    Route::post('/pengurusan_pengguna/peranan/kebenaran', [PerananController::class, 'tambah_kebenaran']);
 });
 
 require __DIR__ . '/auth.php';

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use Symfony\Component\Translation\Provider\Dsn;
 
 class PengurusanPenggunaController extends Controller
 {
@@ -19,33 +20,31 @@ class PengurusanPenggunaController extends Controller
      */
 
     // list user
-    public function urusetia()
+    public function staf()
     {
-        $user = User::all();
-        $list_us = [];
-        foreach ($user as $key => $u) {
-            $jenis_pengguna = substr($u->jenis_pengguna, 0, 10);
-            if ($jenis_pengguna == 'Urus Setia') {
-                array_push($list_us, $u);
-            }
-        }
-        return view('pengurusan_pengguna.senarai_pengguna.urusetia.index',[
-            'urusetia' => $list_us,
-            'peranan' => Role::all()
+        return view('pengurusan_pengguna.senarai_pengguna.staf.index',[
+            'staf' => User::where('jenis_pengguna', '!=', 'Peserta ULPK')->get(),
+            'peranan' => Role::all(),
         ]);
     }
-    public function peserta()
+    public function pekebun_kecil()
     {
-        return view('pengurusan_pengguna.senarai_pengguna.peserta.index');
+        return view('pengurusan_pengguna.senarai_pengguna.pekebun_kecil.index',[
+            'pekebun' => User::where('jenis_pengguna', 'Peserta ULPK')->get(),
+            'peranan' => Role::all(),
+        ]);
     }
     public function ejen_pelaksana()
     {
-        return view('pengurusan_pengguna.senarai_pengguna.ejen_pelaksana.index');
+        return view('pengurusan_pengguna.senarai_pengguna.ejen_pelaksana.index',[
+            'ejen' => User::where('jenis_pengguna', 'Ejen Pelaksana')->get(),
+            'peranan' => Role::all(),
+        ]);
     }
 
     public function index()
     {
-        //
+        dd('index');
     }
 
     /**
@@ -101,9 +100,11 @@ class PengurusanPenggunaController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
-        $user->jenis_pengguna = $request->peranan;
-        $user->assignRole($request->peranan);
+        $user->jenis_pengguna = $request->jenis_pengguna;
+        $user->assignRole($request->jenis_pengguna);
         $user->save();
+
+        return redirect('/pengurusan_pengguna/senarai_pengguna/staf');
     }
 
     /**

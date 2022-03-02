@@ -104,4 +104,10 @@ class PerananController extends Controller
     {
         //
     }
+
+    public function tambah_kebenaran(Request $request)
+    {
+        Permission::create(['name' => $request->name]);
+        return redirect('/pengurusan_pengguna/peranan');
+    }
 }
