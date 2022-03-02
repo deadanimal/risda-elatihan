@@ -155,271 +155,7 @@
                         </div>
                     </a>
 
-                    {{-- Peserta ULS --}}
-                    @can('permohonan kursus')
-                        <a class="nav-link py-0 dropdown-indicator" href="#permohonan" role="button"
-                            data-bs-toggle="collapse"
-                            aria-expanded="{{ Request::is('uls/permohonan/*') ? 'true' : 'false' }}"
-                            aria-controls="permohonan">
-                            <div class="d-flex align-items-center nav-link-side px-0">
-                                <span class="px-3"><span class="fas fa-file-alt"></span> PERMOHONAN KURSUS</span>
-                            </div>
-                        </a>
-                        <ul class="nav-item collapse {{ Request::is('uls/permohonan/*') ? 'show' : 'false' }} my-1"
-                            id="permohonan">
-                            @can('katelog kursus')
-                                <li class="nav-item">
-                                    <a class="nav-link {{ Request::is('uls/permohonan/katelog-kursus') ? 'active' : '' }} py-0"
-                                        href="/uls/permohonan/katelog-kursus">
-                                        <div class="d-flex align-items-center nav-link-side">
-                                            <span class="px-0">KATALOG KURSUS</span>
-                                        </div>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('status permohonan')
-                                <li class="nav-item">
-                                    <a class="nav-link {{ Request::is('uls/permohonan/statuspermohonan') ? 'active' : '' }} py-0"
-                                        href="/uls/permohonan/statuspermohonan">
-                                        <div class="d-flex align-items-center nav-link-side">
-                                            <span class="px-0">STATUS PERMOHONAN</span>
-                                        </div>
-                                    </a>
-                                </li>
-                            @endcan
-                        </ul>
-                    @endcan
-
-                    {{-- Peserta ULPK --}}
-                    @can('UlpkPeserta')
-                        <a class="nav-link py-0 dropdown-indicator" href="#permohonan" role="button"
-                            data-bs-toggle="collapse"
-                            aria-expanded="{{ Request::is('ulpk/permohonan/*') ? 'true' : 'false' }}"
-                            aria-controls="permohonan">
-                            <div class="d-flex align-items-center nav-link-side px-0">
-                                <span class="px-3"><span class="fas fa-file-alt"></span> PERMOHONAN KURSUS</span>
-                            </div>
-                        </a>
-                        <ul class="nav-item collapse {{ Request::is('ulpk/permohonan/*') ? 'show' : '' }} my-1"
-                            id="permohonan">
-                            <li class="nav-item">
-                                <a class="nav-link py-0" href="/ulpk/permohonan/katelog-kursus">
-                                    <div class="d-flex align-items-center nav-link-side">
-                                        <span class="px-0">KATALOG KURSUS</span>
-                                    </div>
-                                </a>
-
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {{ Request::is('ulpk/permohonan/statuspermohonan/') ? 'active' : '' }} py-0"
-                                    href="/ulpk/permohonan/statuspermohonan">
-                                    <div class="d-flex align-items-center nav-link-side">
-                                        <span class="px-0">STATUS PERMOHONAN</span>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    @endcan
-
-                    @can('kehadiran')
-                        <a class="nav-link py-0 dropdown-indicator" href="#kehadiran" role="button"
-                            data-bs-toggle="collapse"
-                            aria-expanded="{{ Request::is('us-uls/kehadiran/*') ? 'true' : 'false' }}"
-                            aria-controls="kehadiran">
-                            <div class="d-flex align-items-center nav-link-side px-0">
-                                <span class="px-3"><span class="far fa-address-book"></span> KEHADIRAN</span>
-                            </div>
-                        </a>
-                        <ul class="nav-item collapse {{ Request::is('us-uls/kehadiran/*') ? 'show' : 'false' }} my-1"
-                            id="kehadiran">
-                            <li class="nav-item">
-                                <a class="nav-link py-0 dropdown-indicator" href="#kehadiran-ke-kursus" role="button"
-                                    data-bs-toggle="collapse"
-                                    aria-expanded="{{ Request::is('us-uls/kehadiran/ke-kursus/*') ? 'true' : 'false' }}"
-                                    aria-controls="kehadiran-ke-kursus">
-                                    <div class="d-flex align-items-center nav-link-side">
-                                        <span class="px-0">KEHADIRAN KE KURSUS</span>
-                                    </div>
-                                </a>
-                                <ul class="nav-item collapse {{ Request::is('us-uls/kehadiran/ke-kursus/*') ? 'show' : 'false' }} my-1"
-                                    id="kehadiran-ke-kursus">
-                                    <li class="nav-item">
-                                        <a class="nav-link {{ Request::is('us-uls/kehadiran/ke-kursus/merekod-kehadiran') ? 'active' : '' }} py-0"
-                                            href="/us-uls/kehadiran/ke-kursus/merekod-kehadiran">
-                                            <div class="d-flex align-items-center nav-link-side">
-                                                <span class="px-0">MEREKOD KEHADIRAN</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link py-0  {{ Request::is('us-uls/kehadiran/ke-kursus/mengesahkan-kehadiran') ? 'active' : '' }}"
-                                            href="/us-uls/kehadiran/ke-kursus/mengesahkan-kehadiran">
-                                            <div class="d-flex align-items-center nav-link-side">
-                                                <span class="px-0">MENGESAHKAN KEHADIRAN</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link py-0" href="#">
-                                    <div class="d-flex align-items-center nav-link-side">
-                                        <span class="px-0">KEHADIRAN KE PUSAT LATIHAN</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {{ Request::is('us-uls/kehadiran/cetakkodQR') ? 'active' : '' }} py-0"
-                                    href="/us-uls/kehadiran/cetakkodQR">
-                                    <div class="d-flex align-items-center nav-link-side">
-                                        <span class="px-0">CETAK KOD QR KURSUS</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link py-0" href="#">
-                                    <div class="d-flex align-items-center nav-link-side">
-                                        <span class="px-0">CETAK KOD QR PUSAT LATIHAN</span>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    @endcan
-
-                    @can('pengajian lanjutan')
-                        <a class="nav-link py-0 {{ Request::is('us-uls/pengajian-lanjutan') ? 'active' : '' }}"
-                            href="/us-uls/pengajian-lanjutan" role="button">
-                            <div class="d-flex align-items-center nav-link-side px-0">
-                                <span class="px-3"><span class="far fa-address-book"></span> PENGAJIAN
-                                    LANJUTAN</span>
-                            </div>
-                        </a>
-                    @endcan
-
-                    
-                    @can('penilaian')
-                        <a class="nav-link py-0 dropdown-indicator" href="#penilaian" role="button"
-                            data-bs-toggle="collapse" aria-expanded="{{ Request::is('penilaian/*') ? 'true' : 'false' }}"
-                            aria-controls="penilaian">
-                            <div class="d-flex align-items-center nav-link-side px-0">
-                                <span class="px-3"><span class="fab fa-wpforms"></span> PENILAIAN</span>
-                            </div>
-                        </a>
-                        <ul class="nav-item collapse {{ Request::is('penilaian/*') ? 'show' : 'false' }} my-1"
-                            id="penilaian">
-                            <li class="nav-item">
-                                <a class="nav-link py-0" href="/penilaian/penilaian-kursus">
-                                    <div class="d-flex align-items-center nav-link-side">
-                                        <span class="px-0">PENILAIAN KURSUS</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link py-0" href="#">
-                                    <div class="d-flex align-items-center nav-link-side">
-                                        <span class="px-0">PENILAIAN PRE TEST DAN POST TEST</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link py-0" href="#">
-                                    <div class="d-flex align-items-center nav-link-side">
-                                        <span class="px-0">KEBERKESANAN KURSUS</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link py-0" href="#">
-                                    <div class="d-flex align-items-center nav-link-side">
-                                        <span class="px-0">PENILAIAN AJEN PELAKSANA</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link py-0" href="#">
-                                    <div class="d-flex align-items-center nav-link-side">
-                                        <span class="px-0">CETAK KOD QR</span>
-                                    </div>
-                                </a>
-                            </li>
-
-                        </ul>
-                    @endcan
-
-                    @can('UlpkUrusSetia')
-                        <a class="nav-link py-0 dropdown-indicator" href="#kehadiran" role="button"
-                            data-bs-toggle="collapse"
-                            aria-expanded="{{ Request::is('us-ulpk/kehadiran/*') ? 'true' : 'false' }}"
-                            aria-controls="kehadiran">
-                            <div class="d-flex align-items-center nav-link-side px-0">
-                                <span class="px-3"><span class="far fa-address-book"></span> KEHADIRAN</span>
-                            </div>
-                        </a>
-                        <ul class="nav-item collapse {{ Request::is('us-ulpk/kehadiran/*') ? 'show' : 'false' }} my-1"
-                            id="kehadiran">
-                            <li class="nav-item">
-                                <a class="nav-link py-0 dropdown-indicator" href="#kehadiran-ke-kursus" role="button"
-                                    data-bs-toggle="collapse"
-                                    aria-expanded="{{ Request::is('us-ulpk/kehadiran/ke-kursus/*') ? 'true' : 'false' }}"
-                                    aria-controls="kehadiran-ke-kursus">
-                                    <div class="d-flex align-items-center nav-link-side">
-                                        <span class="px-0">KEHADIRAN KE KURSUS</span>
-                                    </div>
-                                </a>
-                                <ul class="nav-item collapse {{ Request::is('us-ulpk/kehadiran/ke-kursus/*') ? 'show' : 'false' }} my-1"
-                                    id="kehadiran-ke-kursus">
-                                    <li class="nav-item">
-                                        <a class="nav-link {{ Request::is('us-ulpk/kehadiran/ke-kursus/merekod-kehadiran') ? 'active' : '' }} py-0"
-                                            href="/us-ulpk/kehadiran/ke-kursus/merekod-kehadiran">
-                                            <div class="d-flex align-items-center nav-link-side">
-                                                <span class="px-0">MEREKOD KEHADIRAN</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link py-0  {{ Request::is('us-ulpk/kehadiran/ke-kursus/mengesahkan-kehadiran') ? 'active' : '' }}"
-                                            href="/us-ulpk/kehadiran/ke-kursus/mengesahkan-kehadiran">
-                                            <div class="d-flex align-items-center nav-link-side">
-                                                <span class="px-0">MENGESAHKAN KEHADIRAN</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link py-0" href="#">
-                                    <div class="d-flex align-items-center nav-link-side">
-                                        <span class="px-0">KEHADIRAN KE PUSAT LATIHAN</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {{ Request::is('us-ulpk/kehadiran/cetakkodQR') ? 'active' : '' }} py-0"
-                                    href="/us-ulpk/kehadiran/cetakkodQR">
-                                    <div class="d-flex align-items-center nav-link-side">
-                                        <span class="px-0">CETAK KOD QR KURSUS</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link py-0" href="#">
-                                    <div class="d-flex align-items-center nav-link-side">
-                                        <span class="px-0">CETAK KOD QR PUSAT LATIHAN</span>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                        <a class="nav-link py-0 {{ Request::is('us-ulpk/pengajian-lanjutan') ? 'active' : '' }}"
-                            href="/us-ulpk/pengajian-lanjutan" role="button">
-                            <div class="d-flex align-items-center nav-link-side px-0">
-                                <span class="px-3"><span class="far fa-address-book"></span> PENGAJIAN
-                                    LANJUTAN</span>
-                            </div>
-                        </a>
-                    @endcan
-
-                    {{-- admin BTM --}}
-                    @can('AdminBTM')
+                    @can('pengurusan pengguna')
                         <a class="nav-link py-0 dropdown-indicator" href="#pengurusan_pengguna" role="button"
                             data-bs-toggle="collapse"
                             aria-expanded="{{ Request::is('pengurusan_pengguna/*') ? 'true' : 'false' }}"
@@ -432,12 +168,44 @@
                         <ul class="nav-item collapse {{ Request::is('pengurusan_pengguna/*') ? 'show' : 'false' }} my-1"
                             id="pengurusan_pengguna">
                             <li class="nav-item">
-                                <a class="nav-link {{ Request::is('pengurusan_pengguna/senarai_pengguna') ? 'active' : '' }} py-0"
-                                    href="#">
+                                <a class="nav-link py-0 dropdown-indicator" href="#senarai" role="button"
+                                data-bs-toggle="collapse"
+                                aria-expanded="{{ Request::is('pengurusan_pengguna/pengguna/*') ? 'true' : 'false' }}"
+                                aria-controls="senarai">
                                     <div class="d-flex align-items-center nav-link-side">
                                         <span class="px-0">SENARAI PENGGUNA</span>
                                     </div>
                                 </a>
+                                <ul class="nav-item collapse {{ Request::is('pengurusan_pengguna/pengguna/*') ? 'show' : 'false' }} my-1"
+                                    id="senarai">
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('pengurusan_pengguna/pengguna/staf') ? 'active' : '' }} py-0"
+                                            href="/pengurusan_pengguna/pengguna/staf">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">Staf</span>
+                                            </div>
+                                        </a>
+
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('pengurusan_pengguna/pengguna/pekebun_kecil') ? 'active' : '' }} py-0"
+                                            href="/pengurusan_pengguna/pengguna/pekebun_kecil">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">Pekebun Kecil</span>
+                                            </div>
+                                        </a>
+
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('pengurusan_pengguna/pengguna/ejen_pelaksana') ? 'active' : '' }} py-0"
+                                            href="/pengurusan_pengguna/pengguna/ejen_pelaksana">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">Ejen Pelaksana</span>
+                                            </div>
+                                        </a>
+
+                                    </li>
+                                </ul>
 
                                 <a class="nav-link {{ Request::is('pengurusan_pengguna/peranan') ? 'active' : '' }} py-0"
                                     href="/pengurusan_pengguna/peranan">
@@ -447,7 +215,10 @@
                                 </a>
                             </li>
                         </ul>
-                        <a class="nav-link py-0 dropdown-indicator" href="#kehadiran" role="button"
+                    @endcan
+
+                    @can('utiliti')
+                        {{-- <a class="nav-link py-0 dropdown-indicator" href="#kehadiran" role="button"
                             data-bs-toggle="collapse"
                             aria-expanded="{{ Request::is('us-uls/kehadiran/*') ? 'true' : 'false' }}"
                             aria-controls="kehadiran">
@@ -562,7 +333,7 @@
                                     </div>
                                 </a>
                             </li>
-                        </ul>
+                        </ul> --}}
                         <a class="nav-link py-0 dropdown-indicator" href="#utiliti" role="button" data-bs-toggle="collapse"
                             aria-expanded="{{ Request::is('utiliti/*') ? 'true' : 'false' }}" aria-controls="utiliti">
                             <div class="d-flex align-items-center nav-link-side px-0">
@@ -848,6 +619,270 @@
                             </li>
                         </ul>
                     @endcan
+
+                    {{-- Peserta ULS --}}
+                    @can('permohonan kursus')
+                        <a class="nav-link py-0 dropdown-indicator" href="#permohonan" role="button"
+                            data-bs-toggle="collapse"
+                            aria-expanded="{{ Request::is('uls/permohonan/*') ? 'true' : 'false' }}"
+                            aria-controls="permohonan">
+                            <div class="d-flex align-items-center nav-link-side px-0">
+                                <span class="px-3"><span class="fas fa-file-alt"></span> PERMOHONAN KURSUS</span>
+                            </div>
+                        </a>
+                        <ul class="nav-item collapse {{ Request::is('uls/permohonan/*') ? 'show' : 'false' }} my-1"
+                            id="permohonan">
+                            @can('katelog kursus')
+                                <li class="nav-item">
+                                    <a class="nav-link {{ Request::is('uls/permohonan/katelog-kursus') ? 'active' : '' }} py-0"
+                                        href="/uls/permohonan/katelog-kursus">
+                                        <div class="d-flex align-items-center nav-link-side">
+                                            <span class="px-0">KATALOG KURSUS</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('status permohonan')
+                                <li class="nav-item">
+                                    <a class="nav-link {{ Request::is('uls/permohonan/statuspermohonan') ? 'active' : '' }} py-0"
+                                        href="/uls/permohonan/statuspermohonan">
+                                        <div class="d-flex align-items-center nav-link-side">
+                                            <span class="px-0">STATUS PERMOHONAN</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    @endcan
+
+                    {{-- Peserta ULPK --}}
+                    @can('UlpkPeserta')
+                        <a class="nav-link py-0 dropdown-indicator" href="#permohonan" role="button"
+                            data-bs-toggle="collapse"
+                            aria-expanded="{{ Request::is('ulpk/permohonan/*') ? 'true' : 'false' }}"
+                            aria-controls="permohonan">
+                            <div class="d-flex align-items-center nav-link-side px-0">
+                                <span class="px-3"><span class="fas fa-file-alt"></span> PERMOHONAN KURSUS</span>
+                            </div>
+                        </a>
+                        <ul class="nav-item collapse {{ Request::is('ulpk/permohonan/*') ? 'show' : '' }} my-1"
+                            id="permohonan">
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="/ulpk/permohonan/katelog-kursus">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">KATALOG KURSUS</span>
+                                    </div>
+                                </a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is('ulpk/permohonan/statuspermohonan/') ? 'active' : '' }} py-0"
+                                    href="/ulpk/permohonan/statuspermohonan">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">STATUS PERMOHONAN</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    @endcan
+
+                    @can('kehadiran')
+                        <a class="nav-link py-0 dropdown-indicator" href="#kehadiran" role="button"
+                            data-bs-toggle="collapse"
+                            aria-expanded="{{ Request::is('us-uls/kehadiran/*') ? 'true' : 'false' }}"
+                            aria-controls="kehadiran">
+                            <div class="d-flex align-items-center nav-link-side px-0">
+                                <span class="px-3"><span class="far fa-address-book"></span> KEHADIRAN</span>
+                            </div>
+                        </a>
+                        <ul class="nav-item collapse {{ Request::is('us-uls/kehadiran/*') ? 'show' : 'false' }} my-1"
+                            id="kehadiran">
+                            <li class="nav-item">
+                                <a class="nav-link py-0 dropdown-indicator" href="#kehadiran-ke-kursus" role="button"
+                                    data-bs-toggle="collapse"
+                                    aria-expanded="{{ Request::is('us-uls/kehadiran/ke-kursus/*') ? 'true' : 'false' }}"
+                                    aria-controls="kehadiran-ke-kursus">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">KEHADIRAN KE KURSUS</span>
+                                    </div>
+                                </a>
+                                <ul class="nav-item collapse {{ Request::is('us-uls/kehadiran/ke-kursus/*') ? 'show' : 'false' }} my-1"
+                                    id="kehadiran-ke-kursus">
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('us-uls/kehadiran/ke-kursus/merekod-kehadiran') ? 'active' : '' }} py-0"
+                                            href="/us-uls/kehadiran/ke-kursus/merekod-kehadiran">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">MEREKOD KEHADIRAN</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link py-0  {{ Request::is('us-uls/kehadiran/ke-kursus/mengesahkan-kehadiran') ? 'active' : '' }}"
+                                            href="/us-uls/kehadiran/ke-kursus/mengesahkan-kehadiran">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">MENGESAHKAN KEHADIRAN</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="#">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">KEHADIRAN KE PUSAT LATIHAN</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is('us-uls/kehadiran/cetakkodQR') ? 'active' : '' }} py-0"
+                                    href="/us-uls/kehadiran/cetakkodQR">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">CETAK KOD QR KURSUS</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="#">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">CETAK KOD QR PUSAT LATIHAN</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    @endcan
+
+                    @can('pengajian lanjutan')
+                        <a class="nav-link py-0 {{ Request::is('us-uls/pengajian-lanjutan') ? 'active' : '' }}"
+                            href="/us-uls/pengajian-lanjutan" role="button">
+                            <div class="d-flex align-items-center nav-link-side px-0">
+                                <span class="px-3"><span class="far fa-address-book"></span> PENGAJIAN
+                                    LANJUTAN</span>
+                            </div>
+                        </a>
+                    @endcan
+
+
+                    @can('penilaian')
+                        <a class="nav-link py-0 dropdown-indicator" href="#penilaian" role="button"
+                            data-bs-toggle="collapse" aria-expanded="{{ Request::is('penilaian/*') ? 'true' : 'false' }}"
+                            aria-controls="penilaian">
+                            <div class="d-flex align-items-center nav-link-side px-0">
+                                <span class="px-3"><span class="fab fa-wpforms"></span> PENILAIAN</span>
+                            </div>
+                        </a>
+                        <ul class="nav-item collapse {{ Request::is('penilaian/*') ? 'show' : 'false' }} my-1"
+                            id="penilaian">
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="/penilaian/penilaian-kursus">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">PENILAIAN KURSUS</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="#">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">PENILAIAN PRE TEST DAN POST TEST</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="#">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">KEBERKESANAN KURSUS</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="#">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">PENILAIAN AJEN PELAKSANA</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="#">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">CETAK KOD QR</span>
+                                    </div>
+                                </a>
+                            </li>
+
+                        </ul>
+                    @endcan
+
+                    @can('UlpkUrusSetia')
+                        <a class="nav-link py-0 dropdown-indicator" href="#kehadiran" role="button"
+                            data-bs-toggle="collapse"
+                            aria-expanded="{{ Request::is('us-ulpk/kehadiran/*') ? 'true' : 'false' }}"
+                            aria-controls="kehadiran">
+                            <div class="d-flex align-items-center nav-link-side px-0">
+                                <span class="px-3"><span class="far fa-address-book"></span> KEHADIRAN</span>
+                            </div>
+                        </a>
+                        <ul class="nav-item collapse {{ Request::is('us-ulpk/kehadiran/*') ? 'show' : 'false' }} my-1"
+                            id="kehadiran">
+                            <li class="nav-item">
+                                <a class="nav-link py-0 dropdown-indicator" href="#kehadiran-ke-kursus" role="button"
+                                    data-bs-toggle="collapse"
+                                    aria-expanded="{{ Request::is('us-ulpk/kehadiran/ke-kursus/*') ? 'true' : 'false' }}"
+                                    aria-controls="kehadiran-ke-kursus">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">KEHADIRAN KE KURSUS</span>
+                                    </div>
+                                </a>
+                                <ul class="nav-item collapse {{ Request::is('us-ulpk/kehadiran/ke-kursus/*') ? 'show' : 'false' }} my-1"
+                                    id="kehadiran-ke-kursus">
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('us-ulpk/kehadiran/ke-kursus/merekod-kehadiran') ? 'active' : '' }} py-0"
+                                            href="/us-ulpk/kehadiran/ke-kursus/merekod-kehadiran">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">MEREKOD KEHADIRAN</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link py-0  {{ Request::is('us-ulpk/kehadiran/ke-kursus/mengesahkan-kehadiran') ? 'active' : '' }}"
+                                            href="/us-ulpk/kehadiran/ke-kursus/mengesahkan-kehadiran">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">MENGESAHKAN KEHADIRAN</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="#">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">KEHADIRAN KE PUSAT LATIHAN</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is('us-ulpk/kehadiran/cetakkodQR') ? 'active' : '' }} py-0"
+                                    href="/us-ulpk/kehadiran/cetakkodQR">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">CETAK KOD QR KURSUS</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="#">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">CETAK KOD QR PUSAT LATIHAN</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                        <a class="nav-link py-0 {{ Request::is('us-ulpk/pengajian-lanjutan') ? 'active' : '' }}"
+                            href="/us-ulpk/pengajian-lanjutan" role="button">
+                            <div class="d-flex align-items-center nav-link-side px-0">
+                                <span class="px-3"><span class="far fa-address-book"></span> PENGAJIAN
+                                    LANJUTAN</span>
+                            </div>
+                        </a>
+                    @endcan
+
 
                     {{-- <a class="nav-link-side dropdown-indicator" href="#email" role="button" data-bs-toggle="collapse"
                         aria-expanded="false" aria-controls="email">
