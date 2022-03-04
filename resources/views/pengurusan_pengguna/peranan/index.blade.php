@@ -17,6 +17,12 @@
         </div>
     </div>
 
+    <div class="row mt-5">
+        <div class="col">
+            <a href="/pengurusan_pengguna/peranan/create" class="btn btn-primary">Tambah Peranan</a>
+        </div>
+    </div>
+
     <div class="card mt-5">
         <div class="table-responsive scrollbar">
             <table class="table table-bordered text-center">
