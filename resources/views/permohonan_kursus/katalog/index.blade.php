@@ -84,7 +84,7 @@
                     </div>
                     <div class="text-center mt-3">
                         <a class="btn btn-primary btn-sm"
-                            href="/permohonan_kursus/katalog_kursus/{{ $j->id }}">Maklumat Lanjut</a>
+                            href="/permohonan_kursus/katalog_kursus/pendaftaran/{{ $j->id }}">Maklumat Lanjut</a>
                     </div>
                 </div>
             @endforeach
