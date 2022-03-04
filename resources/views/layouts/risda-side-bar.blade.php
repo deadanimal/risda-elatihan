@@ -217,6 +217,63 @@
                         </ul>
                     @endcan
 
+                    @can('pengurusan kursus')
+                        <a class="nav-link py-0 dropdown-indicator" href="#pengurusan_kursus" role="button"
+                            data-bs-toggle="collapse"
+                            aria-expanded="{{ Request::is('pengurusan_kursus/*') ? 'true' : 'false' }}"
+                            aria-controls="pengurusan_kursus">
+                            <div class="d-flex align-items-center nav-link-side px-0">
+                                <span class=" px-3"><span class="fas fa-clone"></span> PENGURUSAN KURSUS</span>
+                            </div>
+                        </a>
+                        <ul class="nav-item collapse {{ Request::is('pengurusan_kursus/*') ? 'show' : 'false' }} my-1"
+                            id="pengurusan_kursus">
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is('pengurusan_kursus/*') ? 'active' : '' }} py-0"
+                                    href="/pengurusan_kursus/semak_jadual">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">Semak Jadual</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    @endcan
+
+                    @can('pencalonan peserta' ?? 'semakan permohonan')
+                        <a class="nav-link py-0 dropdown-indicator" href="#pengurusan_peserta" role="button"
+                            data-bs-toggle="collapse"
+                            aria-expanded="{{ Request::is('pengurusan_peserta/*') ? 'true' : 'false' }}"
+                            aria-controls="pengurusan_peserta">
+                            <div class="d-flex align-items-center nav-link-side px-0">
+                                <span class=" px-3"><span class="fas fa-clone"></span> PENGURUSAN PESERTA</span>
+                            </div>
+                        </a>
+                        <ul class="nav-item collapse {{ Request::is('pengurusan_peserta/*') ? 'show' : 'false' }} my-1"
+                            id="pengurusan_peserta">
+                            @can('pencalonan peserta')
+                                <li class="nav-item">
+                                    <a class="nav-link {{ Request::is('pengurusan_peserta/pencalonan') ? 'active' : '' }} py-0"
+                                        href="/pengurusan_peserta/pencalonan">
+                                        <div class="d-flex align-items-center nav-link-side">
+                                            <span class="px-0">Pencalonan Peserta</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('semakan permohonan')
+                                <li class="nav-item">
+                                    <a class="nav-link {{ Request::is('pengurusan_peserta/semakan_permohonan') ? 'active' : '' }} py-0"
+                                        href="/pengurusan_peserta/semakan_permohonan">
+                                        <div class="d-flex align-items-center nav-link-side">
+                                            <span class="px-0">Semakan Permohonan</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            @endcan
+
+                        </ul>
+                    @endcan
+
                     @can('utiliti')
                         <a class="nav-link py-0 dropdown-indicator" href="#utiliti" role="button" data-bs-toggle="collapse"
                             aria-expanded="{{ Request::is('utiliti/*') ? 'true' : 'false' }}" aria-controls="utiliti">

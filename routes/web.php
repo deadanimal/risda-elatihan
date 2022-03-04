@@ -24,6 +24,7 @@ use App\Http\Controllers\NotaRujukanController;
 use App\Http\Controllers\ObjekController;
 use App\Http\Controllers\ParlimenController;
 use App\Http\Controllers\PegawaiAgensiController;
+use App\Http\Controllers\PencalonanPesertaController;
 use App\Http\Controllers\PenceramahKonsultanController;
 use App\Http\Controllers\PengajianLanjutanController;
 use App\Http\Controllers\PengurusanPenggunaController;
@@ -274,20 +275,21 @@ Route::middleware('auth')->group(function () {
     // Route::post('/utiliti/lokasi/daerah/{id}/delete', [DaerahController::class, 'destroy']);
 
     Route::delete('/delete/{id}', [UtilitiController::class, 'test_user_delete']);
+  
+  Route::get('/testing', [UtilitiController::class, 'test_user_list']);
+  Route::delete('/delete/{id}', [UtilitiController::class, 'test_user_delete']);
+  Route::put('/update_role/{id}', [UtilitiController::class, 'test_user_update_role']);
+
+  Route::get('testjap', [PermohonanController::class, 'katelog']);
+
+  Route::get('/permohonan_kursus/katalog_kursus/pendaftaran/{id}', [PermohonanController::class, 'permohonan']);
+  Route::resource('/pengurusan_pengguna/peranan', PerananController::class);
+  Route::post('/pengurusan_pengguna/peranan/kebenaran', [PerananController::class, 'tambah_kebenaran']);
+
+  Route::resource('/pengurusan_peserta/pencalonan', PencalonanPesertaController::class);
+  Route::get('/pengurusan_peserta/pencalonan/{id}/{id_peserta}', [PencalonanPesertaController::class, 'maklumat_peserta']);
+
+  Route::resource('/pengurusan_peserta/semakan_permohonan', SemakPermohonanController::class);
 });
-
-Route::get('/testing', [UtilitiController::class, 'test_user_list']);
-Route::delete('/delete/{id}', [UtilitiController::class, 'test_user_delete']);
-Route::put('/update_role/{id}', [UtilitiController::class, 'test_user_update_role']);
-
-Route::get('testjap', [PermohonanController::class, 'katelog']);
-
-Route::get('/permohonan_kursus/katalog_kursus/pendaftaran/{id}', [PermohonanController::class, 'permohonan']);
-
-Route::resource('/permohonan_kursus/katalog_kursus', PermohonanController::class);
-Route::resource('/permohonan_kursus/semakan_permohonan', SemakPermohonanController::class);
-
-Route::resource('/pengurusan_pengguna/peranan', PerananController::class);
-Route::post('/pengurusan_pengguna/peranan/kebenaran', [PerananController::class, 'tambah_kebenaran']);
 
 require __DIR__ . '/auth.php';

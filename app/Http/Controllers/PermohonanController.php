@@ -103,8 +103,16 @@ class PermohonanController extends Controller
     {
         $permohonan = new Permohonan($request->all());
         $permohonan->save();
-        alert()->success('Permohonan anda telah didaftarkan', 'Berjaya');
-        return redirect('/permohonan_kursus/katalog_kursus');
+
+        $user = auth()->user()->jenis_pengguna;
+        if ($user == "Peserta ULS") {
+            alert()->success('Permohonan anda telah didaftarkan', 'Berjaya');
+            return redirect('/uls/permohonan/katelog-kursus');
+        }else {
+            alert()->success('Permohonan anda telah didaftarkan', 'Berjaya');
+            return redirect('/ulpk/permohonan/katelog-kursus');
+       
+        }
     }
 
     /**

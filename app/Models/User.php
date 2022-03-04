@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(PekebunKecil::class);
     }
+
+    public function TRY()
+    {
+        # code...
+    }
 }
