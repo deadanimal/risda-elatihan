@@ -32,6 +32,7 @@ use App\Http\Controllers\PenilaianPesertaController;
 use App\Http\Controllers\PerananController;
 use App\Http\Controllers\PermohonanController;
 use App\Http\Controllers\PeruntukanPesertaController;
+use App\Http\Controllers\PostTestController;
 use App\Http\Controllers\PrePostTestController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\PusatTanggungjawabController;
@@ -133,11 +134,9 @@ Route::middleware('auth')->group(function () {
             '/pengurusan_kursus/penceramah_konsultan' => PenceramahKonsultanController::class,
             '/pengurusan_kursus/kelayakan_elaun_cuti' => KelayakanElauncutiController::class,
             '/permohonan_kursus/semakan_permohonan' => SemakPermohonanController::class,
-            
+
             // '/pengurusan_pengguna/pengguna' => PengurusanPenggunaController::class,
         ]);
-
-        
 
         Route::get('/pengurusan_pengguna/pengguna/staf', [PengurusanPenggunaController::class, 'staf']);
         Route::get('/pengurusan_pengguna/pengguna/pekebun_kecil', [PengurusanPenggunaController::class, 'pekebun_kecil']);
@@ -180,108 +179,115 @@ Route::middleware('auth')->group(function () {
 
         });
 
-        //Urus Setia ULS
-        Route::group(['prefix' => 'us-uls'], function () {
-
-            Route::group(['prefix' => 'kehadiran', 'middleware' => 'can:kehadiran'], function () {
-                //dari QR  - merekod kehadiran
-                Route::resource('cetakkodQR', CetakKodQRController::class);
-
-                Route::get('printQR/{id}', [CetakKodQRController::class, 'printQR'])->name('printQR');
-                Route::prefix('ke-kursus')->group(function () {
-                    //kehadiran
-                    Route::get('merekod-kehadiran', function () {
-                        return view('uls.urus_setia.kehadiran.kehadiran-ke-kursus.merekod-kehadiran', [
-                            'kod_kursus' => KodKursus::all(),
-                        ]);
-                    });
-
-                    Route::get('rekod-kehadiran-peserta/{kod_kursus}', [KehadiranController::class, 'admin_rekod_kehadiran_peserta_UsUls'])
-                        ->name('rekod-kehadiran-peserta');
-
-                    Route::put('update-rekod-kehadiran-peserta/{kehadiran}', [KehadiranController::class, 'update_kehadiran_peserta_UsUls']);
-                    Route::put('update-rekod-kehadiran-peserta2/{kehadiran}', [KehadiranController::class, 'update_kehadiran_peserta_UsUls2']);
-
-                    //pengesahan
-                    Route::get('mengesahkan-kehadiran', function () {
-                        return view('uls.urus_setia.kehadiran.kehadiran-ke-kursus.mengesahkan-kehadiran', [
-                            'kod_kursus' => KodKursus::all(),
-                        ]);
-                    });
-
-                    Route::get('rekod-pengesahan-peserta/{kod_kursus}', [KehadiranController::class, 'admin_mengesahkan_kehadiran_peserta_UsUls'])
-                        ->name('mengesah-kehadiran-peserta');
-                    Route::post('update-rekod-pengesahan-peserta', [KehadiranController::class, 'update_pengesahan_peserta_UsUls'])
-                        ->name('update-rekod-pengesahan-peserta');
-                });
-            });
-
-            //pengajian lanjutan
-            Route::group(['middleware' => 'can:pengajian lanjutan'], function () {
-                Route::get('/pengajian-lanjutan', [PengajianLanjutanController::class, 'indexUls']);
-                Route::get('/pengajian-lanjutan-yuran', [PengajianLanjutanController::class, 'yuranUls']);
-            });
-        });
-
-        //penilaian
-        Route::group(['prefix' => 'penilaian', 'middleware' => 'can:penilaian'], function () {
-
-            Route::resource('/penilaian-kursus', PenilaianPesertaController::class);
-
-            Route::group(['middleware' => 'role:Urus Setia ULS'], function () {
-                Route::resource('/pre-post-test', PrePostTestController::class);
-                Route::get('/pre-post-test/create/{jadual_kursus}', [PrePostTestController::class, 'createPrePost'])->name('createPrePost');
-            });
-            Route::group(['middleware' => 'role:Peserta ULS'], function () {
-                Route::get('/jawab-pre-post-test', [PrePostTestController::class, 'jawabPrePost'])->name('jawabPrePost');
-                Route::get('/mula-penilaian-pre-test/{jadual_kursus}', [PrePostTestController::class, 'mulaPenilaian'])->name('mulaPenilaian');
-            });
-        });
-
-        //Urus Setia ULPK
-        Route::group(['prefix' => 'us-ulpk', 'middleware' => ['UlpkUrusSetia', 'AdminBTM']], function () {
-
-            Route::prefix('kehadiran')->group(function () {
-                //dari QR  - merekod kehadiran
-
-                Route::prefix('ke-kursus')->group(function () {
-                    //kehadiran
-                    Route::get('merekod-kehadiran', [KehadiranController::class, 'admin_kehadiran_peserta_UsUlpk']);
-                    Route::get('rekod-kehadiran-peserta', [KehadiranController::class, 'admin_rekod_kehadiran_peserta_UsUlpk']);
-
-                    //pengesahan
-                    Route::get('mengesahkan-kehadiran', [KehadiranController::class, 'admin_mengesahkan_peserta_UsUlpk']);
-                    Route::get('rekod-pengesahan-peserta', [KehadiranController::class, 'admin_mengesahkan_kehadiran_peserta_UsUlpk']);
-                });
-            });
-
-            //pengajian lanjutan
-            Route::get('/pengajian-lanjutan', [PengajianLanjutanController::class, 'indexUlpk']);
-            Route::get('/pengajian-lanjutan-yuran', [PengajianLanjutanController::class, 'yuranUlpk']);
-        });
-
-        // Route::put('/test/{id}', [DaerahController::class, 'update']);
-        // Route::post('/utiliti/lokasi/daerah/{id}/delete', [DaerahController::class, 'destroy']);
-
-        Route::delete('/delete/{id}', [UtilitiController::class, 'test_user_delete']);
     });
 
-    Route::get('/testing', [UtilitiController::class, 'test_user_list']);
+    //Urus Setia ULS
+    Route::group(['prefix' => 'us-uls'], function () {
+
+        Route::group(['prefix' => 'kehadiran', 'middleware' => 'can:kehadiran'], function () {
+            //dari QR  - merekod kehadiran
+            Route::resource('cetakkodQR', CetakKodQRController::class);
+
+            Route::get('printQR/{id}', [CetakKodQRController::class, 'printQR'])->name('printQR');
+            Route::prefix('ke-kursus')->group(function () {
+                //kehadiran
+                Route::get('merekod-kehadiran', function () {
+                    return view('uls.urus_setia.kehadiran.kehadiran-ke-kursus.merekod-kehadiran', [
+                        'kod_kursus' => KodKursus::all(),
+                    ]);
+                });
+
+                Route::get('rekod-kehadiran-peserta/{kod_kursus}', [KehadiranController::class, 'admin_rekod_kehadiran_peserta_UsUls'])
+                    ->name('rekod-kehadiran-peserta');
+
+                Route::put('update-rekod-kehadiran-peserta/{kehadiran}', [KehadiranController::class, 'update_kehadiran_peserta_UsUls']);
+                Route::put('update-rekod-kehadiran-peserta2/{kehadiran}', [KehadiranController::class, 'update_kehadiran_peserta_UsUls2']);
+
+                //pengesahan
+                Route::get('mengesahkan-kehadiran', function () {
+                    return view('uls.urus_setia.kehadiran.kehadiran-ke-kursus.mengesahkan-kehadiran', [
+                        'kod_kursus' => KodKursus::all(),
+                    ]);
+                });
+
+                Route::get('rekod-pengesahan-peserta/{kod_kursus}', [KehadiranController::class, 'admin_mengesahkan_kehadiran_peserta_UsUls'])
+                    ->name('mengesah-kehadiran-peserta');
+                Route::post('update-rekod-pengesahan-peserta', [KehadiranController::class, 'update_pengesahan_peserta_UsUls'])
+                    ->name('update-rekod-pengesahan-peserta');
+            });
+        });
+
+        //pengajian lanjutan
+        Route::group(['middleware' => 'can:pengajian lanjutan'], function () {
+            Route::get('/pengajian-lanjutan', [PengajianLanjutanController::class, 'indexUls']);
+            Route::get('/pengajian-lanjutan-yuran', [PengajianLanjutanController::class, 'yuranUls']);
+        });
+    });
+
+    //penilaian
+    Route::group(['prefix' => 'penilaian', 'middleware' => 'can:penilaian'], function () {
+
+        Route::group(['middleware' => 'role:Urus Setia ULS'], function () {
+            Route::resource('/pre-post-test', PrePostTestController::class);
+            Route::get('/pre-post-test/create/{jadual_kursus}', [PrePostTestController::class, 'createPrePost'])->name('createPrePost');
+
+            //Post
+            Route::resource('/post-test', PostTestController::class)->only(['store', 'destroy']);
+            Route::get('/post-test/{jadualKursus}', [PostTestController::class, 'index'])->name('post-test.index');
+            Route::get('/post-test/create/{jadualKursus}', [PostTestController::class, 'create'])->name('post-test.create');
+
+            Route::get('/cetakQr', [PenilaianPesertaController::class, 'cetakQr']);
+            Route::get('/cetakQr2/{jadual_kursus}', [PenilaianPesertaController::class, 'cetakQr2']);
+        });
+
+        Route::group(['middleware' => 'role:Peserta ULS'], function () {
+            Route::resource('/penilaian-kursus', PenilaianPesertaController::class);
+
+            Route::get('/jawab-pre-post-test', [PrePostTestController::class, 'jawabPrePost'])->name('jawabPrePost');
+            Route::get('/mula-penilaian-pre-test/{jadual_kursus}', [PrePostTestController::class, 'mulaPenilaian']);
+            Route::POST('/mula-penilaian-pre-test', [PrePostTestController::class, 'simpanPenilaian'])->name('simpanPenilaian');
+        });
+    });
+
+    //Urus Setia ULPK
+    Route::group(['prefix' => 'us-ulpk', 'middleware' => ['UlpkUrusSetia', 'AdminBTM']], function () {
+
+        Route::prefix('kehadiran')->group(function () {
+            //dari QR  - merekod kehadiran
+
+            Route::prefix('ke-kursus')->group(function () {
+                //kehadiran
+                Route::get('merekod-kehadiran', [KehadiranController::class, 'admin_kehadiran_peserta_UsUlpk']);
+                Route::get('rekod-kehadiran-peserta', [KehadiranController::class, 'admin_rekod_kehadiran_peserta_UsUlpk']);
+
+                //pengesahan
+                Route::get('mengesahkan-kehadiran', [KehadiranController::class, 'admin_mengesahkan_peserta_UsUlpk']);
+                Route::get('rekod-pengesahan-peserta', [KehadiranController::class, 'admin_mengesahkan_kehadiran_peserta_UsUlpk']);
+            });
+        });
+
+        //pengajian lanjutan
+        Route::get('/pengajian-lanjutan', [PengajianLanjutanController::class, 'indexUlpk']);
+        Route::get('/pengajian-lanjutan-yuran', [PengajianLanjutanController::class, 'yuranUlpk']);
+    });
+
+    // Route::put('/test/{id}', [DaerahController::class, 'update']);
+    // Route::post('/utiliti/lokasi/daerah/{id}/delete', [DaerahController::class, 'destroy']);
+
     Route::delete('/delete/{id}', [UtilitiController::class, 'test_user_delete']);
-    Route::put('/update_role/{id}', [UtilitiController::class, 'test_user_update_role']);
+  
+  Route::get('/testing', [UtilitiController::class, 'test_user_list']);
+  Route::delete('/delete/{id}', [UtilitiController::class, 'test_user_delete']);
+  Route::put('/update_role/{id}', [UtilitiController::class, 'test_user_update_role']);
 
-    Route::get('testjap', [PermohonanController::class, 'katelog']);
+  Route::get('testjap', [PermohonanController::class, 'katelog']);
 
-    Route::get('/permohonan_kursus/katalog_kursus/pendaftaran/{id}', [PermohonanController::class, 'permohonan']);
+  Route::get('/permohonan_kursus/katalog_kursus/pendaftaran/{id}', [PermohonanController::class, 'permohonan']);
+  Route::resource('/pengurusan_pengguna/peranan', PerananController::class);
+  Route::post('/pengurusan_pengguna/peranan/kebenaran', [PerananController::class, 'tambah_kebenaran']);
 
-    Route::resource('/permohonan_kursus/katalog_kursus', PermohonanController::class);
-    Route::resource('/permohonan_kursus/semakan_permohonan', SemakPermohonanController::class);
-
-    Route::resource('/pengurusan_pengguna/peranan', PerananController::class);
-    Route::post('/pengurusan_pengguna/peranan/kebenaran', [PerananController::class, 'tambah_kebenaran']);
-
-    Route::resource('/pengurusan_peserta/pencalonan', PencalonanPesertaController::class);
-    Route::get('/pengurusan_peserta/pencalonan/{id}/{id_peserta}', [PencalonanPesertaController::class, 'maklumat_peserta']);
+  Route::resource('/pengurusan_peserta/pencalonan', PencalonanPesertaController::class);
+  Route::get('/pengurusan_peserta/pencalonan/{id}/{id_peserta}', [PencalonanPesertaController::class, 'maklumat_peserta']);
 
     Route::resource('/pengurusan_peserta/semakan_permohonan', SemakPermohonanController::class);
     Route::resource('/profil', ProfilController::class);

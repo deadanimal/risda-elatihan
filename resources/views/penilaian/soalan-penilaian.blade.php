@@ -371,7 +371,7 @@
                                 <label for="" class="h6 mt-2">PENCERAMAH {{ $loop->iteration }}</label>
                             </div>
                             <div class="col-9">
-                                <input type="text" class="form-control" value="{{ $p->pc_nama }}" readonly>
+                                <input type="text" class="form-control" value="{{ $p->agensi->nama_Agensi }}" readonly>
                             </div>
                         </div>
                         <div class="row">
