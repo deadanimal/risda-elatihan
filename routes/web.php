@@ -93,10 +93,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/semak_nric', [SemakanController::class, 'check_espek']);
     Route::post('/daftar_pengguna', [SemakanController::class, 'daftar_pengguna']);
 
-    Route::group(['middleware' => 'AdminBTM'], function () {
+    Route::group(['middleware' => 'Admin BTM'], function () {
 
         Route::resources([
-            '/profil' => ProfilController::class,
+            // '/profil' => ProfilController::class,
 
             '/utiliti/lokasi/negeri' => NegeriController::class,
             '/utiliti/lokasi/daerah' => DaerahController::class,
@@ -289,7 +289,8 @@ Route::middleware('auth')->group(function () {
   Route::resource('/pengurusan_peserta/pencalonan', PencalonanPesertaController::class);
   Route::get('/pengurusan_peserta/pencalonan/{id}/{id_peserta}', [PencalonanPesertaController::class, 'maklumat_peserta']);
 
-  Route::resource('/pengurusan_peserta/semakan_permohonan', SemakPermohonanController::class);
+    Route::resource('/pengurusan_peserta/semakan_permohonan', SemakPermohonanController::class);
+    Route::resource('/profil', ProfilController::class);
 });
 
 require __DIR__ . '/auth.php';
