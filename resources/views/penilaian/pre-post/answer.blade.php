@@ -23,7 +23,12 @@
                     <h6 class="risda-dg fw-bold">KOD NAMA KURSUS</h6>
                 </div>
                 <div class="col-8">
-                    <input type="text" class="form-control" value="{{ $jadual_kursus->kursus_kod_nama_kursus }}">
+                    <select name="" onchange="selectNamaKursus(this)" class="form-select">
+                        <option selected disabled hidden>Pilih</option>
+                        @foreach ($permohonan as $p)
+                            <option value="{{ $p->id }}">{{ $p->jadualKursus->kursus_kod_nama_kursus }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="row mt-3">
@@ -31,7 +36,7 @@
                     <h6 class="risda-dg fw-bold">NAMA KURSUS</h6>
                 </div>
                 <div class="col-8">
-                    <input type="text" class="form-control" value="{{ $jadual_kursus->kursus_nama }}">
+                    <input type="text" class="form-control" id="nama_kursus">
                 </div>
             </div>
             <div class=" row mt-3">
@@ -39,16 +44,31 @@
                     <h6 class="risda-dg fw-bold">TARIKH KURSUS</h6>
                 </div>
                 <div class="col-8">
-                    <input type="text" class="form-control"
-                        value="{{ $jadual_kursus->tarikh_mula }} hingga {{ $jadual_kursus->tarikh_tamat }}">
+                    <input type="text" class="form-control" id="tarikh_kursus">
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="row mt-5">
-        <div class="col-12 text-center">
-            <a href="{{ route('mulaPenilaian', $jadual_kursus->id) }}" class="btn btn-primary">Mula Penilaian</a>
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                <a id="btn-submit" class="btn btn-primary">Mula Penilaian</a>
+            </div>
         </div>
-    </div>
-@endsection
+
+
+        <script>
+            function selectNamaKursus(el) {
+                let val = el.value;
+                var permohonan = @json($permohonan->toArray());
+                let href = '';
+                permohonan.forEach(e => {
+                    if (e.id == val) {
+                        $("#nama_kursus").val(e.jadual_kursus.kursus_nama);
+                        $("#tarikh_kursus").val(e.jadual_kursus.tarikh_mula);
+                        href = "/penilaian/mula-penilaian-pre-test/" + e.jadual_kursus.id;
+                        $("#btn-submit").attr("href", href);
+                    }
+                });
+            }
+        </script>
+    @endsection

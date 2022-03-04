@@ -25,8 +25,9 @@
                 <div class="col-7">
                     <select class="form-select mb-3" onchange="find(this)">
                         <option selected disabled hidden>Pilih</option>
-                        @foreach ($jadual_kursus as $jk)
-                            <option value="{{ $jk->kod_kursus }}">{{ $jk->kod_kursus }}</option>
+                        @foreach ($permohonan as $p)
+                            <option value="{{ $p->id }}">
+                                {{ $p->jadualKursus->kursus_kod_nama_kursus }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -61,23 +62,20 @@
     <script>
         function find(v) {
             var val = v.value;
-            let jadual_kursus = @json($jadual_kursus->toArray());
-            let kod_kursus = @json($kod_kursus->toArray());
-            kod_kursus.forEach(e => {
-                if (e.kod_Kursus == val) {
-                    $("#nama_kursus").val(e.tajuk_Kursus);
-                }
-            });
-
-            jadual_kursus.forEach(e => {
-                if (e.kod_kursus == val) {
-                    $("#tarikh_kursus").val(e.tarikh_mula);
+            let permohonan = @json($permohonan->toArray());
+            let id;
+            permohonan.forEach(e => {
+                if (e.id == val) {
+                    console.log(e);
+                    $("#nama_kursus").val(e.jadual_kursus.kursus_nama);
+                    $("#tarikh_kursus").val(e.jadual_kursus.tarikh_mula);
+                    id = e.jadual_kursus.id;
                 }
             });
 
             var btn = document.getElementById('btn_start');
 
-            btn.setAttribute("href", "/penilaian/penilaian-kursus/" + val);
+            btn.setAttribute("href", "/penilaian/penilaian-kursus/" + id);
 
 
             // btn.href =  + val;

@@ -9,7 +9,7 @@ class JadualKursus extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    protected $with = ['kehadiran', 'penceramah', 'preposttest', 'tempat', 'status_pelaksanaan'];
+    protected $with = ['kehadiran', 'penceramah', 'preposttest', 'tempat', 'status_pelaksanaan', 'kodkursus'];
 
     public function kehadiran()
     {
@@ -19,9 +19,9 @@ class JadualKursus extends Model
     {
         return $this->hasMany(Aturcara::class);
     }
-    public function kodkursuss()
+    public function kodkursus()
     {
-        return $this->belongsTo(KodKursus::class, 'kod_Kursus', 'kod_kursus');
+        return $this->hasOne(KodKursus::class, 'id', 'kod_kursus');
     }
 
     public function penceramah()
@@ -33,7 +33,6 @@ class JadualKursus extends Model
     {
         return $this->hasMany(PrePostTest::class);
     }
-
     public function tempat()
     {
         return $this->belongsTo(Agensi::class, 'kursus_tempat', 'id');
@@ -41,5 +40,9 @@ class JadualKursus extends Model
     public function status_pelaksanaan()
     {
         return $this->belongsTo(StatusPelaksanaan::class, 'kursus_status_pelaksanaan', 'id');
+    }
+    public function posttest()
+    {
+        return $this->hasMany(PostTest::class);
     }
 }
