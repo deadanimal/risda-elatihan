@@ -11,14 +11,14 @@
     <div class="row">
         <div class="col-12">
             <p class="h4 fw-bold mt-3">
-                TAMBAH SOALAN PRE TEST
+                TAMBAH SOALAN POST TEST
             </p>
         </div>
     </div>
 
-    <form action="{{ route('pre-post-test.store') }}" method="post">
+    <form action="{{ route('post-test.store') }}" method="post">
         @csrf
-        <input type="hidden" name="jadual_kursus_id" value="{{ $jk_id }}">
+        <input type="hidden" name="jadual_kursus_id" value="{{ $jadual_kursus->id }}">
         <div class="row mt-5">
             <div class="col-1"></div>
             <div class="col-3 mt-2">

@@ -7,6 +7,7 @@ use App\Http\Requests\UpdatePenilaianPesertaRequest;
 use App\Models\JadualKursus;
 use App\Models\KodKursus;
 use App\Models\PenilaianPeserta;
+use App\Models\Permohonan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,9 +21,11 @@ class PenilaianPesertaController extends Controller
     public function index()
     {
 
+        $permohonan = Permohonan::where('no_pekerja', auth()->id())
+            ->where('dinilai', null)->get();
+
         return view('penilaian.penilaian-kursus', [
-            'jadual_kursus' => JadualKursus::all(),
-            'kod_kursus' => KodKursus::all(),
+            'permohonan' => $permohonan,
         ]);
     }
 
@@ -45,15 +48,13 @@ class PenilaianPesertaController extends Controller
     public function store(Request $request)
     {
         $jadual_kursus = JadualKursus::where('id', $request->jadual_id)->firstOrFail();
-        $kod_kursus = KodKursus::where('kod_Kursus', $jadual_kursus->kod_kursus)->firstOrFail();
-
         // Bahagian A
         for ($i = 1; $i < 9; $i++) {
             $jawapan = "s" . $i;
             PenilaianPeserta::create([
                 "kod_kursus" => $jadual_kursus->kod_kursus,
                 "kod_jenis_kursus" => $jadual_kursus->kod_jenis_kursus,
-                "kod_kategori_kursus" => $kod_kursus->U_Kategori_Kursus,
+                "kod_kategori_kursus" => $jadual_kursus->kodkursus->U_Kategori_Kursus,
                 "kod_pusat_tanggungjawab" => null,
                 "id_jadual" => $jadual_kursus->id,
                 "id_jawapan" => "as" . $i,
@@ -70,7 +71,7 @@ class PenilaianPesertaController extends Controller
             PenilaianPeserta::create([
                 "kod_kursus" => $jadual_kursus->kod_kursus,
                 "kod_jenis_kursus" => $jadual_kursus->kod_jenis_kursus,
-                "kod_kategori_kursus" => $kod_kursus->U_Kategori_Kursus,
+                "kod_kategori_kursus" => $jadual_kursus->kodkursus->U_Kategori_Kursus,
                 "kod_pusat_tanggungjawab" => null,
                 "id_jadual" => $jadual_kursus->id,
                 "id_jawapan" => "bs" . $i,
@@ -82,21 +83,23 @@ class PenilaianPesertaController extends Controller
         }
 
         //Bahagian C
-        foreach ($request->penceramah_id as $p) {
-            for ($i = 1; $i < 5; $i++) {
-                $jawapan = $p . "cs" . $i;
-                PenilaianPeserta::create([
-                    "kod_kursus" => $jadual_kursus->kod_kursus,
-                    "kod_jenis_kursus" => $jadual_kursus->kod_jenis_kursus,
-                    "kod_kategori_kursus" => $kod_kursus->U_Kategori_Kursus,
-                    "kod_pusat_tanggungjawab" => null,
-                    "id_jadual" => $jadual_kursus->id,
-                    "id_jawapan" => "cs" . $i,
-                    "nama_peserta" => auth()->user()->name,
-                    "soalan_penilaian" => "C - Penceramah ID " . $p,
-                    "skala_jawapan" => $request->$jawapan,
-                    "cadangan_kursus" => null,
-                ]);
+        if ($request->penceramah_id != null) {
+            foreach ($request->penceramah_id as $p) {
+                for ($i = 1; $i < 5; $i++) {
+                    $jawapan = $p . "cs" . $i;
+                    PenilaianPeserta::create([
+                        "kod_kursus" => $jadual_kursus->kod_kursus,
+                        "kod_jenis_kursus" => $jadual_kursus->kod_jenis_kursus,
+                        "kod_kategori_kursus" => $jadual_kursus->kodkursus->U_Kategori_Kursus,
+                        "kod_pusat_tanggungjawab" => null,
+                        "id_jadual" => $jadual_kursus->id,
+                        "id_jawapan" => "cs" . $i,
+                        "nama_peserta" => auth()->user()->name,
+                        "soalan_penilaian" => "C - Penceramah ID " . $p,
+                        "skala_jawapan" => $request->$jawapan,
+                        "cadangan_kursus" => null,
+                    ]);
+                }
             }
         }
 
@@ -106,7 +109,7 @@ class PenilaianPesertaController extends Controller
             PenilaianPeserta::create([
                 "kod_kursus" => $jadual_kursus->kod_kursus,
                 "kod_jenis_kursus" => $jadual_kursus->kod_jenis_kursus,
-                "kod_kategori_kursus" => $kod_kursus->U_Kategori_Kursus,
+                "kod_kategori_kursus" => $jadual_kursus->kodkursus->U_Kategori_Kursus,
                 "kod_pusat_tanggungjawab" => null,
                 "id_jadual" => $jadual_kursus->id,
                 "id_jawapan" => $jawapan,
@@ -115,8 +118,12 @@ class PenilaianPesertaController extends Controller
                 "skala_jawapan" => null,
                 "cadangan_kursus" => $cadangan,
             ]);
-
         }
+
+        $permohonan = Permohonan::where('kod_kursus', $request->jadual_id)->first();
+        $permohonan->update([
+            'dinilai' => 'Ya',
+        ]);
 
         return redirect(route('penilaian-kursus.index'));
 
@@ -128,9 +135,9 @@ class PenilaianPesertaController extends Controller
      * @param  \App\Models\PenilaianPeserta  $penilaianPeserta
      * @return \Illuminate\Http\Response
      */
-    public function show($kod_kursus)
+    public function show($jadual_kursus_id)
     {
-        $jadual_kursus = JadualKursus::where('kod_kursus', $kod_kursus)->firstOrFail();
+        $jadual_kursus = JadualKursus::where('id', $jadual_kursus_id)->firstOrFail();
 
         return view('penilaian.soalan-penilaian', [
             'jadual_kursus' => $jadual_kursus,
@@ -171,4 +178,21 @@ class PenilaianPesertaController extends Controller
     {
         //
     }
+
+    public function cetakQr()
+    {
+        $permohonan = Permohonan::where('status_permohonan', '1')->get();
+
+        return view('penilaian.cetakQr', [
+            'permohonan' => $permohonan,
+        ]);
+    }
+
+    public function cetakQr2(JadualKursus $jadual_kursus)
+    {
+        return view('penilaian.cetakQr2', [
+            'jadual_kursus' => $jadual_kursus,
+        ]);
+    }
+
 }
