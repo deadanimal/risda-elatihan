@@ -289,8 +289,10 @@ Route::middleware('auth')->group(function () {
   Route::resource('/pengurusan_peserta/pencalonan', PencalonanPesertaController::class);
   Route::get('/pengurusan_peserta/pencalonan/{id}/{id_peserta}', [PencalonanPesertaController::class, 'maklumat_peserta']);
 
-    Route::resource('/pengurusan_peserta/semakan_permohonan', SemakPermohonanController::class);
+    Route::resource('/pengurusan_peserta/semakan_pemohon', SemakPermohonanController::class);
     Route::resource('/profil', ProfilController::class);
+
+    Route::resource('/permohonan_kursus/katalog_kursus', PermohonanController::class);
 });
 
 require __DIR__ . '/auth.php';

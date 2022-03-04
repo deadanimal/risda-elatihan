@@ -263,7 +263,7 @@
                             @can('semakan permohonan')
                                 <li class="nav-item">
                                     <a class="nav-link {{ Request::is('pengurusan_peserta/semakan_permohonan') ? 'active' : '' }} py-0"
-                                        href="/pengurusan_peserta/semakan_permohonan">
+                                        href="/pengurusan_peserta/semakan_pemohon">
                                         <div class="d-flex align-items-center nav-link-side">
                                             <span class="px-0">Semakan Permohonan</span>
                                         </div>
