@@ -9,7 +9,7 @@ class Permohonan extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    protected $with = ['kodkursus','peserta','jadualKursus'];
+    protected $with = ['kodkursus','peserta','jadualKursus', 'kehadiran'];
 
     public function kodkursus()
     {
@@ -24,5 +24,10 @@ class Permohonan extends Model
     public function peserta()
     {
         return $this->belongsTo(User::class, 'no_pekerja', 'id');
+    }
+
+    public function kehadiran()
+    {
+        return $this->hasMany(Kehadiran::class, 'jadual_kursus_id', 'kod_kursus');
     }
 }

@@ -24,6 +24,7 @@ use App\Http\Controllers\NotaRujukanController;
 use App\Http\Controllers\ObjekController;
 use App\Http\Controllers\ParlimenController;
 use App\Http\Controllers\PegawaiAgensiController;
+use App\Http\Controllers\PencalonanPesertaController;
 use App\Http\Controllers\PenceramahKonsultanController;
 use App\Http\Controllers\PengajianLanjutanController;
 use App\Http\Controllers\PengurusanPenggunaController;
@@ -278,6 +279,11 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/pengurusan_pengguna/peranan', PerananController::class);
     Route::post('/pengurusan_pengguna/peranan/kebenaran', [PerananController::class, 'tambah_kebenaran']);
+
+    Route::resource('/pengurusan_peserta/pencalonan', PencalonanPesertaController::class);
+    Route::get('/pengurusan_peserta/pencalonan/{id}/{id_peserta}', [PencalonanPesertaController::class, 'maklumat_peserta']);
+
+    Route::resource('/pengurusan_peserta/semakan_permohonan', SemakPermohonanController::class);
 });
 
 require __DIR__ . '/auth.php';

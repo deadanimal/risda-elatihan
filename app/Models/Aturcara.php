@@ -9,15 +9,10 @@ class Aturcara extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    protected $with = ['jadual', 'status_kehadiran'];
+    protected $with = ['jadual'];
 
     public function jadual()
     {
         return $this->belongsTo(JadualKursus::class, 'ac_jadual_kursus', 'id');
-    }
-
-    public function status_kehadiran()
-    {
-        return $this->belongsTo(Kehadiran::class, 'id', 'jadual_kursus_ref');
     }
 }

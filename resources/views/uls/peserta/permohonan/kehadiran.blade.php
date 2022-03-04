@@ -147,7 +147,7 @@
                                                     KEHADIRAN</h4>
                                             </div>
                                             <div class="container p-4">
-                                                <form method="post" action="/pengesahan_kehadiran">
+                                                <form method="post" action="/uls/pengesahan_kehadiran">
                                                     @csrf
                                                     <div class="card">
                                                         <div class="card body">
