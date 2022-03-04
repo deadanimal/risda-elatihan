@@ -23,6 +23,7 @@ class PencalonanPesertaController extends Controller
     public function index()
     {
         $jadual = JadualKursus::all();
+        dd($jadual);
         return view('pengurusan_peserta.pencalonan.index', [
             'jadual' => $jadual,
         ]);
