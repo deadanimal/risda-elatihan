@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class JawapanPenilaian extends Model
+class JawapanMultiple extends Model
 {
     use HasFactory;
-    protected $guarded = ['id'];
+    protected $table = 'jawapan_multiple';
 }

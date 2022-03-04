@@ -9,4 +9,10 @@ class PrePostTest extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    protected $with = ['multiple'];
+
+    public function multiple()
+    {
+        return $this->hasMany(JawapanMultiple::class, 'soalan_id', 'id');
+    }
 }

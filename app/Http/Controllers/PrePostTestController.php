@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePrePostTestRequest;
 use App\Http\Requests\UpdatePrePostTestRequest;
 use App\Models\JadualKursus;
+use App\Models\JawapanMultiple;
+use App\Models\JawapanPenilaian;
 use App\Models\Permohonan;
 use App\Models\PrePostTest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class PrePostTestController extends Controller
@@ -39,10 +42,12 @@ class PrePostTestController extends Controller
 
     public function jawabPrePost()
     {
-        $permohonan = Permohonan::where('no_pekerja', auth()->user()->id)->firstorFail();
+        $permohonan = Permohonan::where('no_pekerja', auth()->user()->id)
+            ->where('status_permohonan', 4)
+            ->where('dinilai', null)->get();
 
         return view('penilaian.pre-post.answer', [
-            'jadual_kursus' => JadualKursus::where('kod_kursus', $permohonan->kod_kursus)->first(),
+            'permohonan' => $permohonan,
         ]);
     }
 
@@ -51,6 +56,81 @@ class PrePostTestController extends Controller
         return view('penilaian.pre-post.answer2', [
             'jadual_kursus' => $jadual_kursus,
         ]);
+    }
+
+    public function simpanPenilaian(Request $request)
+    {
+        $jadual_kursus = JadualKursus::findorFail($request->jadual_kursus_id);
+
+        $markah = 0;
+
+        foreach ($jadual_kursus->preposttest as $ppt) {
+
+            foreach ($request->jawapan as $key => $jawapan) {
+
+                if ($ppt->id == $key) {
+
+                    if ($ppt->jenis_soalan == "FILL IN THE BLANK") {
+                        if ($ppt->jawapan == $jawapan) {
+                            $markah++;
+                        }
+                    }
+                    if ($ppt->jenis_soalan == "MULTIPLE CHOISE") {
+                        $multiple_true = 0;
+                        $mul[$ppt->id] = true;
+
+                        foreach ($ppt->multiple as $m) {
+                            if ($m->yang_betul == 'betul') {
+                                $multiple_true++;
+                            }
+                        }
+                        foreach ($jawapan as $j) {
+                            if ($j == "salah") {
+                                $mul[$ppt->id] = false;
+                            }
+                        }
+                        if (count($jawapan) < $multiple_true) {
+                            $mul[$ppt->id] = false;
+                        }
+                    }
+                    if ($ppt->jenis_soalan == "SINGLE CHOISE") {
+                        if ($jawapan == 'betul') {
+                            $markah++;
+                        }
+                    }
+                    if ($ppt->jenis_soalan == "TRUE OR FALSE") {
+                        if ($jawapan == $ppt->jawapan) {
+                            $markah++;
+                        }
+                    }
+                }
+            }
+        }
+
+        foreach ($mul as $m) {
+            if ($m) {
+                $markah++;
+            }
+        }
+
+        $total = count($jadual_kursus->preposttest);
+
+        $newMarkah = ($markah / $total) * 100;
+
+        JawapanPenilaian::create([
+            'jadual_kursus_id' => $jadual_kursus->id,
+            'user_id' => auth()->user()->id,
+            'markah' => $newMarkah,
+        ]);
+
+        $permohonan = Permohonan::where('kod_kursus', $request->jadual_kursus_id)->first();
+        $permohonan->update([
+            'dinilai_pre' => 'Ya',
+        ]);
+
+        alert()->success('Selesai Menjawab Penilaian : Markah anda ' . $newMarkah . "%");
+        return redirect()->route('jawabPrePost');
+
     }
 
     /**
@@ -135,8 +215,7 @@ class PrePostTestController extends Controller
                 return abort(404);
                 break;
         }
-
-        alert()->success('SOALAN PRE TEST / POST TEST KURSUS TELAH BERJAYA DISIMPAN', 'Berjaya');
+        alert()->success('SOALAN PRE TEST TELAH DISIMPAN', 'BERJAYA');
         return redirect(route('pre-post-test.show', $request->jadual_kursus_id));
     }
 
@@ -149,6 +228,7 @@ class PrePostTestController extends Controller
     public function show(JadualKursus $pre_post_test)
     {
         $jadualkursus = $pre_post_test;
+
         return view('penilaian.pre-post.show-main', [
             'jadual_kursus' => $jadualkursus,
         ]);
@@ -160,9 +240,11 @@ class PrePostTestController extends Controller
      * @param  \App\Models\PrePostTest  $prePostTest
      * @return \Illuminate\Http\Response
      */
-    public function edit(PrePostTest $prePostTest)
+    public function edit(PrePostTest $pre_post_test)
     {
-        //
+        return view('penilaian.pre-post.edit', [
+            'prepost' => $pre_post_test,
+        ]);
     }
 
     /**
@@ -185,6 +267,7 @@ class PrePostTestController extends Controller
      */
     public function destroy(PrePostTest $prePostTest)
     {
+        DB::table('jawapan_multiple')->where('soalan_id', $prePostTest->id)->delete();
         $prePostTest->delete();
         return back();
     }

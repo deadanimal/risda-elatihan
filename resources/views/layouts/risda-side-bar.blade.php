@@ -169,9 +169,9 @@
                             id="pengurusan_pengguna">
                             <li class="nav-item">
                                 <a class="nav-link py-0 dropdown-indicator" href="#senarai" role="button"
-                                data-bs-toggle="collapse"
-                                aria-expanded="{{ Request::is('pengurusan_pengguna/pengguna/*') ? 'true' : 'false' }}"
-                                aria-controls="senarai">
+                                    data-bs-toggle="collapse"
+                                    aria-expanded="{{ Request::is('pengurusan_pengguna/pengguna/*') ? 'true' : 'false' }}"
+                                    aria-controls="senarai">
                                     <div class="d-flex align-items-center nav-link-side">
                                         <span class="px-0">SENARAI PENGGUNA</span>
                                     </div>
@@ -218,122 +218,6 @@
                     @endcan
 
                     @can('utiliti')
-                        {{-- <a class="nav-link py-0 dropdown-indicator" href="#kehadiran" role="button"
-                            data-bs-toggle="collapse"
-                            aria-expanded="{{ Request::is('us-uls/kehadiran/*') ? 'true' : 'false' }}"
-                            aria-controls="kehadiran">
-                            <div class="d-flex align-items-center nav-link-side px-0">
-                                <span class="px-3"><span class="far fa-address-book"></span> KEHADIRAN</span>
-                            </div>
-                        </a>
-                        <ul class="nav-item collapse {{ Request::is('us-uls/kehadiran/*') ? 'show' : 'false' }} my-1"
-                            id="kehadiran">
-                            <li class="nav-item">
-                                <a class="nav-link py-0 dropdown-indicator" href="#kehadiran-ke-kursus" role="button"
-                                    data-bs-toggle="collapse"
-                                    aria-expanded="{{ Request::is('us-uls/kehadiran/ke-kursus/*') ? 'true' : 'false' }}"
-                                    aria-controls="kehadiran-ke-kursus">
-                                    <div class="d-flex align-items-center nav-link-side">
-                                        <span class="px-0">KEHADIRAN KE KURSUS</span>
-                                    </div>
-                                </a>
-                                <ul class="nav-item collapse {{ Request::is('us-uls/kehadiran/ke-kursus/*') ? 'show' : 'false' }} my-1"
-                                    id="kehadiran-ke-kursus">
-                                    <li class="nav-item">
-                                        <a class="nav-link {{ Request::is('us-uls/kehadiran/ke-kursus/merekod-kehadiran') ? 'active' : '' }} py-0"
-                                            href="/us-uls/kehadiran/ke-kursus/merekod-kehadiran">
-                                            <div class="d-flex align-items-center nav-link-side">
-                                                <span class="px-0">MEREKOD KEHADIRAN</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link py-0  {{ Request::is('us-uls/kehadiran/ke-kursus/mengesahkan-kehadiran') ? 'active' : '' }}"
-                                            href="/us-uls/kehadiran/ke-kursus/mengesahkan-kehadiran">
-                                            <div class="d-flex align-items-center nav-link-side">
-                                                <span class="px-0">MENGESAHKAN KEHADIRAN</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link py-0" href="#">
-                                    <div class="d-flex align-items-center nav-link-side">
-                                        <span class="px-0">KEHADIRAN KE PUSAT LATIHAN</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {{ Request::is('us-uls/kehadiran/cetakkodQR') ? 'active' : '' }} py-0"
-                                    href="/us-uls/kehadiran/cetakkodQR">
-                                    <div class="d-flex align-items-center nav-link-side">
-                                        <span class="px-0">CETAK KOD QR KURSUS</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link py-0" href="#">
-                                    <div class="d-flex align-items-center nav-link-side">
-                                        <span class="px-0">CETAK KOD QR PUSAT LATIHAN</span>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                        <a class="nav-link py-0 {{ Request::is('us-uls/pengajian-lanjutan') ? 'active' : '' }}"
-                            href="/us-uls/pengajian-lanjutan" role="button">
-                            <div class="d-flex align-items-center nav-link-side px-0">
-                                <span class="px-3"><span class="far fa-address-book"></span> PENGAJIAN
-                                    LANJUTAN</span>
-                            </div>
-                        </a>
-                        <a class="nav-link py-0 dropdown-indicator" href="#permohonan" role="button"
-                            data-bs-toggle="collapse"
-                            aria-expanded="{{ Request::is('ulpk/permohonan/*') ? 'true' : 'false' }}"
-                            aria-controls="permohonan">
-                            <div class="d-flex align-items-center nav-link-side px-0">
-                                <span class="px-3"><span class="fas fa-file-alt"></span> PERMOHONAN
-                                    KURSUS</span>
-                            </div>
-                        </a>
-                        <ul class="nav-item collapse {{ Request::is('ulpk/permohonan/*') ? 'show' : 'false' }} my-1"
-                            id="permohonan">
-                            <li class="nav-item">
-                                <a class="nav-link py-0" href="/permohonan_kursus/katalog_kursus">
-                                    <div class="d-flex align-items-center nav-link-side">
-                                        <span class="px-0">KATALOG KURSUS</span>
-                                    </div>
-                                </a>
-
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {{ Request::is('ulpk/permohonan/statuspermohonan/') ? 'active' : '' }} py-0"
-                                    href="/ulpk/permohonan/statuspermohonan">
-                                    <div class="d-flex align-items-center nav-link-side">
-                                        <span class="px-0">STATUS PERMOHONAN</span>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                        <a class="nav-link py-0 dropdown-indicator" href="#pengurusan_kursus" role="button"
-                            data-bs-toggle="collapse"
-                            aria-expanded="{{ Request::is('pengurusan_kursus/*') ? 'true' : 'false' }}"
-                            aria-controls="pengurusan_kursus">
-                            <div class="d-flex align-items-center nav-link-side px-0">
-                                <span class=" px-3"><span class="fas fa-clone"></span> PENGURUSAN KURSUS</span>
-                            </div>
-                        </a>
-                        <ul class="nav-item collapse {{ Request::is('pengurusan_kursus/*') ? 'show' : 'false' }} my-1"
-                            id="pengurusan_kursus">
-                            <li class="nav-item">
-                                <a class="nav-link {{ Request::is('pengurusan_kursus/*') ? 'active' : '' }} py-0"
-                                    href="/pengurusan_kursus/semak_jadual">
-                                    <div class="d-flex align-items-center nav-link-side">
-                                        <span class="px-0">Semak Jadual</span>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul> --}}
                         <a class="nav-link py-0 dropdown-indicator" href="#utiliti" role="button" data-bs-toggle="collapse"
                             aria-expanded="{{ Request::is('utiliti/*') ? 'true' : 'false' }}" aria-controls="utiliti">
                             <div class="d-flex align-items-center nav-link-side px-0">
@@ -627,7 +511,8 @@
                             aria-expanded="{{ Request::is('uls/permohonan/*') ? 'true' : 'false' }}"
                             aria-controls="permohonan">
                             <div class="d-flex align-items-center nav-link-side px-0">
-                                <span class="px-3"><span class="fas fa-file-alt"></span> PERMOHONAN KURSUS</span>
+                                <span class="px-3"><span class="fas fa-file-alt"></span> PERMOHONAN
+                                    KURSUS</span>
                             </div>
                         </a>
                         <ul class="nav-item collapse {{ Request::is('uls/permohonan/*') ? 'show' : 'false' }} my-1"
@@ -662,7 +547,8 @@
                             aria-expanded="{{ Request::is('ulpk/permohonan/*') ? 'true' : 'false' }}"
                             aria-controls="permohonan">
                             <div class="d-flex align-items-center nav-link-side px-0">
-                                <span class="px-3"><span class="fas fa-file-alt"></span> PERMOHONAN KURSUS</span>
+                                <span class="px-3"><span class="fas fa-file-alt"></span> PERMOHONAN
+                                    KURSUS</span>
                             </div>
                         </a>
                         <ul class="nav-item collapse {{ Request::is('ulpk/permohonan/*') ? 'show' : '' }} my-1"
@@ -772,41 +658,54 @@
                         </a>
                         <ul class="nav-item collapse {{ Request::is('penilaian/*') ? 'show' : 'false' }} my-1"
                             id="penilaian">
-                            <li class="nav-item">
-                                <a class="nav-link py-0" href="/penilaian/penilaian-kursus">
-                                    <div class="d-flex align-items-center nav-link-side">
-                                        <span class="px-0">PENILAIAN KURSUS</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link py-0" href="#">
-                                    <div class="d-flex align-items-center nav-link-side">
-                                        <span class="px-0">PENILAIAN PRE TEST DAN POST TEST</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link py-0" href="#">
-                                    <div class="d-flex align-items-center nav-link-side">
-                                        <span class="px-0">KEBERKESANAN KURSUS</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link py-0" href="#">
-                                    <div class="d-flex align-items-center nav-link-side">
-                                        <span class="px-0">PENILAIAN AJEN PELAKSANA</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link py-0" href="#">
-                                    <div class="d-flex align-items-center nav-link-side">
-                                        <span class="px-0">CETAK KOD QR</span>
-                                    </div>
-                                </a>
-                            </li>
+                            @can('jawab penilaian')
+                                <li class="nav-item">
+                                    <a class="nav-link py-0" href="/penilaian/penilaian-kursus">
+                                        <div class="d-flex align-items-center nav-link-side">
+                                            <span class="px-0">PENILAIAN KURSUS</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link py-0" href="/penilaian/jawab-pre-post-test">
+                                        <div class="d-flex align-items-center nav-link-side">
+                                            <span class="px-0">PENILAIAN PRE TEST DAN POST TEST</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            @endcan
+
+                            @can('cipta penilaian')
+                                <li class="nav-item">
+                                    <a class="nav-link py-0" href="/penilaian/pre-post-test">
+                                        <div class="d-flex align-items-center nav-link-side">
+                                            <span class="px-0">PENILAIAN PRE TEST DAN POST TEST</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link py-0" href="#">
+                                        <div class="d-flex align-items-center nav-link-side">
+                                            <span class="px-0">KEBERKESANAN KURSUS</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link py-0" href="#">
+                                        <div class="d-flex align-items-center nav-link-side">
+                                            <span class="px-0">PENILAIAN AJEN PELAKSANA</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link py-0" href="/penilaian/cetakQr">
+                                        <div class="d-flex align-items-center nav-link-side">
+                                            <span class="px-0">CETAK KOD QR</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            @endcan
+
 
                         </ul>
                     @endcan
@@ -884,199 +783,7 @@
                     @endcan
 
 
-                    {{-- <a class="nav-link-side dropdown-indicator" href="#email" role="button" data-bs-toggle="collapse"
-                        aria-expanded="false" aria-controls="email">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span
-                                    class="fas fa-envelope-open"></span></span><span class="nav-link-text ps-1">Email</span>
-                        </div>
-                    </a>
-                    <ul class="nav collapse false" id="email">
-                        <li class="nav-item"><a class="nav-link" href="../app/email/inbox.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Inbox</span>
-                                </div>
-                            </a>
-        
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../app/email/email-detail.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Email detail</span>
-                                </div>
-                            </a>
-        
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../app/email/compose.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Compose</span>
-                                </div>
-                            </a>
-        
-                        </li>
-                    </ul>
-                    <a class="nav-link dropdown-indicator" href="#events" role="button" data-bs-toggle="collapse"
-                        aria-expanded="false" aria-controls="events">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span
-                                    class="fas fa-calendar-day"></span></span><span class="nav-link-text ps-1">Events</span>
-                        </div>
-                    </a>
-                    <ul class="nav collapse false" id="events">
-                        <li class="nav-item"><a class="nav-link" href="../app/events/create-an-event.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Create an event</span>
-                                </div>
-                            </a>
-        
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../app/events/event-detail.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Event detail</span>
-                                </div>
-                            </a>
-        
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../app/events/event-list.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Event list</span>
-                                </div>
-                            </a>
-        
-                        </li>
-                    </ul>
-                    <a class="nav-link dropdown-indicator" href="#e-commerce" role="button" data-bs-toggle="collapse"
-                        aria-expanded="false" aria-controls="e-commerce">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span
-                                    class="fas fa-shopping-cart"></span></span><span class="nav-link-text ps-1">E
-                                commerce</span>
-                        </div>
-                    </a>
-                    <ul class="nav collapse false" id="e-commerce">
-                        <li class="nav-item"><a class="nav-link dropdown-indicator" href="#product"
-                                data-bs-toggle="collapse" aria-expanded="false" aria-controls="e-commerce">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Product</span>
-                                </div>
-                            </a>
-        
-                            <ul class="nav collapse false" id="product">
-                                <li class="nav-item"><a class="nav-link"
-                                        href="../app/e-commerce/product/product-list.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Product
-                                                list</span>
-                                        </div>
-                                    </a>
-        
-                                </li>
-                                <li class="nav-item"><a class="nav-link"
-                                        href="../app/e-commerce/product/product-grid.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Product
-                                                grid</span>
-                                        </div>
-                                    </a>
-        
-                                </li>
-                                <li class="nav-item"><a class="nav-link"
-                                        href="../app/e-commerce/product/product-details.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Product
-                                                details</span>
-                                        </div>
-                                    </a>
-        
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item"><a class="nav-link dropdown-indicator" href="#orders"
-                                data-bs-toggle="collapse" aria-expanded="false" aria-controls="e-commerce">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Orders</span>
-                                </div>
-                            </a>
-        
-                            <ul class="nav collapse false" id="orders">
-                                <li class="nav-item"><a class="nav-link"
-                                        href="../app/e-commerce/orders/order-list.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Order
-                                                list</span>
-                                        </div>
-                                    </a>
-        
-                                </li>
-                                <li class="nav-item"><a class="nav-link"
-                                        href="../app/e-commerce/orders/order-details.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Order
-                                                details</span>
-                                        </div>
-                                    </a>
-        
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../app/e-commerce/customers.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Customers</span>
-                                </div>
-                            </a>
-        
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../app/e-commerce/customer-details.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Customer
-                                        details</span>
-                                </div>
-                            </a>
-        
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../app/e-commerce/shopping-cart.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Shopping cart</span>
-                                </div>
-                            </a>
-        
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../app/e-commerce/checkout.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Checkout</span>
-                                </div>
-                            </a>
-        
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../app/e-commerce/billing.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Billing</span>
-                                </div>
-                            </a>
-        
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../app/e-commerce/invoice.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Invoice</span>
-                                </div>
-                            </a>
-        
-                        </li>
-                    </ul>
-                    <a class="nav-link" href="../app/kanban.html" role="button">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span
-                                    class="fab fa-trello"></span></span><span class="nav-link-text ps-1">Kanban</span>
-                        </div>
-                    </a>
-                    <a class="nav-link dropdown-indicator" href="#social" role="button" data-bs-toggle="collapse"
-                        aria-expanded="false" aria-controls="social">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span
-                                    class="fas fa-share-alt"></span></span><span class="nav-link-text ps-1">Social</span>
-                        </div>
-                    </a>
-                    <ul class="nav collapse false" id="social">
-                        <li class="nav-item"><a class="nav-link" href="../app/social/feed.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Feed</span>
-                                </div>
-                            </a>
-        
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../app/social/activity-log.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Activity log</span>
-                                </div>
-                            </a>
-        
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../app/social/notifications.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Notifications</span>
-                                </div>
-                            </a>
-        
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../app/social/followers.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Followers</span>
-                                </div>
-                            </a>
-        
-                        </li>
-                    </ul> --}}
+
                 </li>
             </ul>
         </div>

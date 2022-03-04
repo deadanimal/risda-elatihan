@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
-                    PENILAIAN PRE TEST
+                    PENILAIAN POST TEST
                 </p>
             </div>
         </div>
@@ -101,24 +101,24 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($jadual_kursus->preposttest as $ppt)
+                            @foreach ($jadual_kursus->posttest as $pt)
                                 <tr>
                                     <td>
                                         {{ $loop->iteration }}
                                     </td>
                                     <td>
-                                        {{ $ppt->jenis_soalan }}
+                                        {{ $pt->jenis_soalan }}
                                     </td>
                                     <td>
-                                        {{ $ppt->soalan }}
+                                        {{ $pt->soalan }}
                                     </td>
                                     <td>
-                                        {{ $ppt->status }}
+                                        {{ $pt->status }}
                                     </td>
                                     <td>
-                                        <a href="{{ route('pre-post-test.edit', $ppt->id) }}"
+                                        <a href="{{ route('pre-post-test.edit', $pt->id) }}"
                                             class="btn btn-sm btn-primary">Kemaskini</a>
-                                        <form action="/penilaian/pre-post-test/{{ $ppt->id }}" method="post"
+                                        <form action="{{ route('post-test.destroy', $pt->id) }}" method="post"
                                             class="d-inline-flex">
                                             @csrf
                                             @method('delete')
@@ -136,7 +136,7 @@
 
         <div class="row">
             <div class="col text-end">
-                <a href="{{ route('createPrePost', $jadual_kursus->id) }}" class="btn btn-primary mt-3"><span
+                <a href="{{ route('post-test.create', $jadual_kursus->id) }}" class="btn btn-primary mt-3"><span
                         class="fas fa-plus"></span> Tambah Soalan</a>
             </div>
         </div>

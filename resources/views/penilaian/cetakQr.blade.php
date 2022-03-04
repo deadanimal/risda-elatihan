@@ -1,16 +1,10 @@
 @extends('layouts.risda-base')
-<style>
-    td {
-        vertical-align: middle;
-    }
-
-</style>
 @section('content')
     <div class="container">
         <div class="row mt-3 mb-2">
             <div class="col-12 mb-2">
                 <p class="h1 mb-0 fw-bold" style="color: rgb(43,93,53);">PENILAIAN</p>
-                <p class="h5" style="color: rgb(43,93,53); ">PENILAIAN PRE TEST DAN POST TEST</p>
+                <p class="h5" style="color: rgb(43,93,53); ">PENILAIAN KURSUS</p>
             </div>
         </div>
         <hr style="color: rgba(81,179,90, 60%);height:2px;">
@@ -18,31 +12,28 @@
         <div class="row">
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
-                    PENILAIAN PRE TEST
+                    CETAK QR CODE
                 </p>
             </div>
         </div>
 
         <div class="row justify-content-center mt-5">
-            <div class="col-8">
+            <div class="col-lg-8">
                 <div class="row">
-                    <div class="col-4 mt-2">
-                        <h5>TAHUN</h5>
+                    <div class="col-3 d-flex align-items-center">
+                        <p class="h5 p-0 m-0 risda-dg">TAHUN</p>
                     </div>
-                    <div class="col-4">
+                    <div class="col-3">
                         <input type="text" class="form-select tahun" autocomplete="off">
                     </div>
                 </div>
+
                 <div class="row mt-3">
-                    <div class="col-4 mt-2">
-                        <h5>UNIT LATIHAN</h5>
+                    <div class="col-3 d-flex align-items-center">
+                        <p class="h5 p-0 m-0 risda-dg">UNIT LATIHAN</p>
                     </div>
-                    <div class="col-8">
-                        @if (auth()->user()->jenis_pengguna == 'Peserta ULS' || auth()->user()->jenis_pengguna == 'Urus Setia ULS')
-                            <input type="text" class="form-control" value="Staff" readonly>
-                        @else
-                            <input type="text" class="form-control" value="Pekebun Kecil" readonly>
-                        @endif
+                    <div class="col-9">
+                        <input type="text" class="form-control" value="STAF" readonly>
                     </div>
                 </div>
             </div>
@@ -59,39 +50,33 @@
                                 <th class="fw-bold text-dark" scope="col">NAMA KURSUS</th>
                                 <th class="fw-bold text-dark" scope="col">TARIKH KURSUS</th>
                                 <th class="fw-bold text-dark" scope="col">TEMPAT KURSUS</th>
-                                <th class="fw-bold text-dark" scope="col">STATUS PELAKSANAAN</th>
                                 <th class="fw-bold text-dark" scope="col">TINDAKAN</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($jadual_kursus as $jk)
+                            @foreach ($permohonan as $p)
                                 <tr>
                                     <td>
                                         {{ $loop->iteration }}
                                     </td>
                                     <td>
-                                        {{ $jk->kursus_kod_nama_kursus }}
+                                        {{ $p->jadualKursus->kursus_kod_nama_kursus }}
                                     </td>
                                     <td>
-                                        {{ $jk->kursus_nama }}
+                                        {{ $p->jadualKursus->kursus_nama }}
                                     </td>
                                     <td>
-                                        {{ $jk->tarikh_mula }}
+                                        {{ $p->jadualKursus->tarikh_mula }}
                                     </td>
                                     <td>
-                                        {{ $jk->kursus_tempat }}
-                                    </td>
-                                    <td>
-                                        {{ $jk->kursus_status }}
+                                        {{ $p->jadualKursus->kursus_tempat }}
                                     </td>
                                     <td>
                                         <a class="btn btn-primary btn-sm mb-2"
-                                            href="{{ route('pre-post-test.show', $jk->id) }}">
-                                            <small> Kemaskini Pre Test</small>
+                                            href="/penilaian/cetakQr2/{{ $p->jadualKursus->id }}">
+                                            <p class="m-0"> Cetak Kod QR</p>
                                         </a>
-                                        <a class="btn btn-primary btn-sm" href="{{ route('post-test.index', $jk->id) }}">
-                                            <small> Kemaskini Post Test</small>
-                                        </a>
+
                                     </td>
                                 </tr>
                             @endforeach
@@ -100,7 +85,5 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 @endsection
