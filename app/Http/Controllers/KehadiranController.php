@@ -181,7 +181,9 @@ class KehadiranController extends Controller
     public function admin_rekod_kehadiran_peserta_UsUls(KodKursus $kod_kursus)
     {
         $jadual = JadualKursus::all();
-        $new_kod_kursus = $kod_kursus::with('jadualkursus')->first();
+        $new_kod_kursus = $kod_kursus::with('jadualkursus')->get();
+        $new_kod_kursus = $new_kod_kursus->find($kod_kursus->id);
+
         dd($new_kod_kursus,$jadual);
         $kehadiran = Kehadiran::all();
 
