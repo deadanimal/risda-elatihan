@@ -11,6 +11,6 @@ class KodKursus extends Model
     protected $guarded = ['id'];
     public function jadualkursus()
     {
-        return $this->hasOne(JadualKursus::class, 'kod_kursus', 'kod_Kursus');
+        return $this->hasOne(JadualKursus::class, 'kod_kursus', 'id');
     }
 }

@@ -48,7 +48,7 @@
                     <p class="pt-2 fw-bold">KOD NAMA KURSUS</p>
                 </div>
                 <div class="col-8">
-                    <input type="text" class="form-control mb-4" value="{{ $kod_kursus->kod_Kursus }}">
+                    <input type="text" class="form-control mb-4" value="{{ $kod_kursus->jadualkursus->kursus_kod_nama_kursus }}">
                 </div>
             </div>
             <div class="col-8 d-inline-flex">
@@ -56,7 +56,7 @@
                     <p class="pt-2 fw-bold">NAMA KURSUS</p>
                 </div>
                 <div class="col-8">
-                    <input type="text" class="form-control mb-3" value="{{ $kod_kursus->tajuk_Kursus }}">
+                    <input type="text" class="form-control mb-3" value="{{ $kod_kursus->jadualkursus->kursus_nama}}">
                 </div>
             </div>
             <div class="col-8 d-inline-flex">
@@ -64,7 +64,7 @@
                     <p class="pt-2 fw-bold">TARIKH KURSUS</p>
                 </div>
                 <div class="col-8">
-                    <input type="text" class="form-control mb-3" value="{{ $kod_kursus->tarikh_daftar_Kursus }}">
+                    <input type="text" class="form-control mb-3" value="{{ $kod_kursus->jadualkursus->tarikh_mula }}">
                 </div>
             </div>
             <div class="col-8 d-inline-flex">

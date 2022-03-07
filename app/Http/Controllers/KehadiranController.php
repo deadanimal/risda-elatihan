@@ -180,7 +180,7 @@ class KehadiranController extends Controller
     // Kehadiran
     public function admin_rekod_kehadiran_peserta_UsUls(KodKursus $kod_kursus)
     {
-
+        $new_kod_kursus = $kod_kursus::with('jadualkursus')->first();
         $kehadiran = Kehadiran::all();
 
         $pesertaUls = User::where('jenis_pengguna', 'Peserta ULS')->get();
@@ -188,7 +188,7 @@ class KehadiranController extends Controller
         $hari = ['Pertama', 'Kedua', 'Ketiga', 'Keempat', 'Kelima', 'Keenam', 'Ketujuh', 'Kelapan', 'Kesembilan', 'Kesepuluh'];
 
         return view('uls.urus_setia.kehadiran.kehadiran-ke-kursus.rekod-kehadiran-peserta', [
-            'kod_kursus' => $kod_kursus,
+            'kod_kursus' => $new_kod_kursus,
             'hari' => $hari,
             'kehadiran' => $kehadiran,
             'pesertaUls' => $pesertaUls,
