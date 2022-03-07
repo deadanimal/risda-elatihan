@@ -174,7 +174,7 @@
                             @role('Penyokong')
                                 <button type="submit" disabled class="btn btn-secondary text-white btn-sm">Hantar</button>
                             @else
-                                <button type="submit" disabled class="btn btn-secondary text-white btn-sm">Hantar</button>
+                                <button type="submit" class="btn btn-secondary text-white btn-sm">Hantar</button>
                             @endrole
                         @endif
 
