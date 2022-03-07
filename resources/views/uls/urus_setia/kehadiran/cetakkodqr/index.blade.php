@@ -1,6 +1,5 @@
 @extends('layouts.risda-base')
 @section('content')
-
     <style>
         table>thead>tr {
             border-color: rgb(0, 150, 64);
@@ -74,10 +73,10 @@
                         @foreach ($kod_kursus as $k)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $k->kod_Kursus }}</td>
-                                <td>{{ $k->tajuk_Kursus }}</td>
-                                <td>{{ $k->tarikh_daftar_Kursus }}</td>
-                                <td>{{ $k->tempat_khusus }}</td>
+                                <td>{{ $k->kursus_kod_nama_kursus }}</td>
+                                <td>{{ $k->kursus_nama }}</td>
+                                <td>{{ $k->tarikh_mula }}</td>
+                                <td>{{ $k->tempat->nama_Agensi }}</td>
                                 <td class="text-end"><a href="/us-uls/kehadiran/cetakkodQR/{{ $k->id }}"
                                         class="btn btn-primary btn-sm">Cetak QR Code</a></td>
                             </tr>
@@ -87,22 +86,22 @@
                 </table>
             </div>
         </div>
+    </div>
 
 
-        <script>
-            $(document).ready(function() {
-                // $("#tahun").datepicker({
-                //     format: "yyyy",
-                //     viewMode: "years",
-                //     minViewMode: "years",
-                //     autoclose: true,
+    <script>
+        $(document).ready(function() {
+            // $("#tahun").datepicker({
+            //     format: "yyyy",
+            //     viewMode: "years",
+            //     minViewMode: "years",
+            //     autoclose: true,
 
-                // });
+            // });
 
-                $('.tahun').bind('onSelect', function() {
-                    console.log("a");
-                });
+            $('.tahun').bind('onSelect', function() {
+                console.log("a");
             });
-        </script>
-
-    @endsection
+        });
+    </script>
+@endsection
