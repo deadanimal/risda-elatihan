@@ -65,20 +65,7 @@
                                     <td>{{ $key + 1 }}.</td>
                                     <td>{{ date('H:i, d/m/Y', strtotime($p->created_at)) }}</td>
                                     <td>{{ $p->no_pekerja }}</td>
-                                    <td>{{ $p->no_pekerja}}</td>
-                                    @php
-                                        $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
-                                            ->get('https://www4.risda.gov.my/fire/getallstaff/')
-                                            ->getBody()
-                                            ->getContents();
-                                        
-                                        $data_staf = json_decode($data_staf, true);
-                                        foreach ($data_staf as $key => $s) {
-                                            if ($s['nokp'] == $p->peserta->no_KP) {
-                                                $staf = $s;
-                                            }
-                                        }
-                                    @endphp
+                                    <td>{{ $p->no_pekerja}}</td>                            
                                     <td>{{$staf['NamaPT']}}</td>
                                     <td> </td>
                                     <td>{{ $p->jadualKursus->kursus_kod_nama_kursus }}</td>
