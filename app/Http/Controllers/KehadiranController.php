@@ -15,6 +15,12 @@ use Illuminate\Support\Facades\Auth;
 class KehadiranController extends Controller
 {
 
+    public function rekod()
+    {
+            return view('uls.urus_setia.kehadiran.kehadiran-ke-kursus.merekod-kehadiran', [
+                'jadual_kursus' => JadualKursus::all()
+            ]);
+    }
     public function indexULS($kod_kursus)
     {
         function displayDates($date1, $date2, $format = 'Y-m-d')
@@ -178,13 +184,9 @@ class KehadiranController extends Controller
 
     // Urus Setia Uls
     // Kehadiran
-    public function admin_rekod_kehadiran_peserta_UsUls(KodKursus $kod_kursus)
+    public function admin_rekod_kehadiran_peserta_UsUls(JadualKursus $jadual_kursus)
     {
-        $jadual = JadualKursus::all();
-        $new_kod_kursus = $kod_kursus::with('jadualkursus')->get();
-        $new_kod_kursus = $new_kod_kursus->find($kod_kursus->id);
 
-        dd($new_kod_kursus,$jadual);
         $kehadiran = Kehadiran::all();
 
         $pesertaUls = User::where('jenis_pengguna', 'Peserta ULS')->get();
@@ -192,7 +194,7 @@ class KehadiranController extends Controller
         $hari = ['Pertama', 'Kedua', 'Ketiga', 'Keempat', 'Kelima', 'Keenam', 'Ketujuh', 'Kelapan', 'Kesembilan', 'Kesepuluh'];
 
         return view('uls.urus_setia.kehadiran.kehadiran-ke-kursus.rekod-kehadiran-peserta', [
-            'kod_kursus' => $new_kod_kursus,
+            'jadualkursus' => $jadual_kursus,
             'hari' => $hari,
             'kehadiran' => $kehadiran,
             'pesertaUls' => $pesertaUls,

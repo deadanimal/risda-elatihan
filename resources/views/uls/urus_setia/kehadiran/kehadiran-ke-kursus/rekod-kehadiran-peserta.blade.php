@@ -48,7 +48,7 @@
                     <p class="pt-2 fw-bold">KOD NAMA KURSUS</p>
                 </div>
                 <div class="col-8">
-                    <input type="text" class="form-control mb-4" value="{{ $kod_kursus->jadualkursus->kursus_kod_nama_kursus }}">
+                    <input type="text" class="form-control mb-4" value="{{ $jadualkursus->kursus_kod_nama_kursus }}">
                 </div>
             </div>
             <div class="col-8 d-inline-flex">
@@ -56,7 +56,7 @@
                     <p class="pt-2 fw-bold">NAMA KURSUS</p>
                 </div>
                 <div class="col-8">
-                    <input type="text" class="form-control mb-3" value="{{ $kod_kursus->jadualkursus->kursus_nama}}">
+                    <input type="text" class="form-control mb-3" value="{{ $jadualkursus->kursus_nama}}">
                 </div>
             </div>
             <div class="col-8 d-inline-flex">
@@ -64,7 +64,7 @@
                     <p class="pt-2 fw-bold">TARIKH KURSUS</p>
                 </div>
                 <div class="col-8">
-                    <input type="text" class="form-control mb-3" value="{{ $kod_kursus->jadualkursus->tarikh_mula }}">
+                    <input type="text" class="form-control mb-3" value="{{ $jadualkursus->tarikh_mula }}">
                 </div>
             </div>
             <div class="col-8 d-inline-flex">
@@ -74,7 +74,7 @@
                 <div class="col-8">
                     <select class="form-select" id="select-hari">
                         <option disabled hidden selected>Pilih</option>
-                        @for ($i = 0; $i < $kod_kursus->jadualkursus->bilangan_hari; $i++)
+                        @for ($i = 0; $i < $jadualkursus->bilangan_hari; $i++)
                             <option value="{{ $hari[$i] }}">{{ $hari[$i] }}</option>
                         @endfor
                     </select>
@@ -282,14 +282,15 @@
         $("#select-hari").change(function() {
             $("#table-body").html("");
             var kehadiran = @json($kehadiran->toArray());
-            var kod_kursus = @json($kod_kursus->toArray());
+            var kod_kursus = @json($jadualkursus->toArray());
             var sesi = $("#select-sesi").val();
             var iteration = 1;
 
             kehadiran.forEach(element => {
-                if (element.kod_kursus == kod_kursus.kod_Kursus &&
+                if (element.kod_kursus == kod_kursus.kursus_kod_nama_kursus &&
                     this.value == element.jadual_kursus_ref &&
                     element.sesi == sesi) {
+                        console.log('masuk');
                     $("#table-body").append(`
                             <tr>
                                 <td>` + iteration + `</td>
@@ -326,12 +327,12 @@
         $("#select-sesi").change(function() {
             $("#table-body").html("");
             var kehadiran = @json($kehadiran->toArray());
-            var kod_kursus = @json($kod_kursus->toArray());
+            var kod_kursus = @json($jadualkursus->toArray());
             var hari = $("#select-hari").val();
             var iteration = 1;
 
             kehadiran.forEach(element => {
-                if (element.kod_kursus == kod_kursus.kod_Kursus &&
+                if (element.kod_kursus == kod_kursus.kursus_kod_nama_kursus &&
                     hari == element.jadual_kursus_ref &&
                     element.sesi == this.value) {
                     $("#table-body").append(`

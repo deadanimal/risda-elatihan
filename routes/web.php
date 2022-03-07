@@ -187,13 +187,9 @@ Route::middleware('auth')->group(function () {
             Route::get('printQR/{id}', [CetakKodQRController::class, 'printQR'])->name('printQR');
             Route::prefix('ke-kursus')->group(function () {
                 //kehadiran
-                Route::get('merekod-kehadiran', function () {
-                    return view('uls.urus_setia.kehadiran.kehadiran-ke-kursus.merekod-kehadiran', [
-                        'kod_kursus' => KodKursus::all(),
-                    ]);
-                });
+                Route::get('merekod-kehadiran', [KehadiranController::class,'rekod']);
 
-                Route::get('rekod-kehadiran-peserta/{kod_kursus}', [KehadiranController::class, 'admin_rekod_kehadiran_peserta_UsUls'])
+                Route::get('rekod-kehadiran-peserta/{jadual_kursus}', [KehadiranController::class, 'admin_rekod_kehadiran_peserta_UsUls'])
                     ->name('rekod-kehadiran-peserta');
 
                 Route::put('update-rekod-kehadiran-peserta/{kehadiran}', [KehadiranController::class, 'update_kehadiran_peserta_UsUls']);

@@ -75,18 +75,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($kod_kursus as $k)
+                        @foreach ($jadual_kursus as $jadual)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $k->kod_Kursus }}</td>
-                                <td>{{ $k->tajuk_Kursus }}</td>
-                                <td>{{ $k->tarikh_daftar_Kursus }}</td>
-                                @if ($k->status_Kod_Kursus == 1)
+                                <td>{{ $jadual->kursus_kod_nama_kursus }}</td>
+                                <td>{{ $jadual->kursus_nama }}</td>
+                                <td>{{ $jadual->tarikh_mula }}</td>
+                                @if ($jadual->kursus_status == 1)
                                     <td class="risda-g fw-bold">SEDANG <br> DILAKSANAKAN</td>
                                 @else
                                     <td class="risda-g fw-bold">TIDAK <br> AKTIF</td>
                                 @endif
-                                <td class=" text-end"><a href="{{ route('rekod-kehadiran-peserta', $k->id) }}"
+                                <td class=" text-end"><a href="{{ route('rekod-kehadiran-peserta', $jadual->id) }}"
                                         class="btn btn-primary btn-sm">REKOD KEHADIRAN</a></td>
                             </tr>
                         @endforeach
