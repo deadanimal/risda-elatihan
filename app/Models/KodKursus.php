@@ -13,4 +13,5 @@ class KodKursus extends Model
     {
         return $this->hasOne(JadualKursus::class, 'kod_kursus', 'id');
     }
+
 }

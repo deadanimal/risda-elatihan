@@ -42,7 +42,7 @@
                     <p class="pt-2 fw-bold">TAHUN</p>
                 </div>
                 <div class="col-2">
-                    <input type="text" class="form-control mb-4 tahun" autocomplete="OFF">
+                    <input type="text" class="form-select mb-4 tahun" autocomplete="OFF">
                 </div>
             </div>
             <div class="col-8 d-inline-flex">

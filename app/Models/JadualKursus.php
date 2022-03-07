@@ -9,7 +9,7 @@ class JadualKursus extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    protected $with = ['kehadiran', 'penceramah', 'preposttest', 'tempat', 'status_pelaksanaan', 'kodkursus'];
+    protected $with = ['penceramah', 'preposttest', 'tempat', 'status_pelaksanaan', 'kodkursus'];
 
     public function kehadiran()
     {
@@ -17,7 +17,7 @@ class JadualKursus extends Model
     }
     public function aturcara()
     {
-        return $this->hasMany(Aturcara::class);
+        return $this->hasMany(Aturcara::class, 'ac_jadual_kursus');
     }
     public function kodkursus()
     {
@@ -45,4 +45,5 @@ class JadualKursus extends Model
     {
         return $this->hasMany(PostTest::class);
     }
+
 }

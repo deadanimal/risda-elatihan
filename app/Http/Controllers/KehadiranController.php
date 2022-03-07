@@ -10,16 +10,15 @@ use App\Models\Kehadiran;
 use App\Models\KodKursus;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class KehadiranController extends Controller
 {
 
     public function rekod()
     {
-            return view('uls.urus_setia.kehadiran.kehadiran-ke-kursus.merekod-kehadiran', [
-                'jadual_kursus' => JadualKursus::all()
-            ]);
+        return view('uls.urus_setia.kehadiran.kehadiran-ke-kursus.merekod-kehadiran', [
+            'jadual_kursus' => JadualKursus::all(),
+        ]);
     }
     public function indexULS($kod_kursus)
     {
@@ -41,8 +40,6 @@ class KehadiranController extends Controller
             ->orderBy('ac_hari', 'ASC')
             ->orderBy('ac_sesi', 'ASC')
             ->get();
-
-
 
         $hari = ['Pertama', 'Kedua', 'Ketiga', 'Keempat', 'Kelima', 'Keenam'];
 
@@ -186,15 +183,23 @@ class KehadiranController extends Controller
     // Kehadiran
     public function admin_rekod_kehadiran_peserta_UsUls(JadualKursus $jadual_kursus)
     {
-
         $kehadiran = Kehadiran::all();
 
         $pesertaUls = User::where('jenis_pengguna', 'Peserta ULS')->get();
 
         $hari = ['Pertama', 'Kedua', 'Ketiga', 'Keempat', 'Kelima', 'Keenam', 'Ketujuh', 'Kelapan', 'Kesembilan', 'Kesepuluh'];
 
+        $temp = 0;
+        foreach ($jadual_kursus->aturcara as $h) {
+            if ($temp != $h->ac_hari) {
+                $h['hari'] = $hari[$h->ac_hari - 1];
+            }
+            $temp = $h->ac_hari;
+        }
+
         return view('uls.urus_setia.kehadiran.kehadiran-ke-kursus.rekod-kehadiran-peserta', [
             'jadualkursus' => $jadual_kursus,
+            'aturcara' => $jadual_kursus->aturcara,
             'hari' => $hari,
             'kehadiran' => $kehadiran,
             'pesertaUls' => $pesertaUls,
