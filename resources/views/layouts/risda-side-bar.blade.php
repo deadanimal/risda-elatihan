@@ -239,13 +239,15 @@
                         </ul>
                     @endcan
 
-                    @can('pencalonan peserta' ?? 'semakan permohonan')
+                    @if (auth()->user()->can('pencalonan peserta') ||
+    auth()->user()->can('semakan permohonan'))
                         <a class="nav-link py-0 dropdown-indicator" href="#pengurusan_peserta" role="button"
                             data-bs-toggle="collapse"
                             aria-expanded="{{ Request::is('pengurusan_peserta/*') ? 'true' : 'false' }}"
                             aria-controls="pengurusan_peserta">
                             <div class="d-flex align-items-center nav-link-side px-0">
-                                <span class=" px-3"><span class="fas fa-clone"></span> PENGURUSAN PESERTA</span>
+                                <span class=" px-3"><span class="fas fa-clone"></span> PENGURUSAN
+                                    PESERTA</span>
                             </div>
                         </a>
                         <ul class="nav-item collapse {{ Request::is('pengurusan_peserta/*') ? 'show' : 'false' }} my-1"
@@ -272,7 +274,7 @@
                             @endcan
 
                         </ul>
-                    @endcan
+                    @endif
 
                     @can('utiliti')
                         <a class="nav-link py-0 dropdown-indicator" href="#utiliti" role="button" data-bs-toggle="collapse"

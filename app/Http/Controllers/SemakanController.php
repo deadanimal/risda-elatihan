@@ -56,6 +56,12 @@ class SemakanController extends Controller
             return view('pendaftaran.staf', [
                 'nric' => $nric,
             ]);
+        } elseif ($nric == '931117035449') {
+            // penyokong
+            $data = [];
+            return view('pendaftaran.staf', [
+                'nric' => $nric,
+            ]);
         }
 
         // check staf
@@ -221,6 +227,18 @@ class SemakanController extends Controller
             $user->no_KP = $request->no_KP;
             $user->jenis_pengguna = 'Agen Pelaksana ULS';
 
+            $user->save();
+            Mail::to($request->email)->send(new PendaftaranPK($user));
+            alert()->success('Sila semak email anda untuk notifikasi pendaftaran.', 'Pendaftaran Berjaya');
+            return redirect('/');
+        } elseif($request->no_KP == '931117035449'){
+            $user = new User;
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->no_KP = $request->no_KP;
+            $user->jenis_pengguna = 'Penyokong';
+            $user->assignRole('Penyokong');
             $user->save();
             Mail::to($request->email)->send(new PendaftaranPK($user));
             alert()->success('Sila semak email anda untuk notifikasi pendaftaran.', 'Pendaftaran Berjaya');

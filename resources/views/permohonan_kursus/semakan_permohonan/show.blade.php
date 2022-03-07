@@ -139,16 +139,17 @@
 
                         <select name="status_permohonan" class="form-control">
                             @if ($user->status_permohonan == '1')
-                                <option value="" hidden selected>Belum Disokong</option>
+                                @role('Penyokong')
+                                    <option value="" hidden selected>Belum Disokong</option>
+                                    <option value="2">Sokong</option>
+                                    <option value="3">Tidak Sokong</option>
+                                @else
+                                    <option value="" hidden selected>Belum Disokong</option>
+                                @endrole
                             @else
                                 <option value="" hidden selected>Sila Pilih</option>
                                 @if ($user->status_permohonan == '0')
                                     <option value="1">Hantar ke penyokong</option>
-                                @elseif($user->status_permohonan == '1')
-                                    @role('Penyokong')
-                                        <option value="2">Sokong</option>
-                                        <option value="3">Tidak Sokong</option>
-                                    @endrole
                                 @elseif($user->status_permohonan == '2' || $user->status_permohonan == '3')
                                     <option value="4">Lulus</option>
                                     <option value="5">Tidak Lulus</option>
@@ -160,7 +161,11 @@
                 <div class="row mt-3">
                     <div class="col-lg-9 text-end">
                         @if ($user->status_permohonan == '1')
-                            <button type="submit" disabled class="btn btn-secondary text-white btn-sm">Hantar</button>
+                            @role('Penyokong')
+                                <button type="submit" class="btn btn-secondary text-white btn-sm">Hantar</button>
+                            @else
+                                <button type="submit" disabled class="btn btn-secondary text-white btn-sm">Hantar</button>
+                            @endrole
                         @else
                             <button type="submit" class="btn risda-bg-dg text-white btn-sm">Hantar</button>
                         @endif

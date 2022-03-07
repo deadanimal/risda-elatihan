@@ -88,10 +88,10 @@ Route::get('/test', function () {
     return view('test');
 });
 
-Route::middleware('auth')->group(function () {
+Route::post('/semak_nric', [SemakanController::class, 'check_espek']);
+Route::post('/daftar_pengguna', [SemakanController::class, 'daftar_pengguna']);
 
-    Route::post('/semak_nric', [SemakanController::class, 'check_espek']);
-    Route::post('/daftar_pengguna', [SemakanController::class, 'daftar_pengguna']);
+Route::middleware('auth')->group(function () {
 
     Route::resources([
         // '/profil' => ProfilController::class,
