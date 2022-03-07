@@ -25,7 +25,6 @@ class SemakPermohonanController extends Controller
     public function index()
     {
         $pemohon = Permohonan::all();
-        dd($pemohon);
         return view('permohonan_kursus.semakan_permohonan.index', [
             'pemohon' => $pemohon
         ]);
@@ -107,8 +106,11 @@ class SemakPermohonanController extends Controller
      * @param  \App\Models\SemakPermohonan  $semakPermohonan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SemakPermohonan $semakPermohonan)
+    public function destroy($id)
     {
-        //
+        $permohonan = Permohonan::find($id);
+        $permohonan->delete();
+        alert()->success('Maklumat berjaya dihapus', 'Berjaya');
+        return redirect('/pengurusan_peserta/semakan_pemohon');
     }
 }

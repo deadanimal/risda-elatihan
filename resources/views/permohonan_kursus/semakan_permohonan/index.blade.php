@@ -64,8 +64,8 @@
                                 <tr>
                                     <td>{{ $key + 1 }}.</td>
                                     <td>{{ date('H:i, d/m/Y', strtotime($p->created_at)) }}</td>
-                                    <td>{{ $p->peserta->no_KP }}</td>
-                                    <td>{{ $p->peserta->name }}</td>
+                                    <td>{{ $p->no_pekerja }}</td>
+                                    <td>{{ $p->no_pekerja}}</td>
                                     @php
                                         $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
                                             ->get('https://www4.risda.gov.my/fire/getallstaff/')
@@ -100,8 +100,44 @@
                                     </td>
                                     <td>
                                         <a href="/permohonan_kursus/semakan_permohonan/{{$p->id}}" class="btn btn-primary btn-sm">Butiran</a>
+                                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#delete-{{$p->id}}">Delete</button>
                                     </td>
                                 </tr>
+                                <div class="modal fade" id="delete-{{ $p->id }}" tabindex="-1"
+                                    role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document"
+                                        style="max-width: 500px">
+                                        <div class="modal-content position-relative">
+                                            <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
+                                                <button
+                                                    class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
+                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body p-0">
+                                                <div class="row">
+                                                    <div class="col text-center m-3">
+                                                        <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
+                                                        <br>
+                                                        Anda pasti untuk menghapuskan maklumat ini?
+
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-secondary" type="button"
+                                                        data-bs-dismiss="modal">Batal</button>
+                                                    <form method="POST" action="/pengurusan_peserta/semakan_pemohon/{{ $p->id }}">
+                                                        @method('DELETE')
+                                                        @csrf
+                                                        <button class="btn btn-primary" type="submit">Hapus
+                                                        </button>
+                                                    </form>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
                             @endforeach
                         </tbody>
                     </table>
