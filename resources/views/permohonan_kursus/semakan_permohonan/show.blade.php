@@ -148,12 +148,16 @@
                                 @endrole
                             @else
                                 <option value="" hidden selected>Sila Pilih</option>
-                                @if ($user->status_permohonan == '0')
-                                    <option value="1">Hantar ke penyokong</option>
-                                @elseif($user->status_permohonan == '2' || $user->status_permohonan == '3')
-                                    <option value="4">Lulus</option>
-                                    <option value="5">Tidak Lulus</option>
-                                @endif
+                                @role('Penyokong')
+                                    <option value="" hidden selected>Belum disemak</option>
+                                @else
+                                    @if ($user->status_permohonan == '0')
+                                        <option value="1">Hantar ke penyokong</option>
+                                    @elseif($user->status_permohonan == '2' || $user->status_permohonan == '3')
+                                        <option value="4">Lulus</option>
+                                        <option value="5">Tidak Lulus</option>
+                                    @endif
+                                @endrole
                             @endif
                         </select>
                     </div>
@@ -167,7 +171,11 @@
                                 <button type="submit" disabled class="btn btn-secondary text-white btn-sm">Hantar</button>
                             @endrole
                         @else
-                            <button type="submit" class="btn risda-bg-dg text-white btn-sm">Hantar</button>
+                            @role('Penyokong')
+                                <button type="submit" disabled class="btn btn-secondary text-white btn-sm">Hantar</button>
+                            @else
+                                <button type="submit" disabled class="btn btn-secondary text-white btn-sm">Hantar</button>
+                            @endrole
                         @endif
 
                     </div>
