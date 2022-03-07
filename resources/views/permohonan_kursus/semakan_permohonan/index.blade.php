@@ -66,7 +66,7 @@
                                     <td>{{ date('H:i, d/m/Y', strtotime($p->created_at)) }}</td>
                                     <td>{{ $p->no_pekerja }}</td>
                                     <td>{{ $p->no_pekerja}}</td>                            
-                                    <td>{{$staf['NamaPT']}}</td>
+                                    <td> </td>
                                     <td> </td>
                                     <td>{{ $p->jadualKursus->kursus_kod_nama_kursus }}</td>
                                     <td>{{ $p->jadualKursus->kursus_nama }}</td>
