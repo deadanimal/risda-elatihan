@@ -1,7 +1,7 @@
 @extends('layouts.risda-base')
 @section('content')
     @foreach ($user as $key => $u)
-        {{ $key + 1 }}. {{ $u->no_KP }} ({{ $u->jenis_pengguna }})
+        {{ $u->id }}. {{ $u->no_KP }} ({{ $u->jenis_pengguna }})
         <br>
         <div class="col-lg-5">
             <form action="/update_role/{{ $u->id }}" method="post">
