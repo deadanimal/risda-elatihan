@@ -164,7 +164,7 @@ class PermohonanController extends Controller
      */
     public function destroy(Permohonan $permohonan)
     {
-        //
+        dd($permohonan);
     }
 
     public function permohonan($id)
