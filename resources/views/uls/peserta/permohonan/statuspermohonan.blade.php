@@ -55,7 +55,7 @@
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($permohonan as $p)
-                                                        @if ($p->jadualKursus->tarikh_mula >= $hari_ini)
+                                                        @if ($p->jadualKursus->tarikh_tamat >= $hari_ini)
                                                             @role('Peserta ULS')
                                                                 @if (Auth::id() == $p->no_pekerja)
                                                                     <tr style="text-center">
@@ -91,7 +91,7 @@
                                                                         </td>
                                                                     </tr>
                                                                 @endif
-                                                                @elserole('Peserta ULPK')
+                                                            @elserole('Peserta ULPK')
                                                                 @if (Auth::id() == $p->no_pekerja)
                                                                     <tr style="text-center">
                                                                         <td>{{ $loop->iteration }}.</td>
@@ -186,7 +186,7 @@
                                                         <th class="fw-bold text-dark" scope="col">KOD KURSUS</th>
                                                         <th class="fw-bold text-dark" scope="col">NAMA KURSUS</th>
                                                         <th class="fw-bold text-dark" scope="col">TARIKH KURSUS</th>
-                                                        <th class="fw-bold text-dark" scope="col">STATUS</th>
+                                                        <th class="fw-bold text-dark" scope="col">STATUS KEHADIRAN</th>
                                                         <th class="fw-bold text-dark" scope="col">TINDAKAN</th>
                                                     </tr>
                                                 </thead>

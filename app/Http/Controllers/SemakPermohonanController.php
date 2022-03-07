@@ -25,6 +25,7 @@ class SemakPermohonanController extends Controller
     public function index()
     {
         $pemohon = Permohonan::all();
+        dd($pemohon);
         return view('permohonan_kursus.semakan_permohonan.index', [
             'pemohon' => $pemohon
         ]);

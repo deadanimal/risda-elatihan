@@ -69,7 +69,7 @@
                                 </div>
                                 <div class="modal-body p-0">
                                     <div class="rounded-top-lg py-3 bg-light">
-                                        <h4 class="mb-1 risda-g">PROFIL PENUH </h4>
+                                        <h4 class="mb-1 mx-3 risda-g">PROFIL PENUH </h4>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <div class="card">
