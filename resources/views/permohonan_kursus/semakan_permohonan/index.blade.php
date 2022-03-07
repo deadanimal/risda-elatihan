@@ -68,8 +68,8 @@
                                     <td>{{ $p->no_pekerja}}</td>                            
                                     <td> </td>
                                     <td> </td>
-                                    <td>{{ $p->jadualKursus->kursus_kod_nama_kursus }}</td>
-                                    <td>{{ $p->jadualKursus->kursus_nama }}</td>
+                                    <td>{{ $p->kod_kursus }}</td>
+                                    <td>{{ $p->kod_kursus }}</td>
                                     <td>
                                         @if ($p->status_permohonan == 0)
                                             Belum Disemak
