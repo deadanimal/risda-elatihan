@@ -181,6 +181,7 @@ class KehadiranController extends Controller
     public function admin_rekod_kehadiran_peserta_UsUls(KodKursus $kod_kursus)
     {
         $new_kod_kursus = $kod_kursus::with('jadualkursus')->first();
+        dd($new_kod_kursus);
         $kehadiran = Kehadiran::all();
 
         $pesertaUls = User::where('jenis_pengguna', 'Peserta ULS')->get();
