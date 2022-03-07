@@ -64,12 +64,25 @@
                                 <tr>
                                     <td>{{ $key + 1 }}.</td>
                                     <td>{{ date('H:i, d/m/Y', strtotime($p->created_at)) }}</td>
-                                    <td>{{ $p->no_pekerja }}</td>
-                                    <td>{{ $p->no_pekerja}}</td>                            
+                                    <td>{{ $p->peserta->no_KP }}</td>
+                                    <td>{{ $p->peserta->name }}</td>
+                                    @php
+                                        $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
+                                            ->get('https://www4.risda.gov.my/fire/getallstaff/')
+                                            ->getBody()
+                                            ->getContents();
+                                        
+                                        $data_staf = json_decode($data_staf, true);
+                                        foreach ($data_staf as $key => $s) {
+                                            if ($s['nokp'] == $p->peserta->no_KP) {
+                                                $staf = $s;
+                                            }
+                                        }
+                                    @endphp
+                                    <td>{{$staf['NamaPT']}}</td>
                                     <td> </td>
-                                    <td> </td>
-                                    <td>{{ $p->kod_kursus }}</td>
-                                    <td>{{ $p->kod_kursus }}</td>
+                                    <td>{{ $p->jadualKursus->kursus_kod_nama_kursus }}</td>
+                                    <td>{{ $p->jadualKursus->kursus_nama }}</td>
                                     <td>
                                         @if ($p->status_permohonan == 0)
                                             Belum Disemak
@@ -87,7 +100,7 @@
                                     </td>
                                     <td>
                                         <a href="/permohonan_kursus/semakan_permohonan/{{$p->id}}" class="btn btn-primary btn-sm">Butiran</a>
-                                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#delete-{{$p->id}}">Delete</button>
+                                        {{-- <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#delete-{{$p->id}}">Delete</button> --}}
                                     </td>
                                 </tr>
                                 <div class="modal fade" id="delete-{{ $p->id }}" tabindex="-1"
