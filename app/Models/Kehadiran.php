@@ -9,16 +9,20 @@ class Kehadiran extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    // protected $with = ['aturcara'];
+    protected $with = ['staff'];
 
     // public function aturcara()
     // {
     //     return $this->belongsTo(Aturcara::class, 'id', 'jadual_kursus_ref');
     // }
 
-
     // public function jadual_kursus()
     // {
     //     return $this->belongsTo(JadualKursus::class, 'jadual_kursus_id', 'id');
     // }
+
+    public function staff()
+    {
+        return $this->hasOne(User::class, 'id', 'no_pekerja');
+    }
 }
