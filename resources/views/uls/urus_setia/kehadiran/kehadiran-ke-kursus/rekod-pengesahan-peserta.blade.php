@@ -48,7 +48,7 @@
                     <p class="pt-2 fw-bold">KOD NAMA KURSUS</p>
                 </div>
                 <div class="col-8">
-                    <input type="text" class="form-control mb-4" value="{{ $kod_kursus->kod_Kursus }}">
+                    <input type="text" class="form-control mb-4" value="{{ $jadual_kursus->kursus_kod_nama_kursus }}">
                 </div>
             </div>
             <div class="col-8 d-inline-flex">
@@ -56,7 +56,7 @@
                     <p class="pt-2 fw-bold">NAMA KURSUS</p>
                 </div>
                 <div class="col-8">
-                    <input type="text" class="form-control mb-3" value="{{ $kod_kursus->tajuk_Kursus }}">
+                    <input type="text" class="form-control mb-3" value="{{ $jadual_kursus->kursus_nama }}">
                 </div>
             </div>
             <div class="col-8 d-inline-flex">
@@ -65,7 +65,7 @@
                 </div>
                 <div class="col-8">
                     <input type="text" class="form-control mb-3"
-                        value="{{ $kod_kursus->jadualkursus->tarikh_mula }} HINGGA {{ $kod_kursus->jadualkursus->tarikh_tamat }}">
+                        value="{{ $jadual_kursus->tarikh_mula }} HINGGA {{ $jadual_kursus->tarikh_tamat }}">
                 </div>
             </div>
             <div class="col-8 d-inline-flex">
@@ -75,9 +75,13 @@
                 <div class="col-8">
                     <select class="form-select" id="select-hari">
                         <option disabled hidden selected>Pilih</option>
-                        @for ($i = 0; $i < $kod_kursus->jadualkursus->bilangan_hari; $i++)
-                            <option value="{{ $hari[$i] }}">{{ $hari[$i] }}</option>
-                        @endfor
+                        <?= $temp = 0 ?>
+                        @foreach ($aturcara as $val)
+                            @if ($temp != $val->ac_hari)
+                                <option value="{{ $val->ac_hari }}">{{ $val->hari }} - {{ $val->tarikh }}</option>
+                            @endif
+                            <?= $temp = $val->ac_hari ?>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -123,41 +127,12 @@
                         </tr>
                     </thead>
                     <tbody id="table-body">
-                        {{-- <tr>
-                        <td>1</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>HADIR</td>
-                        <td>HADIR</td>
-                        <td>CALON ASAL</td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <input class="form-check-input" type="checkbox" value="" />
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>HADIR</td>
-                        <td>TIDAK HADIR</td>
-                        <td>CALON ASAL</td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <p class="fw-bold"> DISAHKAN </p>
-                        </td>
 
-                    </tr> --}}
                     </tbody>
                 </table>
             </div>
             <div class="text-end mt-3">
-                <input type="hidden" name="kod_kursus" value="{{ $kod_kursus->id }}">
+                {{-- <input type="hidden" name="kod_kursus" value="{{ $kod_kursus->id }}"> --}}
                 <button class="btn btn-primary" type="submit"> Sahkan Calon</button>
             </div>
         </form>
@@ -176,33 +151,30 @@
 
         $("#select-hari").change(function() {
             $("#table-body").html("");
-            var kehadiran = @json($kehadiran->toArray());
-            var kod_kursus = @json($kod_kursus->toArray());
+            var aturcara = @json($aturcara->toArray());
             var sesi = $("#select-sesi").val();
             var iteration = 1;
 
-            kehadiran.forEach(element => {
-                if (element.kod_kursus == kod_kursus.kod_Kursus &&
-                    this.value == element.jadual_kursus_ref &&
-                    element.sesi == sesi) {
+            aturcara.forEach(element => {
+                if (element.ac_hari == this.value && element.ac_sesi == sesi && element.kehadiran !==
+                    null) {
                     $("#table-body").append(`
                             <tr>
                                 <td>` + iteration + `</td>
-                                <td>` + element.staff.no_KP + `</td>
-                                <td>` + element.staff.name + `</td>
+                                <td>` + element.kehadiran.staff.no_KP + `</td>
+                                <td>` + element.kehadiran.staff.name + `</td>
                                 <td></td>
                                 <td></td>
-                                <td>` + element.status_kehadiran + `</td>
-                                <td>` + (element.status_kehadiran_ke_kursus ?? '') + `</td>
+                                <td>` + element.kehadiran.status_kehadiran + `</td>
+                                <td>` + (element.kehadiran.status_kehadiran_ke_kursus ?? '') + `</td>
                                 <td></td>
-                                <td>` + (element.noKP_pengganti ?? '') + `</td>
-                                <td>` + (element.nama_pengganti ?? '') + `</td>
+                                <td>` + (element.kehadiran.noKP_pengganti ?? '') + `</td>
+                                <td>` + (element.kehadiran.nama_pengganti ?? '') + `</td>
                                 <td>
-                                    ` + (element.pengesahan == "BELUM DISAHKAN" || element.pengesahan == null ?
-                        `<input class="form-check-input" name="pengesahan[` + element.id +
-                        `]" type="checkbox" />` :
-                        'DISAHKAN'
-                    ) + `
+                                    ` + (element.kehadiran.pengesahan == "BELUM DISAHKAN" ||
+                        element.kehadiran.pengesahan == null ?
+                        `<input class="form-check-input" name="pengesahan[` + element.kehadiran.id +
+                        `]" type="checkbox" />` : 'DISAHKAN') + `
                                 </td>
                             </tr>
                 `);

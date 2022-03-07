@@ -200,7 +200,6 @@ class KehadiranController extends Controller
         return view('uls.urus_setia.kehadiran.kehadiran-ke-kursus.rekod-kehadiran-peserta', [
             'jadualkursus' => $jadual_kursus,
             'aturcara' => $jadual_kursus->aturcara,
-            'hari' => $hari,
             'kehadiran' => $kehadiran,
             'pesertaUls' => $pesertaUls,
         ]);
@@ -235,20 +234,44 @@ class KehadiranController extends Controller
         return back();
     }
 
-    // Pengesahan
-    public function admin_mengesahkan_kehadiran_peserta_UsUls(KodKursus $kod_kursus)
+    public function displayDates($date1, $date2, $format = 'Y-m-d')
     {
+        $dates = array();
+        $current = strtotime($date1);
+        $date2 = strtotime($date2);
+        $stepVal = '+1 day';
+        while ($current <= $date2) {
+            $dates[] = date($format, $current);
+            $current = strtotime($stepVal, $current);
+        }
+        return $dates;
+    }
+
+    // Pengesahan
+    public function admin_mengesahkan_kehadiran_peserta_UsUls(JadualKursus $jadual_kursus)
+    {
+        $date = $this->displayDates($jadual_kursus->tarikh_mula, $jadual_kursus->tarikh_tamat);
+
         $kehadiran = Kehadiran::all();
 
         $pesertaUls = User::where('jenis_pengguna', 'Peserta ULS')->get();
 
         $hari = ['Pertama', 'Kedua', 'Ketiga', 'Keempat', 'Kelima', 'Keenam', 'Ketujuh', 'Kelapan', 'Kesembilan', 'Kesepuluh'];
 
+        $temp = 0;
+        foreach ($jadual_kursus->aturcara as $h) {
+            if ($temp != $h->ac_hari) {
+                $h['hari'] = $hari[$h->ac_hari - 1];
+                $h['tarikh'] = $date[$h->ac_hari - 1];
+            }
+            $temp = $h->ac_hari;
+        }
+
         return view('uls.urus_setia.kehadiran.kehadiran-ke-kursus.rekod-pengesahan-peserta', [
-            'kod_kursus' => $kod_kursus,
-            'hari' => $hari,
+            'jadual_kursus' => $jadual_kursus,
             'kehadiran' => $kehadiran,
             'pesertaUls' => $pesertaUls,
+            'aturcara' => $jadual_kursus->aturcara,
         ]);
     }
 
