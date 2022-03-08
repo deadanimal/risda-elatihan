@@ -162,9 +162,13 @@ class PermohonanController extends Controller
      * @param  \App\Models\Permohonan  $permohonan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Permohonan $permohonan)
+    public function destroy($id)
     {
-        dd($permohonan);
+        $permohonan = Permohonan::find($id);
+        $permohonan->delete();
+
+        alert()->success('Peserta telah dibuang', 'Berjaya');
+        return redirect('/permohonan_kursus/semakan_permohonan');
     }
 
     public function permohonan($id)
