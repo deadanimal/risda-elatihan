@@ -102,7 +102,6 @@
                                             </td>
                                             <td>
                                                 <a href="/permohonan_kursus/semakan_permohonan/{{$p->id}}" class="btn btn-primary btn-sm">Butiran</a>
-                                                {{-- <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#delete-{{$p->id}}">Delete</button> --}}
                                             </td>
                                         </tr>
                                     @endif
@@ -146,7 +145,11 @@
                                         </td>
                                         <td>
                                             <a href="/permohonan_kursus/semakan_permohonan/{{$p->id}}" class="btn btn-primary btn-sm">Butiran</a>
-                                            {{-- <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#delete-{{$p->id}}">Delete</button> --}}
+                                            <form action="/permohonan_kursus/semakan_permohonan/{{$p->id}}" method="POST">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger">buang</button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endrole
