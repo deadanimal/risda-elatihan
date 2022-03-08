@@ -137,7 +137,7 @@
                     </div>
                     <div class="col-lg-6">
 
-                        <select name="status_permohonan" class="form-control" required oninvalid="this.setCustomValidity('Sila isi bahagian ini')">
+                        <select name="status_permohonan" class="form-control" required oninvalid="this.setCustomValidity('Sila isi bahagian ini')" oninput="setCustomValidity('')">
                             @if ($user->status_permohonan == '1')
                                 @role('Penyokong')
                                     <option hidden value="" selected disabled>Sila Pilih</option>
