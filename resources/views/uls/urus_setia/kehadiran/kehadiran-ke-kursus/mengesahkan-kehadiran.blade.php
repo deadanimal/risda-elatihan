@@ -50,7 +50,12 @@
                     <p class="pt-2 fw-bold">UNIT LATIHAN</p>
                 </div>
                 <div class="col-6">
-                    <input type="text" class="form-control mb-3" value="Staff">
+                    {{-- <input type="text" class="form-control mb-3" value="Staff"> --}}
+                    <select name="" id="" class="form-control">
+                        <option value="" selected hidden>Sila Pilih</option>
+                        <option value="Staff">Staff</option>
+                        <option value="Pekebun Kecil">Pekebun Kecil</option>
+                    </select>
                 </div>
             </div>
 
@@ -82,9 +87,8 @@
                                 @else
                                     <td class="risda-g fw-bold">TIDAK <br> AKTIF</td>
                                 @endif
-                                <td class=" text-end"><a
-                                        href="{{ route('mengesah-kehadiran-peserta', $jadual->id) }}"
-                                        class="btn btn-primary btn-sm">REKOD KEHADIRAN</a></td>
+                                <td class=" text-end"><a href="{{ route('mengesah-kehadiran-peserta', $k->id) }}"
+                                        class="btn btn-primary btn-sm">SAH KEHADIRAN</a></td>
                             </tr>
                         @endforeach
                     </tbody>

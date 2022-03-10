@@ -35,7 +35,7 @@
         <div class="row">
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
-                    CETAK QR CODE
+                    CETAK KOD QR
                 </p>
             </div>
         </div>
