@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
-                    CETAK QR CODE
+                    CETAK KOD QR
                 </p>
             </div>
         </div>
@@ -66,7 +66,7 @@
                                         {{ $p->jadualKursus->kursus_nama }}
                                     </td>
                                     <td>
-                                        {{ $p->jadualKursus->tarikh_mula }}
+                                        {{ date('d-m-Y', strtotime($p->jadualKursus->tarikh_mula)) }}
                                     </td>
                                     <td>
                                         {{ $p->jadualKursus->kursus_tempat }}

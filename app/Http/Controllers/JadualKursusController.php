@@ -60,7 +60,7 @@ class JadualKursusController extends Controller
         }else{
             $tempat = null;
         }
-        $pengendali = Agensi::all();
+        $pengendali = Agensi::with('kategori')->get();
         $list_jadual = JadualKursus::all();
         $negeri = Negeri::all();
         $daerah = Daerah::all();

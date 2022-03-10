@@ -25,6 +25,24 @@ class SemakPermohonanController extends Controller
     public function index()
     {
         $pemohon = Permohonan::all();
+        foreach ($pemohon as $key => $p) {
+            $p->gred = null;
+            $p->pusat_tanggungjawab = null;
+            $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
+                ->get('https://www4.risda.gov.my/fire/getallstaff/')
+                ->getBody()
+                ->getContents();
+
+            $data_staf = json_decode($data_staf, true);
+            foreach ($data_staf as $key => $s) {
+                if ($s['nokp'] == $p->peserta->no_KP) {
+                    $p->gred = $s['Gred'];
+                    $p->pusat_tanggungjawab = $s['NamaPT'];
+                }
+            }
+        }
+
+        // dd($pemohon);
         return view('permohonan_kursus.semakan_permohonan.index', [
             'pemohon' => $pemohon
         ]);

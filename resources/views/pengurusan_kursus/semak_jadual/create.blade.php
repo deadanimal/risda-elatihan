@@ -199,7 +199,9 @@
                         <select class="form-select form-control" name="kursus_pengendali_latihan">
                             <option selected="" hidden>Sila Pilih</option>
                             @foreach ($pengendali as $pl)
-                                <option value="{{ $pl->id }}">{{ $pl->nama_Agensi }}</option>
+                                @if ($pl->kategori->Kategori_Agensi != 'Tempat Kursus')
+                                    <option value="{{ $pl->id }}">{{ $pl->nama_Agensi }}</option>
+                                @endif
                             @endforeach
                         </select>
                     </div>

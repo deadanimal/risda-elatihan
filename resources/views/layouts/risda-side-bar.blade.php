@@ -564,72 +564,82 @@
                     @endcan
 
                     {{-- Peserta ULS --}}
-                    @can('permohonan kursus')
-                        <a class="nav-link py-0 dropdown-indicator" href="#permohonan" role="button"
-                            data-bs-toggle="collapse"
-                            aria-expanded="{{ Request::is('uls/permohonan/*') ? 'true' : 'false' }}"
-                            aria-controls="permohonan">
-                            <div class="d-flex align-items-center nav-link-side px-0">
-                                <span class="px-3"><span class="fas fa-file-alt"></span> PERMOHONAN
-                                    KURSUS</span>
-                            </div>
-                        </a>
-                        <ul class="nav-item collapse {{ Request::is('uls/permohonan/*') ? 'show' : 'false' }} my-1"
-                            id="permohonan">
-                            @can('katelog kursus')
-                                <li class="nav-item">
-                                    <a class="nav-link {{ Request::is('uls/permohonan/katelog-kursus') ? 'active' : '' }} py-0"
-                                        href="/uls/permohonan/katelog-kursus">
-                                        <div class="d-flex align-items-center nav-link-side">
-                                            <span class="px-0">KATALOG KURSUS</span>
-                                        </div>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('status permohonan')
-                                <li class="nav-item">
-                                    <a class="nav-link {{ Request::is('uls/permohonan/statuspermohonan') ? 'active' : '' }} py-0"
-                                        href="/uls/permohonan/statuspermohonan">
-                                        <div class="d-flex align-items-center nav-link-side">
-                                            <span class="px-0">STATUS PERMOHONAN</span>
-                                        </div>
-                                    </a>
-                                </li>
-                            @endcan
-                        </ul>
-                    @endcan
+                    @role('Peserta ULS')
+                        @if (auth()->user()->can('katelog kursus') ||
+    auth()->user()->can('status permohonan'))
+                            <a class="nav-link py-0 dropdown-indicator" href="#permohonan" role="button"
+                                data-bs-toggle="collapse"
+                                aria-expanded="{{ Request::is('uls/permohonan/*') ? 'true' : 'false' }}"
+                                aria-controls="permohonan">
+                                <div class="d-flex align-items-center nav-link-side px-0">
+                                    <span class="px-3"><span class="fas fa-file-alt"></span> PERMOHONAN
+                                        KURSUS</span>
+                                </div>
+                            </a>
+                            <ul class="nav-item collapse {{ Request::is('uls/permohonan/*') ? 'show' : 'false' }} my-1"
+                                id="permohonan">
+                                @can('katelog kursus')
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('uls/permohonan/katelog-kursus') ? 'active' : '' }} py-0"
+                                            href="/uls/permohonan/katelog-kursus">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">KATALOG KURSUS</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('status permohonan')
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('uls/permohonan/statuspermohonan') ? 'active' : '' }} py-0"
+                                            href="/uls/permohonan/statuspermohonan">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">STATUS PERMOHONAN</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                @endcan
+                            </ul>
+                        @endif
+                    @endrole
 
                     {{-- Peserta ULPK --}}
-                    @can('UlpkPeserta')
-                        <a class="nav-link py-0 dropdown-indicator" href="#permohonan" role="button"
-                            data-bs-toggle="collapse"
-                            aria-expanded="{{ Request::is('ulpk/permohonan/*') ? 'true' : 'false' }}"
-                            aria-controls="permohonan">
-                            <div class="d-flex align-items-center nav-link-side px-0">
-                                <span class="px-3"><span class="fas fa-file-alt"></span> PERMOHONAN
-                                    KURSUS</span>
-                            </div>
-                        </a>
-                        <ul class="nav-item collapse {{ Request::is('ulpk/permohonan/*') ? 'show' : '' }} my-1"
-                            id="permohonan">
-                            <li class="nav-item">
-                                <a class="nav-link py-0" href="/ulpk/permohonan/katelog-kursus">
-                                    <div class="d-flex align-items-center nav-link-side">
-                                        <span class="px-0">KATALOG KURSUS</span>
-                                    </div>
-                                </a>
-
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {{ Request::is('ulpk/permohonan/statuspermohonan/') ? 'active' : '' }} py-0"
-                                    href="/ulpk/permohonan/statuspermohonan">
-                                    <div class="d-flex align-items-center nav-link-side">
-                                        <span class="px-0">STATUS PERMOHONAN</span>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    @endcan
+                    @role('Peserta ULPK')
+                        @if (auth()->user()->can('katelog kursus') ||
+    auth()->user()->can('status permohonan'))
+                            <a class="nav-link py-0 dropdown-indicator" href="#permohonan" role="button"
+                                data-bs-toggle="collapse"
+                                aria-expanded="{{ Request::is('ulpk/permohonan/*') ? 'true' : 'false' }}"
+                                aria-controls="permohonan">
+                                <div class="d-flex align-items-center nav-link-side px-0">
+                                    <span class="px-3"><span class="fas fa-file-alt"></span> PERMOHONAN
+                                        KURSUS</span>
+                                </div>
+                            </a>
+                            <ul class="nav-item collapse {{ Request::is('ulpk/permohonan/*') ? 'show' : 'false' }} my-1"
+                                id="permohonan">
+                                @can('katelog kursus')
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('ulpk/permohonan/katelog-kursus') ? 'active' : '' }} py-0"
+                                            href="/ulpk/permohonan/katelog-kursus">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">KATALOG KURSUS</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('status permohonan')
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('ulpk/permohonan/statuspermohonan') ? 'active' : '' }} py-0"
+                                            href="/ulpk/permohonan/statuspermohonan">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">STATUS PERMOHONAN</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                @endcan
+                            </ul>
+                        @endif
+                    @endrole
 
                     @can('kehadiran')
                         <a class="nav-link py-0 dropdown-indicator" href="#kehadiran" role="button"

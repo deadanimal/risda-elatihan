@@ -376,7 +376,7 @@
                         </span>
                     </button>
 
-                    <div class="row px-4 risda-m">
+                    <div class=" px-4 risda-m">
                         @yield('content')
                     </div>
 

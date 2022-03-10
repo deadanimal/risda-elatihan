@@ -171,8 +171,9 @@
                                     @php
                                         $statusPelaksanaan = StatusPelaksanaan::find($jadual->kursus_status_pelaksanaan);
                                         $statusPelaksanaan = $statusPelaksanaan->Status_Pelaksanaan;
+                                        dd('$statusPelaksanaan');
                                     @endphp
-                                    {{ $statusPelaksanaan }}
+                                    {{-- {{ $statusPelaksanaan }} --}}
                                 </option>
                                 @foreach ($status_pelaksanaan as $sp)
                                     <option value="{{ $sp->id }}">{{ $sp->Status_Pelaksanaan }}</option>

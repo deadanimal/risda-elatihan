@@ -28,7 +28,7 @@
         <div class="row">
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
-                    CETAK QR CODE
+                    CETAK KOD QR
                 </p>
             </div>
         </div>
@@ -62,9 +62,9 @@
                     <thead>
                         <tr>
                             <th scope="col">BIL.</th>
-                            <th scope="col">KOD NAMA <br> KURSUS</th>
-                            <th scope="col">NAMA <br> KURSUS</th>
-                            <th scope="col">TARIKH <br> KURSUS</th>
+                            <th scope="col">KOD NAMA KURSUS</th>
+                            <th scope="col">NAMA KURSUS</th>
+                            <th scope="col">TARIKH KURSUS</th>
                             <th scope="col">TEMPAT KURSUS</th>
                             <th class="text-end" scope="col">TINDAKAN</th>
                         </tr>
@@ -75,10 +75,10 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $k->kursus_kod_nama_kursus }}</td>
                                 <td>{{ $k->kursus_nama }}</td>
-                                <td>{{ $k->tarikh_mula }}</td>
+                                <td>{{ date('d-m-Y', strtotime($k->tarikh_mula)) }}</td>
                                 <td>{{ $k->tempat->nama_Agensi }}</td>
                                 <td class="text-end"><a href="/us-uls/kehadiran/cetakkodQR/{{ $k->id }}"
-                                        class="btn btn-primary btn-sm">Cetak QR Code</a></td>
+                                        class="btn btn-primary btn-sm">CETAK KOD QR</a></td>
                             </tr>
                         @endforeach
 
