@@ -42,7 +42,7 @@
                     <p class="pt-2 fw-bold">TAHUN</p>
                 </div>
                 <div class="col-2">
-                    <input type="text" class="form-control mb-4 tahun" autocomplete="OFF">
+                    <input type="text" class="form-select mb-4 tahun" autocomplete="OFF">
                 </div>
             </div>
             <div class="col-8 d-inline-flex">
@@ -76,13 +76,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($kod_kursus as $k)
+                        @foreach ($jadual_kursus as $jadual)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $k->kod_Kursus }}</td>
-                                <td>{{ $k->tajuk_Kursus }}</td>
-                                <td>{{ $k->tarikh_daftar_Kursus }}</td>
-                                @if ($k->status_Kod_Kursus == 1)
+                                <td>{{ $jadual->kursus_kod_nama_kursus }}</td>
+                                <td>{{ $jadual->kursus_nama }}</td>
+                                <td>{{ $jadual->tarikh_mula }}</td>
+                                @if ($jadual->kursus_status == 1)
                                     <td class="risda-g fw-bold">SEDANG <br> DILAKSANAKAN</td>
                                 @else
                                     <td class="risda-g fw-bold">TIDAK <br> AKTIF</td>

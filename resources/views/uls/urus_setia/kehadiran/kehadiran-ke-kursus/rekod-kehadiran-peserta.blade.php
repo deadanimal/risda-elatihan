@@ -56,7 +56,7 @@
                     <p class="pt-2 fw-bold">NAMA KURSUS</p>
                 </div>
                 <div class="col-8">
-                    <input type="text" class="form-control mb-3" value="{{ $jadualkursus->kursus_nama}}">
+                    <input type="text" class="form-control mb-3" value="{{ $jadualkursus->kursus_nama }}">
                 </div>
             </div>
             <div class="col-8 d-inline-flex">
@@ -74,9 +74,13 @@
                 <div class="col-8">
                     <select class="form-select" id="select-hari">
                         <option disabled hidden selected>Pilih</option>
-                        @for ($i = 0; $i < $jadualkursus->bilangan_hari; $i++)
-                            <option value="{{ $hari[$i] }}">{{ $hari[$i] }}</option>
-                        @endfor
+                        <?= $temp = 0 ?>
+                        @foreach ($aturcara as $val)
+                            @if ($temp != $val->ac_hari)
+                                <option value="{{ $val->ac_hari }}">{{ $val->hari }}</option>
+                            @endif
+                            <?= $temp = $val->ac_hari ?>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -281,90 +285,85 @@
 
         $("#select-hari").change(function() {
             $("#table-body").html("");
-            var kehadiran = @json($kehadiran->toArray());
-            var kod_kursus = @json($jadualkursus->toArray());
+            var aturcara = @json($aturcara->toArray());
             var sesi = $("#select-sesi").val();
             var iteration = 1;
 
-            kehadiran.forEach(element => {
-                if (element.kod_kursus == kod_kursus.kursus_kod_nama_kursus &&
-                    this.value == element.jadual_kursus_ref &&
-                    element.sesi == sesi) {
-                        console.log('masuk');
+            aturcara.forEach(e => {
+                if (e.ac_hari == this.value && e.ac_sesi == sesi && e.kehadiran !== null) {
                     $("#table-body").append(`
                             <tr>
                                 <td>` + iteration + `</td>
-                                <td>` + element.staff.no_KP + `</td>
-                                <td>` + element.staff.name + `</td>
+                                <td>` + e.kehadiran.staff.no_KP + `</td>
+                                <td>` + e.kehadiran.staff.name + `</td>
                                 <td></td>
                                 <td></td>
-                                <td>` + element.status_kehadiran + `</td>
-                                <td>` + (element.status_kehadiran_ke_kursus ?? '') + `</td>
+                                <td>` + e.kehadiran.status_kehadiran + `</td>
+                                <td>` + (e.kehadiran.status_kehadiran_ke_kursus ?? '') + `</td>
                                 <td></td>
-                                <td>` + (element.noKP_pengganti ?? '') + `</td>
-                                <td>` + (element.nama_pengganti ?? '') + `</td>
+                                <td>` + (e.kehadiran.noKP_pengganti ?? '') + `</td>
+                                <td>` + (e.kehadiran.nama_pengganti ?? '') + `</td>
                                 <td>
                                 <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
-                                data-bs-target="#modal-rekod-kehadiran" onclick="kemaskini(` + element.id +
+                                data-bs-target="#modal-rekod-kehadiran" onclick="kemaskini(` + e.kehadiran.id +
                         `)">Kemaskini</button> 
                                 <br>
-                        ` + (element.status_kehadiran == "TIDAK HADIR" || element.status_kehadiran_ke_kursus ==
+                        ` + (e.kehadiran.status_kehadiran == "TIDAK HADIR" || e.kehadiran.status_kehadiran_ke_kursus ==
                             "TIDAK HADIR" ? `<button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
-                                data-bs-target="#modal-rekod-ketidakhadiran" onclick="kemaskini2(` + element.id +
+                                data-bs-target="#modal-rekod-ketidakhadiran" onclick="kemaskini2(` + e.kehadiran.id +
                             `)">Alasan Ketidakhadiran</button> ` : ""
 
                         ) + `
                                 </td>
                             </tr>
                 `);
+
                     iteration++;
                 }
-
             });
 
         });
 
+
         $("#select-sesi").change(function() {
             $("#table-body").html("");
-            var kehadiran = @json($kehadiran->toArray());
-            var kod_kursus = @json($jadualkursus->toArray());
+            var aturcara = @json($aturcara->toArray());
             var hari = $("#select-hari").val();
             var iteration = 1;
 
-            kehadiran.forEach(element => {
-                if (element.kod_kursus == kod_kursus.kursus_kod_nama_kursus &&
-                    hari == element.jadual_kursus_ref &&
-                    element.sesi == this.value) {
+            aturcara.forEach(e => {
+                if (e.ac_sesi == this.value && e.ac_hari == hari && e.kehadiran !== null) {
                     $("#table-body").append(`
                             <tr>
                                 <td>` + iteration + `</td>
-                                <td>` + element.staff.no_KP + `</td>
-                                <td>` + element.staff.name + `</td>
+                                <td>` + e.kehadiran.staff.no_KP + `</td>
+                                <td>` + e.kehadiran.staff.name + `</td>
                                 <td></td>
                                 <td></td>
-                                <td>` + element.status_kehadiran + `</td>
-                                <td>` + (element.status_kehadiran_ke_kursus ?? '') + `</td>
+                                <td>` + e.kehadiran.status_kehadiran + `</td>
+                                <td>` + (e.kehadiran.status_kehadiran_ke_kursus ?? '') + `</td>
                                 <td></td>
-                                <td>` + (element.noKP_pengganti ?? '') + `</td>
-                                <td>` + (element.nama_pengganti ?? '') + `</td>
+                                <td>` + (e.kehadiran.noKP_pengganti ?? '') + `</td>
+                                <td>` + (e.kehadiran.nama_pengganti ?? '') + `</td>
                                 <td>
                                 <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
-                                data-bs-target="#modal-rekod-kehadiran" onclick="kemaskini(` + element.id +
+                                data-bs-target="#modal-rekod-kehadiran" onclick="kemaskini(` + e.kehadiran.id +
                         `)">Kemaskini</button> 
                                 <br>
-                        ` + (element.status_kehadiran == "TIDAK HADIR" || element.status_kehadiran_ke_kursus ==
+                        ` + (e.kehadiran.status_kehadiran == "TIDAK HADIR" || e.kehadiran.status_kehadiran_ke_kursus ==
                             "TIDAK HADIR" ? `<button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
-                                data-bs-target="#modal-rekod-ketidakhadiran" onclick="kemaskini2(` + element.id +
+                                data-bs-target="#modal-rekod-ketidakhadiran" onclick="kemaskini2(` + e.kehadiran.id +
                             `)">Alasan Ketidakhadiran</button> ` : ""
 
                         ) + `
                                 </td>
                             </tr>
                 `);
+
                     iteration++;
                 }
-
             });
+
         });
 
 
