@@ -11,6 +11,7 @@ use App\Http\Controllers\DunController;
 use App\Http\Controllers\ElaunCutiController;
 use App\Http\Controllers\GredPegawaiController;
 use App\Http\Controllers\JadualKursusController;
+use App\Http\Controllers\JawabPostTestController;
 use App\Http\Controllers\JulatTahunanController;
 use App\Http\Controllers\KampungController;
 use App\Http\Controllers\KategoriAgensiController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\KategoriKursusController;
 use App\Http\Controllers\KehadiranController;
 use App\Http\Controllers\KelayakanElauncutiController;
 use App\Http\Controllers\KodKursusController;
+use App\Http\Controllers\LaporanLainController;
 use App\Http\Controllers\MukimController;
 use App\Http\Controllers\NegeriController;
 use App\Http\Controllers\NotaRujukanController;
@@ -233,11 +235,39 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::group(['middleware' => 'role:Peserta ULS'], function () {
+
+            Route::resource('/jawab-post', JawabPostTestController::class);
+
             Route::resource('/penilaian-kursus', PenilaianPesertaController::class);
 
             Route::get('/jawab-pre-post-test', [PrePostTestController::class, 'jawabPrePost'])->name('jawabPrePost');
             Route::get('/mula-penilaian-pre-test/{jadual_kursus}', [PrePostTestController::class, 'mulaPenilaian']);
             Route::POST('/mula-penilaian-pre-test', [PrePostTestController::class, 'simpanPenilaian'])->name('simpanPenilaian');
+        });
+    });
+
+    //laporan
+    Route::group(['prefix' => 'laporan', 'middleware' => 'can:laporan'], function () {
+        Route::prefix('laporan-lain')->group(function () {
+            Route::get('laporan-pencapaian-matlamat-kehadiran', [LaporanLainController::class, 'pencapaian_matlamat_kehadiran']);
+            Route::get('laporan-perbelanjaan-mengikut-pusat-tanggungjawab', [LaporanLainController::class, 'perbelanjaan_mengikut_pusat_tanggungjawab']);
+            Route::get('laporan-perbelanjaan-mengikut-lokaliti', [LaporanLainController::class, 'perbelanjaan_mengikut_lokaliti']);
+            Route::get('laporan-prestasi-kehadiran-peserta', [LaporanLainController::class, 'laporan_prestasi_kehadiran_peserta']);
+            Route::get('laporan-kehadiran-7-hari-setahun', [LaporanLainController::class, 'laporan_kehadiran_7_hari_setahun']);
+            Route::get('laporan-ringkasan-penceramah-kursus', [LaporanLainController::class, 'laporan_ringkasan_penceramah_kursus']);
+            Route::get('laporan-pencapaian-latihan-mengikut-negeri', [LaporanLainController::class, 'laporan_pencapaian_latihan_mengikut_negeri']);
+            Route::get('laporan-kehadiran-peserta', [LaporanLainController::class, 'laporan_kehadiran_peserta']);
+            Route::get('laporan-pelaksanaan-latihan-staf', [LaporanLainController::class, 'laporan_pelaksanaan_latihan_staf']);
+            Route::get('laporan-kewangan-terperinci', [LaporanLainController::class, 'laporan_kewangan_terperinci']);
+            Route::get('laporan-ringkasan-jenis-kursus', [LaporanLainController::class, 'laporan_ringkasan_jenis_kursus']);
+            Route::get('laporan-ringkasan-bidang-kursus', [LaporanLainController::class, 'laporan_ringkasan_bidang_kursus']);
+            Route::get('laporan-penilaian-peserta', [LaporanLainController::class, 'laporan_penilaian_peserta']);
+
+            //download excel
+            Route::get('/pmk', [LaporanLainController::class, 'pmk'])->name('pmk');
+            Route::get('/pmpt', [LaporanLainController::class, 'pmpt'])->name('pmpt');
+            Route::get('/pml', [LaporanLainController::class, 'pml'])->name('pml');
+
         });
     });
 
