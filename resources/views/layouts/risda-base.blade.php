@@ -59,6 +59,8 @@
     <link href="/assets/css/user.min.css" rel="stylesheet" id="user-style-default">
     <link rel="stylesheet" type="text/css" href="/assets/css/datatables.css" />
     <link rel="stylesheet" type="text/css" href="/assets/css/datatables.min.css" />
+
+
     <script>
         var APP_URL = {!! json_encode(url('/')) !!}
 
@@ -454,6 +456,9 @@
 
             $('.datatable').DataTable();
 
+
+
+
             $(".tahun").datepicker({
                 format: "yyyy",
                 viewMode: "years",
@@ -464,5 +469,7 @@
         });
     </script>
 </body>
+
+
 
 </html>

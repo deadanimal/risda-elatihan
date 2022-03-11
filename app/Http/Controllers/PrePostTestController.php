@@ -44,7 +44,7 @@ class PrePostTestController extends Controller
     {
         $permohonan = Permohonan::where('no_pekerja', auth()->user()->id)
             ->where('status_permohonan', 4)
-            ->where('dinilai', null)->get();
+            ->where('dinilai_pre', null)->get();
 
         return view('penilaian.pre-post.answer', [
             'permohonan' => $permohonan,
