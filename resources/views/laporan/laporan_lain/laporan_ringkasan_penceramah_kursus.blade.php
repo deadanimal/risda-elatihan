@@ -61,33 +61,28 @@
 
         <div class="card-body">
             <div class="table-responsive scrollbar ">
-                <table class="table text-center table-bordered datatable"
-                    style="vertical-align: middle;border-color: #00B64E;">
-                    <thead class="risda-bg-g">
-
-                        <tr>
-                            <th>TARIKH</th>
-                            <th>BIL.</th>
-                            <th>PENCERAMAH KURSUS</th>
-                            <th>KOD NAMA KURSUS</th>
-                            <th>NAMA KURSUS</th>
-                            <th>TARIKH MULA</th>
-                            <th>TARIKH AKHIR</th>
-                            <th>TEMPAT KURSUS</th>
-                            <th>BAYARAN PENCERAMAH <br> (RM)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
+                @include(
+                    'laporan.laporan_lain.excel.laporan_ringkasan_penceramah_kursus'
+                )
             </div>
-
         </div>
     </div>
     </div>
 
+    <a id="downloadpdf" download="LaporanPrestasiKehadiranPeserta.pdf" style="display: none" href="#"></a>
+
+    <a id="downloadexcel" style="display: none" href="{{ route('rp') }}"></a>
+
     <script>
+        function download(el) {
+            let val = el.value;
+            if (val == "Pdf") {
+                document.getElementById('downloadpdf').click();
+            }
+            if (val == "Excel") {
+                document.getElementById('downloadexcel').click();
+            }
+        }
         $(document).ready(function() {
             $("th").addClass('fw-bold text-white');
         });

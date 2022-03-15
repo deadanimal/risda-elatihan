@@ -267,6 +267,8 @@ Route::middleware('auth')->group(function () {
             Route::get('/pmk', [LaporanLainController::class, 'pmk'])->name('pmk');
             Route::get('/pmpt', [LaporanLainController::class, 'pmpt'])->name('pmpt');
             Route::get('/pml', [LaporanLainController::class, 'pml'])->name('pml');
+            Route::get('/pkp', [LaporanLainController::class, 'pkp'])->name('pkp');
+            Route::get('/rp', [LaporanLainController::class, 'rp'])->name('rp');
 
         });
     });

@@ -52,35 +52,27 @@
             </div>
         </div>
 
-        <div class="card-body">
-            <div class="table-responsive scrollbar ">
-                <table class="table text-center table-bordered datatable"
-                    style="vertical-align: middle;border-color: #00B64E;">
-                    <thead class="risda-bg-g">
-                        <tr>
-                            <th>BIL.</th>
-                            <th>BIDANG KURSUS</th>
-                            <th>BIL</th>
-                            <th>NAMA KURSUS</th>
-                            <th>TARIKH KURSUS</th>
-                            <th>BIL PANGGILAN</th>
-                            <th>BIL HADIR</th>
-                            <th>BIL TIDAK HADIR</th>
-                            <th>BIL PENGGANTI</th>
-                            <th>PERATUSAN KEHADIRAN</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
-            </div>
-
-        </div>
+        @include(
+            'laporan.laporan_lain.excel.laporan_prestasi_kehadiran_peserta'
+        )
     </div>
     </div>
+
+    <a id="downloadpdf" download="LaporanPrestasiKehadiranPeserta.pdf" style="display: none" href="#"></a>
+
+    <a id="downloadexcel" style="display: none" href="{{ route('pkp') }}"></a>
+
 
     <script>
+        function download(el) {
+            let val = el.value;
+            if (val == "Pdf") {
+                document.getElementById('downloadpdf').click();
+            }
+            if (val == "Excel") {
+                document.getElementById('downloadexcel').click();
+            }
+        }
         $(document).ready(function() {
             $("th").addClass('fw-bold text-white');
         });

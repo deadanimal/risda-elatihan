@@ -9,7 +9,7 @@ class JadualKursus extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    protected $with = ['penceramah', 'preposttest', 'tempat', 'status_pelaksanaan', 'kodkursus'];
+    protected $with = ['preposttest', 'tempat', 'status_pelaksanaan', 'kodkursus'];
 
     public function kehadiran()
     {
