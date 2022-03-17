@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\PendaftaranEP;
+use App\Mail\PendaftaranPK;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
 use Spatie\Permission\Models\Role;
 use Symfony\Component\Translation\Provider\Dsn;
 
@@ -49,7 +54,7 @@ class PengurusanPenggunaController extends Controller
     }
     public function pekebun_kecil()
     {
-        $pekebun =User::where('jenis_pengguna', 'Peserta ULPK')->get();
+        $pekebun = User::where('jenis_pengguna', 'Peserta ULPK')->get();
         foreach ($pekebun as $key => $pk) {
             $data_pk = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', '1cc11a9fec81dc1f99f353f403d6f5bac620aa8f')
                 ->get('https://www4.risda.gov.my/espek/portalpkprofiltanah/?nokp=' . $pk->no_KP)
@@ -89,7 +94,12 @@ class PengurusanPenggunaController extends Controller
      */
     public function create()
     {
-        //
+        // dd(Route::getCurrentRoute()->uri);
+        if (Route::getCurrentRoute()->uri == "pengurusan_pengguna/pengguna/pekebun_kecil/create") {
+            return view('pengurusan_pengguna.senarai_pengguna.pekebun_kecil.create');
+        } elseif (Route::getCurrentRoute()->uri == "pengurusan_pengguna/pengguna/ejen_pelaksana/create") {
+            return view('pengurusan_pengguna.senarai_pengguna.ejen_pelaksana.create');
+        }
     }
 
     /**
@@ -100,7 +110,44 @@ class PengurusanPenggunaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+        if ($request->jenis_pengguna != 'xdrf') {
+            if ($request->jenis_pengguna != 'ep') {
+                alert()->error('Maaf, sila daftar mengikut SOP yang betul. Terima Kasih', 'Pendaftaran Gagal');
+            }
+        } else {
+            $data_pk = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', '1cc11a9fec81dc1f99f353f403d6f5bac620aa8f')
+                ->get('https://www4.risda.gov.my/espek/portalpkprofiltanah/?nokp=' . $request->no_KP)
+                ->getBody()
+                ->getContents();
+
+            $data_pk = json_decode($data_pk, true);
+
+            if (!empty($data_pk['message'])) {
+                alert()->error('Maaf, nombor kad pengenalan yang dimasukkan tiada dalam pangkalan data HRIP', 'Tiada Maklumat');
+                return redirect('/pengurusan_pengguna/pengguna/pekebun_kecil/create');
+            } 
+        }
+
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make('RISDA2022');
+        $user->no_KP = $request->no_KP;
+        if ($request->jenis_pengguna = 'xdrf') {
+            $user->jenis_pengguna = 'Peserta ULPK';
+            $user->assignRole('Peserta ULPK');
+            Mail::to($request->email)->send(new PendaftaranPK($user));
+        } elseif ($request->jenis_pengguna = 'ep') {
+            $user->jenis_pengguna = 'Ejen Pelaksana';
+            $user->assignRole('Ejen Pelaksana');
+            Mail::to($request->email)->send(new PendaftaranEP($user));
+        }
+
+        $user->save();
+
+        alert()->success('Sila semak email anda untuk notifikasi pendaftaran.', 'Pendaftaran Berjaya');
+        return redirect('/pengurusan_pengguna/pengguna/pekebun_kecil');
     }
 
     /**
@@ -151,7 +198,7 @@ class PengurusanPenggunaController extends Controller
         $user->status_akaun = $request->status;
         $user->save();
 
-        alert()->success('Akaun bagi '.$user->name.' telah dikemaskini', 'Berjaya');
+        alert()->success('Akaun bagi ' . $user->name . ' telah dikemaskini', 'Berjaya');
         return back();
     }
 
@@ -164,5 +211,25 @@ class PengurusanPenggunaController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function semak_nric(Request $request)
+    {
+        $data_pk = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', '1cc11a9fec81dc1f99f353f403d6f5bac620aa8f')
+            ->get('https://www4.risda.gov.my/espek/portalpkprofiltanah/?nokp=' . $request->no_KP)
+            ->getBody()
+            ->getContents();
+
+        $data_pk = json_decode($data_pk, true);
+
+        if (!empty($data_pk['message'])) {
+            alert()->error('Maaf, nombor kad pengenalan yang dimasukkan tiada dalam pangkalan data HRIP', 'Tiada Maklumat');
+            return back();
+        } else {
+            // dd($data_pk);
+            return view('pengurusan_pengguna.senarai_pengguna.pekebun_kecil.maklumat_pk', [
+                'pekebun' => $data_pk[0]
+            ]);
+        }
     }
 }

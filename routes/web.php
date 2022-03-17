@@ -138,9 +138,16 @@ Route::middleware('auth')->group(function () {
         // '/pengurusan_pengguna/pengguna' => PengurusanPenggunaController::class,
     ]);
 
+    // Route::resource('/pengurusan_pengguna/pengguna', PengurusanPenggunaController::class);
     Route::get('/pengurusan_pengguna/pengguna/staf', [PengurusanPenggunaController::class, 'staf']);
+
     Route::get('/pengurusan_pengguna/pengguna/pekebun_kecil', [PengurusanPenggunaController::class, 'pekebun_kecil']);
+    Route::get('/pengurusan_pengguna/pengguna/pekebun_kecil/create', [PengurusanPenggunaController::class, 'create']);
+    Route::post('/pengurusan_pengguna/pengguna/pekebun_kecil/semak', [PengurusanPenggunaController::class, 'semak_nric']);
+
     Route::get('/pengurusan_pengguna/pengguna/ejen_pelaksana', [PengurusanPenggunaController::class, 'ejen_pelaksana']);
+
+    Route::post('/pengurusan_pengguna/pengguna', [PengurusanPenggunaController::class, 'store']);
     Route::put('/pengurusan_pengguna/pengguna/{id}', [PengurusanPenggunaController::class, 'update']);
     Route::post('/pengurusan_pengguna/pengguna/pengaktifan/{id}', [PengurusanPenggunaController::class, 'pengaktifan']);
 
