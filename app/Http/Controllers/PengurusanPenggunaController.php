@@ -49,8 +49,23 @@ class PengurusanPenggunaController extends Controller
     }
     public function pekebun_kecil()
     {
+        $pekebun =User::where('jenis_pengguna', 'Peserta ULPK')->get();
+        foreach ($pekebun as $key => $pk) {
+            $data_pk = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', '1cc11a9fec81dc1f99f353f403d6f5bac620aa8f')
+                ->get('https://www4.risda.gov.my/espek/portalpkprofiltanah/?nokp=' . $pk->no_KP)
+                ->getBody()
+                ->getContents();
+
+            $data_pk = json_decode($data_pk, true);
+            if (!empty($data_pk['NamaPT'])) {
+                $pk->pusat_tanggungjawab = $data_pk['NamaPT'];
+            } else {
+                $pk->pusat_tanggungjawab = null;
+            }
+        }
+
         return view('pengurusan_pengguna.senarai_pengguna.pekebun_kecil.index', [
-            'pekebun' => User::where('jenis_pengguna', 'Peserta ULPK')->get(),
+            'pekebun' => $pekebun,
             'peranan' => Role::all(),
         ]);
     }

@@ -4,7 +4,7 @@
         <div class="row mt-3 mb-2">
             <div class="col-12 mb-2">
                 <p class="h1 mb-0 fw-bold" style="color: rgb(43,93,53);  ">PENGURUSAN PENGGUNA</p>
-                <p class="h5" style="color: rgb(43,93,53); ">PENGGUNA</p>
+                <p class="h5" style="color: rgb(43,93,53); ">SENARAI PENGGUNA</p>
             </div>
         </div>
         <hr style="color: rgba(81,179,90, 60%);height:2px;">
@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
-                    SENARAI EJEN PELAKSANA
+                    SENARAI PENGGUNA EJEN PELAKSANA
                 </p>
             </div>
         </div>
@@ -21,35 +21,41 @@
             <div class="col-12">
                 <div class="card mt-2">
                     <div class="table-responsive scrollbar m-3">
-                        <table class="table datatable table-bordered text-center m-3">
+                        <table class="table datatable table text-center m-3">
                             <thead>
                                 <tr>
                                     <th scope="col">BIL.</th>
                                     <th scope="col">NO. KAD PENGENALAN</th>
-                                    <th scope="col">NAMA PENGGUNA</th>
-                                    <th scope="col">EMAIL PENGGUNA</th>
-                                    <th scope="col">JENIS PENGGUNA</th>
-                                    <th scope="col">TINDAKAN</th>
+                                    <th scope="col">NAMA</th>
+                                    <th scope="col">E-MEL</th>
+                                    <th scope="col">TARIKH AKAUN DICIPTA</th>
+                                    <th scope="col">PENGAKTIFAN AKAUN</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($ejen as $key => $u)
-                                    @if ($u->jenis_pengguna != 'Urus Setia ULS' && $u->jenis_pengguna != 'Peserta ULS')
                                         <tr>
                                             <td>{{ $key + 1 }}.</td>
                                             <td>{{ $u->no_KP }}</td>
                                             <td>{{ $u->name }}</td>
                                             <td>{{ $u->email }}</td>
-                                            <td>{{ $u->jenis_pengguna }}</td>
+                                            <td>{{ $u->created_at }}</td>
                                             <td>
-                                                <button class="btn btn-primary" type="button"
+                                                <form action="/pengurusan_pengguna/pengguna/pengaktifan/{{$u->id}}" method="post" id="statusForm{{ $u->id }}" class="pengaktifan">
+                                                    @csrf
+                                                    <input class="form-check-input" id="active_{{ $u->id }}"
+                                                    type="checkbox" value="1"
+                                                    {{ isset($u->status_akaun) && $u->status_akaun == '1' ? 'checked' : '' }}
+                                                    name="status"
+                                                    onchange="document.getElementById('statusForm{{ $u->id }}').submit()" />
+                                                </form>
+                                                {{-- <button class="btn btn-primary" type="button"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#edit_pengguna_{{ $u->id }}">
                                                     <i class="fas fa-pen"></i>
-                                                </button>
+                                                </button> --}}
                                             </td>
                                         </tr>
-                                    @endif
                                     <div class="modal fade" id="edit_pengguna_{{ $u->id }}"
                                         tabindex="-1" role="dialog" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document"

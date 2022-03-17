@@ -82,6 +82,62 @@
 <img src="/img/risda-banner.jpg" alt="banner" width="100%">
 
 <body>
+    <style>
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 99999;
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: center;
+            align-items: center;
+            background: none repeat scroll 0 0 #ffffff75;
+        }
+    
+        .word {
+            position: absolute;
+            margin-top: 120px;
+            margin-left: 25px;
+            font-weight: bold;
+        }
+        .spinner {
+            border: 1px solid transparent;
+            border-radius: 3px;
+            position: relative;
+        }
+    
+        .spinner:before {
+            content: "";
+            box-sizing: border-box;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 45px;
+            height: 45px;
+            margin-top: -10px;
+            margin-left: -10px;
+            border-radius: 50%;
+            border: 5px solid #009640;
+            border-top-color: #ffffff00;
+            animation: spinner 0.9s linear infinite;
+        }
+    
+        @keyframes spinner {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    
+        @keyframes spinner {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    
+    </style>
     @include('sweet::alert')
     <style>
         .form-control {
@@ -393,6 +449,14 @@
                 {{-- </div> --}}
             </div>
         </div>
+        <section class="preloader" id="preload2">
+            <div class="spinner" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="word">
+                <span>Sila Tunggu...</span>
+            </div>
+        </section>
 
 
         <footer class="risda-bg-dg">
@@ -413,6 +477,19 @@
     <!-- ===============================================-->
     <!--    JavaScripts-->
     <!-- ===============================================-->
+    <script>
+        $(document).ready(function() {
+            $('#preload2').hide();
+        });
+
+        $('.form-check-input').click(function() {
+            $('#preload2').show();
+        });
+
+        $(document).load(function() {
+            $('#preload2').show();
+        });
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
     <script src="/vendors/popper/popper.min.js"></script>
