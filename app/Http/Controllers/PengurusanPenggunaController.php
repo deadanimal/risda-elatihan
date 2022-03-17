@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Spatie\Permission\Models\Role;
 use Symfony\Component\Translation\Provider\Dsn;
 
@@ -22,21 +23,40 @@ class PengurusanPenggunaController extends Controller
     // list user
     public function staf()
     {
-        return view('pengurusan_pengguna.senarai_pengguna.staf.index',[
-            'staf' => User::where('jenis_pengguna', '!=', 'Peserta ULPK')->get(),
+        $staf = User::where('jenis_pengguna', '!=', 'Peserta ULPK')->where('jenis_pengguna', '!=', 'Ejen Pelaksana')->get();
+        $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
+            ->get('https://www4.risda.gov.my/fire/getallstaff/')
+            ->getBody()
+            ->getContents();
+
+        $data_staf = json_decode($data_staf, true);
+        // dd($data_staf);
+        foreach ($staf as $key => $s) {
+            foreach ($data_staf as $key => $ds) {
+                if ($ds['nokp'] == $s->no_KP) {
+                    $s->no_pekerja = $ds['nopekerja'];
+                    $s->pusat_tanggungjawab = $ds['NamaPT'];
+                    $s->gred = $ds['Gred'];
+                    $s->jawatan = $ds['Jawatan'];
+                }
+            }
+        }
+        // dd($staf);
+        return view('pengurusan_pengguna.senarai_pengguna.staf.index2', [
+            'staf' => $staf,
             'peranan' => Role::all(),
         ]);
     }
     public function pekebun_kecil()
     {
-        return view('pengurusan_pengguna.senarai_pengguna.pekebun_kecil.index',[
+        return view('pengurusan_pengguna.senarai_pengguna.pekebun_kecil.index', [
             'pekebun' => User::where('jenis_pengguna', 'Peserta ULPK')->get(),
             'peranan' => Role::all(),
         ]);
     }
     public function ejen_pelaksana()
     {
-        return view('pengurusan_pengguna.senarai_pengguna.ejen_pelaksana.index',[
+        return view('pengurusan_pengguna.senarai_pengguna.ejen_pelaksana.index', [
             'ejen' => User::where('jenis_pengguna', 'Ejen Pelaksana')->get(),
             'peranan' => Role::all(),
         ]);
@@ -105,6 +125,19 @@ class PengurusanPenggunaController extends Controller
         $user->save();
 
         return redirect('/pengurusan_pengguna/senarai_pengguna/staf');
+    }
+
+    public function pengaktifan(Request $request, $id)
+    {
+        if (empty($request->status)) {
+            $request->status = null;
+        }
+        $user = User::find($id);
+        $user->status_akaun = $request->status;
+        $user->save();
+
+        alert()->success('Akaun bagi '.$user->name.' telah dikemaskini', 'Berjaya');
+        return back();
     }
 
     /**
