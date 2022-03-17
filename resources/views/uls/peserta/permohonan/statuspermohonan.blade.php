@@ -55,7 +55,7 @@
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($permohonan as $p)
-                                                        @if ($p->jadualKursus->tarikh_mula >= $hari_ini)
+                                                        @if ($p->jadualKursus->tarikh_tamat >= $hari_ini)
                                                             @role('Peserta ULS')
                                                                 @if (Auth::id() == $p->no_pekerja)
                                                                     <tr style="text-center">
@@ -91,7 +91,7 @@
                                                                         </td>
                                                                     </tr>
                                                                 @endif
-                                                                @elserole('Peserta ULPK')
+                                                            @elserole('Peserta ULPK')
                                                                 @if (Auth::id() == $p->no_pekerja)
                                                                     <tr style="text-center">
                                                                         <td>{{ $loop->iteration }}.</td>
@@ -186,7 +186,7 @@
                                                         <th class="fw-bold text-dark" scope="col">KOD KURSUS</th>
                                                         <th class="fw-bold text-dark" scope="col">NAMA KURSUS</th>
                                                         <th class="fw-bold text-dark" scope="col">TARIKH KURSUS</th>
-                                                        <th class="fw-bold text-dark" scope="col">STATUS</th>
+                                                        <th class="fw-bold text-dark" scope="col">STATUS KEHADIRAN</th>
                                                         <th class="fw-bold text-dark" scope="col">TINDAKAN</th>
                                                     </tr>
                                                 </thead>
@@ -199,21 +199,7 @@
                                                                 <td>{{ $p->jadualKursus->kursus_nama }}</td>
                                                                 <td>{{ date('d/m/Y', strtotime($p->jadualKursus->tarikh_mula)) }}
                                                                 </td>
-                                                                <td>
-                                                                    @if ($p->status_permohonan == 0)
-                                                                        Belum Disemak
-                                                                    @elseif($p->status_permohonan == 1)
-                                                                        Belum Disemak (Sokongan)
-                                                                    @elseif($p->status_permohonan == 2)
-                                                                        Disokong
-                                                                    @elseif($p->status_permohonan == 3)
-                                                                        Tidak Disokong
-                                                                    @elseif($p->status_permohonan == 4)
-                                                                        Lulus
-                                                                    @elseif($p->status_permohonan == 5)
-                                                                        Tidak Lulus
-                                                                    @endif
-                                                                </td>
+                                                                <td>{{$p->status_kehadiran}}</td>
                                                                 <td class="text-end" style="width:210px !important">
                                                                     <div class="d-grid gap-2">
                                                                         <a class="btn btn-primary btn-sm" href="#">

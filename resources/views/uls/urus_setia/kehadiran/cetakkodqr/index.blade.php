@@ -1,6 +1,5 @@
 @extends('layouts.risda-base')
 @section('content')
-
     <style>
         table>thead>tr {
             border-color: rgb(0, 150, 64);
@@ -29,7 +28,7 @@
         <div class="row">
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
-                    CETAK QR CODE
+                    CETAK KOD QR
                 </p>
             </div>
         </div>
@@ -63,9 +62,9 @@
                     <thead>
                         <tr>
                             <th scope="col">BIL.</th>
-                            <th scope="col">KOD NAMA <br> KURSUS</th>
-                            <th scope="col">NAMA <br> KURSUS</th>
-                            <th scope="col">TARIKH <br> KURSUS</th>
+                            <th scope="col">KOD NAMA KURSUS</th>
+                            <th scope="col">NAMA KURSUS</th>
+                            <th scope="col">TARIKH KURSUS</th>
                             <th scope="col">TEMPAT KURSUS</th>
                             <th class="text-end" scope="col">TINDAKAN</th>
                         </tr>
@@ -74,12 +73,12 @@
                         @foreach ($kod_kursus as $k)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $k->kod_Kursus }}</td>
-                                <td>{{ $k->tajuk_Kursus }}</td>
-                                <td>{{ $k->tarikh_daftar_Kursus }}</td>
-                                <td>{{ $k->tempat_khusus }}</td>
+                                <td>{{ $k->kursus_kod_nama_kursus }}</td>
+                                <td>{{ $k->kursus_nama }}</td>
+                                <td>{{ date('d-m-Y', strtotime($k->tarikh_mula)) }}</td>
+                                <td>{{ $k->tempat->nama_Agensi }}</td>
                                 <td class="text-end"><a href="/us-uls/kehadiran/cetakkodQR/{{ $k->id }}"
-                                        class="btn btn-primary btn-sm">Cetak QR Code</a></td>
+                                        class="btn btn-primary btn-sm">CETAK KOD QR</a></td>
                             </tr>
                         @endforeach
 
@@ -87,22 +86,22 @@
                 </table>
             </div>
         </div>
+    </div>
 
 
-        <script>
-            $(document).ready(function() {
-                // $("#tahun").datepicker({
-                //     format: "yyyy",
-                //     viewMode: "years",
-                //     minViewMode: "years",
-                //     autoclose: true,
+    <script>
+        $(document).ready(function() {
+            // $("#tahun").datepicker({
+            //     format: "yyyy",
+            //     viewMode: "years",
+            //     minViewMode: "years",
+            //     autoclose: true,
 
-                // });
+            // });
 
-                $('.tahun').bind('onSelect', function() {
-                    console.log("a");
-                });
+            $('.tahun').bind('onSelect', function() {
+                console.log("a");
             });
-        </script>
-
-    @endsection
+        });
+    </script>
+@endsection

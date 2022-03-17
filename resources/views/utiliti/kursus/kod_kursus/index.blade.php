@@ -38,13 +38,13 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label">TAHUN</label>
-                                        <input class="form-control datepicker" type="text"
-                                            autocomplete="off" name="tahun_Kursus" value="{{$tahun_ini}}" readonly/>
+                                        <input class="form-control datepicker" type="text" autocomplete="off"
+                                            name="tahun_Kursus" value="{{ $tahun_ini }}" readonly />
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label">TARIKH DAFTAR</label>
                                         <input class="form-control" type="date" name="tarikh_daftar_Kursus"
-                                            data-date-format="dd/mm/yyyy" readonly value="{{$hari_ini}}"/>
+                                            data-date-format="dd/mm/yyyy" readonly value="{{ $hari_ini }}" />
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label">BIDANG KURSUS</label>
@@ -341,25 +341,48 @@
             var id_kat = $('#kat_kur option:selected').val();
             var nama = $('#kat_kur option:selected').attr('nama');
 
-            var kod_staf = @json($bil_staf->toArray());
-            console.log(kod_staf.length);
-            if (kod_staf.length != 0) {
-                console.log(kod_staf);
-                var bil_kat_kur = 1;
-                kod_staf.forEach(element => {
-                    kod_kategori = element.U_Kategori_Kursus;
-                    console.log('id kursus = ' + id_kat, 'id kursus dalam db = ' + kod_kategori);
-                    if (id_kat == kod_kategori) {
-                        if (element.no_kod_Kursus != null) {
-                            console.log('masuk', element.no_kod_Kursus);
-                            bil_kat_kur = parseInt(element.no_kod_Kursus) + 1;
+            if (kod_ul == 'Staf') {
+                var kod_staf = @json($bil_staf->toArray());
+                console.log(kod_staf.length);
+                if (kod_staf.length != 0) {
+                    console.log(kod_staf);
+                    var bil_kat_kur = 1;
+                    kod_staf.forEach(element => {
+                        kod_kategori = element.U_Kategori_Kursus;
+                        console.log('id kursus = ' + id_kat, 'id kursus dalam db = ' + kod_kategori);
+                        if (id_kat == kod_kategori) {
+                            if (element.no_kod_Kursus != null) {
+                                console.log('masuk', element.no_kod_Kursus);
+                                bil_kat_kur = parseInt(element.no_kod_Kursus) + 1;
+                            }
                         }
-                    }
-                })
-                console.log(bil_kat_kur + ' j');
+                    })
+                    console.log(bil_kat_kur + ' j');
+                } else {
+                    var bil_kat_kur = 1;
+                }
             } else {
-                var bil_kat_kur = 1;
+                var kod_pk = @json($bil_pk->toArray());
+                console.log(kod_pk.length);
+                if (kod_pk.length != 0) {
+                    console.log(kod_pk);
+                    var bil_kat_kur = 1;
+                    kod_pk.forEach(element => {
+                        kod_kategori = element.U_Kategori_Kursus;
+                        console.log('id kursus = ' + id_kat, 'id kursus dalam db = ' + kod_kategori);
+                        if (id_kat == kod_kategori) {
+                            if (element.no_kod_Kursus != null) {
+                                console.log('masuk', element.no_kod_Kursus);
+                                bil_kat_kur = parseInt(element.no_kod_Kursus) + 1;
+                            }
+                        }
+                    })
+                    console.log(bil_kat_kur + ' jpk');
+                } else {
+                    var bil_kat_kur = 1;
+                }
             }
+
 
             bil_kat_kur = bil_kat_kur.toLocaleString('en-US', {
                 minimumIntegerDigits: 3,
@@ -370,13 +393,8 @@
 
             var kod_pk = @json($bil_pk);
 
-            if (kod_ul == 'Staf') {
-                $('#kod_kur').val(nama + bil_kat_kur);
-                $('#no_kod_Kursus').val(bil_kat_kur);
-            } else {
-                $('#kod_kat').val('PK' + kod_bid + kod_pk);
-                $('#no_kod_KK').val(kod_pk);
-            }
+            $('#kod_kur').val(nama + bil_kat_kur);
+            $('#no_kod_Kursus').val(bil_kat_kur);
         });
 
 

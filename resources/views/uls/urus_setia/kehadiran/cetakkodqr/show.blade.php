@@ -1,6 +1,5 @@
 @extends('layouts.risda-base')
 @section('content')
-
     <style>
         p {
             color: rgb(15, 94, 49);
@@ -36,7 +35,7 @@
         <div class="row">
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
-                    CETAK QR CODE
+                    CETAK KOD QR
                 </p>
             </div>
         </div>
@@ -47,7 +46,8 @@
                     <p class="pt-2 fw-bold">KOD NAMA KURSUS</p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control mb-3" readonly value="{{ $kod_kursus->kod_Kursus }}">
+                    <input type="text" class="form-control mb-3" readonly
+                        value="{{ $kod_kursus->kursus_kod_nama_kursus }}">
                 </div>
             </div>
             <div class="col-9 d-inline-flex">
@@ -55,7 +55,7 @@
                     <p class="pt-2 fw-bold">UNIT LATIHAN</p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control mb-3" readonly value="{{ $kod_kursus->UL_Kod_Kursus }}">
+                    <input type="text" class="form-control mb-3" readonly value="{{ $kod_kursus->kursus_unit_latihan }}">
                 </div>
             </div>
             <div class="col-9 d-inline-flex">
@@ -63,7 +63,7 @@
                     <p class="pt-2 fw-bold">NAMA KURSUS</p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control mb-3" readonly value="{{ $kod_kursus->tajuk_Kursus }}">
+                    <input type="text" class="form-control mb-3" readonly value="{{ $kod_kursus->kursus_nama }}">
                 </div>
             </div>
             <div class="col-9 d-inline-flex">
@@ -71,7 +71,7 @@
                     <p class="pt-2 fw-bold">TARIKH KURSUS</p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control mb-3" readonly value="{{ $kod_kursus->tarikh_daftar_Kursus }}">
+                    <input type="text" class="form-control mb-3" readonly value="{{ $kod_kursus->tarikh_mula }}">
                 </div>
             </div>
             <div class="col-9 d-inline-flex">
@@ -79,7 +79,7 @@
                     <p class="pt-2 fw-bold">TEMPAT KURSUS</p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control mb-3" readonly value="{{ $kod_kursus->tempat_khusus }}">
+                    <input type="text" class="form-control mb-3" readonly value="{{ $kod_kursus->tempat->nama_Agensi }}">
                 </div>
             </div>
         </div>
@@ -101,14 +101,30 @@
                             </thead>
                             <tbody>
                                 @foreach ($kehadiran as $k)
-                                    @if ($k->sesi == 1)
+                                    {{-- @if ($k->ac_sesi == 1) --}}
+                                    <tr>
+                                        {{-- <td rowspan="{{$k->temp}}" class="align-middle">{{ $date[$k->ac_hari - 1] }}</td>
+                                            <td rowspan="{{$k->temp}}" class="align-middle">{{ $hari[$k->ac_hari - 1] }}</td> --}}
+                                        <td class="align-middle">{{ $date[$k->ac_hari - 1] }}</td>
+                                        <td class="align-middle">{{ $hari[$k->ac_hari - 1] }}</td>
+                                        <td>{{ $k->ac_sesi }}</td>
+                                        <td>{{ $k->ac_masa }}</td>
+                                        <td>
+                                            <div class="qrcode" id="{{ $k->id }}"></div>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-sm btn-primary" href="{{ route('printQR', $k->id) }}"><span
+                                                    class="fas fa-print"></span></a>
+                                        </td>
+                                    </tr>
+
+                                    {{-- @else
                                         <tr>
-                                            <td rowspan="2" class="align-middle">{{ $k->tarikh }}</td>
-                                            <td rowspan="2" class="align-middle">{{ $hari[$loop->index / 2] }}</td>
-                                            <td>{{ $k->sesi }}</td>
-                                            <td>{{ $k->masa }}</td>
+                                            <td>{{ $k->ac_sesi }}</td>
+                                            <td>{{ $k->ac_masa }}</td>
                                             <td>
                                                 <div class="qrcode" id="{{ $k->id }}"></div>
+
                                             </td>
                                             <td>
                                                 <a class="btn btn-sm btn-primary"
@@ -116,22 +132,7 @@
                                                         class="fas fa-print"></span></a>
                                             </td>
                                         </tr>
-
-                                    @else
-                                        <tr>
-                                            <td>{{ $k->sesi }}</td>
-                                            <td>{{ $k->masa }}</td>
-                                            <td>
-                                                <div class="qrcode" id="{{ $k->id }}"></div>
-
-                                            </td>
-                                            <td>
-                                                <a class="btn btn-sm btn-primary"
-                                                    href="{{ route('printQR', $k->id) }}"><span
-                                                        class="fas fa-print"></span></a>
-                                            </td>
-                                        </tr>
-                                    @endif
+                                    @endif --}}
                                 @endforeach
 
                             </tbody>
@@ -141,22 +142,23 @@
             </div>
 
         </div>
+    </div>
 
 
-        <script>
-            $(document).ready(function() {
-                let qr = $(".qrcode");
-                jQuery.each(qr, function(key, val) {
-                    var outUrl = APP_URL + "/uls/kehadiran/" + val.id;
-                    new QRCode(document.getElementById(val.id), {
-                        text: outUrl,
-                        width: 90,
-                        height: 90,
-                        colorDark: "#000000",
-                        colorLight: "#ffffff",
-                        correctLevel: QRCode.CorrectLevel.H
-                    });
+    <script>
+        $(document).ready(function() {
+            let qr = $(".qrcode");
+            jQuery.each(qr, function(key, val) {
+                var outUrl = APP_URL + "/uls/kehadiran/" + val.id;
+                new QRCode(document.getElementById(val.id), {
+                    text: outUrl,
+                    width: 90,
+                    height: 90,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
                 });
             });
-        </script>
-    @endsection
+        });
+    </script>
+@endsection

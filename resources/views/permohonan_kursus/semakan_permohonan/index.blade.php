@@ -1,8 +1,8 @@
 @extends('layouts.risda-base')
 @section('content')
-@php
+    @php
     use Illuminate\Support\Facades\Http;
-@endphp
+    @endphp
     <div class="row">
         <div class="col">
             <h1 class="mb-0 risda-dg"><strong>PENGURUSAN PESERTA</strong></h1>
@@ -61,47 +61,111 @@
                         </thead>
                         <tbody class="bg-white" id="t_normal">
                             @foreach ($pemohon as $key => $p)
-                                <tr>
-                                    <td>{{ $key + 1 }}.</td>
-                                    <td>{{ date('H:i, d/m/Y', strtotime($p->created_at)) }}</td>
-                                    <td>{{ $p->peserta->no_KP }}</td>
-                                    <td>{{ $p->peserta->name }}</td>
-                                    @php
-                                        $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
-                                            ->get('https://www4.risda.gov.my/fire/getallstaff/')
-                                            ->getBody()
-                                            ->getContents();
-                                        
-                                        $data_staf = json_decode($data_staf, true);
-                                        foreach ($data_staf as $key => $s) {
-                                            if ($s['nokp'] == $p->peserta->no_KP) {
-                                                $staf = $s;
-                                            }
-                                        }
-                                    @endphp
-                                    <td>{{$staf['NamaPT']}}</td>
-                                    <td> </td>
-                                    <td>{{ $p->jadualKursus->kursus_kod_nama_kursus }}</td>
-                                    <td>{{ $p->jadualKursus->kursus_nama }}</td>
-                                    <td>
-                                        @if ($p->status_permohonan == 0)
-                                            Belum Disemak
-                                        @elseif($p->status_permohonan == 1)
-                                            Belum Disemak (Sokongan)
-                                        @elseif($p->status_permohonan == 2)
-                                            Disokong
-                                        @elseif($p->status_permohonan == 3)
-                                            Tidak Disokong
-                                        @elseif($p->status_permohonan == 4)
-                                            Lulus
-                                        @elseif($p->status_permohonan == 5)
-                                            Tidak Lulus
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <a href="/permohonan_kursus/semakan_permohonan/{{$p->id}}" class="btn btn-primary btn-sm">Butiran</a>
-                                    </td>
-                                </tr>
+                                @role('Penyokong')
+                                    @if ($p->status_permohonan != 0)
+                                        <tr>
+                                            <td>{{ $key + 1 }}.</td>
+                                            <td>{{ date('H:i, d/m/Y', strtotime($p->created_at)) }}</td>
+                                            <td>{{ $p->peserta->no_KP }}</td>
+                                            <td>{{ $p->peserta->name }}</td>
+                                            <td>{{ $p->pusat_tanggungjawab }}</td>
+                                            <td>{{ $p->gred }}</td>
+                                            <td>{{ $p->jadualKursus->kursus_kod_nama_kursus }}</td>
+                                            <td>{{ $p->jadualKursus->kursus_nama }}</td>
+                                            <td>
+                                                @if ($p->status_permohonan == 0)
+                                                    Belum Disemak
+                                                @elseif($p->status_permohonan == 1)
+                                                    Belum Disemak (Sokongan)
+                                                @elseif($p->status_permohonan == 2)
+                                                    Disokong
+                                                @elseif($p->status_permohonan == 3)
+                                                    Tidak Disokong
+                                                @elseif($p->status_permohonan == 4)
+                                                    Telah Disemak (Penyokong)
+                                                @elseif($p->status_permohonan == 5)
+                                                    Telah Disemak (Penyokong)
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <a href="/permohonan_kursus/semakan_permohonan/{{ $p->id }}"
+                                                    class="btn btn-primary btn-sm">Butiran</a>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @else
+                                    <tr>
+                                        <td>{{ $key + 1 }}.</td>
+                                        <td>{{ date('H:i, d/m/Y', strtotime($p->created_at)) }}</td>
+                                        <td>{{ $p->peserta->no_KP }}</td>
+                                        <td>{{ $p->peserta->name }}</td>
+                                        <td>{{ $p->pusat_tanggungjawab }}</td>
+                                        <td>{{ $p->gred }}</td>
+                                        <td>{{ $p->jadualKursus->kursus_kod_nama_kursus }}</td>
+                                        <td>{{ $p->jadualKursus->kursus_nama }}</td>
+                                        <td>
+                                            @if ($p->status_permohonan == 0)
+                                                Belum Disemak
+                                            @elseif($p->status_permohonan == 1)
+                                                Belum Disemak (Sokongan)
+                                            @elseif($p->status_permohonan == 2)
+                                                Disokong
+                                            @elseif($p->status_permohonan == 3)
+                                                Tidak Disokong
+                                            @elseif($p->status_permohonan == 4)
+                                                Lulus
+                                            @elseif($p->status_permohonan == 5)
+                                                Tidak Lulus
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="/permohonan_kursus/semakan_permohonan/{{ $p->id }}"
+                                                class="btn btn-primary btn-sm">Butiran</a>
+                                            {{-- <form action="/permohonan_kursus/semakan_permohonan/{{$p->id}}" method="POST">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger">buang</button>
+                                            </form> --}}
+                                        </td>
+                                    </tr>
+                                @endrole
+
+                                <div class="modal fade" id="delete-{{ $p->id }}" tabindex="-1" role="dialog"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document"
+                                        style="max-width: 500px">
+                                        <div class="modal-content position-relative">
+                                            <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
+                                                <button
+                                                    class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
+                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body p-0">
+                                                <div class="row">
+                                                    <div class="col text-center m-3">
+                                                        <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
+                                                        <br>
+                                                        Anda pasti untuk menghapuskan maklumat ini?
+
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-secondary" type="button"
+                                                        data-bs-dismiss="modal">Batal</button>
+                                                    <form method="POST"
+                                                        action="/pengurusan_peserta/semakan_pemohon/{{ $p->id }}">
+                                                        @method('DELETE')
+                                                        @csrf
+                                                        <button class="btn btn-primary" type="submit">Hapus
+                                                        </button>
+                                                    </form>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
                             @endforeach
                         </tbody>
                     </table>

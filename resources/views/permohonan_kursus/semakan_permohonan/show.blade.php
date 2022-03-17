@@ -137,19 +137,19 @@
                     </div>
                     <div class="col-lg-6">
 
-                        <select name="status_permohonan" class="form-control">
+                        <select name="status_permohonan" class="form-control" required oninvalid="this.setCustomValidity('Sila isi bahagian ini')" oninput="setCustomValidity('')">
                             @if ($user->status_permohonan == '1')
                                 @role('Penyokong')
-                                    <option value="" hidden selected>Belum Disokong</option>
+                                    <option hidden value="" selected disabled>Sila Pilih</option>
                                     <option value="2">Sokong</option>
                                     <option value="3">Tidak Sokong</option>
                                 @else
-                                    <option value="" hidden selected>Belum Disokong</option>
+                                    <option value="" hidden selected disabled>Menanti jawapan penyokong</option>
                                 @endrole
                             @else
-                                <option value="" hidden selected>Sila Pilih</option>
+                                <option value=""  hidden selected>Sila Pilih</option>
                                 @role('Penyokong')
-                                    <option value="" hidden selected>Belum disemak</option>
+                                    <option value="" hidden selected disabled>Belum disemak</option>
                                 @else
                                     @if ($user->status_permohonan == '0')
                                         <option value="1">Hantar ke penyokong</option>
@@ -166,7 +166,7 @@
                     <div class="col-lg-9 text-end">
                         @if ($user->status_permohonan == '1')
                             @role('Penyokong')
-                                <button type="submit" class="btn btn-secondary text-white btn-sm">Hantar</button>
+                                <button type="submit" class="btn btn-primary text-white btn-sm">Hantar</button>
                             @else
                                 <button type="submit" disabled class="btn btn-secondary text-white btn-sm">Hantar</button>
                             @endrole
@@ -174,7 +174,7 @@
                             @role('Penyokong')
                                 <button type="submit" disabled class="btn btn-secondary text-white btn-sm">Hantar</button>
                             @else
-                                <button type="submit" disabled class="btn btn-secondary text-white btn-sm">Hantar</button>
+                                <button type="submit" class="btn btn-primary text-white btn-sm">Hantar</button>
                             @endrole
                         @endif
 

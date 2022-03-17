@@ -4,7 +4,7 @@
         <div class="row mt-3 mb-2">
             <div class="col-12 mb-2">
                 <p class="h1 mb-0 fw-bold" style="color: rgb(43,93,53);  ">PERMOHONAN KURSUS</p>
-                <p class="h5" style="color: rgb(43,93,53); ">KATELOG KURSUS</p>
+                <p class="h5" style="color: rgb(43,93,53); ">KATALOG KURSUS</p>
             </div>
         </div>
         <hr style="color: rgba(81,179,90, 60%);height:2px;">
@@ -54,10 +54,17 @@
                             Profil Penuh
                         </button>
 
-                        <button class="btn btn-sm btn-primary mt-3 text-center" type="button" data-bs-toggle="modal"
-                            data-bs-target="#register">
-                            Hantar Pemohonan
-                        </button>
+                        @if ($sp == 1)
+                            <button class="btn btn-sm btn-secondary mt-3 text-center" type="button" data-bs-toggle="modal"
+                                data-bs-target="#register" disabled>
+                                Hantar Pemohonan
+                            </button>
+                        @else
+                            <button class="btn btn-sm btn-primary mt-3 text-center" type="button" data-bs-toggle="modal"
+                                data-bs-target="#register">
+                                Hantar Pemohonan
+                            </button>
+                        @endif
                     </div>
 
                     <div class="modal fade" id="profil" tabindex="-1" role="dialog" aria-hidden="true">
@@ -69,7 +76,7 @@
                                 </div>
                                 <div class="modal-body p-0">
                                     <div class="rounded-top-lg py-3 bg-light">
-                                        <h4 class="mb-1 risda-g">PROFIL PENUH </h4>
+                                        <h4 class="mb-1 mx-3 risda-g">PROFIL PENUH </h4>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <div class="card">
@@ -88,7 +95,7 @@
                                                 <div class="row mt-4">
                                                     <div class="col">
                                                         <div class="row">
-                                                            <div class="col-6">
+                                                            <div class="col-lg-6">
                                                                 <div class="mb-3">
                                                                     <label class="form-label risda-g">NO. KAD
                                                                         PENGENALAN</label>
@@ -96,7 +103,7 @@
                                                                         value="{{ $user['no_KP'] }}" readonly />
                                                                 </div>
                                                             </div>
-                                                            <div class="col-6">
+                                                            <div class="col-lg-6">
                                                                 <div class="mb-3">
                                                                     <label class="form-label risda-g">NO. PEKERJA</label>
                                                                     <input class="form-control" type="text"
@@ -123,7 +130,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col-6">
+                                                            <div class="col-lg-6">
                                                                 <div class="mb-3">
                                                                     <label class="form-label risda-g">NO. TELEFON
                                                                         BIMBIT</label>
@@ -136,7 +143,7 @@
                                                                     @endif
                                                                 </div>
                                                             </div>
-                                                            <div class="col-6">
+                                                            <div class="col-lg-6">
                                                                 <div class="mb-3">
                                                                     <label class="form-label risda-g">NO. TELEFON
                                                                         PEJABAT</label>
@@ -156,14 +163,14 @@
                                                     <div class="col">
 
                                                         <div class="row">
-                                                            <div class="col-6">
+                                                            <div class="col-lg-6">
                                                                 <div class="mb-3">
                                                                     <label class="form-label risda-g">JAWATAN</label>
                                                                     <input class="form-control" type="text"
                                                                         value="{{ $staf['Jawatan'] }}" readonly />
                                                                 </div>
                                                             </div>
-                                                            <div class="col-6">
+                                                            <div class="col-lg-6">
                                                                 <div class="mb-3">
                                                                     <label class="form-label risda-g">GRED</label>
                                                                     <input class="form-control" type="text"
@@ -213,13 +220,13 @@
                                                             </div>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col-6">
+                                                            <div class="col-lg-6">
                                                                 <div class="mb-3">
                                                                     <label class="form-label risda-g">JAWATAN</label>
                                                                     <input class="form-control" type="text" readonly />
                                                                 </div>
                                                             </div>
-                                                            <div class="col-6">
+                                                            <div class="col-lg-6">
                                                                 <div class="mb-3">
                                                                     <label class="form-label risda-g">GRED</label>
                                                                     <input class="form-control" type="text" readonly />

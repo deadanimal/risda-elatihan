@@ -42,7 +42,7 @@
                     <p class="pt-2 fw-bold">TAHUN</p>
                 </div>
                 <div class="col-2">
-                    <input type="text" class="form-select mb-4 tahun" autocomplete="OFF">
+                    <input type="text" class="form-control mb-4 tahun" autocomplete="OFF" placeholder="yyyy">
                 </div>
             </div>
             <div class="col-8 d-inline-flex">
@@ -50,11 +50,16 @@
                     <p class="pt-2 fw-bold">UNIT LATIHAN</p>
                 </div>
                 <div class="col-6">
-                    @if (auth()->user()->jenis_pengguna == 'Urus Setia ULS')
-                        <input type="text" class="form-control mb-3" value="Peserta ULS">
-                    @elseif(auth()->user()->jenis_pengguna == 'Urus Setia ULPK')
+                    @role('Urus Setia ULS')
+                        {{-- <input type="text" class="form-control mb-3" value="Peserta ULS"> --}}
+                        <select name="" id="" class="form-control">
+                            <option value="" selected hidden>Sila Pilih</option>
+                            <option value="Staf">Staf</option>
+                            <option value="Pekebun Kecil">Pekebun Kecil</option>
+                        </select>
+                        @elserole('Urus Setia ULPK')
                         <input type="text" class="form-control mb-3" value="Peserta ULPK">
-                    @endif
+                    @endrole
                 </div>
             </div>
 
@@ -80,7 +85,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $jadual->kursus_kod_nama_kursus }}</td>
                                 <td>{{ $jadual->kursus_nama }}</td>
-                                <td>{{ $jadual->tarikh_mula }}</td>
+                                <td>{{ date('d-m-Y', strtotime($jadual->tarikh_mula)) }}</td>
                                 @if ($jadual->kursus_status == 1)
                                     <td class="risda-g fw-bold">SEDANG <br> DILAKSANAKAN</td>
                                 @else

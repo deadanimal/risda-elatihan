@@ -165,7 +165,7 @@ Route::middleware('auth')->group(function () {
         //Peserta ULPK
         Route::prefix('/ulpk')->group(function () {
             //Permohonan Peserta
-            Route::group(['prefix' => '/permohonan', 'middleware' => ['UlpkPeserta', 'AdminBTM']], function () {
+            Route::group(['prefix' => '/permohonan', 'middleware' => 'can:katelog kursus'], function () {
                 Route::get('statuspermohonan', [PermohonanController::class, 'indexULPK']);
                 Route::get('katelog-kursus', [PermohonanController::class, 'katalog_ulpk']);
                 Route::get('kehadiran/{kod_kursus}', [KehadiranController::class, 'indexULPK']);
@@ -317,6 +317,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/profil', ProfilController::class);
 
     Route::resource('/permohonan_kursus/katalog_kursus', PermohonanController::class);
+    Route::get('ulpk/permohonan/katelog-kursus', [PermohonanController::class, 'katalog_ulpk']);
 });
 
 require __DIR__ . '/auth.php';
