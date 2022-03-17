@@ -61,33 +61,9 @@
         </div>
 
         <div class="card-body">
-            <div class="table-responsive scrollbar ">
-                <table class="table text-center table-bordered datatable " border-color: #00B64E;">
-                    <thead class="risda-bg-g" style="vertical-align: middle">
-
-                        <tr>
-                            <th>BIL</th>
-                            <th>BIDANG KURSUS</th>
-                            <th>KATEGORI KURSUS</th>
-                            <th>KOD NAMA KURSUS</th>
-                            <th>NAMA KURSUS</th>
-                            <th>TARIKH KURSUS</th>
-                            <th>TEMPAT KURSUS</th>
-                            <th>ANJURAN</th>
-                            <th>BIL</th>
-                            <th>NO KAD PENGENALAN</th>
-                            <th>NAMA PEMOHON</th>
-                            <th>GRED</th>
-                            <th>PUSAT TANGGUNGJAWAB</th>
-                            <th>STATUS KEHADIRAN</th>
-                            <th>CATATAN</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
-            </div>
+            @include(
+                'laporan.laporan_lain.excel.laporan_kehadiran_peserta'
+            )
 
         </div>
     </div>

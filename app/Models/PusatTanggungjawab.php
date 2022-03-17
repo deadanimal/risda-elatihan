@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class PusatTanggungjawab extends Model
 {
     use HasFactory;
+
 }
