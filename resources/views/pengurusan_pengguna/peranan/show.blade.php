@@ -63,7 +63,7 @@
             @csrf
             <div class="card mt-5">
                 <div class="table-responsive scrollbar">
-                    <table class="table table-bordered text-center">
+                    <table class="table datatble table text-center">
                         <thead>
                             <tr>
                                 <th scope="col">Bil.</th>
@@ -76,7 +76,8 @@
                                 <tr>
                                     <td>{{ $key + 1 }}.</td>
                                     <td>{{ $k->name }}</td>
-                                    <td>
+                                    <td class="align-self-center">
+                                        <div class="form-switch">
                                         <input id='switch{{ $k->id }}' class="form-check-input" type='checkbox'
                                             value='1' name='{{ $k->name }}'
                                             @php
@@ -86,6 +87,7 @@
                                             echo $try == true ? ' checked' : '';
                                             @endphp
                                             >
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach

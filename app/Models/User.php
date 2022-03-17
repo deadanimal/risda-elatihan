@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         # code...
     }
+
+    public function pemohonan()
+    {
+        return $this->hasMany(Permohonan::class,'no_pekerja','id');
+    }
 }

@@ -22,7 +22,13 @@ class PencalonanPesertaController extends Controller
      */
     public function index()
     {
-        $jadual = JadualKursus::all();
+        if (Auth::user()->jenis_pengguna == 'Urus Setia ULS') {
+            $jadual = JadualKursus::where('kursus_unit_latihan', 'Staf')->get();
+        } elseif(Auth::user()->jenis_pengguna == 'Urus Setia ULPK') {
+            $jadual = JadualKursus::where('kursus_unit_latihan', 'Pekebun Kecil')->get();
+        } else {
+            $jadual = JadualKursus::all();
+        }
         return view('pengurusan_peserta.pencalonan.index', [
             'jadual' => $jadual,
         ]);
