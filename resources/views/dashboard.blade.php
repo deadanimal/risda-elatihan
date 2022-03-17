@@ -6,7 +6,7 @@
         </div>
     </div>
     <div class="row justify-content-center mt-4">
-        <div class="col-lg-4">
+        <div class="col-lg-4 mb-2">
             <div class="card" style="background-color:#0F5E31;">
                 <div class="card-body">
                     <div class="row align-items-center">
@@ -36,7 +36,7 @@
         </div>
     </div>
     <div class="row mt-3">
-        <div class="col-4">
+        <div class="col-lg-4 mb-2">
             <div class="card" style="background-color:#0F5E31;">
                 <div class="card-body">
                     <div class="row align-items-center">
@@ -50,7 +50,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-4">
+        <div class="col-lg-4 mb-2">
             <div class="card" style="background-color:#0F5E31;">
                 <div class="card-body">
                     <div class="row align-items-center">
@@ -64,7 +64,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-4">
+        <div class="col-lg-4 mb-2">
             <div class="card" style="background-color:#0F5E31;">
                 <div class="card-body">
                     <div class="row align-items-center">

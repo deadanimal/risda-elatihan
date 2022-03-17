@@ -168,6 +168,12 @@
                         <ul class="nav-item collapse {{ Request::is('pengurusan_pengguna/*') ? 'show' : 'false' }} my-1"
                             id="pengurusan_pengguna">
                             <li class="nav-item">
+                                <a class="nav-link {{ Request::is('pengurusan_pengguna/peranan') ? 'active' : '' }} py-0"
+                                    href="/pengurusan_pengguna/peranan">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">KUMPULAN PENGGUNA</span>
+                                    </div>
+                                </a>
                                 <a class="nav-link py-0 dropdown-indicator" href="#senarai" role="button"
                                     data-bs-toggle="collapse"
                                     aria-expanded="{{ Request::is('pengurusan_pengguna/pengguna/*') ? 'true' : 'false' }}"
@@ -206,13 +212,6 @@
 
                                     </li>
                                 </ul>
-
-                                <a class="nav-link {{ Request::is('pengurusan_pengguna/peranan') ? 'active' : '' }} py-0"
-                                    href="/pengurusan_pengguna/peranan">
-                                    <div class="d-flex align-items-center nav-link-side">
-                                        <span class="px-0">KEBENARAN PENGGUNA</span>
-                                    </div>
-                                </a>
                             </li>
                         </ul>
                     @endcan
