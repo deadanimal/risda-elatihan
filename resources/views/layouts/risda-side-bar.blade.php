@@ -188,7 +188,7 @@
                                         <a class="nav-link {{ Request::is('pengurusan_pengguna/pengguna/staf') ? 'active' : '' }} py-0"
                                             href="/pengurusan_pengguna/pengguna/staf">
                                             <div class="d-flex align-items-center nav-link-side">
-                                                <span class="px-0">Staf</span>
+                                                <span class="px-0">Pengguna Staf</span>
                                             </div>
                                         </a>
 
@@ -197,7 +197,7 @@
                                         <a class="nav-link {{ Request::is('pengurusan_pengguna/pengguna/pekebun_kecil') ? 'active' : '' }} py-0"
                                             href="/pengurusan_pengguna/pengguna/pekebun_kecil">
                                             <div class="d-flex align-items-center nav-link-side">
-                                                <span class="px-0">Pekebun Kecil</span>
+                                                <span class="px-0">Pengguna Pekebun Kecil</span>
                                             </div>
                                         </a>
 
@@ -206,7 +206,7 @@
                                         <a class="nav-link {{ Request::is('pengurusan_pengguna/pengguna/ejen_pelaksana') ? 'active' : '' }} py-0"
                                             href="/pengurusan_pengguna/pengguna/ejen_pelaksana">
                                             <div class="d-flex align-items-center nav-link-side">
-                                                <span class="px-0">Ejen Pelaksana</span>
+                                                <span class="px-0">Pengguna Ejen Pelaksana</span>
                                             </div>
                                         </a>
 

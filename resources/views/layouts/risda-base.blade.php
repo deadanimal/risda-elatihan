@@ -348,6 +348,11 @@
             }
         }
 
+        .form-check-input:checked{
+            background-color: #009640;
+            border-color: #009640;
+        }
+
     </style>
     <?php
     use Illuminate\Support\Facades\Auth;

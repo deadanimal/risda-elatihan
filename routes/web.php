@@ -140,6 +140,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/pengurusan_pengguna/pengguna/pekebun_kecil', [PengurusanPenggunaController::class, 'pekebun_kecil']);
     Route::get('/pengurusan_pengguna/pengguna/ejen_pelaksana', [PengurusanPenggunaController::class, 'ejen_pelaksana']);
     Route::put('/pengurusan_pengguna/pengguna/{id}', [PengurusanPenggunaController::class, 'update']);
+    Route::post('/pengurusan_pengguna/pengguna/pengaktifan/{id}', [PengurusanPenggunaController::class, 'pengaktifan']);
 
     //Peserta ULS
     Route::group(['prefix' => '/uls', 'middleware' => ['can:permohonan kursus']], function () {
