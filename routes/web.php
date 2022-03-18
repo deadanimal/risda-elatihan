@@ -146,6 +146,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/pengurusan_pengguna/pengguna/pekebun_kecil/semak', [PengurusanPenggunaController::class, 'semak_nric']);
 
     Route::get('/pengurusan_pengguna/pengguna/ejen_pelaksana', [PengurusanPenggunaController::class, 'ejen_pelaksana']);
+    Route::get('/pengurusan_pengguna/pengguna/ejen_pelaksana/create', [PengurusanPenggunaController::class, 'create']);
 
     Route::post('/pengurusan_pengguna/pengguna', [PengurusanPenggunaController::class, 'store']);
     Route::put('/pengurusan_pengguna/pengguna/{id}', [PengurusanPenggunaController::class, 'update']);
