@@ -20,6 +20,7 @@ use App\Http\Controllers\KehadiranController;
 use App\Http\Controllers\KelayakanElauncutiController;
 use App\Http\Controllers\KodKursusController;
 use App\Http\Controllers\LaporanLainController;
+use App\Http\Controllers\MatlamatBilanganKursusController;
 use App\Http\Controllers\MukimController;
 use App\Http\Controllers\NegeriController;
 use App\Http\Controllers\NotaRujukanController;
@@ -127,6 +128,8 @@ Route::middleware('auth')->group(function () {
         '/utiliti/kursus/elaun_cuti_kursus' => ElaunCutiController::class,
         '/utiliti/kursus/kod_objek' => ObjekController::class,
 
+        '/utiliti/matlamat_tahunan/kursus' => MatlamatBilanganKursusController::class,
+
         '/pengurusan_kursus/semak_jadual' => JadualKursusController::class,
         '/pengurusan_kursus/peruntukan_peserta' => PeruntukanPesertaController::class,
         '/pengurusan_kursus/aturcara' => AturcaraController::class,
@@ -139,6 +142,7 @@ Route::middleware('auth')->group(function () {
     ]);
 
     // Route::resource('/pengurusan_pengguna/pengguna', PengurusanPenggunaController::class);
+    Route::post('/utiliti/matlamat_tahunan/kursus/carian', [MatlamatBilanganKursusController::class, 'carian']);
     Route::get('/pengurusan_pengguna/pengguna/staf', [PengurusanPenggunaController::class, 'staf']);
 
     Route::get('/pengurusan_pengguna/pengguna/pekebun_kecil', [PengurusanPenggunaController::class, 'pekebun_kecil']);

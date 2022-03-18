@@ -1,0 +1,88 @@
+@extends('layouts.risda-base')
+@section('content')
+    <div class="container">
+        <div class="row mt-3 mb-2">
+            <div class="col-12 mb-2">
+                <p class="h1 mb-0 fw-bold" style="color: rgb(43,93,53);  ">UTILITI</p>
+                <p class="h5" style="color: rgb(43,93,53); ">MATLAMAT TAHUNAN</p>
+            </div>
+        </div>
+        <hr style="color: rgba(81,179,90, 60%);height:2px;">
+
+        <div class="row mb-4">
+            <div class="col-12">
+                <p class="h4 fw-bold mt-3">
+                    MATLAMAT BILANGAN KURSUS MENGIKUT BIDANG KURSUS
+                </p>
+            </div>
+        </div>
+
+        <form action="/utiliti/matlamat_tahunan/kursus/carian" method="post">
+            @csrf
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col-lg-3 mb-lg-3">
+                            <label class="col-form-label">Tahun</label>
+                        </div>
+                        <div class="col-lg-7 mb-lg-3">
+                            <select name="tahun" id="tahun" class="form-control">
+                                <option value="{{$tahun}}" selected hidden>{{$tahun}}</option>
+                                <option value="2021">2021</option>
+                                <option value="2022">2022</option>
+                            </select>
+                        </div>
+    
+                        <div class="col-lg-3 mb-lg-3">
+                            <label class="col-form-label">Jenis Matlamat</label>
+                        </div>
+                        <div class="col-lg-7 mb-3">
+                            <select name="jenis_m" id="jenis_m" class="form-control">
+                                <option value="{{$jenis['val']}}" selected hidden>{{$jenis['name']}}</option>
+                                <option value="bidang kursus">Bidang Kursus</option>
+                                <option value="kategori kursus">Kategori Kursus</option>
+                                <option value="tajuk kursus">Tajuk Kursus</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2 mb-lg-3 ps-lg-0 text-end">
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Cari</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card mt-2">
+                    <div class="table-responsive scrollbar m-3">
+                        <table class="table datatable table text-center m-3">
+                            <thead>
+                                <tr>
+                                    <th scope="col">BIL.</th>
+                                    <th scope="col">{{$title}}</th>
+                                    <th scope="col">JAN</th>
+                                    <th scope="col">FEB</th>
+                                    <th scope="col">MAC</th>
+                                    <th scope="col">APRIL</th>
+                                    <th scope="col">MEI</th>
+                                    <th scope="col">JUN</th>
+                                    <th scope="col">JUL</th>
+                                    <th scope="col">OGOS</th>
+                                    <th scope="col">SEP</th>
+                                    <th scope="col">OKT</th>
+                                    <th scope="col">NOV</th>
+                                    <th scope="col">DIS</th>
+                                    <th scope="col">JUMLAH</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

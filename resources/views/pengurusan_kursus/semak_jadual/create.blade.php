@@ -193,7 +193,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="row mb-3">
+                {{-- <div class="row mb-3">
                     <div class="col">
                         <label class="col-form-label">PENGENDALI LATIHAN</label>
                         <select class="form-select form-control" name="kursus_pengendali_latihan">
@@ -205,7 +205,7 @@
                             @endforeach
                         </select>
                     </div>
-                </div>
+                </div> --}}
                 <div class="row mb-3">
                     <div class="col">
                         <label class="col-form-label">CATATAN</label>
