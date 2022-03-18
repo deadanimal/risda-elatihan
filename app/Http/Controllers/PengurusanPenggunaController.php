@@ -133,21 +133,31 @@ class PengurusanPenggunaController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make('RISDA2022');
-        $user->no_KP = $request->no_KP;
-        if ($request->jenis_pengguna = 'xdrf') {
+        $user->no_KP = $request->sec_nric;
+// dd($request->jenis_pengguna);
+        if ($request->jenis_pengguna == 'xdrf') {
             $user->jenis_pengguna = 'Peserta ULPK';
             $user->assignRole('Peserta ULPK');
             Mail::to($request->email)->send(new PendaftaranPK($user));
-        } elseif ($request->jenis_pengguna = 'ep') {
+        } elseif ($request->jenis_pengguna == 'ep') {
             $user->jenis_pengguna = 'Ejen Pelaksana';
-            $user->assignRole('Ejen Pelaksana');
+            try {
+                $user->assignRole('Ejen Pelaksana');
+            } catch (\Throwable $th) {
+                alert()->error('Sila tambah peranan "Ejen Pelaksana" di bahagian Kumpulan Pengguna.');
+                return back();
+            }
             Mail::to($request->email)->send(new PendaftaranEP($user));
         }
-
         $user->save();
 
-        alert()->success('Sila semak email anda untuk notifikasi pendaftaran.', 'Pendaftaran Berjaya');
-        return redirect('/pengurusan_pengguna/pengguna/pekebun_kecil');
+        alert()->success('E-mel telah dihantar ke e-mel yang dimasukkan sebentar tadi. Kata laluan ditetapkan ialah RISDA2022', 'Pendaftaran Berjaya');
+
+        if ($request->jenis_pengguna == 'xdrf') {
+            return redirect('/pengurusan_pengguna/pengguna/pekebun_kecil');
+        } else {
+            return redirect('/pengurusan_pengguna/pengguna/ejen_pelaksana');
+        }
     }
 
     /**
