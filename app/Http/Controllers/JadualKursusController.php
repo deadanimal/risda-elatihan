@@ -60,7 +60,7 @@ class JadualKursusController extends Controller
         }else{
             $tempat = null;
         }
-        $pengendali = Agensi::with('kategori')->get();
+        // $pengendali = Agensi::with('kategori')->get();
         $list_jadual = JadualKursus::all();
         $negeri = Negeri::all();
         $daerah = Daerah::all();
@@ -70,7 +70,7 @@ class JadualKursusController extends Controller
             'kod_kursus'=>$tajuk,
             'status_pelaksanaan'=>$status_pelaksanaan,
             'hari_ini'=>$hari_ini,
-            'pengendali'=>$pengendali,
+            // 'pengendali'=>$pengendali,
             'tempat'=>$tempat,
             'tahun_ini' => $tahun_ini,
             'jadual'=>$jadualKursus,
