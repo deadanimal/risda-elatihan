@@ -52,7 +52,7 @@
                                             <div class="form-switch">
                                                 <form action="/pengurusan_pengguna/pengguna/pengaktifan/{{$u->id}}" method="post" id="statusForm{{ $u->id }}" class="pengaktifan">
                                                     @csrf
-                                                    <input class="form-check-input" id="active_{{ $u->id }}"
+                                                    <input class="form-check-input up-switch-risda" id="active_{{ $u->id }}"
                                                     type="checkbox" value="1"
                                                     {{ isset($u->status_akaun) && $u->status_akaun == '1' ? 'checked' : '' }}
                                                     name="status"
