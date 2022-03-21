@@ -482,7 +482,7 @@
             $('#preload2').hide();
         });
 
-        $('.form-check-input').click(function() {
+        $('.up-switch-risda').click(function() {
             $('#preload2').show();
         });
 

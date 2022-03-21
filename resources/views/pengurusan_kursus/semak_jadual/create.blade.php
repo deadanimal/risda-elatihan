@@ -148,9 +148,10 @@
                         <div class="col-lg-6">
                             <div class="mb-3">
                                 <label class="col-form-label">MASA PENDAFTARAN</label>
-                                <input class="form-control datetimepicker" name="kursus_masa_pendaftaran" id="timepicker1"
+                                {{-- <input class="form-control datetimepicker" name="kursus_masa_pendaftaran" id="timepicker1"
                                     type="text" placeholder="H:i"
-                                    data-options='{"enableTime":true,"noCalendar":true,"dateFormat":"H:i","disableMobile":true}' />
+                                    data-options='{"enableTime":true,"noCalendar":true,"dateFormat":"H:i","disableMobile":true}' /> --}}
+                                <input class="form-control" name="kursus_masa_pendaftaran" type="time" placeholder="H:i"/>
                             </div>
                         </div>
                         <div class="col-lg-6">
