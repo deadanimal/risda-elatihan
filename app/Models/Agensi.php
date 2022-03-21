@@ -13,4 +13,9 @@ class Agensi extends Model
     {
         return $this->hasMany(PenceramahKonsultan::class, 'pc_id', 'id');
     }
+
+    public function kategori()
+    {
+        return $this->belongsTo(KategoriAgensi::class, 'kategori_agensi', 'id');
+    }
 }
