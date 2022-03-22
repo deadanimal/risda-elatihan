@@ -9,7 +9,7 @@ class Aturcara extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    protected $with = ['jadual', 'kehadiran'];
+    // protected $with = ['jadual', 'kehadiran'];
 
     public function jadual()
     {
