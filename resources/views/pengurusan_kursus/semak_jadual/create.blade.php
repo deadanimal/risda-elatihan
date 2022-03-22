@@ -129,7 +129,7 @@
                         <div class="col-lg-6">
                             <div class="mb-3">
                                 <label class="col-form-label">TEMPOH KURSUS (HARI)</label>
-                                <input class="form-control" type="text" name="bilangan_hari" id="tk" />
+                                <input class="form-control" type="text" name="bilangan_hari" id="tk" readonly/>
                             </div>
                         </div>
                         <div class="col-lg-6">

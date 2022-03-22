@@ -46,8 +46,8 @@ class NotaRujukanController extends Controller
         $notaRujukan->nr_dokumen = $request->nr_dokumen;
         $nr_dok = time() . '.' . $request->nr_dokumen->extension();
 
-        $request->nr_dokumen->move(public_path('img/nota_rujukan'), $nr_dok);
-        $notaRujukan->nr_dokumen = 'img/nota_rujukan/' . $nr_dok;
+        $request->nr_dokumen->move(public_path('bahan/nota_rujukan'), $nr_dok);
+        $notaRujukan->nr_dokumen = 'bahan/nota_rujukan/' . $nr_dok;
         $notaRujukan->save();
 
         alert()->success('Maklumat berjaya disimpan', 'Berjaya');
