@@ -9,7 +9,7 @@ class Permohonan extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    protected $with = ['kodkursus','peserta','jadualKursus', 'kehadiran'];
+    // protected $with = ['kodkursus','peserta','jadualKursus', 'kehadiran'];
 
     public function kodkursus()
     {

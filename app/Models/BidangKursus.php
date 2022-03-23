@@ -18,4 +18,9 @@ class BidangKursus extends Model
     {
         return $this->hasMany(JadualKursus::class, 'kursus_bidang', 'id');
     }
+
+    public function matlamat_kursus()
+    {
+        return $this->hasOne(MatlamatBilanganKursus::class, 'bidang', 'nama_Bidang_Kursus');
+    }
 }

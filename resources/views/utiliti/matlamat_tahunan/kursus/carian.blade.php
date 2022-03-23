@@ -27,18 +27,18 @@
                         </div>
                         <div class="col-lg-7 mb-lg-3">
                             <select name="tahun" id="tahun" class="form-control">
-                                <option value="{{$tahun}}" selected hidden>{{$tahun}}</option>
+                                <option value="{{ $tahun }}" selected hidden>{{ $tahun }}</option>
                                 <option value="2021">2021</option>
                                 <option value="2022">2022</option>
                             </select>
                         </div>
-    
+
                         <div class="col-lg-3 mb-lg-3">
                             <label class="col-form-label">Jenis Matlamat</label>
                         </div>
                         <div class="col-lg-7 mb-3">
                             <select name="jenis_m" id="jenis_m" class="form-control">
-                                <option value="{{$jenis['val']}}" selected hidden>{{$jenis['name']}}</option>
+                                <option value="{{ $jenis['val'] }}" selected hidden>{{ $jenis['name'] }}</option>
                                 <option value="bidang kursus">Bidang Kursus</option>
                                 <option value="kategori kursus">Kategori Kursus</option>
                                 <option value="tajuk kursus">Tajuk Kursus</option>
@@ -53,14 +53,20 @@
         </form>
 
         <div class="row">
+            <div class="col text-end">
+                <a href="#" class="btn btn-primary">Kemaskini</a>
+            </div>
+        </div>
+
+        <div class="row">
             <div class="col-12">
                 <div class="card mt-2">
                     <div class="table-responsive scrollbar m-3">
                         <table class="table datatable table text-center m-3">
-                            <thead>
+                            <thead style="background-color: #009640; color: white;">
                                 <tr>
                                     <th scope="col">BIL.</th>
-                                    <th scope="col">{{$title}}</th>
+                                    <th scope="col">{{ $title }}</th>
                                     <th scope="col">JAN</th>
                                     <th scope="col">FEB</th>
                                     <th scope="col">MAC</th>
@@ -73,11 +79,37 @@
                                     <th scope="col">OKT</th>
                                     <th scope="col">NOV</th>
                                     <th scope="col">DIS</th>
-                                    <th scope="col">JUMLAH</th>
+                                    {{-- <th scope="col">JUMLAH</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
-                                
+                                @foreach ($carian as $key => $c)
+                                    <tr>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>
+                                            @if ($title == 'BIDANG KURSUS')
+                                                {{ $c->nama_Bidang_Kursus }}
+                                            @elseif ($title == 'KATEGORI KURSUS')
+                                                {{ $c->kategori }}
+                                            @elseif ($title == 'TAJUK KURSUS')
+                                                {{ $c->tajuk }}
+                                            @endif
+                                        </td>
+                                        <td>{{ $c->matlamat_kursus['jan'] }}</td>
+                                        <td>{{ $c->matlamat_kursus['feb'] }}</td>
+                                        <td>{{ $c->matlamat_kursus['mac'] }}</td>
+                                        <td>{{ $c->matlamat_kursus['apr'] }}</td>
+                                        <td>{{ $c->matlamat_kursus['mei'] }}</td>
+                                        <td>{{ $c->matlamat_kursus['jun'] }}</td>
+                                        <td>{{ $c->matlamat_kursus['jul'] }}</td>
+                                        <td>{{ $c->matlamat_kursus['ogos'] }}</td>
+                                        <td>{{ $c->matlamat_kursus['sept'] }}</td>
+                                        <td>{{ $c->matlamat_kursus['okt'] }}</td>
+                                        <td>{{ $c->matlamat_kursus['nov'] }}</td>
+                                        <td>{{ $c->matlamat_kursus['dis'] }}</td>
+                                        {{-- <td>{{ $c->matalamat_kursus['jumlah'] }}</td> --}}
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

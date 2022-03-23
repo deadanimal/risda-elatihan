@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSemakPermohonanRequest;
 use App\Http\Requests\UpdateSemakPermohonanRequest;
+use App\Models\Agensi;
 use App\Models\JadualKursus;
+use App\Models\KategoriAgensi;
 use App\Models\Permohonan;
 use App\Models\SemakPermohonan;
 use App\Models\Staf;
@@ -25,10 +27,14 @@ class SemakPermohonanController extends Controller
      */
     public function index()
     {
-        $pemohon = Permohonan::all();
+        $pemohon = Permohonan::with(['jadualKursus', 'peserta'])->get();
         $staf = [];
         $pekebun_kecil = [];
 
+        $kategori = KategoriAgensi::where('Kategori_Agensi', 'Tempat Kursus')->first()->id;
+        $tempat = Agensi::with('kategori')->where('kategori_agensi', $kategori)->get();
+
+        // dd($pemohon);
         foreach ($pemohon as $key => $p) {
             if ($p->peserta->jenis_pengguna == 'Peserta ULS') {
                 $p->jenis_peserta = 'Peserta ULS';
@@ -70,14 +76,15 @@ class SemakPermohonanController extends Controller
                     array_push($pekebun_kecil, $p);
                 }
             }
+
+            $p['tarikh'] = date('H:i, d/m/Y', strtotime($p->created_at));
         }
-
-
 
         return view('permohonan_kursus.semakan_permohonan.index', [
             'pemohon' => $pemohon,
             'staf' => $staf,
-            'pekebun_kecil' => $pekebun_kecil
+            'pekebun_kecil' => $pekebun_kecil,
+            'tempat' =>$tempat
         ]);
     }
 

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreMatlamatBilanganKursusRequest;
 use App\Http\Requests\UpdateMatlamatBilanganKursusRequest;
+use App\Models\BidangKursus;
+use App\Models\KategoriKursus;
+use App\Models\KodKursus;
 use App\Models\MatlamatBilanganKursus;
 use Illuminate\Http\Request;
 
@@ -24,8 +27,7 @@ class MatlamatBilanganKursusController extends Controller
     public function carian(Request $request)
     {
         if ($request->jenis_m == 'bidang kursus') {
-            $carian = MatlamatBilanganKursus::whereYear('created_at', $request->tahun)
-                ->where('jenis', $request->jenis_m)->get();
+            $carian = BidangKursus::with('matlamat_kursus')->get();
         } elseif($request->jenis_m == 'kategori kursus') {
             $carian = MatlamatBilanganKursus::whereYear('created_at', $request->tahun)
                 ->where('jenis', '!=', 'tajuk')->get();
@@ -34,17 +36,40 @@ class MatlamatBilanganKursusController extends Controller
                 ->get();
         }
 
+        $bulan = [
+            'jan'=> '0',
+            'feb'=> '0',
+            'mac'=> '0',
+            'apr'=> '0',
+            'mei'=>'0',
+            'jun'=>'0',
+            'jul'=>'0',
+            'ogos'=>'0',
+            'sept'=>'0',
+            'okt'=>'0',
+            'nov'=>'0',
+            'dis'=>'0',
+        ];
+        foreach ($carian as $key => $c) {
+            if ($c->matlamat_kursus == null) {
+                $c['matlamat_kursus'] = $bulan;
+            }
+
+            // dd($c->matlamat_kursus);
+        }
+        // dd($carian);
+
         $tahun = $request->tahun;
         $jenis =[];
         $jenis['name'] = ucwords($request->jenis_m);
         $jenis['val'] = $request->jenis_m;
         $title = strtoupper($request->jenis_m);
-
         return view('utiliti.matlamat_tahunan.kursus.carian',[
             'matlamat_tahunan'=>$carian,
             'tahun'=>$tahun,
             'jenis'=>$jenis,
-            'title'=>$title
+            'title'=>$title,
+            'carian'=>$carian
         ]);
     }
 
