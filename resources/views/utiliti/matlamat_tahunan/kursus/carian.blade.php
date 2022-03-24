@@ -54,7 +54,7 @@
 
         <div class="row">
             <div class="col text-end">
-                <a href="#" class="btn btn-primary">Kemaskini</a>
+                <a href="/utiliti/matlamat_tahunan/kursus/{{$jenis['sub']}}/{{$tahun}}" class="btn btn-primary">Kemaskini</a>
             </div>
         </div>
 
@@ -79,7 +79,7 @@
                                     <th scope="col">OKT</th>
                                     <th scope="col">NOV</th>
                                     <th scope="col">DIS</th>
-                                    {{-- <th scope="col">JUMLAH</th> --}}
+                                    <th scope="col">JUMLAH</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -90,24 +90,15 @@
                                             @if ($title == 'BIDANG KURSUS')
                                                 {{ $c->nama_Bidang_Kursus }}
                                             @elseif ($title == 'KATEGORI KURSUS')
-                                                {{ $c->kategori }}
+                                                {{ $c->nama_Kategori_Kursus }}
                                             @elseif ($title == 'TAJUK KURSUS')
                                                 {{ $c->tajuk }}
                                             @endif
                                         </td>
-                                        <td>{{ $c->matlamat_kursus['jan'] }}</td>
-                                        <td>{{ $c->matlamat_kursus['feb'] }}</td>
-                                        <td>{{ $c->matlamat_kursus['mac'] }}</td>
-                                        <td>{{ $c->matlamat_kursus['apr'] }}</td>
-                                        <td>{{ $c->matlamat_kursus['mei'] }}</td>
-                                        <td>{{ $c->matlamat_kursus['jun'] }}</td>
-                                        <td>{{ $c->matlamat_kursus['jul'] }}</td>
-                                        <td>{{ $c->matlamat_kursus['ogos'] }}</td>
-                                        <td>{{ $c->matlamat_kursus['sept'] }}</td>
-                                        <td>{{ $c->matlamat_kursus['okt'] }}</td>
-                                        <td>{{ $c->matlamat_kursus['nov'] }}</td>
-                                        <td>{{ $c->matlamat_kursus['dis'] }}</td>
-                                        {{-- <td>{{ $c->matalamat_kursus['jumlah'] }}</td> --}}
+                                        @foreach ($c->matlamat_kursus_cm as $l => $cm)
+                                        <td>{{ $cm }}</td>
+                                        @endforeach
+                                        <td>{{ $c->jumlah }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
