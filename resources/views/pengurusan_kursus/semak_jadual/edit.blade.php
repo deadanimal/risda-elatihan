@@ -169,12 +169,7 @@
                                 <label class="col-form-label">STATUS PERLAKSANAAN</label>
                                 <select class="form-select form-control" name="kursus_status_pelaksanaan">
                                     <option selected="" hidden value="{{ $jadual->kursus_status_pelaksanaan }}">
-                                        @php
-                                            $statusPelaksanaan = StatusPelaksanaan::find($jadual->kursus_status_pelaksanaan);
-                                            $statusPelaksanaan = $statusPelaksanaan->Status_Pelaksanaan;
-                                            
-                                        @endphp
-                                        {{-- {{ $statusPelaksanaan }} --}}
+                                        {{ $jadual->kursus_status_pelaksanaan }}
                                     </option>
                                     @foreach ($status_pelaksanaan as $sp)
                                         <option value="{{ $sp->id }}">{{ $sp->Status_Pelaksanaan }}</option>
