@@ -34,9 +34,18 @@ class JadualKursusController extends Controller
     public function index()
     {
         $jadualKursus = JadualKursus::all();
+        foreach ($jadualKursus as $key => $jk) {
+            $sum = 0;
+            $bil =PeruntukanPeserta::where('pp_jadual_kursus', $jk->id)->get();
+            
+            foreach ($bil as $k => $b) {
+                $sum = $sum + $b->pp_peruntukan_calon;
+            }
+            $jk['bilangan'] = $sum;
+        }
         $bidang = BidangKursus::all();
-        return view('pengurusan_kursus.semak_jadual.index',[
-            'jadual'=>$jadualKursus,
+        return view('pengurusan_kursus.semak_jadual.index', [
+            'jadual' => $jadualKursus,
         ]);
     }
 
@@ -57,26 +66,26 @@ class JadualKursusController extends Controller
         $kod_tempat = KategoriAgensi::where('Kategori_Agensi', 'Tempat Kursus')->first();
         if ($kod_tempat != null) {
             $tempat = Agensi::where('kategori_agensi', $kod_tempat->id)->get();
-        }else{
+        } else {
             $tempat = null;
         }
         $pengendali = Agensi::with('kategori')->get();
         $list_jadual = JadualKursus::all();
         $negeri = Negeri::all();
         $daerah = Daerah::all();
-        return view('pengurusan_kursus.semak_jadual.create',[
-            'bidang'=>$bidang,
-            'kategori'=>$kategori,
-            'kod_kursus'=>$tajuk,
-            'status_pelaksanaan'=>$status_pelaksanaan,
-            'hari_ini'=>$hari_ini,
-            'pengendali'=>$pengendali,
-            'tempat'=>$tempat,
+        return view('pengurusan_kursus.semak_jadual.create', [
+            'bidang' => $bidang,
+            'kategori' => $kategori,
+            'kod_kursus' => $tajuk,
+            'status_pelaksanaan' => $status_pelaksanaan,
+            'hari_ini' => $hari_ini,
+            'pengendali' => $pengendali,
+            'tempat' => $tempat,
             'tahun_ini' => $tahun_ini,
-            'jadual'=>$jadualKursus,
-            'list_jadual'=>$list_jadual,
-            'negeri'=>$negeri,
-            'daerah'=>$daerah
+            'jadual' => $jadualKursus,
+            'list_jadual' => $list_jadual,
+            'negeri' => $negeri,
+            'daerah' => $daerah
         ]);
     }
 
@@ -89,16 +98,16 @@ class JadualKursusController extends Controller
     public function store(StoreJadualKursusRequest $request)
     {
         $jadualKursus = new JadualKursus($request->all());
-        if($request->status == 'on'){
+        if ($request->status == 'on') {
             $status = 1;
-        }else{
+        } else {
             $status = 0;
         }
         $jadualKursus->kursus_status = $status;
         $jadualKursus->save();
 
         alert()->success('Maklumat telah disimipan', 'Berjaya Disimpan');
-        return redirect('/pengurusan_kursus/peruntukan_peserta/'.$jadualKursus->id);
+        return redirect('/pengurusan_kursus/peruntukan_peserta/' . $jadualKursus->id);
     }
 
     /**
@@ -120,19 +129,21 @@ class JadualKursusController extends Controller
      */
     public function edit($id)
     {
-        $jadualKursus = JadualKursus::find($id);
+        $pengendali = Agensi::with('kategori')->get();
+        $jadualKursus = JadualKursus::with(['status_pelaksanaan', 'pengendali', 'tempat'])->find($id);
         $list_jadual = JadualKursus::all();
         $bidang = BidangKursus::all();
         $kategori = KategoriKursus::all();
         $kod_kursus = KodKursus::all();
         $status_pelaksanaan = StatusPelaksanaan::all();
-        return view('pengurusan_kursus.semak_jadual.edit',[
-            'jadual'=>$jadualKursus,
-            'bidang'=>$bidang,
-            'kategori'=>$kategori,
-            'kod_kursus'=>$kod_kursus,
-            'status_pelaksanaan'=>$status_pelaksanaan,
-            'list_jadual'=>$list_jadual
+        return view('pengurusan_kursus.semak_jadual.edit', [
+            'jadual' => $jadualKursus,
+            'bidang' => $bidang,
+            'kategori' => $kategori,
+            'kod_kursus' => $kod_kursus,
+            'status_pelaksanaan' => $status_pelaksanaan,
+            'list_jadual' => $list_jadual,
+            'pengendali'=>$pengendali
         ]);
     }
 
@@ -146,9 +157,9 @@ class JadualKursusController extends Controller
     public function update(UpdateJadualKursusRequest $request, $id)
     {
         $jadualKursus = JadualKursus::find($id);
-        if($request->status == 'on'){
+        if ($request->status == 'on') {
             $status = 1;
-        }else{
+        } else {
             $status = 0;
         }
         $input = $request->all();
@@ -156,7 +167,7 @@ class JadualKursusController extends Controller
         $jadualKursus->fill($input)->save();
 
         alert()->success('Maklumat telah disimipan', 'Berjaya Disimpan');
-        return redirect('/pengurusan_kursus/peruntukan_peserta/'.$jadualKursus->id);
+        return redirect('/pengurusan_kursus/peruntukan_peserta/' . $jadualKursus->id);
     }
 
     /**
@@ -193,7 +204,7 @@ class JadualKursusController extends Controller
         foreach ($peruntukanpeserta as $key => $pp) {
             $pp->delete();
         }
-        
+
         $jadualKursus = JadualKursus::find($id);
         $jadualKursus->delete();
 

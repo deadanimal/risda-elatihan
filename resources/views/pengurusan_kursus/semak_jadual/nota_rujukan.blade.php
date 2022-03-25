@@ -128,7 +128,7 @@
 
         <div class="row mt-3">
             <div class="col-lg-6 ">
-                <a href="/pengurusan_kursus/nota_rujukan/{{ $id }}" class="btn btn-primary">Kembali</a>
+                <a href="/pengurusan_kursus/aturcara/{{ $id }}" class="btn btn-primary">Kembali</a>
             </div>
             <div class="col-lg-6 text-end">
                 <a href="/pengurusan_kursus/penceramah_konsultan/{{ $id }}" class="btn btn-primary">Seterusnya</a>
