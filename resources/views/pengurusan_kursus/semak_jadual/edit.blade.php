@@ -169,7 +169,7 @@
                                 <label class="col-form-label">STATUS PERLAKSANAAN</label>
                                 <select class="form-select form-control" name="kursus_status_pelaksanaan">
                                     <option selected="" hidden value="{{ $jadual->kursus_status_pelaksanaan }}">
-                                        {{ $jadual->kursus_status_pelaksanaan }}
+                                        {{ $jadual->status_pelaksanaan->Status_Pelaksanaan }}
                                     </option>
                                     @foreach ($status_pelaksanaan as $sp)
                                         <option value="{{ $sp->id }}">{{ $sp->Status_Pelaksanaan }}</option>
@@ -182,10 +182,11 @@
                         <div class="col-lg-6">
                             <div class="mb-3">
                                 <label class="col-form-label">MASA PENDAFTARAN</label>
-                                <input class="form-control datetimepicker" name="kursus_masa_pendaftaran" id="timepicker1"
+                                {{-- <input class="form-control datetimepicker" name="kursus_masa_pendaftaran" id="timepicker1"
                                     type="text" placeholder="H:i"
                                     data-options='{"enableTime":true,"noCalendar":true,"dateFormat":"H:i","disableMobile":true}'
-                                    value="{{ $jadual->kursus_masa_pendaftaran }}" />
+                                    value="{{ $jadual->kursus_masa_pendaftaran }}" /> --}}
+                                    <input class="form-control" name="kursus_masa_pendaftaran" type="time" placeholder="H:i"/>
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -223,23 +224,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label class="col-form-label">KUMPULAN SASARAN</label>
-                            <select class="form-select form-control" name="kursus_kumpulan_sasaran">
-                                <option selected="" hidden value="{{ $jadual->kursus_kumpulan_sasaran }}">Sila Pilih</option>
-                                {{-- kumpulan sasaran --}}
-                            </select>
-                        </div>
-                    </div>
+                    
                     <div class="row mb-3">
                         <div class="col">
                             <label class="col-form-label">PENGENDALI LATIHAN</label>
                             <select class="form-select form-control" name="kursus_pengendali_latihan">
-                                <option selected="" hidden value="{{ $jadual->kursus_pengendali_latihan }}">Sila Pilih
+                                <option selected="" hidden value="{{ $jadual->kursus_pengendali_latihan }}">{{ $jadual->pengendali->nama_Agensi }}
                                 </option>
-                                @foreach ($kod_kursus as $pl)
-                                    <option value="{{ $pl->id }}">{{ $pl->pengendali_latihan }}</option>
+                                @foreach ($pengendali as $pl)
+                                    @if ($pl->kategori->Kategori_Agensi != 'Tempat Kursus')
+                                        <option value="{{ $pl->id }}">{{ $pl->nama_Agensi }}</option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>
@@ -272,7 +267,7 @@
                         <div class="col">
                             <label class="col-form-label">ALAMAT TEMPAT KURSUS</label>
                             <textarea class="form-control" rows="3"
-                                name="kursus_alamat_tempat_kursus">{{ $jadual->kursus_alamat_tempat_kursus }}</textarea>
+                                name="kursus_alamat_tempat_kursus" readonly>{{ $jadual->tempat->alamat_Agensi_baris1 }}</textarea>
                         </div>
                     </div>
                     <div class="row mb-3">

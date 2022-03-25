@@ -122,7 +122,7 @@
                                             @endphp
                                             {{ $kursus_tempat }}
                                         </td>
-                                        <td>0</td>
+                                        <td>{{$j->bilangan}}</td>
                                         <td>
                                             {{-- {{$j->kursus_status_pelaksanaan}} --}}
                                             @php

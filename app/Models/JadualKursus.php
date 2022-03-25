@@ -46,4 +46,9 @@ class JadualKursus extends Model
         return $this->hasMany(PostTest::class);
     }
 
+    public function pengendali()
+    {
+        return $this->belongsTo(Agensi::class, 'kursus_pengendali_latihan', 'id');
+    }
+
 }
