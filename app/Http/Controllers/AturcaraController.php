@@ -70,13 +70,15 @@ class AturcaraController extends Controller
     {
         $total_hari = JadualKursus::where('id', $id)->sum('bilangan_hari');
         $aturcara = Aturcara::where('ac_jadual_kursus', $id)->orderBy('ac_hari', 'ASC')->get()->groupBy('ac_hari');
-        $bilangan = count($aturcara);
+        if ($aturcara->isEmpty()) {
+            $aturcara = null;
+        }
+        
         $list_aturcara =Aturcara::where('ac_jadual_kursus', $id)->orderBy('ac_hari', 'ASC')->get();
         return view('pengurusan_kursus.semak_jadual.aturcara',[
             'total_hari'=>$total_hari,
             'id'=>$id,
             'aturcara'=>$aturcara,
-            'bilangan'=>$bilangan,
             'list_aturcara'=>$list_aturcara
         ]);
     }

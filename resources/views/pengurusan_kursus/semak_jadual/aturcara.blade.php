@@ -22,70 +22,112 @@
         <div class="row justify-content-lg-center mt-3">
             <div class="col-lg-10 ">
                 {{-- @for ($i = 1; $i <= $total_hari; $i++) --}}
-
-                @foreach ($aturcara as $list)
-                    @for ($l = 1; $l <= 1; $l++)
-                        @for ($m = 0; $m < 1; $m++)
-                            @for ($i = $list[$m]->ac_hari; $i <= $list[$m]->ac_hari; $i++)
-                                @if ($list[$m]->ac_hari != $i)
+                @if ($aturcara == null)
+                    @for ($i = 1; $i <= $total_hari; $i++)
+                        <div class="row mb-3">
+                            <div class="col">
+                                <div class="card risda-bg-g ">
+                                    <h5 class="text-white my-2 mx-3">HARI {{ $i }}</h5>
+                                </div>
+                                <form action="/pengurusan_kursus/aturcara" method="POST" class="px-2 mt-2">
+                                    @csrf
                                     <div class="row mb-3">
                                         <div class="col">
-                                            <div class="card risda-bg-g ">
-                                                <h5 class="text-white my-2 mx-3">HARI {{ $i }}</h5>
-                                            </div>
-                                            <form action="/pengurusan_kursus/aturcara" method="POST" class="px-2 mt-2">
-                                                @csrf
-                                                <div class="row mb-3">
-                                                    <div class="col">
-                                                        <label class="col-form-label">BILANGAN SESI</label>
-                                                        <select class="form-select form-control select-sesi" name="bil_sesi"
-                                                            id="bil_sesi_{{ $i }}">
-                                                            <option selected="" hidden>Sila Pilih</option>
-                                                            @for ($j = 1; $j <= 5; $j++)
-                                                                <option value='{{ $j }}'>{{ $j }}
-                                                                </option>
-                                                            @endfor
-                                                        </select>
-                                                        <input type="hidden" name="ac_jadual_kursus"
-                                                            value="{{ $id }}">
-                                                        <input type="hidden" name="hari" value="{{ $i }}">
-                                                    </div>
-                                                </div>
-
-                                                <div id="aturan_{{ $i }}">
-
-                                                </div>
-
-                                                <div class="row mt-4">
-                                                    <div class="col">
-                                                        <button type="submit" class="btn btn-primary">Simpan</button>
-                                                    </div>
-                                                </div>
-
-                                            </form>
+                                            <label class="col-form-label">BILANGAN SESI</label>
+                                            <select class="form-select form-control select-sesi" name="bil_sesi"
+                                                id="bil_sesi_{{ $i }}">
+                                                <option selected="" hidden>Sila Pilih</option>
+                                                @for ($j = 1; $j <= 5; $j++)
+                                                    <option value='{{ $j }}'>{{ $j }}
+                                                    </option>
+                                                @endfor
+                                            </select>
+                                            <input type="hidden" name="ac_jadual_kursus" value="{{ $id }}">
+                                            <input type="hidden" name="hari" value="{{ $i }}">
                                         </div>
                                     </div>
-                                @else
-                                    {{--  --}}
 
-                                    <div class="row mb-3">
+                                    <div id="aturan_{{ $i }}">
+
+                                    </div>
+
+                                    <div class="row mt-4">
                                         <div class="col">
-                                            <div class="card risda-bg-g ">
-                                                <h5 class="text-white my-2 mx-3">HARI {{ $i }}</h5>
+                                            <button type="submit" class="btn btn-primary">Simpan</button>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    @endfor
+                @else
+                    @foreach ($aturcara as $list)
+                        @for ($l = 1; $l <= 1; $l++)
+                            @for ($m = 0; $m < 1; $m++)
+                                @for ($i = $list[$m]->ac_hari; $i <= $list[$m]->ac_hari; $i++)
+                                    @if ($list[$m]->ac_hari != $i)
+                                        <div class="row mb-3">
+                                            <div class="col">
+                                                <div class="card risda-bg-g ">
+                                                    <h5 class="text-white my-2 mx-3">HARI {{ $i }}</h5>
+                                                </div>
+                                                <form action="/pengurusan_kursus/aturcara" method="POST"
+                                                    class="px-2 mt-2">
+                                                    @csrf
+                                                    <div class="row mb-3">
+                                                        <div class="col">
+                                                            <label class="col-form-label">BILANGAN SESI</label>
+                                                            <select class="form-select form-control select-sesi"
+                                                                name="bil_sesi" id="bil_sesi_{{ $i }}">
+                                                                <option selected="" hidden>Sila Pilih</option>
+                                                                @for ($j = 1; $j <= 5; $j++)
+                                                                    <option value='{{ $j }}'>{{ $j }}
+                                                                    </option>
+                                                                @endfor
+                                                            </select>
+                                                            <input type="hidden" name="ac_jadual_kursus"
+                                                                value="{{ $id }}">
+                                                            <input type="hidden" name="hari" value="{{ $i }}">
+                                                        </div>
+                                                    </div>
+
+                                                    <div id="aturan_{{ $i }}">
+
+                                                    </div>
+
+                                                    <div class="row mt-4">
+                                                        <div class="col">
+                                                            <button type="submit" class="btn btn-primary">Simpan</button>
+                                                        </div>
+                                                    </div>
+
+                                                </form>
                                             </div>
-                                            <form action="/pengurusan_kursus/aturcara" method="POST" class="px-2 mt-2">
-                                                @csrf
-                                                @php
-                                                    $test = Aturcara::where('ac_jadual_kursus', $id)
-                                                        ->where('ac_hari', $i)
-                                                        ->get();
-                                                    $bil = count($test);
-                                                @endphp
-                                                <div class="row mb-3">
-                                                    <div class="col">
-                                                        <label class="col-form-label">BILANGAN SESI</label>
-                                                        <input type="number" class="form-control" name="bil_sesi" id="bil_{{ $i }}" value="{{ $bil }}">
-                                                        {{-- <select class="form-select form-control select-sesi" name="bil_sesi"
+                                        </div>
+                                    @else
+                                        {{--  --}}
+
+                                        <div class="row mb-3">
+                                            <div class="col">
+                                                <div class="card risda-bg-g ">
+                                                    <h5 class="text-white my-2 mx-3">HARI {{ $i }}</h5>
+                                                </div>
+                                                <form action="/pengurusan_kursus/aturcara" method="POST"
+                                                    class="px-2 mt-2">
+                                                    @csrf
+                                                    @php
+                                                        $test = Aturcara::where('ac_jadual_kursus', $id)
+                                                            ->where('ac_hari', $i)
+                                                            ->get();
+                                                        $bil = count($test);
+                                                    @endphp
+                                                    <div class="row mb-3">
+                                                        <div class="col">
+                                                            <label class="col-form-label">BILANGAN SESI</label>
+                                                            <input type="number" class="form-control" name="bil_sesi"
+                                                                id="bil_{{ $i }}" value="{{ $bil }}">
+                                                            {{-- <select class="form-select form-control select-sesi" name="bil_sesi"
                                                             id="bil_{{ $i }}">
                                                             <option value="{{ $bil }}" selected hidden>
                                                                 {{ $bil }}</option>
@@ -94,52 +136,52 @@
                                                                 </option>
                                                             @endfor
                                                         </select> --}}
-                                                        <input type="hidden" name="ac_jadual_kursus"
-                                                            value="{{ $id }}">
-                                                        <input type="hidden" name="hari" value="{{ $i }}">
-                                                    </div>
-                                                </div>
-                                                @foreach ($test as $jap)
-                                                    <div class="row">
-                                                        <div class="col-lg-6">
-                                                            <label class="col-form-label">SESI</label>
-                                                            <input type="text" class="form-control" readonly
-                                                                value="{{ $jap->ac_sesi }}" name="ac_sesi[]">
-                                                        </div>
-                                                        <div class="col-lg-6">
-                                                            <label class="col-form-label">MASA</label>
-                                                            <input class="form-control" name="ac_masa[]" type="time"
-                                                                placeholder="H:i" value="{{ $jap->ac_masa }}" />
+                                                            <input type="hidden" name="ac_jadual_kursus"
+                                                                value="{{ $id }}">
+                                                            <input type="hidden" name="hari" value="{{ $i }}">
                                                         </div>
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <label class="col-form-label">ATURCARA</label>
-                                                            <input type="text" class="form-control" name="ac_aturcara[]"
-                                                                value="{{ $jap->ac_aturcara }}">
+                                                    @foreach ($test as $jap)
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <label class="col-form-label">SESI</label>
+                                                                <input type="text" class="form-control" readonly
+                                                                    value="{{ $jap->ac_sesi }}" name="ac_sesi[]">
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <label class="col-form-label">MASA</label>
+                                                                <input class="form-control" name="ac_masa[]" type="time"
+                                                                    placeholder="H:i" value="{{ $jap->ac_masa }}" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <label class="col-form-label">ATURCARA</label>
+                                                                <input type="text" class="form-control"
+                                                                    name="ac_aturcara[]" value="{{ $jap->ac_aturcara }}">
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                    <div id="tambah_{{ $i }}">
+
+                                                    </div>
+
+                                                    <div class="row mt-4">
+                                                        <div class="col-6">
+                                                            <button type="button" class="btn btn-primary"
+                                                                id="add_aturcara_{{ $i }}">Tambah</button>
+                                                        </div>
+                                                        <div class="col-6 text-end">
+                                                            <button type="submit" class="btn btn-primary">Kemaskini</button>
                                                         </div>
                                                     </div>
-                                                @endforeach
-                                                <div id="tambah_{{ $i }}">
 
-                                                </div>
-
-                                                <div class="row mt-4">
-                                                    <div class="col-6">
-                                                        <button type="button" class="btn btn-primary"
-                                                            id="add_aturcara_{{ $i }}">Tambah</button>
-                                                    </div>
-                                                    <div class="col-6 text-end">
-                                                        <button type="submit" class="btn btn-primary">Kemaskini</button>
-                                                    </div>
-                                                </div>
-
-                                            </form>
+                                                </form>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    {{--  --}}
-                                    {{-- <div class="row mb-3">
+                                        {{--  --}}
+                                        {{-- <div class="row mb-3">
                             <div class="col">
                                 <div class="card risda-bg-g ">
                                     <h5 class="text-white my-2 mx-3">HARI {{ $i }}</h5>
@@ -153,11 +195,13 @@
                                 </div>
                             </div>
                         </div> --}}
-                                @endif
+                                    @endif
+                                @endfor
                             @endfor
                         @endfor
-                    @endfor
-                @endforeach
+                    @endforeach
+                @endif
+
             </div>
         </div>
 
@@ -242,7 +286,7 @@
 
                 });
 
-                
+
                 $('#add_aturcara_' + i).click(function() {
                     var bil = $('#bil_' + i).val();
                     bilangan = parseInt(bil) + 1;
@@ -264,9 +308,9 @@
                                     <input type="text" class="form-control" name="ac_aturcara[]">
                                 </div>
                             </div>`);
-                    
-                    $('#bil_'+i).val(bilangan);
-                    
+
+                    $('#bil_' + i).val(bilangan);
+
                 });
             }
         });
