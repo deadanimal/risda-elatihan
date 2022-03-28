@@ -46,7 +46,7 @@
                     <p class="pt-2 fw-bold">TAHUN</p>
                 </div>
                 <div class="col-2">
-                    <input type="text" class="form-control tahun">
+                    <input class="form-control datepicker" type="text" autocomplete="off" readonly />
                 </div>
             </div>
             <div class="col-9 d-inline-flex">
@@ -54,7 +54,28 @@
                     <p class="pt-2 fw-bold">SEMESTER</p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control">
+                    <select class="form-control">
+                        <option hidden selected="">Sila Pilih</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-9 d-inline-flex">
+                <div class="col-5">
+                    <p class="pt-2 fw-bold">Kelulusan Pembiayaan(RM)</p>
+                </div>
+                <div class="col-7">
+                    <input class="form-control mb-3" type="text"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                 </div>
             </div>
             <div class="col-9 d-inline-flex">
@@ -62,7 +83,14 @@
                     <p class="pt-2 fw-bold">PERBELANJAAN</p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control">
+                    <select class="form-control">
+                        <option hidden selected="">Sila Pilih</option>
+                        <option value="CB001">CB001 - Yuran Pengajian</option>
+                        <option value="CB002">CB002 - Elaun Sara Hidup</option>
+                        <option value="CB003">CB003 - Elaun Buku</option>
+                        <option value="CB004">CB004 - Elaun Penempatan</option>
+                        <option value="CB005">CB005 - Yuran Pendaftaran</option>
+                    </select>
                 </div>
             </div>
             <div class="col-9 d-inline-flex">
@@ -70,7 +98,8 @@
                     <p class="pt-2 fw-bold">JUMLAH (RM)</p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control">
+                    <input class="form-control mb-3" type="text"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                 </div>
             </div>
             <div class="col-9 d-inline-flex">
@@ -136,7 +165,7 @@
 
     <script>
         $(document).ready(function() {
-            $(".tahun").datepicker({
+            $(".datepicker").datepicker({
                 format: "yyyy",
                 viewMode: "years",
                 minViewMode: "years",
@@ -169,5 +198,4 @@
             });
         }
     </script>
-
 @endsection

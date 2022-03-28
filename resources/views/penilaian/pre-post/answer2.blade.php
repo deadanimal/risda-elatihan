@@ -1,5 +1,6 @@
 @extends('layouts.risda-base')
 @section('content')
+<div class="container">
     <div class="row mt-3 mb-2">
         <div class="col-12 mb-2">
             <p class="h1 mb-0 fw-bold" style="color: rgb(43,93,53);">PENILAIAN</p>
@@ -101,5 +102,6 @@
             </div>
         </div>
     </form>
+</div>
 
 @endsection

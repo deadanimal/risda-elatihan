@@ -31,7 +31,7 @@
                         <h5>KOD NAMA KURSUS</h5>
                     </div>
                     <div class="col-8">
-                        <input type="text" class="form-control" value="{{ $jadual_kursus->kursus_kod_nama_kursus }}">
+                        <input type="text" class="form-control" value="" readonly/>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -39,7 +39,7 @@
                         <h5>NAMA KURSUS</h5>
                     </div>
                     <div class="col-8">
-                        <input type="text" class="form-control" value="{{ $jadual_kursus->kursus_nama }}">
+                        <input type="text" class="form-control" value=""readonly/>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -47,7 +47,7 @@
                         <h5>TARIKH KURSUS</h5>
                     </div>
                     <div class="col-8">
-                        <input type="text" class="form-control" value="{{ $jadual_kursus->tarikh_mula }}">
+                        <input type="text" class="form-control" value="" readonly/>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -55,7 +55,7 @@
                         <h5>TEMPAT KURSUS</h5>
                     </div>
                     <div class="col-8">
-                        <input type="text" class="form-control" value="{{ $jadual_kursus->kursus_tempat }}">
+                        <input type="text" class="form-control" value="" readonly/>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -87,7 +87,7 @@
             </div>
         </div>
 
-        <div class="card mt-5">
+        {{-- <div class="card mt-5">
             <div class="card-body">
                 <div class="table-responsive scrollbar ">
                     <table class="table datatable text-center">
@@ -139,12 +139,12 @@
                 <a href="{{ route('post-test.create', $jadual_kursus->id) }}" class="btn btn-primary mt-3"><span
                         class="fas fa-plus"></span> Tambah Soalan</a>
             </div>
-        </div>
+        </div> --}}
 
 
     </div>
 
-    <script>
+    {{-- <script>
         $("#submit-del").click(function(e) {
             e.preventDefault();
             var form = $(this).parents('form');
@@ -169,5 +169,5 @@
                 }
             })
         });
-    </script>
+    </script> --}}
 @endsection
