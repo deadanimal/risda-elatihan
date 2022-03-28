@@ -25,9 +25,9 @@
         <br><br>
     @endforeach
 
-    <form action="/pengurusan_peserta/semakan_pemohon/9" method="post">
+    {{-- <form action="/pengurusan_peserta/semakan_pemohon/9" method="post">
         @method('DELETE')
         @csrf
         <button type="submit" class="btn btn-warning">Tekan ni</button>
-    </form>
+    </form> --}}
 @endsection
