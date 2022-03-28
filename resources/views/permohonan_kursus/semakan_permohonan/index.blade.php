@@ -316,6 +316,7 @@
                             <td>` + a.tarikh + `</td>
                             <td>` + a.peserta.no_KP + `</td>
                             <td>` + a.peserta.name + `</td>
+                            <td>` + a.gred + `</td>
                             <td>` + a.pusat_tanggungjawab + `</td>
                             <td>` + a.jadual_kursus.kursus_kod_nama_kursus + `</td>
                             <td>` + a.jadual_kursus.kursus_nama + `</td>
