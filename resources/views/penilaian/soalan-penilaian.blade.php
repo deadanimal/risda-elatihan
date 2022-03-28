@@ -219,7 +219,7 @@
 
 
                 <div class="col-12 mt-5 d-inline-flex">
-                    <p class="h5">BAHAGIAN A: <span class="h5" style="color: #0F5E31">PENILAIAN
+                    <p class="h5">BAHAGIAN B: <span class="h5" style="color: #0F5E31">PENILAIAN
                             PENGURUSAN PROGRAM</span></p>
                 </div>
                 <div class="col-12 d-inline-flex">

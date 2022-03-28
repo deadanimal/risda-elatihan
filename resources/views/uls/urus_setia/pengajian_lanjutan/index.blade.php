@@ -42,7 +42,7 @@
                     <p class="pt-2 fw-bold">UNIT LATIHAN</p>
                 </div>
                 <div class="col-6">
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" value="Staf" readonly>
                 </div>
             </div>
             <div class="col-10 d-inline-flex">
@@ -58,7 +58,7 @@
             </div>
             <div class="col-10 d-inline-flex">
                 <div class="col-4">
-                    <p class="pt-2 fw-bold">NAMA STAFF</p>
+                    <p class="pt-2 fw-bold">NAMA STAF</p>
                 </div>
                 <div class="col-6">
                     <select class="form-select">

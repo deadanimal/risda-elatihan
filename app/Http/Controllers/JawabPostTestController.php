@@ -17,13 +17,18 @@ class JawabPostTestController extends Controller
     {
         $permohonan = Permohonan::where('no_pekerja', auth()->user()->id)
             ->where('status_permohonan', 4)
-            ->where('dinilai_post', null)->get();
+            ->where('dinilai_post', null)->get()->first();
+        // dd($permohonan);
+        if ($permohonan == null) {
+            alert()->error('Anda tidak membuat sebarang permohonan lagi.', 'Tiada permohonan');
+            return back();
+        } else {
+            return view('penilaian.post.index', [
+                'permohonan' => $permohonan,
+            ]);
+        }
 
-        return view('penilaian.pre-post.answer', [
-            'permohonan' => $permohonan,
-        ]);
-
-        return 'index';
+        // return 'index';
     }
 
     /**

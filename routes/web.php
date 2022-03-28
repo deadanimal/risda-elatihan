@@ -236,7 +236,7 @@ Route::middleware('auth')->group(function () {
     //penilaian
     Route::group(['prefix' => 'penilaian', 'middleware' => 'can:penilaian'], function () {
 
-        Route::group(['middleware' => 'role:Urus Setia ULS'], function () {
+        Route::middleware(['role:Admin BTM|Urus Setia ULS'])->group(function(){
             Route::resource('/pre-post-test', PrePostTestController::class);
             Route::get('/pre-post-test/create/{jadual_kursus}', [PrePostTestController::class, 'createPrePost'])->name('createPrePost');
 
