@@ -198,58 +198,62 @@ class PermohonanController extends Controller
 
     public function permohonan($id)
     {
-        $jadual = JadualKursus::find($id);
+        $permohonan = Permohonan::find($id);
+        $permohonan->delete();
 
-        // semak permohonan
-        $semak_permohonan = Permohonan::where('kod_kursus', $id)->where('no_pekerja', Auth::id())->first();
-        if ($semak_permohonan != null) {
-            $sp = 1; 
-        }else{
-            $sp = 0;
-        }
+        return redirect('/dashboard');
+        // $jadual = JadualKursus::find($id);
 
-        // check ic user
-        $user = Auth::user();
-        $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
-            ->get('https://www4.risda.gov.my/fire/getallstaff/')
-            ->getBody()
-            ->getContents();
+        // // semak permohonan
+        // $semak_permohonan = Permohonan::where('kod_kursus', $id)->where('no_pekerja', Auth::id())->first();
+        // if ($semak_permohonan != null) {
+        //     $sp = 1; 
+        // }else{
+        //     $sp = 0;
+        // }
 
-        $data_staf = json_decode($data_staf, true);
-        foreach ($data_staf as $key => $s) {
-            if ($s['nokp'] == $user->no_KP) {
-                $staf = $s;
-                $profil = Staf::where('id_Pengguna', $user->id)->first();
-                return view('permohonan_kursus.katalog.register.staf', [
-                    'jadual' => $jadual,
-                    'user' => $user,
-                    'staf' => $staf,
-                    'profil'=>$profil,
-                    'sp'=>$sp
-                ]);
-            }
-        }
+        // // check ic user
+        // $user = Auth::user();
+        // $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
+        //     ->get('https://www4.risda.gov.my/fire/getallstaff/')
+        //     ->getBody()
+        //     ->getContents();
 
-        $data_pk = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', '1cc11a9fec81dc1f99f353f403d6f5bac620aa8f')
-            ->get('https://www4.risda.gov.my/espek/portalpkprofiltanah/?nokp=' . $user->no_KP)
-            ->getBody()
-            ->getContents();
+        // $data_staf = json_decode($data_staf, true);
+        // foreach ($data_staf as $key => $s) {
+        //     if ($s['nokp'] == $user->no_KP) {
+        //         $staf = $s;
+        //         $profil = Staf::where('id_Pengguna', $user->id)->first();
+        //         return view('permohonan_kursus.katalog.register.staf', [
+        //             'jadual' => $jadual,
+        //             'user' => $user,
+        //             'staf' => $staf,
+        //             'profil'=>$profil,
+        //             'sp'=>$sp
+        //         ]);
+        //     }
+        // }
 
-        $data_pk = json_decode($data_pk, true);
-        // check if not pk
-        if (!empty($data_pk['message'])) {
-            alert()->error('No. Kad Pengenalan tiada dalam pangkalan data e-SPEK');
-            return back();
-        } else {
-            $pk = $data_pk[0];
-            $pk['tarikh_lahir'] = substr($pk['No_KP'], 4, 2).'/'.substr($pk['No_KP'], 2, 2).'/'.'19'.substr($pk['No_KP'], 0, 2);
-            // dd($pk);
-            return view('permohonan_kursus.katalog.register.pekebun_kecil', [
-                'user' => $user,
-                'pk'=>$pk,
-                'jadual' => $jadual,
-                'sp'=>$sp
-            ]);
-        }
+        // $data_pk = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', '1cc11a9fec81dc1f99f353f403d6f5bac620aa8f')
+        //     ->get('https://www4.risda.gov.my/espek/portalpkprofiltanah/?nokp=' . $user->no_KP)
+        //     ->getBody()
+        //     ->getContents();
+
+        // $data_pk = json_decode($data_pk, true);
+        // // check if not pk
+        // if (!empty($data_pk['message'])) {
+        //     alert()->error('No. Kad Pengenalan tiada dalam pangkalan data e-SPEK');
+        //     return back();
+        // } else {
+        //     $pk = $data_pk[0];
+        //     $pk['tarikh_lahir'] = substr($pk['No_KP'], 4, 2).'/'.substr($pk['No_KP'], 2, 2).'/'.'19'.substr($pk['No_KP'], 0, 2);
+        //     // dd($pk);
+        //     return view('permohonan_kursus.katalog.register.pekebun_kecil', [
+        //         'user' => $user,
+        //         'pk'=>$pk,
+        //         'jadual' => $jadual,
+        //         'sp'=>$sp
+        //     ]);
+        // }
     }
 }
