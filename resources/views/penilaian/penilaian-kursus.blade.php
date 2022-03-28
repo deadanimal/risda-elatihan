@@ -23,13 +23,8 @@
                     <p class="pt-2 fw-bold">KOD NAMA KURSUS</p>
                 </div>
                 <div class="col-7">
-                    <select class="form-select mb-3" onchange="find(this)">
-                        <option selected disabled hidden>Pilih</option>
-                        @foreach ($permohonan as $p)
-                            <option value="{{ $p->id }}">
-                                {{ $p->jadualKursus->kursus_kod_nama_kursus }}</option>
-                        @endforeach
-                    </select>
+                    <input class="form-control" type="text"
+                        value="{{ $permohonan->jadualKursus->kursus_kod_nama_kursus }}" readonly />
                 </div>
             </div>
             <div class="col-9 d-inline-flex">
@@ -37,7 +32,8 @@
                     <p class="pt-2 fw-bold">NAMA KURSUS</p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control mb-3" value="" id="nama_kursus" readonly>
+                    <input type="text" class="form-control mb-3" value="{{ $permohonan->jadualKursus->kursus_nama }}"
+                        readonly />
                 </div>
             </div>
             <div class="col-9 d-inline-flex">
@@ -45,7 +41,9 @@
                     <p class="pt-2 fw-bold">TARIKH KURSUS</p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control mb-3" value="" id="tarikh_kursus" readonly>
+                    <input type="text" class="form-control mb-3"
+                        value="{{ date('d-m-Y', strtotime($permohonan->jadualKursus->tarikh_mula)) }} hingga {{ date('d-m-Y', strtotime($permohonan->jadualKursus->tarikh_tamat)) }}"
+                        readonly />
                 </div>
             </div>
         </div>
@@ -53,7 +51,8 @@
         <br><br>
         <div class="row">
             <div class="col-12 text-center">
-                <a class="btn btn-primary" href="#" id="btn_start">Mula Penilaian</a>
+                <a class="btn btn-primary" href="/penilaian/penilaian-kursus/{{ $permohonan->jadualKursus->id }}"
+                    id="btn_start">Mula Penilaian</a>
             </div>
         </div>
 

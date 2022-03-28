@@ -21,8 +21,8 @@ class PenilaianPesertaController extends Controller
     public function index()
     {
 
-        $permohonan = Permohonan::where('no_pekerja', auth()->id())
-            ->where('dinilai', null)->get();
+        $permohonan = Permohonan::with('jadualKursus')->where('no_pekerja', auth()->id())
+            ->where('dinilai', null)->get()->first();
 
         return view('penilaian.penilaian-kursus', [
             'permohonan' => $permohonan,
