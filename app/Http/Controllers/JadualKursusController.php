@@ -17,8 +17,8 @@ use App\Models\Negeri;
 use App\Models\NotaRujukan;
 use App\Models\PenceramahKonsultan;
 use App\Models\PeruntukanPeserta;
-use App\Models\PusatTanggungjawab;
 use App\Models\StatusPelaksanaan;
+use Illuminate\Http\Request;
 
 class JadualKursusController extends Controller
 {
@@ -36,8 +36,8 @@ class JadualKursusController extends Controller
         $jadualKursus = JadualKursus::all();
         foreach ($jadualKursus as $key => $jk) {
             $sum = 0;
-            $bil =PeruntukanPeserta::where('pp_jadual_kursus', $jk->id)->get();
-            
+            $bil = PeruntukanPeserta::where('pp_jadual_kursus', $jk->id)->get();
+
             foreach ($bil as $k => $b) {
                 $sum = $sum + $b->pp_peruntukan_calon;
             }
@@ -85,7 +85,7 @@ class JadualKursusController extends Controller
             'jadual' => $jadualKursus,
             'list_jadual' => $list_jadual,
             'negeri' => $negeri,
-            'daerah' => $daerah
+            'daerah' => $daerah,
         ]);
     }
 
@@ -143,7 +143,7 @@ class JadualKursusController extends Controller
             'kod_kursus' => $kod_kursus,
             'status_pelaksanaan' => $status_pelaksanaan,
             'list_jadual' => $list_jadual,
-            'pengendali'=>$pengendali
+            'pengendali' => $pengendali,
         ]);
     }
 
@@ -210,5 +210,21 @@ class JadualKursusController extends Controller
 
         alert()->success('Maklumat telah dihapus', 'Hapus');
         return redirect('/pengurusan_kursus/semak_jadual');
+    }
+
+    public function filter($search)
+    {
+        $jadualKursus = JadualKursus::where('kursus_unit_latihan', $search)->get();
+        foreach ($jadualKursus as $key => $jk) {
+            $sum = 0;
+            $bil = PeruntukanPeserta::where('pp_jadual_kursus', $jk->id)->get();
+
+            foreach ($bil as $k => $b) {
+                $sum = $sum + $b->pp_peruntukan_calon;
+            }
+            $jk['bilangan'] = $sum;
+        }
+
+        return response()->json($jadualKursus);
     }
 }

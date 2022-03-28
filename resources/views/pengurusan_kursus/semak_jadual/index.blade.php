@@ -1,9 +1,9 @@
 @extends('layouts.risda-base')
 @section('content')
-@php
+    @php
     use App\Models\StatusPelaksanaan;
     use App\Models\Agensi;
-@endphp
+    @endphp
     <div class="container">
         <div class="row">
             <div class="col">
@@ -11,31 +11,31 @@
                 <h5 class="risda-dg">SEMAK JADUAL KURSUS</h5>
             </div>
         </div>
-    
+
         <hr class="risda-g">
-    
+
         <div class="row">
             <div class="col">
                 <h5 class="h3">JADUAL KURSUS</h5>
             </div>
         </div>
-    
+
         <div class="row justify-content-lg-center mt-3">
             <div class="col-lg-10 ">
-    
+
                 <div class="row">
                     <div class="col-lg-2 p-lg-0">
                         <label class="col-form-label">UNIT LATIHAN:</label>
                     </div>
                     <div class="col-lg-10">
-                        <select class="form-select  form-control" name="search_UL" id="search_UL">
-                            <option selected="" aria-placeholder="Sila Pilih" hidden></option>
+                        <select class="form-select form-control" onchange="unitlatihan(this)">
+                            <option selected hidden disabled>Sila Pilih</option>
                             <option value="Staf">Staf</option>
                             <option value="Pekebun Kecil">Pekebun Kecil</option>
                         </select>
                     </div>
                 </div>
-    
+
                 <div class="row mt-2">
                     <div class="col-lg-6">
                         <div class="row">
@@ -43,8 +43,8 @@
                                 <label class="col-form-label">TARIKH AWAL:</label>
                             </div>
                             <div class="col-lg-8">
-                                <input class="form-control datetimepicker" id="search_TA" type="text" placeholder="dd/mm/yyyy"
-                                    data-options='{"disableMobile":true}' />
+                                <input class="form-control datetimepicker" id="search_TA" type="text"
+                                    placeholder="dd/mm/yyyy" data-options='{"disableMobile":true}' />
                             </div>
                         </div>
                     </div>
@@ -54,13 +54,13 @@
                                 <label class="col-form-label">TARIKH AKHIR:</label>
                             </div>
                             <div class="col-lg-8">
-                                <input class="form-control datetimepicker" id="search_TL" type="text" placeholder="dd/mm/yyyy"
-                                    data-options='{"disableMobile":true}' />
+                                <input class="form-control datetimepicker" id="search_TL" type="text"
+                                    placeholder="dd/mm/yyyy" data-options='{"disableMobile":true}' />
                             </div>
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="row mt-2">
                     <div class="col-lg-2 p-lg-0">
                         <label class="col-form-label">TEMPAT KURSUS:</label>
@@ -74,10 +74,10 @@
                         </select>
                     </div>
                 </div>
-    
+
             </div>
         </div>
-    
+
         <div class="row mt-5">
             <div class="col">
                 <a href="/pengurusan_kursus/semak_jadual/create" class="btn btn-primary">
@@ -85,7 +85,7 @@
                 </a>
             </div>
         </div>
-    
+
         <div class="row mt-4">
             <div class="col">
                 <div class="card">
@@ -116,20 +116,20 @@
                                                 if ($j->kursus_tempat != 'Sila Pilih') {
                                                     $kursus_tempat = Agensi::where('id', $j->kursus_tempat)->first();
                                                     $kursus_tempat = $kursus_tempat->nama_Agensi;
-                                                }else{
+                                                } else {
                                                     $kursus_tempat = 'Tiada Maklumat';
                                                 }
                                             @endphp
                                             {{ $kursus_tempat }}
                                         </td>
-                                        <td>{{$j->bilangan}}</td>
+                                        <td>{{ $j->bilangan }}</td>
                                         <td>
                                             {{-- {{$j->kursus_status_pelaksanaan}} --}}
                                             @php
                                                 if ($j->kursus_status_pelaksanaan != 'Sila Pilih') {
                                                     $status_pelaksanaan = StatusPelaksanaan::where('id', $j->kursus_status_pelaksanaan)->first();
                                                     $status_pelaksanaan = $status_pelaksanaan->Status_Pelaksanaan;
-                                                }else{
+                                                } else {
                                                     $status_pelaksanaan = 'Tiada Maklumat';
                                                 }
                                                 
@@ -137,17 +137,18 @@
                                             {{ $status_pelaksanaan }}
                                         </td>
                                         <td>
-                                            <a href="/pengurusan_kursus/semak_jadual/{{$j->id}}/edit" class="btn btn-sm btn-primary">
+                                            <a href="/pengurusan_kursus/semak_jadual/{{ $j->id }}/edit"
+                                                class="btn btn-sm btn-primary">
                                                 <i class="fas fa-pen"></i>
                                             </a>
-                                            <button class="btn btn-sm risda-bg-dg text-white" type="button" data-bs-toggle="modal"
-                                                data-bs-target="#delete_BK_{{ $j->id }}">
+                                            <button class="btn btn-sm risda-bg-dg text-white" type="button"
+                                                data-bs-toggle="modal" data-bs-target="#delete_BK_{{ $j->id }}">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </td>
                                     </tr>
-                                    <div class="modal fade" id="delete_BK_{{ $j->id }}" tabindex="-1" role="dialog"
-                                        aria-hidden="true">
+                                    <div class="modal fade" id="delete_BK_{{ $j->id }}" tabindex="-1"
+                                        role="dialog" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document"
                                             style="max-width: 500px">
                                             <div class="modal-content position-relative">
@@ -162,7 +163,7 @@
                                                             <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
                                                             <br>
                                                             Anda pasti untuk menghapus {{ $j->kursus_nama }}?
-    
+
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
@@ -175,10 +176,10 @@
                                                             <button class="btn btn-primary" type="submit">Hapus
                                                             </button>
                                                         </form>
-    
+
                                                     </div>
                                                 </div>
-    
+
                                             </div>
                                         </div>
                                     </div>
@@ -190,4 +191,111 @@
             </div>
         </div>
     </div>
+
+
+    <script>
+        function unitlatihan(el) {
+            var id = el.value;
+
+
+            $.ajax({
+                type: 'get',
+                url: '/pengurusan_kursus/filter-jadual-kursus/' + id,
+                data: {
+                    'id': id
+                },
+                success: function(jadual_kursus) {
+                    $("#t_normal").html("");
+                    let iteration = 1;
+                    jadual_kursus.forEach(e => {
+                        $("#t_normal").append(`
+                          <tr>
+                                        <td>` + iteration + `.</td>
+                                        <td>` + e.kursus_kod_nama_kursus + `</td>
+                                        <td>` + e.kursus_nama + `</td>
+                                        <td>` + e.tarikh_mula + `</td>
+                                        <td>
+                                            {{-- {{$j->kursus_tempat}} --}}
+                                            @php
+                                            if ($j->kursus_tempat != 'Sila Pilih') {
+                                                $kursus_tempat = Agensi::where('id', $j->kursus_tempat)->first();
+                                                $kursus_tempat = $kursus_tempat->nama_Agensi;
+                                            } else {
+                                                $kursus_tempat = 'Tiada Maklumat';
+                                            }
+                                            @endphp
+                                            {{ $kursus_tempat }}
+                                        </td>
+                                        <td>{{ $j->bilangan }}</td>
+                                        <td>
+                                            {{-- {{$j->kursus_status_pelaksanaan}} --}}
+                                            @php
+                                            if ($j->kursus_status_pelaksanaan != 'Sila Pilih') {
+                                                $status_pelaksanaan = StatusPelaksanaan::where('id', $j->kursus_status_pelaksanaan)->first();
+                                                $status_pelaksanaan = $status_pelaksanaan->Status_Pelaksanaan;
+                                            } else {
+                                                $status_pelaksanaan = 'Tiada Maklumat';
+                                            }
+                                            
+                                            @endphp
+                                            {{ $status_pelaksanaan }}
+                                        </td>
+                                        <td>
+                                            <a href="/pengurusan_kursus/semak_jadual/{{ $j->id }}/edit"
+                                                class="btn btn-sm btn-primary">
+                                                <i class="fas fa-pen"></i>
+                                            </a>
+                                            <button class="btn btn-sm risda-bg-dg text-white" type="button"
+                                                data-bs-toggle="modal" data-bs-target="#delete_BK_{{ $j->id }}">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+                            </tr>
+                                    <div class="modal fade" id="delete_BK_{{ $j->id }}" tabindex="-1"
+                                        role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document"
+                                            style="max-width: 500px">
+                                            <div class="modal-content position-relative">
+                                                <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
+                                                    <button
+                                                        class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
+                                                        data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body p-0">
+                                                    <div class="row">
+                                                        <div class="col text-center m-3">
+                                                            <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
+                                                            <br>
+                                                            Anda pasti untuk menghapus {{ $j->kursus_nama }}?
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-secondary" type="button"
+                                                            data-bs-dismiss="modal">Batal</button>
+                                                        <form method="POST"
+                                                            action="/pengurusan_kursus/semak_jadual/{{ $j->id }}">
+                                                            @method('DELETE')
+                                                            @csrf
+                                                            <button class="btn btn-primary" type="submit">Hapus
+                                                            </button>
+                                                        </form>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                        `);
+
+                        iteration++;
+                    });
+                },
+                error: function() {
+                    console.log('success');
+                },
+            });
+        }
+    </script>
 @endsection
