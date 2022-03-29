@@ -1,5 +1,8 @@
 @extends('layouts.risda-base')
 @section('content')
+<style>
+    </style>
+
     <div class="container">
         <div class="row">
             <div class="col text-center">

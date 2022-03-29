@@ -11,6 +11,20 @@
         color: white;
     }
 
+    .modal{
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 10000 !important
+        /* width: 100vw;
+        height: 100vh; */
+
+
+    }
+
+    .modal-content{
+        z-index: 20000 !important
+    }
     /* .nav-link-text {
         color: white;
     }
@@ -19,6 +33,7 @@
         color: white;
         background-color: #009640;
     } */
+
 
 </style>
 <script>
@@ -29,47 +44,7 @@
         container.classList.add('container-fluid');
     }
 </script>
-<nav class="navbar navbar-light navbar-vertical navbar-expand-xl">
-    <script>
-        var navbarStyle = localStorage.getItem("navbarStyle");
-        if (navbarStyle && navbarStyle !== 'transparent') {
-            document.querySelector('.navbar-vertical').classList.add(`navbar-${navbarStyle}`);
-        }
-    </script>
-    <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
-        <div class="navbar-vertical-content scrollbar" id="checklim">
-            <ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav">
-                <div class="row mt-4">
-                    <div class="col">
-                        <h5 class="text-white text-center">Selamat Datang</h5>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="card risda-bg-dg mx-4 mx-lg-0">
-
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col text-center mb-3">
-                                        @if (Auth::user()->gambar_profil == null)
-                                            <img src="/img/dp.jpg" alt="profile_picture"
-                                                style="border-radius: 25px; border: 2px solid #73AD21; width:108px; height:108.9px; object-fit: cover;">
-                                        @else
-                                            <img src="/{{ Auth::user()->gambar_profil }}" alt="profile_picture"
-                                                style="border-radius: 25px; border: 2px solid #73AD21; width:108px; height:108.9px; object-fit: cover;">
-                                        @endif
-                                    </div>
-                                </div>
-                                <h3 class="h5 text-white text-center"><strong>{{ Auth::user()->name }}</strong></h3>
-                                <div class="row mt-3">
-                                    <div class="col d-grid gap-2">
-
-                                        <a href="/profil" class="btn btn-light text-success">Profil</a>
-
-                                        <a href="#tukar-password" data-bs-toggle="modal"
-                                            class="btn btn-light text-success">Tukar Kata Laluan</a>
-
-                                        <div class="modal fade" id="tukar-password" tabindex="-1" role="dialog"
+<div class="modal fade" id="tukar-password" tabindex="-1" role="dialog"
                                             aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered" role="document"
                                                 style="max-width: 500px">
@@ -116,6 +91,48 @@
                                                 </div>
                                             </div>
                                         </div>
+<nav class="navbar navbar-light navbar-vertical navbar-expand-xl">
+    <script>
+        var navbarStyle = localStorage.getItem("navbarStyle");
+        if (navbarStyle && navbarStyle !== 'transparent') {
+            document.querySelector('.navbar-vertical').classList.add(`navbar-${navbarStyle}`);
+        }
+    </script>
+
+    <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
+        <div class="navbar-vertical-content scrollbar" id="checklim">
+            <ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav">
+                <div class="row mt-4">
+                    <div class="col">
+                        <h5 class="text-white text-center">Selamat Datang</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card risda-bg-dg mx-4 mx-lg-0">
+
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col text-center mb-3">
+                                        @if (Auth::user()->gambar_profil == null)
+                                            <img src="/img/dp.jpg" alt="profile_picture"
+                                                style="border-radius: 25px; border: 2px solid #73AD21; width:108px; height:108.9px; object-fit: cover;">
+                                        @else
+                                            <img src="/{{ Auth::user()->gambar_profil }}" alt="profile_picture"
+                                                style="border-radius: 25px; border: 2px solid #73AD21; width:108px; height:108.9px; object-fit: cover;">
+                                        @endif
+                                    </div>
+                                </div>
+                                <h3 class="h5 text-white text-center"><strong>{{ Auth::user()->name }}</strong></h3>
+                                <div class="row mt-3">
+                                    <div class="col d-grid gap-2">
+
+                                        <a href="/profil" class="btn btn-light text-success">Profil</a>
+
+                                        <a href="#tukar-password" data-bs-toggle="modal"
+                                            class="btn btn-light text-success">Tukar Kata Laluan</a>
+
+
                                         <form method="POST" action="{{ route('logout') }}">
                                             @csrf
                                             <div class="col d-grid gap-2">

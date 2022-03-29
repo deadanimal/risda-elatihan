@@ -36,6 +36,7 @@ class JadualKursusController extends Controller
         $jadualKursus = JadualKursus::all();
         foreach ($jadualKursus as $key => $jk) {
             $sum = 0;
+          
             $bil = PeruntukanPeserta::where('pp_jadual_kursus', $jk->id)->get();
 
             foreach ($bil as $k => $b) {
@@ -44,6 +45,7 @@ class JadualKursusController extends Controller
             $jk['bilangan'] = $sum;
         }
         $bidang = BidangKursus::all();
+        
         return view('pengurusan_kursus.semak_jadual.index', [
             'jadual' => $jadualKursus,
         ]);

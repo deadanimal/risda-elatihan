@@ -130,7 +130,7 @@ class PermohonanController extends Controller
         }else {
             alert()->success('Permohonan anda telah didaftarkan', 'Berjaya');
             return redirect('/ulpk/permohonan/katelog-kursus');
-       
+
         }
     }
 
@@ -143,8 +143,10 @@ class PermohonanController extends Controller
     public function show($id)
     {
         $jadual = JadualKursus::find($id);
+        $pengendali = Agensi::where('id',$jadual->kursus_pengendali_latihan)->first();
         return view('permohonan_kursus.katalog.show', [
             'jadual' => $jadual,
+            'pengendali'=>$pengendali
         ]);
     }
 
@@ -203,7 +205,7 @@ class PermohonanController extends Controller
         // semak permohonan
         $semak_permohonan = Permohonan::where('kod_kursus', $id)->where('no_pekerja', Auth::id())->first();
         if ($semak_permohonan != null) {
-            $sp = 1; 
+            $sp = 1;
         }else{
             $sp = 0;
         }

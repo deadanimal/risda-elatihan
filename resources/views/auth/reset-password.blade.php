@@ -17,38 +17,40 @@
                                     </div>
                                     <form method="POST" action="{{ route('password.update') }}">
                                         @csrf
-                            
+
                                         <!-- Password Reset Token -->
                                         <input type="hidden" name="token" value="{{ $request->route('token') }}">
-                            
+
                                         <!-- Email Address -->
                                         <div class="mt-2">
                                             <label class="form-label">Emel Yang Berdaftar</label>
-                            
+
                                             <input id="email" class="form-control" type="email" name="email" :value="old('email', $request->email)" required autofocus />
                                         </div>
-                            
+
                                         <!-- Password -->
                                         <div class="mt-2">
                                             <label class="form-label">Kata Laluan Baru </label>
-                            
+
                                             <input id="password" class="form-control" type="password" name="password" required />
                                         </div>
-                            
+
                                         <!-- Confirm Password -->
                                         <div class="mt-2">
                                             <label class="form-label">Pengesahan Kata Laluan </label>
-                            
+
                                             <input id="password_confirmation" class="form-control"
                                                                 type="password"
                                                                 name="password_confirmation" required />
                                         </div>
-                            
+
                                         <div class="flex items-center justify-end mt-4">
                                             <div class="d-grid gap-2">
                                                 <button class="btn btn-primary">
                                                     Set Semula Kata Laluan
                                                 </button>
+          
+
                                             </div>
                                         </div>
                                     </form>
