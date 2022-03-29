@@ -12,11 +12,7 @@ class BidangKursusController extends Controller
     {
         $this->middleware('auth');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+  
     public function index()
     {
         $bidangKursus = BidangKursus::all();

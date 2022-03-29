@@ -37,13 +37,14 @@ class JadualKursusController extends Controller
         foreach ($jadualKursus as $key => $jk) {
             $sum = 0;
             $bil =PeruntukanPeserta::where('pp_jadual_kursus', $jk->id)->get();
-            
+
             foreach ($bil as $k => $b) {
                 $sum = $sum + $b->pp_peruntukan_calon;
             }
             $jk['bilangan'] = $sum;
         }
         $bidang = BidangKursus::all();
+        
         return view('pengurusan_kursus.semak_jadual.index', [
             'jadual' => $jadualKursus,
         ]);
