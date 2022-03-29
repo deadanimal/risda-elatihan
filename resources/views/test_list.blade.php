@@ -30,4 +30,6 @@
         @csrf
         <button type="submit" class="btn btn-warning">Tekan ni</button>
     </form> --}}
+
+    <a href="/add_staf" class="btn btn-warning">add</a>
 @endsection
