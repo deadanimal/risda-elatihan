@@ -277,7 +277,7 @@
                             <div class="col-6">
                                 <div class="mb-3">
                                     <label class="form-label risda-g">PERANAN</label>
-                                    <input class="form-control" type="text" value="" readonly />
+                                    <input class="form-control" type="text" value="{{$user['jenis_pengguna']}}" readonly />
                                 </div>
                             </div>
                             <div class="col-6">
