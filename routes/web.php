@@ -238,14 +238,16 @@ Route::middleware('auth')->group(function () {
     //penilaian
     Route::group(['prefix' => 'penilaian', 'middleware' => 'can:penilaian'], function () {
 
-        Route::middleware(['role:Admin BTM|Urus Setia ULS'])->group(function(){
+        Route::middleware(['role:Admin BTM|Urus Setia ULS'])->group(function () {
             Route::resource('/pre-post-test', PrePostTestController::class);
             Route::get('/pre-post-test/create/{jadual_kursus}', [PrePostTestController::class, 'createPrePost'])->name('createPrePost');
+            Route::post('/pre-post-test/{jadual_kursus}/save', [JadualKursusController::class, 'tambah_masa_mula_tamat_pre_post_test']);
 
             //Post
             Route::resource('/post-test', PostTestController::class)->only(['store', 'destroy']);
             Route::get('/post-test/{jadualKursus}', [PostTestController::class, 'index'])->name('post-test.index');
             Route::get('/post-test/create/{jadualKursus}', [PostTestController::class, 'create'])->name('post-test.create');
+            Route::post('/post-test/{jadual_kursus}/save', [JadualKursusController::class, 'tambah_masa_mula_tamat_post_test']);
 
             Route::get('/cetakQr', [PenilaianPesertaController::class, 'cetakQr']);
             Route::get('/cetakQr2/{jadual_kursus}', [PenilaianPesertaController::class, 'cetakQr2']);
@@ -286,7 +288,6 @@ Route::middleware('auth')->group(function () {
             Route::get('/pml', [LaporanLainController::class, 'pml'])->name('pml');
             Route::get('/pkp', [LaporanLainController::class, 'pkp'])->name('pkp');
             Route::get('/rp', [LaporanLainController::class, 'rp'])->name('rp');
-
         });
     });
 
