@@ -39,7 +39,7 @@ class PostTestController extends Controller
             case 'B':
                 $post = PostTest::create([
                     'jadual_kursus_id' => $request->jadual_kursus_id,
-                    'jenis_soalan' => "MULTIPLE CHOISE",
+                    'jenis_soalan' => "MULTIPLE CHOICE",
                     'soalan' => $request->soalan,
                     'status' => $request->status_soalan,
                     'jawapan' => null,
@@ -64,7 +64,7 @@ class PostTestController extends Controller
             case 'C':
                 $post = PostTest::create([
                     'jadual_kursus_id' => $request->jadual_kursus_id,
-                    'jenis_soalan' => "SINGLE CHOISE",
+                    'jenis_soalan' => "SINGLE CHOICE",
                     'soalan' => $request->soalan,
                     'status' => $request->status_soalan,
                     'jawapan' => null,

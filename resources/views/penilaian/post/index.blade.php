@@ -26,54 +26,80 @@
 
         <div class="row justify-content-center mt-5">
             <div class="col-8">
-                <div class="row my-3">
-                    <div class="col-4 mt-2">
-                        <h5>KOD NAMA KURSUS</h5>
+                <form method="POST" action="/penilaian/post-test/{{ $jadual_kursus->id }}/save">
+                    {{-- @method('POST') --}}
+                    @csrf
+                    <div class="row my-3">
+                        <div class="col-4 mt-2">
+                            <h5>KOD NAMA KURSUS</h5>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" value="{{ $jadual_kursus->kursus_kod_nama_kursus }}"
+                                readonly>
+                        </div>
                     </div>
-                    <div class="col-8">
-                        <input type="text" class="form-control" value="" readonly/>
+                    <div class="row mb-3">
+                        <div class="col-4 mt-2">
+                            <h5>NAMA KURSUS</h5>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" value="{{ $jadual_kursus->kursus_nama }}" readonly>
+                        </div>
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-4 mt-2">
-                        <h5>NAMA KURSUS</h5>
+                    <div class="row mb-3">
+                        <div class="col-4 mt-2">
+                            <h5>TARIKH KURSUS</h5>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" value="{{ $jadual_kursus->tarikh_mula }}" readonly>
+                        </div>
                     </div>
-                    <div class="col-8">
-                        <input type="text" class="form-control" value=""readonly/>
+                    <div class="row mb-3">
+                        <div class="col-4 mt-2">
+                            <h5>TEMPAT KURSUS</h5>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" value="{{ $jadual_kursus->kursus_tempat }}"
+                                readonly>
+                        </div>
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-4 mt-2">
-                        <h5>TARIKH KURSUS</h5>
+                    <div class="row mb-3">
+                        <div class="col-4 mt-2">
+                            <h5>MASA MULA</h5>
+                        </div>
+                        @if ($jadual_kursus->kursus_masa_mula_post_test != null)
+                            <div class="col-4">
+                                <input type="time" class="form-control" name="kursus_masa_mula_post_test"
+                                    value="{{ $jadual_kursus->kursus_masa_mula_post_test }}">
+                            </div>
+                        @else
+                            <div class="col-4">
+                                <input type="time" class="form-control" name="kursus_masa_mula_post_test">
+                            </div>
+                        @endif
                     </div>
-                    <div class="col-8">
-                        <input type="text" class="form-control" value="" readonly/>
+                    <div class="row mb-3">
+                        <div class="col-4 mt-2">
+                            <h5>MASA TAMAT</h5>
+                        </div>
+                        @if ($jadual_kursus->kursus_masa_mula_post_test != null)
+                            <div class="col-4">
+                                <input type="time" class="form-control" name="kursus_masa_tamat_post_test"
+                                    value="{{ $jadual_kursus->kursus_masa_tamat_post_test }}">
+                            </div>
+                        @else
+                            <div class="col-4">
+                                <input type="time" class="form-control" name="kursus_masa_tamat_post_test">
+                            </div>
+                        @endif
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-4 mt-2">
-                        <h5>TEMPAT KURSUS</h5>
+                    <div class="row mt-3">
+                        <div class="text-end">
+                            <button class="btn btn-primary" type="submit"><i class="far fa-save"></i>
+                                Simpan</button>
+                        </div>
                     </div>
-                    <div class="col-8">
-                        <input type="text" class="form-control" value="" readonly/>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-4 mt-2">
-                        <h5>MASA MULA</h5>
-                    </div>
-                    <div class="col-4">
-                        <input type="time" class="form-control" value="">
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-4 mt-2">
-                        <h5>MASA TAMAT</h5>
-                    </div>
-                    <div class="col-4">
-                        <input type="time" class="form-control" value="">
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
 
@@ -82,12 +108,12 @@
         <div class="row mt-4">
             <div class="col-12">
                 <p class="h4 fw-bold">
-                    SENARAI SOALAN PRE TEST
+                    SENARAI SOALAN POST TEST
                 </p>
             </div>
         </div>
 
-        {{-- <div class="card mt-5">
+        <div class="card mt-5">
             <div class="card-body">
                 <div class="table-responsive scrollbar ">
                     <table class="table datatable text-center">
@@ -139,12 +165,12 @@
                 <a href="{{ route('post-test.create', $jadual_kursus->id) }}" class="btn btn-primary mt-3"><span
                         class="fas fa-plus"></span> Tambah Soalan</a>
             </div>
-        </div> --}}
+        </div>
 
 
     </div>
 
-    {{-- <script>
+    <script>
         $("#submit-del").click(function(e) {
             e.preventDefault();
             var form = $(this).parents('form');
@@ -169,5 +195,5 @@
                 }
             })
         });
-    </script> --}}
+    </script>
 @endsection
