@@ -37,18 +37,22 @@ class PrePostTestController extends Controller
         return view('penilaian.pre-post.create', [
             'jk_id' => $jadual_kursus->id,
         ]);
-
     }
 
     public function jawabPrePost()
     {
-        $permohonan = Permohonan::where('no_pekerja', auth()->user()->id)
+        $permohonan = Permohonan::with('jadualKursus')->where('no_pekerja', auth()->user()->id)
             ->where('status_permohonan', 4)
-            ->where('dinilai_pre', null)->get();
-
-        return view('penilaian.pre-post.answer', [
-            'permohonan' => $permohonan,
-        ]);
+            ->where('dinilai_pre', null)->get()->first();
+        // dd($permohonan);
+        if ($permohonan == null) {
+            alert()->error('Anda tidak membuat sebarang permohonan lagi.', 'Tiada permohonan');
+            return back();
+        } else {
+            return view('penilaian.pre-post.answer', [
+                'permohonan' => $permohonan,
+            ]);
+        }
     }
 
     public function mulaPenilaian(JadualKursus $jadual_kursus)
@@ -75,7 +79,7 @@ class PrePostTestController extends Controller
                             $markah++;
                         }
                     }
-                    if ($ppt->jenis_soalan == "MULTIPLE CHOISE") {
+                    if ($ppt->jenis_soalan == "MULTIPLE CHOICE") {
                         $multiple_true = 0;
                         $mul[$ppt->id] = true;
 
@@ -93,7 +97,7 @@ class PrePostTestController extends Controller
                             $mul[$ppt->id] = false;
                         }
                     }
-                    if ($ppt->jenis_soalan == "SINGLE CHOISE") {
+                    if ($ppt->jenis_soalan == "SINGLE CHOICE") {
                         if ($jawapan == 'betul') {
                             $markah++;
                         }
@@ -107,9 +111,11 @@ class PrePostTestController extends Controller
             }
         }
 
-        foreach ($mul as $m) {
-            if ($m) {
-                $markah++;
+        if (isset($mul)) {
+            foreach ($mul as $m) {
+                if ($m) {
+                    $markah++;
+                }
             }
         }
 
@@ -129,8 +135,7 @@ class PrePostTestController extends Controller
         ]);
 
         alert()->success('Selesai Menjawab Penilaian : Markah anda ' . $newMarkah . "%");
-        return redirect()->route('jawabPrePost');
-
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -155,7 +160,7 @@ class PrePostTestController extends Controller
             case 'B':
                 $pre = PrePostTest::create([
                     'jadual_kursus_id' => $request->jadual_kursus_id,
-                    'jenis_soalan' => "MULTIPLE CHOISE",
+                    'jenis_soalan' => "MULTIPLE CHOICE",
                     'soalan' => $request->soalan,
                     'status' => $request->status_soalan,
                     'jawapan' => null,
@@ -180,7 +185,7 @@ class PrePostTestController extends Controller
             case 'C':
                 $pre = PrePostTest::create([
                     'jadual_kursus_id' => $request->jadual_kursus_id,
-                    'jenis_soalan' => "SINGLE CHOISE",
+                    'jenis_soalan' => "SINGLE CHOICE",
                     'soalan' => $request->soalan,
                     'status' => $request->status_soalan,
                     'jawapan' => null,

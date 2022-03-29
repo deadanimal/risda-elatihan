@@ -79,7 +79,7 @@ class SemakPermohonanController extends Controller
 
             $p['tarikh'] = date('H:i, d/m/Y', strtotime($p->created_at));
         }
-
+        
         return view('permohonan_kursus.semakan_permohonan.index', [
             'pemohon' => $pemohon,
             'staf' => $staf,

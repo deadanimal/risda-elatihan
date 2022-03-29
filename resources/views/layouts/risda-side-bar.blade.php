@@ -759,7 +759,11 @@
                             data-bs-toggle="collapse" aria-expanded="{{ Request::is('penilaian/*') ? 'true' : 'false' }}"
                             aria-controls="penilaian">
                             <div class="d-flex align-items-center nav-link-side px-0">
-                                <span class="px-3"><span class="fab fa-wpforms"></span> PENILAIAN</span>
+                                @if (auth()->user()->jenis_pengguna == 'Peserta ULS' || auth()->user()->jenis_pengguna == 'Peserta ULPK')
+                                    <span class="px-3"><span class="fab fa-wpforms"></span> PENILAIAN</span>
+                                @else
+                                    <span class="px-3"><span class="fab fa-wpforms"></span> PENGURUSAN PENILAIAN</span>
+                                @endif
                             </div>
                         </a>
                         <ul class="nav-item collapse {{ Request::is('penilaian/*') ? 'show' : 'false' }} my-1"
@@ -799,14 +803,14 @@
                                 <li class="nav-item">
                                     <a class="nav-link py-0" href="#">
                                         <div class="d-flex align-items-center nav-link-side">
-                                            <span class="px-0">KEBERKESANAN KURSUS</span>
+                                            <span class="px-0">PENILAIAN KEBERKESANAN KURSUS</span>
                                         </div>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link py-0" href="#">
                                         <div class="d-flex align-items-center nav-link-side">
-                                            <span class="px-0">PENILAIAN AJEN PELAKSANA</span>
+                                            <span class="px-0">PENILAIAN EJEN PELAKSANA</span>
                                         </div>
                                     </a>
                                 </li>

@@ -29,7 +29,7 @@ class KodKursusController extends Controller
         // dd($kategoriKursus);
 
         $bil_staf = KodKursus::where('UL_Kod_Kursus', 'Staf')->get();
-        $bil_pk = KodKursus::orderBy('id', 'desc')->where('UL_Kod_Kursus', 'Pekebun Kecil')->get();
+        $bil_pk = KodKursus::where('UL_Kod_Kursus', 'Pekebun Kecil')->get();
 
         $tahun_ini = date("Y");
         $hari_ini = date("Y-m-d");

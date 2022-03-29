@@ -1,78 +1,78 @@
 @extends('layouts.risda-base')
 @section('content')
-    <div class="row mt-3 mb-2">
-        <div class="col-12 mb-2">
-            <p class="h1 mb-0 fw-bold" style="color: rgb(43,93,53);">PENILAIAN</p>
-            <p class="h5" style="color: rgb(43,93,53); ">PENILAIAN PRE TEST DAN POST TEST</p>
+    <div class="container">
+        <div class="row mt-3 mb-2">
+            <div class="col-12 mb-2">
+                <p class="h1 mb-0 fw-bold" style="color: rgb(43,93,53);">PENILAIAN</p>
+                <p class="h5" style="color: rgb(43,93,53); ">PENILAIAN PRE TEST DAN POST TEST</p>
+            </div>
         </div>
+        <hr style="color: rgba(81,179,90, 60%);height:2px;">
+
+        <div class="row">
+            <div class="col-12">
+                <p class="h4 fw-bold mt-3">
+                    TAMBAH SOALAN POST TEST
+                </p>
+            </div>
+        </div>
+
+        <form action="{{ route('post-test.store') }}" method="post">
+            @csrf
+            <input type="hidden" name="jadual_kursus_id" value="{{ $jadual_kursus->id }}">
+            <div class="row mt-5">
+                <div class="col-1"></div>
+                <div class="col-3 mt-2">
+                    <p class="h5 risda-dg">KATEGORI JAWAPAN</p>
+                </div>
+                <div class="col-8">
+                    <select class="form-select mb-3" onchange="kategori(this)" name="jenis">
+                        <option selected disabled hidden>SILA PILIH</option>
+                        <option value="A">FILL IN THE BLANK</option>
+                        <option value="B">MULTIPLE CHOICE</option>
+                        <option value="C">SINGLE CHOICE</option>
+                        <option value="D">TRUE OR FALSE</option>
+                    </select>
+                </div>
+                <div class="col-1"></div>
+                <div class="col-3 mt-2">
+                    <p class="h5 risda-dg">SOALAN</p>
+                </div>
+                <div class="col-8">
+                    <textarea class="form-control mb-3" rows="4" name="soalan" required></textarea>
+                </div>
+                <div class="col-1"></div>
+                <div class="col-3 mt-2">
+                    <p class="h5 risda-dg">STATUS SOALAN</p>
+                </div>
+                <div class="col-8">
+                    <select type="text" class="form-select mb-3" name="status_soalan" required>
+                        <option selected disabled hidden>SILA PILIH</option>
+                        <option value="Aktif">Aktif</option>
+                        <option value="Tak Aktif">Tak Aktif</option>
+                    </select>
+                </div>
+                <div class="col-1"></div>
+                <div class="col-3 mt-2">
+                    <p class="h5 risda-dg">PILIHAN JAWAPAN</p>
+                </div>
+                <div class="col-8" id="jawapan">
+
+
+
+                </div>
+
+            </div>
+
+            <div class="row mt-3">
+                <div class="text-end">
+                    <button class="btn btn-primary" type="submit" id="btnSubmit"><i class="far fa-save"></i>
+                        Simpan</button>
+                </div>
+            </div>
+
+        </form>
     </div>
-    <hr style="color: rgba(81,179,90, 60%);height:2px;">
-
-    <div class="row">
-        <div class="col-12">
-            <p class="h4 fw-bold mt-3">
-                TAMBAH SOALAN POST TEST
-            </p>
-        </div>
-    </div>
-
-    <form action="{{ route('post-test.store') }}" method="post">
-        @csrf
-        <input type="hidden" name="jadual_kursus_id" value="{{ $jadual_kursus->id }}">
-        <div class="row mt-5">
-            <div class="col-1"></div>
-            <div class="col-3 mt-2">
-                <p class="h5 risda-dg">KATEGORI JAWAPAN</p>
-            </div>
-            <div class="col-8">
-                <select class="form-select mb-3" onchange="kategori(this)" name="jenis">
-                    <option selected disabled hidden>SILA PILIH</option>
-                    <option value="A">FILL IN THE BLANK</option>
-                    <option value="B">MULTIPLE CHOISE</option>
-                    <option value="C">SINGLE CHOISE</option>
-                    <option value="D">TRUE OR FALSE</option>
-                </select>
-            </div>
-            <div class="col-1"></div>
-            <div class="col-3 mt-2">
-                <p class="h5 risda-dg">SOALAN</p>
-            </div>
-            <div class="col-8">
-                <textarea class="form-control mb-3" rows="4" name="soalan" required></textarea>
-            </div>
-            <div class="col-1"></div>
-            <div class="col-3 mt-2">
-                <p class="h5 risda-dg">STATUS SOALAN</p>
-            </div>
-            <div class="col-8">
-                <select type="text" class="form-select mb-3" name="status_soalan" required>
-                    <option selected disabled hidden>SILA PILIH</option>
-                    <option value="Aktif">Aktif</option>
-                    <option value="Tak Aktif">Tak Aktif</option>
-                </select>
-            </div>
-            <div class="col-1"></div>
-            <div class="col-3 mt-2">
-                <p class="h5 risda-dg">PILIHAN JAWAPAN</p>
-            </div>
-            <div class="col-8" id="jawapan">
-
-
-
-            </div>
-
-        </div>
-
-        <div class="row mt-3">
-            <div class="text-end">
-                <button class="btn btn-primary" type="submit" id="btnSubmit"><i class="far fa-save"></i>
-                    Simpan</button>
-            </div>
-        </div>
-
-    </form>
-
-
 
     <script>
         // $("#btnSubmit").click(function(e) {

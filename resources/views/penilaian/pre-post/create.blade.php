@@ -28,8 +28,8 @@
                 <select class="form-select mb-3" onchange="kategori(this)" name="jenis">
                     <option selected disabled hidden>SILA PILIH</option>
                     <option value="A">FILL IN THE BLANK</option>
-                    <option value="B">MULTIPLE CHOISE</option>
-                    <option value="C">SINGLE CHOISE</option>
+                    <option value="B">MULTIPLE CHOICE</option>
+                    <option value="C">SINGLE CHOICE</option>
                     <option value="D">TRUE OR FALSE</option>
                 </select>
             </div>
