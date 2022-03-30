@@ -46,7 +46,7 @@ class JadualKursusController extends Controller
         }
         $bidang = BidangKursus::all();
 
-        dd($jadualKursus);
+        // dd($jadualKursus);
         return view('pengurusan_kursus.semak_jadual.index', [
             'jadual' => $jadualKursus,
         ]);
