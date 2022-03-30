@@ -16,7 +16,6 @@
                 </p>
             </div>
         </div>
-
         <div class="row">
             <div class="col-12">
                 <div class="row">
@@ -37,6 +36,7 @@
                                             <th scope="col">PERANAN</th>
                                             <th scope="col">TARIKH AKAUN DICIPTA</th>
                                             <th scope="col">PENGAKTIFAN AKAUN</th>
+                                            <th scope="col">TINDAKAN</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -69,6 +69,22 @@
                                                         <i class="fas fa-pen"></i>
                                                     </button> --}}
                                                 </td>
+                                                <td>
+                                                    <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                                                    data-bs-target="#edit_pengguna_{{ $u->id }}"><i class="fas fa-pen"></i>
+                                                    </button>
+
+                                                    <button class="btn risda-bg-dg text-white" type="button" data-bs-toggle="modal"
+                                                        data-bs-target="#delete_{{ $u->id }}"><i class="fas fa-trash"></i>
+                                                    </button>
+                                                </td>
+                                                {{-- <td>
+                                                    <form method="POST" action="/pengurusan_pengguna/pengguna/staf/{{$u->id}}">
+                                                        @method('DELETE')
+                                                        @csrf
+                                                        <button class="btn p-0 ms-2" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="Padam"><span class="text-500 fas fa-trash-alt"></span></button>
+                                                    </form>
+                                                </td> --}}
                                             </tr>
 
                                             <div class="modal fade" id="edit_pengguna_{{ $u->id }}"
@@ -119,6 +135,44 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <div class="modal fade" id="delete_{{ $u->id }}" tabindex="-1"
+                                                role="dialog" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document"
+                                                    style="max-width: 500px">
+                                                    <div class="modal-content position-relative">
+                                                        <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
+                                                            <button
+                                                                class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body p-0">
+                                                            <div class="row">
+                                                                <div class="col text-center m-3">
+                                                                    <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
+                                                                    <br>
+                                                                    Anda pasti untuk menghapus data {{$u->nama}} ini?
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button class="btn btn-secondary" type="button"
+                                                                    data-bs-dismiss="modal">Batal</button>
+                                                                <form method="POST" action="/pengurusan_pengguna/pengguna/staf/{{$u->id}}">
+                                                                    @method('DELETE')
+                                                                    @csrf
+                                                                    <button class="btn btn-primary" type="submit">Hapus
+                                                                    </button>
+                                                                </form>
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -131,5 +185,5 @@
 
     </div>
 
-    
+
 @endsection
