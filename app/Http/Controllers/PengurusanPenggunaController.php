@@ -126,7 +126,7 @@ class PengurusanPenggunaController extends Controller
             if (!empty($data_pk['message'])) {
                 alert()->error('Maaf, nombor kad pengenalan yang dimasukkan tiada dalam pangkalan data HRIP', 'Tiada Maklumat');
                 return redirect('/pengurusan_pengguna/pengguna/pekebun_kecil/create');
-            } 
+            }
         }
 
         $user = new User;
@@ -209,18 +209,18 @@ class PengurusanPenggunaController extends Controller
         $user->save();
 
         alert()->success('Akaun bagi ' . $user->name . ' telah dikemaskini', 'Berjaya');
-        return back();
+        return redirect()->back();
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
-        //
+        $user = User::where('id',$id)->first();
+        $user->delete();
+
+        alert()->success('Data' . $user->name . ' telah dihapuskan', 'Berjaya');
+        return redirect()->back();
     }
 
     public function semak_nric(Request $request)
