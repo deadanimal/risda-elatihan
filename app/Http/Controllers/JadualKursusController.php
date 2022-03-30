@@ -36,9 +36,7 @@ class JadualKursusController extends Controller
         $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->get();
         foreach ($jadualKursus as $key => $jk) {
             $sum = 0;
-          
             $bil = PeruntukanPeserta::where('pp_jadual_kursus', $jk->id)->get();
-
             foreach ($bil as $k => $b) {
                 $sum = $sum + $b->pp_peruntukan_calon;
             }
