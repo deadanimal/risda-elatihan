@@ -33,7 +33,7 @@ class JadualKursusController extends Controller
      */
     public function index()
     {
-        $jadualKursus = JadualKursus::all();
+        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->get();
         foreach ($jadualKursus as $key => $jk) {
             $sum = 0;
           
@@ -45,7 +45,6 @@ class JadualKursusController extends Controller
             $jk['bilangan'] = $sum;
         }
         $bidang = BidangKursus::all();
-        
         return view('pengurusan_kursus.semak_jadual.index', [
             'jadual' => $jadualKursus,
         ]);
