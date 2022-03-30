@@ -111,11 +111,11 @@
                                         <td>{{ $j->kursus_nama }}</td>
                                         <td>{{ $j->tarikh_mula }}</td>
                                         <td>
-                                            {{-- {{$j->tempat->nama_Agensi}} --}}
+                                            {{$j->tempat->nama_Agensi}}
                                         </td>
                                         <td>{{ $j->bilangan }}</td>
                                         <td>
-                                            {{-- {{$j->status_pelaksanaan->Status_Pelaksanaan}} --}}
+                                            {{$j->status_pelaksanaan->Status_Pelaksanaan}}
                                         </td>
                                         <td>
                                             <a href="/pengurusan_kursus/semak_jadual/{{ $j->id }}/edit"
