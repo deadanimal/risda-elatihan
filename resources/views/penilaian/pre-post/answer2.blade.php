@@ -98,7 +98,7 @@
                         @endif
                     @endif
                 @endforeach
-                <div class="col-8 text-end">
+                <div class="col-8 text-end mt-3">
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </div>

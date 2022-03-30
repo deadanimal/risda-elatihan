@@ -168,13 +168,13 @@ class PrePostTestController extends Controller
                 foreach ($request->jawapanMultiple as $key => $jawapan) {
                     $str = "check-" . $key;
                     if ($request->$str) {
-                        DB::table('jawapan_multiple')->insert([
+                        JawapanMultiple::create([
                             'soalan_id' => $pre->id,
                             'jawapan' => $jawapan,
                             'yang_betul' => 'betul',
                         ]);
                     } else {
-                        DB::table('jawapan_multiple')->insert([
+                        JawapanMultiple::create([
                             'soalan_id' => $pre->id,
                             'jawapan' => $jawapan,
                             'yang_betul' => 'salah',
@@ -193,13 +193,13 @@ class PrePostTestController extends Controller
                 foreach ($request->jawapanMultiple as $key => $jawapan) {
                     $str = "check-" . $key;
                     if ($request->$str) {
-                        DB::table('jawapan_multiple')->insert([
+                        JawapanMultiple::create([
                             'soalan_id' => $pre->id,
                             'jawapan' => $jawapan,
                             'yang_betul' => 'betul',
                         ]);
                     } else {
-                        DB::table('jawapan_multiple')->insert([
+                        JawapanMultiple::create([
                             'soalan_id' => $pre->id,
                             'jawapan' => $jawapan,
                             'yang_betul' => 'salah',
@@ -261,7 +261,47 @@ class PrePostTestController extends Controller
      */
     public function update(UpdatePrePostTestRequest $request, PrePostTest $prePostTest)
     {
-        //
+
+        $prePostTest->soalan = $request->soalan;
+        $prePostTest->status = $request->status;
+        if ($request->jenis_soalan == 'FILL IN THE BLANK') {
+            $prePostTest->jawapan = $request->jawapanA;
+        } elseif ($request->jenis_soalan == 'MULTIPLE CHOICE') {
+            foreach ($prePostTest->multiple as $jawapanM) {
+                $jawapanM->update([
+                    'yang_betul' => 'salah',
+                ]);
+            }
+            foreach ($request->checkbetul as $key => $jm) {
+                JawapanMultiple::find($key)->update([
+                    'yang_betul' => 'betul',
+                ]);
+            }
+            foreach ($request->jawapanMultiple as $key => $jm) {
+                JawapanMultiple::find($key)->update([
+                    'jawapan' => $jm,
+                ]);
+            }
+        } elseif ($request->jenis_soalan == 'SINGLE CHOICE') {
+            foreach ($prePostTest->multiple as $jawapanM) {
+                $jawapanM->update([
+                    'yang_betul' => 'salah',
+                ]);
+            }
+            JawapanMultiple::find($request->checkbetul)->update([
+                'yang_betul' => 'betul',
+            ]);
+            foreach ($request->jawapanMultiple as $key => $jm) {
+                JawapanMultiple::find($key)->update([
+                    'jawapan' => $jm,
+                ]);
+            }
+        } else {
+            $prePostTest->jawapan = $request->jawapanD;
+        }
+        $prePostTest->save();
+        alert()->success('SOALAN PRE TEST TELAH DIKEMASKINI', 'BERJAYA');
+        return redirect('/penilaian/pre-post-test/' . $prePostTest->jadual_kursus_id);
     }
 
     /**

@@ -142,7 +142,7 @@
                                         {{ $pt->status }}
                                     </td>
                                     <td>
-                                        <a href="{{ route('pre-post-test.edit', $pt->id) }}"
+                                        <a href="/penilaian/post-test/{{ $pt->id }}/edit"
                                             class="btn btn-sm btn-primary">Kemaskini</a>
                                         <form action="{{ route('post-test.destroy', $pt->id) }}" method="post"
                                             class="d-inline-flex">

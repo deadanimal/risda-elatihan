@@ -19,7 +19,7 @@
 
         <form action="{{ route('post-test.store') }}" method="post">
             @csrf
-            <input type="hidden" name="jadual_kursus_id" value="{{ $jadual_kursus->id }}">
+            <input type="hidden" name="jadual_kursus_id" value="{{ $jk_id }}">
             <div class="row mt-5">
                 <div class="col-1"></div>
                 <div class="col-3 mt-2">
@@ -134,12 +134,12 @@
             }
             if (val == "C") {
                 $("#jawapan").append(`
-                  <div id="mc">
+                  <div id="sc">
                     <div class="col-12 mb-3">
                         <input type="hidden" id="multiple-iteration" value="1">
                         <div class="row">
                             <div class="col-1 text-center">
-                                <input type="checkbox" name="check-0" value="true" class="form-check-input">
+                                <input type="radio" name="check-betul" value="true" class="form-check-input">
                             </div>
                             <div class="col-11">
                                 <input type="text" name="jawapanMultiple[0]" class="form-control">
@@ -189,6 +189,25 @@
                         <div class="row">
                             <div class="col-1 text-center">
                                 <input type="checkbox" name="check-` + iteration + `" value="true" class="form-check-input">
+                            </div>
+                            <div class="col-11">
+                                <input type="text" name="jawapanMultiple[` + iteration + `]" class="form-control">
+                            </div>
+                        </div>
+                        <div class="text-end mt-1">
+                            <button type="button" onclick="hapus(this)" class="btn btn-primary btn-sm"><i
+                                    class="fas fa-trash-alt"></i>
+                                Hapus</button>
+                        </div>
+                    </div>
+            `);
+
+            $("#sc").append(`
+             <div class="col-12 mb-3">
+                        <input type="hidden" id="multiple-iteration" value="` + iteration + `">
+                        <div class="row">
+                            <div class="col-1 text-center">
+                                <input type="radio" name="check-betul" value="true" class="form-check-input">
                             </div>
                             <div class="col-11">
                                 <input type="text" name="jawapanMultiple[` + iteration + `]" class="form-control">

@@ -17,7 +17,7 @@
             </div>
         </div>
 
-        <form action="/penilaian/pre-post-test/{{ $prepost->id }}" method="POST">
+        <form action="/penilaian/post-test/{{ $prepost->id }}" method="POST">
             @method('PUT')
             @csrf
             <div class="row justify-content-center">
@@ -50,11 +50,11 @@
                             <div class="row my-2">
                                 <div class="col-auto">
                                     @if ($m->yang_betul == 'betul')
-                                        <input type="checkbox" name="checkbetul[{{ $m->id }}]" value="{{ $m->id }}"
-                                            class="form-check-input" checked>
+                                        <input type="checkbox" name="checkbetul[{{ $m->id }}]"
+                                            value="{{ $m->id }}" class="form-check-input" checked>
                                     @else
-                                        <input type="checkbox" name="checkbetul[{{ $m->id }}]" value="{{ $m->id }}"
-                                            class="form-check-input">
+                                        <input type="checkbox" name="checkbetul[{{ $m->id }}]"
+                                            value="{{ $m->id }}" class="form-check-input">
                                     @endif
                                 </div>
                                 <div class="col-11">
@@ -127,5 +127,4 @@
             </div>
         </form>
     </div>
-
 @endsection

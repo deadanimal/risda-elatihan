@@ -767,7 +767,8 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link py-0" href="{{ route('jawab-post.index') }}">
+                                    {{-- <a class="nav-link py-0" href="{{ route('jawab-post.index') }}"> --}}
+                                        <a class="nav-link py-0" href="/penilaian/jawab-post-test">
                                         <div class="d-flex align-items-center nav-link-side">
                                             <span class="px-0">PENILAIAN POST TEST</span>
                                         </div>
