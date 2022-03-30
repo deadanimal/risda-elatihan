@@ -217,8 +217,8 @@
                                         <td>
                                             {{-- {{$j->kursus_tempat}} --}}
                                             @php
-                                            if ($j->kursus_tempat != 'Sila Pilih') {
-                                                $kursus_tempat = Agensi::where('id', $j->kursus_tempat)->first();
+                                            if (`+e.kursus_tempat+` != 'Sila Pilih') {
+                                                $kursus_tempat = Agensi::where('id', `+e.kursus_tempat+`)->first();
                                                 $kursus_tempat = $kursus_tempat->nama_Agensi;
                                             } else {
                                                 $kursus_tempat = 'Tiada Maklumat';
