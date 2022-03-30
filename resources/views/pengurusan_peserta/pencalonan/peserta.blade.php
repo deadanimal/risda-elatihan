@@ -44,10 +44,10 @@
                             @foreach ($list_staf as $key => $p)
                                 <tr>
                                     <td>{{ $key + 1 }}.</td>
-                                    <td>{{ $p['nokp'] }}</td>
-                                    <td>{{ $p['nama'] }}</td>
-                                    <td>{{ $p['NamaPT'] }}</td>
-                                    <td>{{ $p['Gred'] }}</td>
+                                    <td>{{ $p->no_KP }}</td>
+                                    <td>{{ $p->name }}</td>
+                                    <td>{{ $p->NamaPT }}</td>
+                                    <td>{{ $p->Gred }}</td>
                                     <td>{{ $p['hari_berkursus'] }}</td>
                                     <td>{{ $p['catatan'] }}</td>
                                     <td>
