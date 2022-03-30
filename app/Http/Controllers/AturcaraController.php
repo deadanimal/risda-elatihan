@@ -101,7 +101,12 @@ class AturcaraController extends Controller
      */
     public function update(UpdateAturcaraRequest $request, Aturcara $aturcara)
     {
-        //
+        $aturcara->ac_masa = $request->ac_masa;
+        $aturcara->ac_aturcara = $request->ac_aturcara;
+
+        $aturcara->save();
+        alert()->success('Maklumat telah dikemaskini.', 'Berjaya');
+        return redirect('/pengurusan_kursus/aturcara/'.$aturcara->ac_jadual_kursus);
     }
 
     /**
