@@ -128,14 +128,14 @@
                                             <td>{{ $s->pusat_tanggungjawab }}</td>
                                             <td>{{ $s->gred }}</td>
                                             <td>
-                                                @if ($p->jadual == null)
+                                                @if ($s->jadual == null)
                                                     <span class="text-danger">Jadual telah dihapuskan</span>
                                                 @else
-                                                    {{ $p->jadual->kursus_kod_nama_kursus }}
+                                                    {{ $s->jadual->kursus_kod_nama_kursus }}
                                                 @endif
                                             </td>
                                             <td>
-                                                @if ($p->jadual == null)
+                                                @if ($s->jadual == null)
                                                     <span class="text-danger">Jadual telah dihapuskan</span>
                                                 @else
                                                     {{ $s->jadual->kursus_nama }}
@@ -178,14 +178,14 @@
                                             <td>{{ $pk->peserta->name }}</td>
                                             <td>{{ $pk->pusat_tanggungjawab }}</td>
                                             <td>
-                                                @if ($p->jadual == null)
+                                                @if ($pk->jadual == null)
                                                     <span class="text-danger">Jadual telah dihapuskan</span>
                                                 @else
                                                     {{ $pk->jadual->kursus_kod_nama_kursus }}
                                                 @endif
                                             </td>
                                             <td>
-                                                @if ($p->jadual == null)
+                                                @if ($pk->jadual == null)
                                                     <span class="text-danger">Jadual telah dihapuskan</span>
                                                 @else
                                                     {{ $pk->jadual->kursus_nama }}
