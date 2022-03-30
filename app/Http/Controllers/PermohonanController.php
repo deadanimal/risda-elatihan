@@ -31,7 +31,7 @@ class PermohonanController extends Controller
      */
     public function indexULS()
     {
-        $permohonan = Permohonan::with(['jadualKursus', 'kehadiran'])->where('no_pekerja', Auth::id())->get();
+        $permohonan = Permohonan::with(['jadual', 'kehadiran'])->where('no_pekerja', Auth::id())->get();
         foreach ($permohonan as $key => $p) {
             $p->status_kehadiran = null;
             foreach($p->kehadiran as $pk){
