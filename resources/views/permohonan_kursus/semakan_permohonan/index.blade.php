@@ -188,8 +188,20 @@
                                             <td>{{ $p->peserta->no_KP }}</td>
                                             <td>{{ $p->peserta->name }}</td>
                                             <td>{{ $p->pusat_tanggungjawab }}</td>
-                                            <td>{{ $p->jadual->kursus_kod_nama_kursus }}</td>
-                                            <td>{{ $p->jadual->kursus_nama }}</td>
+                                            <td>
+                                                @if ($p->jadual == null)
+                                                <span class="text-danger">Jadual telah dihapuskan atau tiada dalam senarai</span>
+                                                @else
+                                                {{ $p->jadual->kursus_kod_nama_kursus }}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($p->jadual == null)
+                                                <span class="text-danger">Jadual telah dihapuskan atau tiada dalam senarai</span>
+                                                @else
+                                                {{ $p->jadual->kursus_nama }}
+                                                @endif
+                                            </td>
                                             <td>
                                                 @if ($p->status_permohonan == 0)
                                                     Belum Disemak
