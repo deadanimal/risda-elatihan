@@ -66,9 +66,10 @@ class KehadiranController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function fromUlsQR(Kehadiran $kehadiran)
+    public function fromUlsQR($kehadiran)
     {
-        $kod_kursus = KodKursus::where('kod_Kursus', $kehadiran->kod_kursus)->firstorFail();
+        $kehadiran = Aturcara::find($kehadiran);
+        $kod_kursus = JadualKursus::where('id', $kehadiran->ac_jadual_kursus)->firstorFail();
         $calonasal = User::where('jenis_pengguna', 'Peserta ULS')->get();
         return view('uls.peserta.permohonan.kehadiranQR', [
             'kehadiran' => $kehadiran,

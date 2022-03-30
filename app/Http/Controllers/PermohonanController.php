@@ -175,9 +175,9 @@ class PermohonanController extends Controller
         $permohonan->save();
 
         if ($permohonan->status_permohonan == '4') {
-            Mail::to($permohonan->peserta->email)->send(new PermohonanLulus($permohonan));
+            Mail::to('applicantsppeps01@gmail.com')->send(new PermohonanLulus($permohonan));
         }elseif($permohonan->status_permohonan == '5'){
-            Mail::to($permohonan->peserta->email)->send(new PermohonanGagal($permohonan));
+            Mail::to('applicantsppeps01@gmail.com')->send(new PermohonanGagal($permohonan));
         }
         alert()->success('Status permohonan telah dikemaskini', 'Berjaya');
         return redirect('/permohonan_kursus/semakan_permohonan');
