@@ -81,8 +81,8 @@
                                                 <td>{{ $p->peserta->no_KP }}</td>
                                                 <td>{{ $p->peserta->name }}</td>
                                                 <td>{{ $p->pusat_tanggungjawab }}</td>
-                                                <td>{{ $p->jadualKursus->kursus_kod_nama_kursus }}</td>
-                                                <td>{{ $p->jadualKursus->kursus_nama }}</td>
+                                                <td>{{ $p->jadual->kursus_kod_nama_kursus }}</td>
+                                                <td>{{ $p->jadual->kursus_nama }}</td>
                                                 <td>
                                                     @if ($p->status_permohonan == 0)
                                                         Belum Disemak
@@ -115,8 +115,8 @@
                                             <td>{{ $s->peserta->name }}</td>
                                             <td>{{ $s->pusat_tanggungjawab }}</td>
                                             <td>{{ $s->gred }}</td>
-                                            <td>{{ $s->jadualKursus->kursus_kod_nama_kursus }}</td>
-                                            <td>{{ $s->jadualKursus->kursus_nama }}</td>
+                                            <td>{{ $s->jadual->kursus_kod_nama_kursus }}</td>
+                                            <td>{{ $s->jadual->kursus_nama }}</td>
                                             <td>
                                                 @if ($s->status_permohonan == 0)
                                                     Belum Disemak
@@ -152,8 +152,8 @@
                                             <td>{{ $pk->peserta->no_KP }}</td>
                                             <td>{{ $pk->peserta->name }}</td>
                                             <td>{{ $pk->pusat_tanggungjawab }}</td>
-                                            <td>{{ $pk->jadualKursus->kursus_kod_nama_kursus }}</td>
-                                            <td>{{ $pk->jadualKursus->kursus_nama }}</td>
+                                            <td>{{ $pk->jadual->kursus_kod_nama_kursus }}</td>
+                                            <td>{{ $pk->jadual->kursus_nama }}</td>
                                             <td>
                                                 @if ($pk->status_permohonan == 0)
                                                     Belum Disemak
@@ -188,8 +188,8 @@
                                             <td>{{ $p->peserta->no_KP }}</td>
                                             <td>{{ $p->peserta->name }}</td>
                                             <td>{{ $p->pusat_tanggungjawab }}</td>
-                                            <td>{{ $p->jadualKursus->kursus_kod_nama_kursus }}</td>
-                                            <td>{{ $p->jadualKursus->kursus_nama }}</td>
+                                            <td>{{ $p->jadual->kursus_kod_nama_kursus }}</td>
+                                            <td>{{ $p->jadual->kursus_nama }}</td>
                                             <td>
                                                 @if ($p->status_permohonan == 0)
                                                     Belum Disemak

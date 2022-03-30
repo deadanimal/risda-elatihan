@@ -55,15 +55,15 @@
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($permohonan as $p)
-                                                        @if ($p->jadualKursus->tarikh_tamat >= $hari_ini)
+                                                        @if ($p->jadual->tarikh_tamat >= $hari_ini)
                                                             @role('Peserta ULS')
                                                                 @if (Auth::id() == $p->no_pekerja)
                                                                     <tr style="text-center">
                                                                         <td>{{ $loop->iteration }}.</td>
-                                                                        <td>{{ $p->jadualKursus->kursus_kod_nama_kursus }}
+                                                                        <td>{{ $p->jadual->kursus_kod_nama_kursus }}
                                                                         </td>
-                                                                        <td>{{ $p->jadualKursus->kursus_nama }}</td>
-                                                                        <td>{{ date('d/m/Y', strtotime($p->jadualKursus->tarikh_mula)) }}
+                                                                        <td>{{ $p->jadual->kursus_nama }}</td>
+                                                                        <td>{{ date('d/m/Y', strtotime($p->jadual->tarikh_mula)) }}
                                                                         </td>
                                                                         <td>
                                                                             @if ($p->status_permohonan == 0)
@@ -95,10 +95,10 @@
                                                                 @if (Auth::id() == $p->no_pekerja)
                                                                     <tr style="text-center">
                                                                         <td>{{ $loop->iteration }}.</td>
-                                                                        <td>{{ $p->jadualKursus->kursus_kod_nama_kursus }}
+                                                                        <td>{{ $p->jadual->kursus_kod_nama_kursus }}
                                                                         </td>
-                                                                        <td>{{ $p->jadualKursus->kursus_nama }}</td>
-                                                                        <td>{{ date('d/m/Y', strtotime($p->jadualKursus->tarikh_mula)) }}
+                                                                        <td>{{ $p->jadual->kursus_nama }}</td>
+                                                                        <td>{{ date('d/m/Y', strtotime($p->jadual->tarikh_mula)) }}
                                                                         </td>
                                                                         <td>
                                                                             @if ($p->status_permohonan == 0)
@@ -129,10 +129,10 @@
                                                             @else
                                                                 <tr style="text-center">
                                                                     <td>{{ $loop->iteration }}.</td>
-                                                                    <td>{{ $p->jadualKursus->kursus_kod_nama_kursus }}
+                                                                    <td>{{ $p->jadual->kursus_kod_nama_kursus }}
                                                                     </td>
-                                                                    <td>{{ $p->jadualKursus->kursus_nama }}</td>
-                                                                    <td>{{ date('d/m/Y', strtotime($p->jadualKursus->tarikh_mula)) }}
+                                                                    <td>{{ $p->jadual->kursus_nama }}</td>
+                                                                    <td>{{ date('d/m/Y', strtotime($p->jadual->tarikh_mula)) }}
                                                                     </td>
                                                                     <td>
                                                                         @if ($p->status_permohonan == 0)
@@ -192,12 +192,12 @@
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($permohonan as $p)
-                                                        @if ($p->jadualKursus->tarikh_mula < $hari_ini)
+                                                        @if ($p->jadual->tarikh_mula < $hari_ini)
                                                             <tr style="text-center">
                                                                 <td>{{ $loop->iteration }}.</td>
-                                                                <td>{{ $p->jadualKursus->kursus_kod_nama_kursus }}</td>
-                                                                <td>{{ $p->jadualKursus->kursus_nama }}</td>
-                                                                <td>{{ date('d/m/Y', strtotime($p->jadualKursus->tarikh_mula)) }}
+                                                                <td>{{ $p->jadual->kursus_kod_nama_kursus }}</td>
+                                                                <td>{{ $p->jadual->kursus_nama }}</td>
+                                                                <td>{{ date('d/m/Y', strtotime($p->jadual->tarikh_mula)) }}
                                                                 </td>
                                                                 <td>{{$p->status_kehadiran}}</td>
                                                                 <td class="text-end" style="width:210px !important">
