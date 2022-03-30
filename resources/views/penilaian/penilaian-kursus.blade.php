@@ -24,7 +24,7 @@
                 </div>
                 <div class="col-7">
                     <input class="form-control" type="text"
-                        value="{{ $permohonan->jadualKursus->kursus_kod_nama_kursus }}" readonly />
+                        value="{{ $permohonan->jadual->kursus_kod_nama_kursus }}" readonly />
                 </div>
             </div>
             <div class="col-9 d-inline-flex">
@@ -32,7 +32,7 @@
                     <p class="pt-2 fw-bold">NAMA KURSUS</p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control mb-3" value="{{ $permohonan->jadualKursus->kursus_nama }}"
+                    <input type="text" class="form-control mb-3" value="{{ $permohonan->jadual->kursus_nama }}"
                         readonly />
                 </div>
             </div>
@@ -42,7 +42,7 @@
                 </div>
                 <div class="col-7">
                     <input type="text" class="form-control mb-3"
-                        value="{{ date('d-m-Y', strtotime($permohonan->jadualKursus->tarikh_mula)) }} hingga {{ date('d-m-Y', strtotime($permohonan->jadualKursus->tarikh_tamat)) }}"
+                        value="{{ date('d-m-Y', strtotime($permohonan->jadual->tarikh_mula)) }} hingga {{ date('d-m-Y', strtotime($permohonan->jadual->tarikh_tamat)) }}"
                         readonly />
                 </div>
             </div>
@@ -51,7 +51,7 @@
         <br><br>
         <div class="row">
             <div class="col-12 text-center">
-                <a class="btn btn-primary" href="/penilaian/penilaian-kursus/{{ $permohonan->jadualKursus->id }}"
+                <a class="btn btn-primary" href="/penilaian/penilaian-kursus/{{ $permohonan->jadual->id }}"
                     id="btn_start">Mula Penilaian</a>
             </div>
         </div>
@@ -66,9 +66,9 @@
             permohonan.forEach(e => {
                 if (e.id == val) {
                     console.log(e);
-                    $("#nama_kursus").val(e.jadual_kursus.kursus_nama);
-                    $("#tarikh_kursus").val(e.jadual_kursus.tarikh_mula);
-                    id = e.jadual_kursus.id;
+                    $("#nama_kursus").val(e.jadual.kursus_nama);
+                    $("#tarikh_kursus").val(e.jadual.tarikh_mula);
+                    id = e.jadual.id;
                 }
             });
 
