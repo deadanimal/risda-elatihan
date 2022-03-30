@@ -45,6 +45,8 @@ class JadualKursusController extends Controller
             $jk['bilangan'] = $sum;
         }
         $bidang = BidangKursus::all();
+
+        dd($jadualKursus);
         return view('pengurusan_kursus.semak_jadual.index', [
             'jadual' => $jadualKursus,
         ]);
