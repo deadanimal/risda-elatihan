@@ -131,6 +131,8 @@ class RegisteredUserController extends Controller
 
         Mail::to($request->email)->send(new PendaftaranPK($user));
         alert()->success('Sila semak email anda untuk notifikasi pendaftaran.','Pendaftaran Berjaya');
-        return redirect('/');
+
+        Auth::login($user);
+        return redirect('/dashboard');
     }
 }
