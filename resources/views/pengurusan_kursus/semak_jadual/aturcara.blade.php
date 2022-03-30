@@ -114,7 +114,7 @@
                                                                 <h4 class="mb-1" id="modalExampleDemoLabel">KEMASKINI</h4>
                                                             </div>
                                                             <div class="p-4">
-                                                                <form action="" method="post">
+                                                                <form action="/pengurusan_kursus/aturcara/{{$ac->id}}" method="post">
                                                                     @method('PUT')
                                                                     @csrf
                                                                     <div class="row mb-3">
@@ -133,6 +133,13 @@
                                                                     </div>
                                                                     <input type="hidden" name="ac_jadual_kursus" value="{{$ac->ac_jadual_kursus}}">
                                                                     <input type="hidden" name="hari" value="{{$ac->ac_hari}}">
+                                                                    
+                                                                    <div class="row">
+                                                                        <div class="col text-end">
+                                                                            <button type="submit" class="btn btn-primary">Kemaskini</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>
