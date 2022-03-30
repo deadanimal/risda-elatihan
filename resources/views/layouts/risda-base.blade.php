@@ -21,18 +21,20 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
     <link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
     <link rel="manifest" href="/assets/img/favicons/manifest.json">
-    <link href="vendors/dropzone/dropzone.min.css" rel="stylesheet" />
+    {{-- <link href="vendors/dropzone/dropzone.min.css" rel="stylesheet" /> --}}
     <meta name="msapplication-TileImage" content="/assets/img/favicons/mstile-150x150.png">
     <meta name="theme-color" content="#ffffff">
     <script src="/assets/js/config.js"></script>
     <script src="/vendors/overlayscrollbars/OverlayScrollbars.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="vendors/dropzone/dropzone.min.js"></script>
+    {{-- <script src="vendors/dropzone/dropzone.min.js"></script> --}}
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script type="text/javascript" src="/assets/js/datatables.min.js"></script>
     <script type="text/javascript" src="/assets/js/datatables.js"></script>
     <script src="/assets/js/flatpickr.js"></script>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css"
         rel="stylesheet">
@@ -57,7 +59,11 @@
     <link href="/assets/css/user.min.css" rel="stylesheet" id="user-style-default">
     <link rel="stylesheet" type="text/css" href="/assets/css/datatables.css" />
     <link rel="stylesheet" type="text/css" href="/assets/css/datatables.min.css" />
+
+
     <script>
+        var APP_URL = {!! json_encode(url('/')) !!}
+
         var isRTL = JSON.parse(localStorage.getItem('isRTL'));
         if (isRTL) {
             var linkDefault = document.getElementById('style-default');
@@ -73,11 +79,71 @@
         }
     </script>
 </head>
-
+<img src="/img/risda-banner.jpg" alt="banner" width="100%">
 
 <body>
+    <style>
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 99999;
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: center;
+            align-items: center;
+            background: none repeat scroll 0 0 #ffffff75;
+        }
+    
+        .word {
+            position: absolute;
+            margin-top: 120px;
+            margin-left: 25px;
+            font-weight: bold;
+        }
+        .spinner {
+            border: 1px solid transparent;
+            border-radius: 3px;
+            position: relative;
+        }
+    
+        .spinner:before {
+            content: "";
+            box-sizing: border-box;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 45px;
+            height: 45px;
+            margin-top: -10px;
+            margin-left: -10px;
+            border-radius: 50%;
+            border: 5px solid #009640;
+            border-top-color: #ffffff00;
+            animation: spinner 0.9s linear infinite;
+        }
+    
+        @keyframes spinner {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    
+        @keyframes spinner {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    
+    </style>
     @include('sweet::alert')
     <style>
+        .form-control {
+            border-color: #009640;
+        }
+
         .risda-dg {
             color: #0F5E31;
         }
@@ -247,40 +313,151 @@
             transition-property: transform, border-color, -webkit-transform;
         }
 
+        @media (min-width: 601px) {
+            .navbar-vertical.navbar-expand-xl {
+                max-width: 350px;
+                top: 0;
+                height: 100%;
+                margin: 0;
+            }
+
+            .navbar-vertical.navbar-expand-xl .navbar-collapse {
+                width: 100%;
+                height: 100%;
+                background: #009640;
+            }
+
+            .navbar-vertical.navbar-expand-xl .navbar-vertical-content {
+                width: 100%;
+                height: 100%;
+                padding: 0.5rem 0 0 0;
+            }
+
+            .navbar-vertical {
+                position: absolute;
+                background: #009640;
+                max-width: 350px;
+            }
+
+            .navbar-vertical-content {
+                background: #009640;
+                width: 350px;
+            }
+
+            .navbar-nav {
+                background: #009640;
+                width: 350px;
+            }
+
+            .risda-m {
+                margin-left: 350px;
+            }
+
+            .navbar-vertical .navbar-collapse .navbar-vertical-content {
+                padding: 0 1rem;
+                -webkit-box-orient: vertical;
+                -webkit-box-direction: normal;
+                -ms-flex-direction: column;
+                flex-direction: column;
+                max-height: 100%;
+            }
+        }
+
+        @media only screen and (max-width: 800px) {
+            .risda-m {
+                margin-left: 0px;
+            }
+
+            .navbar-vertical {
+                position: absolute;
+                background: #009640;
+                max-width: 100%;
+            }
+
+            .navbar-vertical.navbar-expand-xl {
+                max-width: 100%;
+                top: 40px;
+                height: auto;
+                margin: 0;
+
+            }
+
+            .navbar-vertical.navbar-expand-xl .navbar-collapse {
+                width: 100%;
+                height: auto;
+                background: #009640;
+            }
+
+            .navbar-vertical.navbar-expand-xl .navbar-vertical-content {
+                width: 100%;
+                height: auto;
+                padding: 0.5rem 0 0 0;
+            }
+
+            .navbar-vertical {
+                position: absolute;
+                background: #009640;
+                max-width: 100%;
+            }
+
+            .navbar-vertical-content {
+                background: #009640;
+                width: 100%;
+            }
+        }
+
+        .form-check-input:checked{
+            background-color: #009640;
+            border-color: #009640;
+        }
+
     </style>
     <?php
     use Illuminate\Support\Facades\Auth;
     ?>
-    <nav class="">
+    {{-- <nav class="">
         <img src="/img/risda-banner.jpg" alt="banner" width="100%">
-    </nav>
+    </nav> --}}
 
     <!-- ===============================================-->
     <!--    Main Content-->
     <!-- ===============================================-->
     <main class="main" id="top">
-        <div class="row">
-            <div class="col-3 p-0" style="background-color: #009640;">
-                @include('layouts.risda-side-bar')
-            </div>
-            <div class="col-9 p-0">
-                <div class="content p-5" style="background-color:white">
-                    {{-- @if (session('success'))
-                        <div class="alert alert-success ">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-                    @if (session('error'))
-                        <div class="alert alert-danger ">
-                            {{ session('error') }}
-                        </div>
-                    @endif --}}
-                    @yield('content')
+        <div class="container-fluid px-0" data-layout="container">
+            @include('layouts.risda-side-bar')
+            <div class="row">
+                {{-- <div class="col-3 p-0" style="background-color: #009640;">
+            @include('layouts.risda-side-bar')
+          </div> --}}
+                {{-- <div class="col p-0" style="background-color:white"> --}}
+                <div class="content" style="background: white">
+                    <button class="btn navbar-toggler-humburger-icon navbar-toggler me-1 me-sm-3" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse"
+                        aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation">
+                        <span class="navbar-toggle-icon">
+                            <span class="toggle-line"></span>
+                        </span>
+                    </button>
+
+                    <div class=" risda-m">
+                        @yield('content')
+                    </div>
+
                     {{-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-                    @include('sweet::alert') --}}
+                  @include('sweet::alert') --}}
                 </div>
+                {{-- </div> --}}
             </div>
         </div>
+        <section class="preloader" id="preload2">
+            <div class="spinner" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="word">
+                <span>Sila Tunggu...</span>
+            </div>
+        </section>
+
 
         <footer class="risda-bg-dg">
             <div class="row p-4">
@@ -300,6 +477,19 @@
     <!-- ===============================================-->
     <!--    JavaScripts-->
     <!-- ===============================================-->
+    <script>
+        $(document).ready(function() {
+            $('#preload2').hide();
+        });
+
+        $('.up-switch-risda').click(function() {
+            $('#preload2').show();
+        });
+
+        $(document).load(function() {
+            $('#preload2').show();
+        });
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
     <script src="/vendors/popper/popper.min.js"></script>
@@ -323,13 +513,15 @@
 
     <script src="/js/sweetalert2.all.min.js"></script>
 
-
     <script>
         $(document).ready(function() {
             setInterval(() => {
                 const today = new Date();
                 let day = today.getDate();
-                let month = today.getMonth() + 1;
+                const bulan = ['Januari', 'Februari', 'Mac', 'April', 'May', 'Jun', 'Julai', 'Ogos',
+                    'September', 'Oktober', 'November', 'Disember'
+                ];
+                let month = bulan[today.getMonth()];
                 let year = today.getFullYear();
                 let h = today.getHours();
                 let m = today.getMinutes();
@@ -337,18 +529,29 @@
                 if (m < 10) m = "0" + m;
                 if (s < 10) s = "0" + s;
                 if (day < 10) day = "0" + day;
-                if (month < 10) month = "0" + month;
                 document.getElementById("time").innerHTML = h + ":" + m + ":" + s;
                 document.getElementById("date").innerHTML =
-                    day + "/" + month + "/" + year;
+                    day + " " + month + " " + year;
             }, 1000);
 
 
 
             $('.datatable').DataTable();
 
+
+
+
+            $(".tahun").datepicker({
+                format: "yyyy",
+                viewMode: "years",
+                minViewMode: "years",
+                autoclose: true
+            });
+
         });
     </script>
 </body>
+
+
 
 </html>

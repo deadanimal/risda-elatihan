@@ -20,17 +20,29 @@ class BidangKursusController extends Controller
     public function index()
     {
         $bidangKursus = BidangKursus::all();
-        $bil_bk = BidangKursus::orderBy('id', 'desc')->first();
-        if ($bil_bk != null) {
-            $bil = $bil_bk->kod_Bidang_Kursus;
+
+        $bidang_staf = BidangKursus::orderBy('id', 'desc')->where('UL_Bidang_Kursus', 'Staf')->first();
+        if ($bidang_staf != null) {
+            $bil_staf = $bidang_staf->kod_Bidang_Kursus;
         }else{
-            $bil = 0;
+            $bil_staf = 0;
         }
-        $bil = $bil + 1;
-        $bil = sprintf("%02d", $bil);
+        $bil_staf = $bil_staf + 1;
+        $bil_staf = sprintf("%02d", $bil_staf);
+
+        $bidang_pk = BidangKursus::orderBy('id', 'desc')->where('UL_Bidang_Kursus', 'Pekebun Kecil')->first();
+        if ($bidang_pk != null) {
+            $bil_pk = $bidang_pk->kod_Bidang_Kursus;
+        }else{
+            $bil_pk = 0;
+        }
+        $bil_pk = $bil_pk + 1;
+        $bil_pk = sprintf("%02d", $bil_pk);
+
         return view('utiliti.kursus.bidang.index', [
             'bidangKursus' => $bidangKursus,
-            'bil' => $bil
+            'bil_staf' => $bil_staf,
+            'bil_pk' => $bil_pk
         ]);
     }
 
@@ -64,7 +76,8 @@ class BidangKursusController extends Controller
         $bidangKursus->status_Bidang_Kursus = $status;
 
         $bidangKursus->save();
-        return redirect('/utiliti/bidang_kursus');
+        alert()->success('Maklumat telah disimpan', 'Berjaya');
+        return redirect('/utiliti/kursus/bidang_kursus');
     }
 
     /**
@@ -109,7 +122,8 @@ class BidangKursusController extends Controller
         $bidangKursus->status_Bidang_Kursus = $status;
 
         $bidangKursus->save();
-        return redirect('/utiliti/bidang_kursus');
+        alert()->success('Maklumat telah dikemaskini', 'Berjaya');
+        return redirect('/utiliti/kursus/bidang_kursus');
     }
 
     /**
@@ -118,9 +132,12 @@ class BidangKursusController extends Controller
      * @param  \App\Models\BidangKursus  $bidangKursus
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BidangKursus $bidangKursus)
+    public function destroy($bidangKursus)
     {
+        $bidangKursus = BidangKursus::find($bidangKursus);
         $bidangKursus->delete();
-        return redirect('/utiliti/bidang_kursus');
+
+        alert()->success('Berjaya dihapus','Hapus');
+        return redirect('/utiliti/kursus/bidang_kursus');
     }
 }

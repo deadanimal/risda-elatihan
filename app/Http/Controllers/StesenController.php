@@ -93,7 +93,7 @@ class StesenController extends Controller
         }
         $Stesen->status_stesen = $status;
         $Stesen->save();
-        return redirect('/utiliti/stesen');
+        return redirect('/utiliti/lokasi/stesen');
     }
 
     /**
@@ -141,7 +141,7 @@ class StesenController extends Controller
         }
         $Stesen->status_stesen = $status;
         $Stesen->save();
-        return redirect('/utiliti/stesen');
+        return redirect('/utiliti/lokasi/stesen');
     }
 
     /**
@@ -153,6 +153,6 @@ class StesenController extends Controller
     public function destroy(Stesen $stesen)
     {
         $stesen->delete();
-        return redirect('/utiliti/stesen');
+        return redirect('/utiliti/lokasi/stesen');
     }
 }

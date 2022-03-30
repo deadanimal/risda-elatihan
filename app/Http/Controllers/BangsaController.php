@@ -8,6 +8,10 @@ use App\Models\Bangsa;
 
 class BangsaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -59,7 +63,7 @@ class BangsaController extends Controller
         $bangsa->status_bangsa = $status;
 
         $bangsa->save();
-        return redirect('/utiliti/bangsa');
+        return redirect('/utiliti/generik/bangsa');
     }
 
     /**
@@ -103,7 +107,7 @@ class BangsaController extends Controller
         $bangsa->status_bangsa = $status;
 
         $bangsa->save();
-        return redirect('/utiliti/bangsa');
+        return redirect('/utiliti/generik/bangsa');
     }
 
     /**
@@ -115,6 +119,6 @@ class BangsaController extends Controller
     public function destroy(Bangsa $bangsa)
     {
         $bangsa->delete();
-        return redirect('/utiliti/bangsa');
+        return redirect('/utiliti/generik/bangsa');
     }
 }

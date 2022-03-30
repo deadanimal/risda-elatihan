@@ -29,12 +29,11 @@
                                 <h4 class="mb-1" id="modalExampleDemoLabel">TAMBAH </h4>
                             </div>
                             <div class="p-4 pb-0">
-                                <form action="/utiliti/pusat_tanggungjawab" method="POST">
+                                <form action="/utiliti/kumpulan/pusat_tanggungjawab" method="POST">
                                     @csrf
                                     <div class="mb-3">
                                         <label class="col-form-label">KOD PUSAT TANGGUNGJAWAB</label>
-                                        <input class="form-control" type="number" name="kod_PT"
-                                            value="{{ $bil }}" readonly />
+                                        <input class="form-control" type="number" name="kod_PT" />
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label">PUSAT TANGGUNGJAWAB</label>
@@ -144,7 +143,7 @@
                                                     </h4>
                                                 </div>
                                                 <div class="p-4 pb-0">
-                                                    <form action="/utiliti/pusat_tanggungjawab/{{ $PT->id }}"
+                                                    <form action="/utiliti/kumpulan/pusat_tanggungjawab/{{ $PT->id }}"
                                                         method="POST">
                                                         @method('PUT')
                                                         @csrf
@@ -245,7 +244,7 @@
                                                 <div class="modal-footer">
                                                     <button class="btn btn-secondary" type="button"
                                                         data-bs-dismiss="modal">Batal</button>
-                                                    <form method="POST" action="/utiliti/pusat_tanggungjawab/{{ $PT->id }}">
+                                                    <form method="POST" action="/utiliti/kumpulan/pusat_tanggungjawab/{{ $PT->id }}">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button class="btn btn-primary" type="submit">Hapus

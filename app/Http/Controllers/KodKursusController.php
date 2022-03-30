@@ -10,6 +10,10 @@ use App\Models\BidangKursus;
 
 class KodKursusController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -20,23 +24,24 @@ class KodKursusController extends Controller
         $bidangKursus = BidangKursus::all();
         $kategoriKursus = KategoriKursus::all();
         $kodKursus = BidangKursus::join('kategori_kursuses', 'bidang_kursuses.id', 'kategori_kursuses.U_Bidang_Kursus')
-        ->join('kod_kursuses', 'kategori_kursuses.id', 'kod_kursuses.U_Kategori_Kursus')
-        ->select('*')->get();
+            ->join('kod_kursuses', 'kategori_kursuses.id', 'kod_kursuses.U_Kategori_Kursus')
+            ->select('*')->get();
         // dd($kategoriKursus);
-        $bil_kk = KodKursus::orderBy('id', 'desc')->first();
-        if ($bil_kk != null) {
-            $bil = $bil_kk->kod_Kursus;
-        }else{
-            $bil = 0;
-        }
-        $bil = $bil + 1;
-        $bil = sprintf("%02d", $bil);
+
+        $bil_staf = KodKursus::where('UL_Kod_Kursus', 'Staf')->get();
+        $bil_pk = KodKursus::where('UL_Kod_Kursus', 'Pekebun Kecil')->get();
+
+        $tahun_ini = date("Y");
+        $hari_ini = date("Y-m-d");
 
         return view('utiliti.kursus.kod_kursus.index', [
             'bidangKursus' => $bidangKursus,
             'kategoriKursus' => $kategoriKursus,
-            'kodKursus'=>$kodKursus,
-            'bil' => $bil
+            'kodKursus' => $kodKursus,
+            'bil_staf' => $bil_staf,
+            'bil_pk' => $bil_pk,
+            'tahun_ini' => $tahun_ini,
+            'hari_ini' => $hari_ini
         ]);
     }
 
@@ -65,6 +70,7 @@ class KodKursusController extends Controller
         $kodKursus->U_Bidang_Kursus = $request->U_Bidang_Kursus;
         $kodKursus->U_Kategori_Kursus = $request->U_Kategori_Kursus;
         $kodKursus->kod_Kursus = $request->kod_Kursus;
+        $kodKursus->no_kod_Kursus = $request->no_kod_Kursus;
         $kodKursus->tajuk_Kursus = $request->tajuk_Kursus;
         if ($request->status == 'on') {
             $status = 1;
@@ -74,7 +80,8 @@ class KodKursusController extends Controller
         $kodKursus->status_Kod_Kursus = $status;
         // dd($kodKursus);
         $kodKursus->save();
-        return redirect('/utiliti/kod_kursus');
+        alert()->success('Maklumat telah disimpan', 'Berjaya');
+        return redirect('/utiliti/kursus/kod_kursus');
     }
 
     /**
@@ -106,8 +113,9 @@ class KodKursusController extends Controller
      * @param  \App\Models\KodKursus  $kodKursus
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateKodKursusRequest $request, KodKursus $kodKursus)
+    public function update(UpdateKodKursusRequest $request, $id)
     {
+        $kodKursus = KodKursus::find($id);
         $kodKursus->UL_Kod_Kursus = $request->UL_Kod_Kursus;
         $kodKursus->tahun_Kursus = $request->tahun_Kursus;
         $kodKursus->tarikh_daftar_Kursus = $request->tarikh_daftar_Kursus;
@@ -123,7 +131,8 @@ class KodKursusController extends Controller
         $kodKursus->status_Kod_Kursus = $status;
         // dd($kodKursus);
         $kodKursus->save();
-        return redirect('/utiliti/kod_kursus');
+        alert()->success('Maklumat telah dikemaskin', 'Berjaya');
+        return redirect('/utiliti/kursus/kod_kursus');
     }
 
     /**
@@ -132,9 +141,11 @@ class KodKursusController extends Controller
      * @param  \App\Models\KodKursus  $kodKursus
      * @return \Illuminate\Http\Response
      */
-    public function destroy(KodKursus $kodKursus)
+    public function destroy($id)
     {
+        $kodKursus = KodKursus::find($id);
         $kodKursus->delete();
-        return redirect('/utiliti/kod_kursus');
+        alert()->success('Maklumat telah dihapus','Berjaya');
+        return redirect('/utiliti/kursus/kod_kursus');
     }
 }

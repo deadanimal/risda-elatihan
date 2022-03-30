@@ -50,7 +50,7 @@ class StatusPelaksanaanController extends Controller
     {
         $statusPelaksanaan = new StatusPelaksanaan;
         $statusPelaksanaan->kod_Status_Pelaksanaan = $request->kod_Status_Pelaksanaan;
-        $statusPelaksanaan->Status_Pelaksanaan = $request->kod_Status_Pelaksanaan;
+        $statusPelaksanaan->Status_Pelaksanaan = $request->Status_Pelaksanaan;
         if ($request->status == 'on') {
             $status = 1;
         } else {
@@ -59,7 +59,7 @@ class StatusPelaksanaanController extends Controller
         $statusPelaksanaan->status_status_pelaksanaan = $status;
 
         $statusPelaksanaan->save();
-        return redirect('/utiliti/status_pelaksanaan');
+        return redirect('/utiliti/status/status_pelaksanaan');
     }
 
     /**
@@ -94,7 +94,7 @@ class StatusPelaksanaanController extends Controller
     public function update(UpdateStatusPelaksanaanRequest $request, StatusPelaksanaan $statusPelaksanaan)
     {
         $statusPelaksanaan->kod_Status_Pelaksanaan = $request->kod_Status_Pelaksanaan;
-        $statusPelaksanaan->status_status_pelaksanaan = $request->kod_Status_Pelaksanaan;
+        $statusPelaksanaan->Status_Pelaksanaan = $request->Status_Pelaksanaan;
         if ($request->status == 'on') {
             $status = 1;
         } else {
@@ -103,7 +103,7 @@ class StatusPelaksanaanController extends Controller
         $statusPelaksanaan->status_status_pelaksanaan = $status;
 
         $statusPelaksanaan->save();
-        return redirect('/utiliti/status_pelaksanaan');
+        return redirect('/utiliti/status/status_pelaksanaan');
     }
 
     /**
@@ -115,6 +115,6 @@ class StatusPelaksanaanController extends Controller
     public function destroy(StatusPelaksanaan $statusPelaksanaan)
     {
         $statusPelaksanaan->delete();
-        return redirect('/utiliti/status_pelaksanaan');
+        return redirect('/utiliti/status/status_pelaksanaan');
     }
 }

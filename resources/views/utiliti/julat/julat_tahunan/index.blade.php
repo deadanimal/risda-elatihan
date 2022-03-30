@@ -26,7 +26,7 @@
                                 <h4 class="mb-1" id="modalExampleDemoLabel">TAMBAH </h4>
                             </div>
                             <div class="p-4 pb-0">
-                                <form action="/utiliti/julat_tahunan" method="POST">
+                                <form action="/utiliti/julat/julat_tahunan" method="POST">
                                     @csrf
                                     <div class="mb-3">
                                         <label class="col-form-label">KOD JULAT TAHUNAN</label>
@@ -77,6 +77,7 @@
                                 <th class="sort">BIL.</th>
                                 <th class="sort">KOD JULAT TAHUNAN</th>
                                 <th class="sort">JULAT TAHUNAN</th>
+                                <th class="sort">KETERANGAN</th>
                                 <th class="sort">STATUS</th>
                                 <th class="sort">TINDAKAN</th>
                             </tr>
@@ -86,7 +87,8 @@
                                 <tr>
                                     <td>{{ $key + 1 }}.</td>
                                     <td>{{ $J->kod_Julat_tahunan }}</td>
-                                    <td>{{ $J->tahun_Mula }}</td>
+                                    <td>{{ $J->tahun_Mula }} - {{ $J->tahun_Tamat }}</td>
+                                    <td>{{ $J->keterangan_Julat_tahunan }}</td>
                                     <td>
                                         @if ($J->status_julat_tahunan == '1')
                                             <span class="badge badge-soft-success">Aktif</span>
@@ -120,7 +122,7 @@
                                                     </h4>
                                                 </div>
                                                 <div class="p-4 pb-0">
-                                                    <form action="/utiliti/julat_tahunan/{{ $J->id }}"
+                                                    <form action="/utiliti/julat/julat_tahunan/{{ $J->id }}"
                                                         method="POST">
                                                         @method('PUT')
                                                         @csrf
@@ -191,7 +193,7 @@
                                                     <button class="btn btn-secondary" type="button"
                                                         data-bs-dismiss="modal">Batal</button>
                                                     <form method="POST"
-                                                        action="/utiliti/julat_tahunan/{{ $J->id }}">
+                                                        action="/utiliti/julat/julat_tahunan/{{ $J->id }}">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button class="btn btn-primary" type="submit">Hapus

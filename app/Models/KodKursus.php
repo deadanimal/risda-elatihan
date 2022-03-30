@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class KodKursus extends Model
 {
     use HasFactory;
+    protected $guarded = ['id'];
+    public function jadualkursus()
+    {
+        return $this->hasOne(JadualKursus::class, 'kod_kursus', 'id');
+    }
+
 }

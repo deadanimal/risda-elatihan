@@ -67,7 +67,7 @@ return [
     |
      */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Kuala_Lumpur',
 
     /*
     |--------------------------------------------------------------------------
@@ -174,8 +174,15 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
 
+        // //DOMPDF
+        // Barryvdh\DomPDF\ServiceProvider::class,
+
+        //Spatie Permission
+        Spatie\Permission\PermissionServiceProvider::class,
+
+        //Excel
+        Maatwebsite\Excel\ExcelServiceProvider::class,
     ],
 
     /*
@@ -230,7 +237,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        // 'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];

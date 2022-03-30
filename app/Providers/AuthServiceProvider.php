@@ -41,5 +41,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('UlsUrusUlpk', function (User $user) {
             return $user->jenis_pengguna === "Urus Setia ULS";
         });
+
+        Gate::define('AdminBTM', function (User $user) {
+            return $user->jenis_pengguna === "AdminBTM";
+        });
     }
 }

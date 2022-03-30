@@ -20,7 +20,7 @@
     <div class="container">
         <div class="row mt-3 mb-2">
             <div class="col-12 mb-2">
-                <p class="h1 mb-0 fw-bold" style="color: rgb(43,93,53); letter-spacing: 5px;">KEHADIRAN</p>
+                <p class="h1 mb-0 fw-bold" style="color: rgb(43,93,53);  ">KEHADIRAN</p>
                 <p class="h5" style="color: rgb(43,93,53); ">CETAK KOD QR KURSUS</p>
             </div>
         </div>
@@ -29,7 +29,7 @@
         <div class="row">
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
-                    CETAK QR CODE
+                    CETAK KOD QR
                 </p>
             </div>
         </div>
@@ -77,7 +77,7 @@
                             <td>1/1/11</td>
                             <td>Dewan1</td>
                             <td class="text-end"><a href="/kehadiran/cetakkodQR/1"
-                                    class="btn btn-primary btn-sm">Cetak QR Code</a></td>
+                                    class="btn btn-primary btn-sm">CETAK KOD QR</a></td>
                         </tr>
                         <tr>
                             <td>2</td>
@@ -85,7 +85,7 @@
                             <td>Kursus2</td>
                             <td>2/2/22</td>
                             <td>Dewan2</td>
-                            <td class="text-end"><a href="" class="btn btn-primary btn-sm">Cetak QR Code</a></td>
+                            <td class="text-end"><a href="" class="btn btn-primary btn-sm">CETAK KOD QR</a></td>
 
                         </tr>
                     </tbody>

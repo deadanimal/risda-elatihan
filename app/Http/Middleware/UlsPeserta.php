@@ -16,8 +16,7 @@ class UlsPeserta
      */
     public function handle(Request $request, Closure $next)
     {
-
-        if (!auth()->check() || auth()->user()->jenis_pengguna != "Peserta ULS") {
+        if (auth()->user()->jenis_pengguna != "Peserta ULS") {
             abort(403);
         }
 

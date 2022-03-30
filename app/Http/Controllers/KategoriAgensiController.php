@@ -18,7 +18,7 @@ class KategoriAgensiController extends Controller
         $kategori = KategoriAgensi::all();
         $bil_neg = KategoriAgensi::orderBy('id', 'desc')->first();
         if ($bil_neg != null) {
-            $bil = $bil_neg->kategori_agensi_kod;
+            $bil = $bil_neg->Kategori_Agensi_kod;
         }else{
             $bil = 0;
         }
@@ -59,7 +59,7 @@ class KategoriAgensiController extends Controller
         $kategori->status_kategori_agensi = $status;
 
         $kategori->save();
-        return redirect('/utiliti/kategori_agensi');
+        return redirect('/utiliti/kumpulan/kategori_agensi');
     }
 
     /**
@@ -103,7 +103,7 @@ class KategoriAgensiController extends Controller
         $kategoriAgensi->status_kategori_agensi = $status;
 
         $kategoriAgensi->save();
-        return redirect('/utiliti/kategori_agensi');
+        return redirect('/utiliti/kumpulan/kategori_agensi');
     }
 
     /**
@@ -115,6 +115,6 @@ class KategoriAgensiController extends Controller
     public function destroy(KategoriAgensi $kategoriAgensi)
     {
         $kategoriAgensi->delete();
-        return redirect('/utiliti/kategori_agensi');
+        return redirect('/utiliti/kumpulan/kategori_agensi');
     }
 }

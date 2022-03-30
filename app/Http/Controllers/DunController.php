@@ -79,7 +79,7 @@ class DunController extends Controller
         }
         $dun->status_dun = $status;
         $dun->save();
-        return redirect('/utiliti/dun');
+        return redirect('/utiliti/lokasi/dun');
     }
 
     /**
@@ -125,7 +125,7 @@ class DunController extends Controller
         }
         $dun->status_dun = $status;
         $dun->save();
-        return redirect('/utiliti/dun');
+        return redirect('/utiliti/lokasi/dun');
     }
 
     /**
@@ -137,6 +137,6 @@ class DunController extends Controller
     public function destroy(Dun $dun)
     {
         $dun->delete();
-        return redirect('/utiliti/dun');
+        return redirect('/utiliti/lokasi/dun');
     }
 }

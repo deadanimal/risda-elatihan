@@ -16,7 +16,7 @@
     <div class="container">
         <div class="row mt-3 mb-5">
             <div class="col-12 mb-3">
-                <p class="h1 mb-0 fw-bold" style="color: rgb(43,93,53); letter-spacing: 5px;">PERMOHONAN KURSUS</p>
+                <p class="h1 mb-0 fw-bold" style="color: rgb(43,93,53);  ">PERMOHONAN KURSUS</p>
                 <p class="h5" style="color: rgb(43,93,53)">STATUS PERMOHONAN</p>
             </div>
         </div>
@@ -43,7 +43,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="table-responsive scrollbar text-center">
-                                            <table class="table table-permohonan">
+                                            <table class="table table-permohonan datatable">
                                                 <thead>
                                                     <tr>
                                                         <th class="fw-bold text-dark" scope="col">BIL.</th>
@@ -59,8 +59,9 @@
                                                         <tr style="text-center">
                                                             <td>{{ $loop->iteration }}.</td>
                                                             <td>{{ $p->kod_kursus }}</td>
-                                                            <td></td>
-                                                            <td></td>
+                                                            <td>{{ $p->kodkursus->tajuk_Kursus ?? '' }}</td>
+                                                            <td>{{ $p->kodkursus->tarikh_daftar_Kursus ?? '' }}
+                                                            </td>
                                                             <td>{{ $p->status_permohonan }}
                                                             </td>
                                                             <td class="text-end" style="width:210px;">

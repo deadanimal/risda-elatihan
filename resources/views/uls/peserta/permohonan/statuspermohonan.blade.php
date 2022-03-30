@@ -1,6 +1,5 @@
 @extends('layouts.risda-base')
 @section('content')
-
     <style>
         table.table-permohonan>thead>tr {
             border-color: rgb(31, 66, 38);
@@ -16,7 +15,7 @@
     <div class="container">
         <div class="row mt-3 mb-5">
             <div class="col-12 mb-3">
-                <p class="h1 mb-0 fw-bold" style="color: rgb(43,93,53); letter-spacing: 5px;">PERMOHONAN KURSUS</p>
+                <p class="h1 mb-0 fw-bold" style="color: rgb(43,93,53);  ">PERMOHONAN KURSUS</p>
                 <p class="h5" style="color: rgb(43,93,53)">STATUS PERMOHONAN</p>
             </div>
         </div>
@@ -43,7 +42,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="table-responsive scrollbar text-center">
-                                            <table class="table table-permohonan">
+                                            <table class="table table-permohonan datatable">
                                                 <thead>
                                                     <tr>
                                                         <th class="fw-bold text-dark" scope="col">BIL.</th>
@@ -56,23 +55,112 @@
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($permohonan as $p)
-                                                        <tr style="text-center">
-                                                            <td>{{ $loop->iteration }}.</td>
-                                                            <td>{{ $p->kod_kursus }}</td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td>{{ $p->status_permohonan }}
-                                                            </td>
-                                                            <td class="text-end" style="width:210px;">
-                                                                <div class="d-grid gap-2">
-                                                                    <a class="btn btn-primary btn-sm" href="#">
-                                                                        Cetak Surat Tawaran
-                                                                    </a>
-                                                                    <a class="btn btn-primary btn-sm"
-                                                                        href="/permohonan/kehadiran/{{ $p->kod_kursus }}">Kehadiran</a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
+                                                        @if ($p->jadualKursus->tarikh_tamat >= $hari_ini)
+                                                            @role('Peserta ULS')
+                                                                @if (Auth::id() == $p->no_pekerja)
+                                                                    <tr style="text-center">
+                                                                        <td>{{ $loop->iteration }}.</td>
+                                                                        <td>{{ $p->jadualKursus->kursus_kod_nama_kursus }}
+                                                                        </td>
+                                                                        <td>{{ $p->jadualKursus->kursus_nama }}</td>
+                                                                        <td>{{ date('d/m/Y', strtotime($p->jadualKursus->tarikh_mula)) }}
+                                                                        </td>
+                                                                        <td>
+                                                                            @if ($p->status_permohonan == 0)
+                                                                                Belum Disemak
+                                                                            @elseif($p->status_permohonan == 1)
+                                                                                Belum Disemak (Sokongan)
+                                                                            @elseif($p->status_permohonan == 2)
+                                                                                Disokong
+                                                                            @elseif($p->status_permohonan == 3)
+                                                                                Tidak Disokong
+                                                                            @elseif($p->status_permohonan == 4)
+                                                                                Lulus
+                                                                            @elseif($p->status_permohonan == 5)
+                                                                                Tidak Lulus
+                                                                            @endif
+                                                                        </td>
+                                                                        <td class="text-end" style="width:210px;">
+                                                                            <div class="d-grid gap-2">
+                                                                                <a class="btn btn-primary btn-sm" href="#">
+                                                                                    Cetak Surat Tawaran
+                                                                                </a>
+                                                                                <a class="btn btn-primary btn-sm"
+                                                                                    href="/uls/permohonan/kehadiran/{{ $p->kod_kursus }}">Kehadiran</a>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endif
+                                                            @elserole('Peserta ULPK')
+                                                                @if (Auth::id() == $p->no_pekerja)
+                                                                    <tr style="text-center">
+                                                                        <td>{{ $loop->iteration }}.</td>
+                                                                        <td>{{ $p->jadualKursus->kursus_kod_nama_kursus }}
+                                                                        </td>
+                                                                        <td>{{ $p->jadualKursus->kursus_nama }}</td>
+                                                                        <td>{{ date('d/m/Y', strtotime($p->jadualKursus->tarikh_mula)) }}
+                                                                        </td>
+                                                                        <td>
+                                                                            @if ($p->status_permohonan == 0)
+                                                                                Belum Disemak
+                                                                            @elseif($p->status_permohonan == 1)
+                                                                                Belum Disemak (Sokongan)
+                                                                            @elseif($p->status_permohonan == 2)
+                                                                                Disokong
+                                                                            @elseif($p->status_permohonan == 3)
+                                                                                Tidak Disokong
+                                                                            @elseif($p->status_permohonan == 4)
+                                                                                Lulus
+                                                                            @elseif($p->status_permohonan == 5)
+                                                                                Tidak Lulus
+                                                                            @endif
+                                                                        </td>
+                                                                        <td class="text-end" style="width:210px;">
+                                                                            <div class="d-grid gap-2">
+                                                                                <a class="btn btn-primary btn-sm" href="#">
+                                                                                    Cetak Surat Tawaran
+                                                                                </a>
+                                                                                <a class="btn btn-primary btn-sm"
+                                                                                    href="/uls/permohonan/kehadiran/{{ $p->kod_kursus }}">Kehadiran</a>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endif
+                                                            @else
+                                                                <tr style="text-center">
+                                                                    <td>{{ $loop->iteration }}.</td>
+                                                                    <td>{{ $p->jadualKursus->kursus_kod_nama_kursus }}
+                                                                    </td>
+                                                                    <td>{{ $p->jadualKursus->kursus_nama }}</td>
+                                                                    <td>{{ date('d/m/Y', strtotime($p->jadualKursus->tarikh_mula)) }}
+                                                                    </td>
+                                                                    <td>
+                                                                        @if ($p->status_permohonan == 0)
+                                                                            Belum Disemak
+                                                                        @elseif($p->status_permohonan == 1)
+                                                                            Belum Disemak (Sokongan)
+                                                                        @elseif($p->status_permohonan == 2)
+                                                                            Disokong
+                                                                        @elseif($p->status_permohonan == 3)
+                                                                            Tidak Disokong
+                                                                        @elseif($p->status_permohonan == 4)
+                                                                            Lulus
+                                                                        @elseif($p->status_permohonan == 5)
+                                                                            Tidak Lulus
+                                                                        @endif
+                                                                    </td>
+                                                                    <td class="text-end" style="width:210px;">
+                                                                        <div class="d-grid gap-2">
+                                                                            <a class="btn btn-primary btn-sm" href="#">
+                                                                                Cetak Surat Tawaran
+                                                                            </a>
+                                                                            <a class="btn btn-primary btn-sm"
+                                                                                href="/uls/permohonan/kehadiran/{{ $p->kod_kursus }}">Kehadiran</a>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            @endrole
+                                                        @endif
                                                     @endforeach
                                                 </tbody>
                                             </table>
@@ -82,20 +170,58 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="pill-tab-profile" role="tabpanel" aria-labelledby="profile-tab">Food
-                        truck
-                        fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore
-                        velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft
-                        beer
-                        twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad
-                        vinyl
-                        cillum PBR. Homo nostrud organic. </div>
+                    <div class="tab-pane fade" id="pill-tab-profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="row">
+                            <div class="col-12">
+                                <p class="h3 mt-3">Senarai Permohonan</p>
+                            </div>
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="table-responsive scrollbar text-center">
+                                            <table class="table table-permohonan datatable">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="fw-bold text-dark" scope="col">BIL.</th>
+                                                        <th class="fw-bold text-dark" scope="col">KOD KURSUS</th>
+                                                        <th class="fw-bold text-dark" scope="col">NAMA KURSUS</th>
+                                                        <th class="fw-bold text-dark" scope="col">TARIKH KURSUS</th>
+                                                        <th class="fw-bold text-dark" scope="col">STATUS KEHADIRAN</th>
+                                                        <th class="fw-bold text-dark" scope="col">TINDAKAN</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($permohonan as $p)
+                                                        @if ($p->jadualKursus->tarikh_mula < $hari_ini)
+                                                            <tr style="text-center">
+                                                                <td>{{ $loop->iteration }}.</td>
+                                                                <td>{{ $p->jadualKursus->kursus_kod_nama_kursus }}</td>
+                                                                <td>{{ $p->jadualKursus->kursus_nama }}</td>
+                                                                <td>{{ date('d/m/Y', strtotime($p->jadualKursus->tarikh_mula)) }}
+                                                                </td>
+                                                                <td>{{$p->status_kehadiran}}</td>
+                                                                <td class="text-end" style="width:210px !important">
+                                                                    <div class="d-grid gap-2">
+                                                                        <a class="btn btn-primary btn-sm" href="#">
+                                                                            Cetak Surat Tawaran
+                                                                        </a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @endif
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
         </div>
 
     </div>
-
-
 @endsection

@@ -22,7 +22,7 @@
     <div class="container pb-5">
         <div class="row mt-3 mb-2">
             <div class="col-12 mb-2">
-                <p class="h1 mb-0 fw-bold" style="color: rgb(43,93,53); letter-spacing: 5px;">KEHADIRAN</p>
+                <p class="h1 mb-0 fw-bold" style="color: rgb(43,93,53);  ">KEHADIRAN</p>
                 <p class="h5" style="color: rgb(43,93,53); ">MENGESAHKAN KEHADIRAN</p>
             </div>
         </div>
@@ -42,7 +42,7 @@
                     <p class="pt-2 fw-bold">TAHUN</p>
                 </div>
                 <div class="col-2">
-                    <input type="text" class="form-control mb-4 tahun" autocomplete="OFF">
+                    <input type="text" class="form-select mb-4 tahun" autocomplete="OFF">
                 </div>
             </div>
             <div class="col-8 d-inline-flex">
@@ -50,7 +50,12 @@
                     <p class="pt-2 fw-bold">UNIT LATIHAN</p>
                 </div>
                 <div class="col-6">
-                    <input type="text" class="form-control mb-3">
+                    {{-- <input type="text" class="form-control mb-3" value="Staff"> --}}
+                    <select name="" id="" class="form-control">
+                        <option value="" selected hidden>Sila Pilih</option>
+                        <option value="Staff">Staff</option>
+                        <option value="Pekebun Kecil">Pekebun Kecil</option>
+                    </select>
                 </div>
             </div>
 
@@ -71,24 +76,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Kod1</td>
-                            <td>Kursus1</td>
-                            <td>1/1/11</td>
-                            <td class="risda-g fw-bold">SEDANG <br> DILAKSANAKAN</td>
-                            <td class=" text-end"><a href="/kehadiran/ke-kursus/rekod-pengesahan-peserta"
-                                    class="btn btn-primary btn-sm">SAHKAN KEHADIRAN</a></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Kod2</td>
-                            <td>Kursus2</td>
-                            <td>2/2/22</td>
-                            <td class="risda-g fw-bold">SEDANG <br> DILAKSANAKAN</td>
-                            <td class="text-end"><a href="" class="btn btn-primary btn-sm">SAHKAN KEHADIRAN</a></td>
-
-                        </tr>
+                        @foreach ($jadual_kursus as $jadual)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $jadual->kursus_kod_nama_kursus }}</td>
+                                <td>{{ $jadual->kursus_nama }}</td>
+                                <td>{{ $jadual->tarikh_mula }}</td>
+                                @if ($jadual->kursus_status == 1)
+                                    <td class="risda-g fw-bold">SEDANG <br> DILAKSANAKAN</td>
+                                @else
+                                    <td class="risda-g fw-bold">TIDAK <br> AKTIF</td>
+                                @endif
+                                <td class=" text-end"><a href="{{ route('mengesah-kehadiran-peserta', $k->id) }}"
+                                        class="btn btn-primary btn-sm">SAH KEHADIRAN</a></td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

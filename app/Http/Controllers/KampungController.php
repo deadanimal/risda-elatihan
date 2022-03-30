@@ -81,7 +81,7 @@ class KampungController extends Controller
         }
         $kampung->status_kampung = $status;
         $kampung->save();
-        return redirect('/utiliti/kampung');
+        return redirect('/utiliti/lokasi/kampung');
 
     }
 
@@ -128,7 +128,7 @@ class KampungController extends Controller
         }
         $kampung->status_kampung = $status;
         $kampung->save();
-        return redirect('/utiliti/kampung');
+        return redirect('/utiliti/lokasi/kampung');
     }
 
     /**
@@ -140,6 +140,6 @@ class KampungController extends Controller
     public function destroy(Kampung $kampung)
     {
         $kampung->delete();
-        return redirect('/utiliti/kampung');
+        return redirect('/utiliti/lokasi/kampung');
     }
 }

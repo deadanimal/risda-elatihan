@@ -69,5 +69,12 @@ class Kernel extends HttpKernel
         'UlpkPeserta' => \App\Http\Middleware\UlpkPeserta::class,
         'UlsUrusSetia' => \App\Http\Middleware\UlsUrusSetia::class,
         'UlpkUrusSetia' => \App\Http\Middleware\UlsUrusSetia::class,
+        'AdminBTM' => \App\Http\Middleware\AdminBTM::class,
+
+        //spatie- laravel permission
+        'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
+        'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+        'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
+
     ];
 }

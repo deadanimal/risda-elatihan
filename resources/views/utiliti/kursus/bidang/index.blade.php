@@ -26,11 +26,11 @@
                                 <h4 class="mb-1" id="modalExampleDemoLabel">TAMBAH </h4>
                             </div>
                             <div class="p-4 pb-0">
-                                <form action="/utiliti/bidang_kursus" method="POST">
+                                <form action="/utiliti/kursus/bidang_kursus" method="POST" id="create_bidang">
                                     @csrf
                                     <div class="mb-3">
                                         <label class="col-form-label">UNIT LATIHAN</label>
-                                        <select class="form-select" name="UL_Bidang_Kursus">
+                                        <select class="form-select" name="UL_Bidang_Kursus" id="unitlatihan">
                                             <option selected="" hidden>Sila Pilih</option>
                                             <option value="Staf">Staf</option>
                                             <option value="Pekebun Kecil">Pekebun Kecil</option>
@@ -38,8 +38,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label">KOD BIDANG KURSUS</label>
-                                        <input class="form-control" type="number" name="kod_Bidang_Kursus"
-                                            value="{{ $bil }}" readonly />
+                                        <input class="form-control" type="text" name="kod_Bidang_Kursus" id="kod_bid"/>
                                     </div>
                                     <div class="mb-3">
                                         <label class="col-form-label">BIDANG KURSUS</label>
@@ -121,14 +120,16 @@
                                                     </h4>
                                                 </div>
                                                 <div class="p-4 pb-0">
-                                                    <form action="/utiliti/bidang_kategori/{{ $bk->id }}"
+                                                    <form action="/utiliti/kursus/bidang_kategori/{{ $bk->id }}"
                                                         method="POST">
                                                         @method('PUT')
                                                         @csrf
                                                         <div class="mb-3">
                                                             <label class="col-form-label">UNIT LATIHAN</label>
                                                             <select class="form-select" name="UL_Bidang_Kursus">
-                                                                <option selected="" hidden value="{{$bk->UL_Bidang_Kursus}}">{{$bk->UL_Bidang_Kursus}}</option>
+                                                                <option selected="" hidden
+                                                                    value="{{ $bk->UL_Bidang_Kursus }}">
+                                                                    {{ $bk->UL_Bidang_Kursus }}</option>
                                                                 <option value="Staf">Staf</option>
                                                                 <option value="Pekebun Kecil">Pekebun Kecil</option>
                                                             </select>
@@ -136,13 +137,14 @@
                                                         <div class="mb-3">
                                                             <label class="col-form-label">KOD BIDANG KURSUS</label>
                                                             <input class="form-control" type="number"
-                                                                name="kod_Bidang_Kursus" value="{{ $bk->kod_Bidang_Kursus }}"
-                                                                readonly />
+                                                                name="kod_Bidang_Kursus"
+                                                                value="{{ $bk->kod_Bidang_Kursus }}" readonly />
                                                         </div>
                                                         <div class="mb-3">
                                                             <label class="col-form-label">BIDANG KURSUS</label>
                                                             <input class="form-control" type="text"
-                                                                name="nama_Bidang_Kursus" value="{{$bk->nama_Bidang_Kursus}}"/>
+                                                                name="nama_Bidang_Kursus"
+                                                                value="{{ $bk->nama_Bidang_Kursus }}" />
                                                         </div>
                                                         <div class="mb-3">
                                                             <label class="col-form-label">STATUS</label>
@@ -191,7 +193,8 @@
                                                 <div class="modal-footer">
                                                     <button class="btn btn-secondary" type="button"
                                                         data-bs-dismiss="modal">Batal</button>
-                                                    <form method="POST" action="/utiliti/bidang_kursus/{{ $bk->id }}">
+                                                    <form method="POST"
+                                                        action="/utiliti/kursus/bidang_kursus/{{ $bk->id }}">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button class="btn btn-primary" type="submit">Hapus
@@ -215,6 +218,24 @@
     <script>
         $(document).ready(function() {
             $('#table_negeri').DataTable();
+        });
+
+        $('#unitlatihan').change(function() {
+            var ul = this.value;
+            $('#kod_bid').html('');
+            if (ul == 'Staf') {
+                var kod_nom = <?php echo $bil_staf;?>;
+                if (kod_nom < 10) {
+                    kod_nom = '0'+kod_nom;
+                }
+                $('#kod_bid').val(kod_nom);
+            } else {
+                var kod_nom = <?php echo $bil_pk;?>;
+                if (kod_nom < 10) {
+                    kod_nom = '0'+kod_nom;
+                }
+                $('#kod_bid').val(kod_nom);
+            }
         });
     </script>
 @endsection

@@ -6,9 +6,14 @@ use App\Http\Requests\StoreKategoriKursusRequest;
 use App\Http\Requests\UpdateKategoriKursusRequest;
 use App\Models\KategoriKursus;
 use App\Models\BidangKursus;
+use App\Models\KodKursus;
 
 class KategoriKursusController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -20,19 +25,17 @@ class KategoriKursusController extends Controller
         $kategoriKursus = BidangKursus::join('kategori_kursuses', 'bidang_kursuses.id', 'kategori_kursuses.U_Bidang_Kursus')
         ->select('*')->get();
         // dd($kategoriKursus);
-        $bil_kk = KategoriKursus::orderBy('id', 'desc')->first();
-        if ($bil_kk != null) {
-            $bil = $bil_kk->kod_Kategori_Kursus;
-        }else{
-            $bil = 0;
-        }
-        $bil = $bil + 1;
-        $bil = sprintf("%02d", $bil);
+
+        $bil_ds = KategoriKursus::where('UL_Kategori_Kursus', 'Staf')->where('jenis_Kategori_Kursus', 'Dalaman')->get();
+        $bil_ls = KategoriKursus::where('UL_Kategori_Kursus', 'Staf')->where('jenis_Kategori_Kursus', 'Luaran')->get();
+        $bil_pk = KategoriKursus::where('UL_Kategori_Kursus', 'Pekebun Kecil')->get();
 
         return view('utiliti.kursus.kategori.index', [
             'bidangKursus' => $bidangKursus,
             'kategoriKursus' => $kategoriKursus,
-            'bil' => $bil
+            'bil_ds' => $bil_ds,
+            'bil_ls' => $bil_ls,
+            'bil_pk' => $bil_pk,
         ]);
     }
 
@@ -59,6 +62,7 @@ class KategoriKursusController extends Controller
         $kategoriKursus->U_Bidang_Kursus = $request->U_Bidang_Kursus;
         $kategoriKursus->jenis_Kategori_Kursus = $request->jenis_Kategori_Kursus;
         $kategoriKursus->kod_Kategori_Kursus = $request->kod_Kategori_Kursus;
+        $kategoriKursus->no_kod_KK = $request->no_kod_KK;
         $kategoriKursus->nama_Kategori_Kursus = $request->nama_Kategori_Kursus;
         if ($request->status == 'on') {
             $status = 1;
@@ -68,7 +72,8 @@ class KategoriKursusController extends Controller
         $kategoriKursus->status_Kategori_Kursus = $status;
         // dd($kategoriKursus);
         $kategoriKursus->save();
-        return redirect('/utiliti/kategori_kursus');
+        alert()->success('Maklumat telah disimpan', 'Berjaya');
+        return redirect('/utiliti/kursus/kategori_kursus');
     }
 
     /**
@@ -100,8 +105,9 @@ class KategoriKursusController extends Controller
      * @param  \App\Models\KategoriKursus  $kategoriKursus
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateKategoriKursusRequest $request, KategoriKursus $kategoriKursus)
+    public function update(UpdateKategoriKursusRequest $request, $id)
     {
+        $kategoriKursus = KategoriKursus::find($id);
         $kategoriKursus->UL_Kategori_Kursus = $request->UL_Kategori_Kursus;
         $kategoriKursus->U_Bidang_Kursus = $request->U_Bidang_Kursus;
         $kategoriKursus->jenis_Kategori_Kursus = $request->jenis_Kategori_Kursus;
@@ -115,7 +121,8 @@ class KategoriKursusController extends Controller
         $kategoriKursus->status_Kategori_Kursus = $status;
         // dd($kategoriKursus);
         $kategoriKursus->save();
-        return redirect('/utiliti/kategori_kursus');
+        alert()->success('Maklumat telah dikemaskini', 'Berjaya');
+        return redirect('/utiliti/kursus/kategori_kursus');
     }
 
     /**
@@ -124,9 +131,15 @@ class KategoriKursusController extends Controller
      * @param  \App\Models\KategoriKursus  $kategoriKursus
      * @return \Illuminate\Http\Response
      */
-    public function destroy(KategoriKursus $kategoriKursus)
+    public function destroy($id)
     {
+        $kod_kursus = KodKursus::where('U_Kategori_Kursus', $id)->get();
+        foreach ($kod_kursus as $key => $kk) {
+            $kk->delete();
+        }
+        $kategoriKursus = KategoriKursus::find($id);
         $kategoriKursus->delete();
-        return redirect('/utiliti/kategori_kursus');
+        alert()->success('Maklumat telah dihapus', 'Berjaya');
+        return redirect('/utiliti/kursus/kategori_kursus');
     }
 }

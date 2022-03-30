@@ -15,7 +15,7 @@
                     <h5>MAKLUMAT AGENSI</h5>
                 </div>
             </div>
-            <form action="/agensi" method="POST">
+            <form action="/utiliti/kumpulan/agensi" method="POST">
                 @csrf
                 <div class="row ms-5 mt-4">
                     <div class="col">
@@ -23,7 +23,7 @@
                             <div class="col">
                                 <div class="mb-3">
                                     <label class="form-label risda-dg">KATEGORI AGENSI</label>
-                                    <select class="form-select" name="kategori_agensi">
+                                    <select class="form-select form-control" name="kategori_agensi">
                                         <option selected="" hidden>Sila Pilih</option>
                                         @foreach ($kategori as $kat)
                                             @if ($kat->status_kategori_agensi == '1')
@@ -76,7 +76,7 @@
                             <div class="col-6">
                                 <div class="mb-3">
                                     <label class="form-label risda-dg">DAERAH</label>
-                                    <select class="form-select" name="U_Daerah_ID">
+                                    <select class="form-select form-control" name="U_Daerah_ID">
                                         <option selected="" hidden>Sila Pilih</option>
                                         @foreach ($daerah as $dae)
                                             @if ($dae->status_daerah == '1')
@@ -91,7 +91,7 @@
                             <div class="col-6">
                                 <div class="mb-3">
                                     <label class="form-label risda-dg">NEGERI</label>
-                                    <select class="form-select" name="U_Negeri_ID">
+                                    <select class="form-select form-control" name="U_Negeri_ID">
                                         <option selected="" hidden>Sila Pilih</option>
                                         @foreach ($negeri as $neg)
                                             @if ($neg->status_negeri == '1')
