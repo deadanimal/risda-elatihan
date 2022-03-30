@@ -245,7 +245,6 @@ class JadualKursusController extends Controller
 
     public function tambah_masa_mula_tamat_post_test(Request $request, $id)
     {
-
         $jadualKursus = JadualKursus::where('id', $id)->first();
 
         $jadualKursus->kursus_masa_mula_post_test = $request->kursus_masa_mula_post_test;
