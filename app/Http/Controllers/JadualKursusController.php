@@ -36,6 +36,7 @@ class JadualKursusController extends Controller
         $jadualKursus = JadualKursus::all();
         foreach ($jadualKursus as $key => $jk) {
             $sum = 0;
+          
             $bil = PeruntukanPeserta::where('pp_jadual_kursus', $jk->id)->get();
 
             foreach ($bil as $k => $b) {
@@ -44,6 +45,7 @@ class JadualKursusController extends Controller
             $jk['bilangan'] = $sum;
         }
         $bidang = BidangKursus::all();
+        
         return view('pengurusan_kursus.semak_jadual.index', [
             'jadual' => $jadualKursus,
         ]);
@@ -226,5 +228,33 @@ class JadualKursusController extends Controller
         }
 
         return response()->json($jadualKursus);
+    }
+
+    public function tambah_masa_mula_tamat_pre_post_test(Request $request, $id)
+    {
+
+        $jadualKursus = JadualKursus::where('id', $id)->first();
+
+        $jadualKursus->kursus_masa_mula_pre_post_test = $request->kursus_masa_mula_pre_post_test;
+        $jadualKursus->kursus_masa_tamat_pre_post_test = $request->kursus_masa_tamat_pre_post_test;
+        
+        $jadualKursus->save();
+
+        alert()->success('Maklumat telah disimipan', 'Berjaya Disimpan');
+        return redirect('/penilaian/pre-post-test/' . $id);
+    }
+
+    public function tambah_masa_mula_tamat_post_test(Request $request, $id)
+    {
+
+        $jadualKursus = JadualKursus::where('id', $id)->first();
+
+        $jadualKursus->kursus_masa_mula_post_test = $request->kursus_masa_mula_post_test;
+        $jadualKursus->kursus_masa_tamat_post_test = $request->kursus_masa_tamat_post_test;
+        
+        $jadualKursus->save();
+
+        alert()->success('Maklumat telah disimipan', 'Berjaya Disimpan');
+        return redirect('/penilaian/post-test/' . $id);
     }
 }

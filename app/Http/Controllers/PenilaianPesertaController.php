@@ -62,6 +62,7 @@ class PenilaianPesertaController extends Controller
                 "soalan_penilaian" => "A",
                 "skala_jawapan" => $request->$jawapan,
                 "cadangan_kursus" => null,
+                "topik_kursus" => $request->topik_kursus,
             ]);
         }
 
@@ -79,6 +80,7 @@ class PenilaianPesertaController extends Controller
                 "soalan_penilaian" => "B",
                 "skala_jawapan" => $request->$jawapan,
                 "cadangan_kursus" => null,
+                "topik_kursus" => $request->topik_kursus,
             ]);
         }
 
@@ -98,6 +100,7 @@ class PenilaianPesertaController extends Controller
                         "soalan_penilaian" => "C - Penceramah ID " . $p,
                         "skala_jawapan" => $request->$jawapan,
                         "cadangan_kursus" => null,
+                        "topik_kursus" => $request->topik_kursus,
                     ]);
                 }
             }
@@ -117,6 +120,7 @@ class PenilaianPesertaController extends Controller
                 "soalan_penilaian" => "D",
                 "skala_jawapan" => null,
                 "cadangan_kursus" => $cadangan,
+                "topik_kursus" => $request->topik_kursus,
             ]);
         }
 
@@ -126,7 +130,6 @@ class PenilaianPesertaController extends Controller
         ]);
 
         return redirect(route('penilaian-kursus.index'));
-
     }
 
     /**
@@ -194,5 +197,4 @@ class PenilaianPesertaController extends Controller
             'jadual_kursus' => $jadual_kursus,
         ]);
     }
-
 }

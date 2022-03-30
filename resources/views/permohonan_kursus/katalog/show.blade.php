@@ -105,8 +105,8 @@
             <div class="col-lg-3">
                 <div class="card h-100">
                     <div class="card-body risda-bg-g text-white text-center">
-                        <p class="card-text my-0 p-0">ANJURAN</p>
-                        <h5 class="card-title text-white my-0 p-0"> </h5>
+                        <p class="card-text my-0 p-0">PENGENDALI KURSUS</p>
+                        <h5 class="card-title text-white my-0 p-0">{{$pengendali->nama_Agensi}} </h5>
                     </div>
                 </div>
             </div>

@@ -379,7 +379,7 @@
                                 <label for="" class="h6 mt-2">TOPIK</label>
                             </div>
                             <div class="col-9">
-                                <input type="text" class="form-control" value="{{ $nama_kursus }}" readonly>
+                                <input type="text" class="form-control" name="topik_kursus" >
                             </div>
                         </div>
                     </div>
@@ -446,7 +446,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-9">
-                                        <h6 class="mt-1">2. KAITAN ISI KANDUNGAN DENGAN KURSUS</h6>
+                                        <h6 class="mt-1">3. KAITAN ISI KANDUNGAN DENGAN KURSUS</h6>
                                     </div>
                                     <div class="col-3">
                                         <div class="form-check form-check-inline">
@@ -469,7 +469,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-9">
-                                        <h6 class="mt-1">2. ULASAN LAIN</h6>
+                                        <h6 class="mt-1">4. ULASAN LAIN</h6>
                                     </div>
                                     <div class="col-3">
                                         <div class="form-check form-check-inline">

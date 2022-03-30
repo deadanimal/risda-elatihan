@@ -79,7 +79,7 @@ class PrePostTestController extends Controller
                             $markah++;
                         }
                     }
-                    if ($ppt->jenis_soalan == "MULTIPLE CHOISE") {
+                    if ($ppt->jenis_soalan == "MULTIPLE CHOICE") {
                         $multiple_true = 0;
                         $mul[$ppt->id] = true;
 
@@ -97,7 +97,7 @@ class PrePostTestController extends Controller
                             $mul[$ppt->id] = false;
                         }
                     }
-                    if ($ppt->jenis_soalan == "SINGLE CHOISE") {
+                    if ($ppt->jenis_soalan == "SINGLE CHOICE") {
                         if ($jawapan == 'betul') {
                             $markah++;
                         }
@@ -160,7 +160,7 @@ class PrePostTestController extends Controller
             case 'B':
                 $pre = PrePostTest::create([
                     'jadual_kursus_id' => $request->jadual_kursus_id,
-                    'jenis_soalan' => "MULTIPLE CHOISE",
+                    'jenis_soalan' => "MULTIPLE CHOICE",
                     'soalan' => $request->soalan,
                     'status' => $request->status_soalan,
                     'jawapan' => null,
@@ -185,7 +185,7 @@ class PrePostTestController extends Controller
             case 'C':
                 $pre = PrePostTest::create([
                     'jadual_kursus_id' => $request->jadual_kursus_id,
-                    'jenis_soalan' => "SINGLE CHOISE",
+                    'jenis_soalan' => "SINGLE CHOICE",
                     'soalan' => $request->soalan,
                     'status' => $request->status_soalan,
                     'jawapan' => null,
