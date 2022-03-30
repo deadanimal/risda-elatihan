@@ -215,7 +215,7 @@ class JadualKursusController extends Controller
 
     public function filter($search)
     {
-        $jadualKursus = JadualKursus::where('kursus_unit_latihan', $search)->get();
+        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', $search)->get();
         foreach ($jadualKursus as $key => $jk) {
             $sum = 0;
             $bil = PeruntukanPeserta::where('pp_jadual_kursus', $jk->id)->get();
