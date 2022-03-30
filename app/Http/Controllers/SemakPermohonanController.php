@@ -34,7 +34,7 @@ class SemakPermohonanController extends Controller
         $kategori = KategoriAgensi::where('Kategori_Agensi', 'Tempat Kursus')->first()->id;
         $tempat = Agensi::with('kategori')->where('kategori_agensi', $kategori)->get();
 
-        // dd($pemohon);
+        dd($pemohon);
         foreach ($pemohon as $key => $p) {
             if ($p->peserta->jenis_pengguna == 'Peserta ULS') {
                 $p->jenis_peserta = 'Peserta ULS';
