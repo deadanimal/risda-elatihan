@@ -170,7 +170,7 @@ Route::middleware('auth')->group(function () {
         });
 
         //rekod kehadiran
-        Route::group(['prefix' => 'kehadiran/', 'middleware' => 'can:status permohonan'], function () {
+        Route::group(['prefix' => '/kehadiran'], function () {
             Route::get('{kehadiran}', [KehadiranController::class, 'fromUlsQR']);
             Route::post('update/{kehadiran}', [KehadiranController::class, 'storeQR']);
         });
@@ -337,6 +337,9 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/permohonan_kursus/katalog_kursus', PermohonanController::class);
     Route::get('ulpk/permohonan/katelog-kursus', [PermohonanController::class, 'katalog_ulpk']);
+
+
+    Route::get('/janjan/{kehadiran}', [KehadiranController::class, 'janjan']);
 });
 
 require __DIR__ . '/auth.php';
