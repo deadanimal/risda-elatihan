@@ -38,7 +38,7 @@ class KehadiranController extends Controller
         }
 
         $kod_kursuss = JadualKursus::where('id', $kod_kursus)->firstorFail();
-        $kehadiran = Aturcara::where('ac_jadual_kursus', $kod_kursus)
+        $kehadiran = Aturcara::with('jadual')->where('ac_jadual_kursus', $kod_kursus)
             ->orderBy('ac_hari', 'ASC')
             ->orderBy('ac_sesi', 'ASC')
             ->get();
