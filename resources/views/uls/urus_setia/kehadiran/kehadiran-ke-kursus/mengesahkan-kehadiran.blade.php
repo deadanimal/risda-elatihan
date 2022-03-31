@@ -87,7 +87,7 @@
                                 @else
                                     <td class="risda-g fw-bold">TIDAK <br> AKTIF</td>
                                 @endif
-                                <td class=" text-end"><a href="{{ route('mengesah-kehadiran-peserta', $k->id) }}"
+                                <td class=" text-end"><a href="{{ route('mengesah-kehadiran-peserta', $jadual->id) }}"
                                         class="btn btn-primary btn-sm">SAH KEHADIRAN</a></td>
                             </tr>
                         @endforeach
