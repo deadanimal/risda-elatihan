@@ -139,7 +139,7 @@ class PencalonanPesertaController extends Controller
 
             $pencalonan = PencalonanPeserta::where('peserta', $ds->id)->whereYear('created_at', $tahun)->get();
             foreach ($pencalonan as $key => $pen) {
-                $hari = $hari + ($pen->jadual->bilangan_hari);
+                $hari = $hari + ($pen->jadual['bilangan_hari']);
             }
 
             $ds['hari_berkursus'] = $hari;
