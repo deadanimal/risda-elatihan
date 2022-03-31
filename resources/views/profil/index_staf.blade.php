@@ -7,7 +7,7 @@
                 <h5 class="risda-dg">STAF</h5>
             </div>
         </div>
-    
+
         <div class="row">
             <div class="col text-center">
                 <a href="#upload-image" data-bs-toggle="modal" data-bs-target="">
@@ -19,7 +19,7 @@
                             style="border-radius: 25px; border: 2px solid #73AD21; width:318px; height:337px; object-fit: cover;">
                     @endif
                 </a>
-    
+
                 <div class="modal fade" id="upload-image" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
                         <div class="modal-content position-relative">
@@ -95,7 +95,7 @@
                 </div>
             </div>
         </div>
-    
+
         <div class="row mt-4">
             <div class="col">
                 <ul class="nav nav-pills" id="pill-myTab" role="tablist">
@@ -187,7 +187,7 @@
                         </div>
                         <div class="row ms-5 mt-4">
                             <div class="col">
-    
+
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="mb-3">
@@ -202,10 +202,10 @@
                                         </div>
                                     </div>
                                 </div>
-    
+
                             </div>
                         </div>
-    
+
                         <div class="row mt-4">
                             <div class="col">
                                 <h5>PUSAT TANGGUNGJAWAB</h5>
@@ -213,7 +213,7 @@
                         </div>
                         <div class="row ms-5 mt-4">
                             <div class="col">
-    
+
                                 <div class="row">
                                     <div class="col">
                                         <div class="mb-3">
@@ -224,7 +224,7 @@
                                 </div>
                             </div>
                         </div>
-    
+
                         <div class="row mt-4">
                             <div class="col">
                                 <h5>PENYELIA</h5>
@@ -236,7 +236,7 @@
                                     <div class="col">
                                         <div class="mb-3">
                                             <label class="form-label risda-g">NAMA PENYELIA</label>
-                                            <input class="form-control" type="text" readonly />
+                                            <input class="form-control" type="text" value="{{ $staf['NamaPA'] }}"readonly />
                                         </div>
                                     </div>
                                 </div>
@@ -244,13 +244,13 @@
                                     <div class="col-6">
                                         <div class="mb-3">
                                             <label class="form-label risda-g">JAWATAN</label>
-                                            <input class="form-control" type="text" readonly />
+                                            <input class="form-control" type="text" value="{{ $staf['Jawatan'] }}" readonly />
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="mb-3">
                                             <label class="form-label risda-g">GRED</label>
-                                            <input class="form-control" type="text" readonly />
+                                            <input class="form-control" type="text" value="{{ $staf['Gred'] }}"readonly />
                                         </div>
                                     </div>
                                 </div>
@@ -258,14 +258,14 @@
                                     <div class="col-6">
                                         <div class="mb-3">
                                             <label class="form-label risda-g">E-MEL</label>
-                                            <input class="form-control" type="text" readonly />
+                                            <input class="form-control" type="text" value="{{ $staf['email'] }}"readonly />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-    
-    
+
+
                     </div>
                     <div class="tab-pane fade" id="akaun-saya" role="tabpanel" aria-labelledby="contact-tab">
                         <div class="row">
@@ -298,7 +298,14 @@
                             <div class="col-6">
                                 <div class="mb-3">
                                     <label class="form-label risda-g">STATUS AKAUN</label>
-                                    <input class="form-control" type="text" readonly />
+                                    @if (Auth::user()->status_akaun==1)
+                                        <input class="form-control" type="text" value="Aktif" readonly />
+
+                                    @else
+                                        <input class="form-control" type="text" name="status_akaun" readonly />
+
+                                    @endif
+
                                 </div>
                             </div>
                         </div>
