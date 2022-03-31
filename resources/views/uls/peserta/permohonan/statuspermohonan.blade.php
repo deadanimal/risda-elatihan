@@ -318,13 +318,14 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+
                                                     @foreach ($permohonan as $p)
-                                                        @if ($p->jadual->tarikh_mula < $hari_ini)
+                                                        @if ($p->jadual == null)
                                                             <tr style="text-center">
                                                                 <td>{{ $loop->iteration }}.</td>
-                                                                <td>{{ $p->jadual->kursus_kod_nama_kursus }}</td>
-                                                                <td>{{ $p->jadual->kursus_nama }}</td>
-                                                                <td>{{ date('d/m/Y', strtotime($p->jadual->tarikh_mula)) }}
+                                                                <td>-</td>
+                                                                <td>-</td>
+                                                                <td>-
                                                                 </td>
                                                                 <td>{{ $p->status_kehadiran }}</td>
                                                                 <td class="text-end" style="width:210px !important">
@@ -333,8 +334,35 @@
                                                                             Cetak Surat Tawaran
                                                                         </a>
                                                                     </div>
+                                                                    <form
+                                                                        action="/permohonan_kursus/katalog_kursus/{{ $p->id }}"
+                                                                        method="post">
+                                                                        @method('DELETE')
+                                                                        @csrf
+                                                                        <button type="submit"
+                                                                            class="btn btn-danger btn-sm">Buang</button>
+                                                                    </form>
                                                                 </td>
                                                             </tr>
+                                                        @else
+                                                            @if ($p->jadual->tarikh_mula < $hari_ini)
+                                                                <tr style="text-center">
+                                                                    <td>{{ $loop->iteration }}.</td>
+                                                                    <td>{{ $p->jadual->kursus_kod_nama_kursus }}</td>
+                                                                    <td>{{ $p->jadual->kursus_nama }}</td>
+                                                                    <td>{{ date('d/m/Y', strtotime($p->jadual->tarikh_mula)) }}
+                                                                    </td>
+                                                                    <td>{{ $p->status_kehadiran }}</td>
+                                                                    <td class="text-end"
+                                                                        style="width:210px !important">
+                                                                        <div class="d-grid gap-2">
+                                                                            <a class="btn btn-primary btn-sm" href="#">
+                                                                                Cetak Surat Tawaran
+                                                                            </a>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
                                                         @endif
                                                     @endforeach
                                                 </tbody>
