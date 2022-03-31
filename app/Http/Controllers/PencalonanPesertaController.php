@@ -52,13 +52,21 @@ class PencalonanPesertaController extends Controller
      */
     public function store(StorePencalonanPesertaRequest $request)
     {
-        // dd($request);
-        $pencalonan = new PencalonanPeserta($request->all());
-        $pencalonan->dicalon_oleh = Auth::id();
-        $pencalonan->status = 'Lulus';
-        $pencalonan->save();
+        // dd($request->all());
+        foreach ($request->peserta as $key => $value) {
+            $pencalonan = new PencalonanPeserta();
+            $pencalonan->peserta = $request->peserta[$key];
+            $pencalonan->jadual = $request->jadual;
+            $pencalonan->dicalon_oleh = Auth::id();
+            $pencalonan->status = 'Lulus';
+            $pencalonan->save();
+        }
+        // $pencalonan = new PencalonanPeserta($request->all());
+        // $pencalonan->dicalon_oleh = Auth::id();
+        // $pencalonan->status = 'Lulus';
+        // $pencalonan->save();
         alert()->success('Maklumat telah disimpan.', ' Berjaya');
-        return redirect('/pengurusan_peserta/pencalonan'.$request->jadual);
+        return redirect('/pengurusan_peserta/pencalonan/' . $request->jadual);
     }
 
     /**
@@ -71,7 +79,7 @@ class PencalonanPesertaController extends Controller
     {
         $jadual = JadualKursus::find($id);
         $peserta_daftar = PencalonanPeserta::where('jadual', $id)->get();
-// dd($peserta_daftar->isNotEmpty());
+        // dd($peserta_daftar->isNotEmpty());
         $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
             ->get('https://www4.risda.gov.my/fire/getallstaff/')
             ->getBody()
@@ -88,12 +96,11 @@ class PencalonanPesertaController extends Controller
                             $p['gred'] = $staf['Gred'];
                         }
                     }
-                    
                 }
             }
         }
-        
-        
+
+
         // dd($peserta_daftar->first()->maklumat_peserta);
         return view('pengurusan_peserta.pencalonan.show', [
             'peserta_daftar' => $peserta_daftar,

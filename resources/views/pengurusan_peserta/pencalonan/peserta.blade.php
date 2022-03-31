@@ -52,7 +52,7 @@
                                     <td>{{ $p['catatan'] }}</td>
                                     <td>
                                         <div class="form-check justify-content-center d-flex">
-                                            <input class="form-check-input" type="checkbox" name="peserta"
+                                            <input class="form-check-input" type="checkbox" name="peserta[]"
                                                 value="{{ $p->id }}"/>
                                         </div>
                                     </td>
