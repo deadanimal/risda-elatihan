@@ -1,6 +1,5 @@
 @extends('layouts.risda-base')
 @section('content')
-
     <style>
         table>thead>tr {
             border-color: rgb(0, 150, 64);
@@ -114,20 +113,36 @@
                                 <td class="align-middle">{{ $hari[$k->ac_hari - 1] }}</td>
                                 <td>{{ $k->ac_sesi }}</td>
                                 <td>{{ $k->ac_masa }}</td>
-                                <td>
-                                    @if ($k->kehadiran['status_kehadiran'] == null)
-                                        <button class="btn btn-primary mx-0" type="button"
-                                            onclick="" data-bs-toggle="modal"
-                                            data-bs-target="#pengesahan-kehadiran-sebelum{{ $k->id }}">Pengesahan
-                                            Kehadiran</button>
-                                            {{-- passdata({{ $k->id }},'sebelum-kursus') --}}
-                                    @else
+                                @if ($k->kehadiran == null)
+                                    <td>
+                                        @if ($k->kehadiran['status_kehadiran'] == null)
+                                            <button class="btn btn-primary mx-0" type="button" onclick=""
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#pengesahan-kehadiran-sebelum{{ $k->id }}">Pengesahan
+                                                Kehadiran</button>
+                                        @else
                                         {{ $k->kehadiran['status_kehadiran'] }}
-                                    @endif
-                                </td>
-                                <td>
-                                    {{ $k->kehadiran['alasan_ketidakhadiran'] }}
-                                </td>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        {{ $k->kehadiran['alasan_ketidakhadiran'] ?? '' }}
+                                    </td>
+                                @else
+                                    <td>
+                                        @if ($k->kehadiran['status_kehadiran'] == null)
+                                            <button class="btn btn-primary mx-0" type="button" onclick=""
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#pengesahan-kehadiran-sebelum{{ $k->id }}">Pengesahan
+                                                Kehadiran</button>
+                                        @else
+                                        {{ $k->kehadiran['status_kehadiran'] }}
+                                        @endif
+                                    </td>
+                                    <td>
+                                        {{ $k->kehadiran['alasan_ketidakhadiran'] ?? '' }}
+                                    </td>
+                                @endif
+
                             </tr>
 
                             <div class="modal fade" id="pengesahan-kehadiran-sebelum{{ $k->id }}"
@@ -158,8 +173,11 @@
                                                                             Kehadiran</p>
                                                                     </div>
                                                                     <div class="col-7">
-                                                                        <select class="form-control" name="status_kehadiran" onchange="kehadiranalasan2(this,{{$k->id}})">
-                                                                            <option disabled hidden selected>Sila Pilih</option>
+                                                                        <select class="form-control"
+                                                                            name="status_kehadiran"
+                                                                            onchange="kehadiranalasan2(this,{{ $k->id }})">
+                                                                            <option disabled hidden selected>Sila Pilih
+                                                                            </option>
                                                                             <option value="HADIR">HADIR
                                                                             </option>
                                                                             <option value="TIDAK HADIR">
@@ -185,11 +203,13 @@
                                                                     <input type="hidden" id="jenis_kehadiran"
                                                                         name="jenis_kehadiran"> --}}
                                                                 </div>
-                                                                <div class="col-8 d-inline-flex mt-5" >
-                                                                    <div class="col-5 d-none" id="alasan-{{$k->id}}">
+                                                                <div class="col-8 d-inline-flex mt-5">
+                                                                    <div class="col-5 d-none"
+                                                                        id="alasan-{{ $k->id }}">
                                                                         <p class="h5 mt-1">Alasan</ dp>
                                                                     </div>
-                                                                    <div class="col-7 d-none" id="alasan2-{{$k->id}}">
+                                                                    <div class="col-7 d-none"
+                                                                        id="alasan2-{{ $k->id }}">
                                                                         <input type="text" class="form-control"
                                                                             name="alasan_ketidakhadiran">
                                                                     </div>
@@ -231,18 +251,35 @@
                                 <td class="align-middle">{{ $hari[$k->ac_hari - 1] }}</td>
                                 <td>{{ $k->ac_sesi }}</td>
                                 <td>{{ $k->ac_masa }}</td>
-                                <td>
-                                    @if ($k->kehadiran['status_kehadiran_ke_kursus'] == null)
-                                        <button class="btn btn-primary mx-0" type="button" data-bs-toggle="modal" data-bs-target="#pengesahan-kehadiran{{$k->id}}">
-                                            Pengesahan Kehadiran
-                                        </button>
-                                    @else
-                                        {{ $k->kehadiran['status_kehadiran_ke_kursus'] }}
-                                    @endif
-                                </td>
-                                <td>
-                                    {{ $k->kehadiran['alasan_ketidakhadiran_ke_kursus'] ?? '' }}
-                                </td>
+                                @if ($k->kehadiran == null)
+                                    <td>
+                                        @if ($k->kehadiran['status_kehadiran_ke_kursus'] == null)
+                                            <button class="btn btn-primary mx-0" type="button" data-bs-toggle="modal"
+                                                data-bs-target="#pengesahan-kehadiran{{ $k->id }}">
+                                                Pengesahan Kehadiran
+                                            </button>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        {{ $k->kehadiran['alasan_ketidakhadiran_ke_kursus'] ?? '' }}
+                                    </td>
+                                @else
+                                    <td>
+                                        @if ($k->kehadiran['status_kehadiran_ke_kursus'] == null)
+                                            <button class="btn btn-primary mx-0" type="button" data-bs-toggle="modal"
+                                                data-bs-target="#pengesahan-kehadiran{{ $k->id }}">
+                                                Pengesahan Kehadiran
+                                            </button>
+                                        @else
+                                            {{ $k->kehadiran['status_kehadiran_ke_kursus'] }}
+                                        @endif
+
+                                    </td>
+                                    <td>
+                                        {{ $k->kehadiran['alasan_ketidakhadiran_ke_kursus'] ?? '' }}
+                                    </td>
+                                @endif
+
                             </tr>
 
                             <div class="modal fade" id="pengesahan-kehadiran{{ $k->id }}"
@@ -273,8 +310,11 @@
                                                                             Kehadiran</p>
                                                                     </div>
                                                                     <div class="col-7">
-                                                                        <select class="form-control" name="status_kehadiran_ke_kursus" onchange="kehadiranalasan(this,{{$k->id}})">
-                                                                            <option disabled hidden selected>Sila Pilih</option>
+                                                                        <select class="form-control"
+                                                                            name="status_kehadiran_ke_kursus"
+                                                                            onchange="kehadiranalasan(this,{{ $k->id }})">
+                                                                            <option disabled hidden selected>Sila Pilih
+                                                                            </option>
                                                                             <option value="HADIR">HADIR
                                                                             </option>
                                                                             <option value="TIDAK HADIR">
@@ -282,13 +322,16 @@
                                                                         </select>
                                                                     </div>
                                                                     <input type="hidden" name="jenis_input" value="1">
-                                                                    <input type="hidden" name="id_keh" value="{{$k->kehadiran['id']}}">
+                                                                    <input type="hidden" name="id_keh"
+                                                                        value="{{ $k->kehadiran['id'] }}">
                                                                 </div>
-                                                                <div class="col-8 d-inline-flex mt-5" >
-                                                                    <div class="col-5 d-none" id="alasan-sec-{{$k->id}}">
+                                                                <div class="col-8 d-inline-flex mt-5">
+                                                                    <div class="col-5 d-none"
+                                                                        id="alasan-sec-{{ $k->id }}">
                                                                         <p class="h5 mt-1">Alasan</p>
                                                                     </div>
-                                                                    <div class="col-7 d-none" id="alasan2-sec-{{$k->id}}">
+                                                                    <div class="col-7 d-none"
+                                                                        id="alasan2-sec-{{ $k->id }}">
                                                                         <input type="text" class="form-control"
                                                                             name="alasan_ketidakhadiran_ke_kursus">
                                                                     </div>
@@ -335,11 +378,11 @@
 
         });
 
-        function kehadiranalasan2(el,id) {
+        function kehadiranalasan2(el, id) {
             let val = el.value;
-            newid = "#alasan-"+id
-            newid2 = "#alasan2-"+id
-            console.log(val,newid);
+            newid = "#alasan-" + id
+            newid2 = "#alasan2-" + id
+            console.log(val, newid);
 
             if (val == "TIDAK HADIR") {
                 $(newid).removeClass('d-none');
@@ -351,11 +394,11 @@
             }
         }
 
-        function kehadiranalasan(el,id) {
+        function kehadiranalasan(el, id) {
             let val = el.value;
-            newid = "#alasan-sec-"+id
-            newid2 = "#alasan2-sec-"+id
-            console.log(val,newid);
+            newid = "#alasan-sec-" + id
+            newid2 = "#alasan2-sec-" + id
+            console.log(val, newid);
 
             if (val == "TIDAK HADIR") {
                 $(newid).removeClass('d-none');
