@@ -115,14 +115,9 @@
                                 <td>{{ $k->ac_masa }}</td>
                                 @if ($k->kehadiran == null)
                                     <td>
-                                        @if ($k->kehadiran['status_kehadiran'] == null)
-                                            <button class="btn btn-primary mx-0" type="button" onclick=""
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#pengesahan-kehadiran-sebelum{{ $k->id }}">Pengesahan
-                                                Kehadiran</button>
-                                        @else
-                                        {{ $k->kehadiran['status_kehadiran'] }}
-                                        @endif
+                                        <button class="btn btn-primary mx-0" type="button" onclick="" data-bs-toggle="modal"
+                                            data-bs-target="#pengesahan-kehadiran-sebelum{{ $k->id }}">Pengesahan
+                                            Kehadiran</button>
                                     </td>
                                     <td>
                                         {{ $k->kehadiran['alasan_ketidakhadiran'] ?? '' }}
@@ -135,7 +130,7 @@
                                                 data-bs-target="#pengesahan-kehadiran-sebelum{{ $k->id }}">Pengesahan
                                                 Kehadiran</button>
                                         @else
-                                        {{ $k->kehadiran['status_kehadiran'] }}
+                                            {{ $k->kehadiran['status_kehadiran'] }}
                                         @endif
                                     </td>
                                     <td>
@@ -253,12 +248,10 @@
                                 <td>{{ $k->ac_masa }}</td>
                                 @if ($k->kehadiran == null)
                                     <td>
-                                        @if ($k->kehadiran['status_kehadiran_ke_kursus'] == null)
                                             <button class="btn btn-primary mx-0" type="button" data-bs-toggle="modal"
                                                 data-bs-target="#pengesahan-kehadiran{{ $k->id }}">
                                                 Pengesahan Kehadiran
                                             </button>
-                                        @endif
                                     </td>
                                     <td>
                                         {{ $k->kehadiran['alasan_ketidakhadiran_ke_kursus'] ?? '' }}
