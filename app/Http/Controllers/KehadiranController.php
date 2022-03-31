@@ -46,7 +46,7 @@ class KehadiranController extends Controller
         $hari = ['Pertama', 'Kedua', 'Ketiga', 'Keempat', 'Kelima', 'Keenam'];
 
         $date = displayDates($kod_kursuss->tarikh_mula, $kod_kursuss->tarikh_tamat);
-        // dd($kehadiran);
+        dd($kehadiran);
         return view('uls.peserta.permohonan.kehadiran', [
             'kod_kursus' => $kod_kursuss,
             'kehadiran' => $kehadiran,
