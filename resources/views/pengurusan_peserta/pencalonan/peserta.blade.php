@@ -53,7 +53,7 @@
                                     <td>
                                         <div class="form-check justify-content-center d-flex">
                                             <input class="form-check-input" type="checkbox" name="peserta"
-                                                value="{{ $p['nokp'] }}"/>
+                                                value="{{ $p->id }}"/>
                                         </div>
                                     </td>
                                     <td>
