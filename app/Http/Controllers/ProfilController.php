@@ -176,15 +176,20 @@ class ProfilController extends Controller
 
         // update information (phone number only)
         if ($request->telefon) {
-            if ($request->jenis == 'PK') {
-                $pekebun_kecil = PekebunKecil::where('id_Pengguna', Auth::id())->first();
-                $pekebun_kecil->Telefon = $request->telefon;
-                $pekebun_kecil->save();
-            } else {
-                $staf = Staf::where('id_Pengguna', Auth::id())->first();
-                $staf->notel = $request->telefon;
-                $staf->save();
-            }
+
+            $user = User::where('id', Auth::id())->first();
+            $user->no_telefon = $request->telefon;
+            $user->save();
+
+            // if ($request->jenis == 'PK') {
+            //     $pekebun_kecil = PekebunKecil::where('id_Pengguna', Auth::id())->first();
+            //     $pekebun_kecil->Telefon = $request->telefon;
+            //     $pekebun_kecil->save();
+            // } else {
+            //     $staf = Staf::where('id_Pengguna', Auth::id())->first();
+            //     $staf->notel = $request->telefon;
+            //     $staf->save();
+            // }
 
 
             alert()->success('Nombor telefon bimbit anda telah dikemaskini', 'Berjaya');
