@@ -140,7 +140,7 @@ class PenilaianPesertaController extends Controller
      */
     public function show($jadual_kursus_id)
     {
-        $jadual_kursus = JadualKursus::where('id', $jadual_kursus_id)->firstOrFail();
+        $jadual_kursus = JadualKursus::with('agensi')->where('id', $jadual_kursus_id)->firstOrFail();
 
         return view('penilaian.soalan-penilaian', [
             'jadual_kursus' => $jadual_kursus,
