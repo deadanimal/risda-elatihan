@@ -115,14 +115,14 @@
                                 <td>{{ $k->ac_sesi }}</td>
                                 <td>{{ $k->ac_masa }}</td>
                                 <td>
-                                    @if (!isset($k->kehadiran['status_kehadiran']))
+                                    @if ($k->kehadiran['status_kehadiran'] == null)
                                         <button class="btn btn-primary mx-0" type="button"
                                             onclick="" data-bs-toggle="modal"
                                             data-bs-target="#pengesahan-kehadiran-sebelum{{ $k->id }}">Pengesahan
                                             Kehadiran</button>
                                             {{-- passdata({{ $k->id }},'sebelum-kursus') --}}
                                     @else
-                                        {{ $k->kehadiran->status_kehadiran }}
+                                        {{ $k->kehadiran['status_kehadiran'] }}
                                     @endif
                                 </td>
                                 <td>
