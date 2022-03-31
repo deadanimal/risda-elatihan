@@ -155,7 +155,7 @@
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-g">NO. TELEFON BIMBIT</label>
-                                        <input class="form-control" type="text" value="{{ $profil['Telefon'] }}"
+                                        <input class="form-control" type="text" value="{{ $user['no_telefon'] }}"
                                             readonly />
                                     </div>
                                 </div>
