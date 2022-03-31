@@ -81,8 +81,14 @@
                         @foreach ($peserta_daftar as $key => $p)
                             <tr>
                                 <td>{{ $key + 1 }}.</td>
-                                <td>{{ $p->maklumat_peserta->no_KP }}</td>
-                                <td>{{ $p->maklumat_peserta->name }}</td>
+                                <td>
+                                    {{-- {{ $p->maklumat_peserta->no_KP }} --}}
+                                    -
+                                </td>
+                                <td>
+                                    {{-- {{ $p->maklumat_peserta->name }} --}}
+                                    -
+                                </td>
                                 <td>{{ $p->pusat_tanggungjawab }}</td>
                                 <td>{{ $p->gred }}</td>
                                 <td>{{ $p->status }}</td>
