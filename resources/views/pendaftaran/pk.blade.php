@@ -52,6 +52,11 @@
                                                     value="{{ $data['No_KP'] }}" readonly />
                                             </div>
                                         </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label">Nama</label>
+                                            <input class="form-control" name="name" type="text" value="{{$data['Nama_PK']}}" readonly/>
+                                        </div>
                                         
                                         <div class="mb-3">
                                             <label class="form-label">Kata Laluan</label>

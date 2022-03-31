@@ -8,6 +8,7 @@ use App\Models\Aturcara;
 use App\Models\JadualKursus;
 use App\Models\Kehadiran;
 use App\Models\KodKursus;
+use App\Models\Permohonan;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -20,6 +21,7 @@ class KehadiranController extends Controller
             'jadual_kursus' => JadualKursus::all(),
         ]);
     }
+
     public function indexULS($kod_kursus)
     {
         function displayDates($date1, $date2, $format = 'Y-m-d')
@@ -36,7 +38,7 @@ class KehadiranController extends Controller
         }
 
         $kod_kursuss = JadualKursus::where('id', $kod_kursus)->firstorFail();
-        $kehadiran = Aturcara::where('ac_jadual_kursus', $kod_kursus)
+        $kehadiran = Aturcara::with(['jadual', 'kehadiran'])->where('ac_jadual_kursus', $kod_kursus)
             ->orderBy('ac_hari', 'ASC')
             ->orderBy('ac_sesi', 'ASC')
             ->get();
@@ -66,14 +68,32 @@ class KehadiranController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function fromUlsQR(Kehadiran $kehadiran)
+    public function fromUlsQR($id)
     {
-        $kod_kursus = KodKursus::where('kod_Kursus', $kehadiran->kod_kursus)->firstorFail();
+        function tarikh($date1, $date2, $format = 'Y-m-d')
+        {
+            $dates = array();
+            $current = strtotime($date1);
+            $date2 = strtotime($date2);
+            $stepVal = '+1 day';
+            while ($current <= $date2) {
+                $dates[] = date($format, $current);
+                $current = strtotime($stepVal, $current);
+            }
+            return $dates;
+        }
+
+        $aturcara = Aturcara::with('jadual')->find($id);
+        $jadual = JadualKursus::with('pemohon')->where('id', $aturcara->ac_jadual_kursus)->first();
+        $date = tarikh($jadual->tarikh_mula, $jadual->tarikh_tamat);
+        $permohonan = Permohonan::with('peserta')->where('kod_kursus', $aturcara->ac_jadual_kursus)->get();
         $calonasal = User::where('jenis_pengguna', 'Peserta ULS')->get();
         return view('uls.peserta.permohonan.kehadiranQR', [
-            'kehadiran' => $kehadiran,
-            'kod_kursus' => $kod_kursus,
+            'aturcara' => $aturcara,
+            'jadual' => $jadual,
             'calonAsal' => $calonasal,
+            'tarikh' => $date,
+            'permohonan' => $permohonan
         ]);
     }
     public function fromUlpkQR()
@@ -115,22 +135,46 @@ class KehadiranController extends Controller
         return back();
     }
 
-    public function storeQR(Request $request, Kehadiran $kehadiran)
+    public function storeQR(Request $request, $id)
     {
-        if ($request->status == "CALON ASAL") {
-            $kehadiran->update([
-                'tarikh_imbasQR' => now()->toDateString(),
-                'masa_imbasQR' => now()->toTimeString(),
-            ]);
-        } elseif ($request->status == "PENGGANTI") {
-            $kehadiran->update([
-                'tarikh_imbasQR' => now()->toDateString(),
-                'masa_imbasQR' => now()->toTimeString(),
-                'nama_pengganti' => $request->nama_peserta,
-                'noKP_pengganti' => $request->no_kp_peserta,
-            ]);
+        $kehadiran = Kehadiran::where('kod_kursus', $request->jadual_kursus)->where('jadual_kursus_ref', $id)->first();
+// dd($kehadiran);
+        if ($kehadiran == null) {
+            $kehadiran = new Kehadiran;
         }
-        return back();
+
+        $kehadiran->kod_kursus = $request->jadual_kursus;
+        $kehadiran->no_pekerja = $request->nama_peserta;
+        $kehadiran->tarikh_imbasQR = now()->toDateString();
+        $kehadiran->masa_imbasQR = now()->toTimeString();
+        if ($request->status == "PENGGANTI") {
+            $kehadiran->nama_pengganti = $request->nama_pengganti;
+        }
+        $kehadiran->tarikh = $request->tarikh_kehadiran;
+        $kehadiran->sesi = $request->sesi;
+        $kehadiran->jadual_kursus_id = $request->jadual_kursus_id;
+        $kehadiran->jadual_kursus_ref = $id;
+        $kehadiran->status_kehadiran_ke_kursus = 'HADIR';
+
+        $kehadiran->save();
+        alert()->success('Maklumat telah direkodkan', 'Berjaya');
+        return redirect('/dashboard');
+
+
+        // if ($request->status == "CALON ASAL") {
+        //     $kehadiran->update([
+        //         'tarikh_imbasQR' => now()->toDateString(),
+        //         'masa_imbasQR' => now()->toTimeString(),
+        //     ]);
+        // } elseif ($request->status == "PENGGANTI") {
+        //     $kehadiran->update([
+        //         'tarikh_imbasQR' => now()->toDateString(),
+        //         'masa_imbasQR' => now()->toTimeString(),
+        //         'nama_pengganti' => $request->nama_peserta,
+        //         'noKP_pengganti' => $request->no_kp_peserta,
+        //     ]);
+        // }
+        // return back();
     }
 
     /**

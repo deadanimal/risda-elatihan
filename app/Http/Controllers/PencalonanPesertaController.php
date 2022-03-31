@@ -23,11 +23,11 @@ class PencalonanPesertaController extends Controller
     public function index()
     {
         if (Auth::user()->jenis_pengguna == 'Urus Setia ULS') {
-            $jadual = JadualKursus::where('kursus_unit_latihan', 'Staf')->get();
-        } elseif(Auth::user()->jenis_pengguna == 'Urus Setia ULPK') {
-            $jadual = JadualKursus::where('kursus_unit_latihan', 'Pekebun Kecil')->get();
+            $jadual = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', 'Staf')->get();
+        } elseif (Auth::user()->jenis_pengguna == 'Urus Setia ULPK') {
+            $jadual = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', 'Pekebun Kecil')->get();
         } else {
-            $jadual = JadualKursus::all();
+            $jadual = JadualKursus::with(['tempat', 'status_pelaksanaan'])->get();
         }
         return view('pengurusan_peserta.pencalonan.index', [
             'jadual' => $jadual,
@@ -101,81 +101,81 @@ class PencalonanPesertaController extends Controller
      */
     public function edit($id)
     {
-        $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
+        $data_staf = User::where('jenis_pengguna', 'Peserta ULS')->get();
+
+        $espek = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
             ->get('https://www4.risda.gov.my/fire/getallstaff/')
             ->getBody()
             ->getContents();
 
-        $data_staf = json_decode($data_staf, true);
-        $peserta_berdaftar = User::where('jenis_pengguna', 'Peserta ULS')->get();
-        $list_baru = [];
+        $espek = json_decode($espek, true);
+
         foreach ($data_staf as $a => $ds) {
 
             $hari = 0;
-            $list_baru[$a]['nokp'] = $ds['nokp'];
-            $list_baru[$a]['nama'] = $ds['nama'];
-            $list_baru[$a]['NamaPT'] = $ds['NamaPT'];
-            $list_baru[$a]['Gred'] = $ds['Gred'];
-            $list_baru[$a]['hari_berkursus'] = 0;
-            $list_baru[$a]['catatan'] = 'Belum daftar akaun';
-            foreach ($peserta_berdaftar as $b => $pb) {
-                if ($ds['nokp'] == $pb->no_KP) {
-                    // bilangan hari kursus
-                    $tahun = date('Y');
-                    $kursus = Permohonan::where('no_pekerja', $pb->id)->whereYear('created_at', $tahun)->get();
-                    
-                    foreach ($kursus as $key => $k) {
-                        $hari = $hari + ($k->jadualKursus->bilangan_hari);
-                    }
-                    $pencalonan = PencalonanPeserta::where('peserta', $pb->id)->whereYear('created_at', $tahun)->get();
-                    foreach ($pencalonan as $key => $pen) {
-                        $hari = $hari + ($pen->jadualKursus->bilangan_hari);
-                    }
-                    $list_baru[$a]['hari_berkursus'] = $hari;
 
-                    // catatan
-                    $tarikh_jadual = JadualKursus::find($id)->tarikh_mula;
-                    $tarikh_jadual_8 = date('Y-m-d', strtotime($tarikh_jadual . ' - 8 days'));
-                    $tarikh_latest_permohonan = date('d-m-Y', 0);
-                    $tarikh_latest_pencalonan = date('d-m-Y', 0);
+            // bilangan hari kursus
+            $tahun = date('Y');
+            $kursus = Permohonan::where('no_pekerja', $ds->id)->whereYear('created_at', $tahun)->get();
 
-                    $permohonan_latest = Permohonan::where('no_pekerja', $pb->id)->get();
-                    foreach ($permohonan_latest as $key => $perm) {
-                        $jadual_permohonan = JadualKursus::find($perm->kod_kursus)->tarikh_tamat;
-                        if ($jadual_permohonan > $tarikh_latest_permohonan) {
-                            $tarikh_latest_permohonan = $jadual_permohonan;
-                        }
-                    }
-                    $pencalonan_latest = PencalonanPeserta::where('peserta', $pb->id)->get();
-                    foreach ($pencalonan_latest as $key => $plate) {
-                        $jadual_pencalonan = JadualKursus::find($plate->jadual)->tarikh_tamat;
-                        if ($jadual_pencalonan > $tarikh_latest_pencalonan) {
-                            $tarikh_latest_pencalonan = $jadual_pencalonan;
-                        }
-                    }
+            foreach ($kursus as $key => $k) {
+                $hari = $hari + ($k->jadualKursus->bilangan_hari);
+            }
 
-                    if ($tarikh_latest_pencalonan > $tarikh_latest_permohonan) {
-                        $tarikh_latest = $tarikh_latest_pencalonan;
-                    } else {
-                        $tarikh_latest = $tarikh_latest_permohonan;
-                    }
+            $pencalonan = PencalonanPeserta::where('peserta', $ds->id)->whereYear('created_at', $tahun)->get();
+            foreach ($pencalonan as $key => $pen) {
+                $hari = $hari + ($pen->jadualKursus->bilangan_hari);
+            }
+            
+            $ds['hari_berkursus'] = $hari;
 
-                    if ($tarikh_latest > $tarikh_jadual) {
-                        $list_baru[$a]['catatan'] = 'Calon kursus lain';
-                    } else {
-                        if (date('Y-m-d', strtotime($tarikh_latest . ' + 8 days')) >= $tarikh_jadual) {
-                            $list_baru[$a]['catatan'] = 'Kursus yang dipohon kurang dari 8 hari selepas tarikh tamat kursus yang terkini';
-                        } else {
-                            $list_baru[$a]['catatan'] = '-';
-                        }
-                    }
+            // catatan
+            $tarikh_jadual = JadualKursus::find($id)->tarikh_mula;
+            $tarikh_jadual_8 = date('Y-m-d', strtotime($tarikh_jadual . ' - 8 days'));
+            $tarikh_latest_permohonan = date('d-m-Y', 0);
+            $tarikh_latest_pencalonan = date('d-m-Y', 0);
+
+            $permohonan_latest = Permohonan::where('no_pekerja', $ds->id)->get();
+            foreach ($permohonan_latest as $key => $perm) {
+                $jadual_permohonan = JadualKursus::find($perm->kod_kursus)->tarikh_tamat;
+                if ($jadual_permohonan > $tarikh_latest_permohonan) {
+                    $tarikh_latest_permohonan = $jadual_permohonan;
                 }
             }
-            // dd($ds);
+            $pencalonan_latest = PencalonanPeserta::where('peserta', $ds->id)->get();
+            foreach ($pencalonan_latest as $key => $plate) {
+                $jadual_pencalonan = JadualKursus::find($plate->jadual)->tarikh_tamat;
+                if ($jadual_pencalonan > $tarikh_latest_pencalonan) {
+                    $tarikh_latest_pencalonan = $jadual_pencalonan;
+                }
+            }
+
+            if ($tarikh_latest_pencalonan > $tarikh_latest_permohonan) {
+                $tarikh_latest = $tarikh_latest_pencalonan;
+            } else {
+                $tarikh_latest = $tarikh_latest_permohonan;
+            }
+
+            if ($tarikh_latest > $tarikh_jadual) {
+                $ds['catatan'] = 'Calon kursus lain';
+            } else {
+                if (date('Y-m-d', strtotime($tarikh_latest . ' + 8 days')) >= $tarikh_jadual) {
+                    $ds['catatan'] = 'Kursus yang dipohon kurang dari 8 hari selepas tarikh tamat kursus yang terkini';
+                } else {
+                    $ds['catatan'] = '-';
+                }
+            }
+
+            foreach ($espek as $k => $ep) {
+                if ($ep['nokp'] == $ds->no_KP) {
+                    $ds['NamaPT'] = $ep['NamaPT'];
+                    $ds['Gred'] = $ep['Gred'];
+                }
+            }
         }
         return view('pengurusan_peserta.pencalonan.peserta', [
-            'list_staf' => $list_baru,
-            'id'=>$id
+            'list_staf' => $data_staf,
+            'id' => $id
         ]);
         // $peserta = User::where('jenis_pengguna', 'Peserta ULS')->get();
 

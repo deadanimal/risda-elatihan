@@ -170,7 +170,7 @@ Route::middleware('auth')->group(function () {
         });
 
         //rekod kehadiran
-        Route::group(['prefix' => 'kehadiran/', 'middleware' => 'can:status permohonan'], function () {
+        Route::group(['prefix' => '/kehadiran'], function () {
             Route::get('{kehadiran}', [KehadiranController::class, 'fromUlsQR']);
             Route::post('update/{kehadiran}', [KehadiranController::class, 'storeQR']);
         });
@@ -244,7 +244,7 @@ Route::middleware('auth')->group(function () {
             Route::post('/pre-post-test/{jadual_kursus}/save', [JadualKursusController::class, 'tambah_masa_mula_tamat_pre_post_test']);
 
             //Post
-            Route::resource('/post-test', PostTestController::class)->only(['store', 'destroy']);
+            Route::resource('/post-test', PostTestController::class)->only(['store', 'destroy', 'edit', 'update']);
             Route::get('/post-test/{jadualKursus}', [PostTestController::class, 'index'])->name('post-test.index');
             Route::get('/post-test/create/{jadualKursus}', [PostTestController::class, 'create'])->name('post-test.create');
             Route::post('/post-test/{jadual_kursus}/save', [JadualKursusController::class, 'tambah_masa_mula_tamat_post_test']);
@@ -255,13 +255,17 @@ Route::middleware('auth')->group(function () {
 
         Route::group(['middleware' => 'role:Peserta ULS'], function () {
 
-            Route::resource('/jawab-post', JawabPostTestController::class);
+            // Route::resource('/jawab-post', JawabPostTestController::class);
 
             Route::resource('/penilaian-kursus', PenilaianPesertaController::class);
 
             Route::get('/jawab-pre-post-test', [PrePostTestController::class, 'jawabPrePost'])->name('jawabPrePost');
             Route::get('/mula-penilaian-pre-test/{jadual_kursus}', [PrePostTestController::class, 'mulaPenilaian']);
             Route::POST('/mula-penilaian-pre-test', [PrePostTestController::class, 'simpanPenilaian'])->name('simpanPenilaian');
+
+            Route::get('/jawab-post-test', [PostTestController::class, 'jawabPost'])->name('jawabPost');
+            Route::get('/mula-penilaian-post-test/{jadual_kursus}', [PostTestController::class, 'mulaPenilaianPost']);
+            Route::POST('/mula-penilaian-post-test', [PostTestController::class, 'simpanPenilaianPost'])->name('simpanPenilaianPost');
         });
     });
 
@@ -337,6 +341,9 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/permohonan_kursus/katalog_kursus', PermohonanController::class);
     Route::get('ulpk/permohonan/katelog-kursus', [PermohonanController::class, 'katalog_ulpk']);
+
+
+    Route::get('/janjan/{kehadiran}', [KehadiranController::class, 'janjan']);
 });
 
 require __DIR__ . '/auth.php';

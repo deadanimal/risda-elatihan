@@ -38,7 +38,7 @@
                     <div class="row">
                         <div class="col-lg-10 mb-lg-3">
                             <label class="col-form-label">NAMA</label>
-                            <input class="form-control" type="text" name="name" value="{{$pekebun['Nama_PK']}}"/>
+                            <input class="form-control" type="text" name="name" value="{{$pekebun['Nama_PK']}}" readonly/>
                         </div>
                         <div class="col-lg-10 mb-lg-3">
                             <label class="col-form-label">E-MEL</label>

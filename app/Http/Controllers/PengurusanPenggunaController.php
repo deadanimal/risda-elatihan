@@ -6,6 +6,7 @@ use App\Mail\PendaftaranEP;
 use App\Mail\PendaftaranPK;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Http;
@@ -132,7 +133,7 @@ class PengurusanPenggunaController extends Controller
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = Hash::make('RISDA2022');
+        $user->password = Hash::make('pnsb1234');
         $user->no_KP = $request->sec_nric;
 // dd($request->jenis_pengguna);
         if ($request->jenis_pengguna == 'xdrf') {
@@ -140,11 +141,27 @@ class PengurusanPenggunaController extends Controller
             $user->assignRole('Peserta ULPK');
             Mail::to($request->email)->send(new PendaftaranPK($user));
         } elseif ($request->jenis_pengguna == 'ep') {
-            $user->jenis_pengguna = 'Ejen Pelaksana';
+            
             try {
-                $user->assignRole('Ejen Pelaksana');
+                if (Auth::user()->jenis_pengguna == 'Urus Setia ULS') {
+                    $user->jenis_pengguna = 'Ejen Pelaksana ULS';
+                    $user->assignRole('Ejen Pelaksana ULS');
+                } elseif(Auth::user()->jenis_pengguna == 'Urus Setia ULPK') {
+                    $user->jenis_pengguna = 'Ejen Pelaksana ULPK';
+                    $user->assignRole('Ejen Pelaksana ULPK');
+                }else{
+                    $user->jenis_pengguna = $request->jenis_pengguna;
+                    $user->assignRole($request->jenis_pengguna);
+                }
             } catch (\Throwable $th) {
-                alert()->error('Sila tambah peranan "Ejen Pelaksana" di bahagian Kumpulan Pengguna.');
+                if (Auth::user()->jenis_pengguna == 'Urus Setia ULS') {
+                    alert()->error('Sila tambah peranan "Ejen Pelaksana ULS" di bahagian Kumpulan Pengguna.');
+                } elseif(Auth::user()->jenis_pengguna == 'Urus Setia ULPK') {
+                    alert()->error('Sila tambah peranan "Ejen Pelaksana ULPK" di bahagian Kumpulan Pengguna.');
+                }else{
+                    alert()->error('Sila tambah peranan "Ejen Pelaksana ULS" atau "Ejen Pelaksana ULPK" di bahagian Kumpulan Pengguna.');
+                }
+                
                 return back();
             }
             Mail::to($request->email)->send(new PendaftaranEP($user));

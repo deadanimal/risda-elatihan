@@ -35,6 +35,16 @@
                             <label class="col-form-label">E-MEL</label>
                             <input class="form-control" type="text" name="email" />
                         </div>
+                        @role('Admin BTM')
+                        <div class="col-lg-10 mb-lg-3">
+                            <label class="col-form-label">JENIS EJEN PELAKSANA</label>
+                            <select name="jenis_pengguna" class="form-control">
+                                <option value="" selected hidden>Sila Pilih</option>
+                                <option value="Ejen Pelaksana ULS">Ejen Pelaksana ULS</option>
+                                <option value="Ejen Pelaksana ULPK">Ejen Pelaksana ULPK</option>
+                            </select>
+                        </div>
+                        @endrole
                     </div>
 
                     <div class="col-lg-10">

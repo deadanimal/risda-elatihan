@@ -115,18 +115,18 @@
                                 <td>{{ $k->ac_sesi }}</td>
                                 <td>{{ $k->ac_masa }}</td>
                                 <td>
-                                    @if ($k->status_kehadiran['status_kehadiran'] == null)
+                                    @if (!isset($k->kehadiran['status_kehadiran']))
                                         <button class="btn btn-primary mx-0" type="button"
                                             onclick="" data-bs-toggle="modal"
                                             data-bs-target="#pengesahan-kehadiran-sebelum{{ $k->id }}">Pengesahan
                                             Kehadiran</button>
                                             {{-- passdata({{ $k->id }},'sebelum-kursus') --}}
                                     @else
-                                        {{ $k->status_kehadiran->status_kehadiran }}
+                                        {{ $k->kehadiran->status_kehadiran }}
                                     @endif
                                 </td>
                                 <td>
-                                    {{ $k->status_kehadiran['alasan_ketidakhadiran'] }}
+                                    {{ $k->kehadiran['alasan_ketidakhadiran'] }}
                                 </td>
                             </tr>
 
@@ -232,16 +232,16 @@
                                 <td>{{ $k->ac_sesi }}</td>
                                 <td>{{ $k->ac_masa }}</td>
                                 <td>
-                                    @if ($k->status_kehadiran['status_kehadiran_ke_kursus'] == null)
+                                    @if ($k->kehadiran['status_kehadiran_ke_kursus'] == null)
                                         <button class="btn btn-primary mx-0" type="button" data-bs-toggle="modal" data-bs-target="#pengesahan-kehadiran{{$k->id}}">
                                             Pengesahan Kehadiran
                                         </button>
                                     @else
-                                        {{ $k->status_kehadiran['status_kehadiran_ke_kursus'] }}
+                                        {{ $k->kehadiran['status_kehadiran_ke_kursus'] }}
                                     @endif
                                 </td>
                                 <td>
-                                    {{ $k->status_kehadiran['alasan_ketidakhadiran_ke_kursus'] ?? '' }}
+                                    {{ $k->kehadiran['alasan_ketidakhadiran_ke_kursus'] ?? '' }}
                                 </td>
                             </tr>
 
@@ -282,7 +282,7 @@
                                                                         </select>
                                                                     </div>
                                                                     <input type="hidden" name="jenis_input" value="1">
-                                                                    <input type="hidden" name="id_keh" value="{{$k->status_kehadiran['id']}}">
+                                                                    <input type="hidden" name="id_keh" value="{{$k->kehadiran['id']}}">
                                                                 </div>
                                                                 <div class="col-8 d-inline-flex mt-5" >
                                                                     <div class="col-5 d-none" id="alasan-sec-{{$k->id}}">

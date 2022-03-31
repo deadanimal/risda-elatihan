@@ -4,7 +4,7 @@
         <div class="row mt-3 mb-2">
             <div class="col-12 mb-2">
                 <p class="h1 mb-0 fw-bold" style="color: rgb(43,93,53);">PENILAIAN</p>
-                <p class="h5" style="color: rgb(43,93,53); ">PENILAIAN PRE TEST DAN POST TEST</p>
+                <p class="h5" style="color: rgb(43,93,53); ">PENILAIAN POST TEST</p>
             </div>
         </div>
         <hr style="color: rgba(81,179,90, 60%);height:2px;">
@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
-                    PENILAIAN PRE TEST
+                    PENILAIAN POST TEST
                 </p>
             </div>
         </div>
@@ -49,7 +49,7 @@
 
             <div class="row mt-5">
                 <div class="col-12 text-center">
-                    <a href="/penilaian/mula-penilaian-pre-test/{{ $permohonan->jadualKursus->id }}" class="btn btn-primary" id="btn-submit">Mula Penilaian</a>
+                    <a href="/penilaian/mula-penilaian-post-test/{{ $permohonan->jadualKursus->id }}" class="btn btn-primary">Mula Penilaian</a>
                 </div>
             </div>
 

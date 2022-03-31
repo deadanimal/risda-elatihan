@@ -111,30 +111,11 @@
                                         <td>{{ $j->kursus_nama }}</td>
                                         <td>{{ $j->tarikh_mula }}</td>
                                         <td>
-                                            {{-- {{$j->kursus_tempat}} --}}
-                                            @php
-                                                if ($j->kursus_tempat != 'Sila Pilih') {
-                                                    $kursus_tempat = Agensi::where('id', $j->kursus_tempat)->first();
-                                                    $kursus_tempat = $kursus_tempat->nama_Agensi;
-                                                } else {
-                                                    $kursus_tempat = 'Tiada Maklumat';
-                                                }
-                                            @endphp
-                                            {{ $kursus_tempat }}
+                                            {{$j->tempat->nama_Agensi}}
                                         </td>
                                         <td>{{ $j->bilangan }}</td>
                                         <td>
-                                            {{-- {{$j->kursus_status_pelaksanaan}} --}}
-                                            @php
-                                                if ($j->kursus_status_pelaksanaan != 'Sila Pilih') {
-                                                    $status_pelaksanaan = StatusPelaksanaan::where('id', $j->kursus_status_pelaksanaan)->first();
-                                                    $status_pelaksanaan = $status_pelaksanaan->Status_Pelaksanaan;
-                                                } else {
-                                                    $status_pelaksanaan = 'Tiada Maklumat';
-                                                }
-                                                
-                                            @endphp
-                                            {{ $status_pelaksanaan }}
+                                            {{$j->status_pelaksanaan->Status_Pelaksanaan}}
                                         </td>
                                         <td>
                                             <a href="/pengurusan_kursus/semak_jadual/{{ $j->id }}/edit"
@@ -208,6 +189,7 @@
                     $("#t_normal").html("");
                     let iteration = 1;
                     jadual_kursus.forEach(e => {
+                        console.log(e);
                         $("#t_normal").append(`
                           <tr>
                                         <td>` + iteration + `.</td>
@@ -215,43 +197,24 @@
                                         <td>` + e.kursus_nama + `</td>
                                         <td>` + e.tarikh_mula + `</td>
                                         <td>
-                                            {{-- {{$j->kursus_tempat}} --}}
-                                            @php
-                                            if ($j->kursus_tempat != 'Sila Pilih') {
-                                                $kursus_tempat = Agensi::where('id', $j->kursus_tempat)->first();
-                                                $kursus_tempat = $kursus_tempat->nama_Agensi;
-                                            } else {
-                                                $kursus_tempat = 'Tiada Maklumat';
-                                            }
-                                            @endphp
-                                            {{ $kursus_tempat }}
+                                            `+e.tempat.nama_Agensi+`
                                         </td>
-                                        <td>{{ $j->bilangan }}</td>
+                                        <td>`+e.bilangan+`</td>
                                         <td>
-                                            {{-- {{$j->kursus_status_pelaksanaan}} --}}
-                                            @php
-                                            if ($j->kursus_status_pelaksanaan != 'Sila Pilih') {
-                                                $status_pelaksanaan = StatusPelaksanaan::where('id', $j->kursus_status_pelaksanaan)->first();
-                                                $status_pelaksanaan = $status_pelaksanaan->Status_Pelaksanaan;
-                                            } else {
-                                                $status_pelaksanaan = 'Tiada Maklumat';
-                                            }
-                                            
-                                            @endphp
-                                            {{ $status_pelaksanaan }}
+                                            `+e.status_pelaksanaan.Status_Pelaksanaan+`
                                         </td>
                                         <td>
-                                            <a href="/pengurusan_kursus/semak_jadual/{{ $j->id }}/edit"
+                                            <a href="/pengurusan_kursus/semak_jadual/`+e.id+`/edit"
                                                 class="btn btn-sm btn-primary">
                                                 <i class="fas fa-pen"></i>
                                             </a>
                                             <button class="btn btn-sm risda-bg-dg text-white" type="button"
-                                                data-bs-toggle="modal" data-bs-target="#delete_BK_{{ $j->id }}">
+                                                data-bs-toggle="modal" data-bs-target="#delete_BK_`+e.id+`">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </td>
                             </tr>
-                                    <div class="modal fade" id="delete_BK_{{ $j->id }}" tabindex="-1"
+                                    <div class="modal fade" id="delete_BK_`+e.id+`" tabindex="-1"
                                         role="dialog" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document"
                                             style="max-width: 500px">
@@ -266,7 +229,7 @@
                                                         <div class="col text-center m-3">
                                                             <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
                                                             <br>
-                                                            Anda pasti untuk menghapus {{ $j->kursus_nama }}?
+                                                            Anda pasti untuk menghapus `+e.kursus_nama+`?
 
                                                         </div>
                                                     </div>
@@ -274,7 +237,7 @@
                                                         <button class="btn btn-secondary" type="button"
                                                             data-bs-dismiss="modal">Batal</button>
                                                         <form method="POST"
-                                                            action="/pengurusan_kursus/semak_jadual/{{ $j->id }}">
+                                                            action="/pengurusan_kursus/semak_jadual/`+e.id+`">
                                                             @method('DELETE')
                                                             @csrf
                                                             <button class="btn btn-primary" type="submit">Hapus

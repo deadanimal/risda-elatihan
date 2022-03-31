@@ -90,8 +90,8 @@
                                         </div>
                                         <div class="mb-3">
                                             <label class="col-form-label">KOD MUKIM</label>
-                                            <input class="form-control" type="number" name="Mukim_Rkod"
-                                                value="{{ $bil }}" readonly />
+                                            <input class="form-control" type="text" name="Mukim_Rkod"
+                                                value="" />
                                         </div>
                                         <div class="mb-3">
                                             <label class="col-form-label">MUKIM</label>
@@ -207,7 +207,7 @@
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label class="col-form-label">KOD MUKIM</label>
-                                                                <input class="form-control" type="number"
+                                                                <input class="form-control" type="text"
                                                                     name="Mukim_Rkod" value="{{ $m->Mukim_Rkod }}"
                                                                     readonly />
                                                             </div>

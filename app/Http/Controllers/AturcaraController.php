@@ -41,23 +41,20 @@ class AturcaraController extends Controller
      */
     public function store(StoreAturcaraRequest $request)
     {
-        for ($i=0; $i < $request->bil_sesi; $i++) { 
-            $check = Aturcara::where('ac_jadual_kursus', $request->ac_jadual_kursus)
-            ->where('ac_hari', $request->hari)
-            ->where('ac_sesi', $request->ac_sesi[$i])->first();
-            if ($check != null) {
-                $check->delete();
-            }
+        // dd($request->all());
+
+        foreach ($request->hari as $h => $hari) {
             $aturcara = new Aturcara;
-            $aturcara->ac_jadual_kursus = $request->ac_jadual_kursus;
-            $aturcara->ac_hari = $request->hari;
-            $aturcara->ac_sesi = $request->ac_sesi[$i];
-            $aturcara->ac_masa = $request->ac_masa[$i];
-            $aturcara->ac_aturcara = $request->ac_aturcara[$i];
+            $aturcara->ac_jadual_kursus = $request->ac_jadual_kursus[$h];
+            $aturcara->ac_hari = $request->hari[$h];
+            $aturcara->ac_sesi = $request->ac_sesi[$h];
+            $aturcara->ac_masa = $request->ac_masa[$h];
+            $aturcara->ac_aturcara = $request->ac_aturcara[$h];
             $aturcara->save();
         }
-        alert()->success('Maklumat hari '.$request->hari.' telah disimpan.', 'Berjaya');
-        return redirect('/pengurusan_kursus/aturcara/'.$request->ac_jadual_kursus);
+
+        alert()->success('Maklumat telah disimpan.', 'Berjaya');
+        return redirect('/pengurusan_kursus/aturcara/' . $request->ac_jadual_kursus[0]);
     }
 
     /**
@@ -66,20 +63,21 @@ class AturcaraController extends Controller
      * @param  \App\Models\Aturcara  $aturcara
      * @return \Illuminate\Http\Response
      */
-    public function show( $id)
+    public function show($id)
     {
         $total_hari = JadualKursus::where('id', $id)->sum('bilangan_hari');
         $aturcara = Aturcara::where('ac_jadual_kursus', $id)->orderBy('ac_hari', 'ASC')->get()->groupBy('ac_hari');
         if ($aturcara->isEmpty()) {
             $aturcara = null;
         }
+
+        $list_aturcara = Aturcara::where('ac_jadual_kursus', $id)->orderBy('ac_hari', 'ASC')->get();
         
-        $list_aturcara =Aturcara::where('ac_jadual_kursus', $id)->orderBy('ac_hari', 'ASC')->get();
-        return view('pengurusan_kursus.semak_jadual.aturcara',[
-            'total_hari'=>$total_hari,
-            'id'=>$id,
-            'aturcara'=>$aturcara,
-            'list_aturcara'=>$list_aturcara
+        return view('pengurusan_kursus.semak_jadual.aturcara', [
+            'total_hari' => $total_hari,
+            'id' => $id,
+            'aturcara' => $aturcara,
+            'list_aturcara' => $list_aturcara
         ]);
     }
 
@@ -103,7 +101,12 @@ class AturcaraController extends Controller
      */
     public function update(UpdateAturcaraRequest $request, Aturcara $aturcara)
     {
-        //
+        $aturcara->ac_masa = $request->ac_masa;
+        $aturcara->ac_aturcara = $request->ac_aturcara;
+
+        $aturcara->save();
+        alert()->success('Maklumat telah dikemaskini.', 'Berjaya');
+        return redirect('/pengurusan_kursus/aturcara/'.$aturcara->ac_jadual_kursus);
     }
 
     /**

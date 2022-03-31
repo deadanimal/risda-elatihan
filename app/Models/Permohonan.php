@@ -9,14 +9,14 @@ class Permohonan extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    // protected $with = ['kodkursus','peserta','jadualKursus', 'kehadiran'];
+    // protected $with = ['jadual'];
 
     public function kodkursus()
     {
         return $this->belongsTo(KodKursus::class, 'kod_Kursus', 'kod_kursus');
     }
 
-    public function jadualKursus()
+    public function jadual()
     {
         return $this->belongsTo(JadualKursus::class, 'kod_kursus', 'id');
     }

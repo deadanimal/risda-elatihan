@@ -81,8 +81,20 @@
                                                 <td>{{ $p->peserta->no_KP }}</td>
                                                 <td>{{ $p->peserta->name }}</td>
                                                 <td>{{ $p->pusat_tanggungjawab }}</td>
-                                                <td>{{ $p->jadualKursus->kursus_kod_nama_kursus }}</td>
-                                                <td>{{ $p->jadualKursus->kursus_nama }}</td>
+                                                <td>
+                                                    @if ($p->jadual == null)
+                                                        <span class="text-danger">Jadual telah dihapuskan</span>
+                                                    @else
+                                                        {{ $p->jadual->kursus_kod_nama_kursus }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($p->jadual == null)
+                                                        <span class="text-danger">Jadual telah dihapuskan</span>
+                                                    @else
+                                                        {{ $p->jadual->kursus_nama }}
+                                                    @endif
+                                                </td>
                                                 <td>
                                                     @if ($p->status_permohonan == 0)
                                                         Belum Disemak
@@ -115,8 +127,21 @@
                                             <td>{{ $s->peserta->name }}</td>
                                             <td>{{ $s->pusat_tanggungjawab }}</td>
                                             <td>{{ $s->gred }}</td>
-                                            <td>{{ $s->jadualKursus->kursus_kod_nama_kursus }}</td>
-                                            <td>{{ $s->jadualKursus->kursus_nama }}</td>
+                                            <td>
+                                                @if ($s->jadual == null)
+                                                    <span class="text-danger">Jadual telah dihapuskan</span>
+                                                @else
+                                                    {{ $s->jadual->kursus_kod_nama_kursus }}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($s->jadual == null)
+                                                    <span class="text-danger">Jadual telah dihapuskan</span>
+                                                @else
+                                                    {{ $s->jadual->kursus_nama }}
+                                                @endif
+
+                                            </td>
                                             <td>
                                                 @if ($s->status_permohonan == 0)
                                                     Belum Disemak
@@ -152,8 +177,20 @@
                                             <td>{{ $pk->peserta->no_KP }}</td>
                                             <td>{{ $pk->peserta->name }}</td>
                                             <td>{{ $pk->pusat_tanggungjawab }}</td>
-                                            <td>{{ $pk->jadualKursus->kursus_kod_nama_kursus }}</td>
-                                            <td>{{ $pk->jadualKursus->kursus_nama }}</td>
+                                            <td>
+                                                @if ($pk->jadual == null)
+                                                    <span class="text-danger">Jadual telah dihapuskan</span>
+                                                @else
+                                                    {{ $pk->jadual->kursus_kod_nama_kursus }}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($pk->jadual == null)
+                                                    <span class="text-danger">Jadual telah dihapuskan</span>
+                                                @else
+                                                    {{ $pk->jadual->kursus_nama }}
+                                                @endif
+                                            </td>
                                             <td>
                                                 @if ($pk->status_permohonan == 0)
                                                     Belum Disemak
@@ -188,8 +225,20 @@
                                             <td>{{ $p->peserta->no_KP }}</td>
                                             <td>{{ $p->peserta->name }}</td>
                                             <td>{{ $p->pusat_tanggungjawab }}</td>
-                                            <td>{{ $p->jadualKursus->kursus_kod_nama_kursus }}</td>
-                                            <td>{{ $p->jadualKursus->kursus_nama }}</td>
+                                            <td>
+                                                @if ($p->jadual == null)
+                                                    <span class="text-danger">Jadual telah dihapuskan</span>
+                                                @else
+                                                    {{ $p->jadual->kursus_kod_nama_kursus }}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($p->jadual == null)
+                                                    <span class="text-danger">Jadual telah dihapuskan</span>
+                                                @else
+                                                    {{ $p->jadual->kursus_nama }}
+                                                @endif
+                                            </td>
                                             <td>
                                                 @if ($p->status_permohonan == 0)
                                                     Belum Disemak
@@ -282,7 +331,7 @@
             let list_pemohon = @json($pemohon->toArray());
             var i = 0;
             let test = '';
-            
+
             console.log('test');
             list_pemohon.forEach(a => {
                 let b = a.jadual_kursus.kursus_unit_latihan;
@@ -290,20 +339,15 @@
                 if (b == unit) {
                     if (a.status_permohonan == 0) {
                         test = 'Belum Disemak'
-                    }
-                    else if(a.status_permohonan == 1) {
+                    } else if (a.status_permohonan == 1) {
                         test = 'Belum Disemak (Sokongan)'
-                    }
-                    else if(a.status_permohonan == 2) {
+                    } else if (a.status_permohonan == 2) {
                         test = 'Disokong'
-                    }
-                    else if(a.status_permohonan == 3) {
+                    } else if (a.status_permohonan == 3) {
                         test = 'Tidak Disokong'
-                    }
-                    else if(a.status_permohonan == 4) {
+                    } else if (a.status_permohonan == 4) {
                         test = 'Lulus'
-                    }
-                    else if(a.status_permohonan == 5) {
+                    } else if (a.status_permohonan == 5) {
                         test = 'Tidak Lulus'
                     }
 
@@ -332,7 +376,7 @@
             });
         });
 
-        $('#tempat').change(function () {
+        $('#tempat').change(function() {
             $('#t_normal').hide();
             $('#table_sort_ul').hide();
             $('#table_sort_tempat').show();
@@ -342,7 +386,7 @@
             let list_pemohon = @json($pemohon->toArray());
             var i = 0;
             let test = '';
-            
+
             console.log(unit);
             list_pemohon.forEach(a => {
                 let b = a.jadual_kursus.kursus_tempat;
@@ -350,20 +394,15 @@
                 if (b == unit) {
                     if (a.status_permohonan == 0) {
                         test = 'Belum Disemak'
-                    }
-                    else if(a.status_permohonan == 1) {
+                    } else if (a.status_permohonan == 1) {
                         test = 'Belum Disemak (Sokongan)'
-                    }
-                    else if(a.status_permohonan == 2) {
+                    } else if (a.status_permohonan == 2) {
                         test = 'Disokong'
-                    }
-                    else if(a.status_permohonan == 3) {
+                    } else if (a.status_permohonan == 3) {
                         test = 'Tidak Disokong'
-                    }
-                    else if(a.status_permohonan == 4) {
+                    } else if (a.status_permohonan == 4) {
                         test = 'Lulus'
-                    }
-                    else if(a.status_permohonan == 5) {
+                    } else if (a.status_permohonan == 5) {
                         test = 'Tidak Lulus'
                     }
 

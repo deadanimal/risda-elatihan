@@ -27,7 +27,7 @@ class SemakPermohonanController extends Controller
      */
     public function index()
     {
-        $pemohon = Permohonan::with(['jadualKursus', 'peserta'])->get();
+        $pemohon = Permohonan::with(['jadual', 'peserta'])->get();
         $staf = [];
         $pekebun_kecil = [];
 
