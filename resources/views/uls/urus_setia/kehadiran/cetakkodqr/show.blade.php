@@ -87,7 +87,7 @@
         <div class="row mt-5">
             <div class="col">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="table-responsive scrollbar p-5">
                         <table class="table table-bordered text-center" style="width:100%">
                             <thead>
                                 <tr>
