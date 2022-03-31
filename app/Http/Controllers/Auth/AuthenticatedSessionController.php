@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,13 +28,28 @@ class AuthenticatedSessionController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(LoginRequest $request)
+
     {
+        $email = $request->email;
+        $kp = $request->no_KP;
+        $password=$request->password;
+
+        $user = User::where('email',$email)->orWhere('no_KP',$kp)->first();
+        // dd($user->id);
+
+        if($user->status_akaun==null){
+            alert()->error('Akaun Anda Tidak Aktif','Gagal');
+            return redirect()->back();
+
+        }
+
         $request->authenticate();
 
         $request->session()->regenerate();
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }
+
 
     /**
      * Destroy an authenticated session.
