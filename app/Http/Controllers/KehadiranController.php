@@ -38,7 +38,7 @@ class KehadiranController extends Controller
         }
 
         $kod_kursuss = JadualKursus::where('id', $kod_kursus)->firstorFail();
-        $kehadiran = Aturcara::with('jadual')->where('ac_jadual_kursus', $kod_kursus)
+        $kehadiran = Aturcara::with(['jadual', 'kehadiran'])->where('ac_jadual_kursus', $kod_kursus)
             ->orderBy('ac_hari', 'ASC')
             ->orderBy('ac_sesi', 'ASC')
             ->get();
@@ -46,7 +46,7 @@ class KehadiranController extends Controller
         $hari = ['Pertama', 'Kedua', 'Ketiga', 'Keempat', 'Kelima', 'Keenam'];
 
         $date = displayDates($kod_kursuss->tarikh_mula, $kod_kursuss->tarikh_tamat);
-        dd($kehadiran);
+        // dd($kehadiran);
         return view('uls.peserta.permohonan.kehadiran', [
             'kod_kursus' => $kod_kursuss,
             'kehadiran' => $kehadiran,
