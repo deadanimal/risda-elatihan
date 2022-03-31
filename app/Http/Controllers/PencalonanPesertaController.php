@@ -71,21 +71,26 @@ class PencalonanPesertaController extends Controller
     {
         $jadual = JadualKursus::find($id);
         $peserta_daftar = PencalonanPeserta::where('jadual', $id)->get();
+// dd($peserta_daftar->isNotEmpty());
+        $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
+            ->get('https://www4.risda.gov.my/fire/getallstaff/')
+            ->getBody()
+            ->getContents();
 
-        foreach ($peserta_daftar as $key => $p) {
-            $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
-                ->get('https://www4.risda.gov.my/fire/getallstaff/')
-                ->getBody()
-                ->getContents();
+        $data_staf = json_decode($data_staf, true);
 
-            $data_staf = json_decode($data_staf, true);
-            foreach ($data_staf as $key => $staf) {
-                if ($p->maklumat_peserta->no_KP == $staf['nokp']) {
-                    $p['pusat_tanggungjawab'] = $staf['NamaPT'];
-                    $p['gred'] = $staf['Gred'];
+        if ($peserta_daftar->isNotEmpty()) {
+            foreach ($peserta_daftar as $key => $p) {
+                foreach ($data_staf as $a => $staf) {
+                    if ($p->maklumat_peserta->no_KP == $staf['nokp']) {
+                        $p['pusat_tanggungjawab'] = $staf['NamaPT'];
+                        $p['gred'] = $staf['Gred'];
+                    }
                 }
             }
         }
+        
+        
         // dd($peserta_daftar->first()->maklumat_peserta);
         return view('pengurusan_peserta.pencalonan.show', [
             'peserta_daftar' => $peserta_daftar,
@@ -126,7 +131,7 @@ class PencalonanPesertaController extends Controller
             foreach ($pencalonan as $key => $pen) {
                 $hari = $hari + ($pen->jadual->bilangan_hari);
             }
-            
+
             $ds['hari_berkursus'] = $hari;
 
             // catatan
