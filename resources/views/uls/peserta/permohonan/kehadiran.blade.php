@@ -115,7 +115,7 @@
                                 <td>{{ $k->ac_sesi }}</td>
                                 <td>{{ $k->ac_masa }}</td>
                                 <td>
-                                    @if ($k->kehadiran['status_kehadiran'] == null)
+                                    @if (!isset($k->kehadiran['status_kehadiran']))
                                         <button class="btn btn-primary mx-0" type="button"
                                             onclick="" data-bs-toggle="modal"
                                             data-bs-target="#pengesahan-kehadiran-sebelum{{ $k->id }}">Pengesahan
