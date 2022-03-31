@@ -169,7 +169,7 @@ class PostTestController extends Controller
 
     public function jawabPost()
     {
-        $permohonan = Permohonan::with('jadualKursus')->where('no_pekerja', auth()->user()->id)
+        $permohonan = Permohonan::with('jadual')->where('no_pekerja', auth()->user()->id)
             ->where('status_permohonan', 4)
             ->where('dinilai_post', null)->get()->first();
         // dd($permohonan);

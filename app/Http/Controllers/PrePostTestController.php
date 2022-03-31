@@ -41,7 +41,7 @@ class PrePostTestController extends Controller
 
     public function jawabPrePost()
     {
-        $permohonan = Permohonan::with('jadualKursus')->where('no_pekerja', auth()->user()->id)
+        $permohonan = Permohonan::with('jadual')->where('no_pekerja', auth()->user()->id)
             ->where('status_permohonan', 4)
             ->where('dinilai_pre', null)->get()->first();
         // dd($permohonan);

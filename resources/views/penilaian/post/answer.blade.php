@@ -25,7 +25,7 @@
                     </div>
                     <div class="col-8">
                         <input class="form-control" type="text"
-                            value="{{ $permohonan->jadualKursus->kursus_kod_nama_kursus }}" readonly />
+                            value="{{ $permohonan->jadual->kursus_kod_nama_kursus }}" readonly />
                     </div>
                 </div>
                 <div class="row mt-3">
@@ -34,7 +34,7 @@
                     </div>
                     <div class="col-8">
                         <input type="text" class="form-control"
-                            value="{{ $permohonan->jadualKursus->kursus_nama }}" readonly>
+                            value="{{ $permohonan->jadual->kursus_nama }}" readonly>
                     </div>
                 </div>
                 <div class=" row mt-3">
@@ -42,14 +42,14 @@
                         <h6 class="risda-dg fw-bold">TARIKH KURSUS</h6>
                     </div>
                     <div class="col-8">
-                        <input type="text" class="form-control" value="{{ date('d-m-Y', strtotime($permohonan->jadualKursus->tarikh_mula)) }} hingga {{ date('d-m-Y', strtotime($permohonan->jadualKursus->tarikh_tamat)) }}" readonly>
+                        <input type="text" class="form-control" value="{{ date('d-m-Y', strtotime($permohonan->jadual->tarikh_mula)) }} hingga {{ date('d-m-Y', strtotime($permohonan->jadual->tarikh_tamat)) }}" readonly>
                     </div>
                 </div>
             </div>
 
             <div class="row mt-5">
                 <div class="col-12 text-center">
-                    <a href="/penilaian/mula-penilaian-post-test/{{ $permohonan->jadualKursus->id }}" class="btn btn-primary">Mula Penilaian</a>
+                    <a href="/penilaian/mula-penilaian-post-test/{{ $permohonan->jadual->id }}" class="btn btn-primary">Mula Penilaian</a>
                 </div>
             </div>
 
