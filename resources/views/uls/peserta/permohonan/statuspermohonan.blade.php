@@ -109,10 +109,10 @@
                                                                 @if (Auth::id() == $p->no_pekerja)
                                                                     <tr style="text-center">
                                                                         <td>{{ $loop->iteration }}.</td>
-                                                                        <td>{{ $p->jadual->kursus_kod_nama_kursus }}
+                                                                        <td>-
                                                                         </td>
-                                                                        <td>{{ $p->jadual->kursus_nama }}</td>
-                                                                        <td>{{ date('d/m/Y', strtotime($p->jadual->tarikh_mula)) }}
+                                                                        <td>-</td>
+                                                                        <td>-
                                                                         </td>
                                                                         <td>
                                                                             @if ($p->status_permohonan == 0)
