@@ -248,10 +248,10 @@
                                 <td>{{ $k->ac_masa }}</td>
                                 @if ($k->kehadiran == null)
                                     <td>
-                                            <button class="btn btn-primary mx-0" type="button" data-bs-toggle="modal"
-                                                data-bs-target="#pengesahan-kehadiran{{ $k->id }}">
-                                                Pengesahan Kehadiran
-                                            </button>
+                                        <button class="btn btn-primary mx-0" type="button" data-bs-toggle="modal"
+                                            data-bs-target="#pengesahan-kehadiran{{ $k->id }}">
+                                            Pengesahan Kehadiran
+                                        </button>
                                     </td>
                                     <td>
                                         {{ $k->kehadiran['alasan_ketidakhadiran_ke_kursus'] ?? '' }}
@@ -299,8 +299,7 @@
                                                             <div class="row justify-content-center my-5">
                                                                 <div class="col-8 d-inline-flex">
                                                                     <div class="col-5">
-                                                                        <p class="h5 mt-1">Status
-                                                                            Kehadiran</p>
+                                                                        <p class="h5 mt-1">Status Kehadiran</p>
                                                                     </div>
                                                                     <div class="col-7">
                                                                         <select class="form-control"
@@ -315,8 +314,13 @@
                                                                         </select>
                                                                     </div>
                                                                     <input type="hidden" name="jenis_input" value="1">
-                                                                    <input type="hidden" name="id_keh"
-                                                                        value="{{ $k->kehadiran['id'] }}">
+                                                                    @if ($k->kehadiran == null)
+                                                                        <input type="hidden" name="id_keh" value="">
+                                                                    @else
+                                                                        <input type="hidden" name="id_keh"
+                                                                            value="{{ $k->kehadiran['id'] }}">
+                                                                    @endif
+
                                                                 </div>
                                                                 <div class="col-8 d-inline-flex mt-5">
                                                                     <div class="col-5 d-none"
