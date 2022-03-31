@@ -79,19 +79,19 @@ class PencalonanPesertaController extends Controller
 
         $data_staf = json_decode($data_staf, true);
 
-        if ($peserta_daftar->isNotEmpty()) {
-            foreach ($peserta_daftar as $key => $p) {
-                foreach ($data_staf as $a => $staf) {
-                    if ($p->maklumat_peserta != null) {
-                        if ($p->maklumat_peserta->no_KP == $staf['nokp']) {
-                            $p['pusat_tanggungjawab'] = $staf['NamaPT'];
-                            $p['gred'] = $staf['Gred'];
-                        }
-                    }
+        // if ($peserta_daftar->isNotEmpty()) {
+        //     foreach ($peserta_daftar as $key => $p) {
+        //         foreach ($data_staf as $a => $staf) {
+        //             if ($p->maklumat_peserta != null) {
+        //                 if ($p->maklumat_peserta->no_KP == $staf['nokp']) {
+        //                     $p['pusat_tanggungjawab'] = $staf['NamaPT'];
+        //                     $p['gred'] = $staf['Gred'];
+        //                 }
+        //             }
                     
-                }
-            }
-        }
+        //         }
+        //     }
+        // }
         
         
         // dd($peserta_daftar->first()->maklumat_peserta);
