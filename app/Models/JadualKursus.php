@@ -57,6 +57,6 @@ class JadualKursus extends Model
     }
 
     public function agensi() {
-        return $this->belongsTo(Agensi::class,'id', 'kod_agensi');
+        return $this->belongsTo(Agensi::class,'kod_agensi', 'id');
     }
 }
