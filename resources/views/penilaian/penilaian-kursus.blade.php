@@ -32,8 +32,8 @@
                     <p class="pt-2 fw-bold">NAMA KURSUS</p>
                 </div>
                 <div class="col-7">
-                    <input class="form-control" type="text"
-                        value="{{ $permohonan->jadual->kursus_nama ?? 'Tiada' }}" readonly />
+                    <input class="form-control" type="text" value="{{ $permohonan->jadual->kursus_nama ?? 'Tiada' }}"
+                        readonly />
                 </div>
             </div>
             <div class="col-9 d-inline-flex">
@@ -41,9 +41,13 @@
                     <p class="pt-2 fw-bold">TARIKH KURSUS</p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control mb-3"
-                        value="{{ date('d-m-Y', strtotime($permohonan->jadual->tarikh_mula)) ?? 'Tiada'}} hingga {{ date('d-m-Y', strtotime($permohonan->jadual->tarikh_tamat)) ?? 'Tiada'}}"
-                        readonly />
+                    @if ($permohonan->jadual->kursus_kod_nama_kursus != null)
+                        <input type="text" class="form-control mb-3"
+                            value="{{ date('d-m-Y', strtotime($permohonan->jadual->tarikh_mula)) }} hingga {{ date('d-m-Y', strtotime($permohonan->jadual->tarikh_tamat)) }}"
+                            readonly />
+                    @else
+                        <input type="text" class="form-control mb-3" value="Tiada" readonly />
+                    @endif
                 </div>
             </div>
         </div>
