@@ -137,19 +137,29 @@ class KehadiranController extends Controller
 
     public function storeQR(Request $request, $id)
     {
+        $check = Kehadiran::where('jadual_kursus_id', $request->jadual_kursus_id)->where('jadual_kursus_ref', $id)->where('no_pekerja', $request->nama_peserta)->first();
+        if ($check != null) {
+            if ($check->tarikh_imbasQR != null) {
+                alert()->error('PESERTA TELAH MENGEMASKINI KEHADIRAN. ANDA TIDAK DIBENARKAN MENGEMASKINI KEHADIRAN LEBIH DARI SATU KALI', 'GAGAL');
+                return back();
+            }
+        }
+
         $kehadiran = Kehadiran::where('kod_kursus', $request->jadual_kursus)->where('jadual_kursus_ref', $id)->first();
-// dd($kehadiran);
+        // dd($kehadiran);
         if ($kehadiran == null) {
             $kehadiran = new Kehadiran;
         }
 
+        if ($request->status == "PENGGANTI") {
+            $kehadiran->no_pekerja = $request->nama_diganti;
+            $kehadiran->nama_pengganti = $request->nama_peserta;
+        }else{
+            $kehadiran->no_pekerja = $request->nama_peserta;
+        }
         $kehadiran->kod_kursus = $request->jadual_kursus;
-        $kehadiran->no_pekerja = $request->nama_peserta;
         $kehadiran->tarikh_imbasQR = now()->toDateString();
         $kehadiran->masa_imbasQR = now()->toTimeString();
-        if ($request->status == "PENGGANTI") {
-            $kehadiran->nama_pengganti = $request->nama_pengganti;
-        }
         $kehadiran->tarikh = $request->tarikh_kehadiran;
         $kehadiran->sesi = $request->sesi;
         $kehadiran->jadual_kursus_id = $request->jadual_kursus_id;
@@ -227,6 +237,7 @@ class KehadiranController extends Controller
     // Kehadiran
     public function admin_rekod_kehadiran_peserta_UsUls(JadualKursus $jadual_kursus)
     {
+        // $list_peserta = Kehadiran sambung
         $kehadiran = Kehadiran::all();
 
         $pesertaUls = User::where('jenis_pengguna', 'Peserta ULS')->get();

@@ -35,6 +35,10 @@ class AuthenticatedSessionController extends Controller
         $password=$request->password;
 
         $user = User::where('email',$email)->orWhere('no_KP',$kp)->first();
+        if ($user == null) {
+            alert()->error('No . Kad Pengenalan atau emel yang dimasukkan tiada dalam pangkalan data RISDA e-Latihan');
+            return back();
+        }
         // dd($user->id);
 
         if($user->status_akaun==null){
