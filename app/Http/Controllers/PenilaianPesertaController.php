@@ -24,7 +24,7 @@ class PenilaianPesertaController extends Controller
         $permohonan = Permohonan::with('jadual')->where('no_pekerja', auth()->user()->id)
             ->where('status_permohonan', 4)
             ->where('dinilai', null)->get()->first();
-        // dd($permohonan);
+        dd($permohonan);
         return view('penilaian.penilaian-kursus', [
             'permohonan' => $permohonan,
         ]);
