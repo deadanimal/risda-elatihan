@@ -289,6 +289,8 @@
             var sesi = $("#select-sesi").val();
             var iteration = 1;
 
+            console.log(aturcara);
+
             aturcara.forEach(e => {
                 if (e.ac_hari == this.value && e.ac_sesi == sesi && e.kehadiran !== null) {
                     $("#table-body").append(`

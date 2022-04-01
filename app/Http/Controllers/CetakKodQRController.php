@@ -19,7 +19,7 @@ class CetakKodQRController extends Controller
      */
     public function index()
     {
-        $kod_kursus = JadualKursus::all();
+        $kod_kursus = JadualKursus::with('tempat')->get();
 
         if (Route::getCurrentRoute()->getPrefix() == "us-uls/kehadiran") {
             return view('uls.urus_setia.kehadiran.cetakkodqr.index', ['kod_kursus' => $kod_kursus]);

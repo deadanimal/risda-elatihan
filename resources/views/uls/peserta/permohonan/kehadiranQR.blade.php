@@ -72,13 +72,9 @@
                         <p class="pt-2 fw-bold">NAMA PESERTA</p>
                     </div>
                     <div class="col-7">
-                        {{-- <input type="text" name="nama_peserta" class="form-control mb-3" value=""> --}}
-                        <select name="nama_peserta" class="form-control" id="nama_peserta">
-                            <option value="" selected hidden>Sila Pilih</option>
-                            @foreach ($permohonan as $pemohon)
-                                <option value="{{$pemohon->peserta->id}}">{{$pemohon->peserta->name}}</option>
-                            @endforeach
-                        </select>
+                        <input type="text" name="nama" class="form-control mb-3" value="{{Auth::user()->name}}" readonly>
+                        <input type="hidden" name="nama_peserta" value="{{Auth::id()}}">
+                        
                     </div>
                 </div>
                 <div class="col-9 d-inline-flex">
@@ -86,7 +82,7 @@
                         <p class="pt-2 fw-bold">NO. KAD PENGENALAN</p>
                     </div>
                     <div class="col-7">
-                        <input type="text" readonly name="no_kp_peserta" class="form-control mb-3" id="ic_numb">
+                        <input type="text" readonly name="no_kp_peserta" class="form-control mb-3" id="ic_numb" value="{{Auth::user()->no_KP}}">
                     </div>
                 </div>
                 <div class="col-9 d-inline-flex">
@@ -103,13 +99,13 @@
                 </div>
                 <div class="col-9 d-inline-flex">
                     <div class="col-5 kehadiranQR-input-namacalon">
-                        <p class="pt-2 fw-bold">NAMA PENGGANTI</p>
+                        <p class="pt-2 fw-bold">NAMA PESERTA ASAL</p>
                     </div>
                     <div class="col-7 kehadiranQR-input-namacalon">
-                        <select class="form-control mb-3" name="nama_pengganti">
-                            <option selected value="" hidden>Sila Pilih</option>
-                            @foreach ($calonAsal as $ca)
-                                <option value="{{ $ca->id }}">{{ $ca->name }}</option>
+                        <select class="form-control mb-3" name="nama_diganti">
+                            <option value="" selected hidden>Sila Pilih</option>
+                            @foreach ($permohonan as $pemohon)
+                                <option value="{{$pemohon->peserta->id}}">{{$pemohon->peserta->name}}</option>
                             @endforeach
                         </select>
                     </div>
