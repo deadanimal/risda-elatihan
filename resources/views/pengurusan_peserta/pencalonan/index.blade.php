@@ -71,7 +71,7 @@
                                 <td>{{ $key + 1 }}.</td>
                                 <td>{{ $p->kursus_kod_nama_kursus }}</td>
                                 <td>{{ $p->kursus_nama }}</td>
-                                <td>{{ $p->tarikh_mula }}</td>
+                                <td>{{ date('d/m/Y', strtotime($p->tarikh_mula)) }} - {{ date('d/m/Y', strtotime($p->tarikh_tamat)) }}</td>
                                 <td>{{ $p->tempat->nama_Agensi }}</td>
                                 <td>{{ $p->status_pelaksanaan->Status_Pelaksanaan }}</td>
                                 <td>
