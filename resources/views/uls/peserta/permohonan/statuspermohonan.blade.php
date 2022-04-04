@@ -300,7 +300,7 @@
                     <div class="tab-pane fade" id="pill-tab-profile" role="tabpanel" aria-labelledby="profile-tab">
                         <div class="row">
                             <div class="col-12">
-                                <p class="h3 mt-3">Senarai Permohonan</p>
+                                <p class="h3 mt-3">Sejarah Permohonan</p>
                             </div>
                             <div class="col-12">
                                 <div class="card">

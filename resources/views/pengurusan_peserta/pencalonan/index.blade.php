@@ -59,7 +59,8 @@
                             <th scope="col">Bil.</th>
                             <th scope="col">KOD NAMA KURSUS</th>
                             <th scope="col">NAMA KURSUS</th>
-                            <th scope="col">TARIKH KURSUS</th>
+                            <th scope="col">TARIKH MULA KURSUS</th>
+                            <th scope="col">TARIKH AKHIR KURSUS</th>
                             <th scope="col">TEMPAT KURSUS</th>
                             <th scope="col">STATUS PELAKSANAAN</th>
                             <th scope="col">TINDAKAN</th>
@@ -71,7 +72,8 @@
                                 <td>{{ $key + 1 }}.</td>
                                 <td>{{ $p->kursus_kod_nama_kursus }}</td>
                                 <td>{{ $p->kursus_nama }}</td>
-                                <td>{{ $p->tarikh_mula }}</td>
+                                <td>{{date('d-m-Y', strtotime($p->tarikh_mula ))}}</td>
+                                <td>{{date('d-m-Y', strtotime($p->tarikh_tamat ))}}</td>
                                 <td>{{ $p->tempat->nama_Agensi }}</td>
                                 <td>{{ $p->status_pelaksanaan->Status_Pelaksanaan }}</td>
                                 <td>
@@ -91,7 +93,7 @@
     <script>
         $('#unit_latihan').change(function {
             var pilih = $('#UL_choice').value();
-            
+
         })
     </script>
 @endsection
