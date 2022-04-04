@@ -11,6 +11,7 @@ use App\Models\KodKursus;
 use App\Models\Permohonan;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class KehadiranController extends Controller
 {
@@ -235,9 +236,19 @@ class KehadiranController extends Controller
 
     // Urus Setia Uls
     // Kehadiran
-    public function admin_rekod_kehadiran_peserta_UsUls(JadualKursus $jadual_kursus)
+    public function admin_rekod_kehadiran_peserta_UsUls($jadual_kursus)
     {
-        // $list_peserta = Kehadiran sambung
+        $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
+            ->get('https://www4.risda.gov.my/fire/getallstaff/')
+            ->getBody()
+            ->getContents();
+
+        $data_staf = json_decode($data_staf, true);
+
+        $jadual = JadualKursus::find($jadual_kursus);
+
+        $list_peserta = Kehadiran::with(['aturcara', 'staff'])->where('jadual_kursus_id', $jadual_kursus)->get();
+
         $kehadiran = Kehadiran::all();
 
         $pesertaUls = User::where('jenis_pengguna', 'Peserta ULS')->get();
@@ -245,7 +256,7 @@ class KehadiranController extends Controller
         $hari = ['Pertama', 'Kedua', 'Ketiga', 'Keempat', 'Kelima', 'Keenam', 'Ketujuh', 'Kelapan', 'Kesembilan', 'Kesepuluh'];
 
         $temp = 0;
-        foreach ($jadual_kursus->aturcara as $h) {
+        foreach ($jadual->aturcara as $h) {
             if ($temp != $h->ac_hari) {
                 $h['hari'] = $hari[$h->ac_hari - 1];
             }
@@ -253,10 +264,11 @@ class KehadiranController extends Controller
         }
 
         return view('uls.urus_setia.kehadiran.kehadiran-ke-kursus.rekod-kehadiran-peserta', [
-            'jadualkursus' => $jadual_kursus,
-            'aturcara' => $jadual_kursus->aturcara,
+            'jadualkursus' => $jadual,
+            'aturcara' => $jadual->aturcara,
             'kehadiran' => $kehadiran,
             'pesertaUls' => $pesertaUls,
+            'list'=>$list_peserta
         ]);
     }
 
