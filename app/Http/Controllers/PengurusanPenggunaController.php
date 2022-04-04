@@ -78,7 +78,7 @@ class PengurusanPenggunaController extends Controller
     public function ejen_pelaksana()
     {
         return view('pengurusan_pengguna.senarai_pengguna.ejen_pelaksana.index', [
-            'ejen' => User::where('jenis_pengguna', 'Ejen Pelaksana')->get(),
+            'ejen' => User::where('jenis_pengguna', 'Ejen Pelaksana ULS')->orWhere('jenis_pengguna', 'Ejen Pelaksana ULPK')->get(),
             'peranan' => Role::all(),
         ]);
     }
@@ -150,8 +150,8 @@ class PengurusanPenggunaController extends Controller
                     $user->jenis_pengguna = 'Ejen Pelaksana ULPK';
                     $user->assignRole('Ejen Pelaksana ULPK');
                 }else{
-                    $user->jenis_pengguna = $request->jenis_pengguna;
-                    $user->assignRole($request->jenis_pengguna);
+                    $user->jenis_pengguna = $request->jenis_pengguna_2;
+                    $user->assignRole($request->jenis_pengguna_2);
                 }
             } catch (\Throwable $th) {
                 if (Auth::user()->jenis_pengguna == 'Urus Setia ULS') {

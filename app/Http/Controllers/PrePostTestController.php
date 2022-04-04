@@ -22,7 +22,7 @@ class PrePostTestController extends Controller
     public function index()
     {
         return view('penilaian.pre-post.index', [
-            'jadual_kursus' => JadualKursus::all(),
+            'jadual_kursus' => JadualKursus::with(['tempat', 'status_pelaksanaan'])->get(),
         ]);
     }
 
