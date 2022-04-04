@@ -25,7 +25,7 @@
                     <div class="row">
                         <div class="col-lg-10 mb-lg-3">
                             <label class="col-form-label">NO. KAD PENGENALAN</label>
-                            <input class="form-control" type="text" name="no_KP" id="sec_nric" maxlength="12" />
+                            <input class="form-control" type="text" name="sec_nric" id="sec_nric" maxlength="12" />
                         </div>
                         <div class="col-lg-10 mb-lg-3">
                             <label class="col-form-label">NAMA</label>
@@ -38,7 +38,7 @@
                         @role('Admin BTM')
                         <div class="col-lg-10 mb-lg-3">
                             <label class="col-form-label">JENIS EJEN PELAKSANA</label>
-                            <select name="jenis_pengguna" class="form-control">
+                            <select name="jenis_pengguna_2" class="form-control">
                                 <option value="" selected hidden>Sila Pilih</option>
                                 <option value="Ejen Pelaksana ULS">Ejen Pelaksana ULS</option>
                                 <option value="Ejen Pelaksana ULPK">Ejen Pelaksana ULPK</option>

@@ -78,7 +78,7 @@ class PencalonanPesertaController extends Controller
     public function show($id)
     {
         $jadual = JadualKursus::find($id);
-        $peserta_daftar = PencalonanPeserta::where('jadual', $id)->get();
+        $peserta_daftar = PencalonanPeserta::with(['permohonan','kehadiran','jadualKursus', 'maklumat_peserta'])->where('jadual', $id)->get();
         // dd($peserta_daftar->isNotEmpty());
         $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
             ->get('https://www4.risda.gov.my/fire/getallstaff/')
@@ -137,7 +137,7 @@ class PencalonanPesertaController extends Controller
                 $hari = $hari + ($k->jadual->bilangan_hari);
             }
 
-            $pencalonan = PencalonanPeserta::where('peserta', $ds->id)->whereYear('created_at', $tahun)->get();
+            $pencalonan = PencalonanPeserta::with('jadualKursus')->where('peserta', $ds->id)->whereYear('created_at', $tahun)->get();
             // dd($pencalonan);
             foreach ($pencalonan as $key => $pen) {
                 $hari = $hari + ($pen->jadualKursus->bilangan_hari);
@@ -332,8 +332,9 @@ class PencalonanPesertaController extends Controller
         $date = displayDates($jadual->tarikh_mula, $jadual->tarikh_tamat);
         // dd($date);
 
-        $sejarah_permohonan = Permohonan::where('no_pekerja', $id_peserta)->get();
-
+        $sejarah_permohonan = Permohonan::with('jadual')->where('no_pekerja', $id_peserta)->get();
+        $pencalonan_rekod = PencalonanPeserta::with('jadualKursus')->where('peserta', $id_peserta)->get();
+        
         foreach ($sejarah_permohonan as $sp) {
             foreach ($sp->kehadiran as $kh) {
                 // dd($kh);

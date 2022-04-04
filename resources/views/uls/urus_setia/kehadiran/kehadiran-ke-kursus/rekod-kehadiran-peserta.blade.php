@@ -48,7 +48,7 @@
                     <p class="pt-2 fw-bold">KOD NAMA KURSUS</p>
                 </div>
                 <div class="col-8">
-                    <input type="text" class="form-control mb-4" value="{{ $jadualkursus->kursus_kod_nama_kursus }}">
+                    <input type="text" class="form-control mb-4" value="{{ $jadualkursus->kursus_kod_nama_kursus }}" readonly>
                 </div>
             </div>
             <div class="col-8 d-inline-flex">
@@ -56,7 +56,7 @@
                     <p class="pt-2 fw-bold">NAMA KURSUS</p>
                 </div>
                 <div class="col-8">
-                    <input type="text" class="form-control mb-3" value="{{ $jadualkursus->kursus_nama }}">
+                    <input type="text" class="form-control mb-3" value="{{ $jadualkursus->kursus_nama }}" readonly>
                 </div>
             </div>
             <div class="col-8 d-inline-flex">
@@ -64,7 +64,7 @@
                     <p class="pt-2 fw-bold">TARIKH KURSUS</p>
                 </div>
                 <div class="col-8">
-                    <input type="text" class="form-control mb-3" value="{{ $jadualkursus->tarikh_mula }}">
+                    <input type="text" class="form-control mb-3" value="{{ date('d/m/Y', strtotime($jadualkursus->tarikh_mula)) }} - {{ date('d/m/Y', strtotime($jadualkursus->tarikh_tamat)) }}" readonly>
                 </div>
             </div>
             <div class="col-8 d-inline-flex">
@@ -285,32 +285,33 @@
 
         $("#select-hari").change(function() {
             $("#table-body").html("");
-            var aturcara = @json($aturcara->toArray());
+            var aturcara = @json($list->toArray());
             var sesi = $("#select-sesi").val();
             var iteration = 1;
 
             console.log(aturcara);
 
             aturcara.forEach(e => {
-                if (e.ac_hari == this.value && e.ac_sesi == sesi && e.kehadiran !== null) {
+                console.log(this.value);
+                if (e.aturcara.ac_hari == this.value && e.aturcara.ac_sesi == sesi) {
                     $("#table-body").append(`
                             <tr>
                                 <td>` + iteration + `</td>
-                                <td>` + e.kehadiran.staff.no_KP + `</td>
-                                <td>` + e.kehadiran.staff.name + `</td>
+                                <td>` + e.staff.no_KP + `</td>
+                                <td>` + e.staff.name + `</td>
                                 <td></td>
                                 <td></td>
-                                <td>` + e.kehadiran.status_kehadiran + `</td>
-                                <td>` + (e.kehadiran.status_kehadiran_ke_kursus ?? '') + `</td>
+                                <td>` + (e.status_kehadiran ?? '-') + `</td>
+                                <td>` + (e.status_kehadiran_ke_kursus ?? '-') + `</td>
                                 <td></td>
-                                <td>` + (e.kehadiran.noKP_pengganti ?? '') + `</td>
-                                <td>` + (e.kehadiran.nama_pengganti ?? '') + `</td>
+                                <td>` + (e.noKP_pengganti ?? '-') + `</td>
+                                <td>` + (e.nama_pengganti ?? '-') + `</td>
                                 <td>
                                 <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
-                                data-bs-target="#modal-rekod-kehadiran" onclick="kemaskini(` + e.kehadiran.id +
+                                data-bs-target="#modal-rekod-kehadiran" onclick="kemaskini(` + e.id +
                         `)">Kemaskini</button> 
                                 <br>
-                        ` + (e.kehadiran.status_kehadiran == "TIDAK HADIR" || e.kehadiran.status_kehadiran_ke_kursus ==
+                        ` + (e.status_kehadiran == "TIDAK HADIR" || e.status_kehadiran_ke_kursus ==
                             "TIDAK HADIR" ? `<button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
                                 data-bs-target="#modal-rekod-ketidakhadiran" onclick="kemaskini2(` + e.kehadiran.id +
                             `)">Alasan Ketidakhadiran</button> ` : ""
@@ -329,30 +330,31 @@
 
         $("#select-sesi").change(function() {
             $("#table-body").html("");
-            var aturcara = @json($aturcara->toArray());
+            
+            var aturcara = @json($list->toArray());
             var hari = $("#select-hari").val();
             var iteration = 1;
 
             aturcara.forEach(e => {
-                if (e.ac_sesi == this.value && e.ac_hari == hari && e.kehadiran !== null) {
+                if (e.aturcara.ac_sesi == this.value && e.aturcara.ac_hari == hari) {
                     $("#table-body").append(`
-                            <tr>
+                    <tr>
                                 <td>` + iteration + `</td>
-                                <td>` + e.kehadiran.staff.no_KP + `</td>
-                                <td>` + e.kehadiran.staff.name + `</td>
+                                <td>` + e.staff.no_KP + `</td>
+                                <td>` + e.staff.name + `</td>
                                 <td></td>
                                 <td></td>
-                                <td>` + e.kehadiran.status_kehadiran + `</td>
-                                <td>` + (e.kehadiran.status_kehadiran_ke_kursus ?? '') + `</td>
+                                <td>` + (e.status_kehadiran ?? '') + `</td>
+                                <td>` + (e.status_kehadiran_ke_kursus ?? '') + `</td>
                                 <td></td>
-                                <td>` + (e.kehadiran.noKP_pengganti ?? '') + `</td>
-                                <td>` + (e.kehadiran.nama_pengganti ?? '') + `</td>
+                                <td>` + (e.noKP_pengganti ?? '-') + `</td>
+                                <td>` + (e.nama_pengganti ?? '-') + `</td>
                                 <td>
                                 <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
-                                data-bs-target="#modal-rekod-kehadiran" onclick="kemaskini(` + e.kehadiran.id +
+                                data-bs-target="#modal-rekod-kehadiran" onclick="kemaskini(` + e.id +
                         `)">Kemaskini</button> 
                                 <br>
-                        ` + (e.kehadiran.status_kehadiran == "TIDAK HADIR" || e.kehadiran.status_kehadiran_ke_kursus ==
+                        ` + (e.status_kehadiran == "TIDAK HADIR" || e.status_kehadiran_ke_kursus ==
                             "TIDAK HADIR" ? `<button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
                                 data-bs-target="#modal-rekod-ketidakhadiran" onclick="kemaskini2(` + e.kehadiran.id +
                             `)">Alasan Ketidakhadiran</button> ` : ""

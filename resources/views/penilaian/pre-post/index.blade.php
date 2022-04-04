@@ -77,17 +77,22 @@
                                         {{ $jk->kursus_nama }}
                                     </td>
                                     <td>
-                                        {{date('d/m/Y', strtotime($jk->tarikh_mula ))}}
-                                    </td>
-                                    <td>
-                                       {{date('d/m/Y', strtotime($jk->tarikh_tamat ))}}
-                                    </td>
-                                    <td>
                                         {{ $jk->kursus_tempat }}
                                         
                                     </td>
                                     <td>
                                         {{ $jk->kursus_status }}
+
+
+                                        {{ date('d/m/Y', strtotime($jk->tarikh_mula)) }} <br>
+                                        - <br>
+                                        {{ date('d/m/Y', strtotime($jk->tarikh_tamat)) }}
+                                    </td>
+                                    <td>
+                                        {{ $jk->tempat->nama_Agensi }}
+                                    </td>
+                                    <td>
+                                        {{ $jk->status_pelaksanaan->Status_Pelaksanaan }}
 
                                     </td>
                                     <td>

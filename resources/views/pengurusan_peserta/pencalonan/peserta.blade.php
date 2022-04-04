@@ -57,7 +57,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="/pengurusan_peserta/pencalonan/{{ $id }}/{{ $p['nokp'] }}"
+                                        <a href="/pengurusan_peserta/pencalonan/{{ $id }}/{{ $p->id }}"
                                             class="btn btn-primary">
                                             <i class="far fa-clipboard"></i>
                                         </a>

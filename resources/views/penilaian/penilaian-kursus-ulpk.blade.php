@@ -4,7 +4,7 @@
         <div class="row mt-3 mb-2">
             <div class="col-12 mb-2">
                 <p class="h1 mb-0 fw-bold" style="color: rgb(43,93,53);">PENILAIAN</p>
-                <p class="h5" style="color: rgb(43,93,53); ">PENILAIAN KURSUS</p>
+                <p class="h5" style="color: rgb(43,93,53); ">PENILAIAN KURSUS (PESERTA ULPK)</p>
             </div>
         </div>
         <hr style="color: rgba(81,179,90, 60%);height:2px;">
@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
-                    PENILAIAN KURSUS
+                    PENILAIAN KURSUS (PESERTA ULPK)
                 </p>
             </div>
         </div>
@@ -41,12 +41,12 @@
                     <p class="pt-2 fw-bold">TARIKH KURSUS</p>
                 </div>
                 <div class="col-7">
-                    @if ($permohonan->jadual->kursus_kod_nama_kursus != null)
+                    @if ($permohonan == null)
+                        <input type="text" class="form-control mb-3" value="Tiada" readonly />
+                    @else
                         <input type="text" class="form-control mb-3"
                             value="{{ date('d-m-Y', strtotime($permohonan->jadual->tarikh_mula)) }} hingga {{ date('d-m-Y', strtotime($permohonan->jadual->tarikh_tamat)) }}"
                             readonly />
-                    @else
-                        <input type="text" class="form-control mb-3" value="Tiada" readonly />
                     @endif
                 </div>
             </div>
@@ -55,14 +55,18 @@
         <br><br>
         <div class="row">
             <div class="col-12 text-center">
-                <a class="btn btn-primary" href="/penilaian/penilaian-kursus/{{ $permohonan->jadual->id }}"
-                    id="btn_start">Mula Penilaian</a>
+                @if ($permohonan == null)
+                    <button class="btn btn-primary" disabled>Mula Penilaian</button>
+                @else
+                    <a class="btn btn-primary" href="/penilaian/penilaian-kursus-ulpk/{{ $permohonan->jadual->id }}"
+                        id="btn_start">Mula Penilaian</a>
+                @endif
             </div>
         </div>
 
     </div>
 
-    <script>
+    {{-- <script>
         function find(v) {
             var val = v.value;
             let permohonan = @json($permohonan->toArray());
@@ -84,5 +88,5 @@
             // btn.href =  + val;
 
         }
-    </script>
+    </script> --}}
 @endsection

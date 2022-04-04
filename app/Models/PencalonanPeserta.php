@@ -9,7 +9,7 @@ class PencalonanPeserta extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    protected $with = ['permohonan','kehadiran','jadualKursus', 'maklumat_peserta'];
+    // protected $with = ['permohonan','kehadiran','jadualKursus', 'maklumat_peserta'];
 
     public function permohonan()
     {
