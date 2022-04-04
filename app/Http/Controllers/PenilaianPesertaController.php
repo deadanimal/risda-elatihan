@@ -9,6 +9,7 @@ use App\Models\KodKursus;
 use App\Models\PenilaianPeserta;
 use App\Models\Permohonan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 class PenilaianPesertaController extends Controller
@@ -23,16 +24,23 @@ class PenilaianPesertaController extends Controller
 
         $permohonan = Permohonan::with('jadual')->where('no_pekerja', auth()->user()->id)
             ->where('status_permohonan', 4)
-            ->get();
+            ->get()->first();
         // dd($permohonan);
-        if ($permohonan->empty()) {
-            alert()->error('Anda tidak membuat sebarang permohonan lagi.', 'Tiada permohonan');
-            return back();
-        } else {
+
+        // if ($permohonan == null) {
+        //     alert()->error('Anda tidak membuat sebarang permohonan lagi.', 'Tiada permohonan');
+        //     return back();
+        // } else {
+        if (auth()->user()->jenis_pengguna == 'Peserta ULS') {
             return view('penilaian.penilaian-kursus', [
                 'permohonan' => $permohonan,
             ]);
+        } elseif (auth()->user()->jenis_pengguna == 'Peserta ULPK') {
+            return view('penilaian.penilaian-kursus-ulpk', [
+                'permohonan' => $permohonan,
+            ]);
         }
+        // }
     }
 
     /**
@@ -152,6 +160,63 @@ class PenilaianPesertaController extends Controller
             'jadual_kursus' => $jadual_kursus,
             'nama_kursus' => $jadual_kursus->kursus_nama,
         ]);
+    }
+
+    public function show_jawab_penilaian_ulpk($jadual_kursus_id)
+    {
+        $jadual_kursus = JadualKursus::with('agensi')->where('id', $jadual_kursus_id)->firstOrFail();
+
+        return view('penilaian.soalan-penilaian-ulpk', [
+            'jadual_kursus' => $jadual_kursus,
+            'nama_kursus' => $jadual_kursus->kursus_nama,
+        ]);
+    }
+
+    public function jawab_penilaian_ulpk(Request $request)
+    {
+        $jadual_kursus = JadualKursus::where('id', $request->jadual_id)->firstOrFail();
+        // Bahagian A
+        // for ($i = 1; $i < 9; $i++) {
+        //     $jawapan = "s" . $i;
+        //     PenilaianPeserta::create([
+        //         "kod_kursus" => $jadual_kursus->kod_kursus,
+        //         "kod_jenis_kursus" => $jadual_kursus->kod_jenis_kursus,
+        //         "kod_kategori_kursus" => $jadual_kursus->kodkursus->U_Kategori_Kursus,
+        //         "kod_pusat_tanggungjawab" => null,
+        //         "id_jadual" => $jadual_kursus->id,
+        //         "id_jawapan" => "as" . $i,
+        //         "nama_peserta" => auth()->user()->name,
+        //         "soalan_penilaian" => "A",
+        //         "skala_jawapan" => $request->$jawapan,
+        //         "cadangan_kursus" => null,
+        //         "topik_kursus" => $request->topik_kursus,
+        //     ]);
+        // }
+
+        //Bahagian B
+        // for ($i = 1; $i < 6; $i++) {
+        //     $jawapan = "bs" . $i;
+        //     PenilaianPeserta::create([
+        //         "kod_kursus" => $jadual_kursus->kod_kursus,
+        //         "kod_jenis_kursus" => $jadual_kursus->kod_jenis_kursus,
+        //         "kod_kategori_kursus" => $jadual_kursus->kodkursus->U_Kategori_Kursus,
+        //         "kod_pusat_tanggungjawab" => null,
+        //         "id_jadual" => $jadual_kursus->id,
+        //         "id_jawapan" => "bs" . $i,
+        //         "nama_peserta" => auth()->user()->name,
+        //         "soalan_penilaian" => "B",
+        //         "skala_jawapan" => $request->$jawapan,
+        //         "cadangan_kursus" => null,
+        //         "topik_kursus" => $request->topik_kursus,
+        //     ]);
+        // }
+
+        $permohonan = Permohonan::where('kod_kursus', $request->jadual_id)->first();
+        $permohonan->update([
+            'dinilai' => 'Ya',
+        ]);
+
+        return redirect(route('penilaian-kursus.index'));
     }
 
     /**

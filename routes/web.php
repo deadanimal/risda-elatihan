@@ -258,6 +258,8 @@ Route::middleware('auth')->group(function () {
             // Route::resource('/jawab-post', JawabPostTestController::class);
 
             Route::resource('/penilaian-kursus', PenilaianPesertaController::class);
+            Route::get('/penilaian-kursus-ulpk', [PenilaianPesertaController::class, 'show_jawab_penilaian_ulpk']);
+            Route::get('/penilaian-kursus-ulpk/{permohonanjadualid}', [PenilaianPesertaController::class, 'jawab_penilaian_ulpk']);
 
             Route::get('/jawab-pre-post-test', [PrePostTestController::class, 'jawabPrePost'])->name('jawabPrePost');
             Route::get('/mula-penilaian-pre-test/{jadual_kursus}', [PrePostTestController::class, 'mulaPenilaian']);
