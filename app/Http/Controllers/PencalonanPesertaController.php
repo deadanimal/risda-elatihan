@@ -137,7 +137,7 @@ class PencalonanPesertaController extends Controller
                 $hari = $hari + ($k->jadual->bilangan_hari);
             }
 
-            $pencalonan = PencalonanPeserta::where('peserta', $ds->id)->whereYear('created_at', $tahun)->get();
+            $pencalonan = PencalonanPeserta::with('jadualKursus')->where('peserta', $ds->id)->whereYear('created_at', $tahun)->get();
             // dd($pencalonan);
             foreach ($pencalonan as $key => $pen) {
                 $hari = $hari + ($pen->jadualKursus->bilangan_hari);
@@ -332,8 +332,9 @@ class PencalonanPesertaController extends Controller
         $date = displayDates($jadual->tarikh_mula, $jadual->tarikh_tamat);
         // dd($date);
 
-        $sejarah_permohonan = Permohonan::where('no_pekerja', $id_peserta)->get();
-
+        $sejarah_permohonan = Permohonan::with('jadual')->where('no_pekerja', $id_peserta)->get();
+        $pencalonan_rekod = PencalonanPeserta::with('jadualKursus')->where('peserta', $id_peserta)->get();
+        
         foreach ($sejarah_permohonan as $sp) {
             foreach ($sp->kehadiran as $kh) {
                 // dd($kh);
