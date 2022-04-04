@@ -57,8 +57,7 @@
                                 <th class="fw-bold text-dark" scope="col">BIL.</th>
                                 <th class="fw-bold text-dark" scope="col">KOD NAMA KURSUS</th>
                                 <th class="fw-bold text-dark" scope="col">NAMA KURSUS</th>
-                                <th class="fw-bold text-dark" scope="col">TARIKH MULA KURSUS</th>
-                                <th class="fw-bold text-dark" scope="col">TARIKH TAMAT KURSUS</th>
+                                <th class="fw-bold text-dark" scope="col">TARIKH KURSUS</th>
                                 <th class="fw-bold text-dark" scope="col">TEMPAT KURSUS</th>
                                 <th class="fw-bold text-dark" scope="col">STATUS PELAKSANAAN</th>
                                 <th class="fw-bold text-dark" scope="col">TINDAKAN</th>
@@ -76,12 +75,12 @@
                                     <td>
                                         {{ $jk->kursus_nama }}
                                     </td>
-                                    <td>
+                                    {{-- <td>
                                         {{ $jk->kursus_tempat }}
-                                        
-                                    </td>
+
+                                    </td> --}}
                                     <td>
-                                        {{ $jk->kursus_status }}
+                                        {{-- {{ $jk->kursus_status }} --}}
 
 
                                         {{ date('d/m/Y', strtotime($jk->tarikh_mula)) }} <br>
@@ -91,10 +90,24 @@
                                     <td>
                                         {{ $jk->tempat->nama_Agensi }}
                                     </td>
-                                    <td>
-                                        {{ $jk->status_pelaksanaan->Status_Pelaksanaan }}
 
-                                    </td>
+                                        {{-- {{ $jk->status_pelaksanaan->Status_Pelaksanaan }} --}}
+                                        @if ($jk->kursus_status_pelaksanaan==1)
+
+                                        @if ($jk->tarikh_mula > date('Y-m-d'))
+                                            <td>AKAN DILAKSANAKAN</td>
+
+                                        @elseif ($jk->tarikh_tamat < date('Y-m-d'))
+                                            <td>TELAH DILAKSANAKAN</td>
+
+                                        @elseif ($jk->tarikh_tamat > date('Y-m-d'))
+                                            <td>SEDANG DILAKSANAKAN</td>
+                                        @endif
+                                    @else
+                                        <td>TIDAK AKTIF</td>
+
+                                    @endif
+
                                     <td>
                                         <a class="btn btn-primary btn-sm mb-2"
                                             href="{{ route('pre-post-test.show', $jk->id) }}">
