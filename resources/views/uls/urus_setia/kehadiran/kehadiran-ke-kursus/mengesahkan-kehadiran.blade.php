@@ -42,7 +42,7 @@
                     <p class="pt-2 fw-bold">TAHUN</p>
                 </div>
                 <div class="col-2">
-                    <input type="text" class="form-select mb-4 tahun" autocomplete="OFF">
+                    <input type="text" class="form-select form-control  mb-4 tahun" autocomplete="OFF">
                 </div>
             </div>
             <div class="col-8 d-inline-flex">
@@ -51,7 +51,7 @@
                 </div>
                 <div class="col-6">
                     {{-- <input type="text" class="form-control mb-3" value="Staff"> --}}
-                    <select name="" id="" class="form-control">
+                    <select name="" id="" class="form-select form-control">
                         <option value="" selected hidden>Sila Pilih</option>
                         <option value="Staff">Staff</option>
                         <option value="Pekebun Kecil">Pekebun Kecil</option>
@@ -70,7 +70,8 @@
                             <th scope="col">BIL.</th>
                             <th scope="col">KOD KURSUS</th>
                             <th scope="col">NAMA KURSUS</th>
-                            <th scope="col">TARIKH KURSUS</th>
+                            <th scope="col">TARIKH MULA KURSUS</th>
+                            <th scope="col">TARIKH TAMAT KURSUS</th>
                             <th scope="col">STATUS <br> PELAKSANAAN</th>
                             <th class="text-end" scope="col">TINDAKAN</th>
                         </tr>
@@ -81,14 +82,27 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $jadual->kursus_kod_nama_kursus }}</td>
                                 <td>{{ $jadual->kursus_nama }}</td>
-                                <td>{{ $jadual->tarikh_mula }}</td>
-                                @if ($jadual->kursus_status == 1)
-                                    <td class="risda-g fw-bold">SEDANG <br> DILAKSANAKAN</td>
+                                <td>{{ date('d/m/Y', strtotime($jadual->tarikh_mula)) }}</td>
+                                <td>{{ date('d/m/Y', strtotime($jadual->tarikh_tamat)) }}</td>
+                                @if ($jadual->kursus_status_pelaksanaan==1)
+
+                                    @if ($jadual->tarikh_mula > date('Y-m-d'))
+                                        <td class="risda-g fw-bold">AKAN DILAKSANAKAN</td>
+
+                                    @elseif ($jadual->tarikh_tamat < date('Y-m-d'))
+                                        <td class="risda-g fw-bold">TELAH DILAKSANAKAN</td>
+
+                                    @elseif ($jadual->tarikh_tamat > date('Y-m-d'))
+                                        <td class="risda-g fw-bold">SEDANG DILAKSANAKAN</td>
+                                    @endif
                                 @else
-                                    <td class="risda-g fw-bold">TIDAK <br> AKTIF</td>
+                                    <td class="risda-g fw-bold">TIDAK AKTIF</td>
+
                                 @endif
+
                                 <td class=" text-end"><a href="{{ route('mengesah-kehadiran-peserta', $jadual->id) }}"
                                         class="btn btn-primary btn-sm">SAH KEHADIRAN</a></td>
+
                             </tr>
                         @endforeach
                     </tbody>

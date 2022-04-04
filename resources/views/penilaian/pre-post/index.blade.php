@@ -57,7 +57,8 @@
                                 <th class="fw-bold text-dark" scope="col">BIL.</th>
                                 <th class="fw-bold text-dark" scope="col">KOD NAMA KURSUS</th>
                                 <th class="fw-bold text-dark" scope="col">NAMA KURSUS</th>
-                                <th class="fw-bold text-dark" scope="col">TARIKH KURSUS</th>
+                                <th class="fw-bold text-dark" scope="col">TARIKH MULA KURSUS</th>
+                                <th class="fw-bold text-dark" scope="col">TARIKH TAMAT KURSUS</th>
                                 <th class="fw-bold text-dark" scope="col">TEMPAT KURSUS</th>
                                 <th class="fw-bold text-dark" scope="col">STATUS PELAKSANAAN</th>
                                 <th class="fw-bold text-dark" scope="col">TINDAKAN</th>
@@ -76,13 +77,18 @@
                                         {{ $jk->kursus_nama }}
                                     </td>
                                     <td>
-                                        {{ $jk->tarikh_mula }}
+                                        {{date('d/m/Y', strtotime($jk->tarikh_mula ))}}
+                                    </td>
+                                    <td>
+                                       {{date('d/m/Y', strtotime($jk->tarikh_tamat ))}}
                                     </td>
                                     <td>
                                         {{ $jk->kursus_tempat }}
+                                        
                                     </td>
                                     <td>
                                         {{ $jk->kursus_status }}
+
                                     </td>
                                     <td>
                                         <a class="btn btn-primary btn-sm mb-2"
