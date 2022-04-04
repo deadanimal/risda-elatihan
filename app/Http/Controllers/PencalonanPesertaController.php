@@ -78,7 +78,7 @@ class PencalonanPesertaController extends Controller
     public function show($id)
     {
         $jadual = JadualKursus::find($id);
-        $peserta_daftar = PencalonanPeserta::where('jadual', $id)->get();
+        $peserta_daftar = PencalonanPeserta::with(['permohonan','kehadiran','jadualKursus', 'maklumat_peserta'])->where('jadual', $id)->get();
         // dd($peserta_daftar->isNotEmpty());
         $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
             ->get('https://www4.risda.gov.my/fire/getallstaff/')
