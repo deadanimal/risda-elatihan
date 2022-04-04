@@ -91,7 +91,7 @@
     <script>
         $('#unit_latihan').change(function {
             var pilih = $('#UL_choice').value();
-            
+
         })
     </script>
 @endsection

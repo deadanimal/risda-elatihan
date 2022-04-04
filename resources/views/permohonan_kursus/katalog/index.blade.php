@@ -139,7 +139,7 @@
             $('#katalog_sort select[name=tajuk]').append(
                 `<option selected='' value='' hidden>Sila Pilih</option>`);
             tajuk.forEach(element => {
-                
+
                 if (this.value == element.kod_kategori) {
                     $('#katalog_sort select[name=tajuk]').append(
                         `<option value=${element.id}>${element.kursus_nama}</option>`
