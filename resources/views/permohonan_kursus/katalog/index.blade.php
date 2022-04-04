@@ -35,7 +35,7 @@
                             <p class="pt-2 fw-bold">KATEGORI KURSUS</p>
                         </div>
                         <div class="col-lg-6">
-                            <select name="kategori" id="kategori_kursus" class="form-select form-control mb-3">
+                            <select name="kategori" id="kategori_kursus" class="form-control form-select mb-3">
                                 <option value="" selected hidden>Sila Pilih</option>
                                 @foreach ($kategori as $k)
                                     <option value="{{ $k->id }}">{{ $k->nama_Kategori_Kursus }}</option>
@@ -46,7 +46,7 @@
                             <p class="pt-2 fw-bold">NAMA KURSUS</p>
                         </div>
                         <div class="col-lg-6">
-                            <select name="tajuk" id="tajuk_kursus" class="form-select form-control mb-3">
+                            <select name="tajuk" id="tajuk_kursus" class="form-control form-select mb-3">
                                 <option value="" selected hidden>Sila Pilih</option>
                                 @foreach ($tajuk as $t)
                                     <option value="{{ $t->id }}">{{ $t->kursus_nama }}</option>
