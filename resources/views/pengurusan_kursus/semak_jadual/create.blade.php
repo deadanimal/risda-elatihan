@@ -7,15 +7,15 @@
                 <h5 class="risda-dg">SEMAK JADUAL KURSUS - <span class="risda-g">TAMBAH KURSUS</span></h5>
             </div>
         </div>
-    
+
         <hr class="risda-g">
-    
+
         <div class="row">
             <div class="col">
                 <h5 class="h3">MAKLUMAT KURSUS</h5>
             </div>
         </div>
-    
+
         <div class="row justify-content-lg-center mt-3">
             <div class="col-lg-10">
                 <form action="/pengurusan_kursus/semak_jadual" method="POST" id="form_add">
@@ -32,7 +32,7 @@
                         <div class="col-lg-3">
                             <label class="col-form-label">STATUS</label>
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" name="status" required oninvalid="this.setCustomValidity('Sila pilih status.')" oninput="setCustomValidity('')"/>
+                                <input class="form-check-input" type="checkbox" name="status"  oninvalid="this.setCustomValidity('Sila pilih status.')" oninput="setCustomValidity('')" />
                                 <label class="form-check-label">Aktif</label>
                             </div>
                         </div>
@@ -234,7 +234,7 @@
                                         <option value="{{ $tk->id }}">{{ $tk->nama_Agensi }}</option>
                                     @endforeach
                                 </select>
-    
+
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -245,7 +245,7 @@
                             </div>
                         </div>
                     @endif
-    
+
                     <div class="row mb-3">
                         <div class="col">
                             <label class="col-form-label">OBJEKTIF</label>
@@ -282,7 +282,7 @@
                             <input type="text" class="form-control" name="kursus_staf_yang_bertanggungjawab">
                         </div>
                     </div>
-    
+
                     @if ($tempat == null)
                         <div class="row mb-3">
                             <div class="col text-end">

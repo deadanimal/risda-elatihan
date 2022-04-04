@@ -7,9 +7,9 @@
                 <h5 class="risda-dg">STATUS PELAKSANAAN</h5>
             </div>
         </div>
-    
+
         <hr class="risda-g">
-    
+
         <div class="row mt-5">
             <div class="col">
                 <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#tambah-negeri">
@@ -27,7 +27,7 @@
                                     <h4 class="mb-1" id="modalExampleDemoLabel">TAMBAH </h4>
                                 </div>
                                 <div class="p-4 pb-0">
-                                    <form action="/utiliti/status_pelaksanaan" method="POST">
+                                    <form action="/utiliti/status/status_pelaksanaan" method="POST">
                                         @csrf
                                         <div class="mb-3">
                                             <label class="col-form-label">KOD STATUS PELAKSANAAN</label>
@@ -58,7 +58,7 @@
                 </div>
             </div>
         </div>
-    
+
         <div class="row mt-3">
             <div class="col">
                 <div class="card">
@@ -112,7 +112,7 @@
                                                         </h4>
                                                     </div>
                                                     <div class="p-4 pb-0">
-                                                        <form action="/utiliti/status_pelaksanaan/{{ $sp->id }}" method="POST">
+                                                        <form action="/utiliti/status/status_pelaksanaan/{{ $sp->id }}" method="POST">
                                                             @method('PUT')
                                                             @csrf
                                                             <div class="mb-3">
@@ -166,7 +166,7 @@
                                                             <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
                                                             <br>
                                                             Anda pasti untuk menghapus {{ $sp->Status_Pelaksanaan }}?
-    
+
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
@@ -179,10 +179,10 @@
                                                             <button class="btn btn-primary" type="submit">Hapus
                                                             </button>
                                                         </form>
-    
+
                                                     </div>
                                                 </div>
-    
+
                                             </div>
                                         </div>
                                     </div>
