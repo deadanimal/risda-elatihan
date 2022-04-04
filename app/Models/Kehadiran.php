@@ -25,4 +25,9 @@ class Kehadiran extends Model
     {
         return $this->hasOne(User::class, 'id', 'no_pekerja');
     }
+
+    public function aturcara()
+    {
+        return $this->belongsTo(Aturcara::class, 'jadual_kursus_ref', 'id');
+    }
 }
