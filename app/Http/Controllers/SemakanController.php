@@ -77,10 +77,11 @@ class SemakanController extends Controller
                 // create staff
                 $user = new User;
                 $user->name = $staf['nama'];
-                $user->email = 'applicantsppeps01@gmail.com'; #tukar email staf
-                $user->password = Hash::make($randomString);
+                $user->email = $staf['email']; #tukar email staf
+                $user->password = Hash::make('pnsb1234');
                 $user->no_KP = $staf['nokp'];
-                $user->jenis_pengguna = 'Urus Setia ULS';
+                $user->jenis_pengguna = 'Peserta ULS';
+                $user->assignRole('Peserta ULS');
 
                 $user->save();
 
@@ -90,7 +91,7 @@ class SemakanController extends Controller
                     'nokp' => $user->no_KP,
                     'nama' => $user->name,
                 ];
-                $recipient = $user->email;
+                $recipient = 'applicantsppeps01@gmail.com';
                 Mail::send('emails.pendaftaran_staf', $data_email, function ($message) use ($recipient) {
                     $message->to($recipient)
                         ->subject("RISDA | e-LATIHAN - Pendaftaran Berjaya");
