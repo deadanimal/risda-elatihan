@@ -42,7 +42,7 @@
                                         @csrf
                                         <div class="mb-3">
                                             <label class="col-form-label">KOD KUMPULAN PENGGUNA</label>
-                                            <input type="text" class="form-control" name="kod_kumpulan">
+                                            <input type="text" class="form-control" name="kod_kumpulan_pengguna">
                                         </div>
                                         <div class="mb-3">
                                             <label class="col-form-label">KUMPULAN PENGGUNA</label>
