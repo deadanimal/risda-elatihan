@@ -7,14 +7,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>QR Code Kursus</title>
     <style>
-        @page {
-            size: A4;
-            margin: 0;
-        }
 
-    .c {
+    img {
+      height: 50%
       max-width: 200px;
       margin: 10px;
+
+    }
+
+    ul{
+        text-align: justify;
     }
 
     </style>
@@ -26,8 +28,17 @@
     <br>
 
     <div class="container-fluid">
-        <div class="text-center">
-            <img class="c" src="https://api.qrserver.com/v1/create-qr-code/?data=risda-elatihan.prototype.com.my/uls/kehadiran/{{$id}};size=100x100" alt="" title="" />
+            <div style="text-align: center;">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?data=risda-elatihan.prototype.com.my/uls/kehadiran/{{$id}}" alt="" title="" />
+                <ul>
+                    <li> Masa: {{$aturcara->ac_masa}}</li>
+                    <li> Nama Kursus: {{$kursus->kursus_nama}}</li>
+                    <li> Hari: {{$aturcara->ac_hari}}</li>
+                    <li> Sesi: {{$aturcara->ac_sesi}}</li>
+                    <li> Aturcara: {{$aturcara->ac_aturcara}}</li>
+                </ul>
+
+
         </div>
     </div>
     <div class="qrcode" id="qrcode"></div>
