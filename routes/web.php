@@ -157,6 +157,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/pengurusan_pengguna/pengguna/ejen_pelaksana/create', [PengurusanPenggunaController::class, 'create']);
 
     Route::post('/pengurusan_pengguna/pengguna', [PengurusanPenggunaController::class, 'store']);
+    Route::delete('/pengurusan_pengguna/pengguna/{id}', [PengurusanPenggunaController::class, 'destroy']);
     Route::put('/pengurusan_pengguna/pengguna/{id}', [PengurusanPenggunaController::class, 'update']);
     Route::post('/pengurusan_pengguna/pengguna/pengaktifan/{id}', [PengurusanPenggunaController::class, 'pengaktifan']);
 
