@@ -133,7 +133,7 @@ class PengurusanPenggunaController extends Controller
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = Hash::make('pnsb1234');
+        $user->password = Hash::make('RISDA2022');
         $user->no_KP = $request->sec_nric;
 // dd($request->jenis_pengguna);
         if ($request->jenis_pengguna == 'xdrf') {
