@@ -12,6 +12,7 @@ use App\Models\Permohonan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use PDF;
 
 class KehadiranController extends Controller
 {
@@ -373,4 +374,7 @@ class KehadiranController extends Controller
     {
         return view('ulpk.urus_setia.kehadiran.kehadiran-ke-kursus.rekod-pengesahan-peserta');
     }
+
+
+
 }
