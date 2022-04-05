@@ -84,20 +84,15 @@
                                 <td>{{ $jadual->kursus_nama }}</td>
                                 <td>{{ date('d/m/Y', strtotime($jadual->tarikh_mula)) }}</td>
                                 <td>{{ date('d/m/Y', strtotime($jadual->tarikh_tamat)) }}</td>
-                                @if ($jadual->kursus_status_pelaksanaan==1)
 
                                     @if ($jadual->tarikh_mula > date('Y-m-d'))
-                                        <td class="risda-g fw-bold">AKAN DILAKSANAKAN</td>
+                                        <td class="risda-g fw-bold">BELUM DILAKSANA</td>
 
                                     @elseif ($jadual->tarikh_tamat < date('Y-m-d'))
-                                        <td class="risda-g fw-bold">TELAH DILAKSANAKAN</td>
+                                        <td class="risda-g fw-bold">SELESAI</td>
 
-                                    @elseif ($jadual->tarikh_tamat > date('Y-m-d'))
+                                    @elseif ($jadual->tarikh_tamat >=date('Y-m-d'))
                                         <td class="risda-g fw-bold">SEDANG DILAKSANAKAN</td>
-                                    @endif
-                                @else
-                                    <td class="risda-g fw-bold">TIDAK AKTIF</td>
-
                                 @endif
 
                                 <td class=" text-end"><a href="{{ route('mengesah-kehadiran-peserta', $jadual->id) }}"
