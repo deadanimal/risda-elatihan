@@ -9,7 +9,7 @@ class Kehadiran extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    protected $with = ['staff'];
+    // protected $with = ['staff'];
 
     // public function aturcara()
     // {
@@ -29,5 +29,10 @@ class Kehadiran extends Model
     public function aturcara()
     {
         return $this->belongsTo(Aturcara::class, 'jadual_kursus_ref', 'id');
+    }
+
+    public function pengganti()
+    {
+        return $this->hasOne(User::class, 'id', 'nama_pengganti');
     }
 }

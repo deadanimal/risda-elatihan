@@ -114,8 +114,8 @@
                         <th scope="col">BIL.</th>
                         <th scope="col">NO. KAD <br> PENGENALAN</th>
                         <th scope="col">NAMA</th>
-                        <th scope="col">PUSAT <br> TANGGUNGJAWAB</th>
-                        <th scope="col">GRED</th>
+                        {{-- <th scope="col">PUSAT <br> TANGGUNGJAWAB</th>
+                        <th scope="col">GRED</th> --}}
                         <th scope="col">STATUS KEHADIRAN <br> SEBELUM KURSUS</th>
                         <th scope="col">STATUS KEHADIRAN</th>
                         <th scope="col">STATUS STAFF</th>
@@ -293,19 +293,22 @@
 
             aturcara.forEach(e => {
                 console.log(this.value);
+                let status = 'CALON ASAL'
                 if (e.aturcara.ac_hari == this.value && e.aturcara.ac_sesi == sesi) {
+                    if (e.pengganti.name != null) {
+                        status = 'PENGGANTI';
+                    }
                     $("#table-body").append(`
                             <tr>
                                 <td>` + iteration + `</td>
                                 <td>` + e.staff.no_KP + `</td>
                                 <td>` + e.staff.name + `</td>
-                                <td></td>
-                                <td></td>
+                                
                                 <td>` + (e.status_kehadiran ?? '-') + `</td>
                                 <td>` + (e.status_kehadiran_ke_kursus ?? '-') + `</td>
-                                <td></td>
-                                <td>` + (e.noKP_pengganti ?? '-') + `</td>
-                                <td>` + (e.nama_pengganti ?? '-') + `</td>
+                                <td>`+ status +`</td>
+                                <td>` + (e.pengganti.no_KP ?? '-') + `</td>
+                                <td>` + (e.pengganti.name ?? '-') + `</td>
                                 <td>
                                 <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
                                 data-bs-target="#modal-rekod-kehadiran" onclick="kemaskini(` + e.id +
