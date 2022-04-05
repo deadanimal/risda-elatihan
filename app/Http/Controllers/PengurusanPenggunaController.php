@@ -118,7 +118,7 @@ class PengurusanPenggunaController extends Controller
             }
         } else {
             $data_pk = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', '1cc11a9fec81dc1f99f353f403d6f5bac620aa8f')
-                ->get('https://www4.risda.gov.my/espek/portalpkprofiltanah/?nokp=' . $request->no_KP)
+                ->get('https://www4.risda.gov.my/espek/portalpkprofiltanah/?nokp=' . $request->sec_nric)
                 ->getBody()
                 ->getContents();
 
