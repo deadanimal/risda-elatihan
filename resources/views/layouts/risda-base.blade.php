@@ -363,7 +363,7 @@
             }
         }
 
-        @media only screen and (max-width: 800px) {
+        @media only screen and (max-width: 1024px) {
             .risda-m {
                 margin-left: 0px;
             }
