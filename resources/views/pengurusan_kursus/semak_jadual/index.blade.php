@@ -127,7 +127,7 @@
                                             @elseif ($j->tarikh_tamat < date('Y-m-d'))
                                                 <td>TELAH DILAKSANAKAN</td>
 
-                                            @elseif ($j->tarikh_tamat > date('Y-m-d'))
+                                            @elseif ($j->tarikh_tamat >= date('Y-m-d'))
                                                 <td>SEDANG DILAKSANAKAN</td>
                                             @endif
                                         {{-- @else --}}
