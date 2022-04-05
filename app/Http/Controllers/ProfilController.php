@@ -157,7 +157,7 @@ class ProfilController extends Controller
             $profil->save();
 
             alert()->success('Gambar profil telah dikemaskini.', 'Berjaya');
-            return back();
+            return redirect('/profil');
         }
 
         // update password
