@@ -345,13 +345,12 @@
                                 <td>` + iteration + `</td>
                                 <td>` + e.staff.no_KP + `</td>
                                 <td>` + e.staff.name + `</td>
-                                <td></td>
-                                <td></td>
-                                <td>` + (e.status_kehadiran ?? '') + `</td>
-                                <td>` + (e.status_kehadiran_ke_kursus ?? '') + `</td>
-                                <td></td>
-                                <td>` + (e.noKP_pengganti ?? '-') + `</td>
-                                <td>` + (e.nama_pengganti ?? '-') + `</td>
+                                
+                                <td>` + (e.status_kehadiran ?? '-') + `</td>
+                                <td>` + (e.status_kehadiran_ke_kursus ?? '-') + `</td>
+                                <td>`+ status +`</td>
+                                <td>` + (e.pengganti.no_KP ?? '-') + `</td>
+                                <td>` + (e.pengganti.name ?? '-') + `</td>
                                 <td>
                                 <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
                                 data-bs-target="#modal-rekod-kehadiran" onclick="kemaskini(` + e.id +
