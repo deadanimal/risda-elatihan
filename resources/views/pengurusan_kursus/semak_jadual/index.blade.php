@@ -119,7 +119,7 @@
                                         </td>
                                         <td>{{ $j->bilangan }}</td>
                                             {{-- {{$j->status_pelaksanaan->Status_Pelaksanaan}} --}}
-                                            @if ($j->kursus_status_pelaksanaan==1)
+                                            {{-- @if ($j->kursus_status_pelaksanaan==1) --}}
 
                                             @if ($j->tarikh_mula > date('Y-m-d'))
                                                 <td>AKAN DILAKSANAKAN</td>
@@ -130,11 +130,9 @@
                                             @elseif ($j->tarikh_tamat > date('Y-m-d'))
                                                 <td>SEDANG DILAKSANAKAN</td>
                                             @endif
-                                        @else
-                                            <td>TIDAK AKTIF</td>
+                                        {{-- @else --}}
 
-                                        @endif
-
+                                        {{-- @endif --}}
                                         <td>
                                             <a href="/pengurusan_kursus/semak_jadual/{{ $j->id }}/edit"
                                                 class="btn btn-sm btn-primary">
