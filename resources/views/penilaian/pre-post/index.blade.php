@@ -92,21 +92,18 @@
                                     </td>
 
                                         {{-- {{ $jk->status_pelaksanaan->Status_Pelaksanaan }} --}}
-                                        @if ($jk->kursus_status_pelaksanaan==1)
+
 
                                         @if ($jk->tarikh_mula > date('Y-m-d'))
-                                            <td>AKAN DILAKSANAKAN</td>
+                                            <td>BELUM DILAKSANA</td>
 
                                         @elseif ($jk->tarikh_tamat < date('Y-m-d'))
-                                            <td>TELAH DILAKSANAKAN</td>
+                                            <td>SELESAI</td>
 
-                                        @elseif ($jk->tarikh_tamat > date('Y-m-d'))
+                                        @elseif ($jk->tarikh_tamat >= date('Y-m-d'))
                                             <td>SEDANG DILAKSANAKAN</td>
-                                        @endif
-                                    @else
-                                        <td>TIDAK AKTIF</td>
 
-                                    @endif
+                                        @endif
 
                                     <td>
                                         <a class="btn btn-primary btn-sm mb-2"
