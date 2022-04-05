@@ -142,7 +142,7 @@
                                                         <div class="col text-center m-3">
                                                             <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
                                                             <br>
-                                                            Anda pasti untuk menghapus data {{$p->name}} ini?
+                                                            Anda pasti untuk menghapus data ini?
 
                                                         </div>
                                                     </div>
