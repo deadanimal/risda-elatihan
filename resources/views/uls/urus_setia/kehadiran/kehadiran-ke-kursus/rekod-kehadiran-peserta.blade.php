@@ -316,7 +316,7 @@
                                 <br>
                         ` + (e.status_kehadiran == "TIDAK HADIR" || e.status_kehadiran_ke_kursus ==
                             "TIDAK HADIR" ? `<button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
-                                data-bs-target="#modal-rekod-ketidakhadiran" onclick="kemaskini2(` + e.kehadiran.id +
+                                data-bs-target="#modal-rekod-ketidakhadiran" onclick="kemaskini2(` + e.id +
                             `)">Alasan Ketidakhadiran</button> ` : ""
 
                         ) + `
@@ -339,15 +339,19 @@
             var iteration = 1;
 
             aturcara.forEach(e => {
+                let status = 'CALON ASAL'
                 if (e.aturcara.ac_sesi == this.value && e.aturcara.ac_hari == hari) {
+                    if (e.pengganti.name != null) {
+                        status = 'PENGGANTI';
+                    }
                     $("#table-body").append(`
                     <tr>
                                 <td>` + iteration + `</td>
                                 <td>` + e.staff.no_KP + `</td>
                                 <td>` + e.staff.name + `</td>
-                                
-                                <td>` + (e.status_kehadiran ?? '-') + `</td>
-                                <td>` + (e.status_kehadiran_ke_kursus ?? '-') + `</td>
+
+                                <td>` + (e.status_kehadiran ?? '') + `</td>
+                                <td>` + (e.status_kehadiran_ke_kursus ?? '') + `</td>
                                 <td>`+ status +`</td>
                                 <td>` + (e.pengganti.no_KP ?? '-') + `</td>
                                 <td>` + (e.pengganti.name ?? '-') + `</td>
@@ -358,7 +362,7 @@
                                 <br>
                         ` + (e.status_kehadiran == "TIDAK HADIR" || e.status_kehadiran_ke_kursus ==
                             "TIDAK HADIR" ? `<button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
-                                data-bs-target="#modal-rekod-ketidakhadiran" onclick="kemaskini2(` + e.kehadiran.id +
+                                data-bs-target="#modal-rekod-ketidakhadiran" onclick="kemaskini2(` + e.id +
                             `)">Alasan Ketidakhadiran</button> ` : ""
 
                         ) + `
