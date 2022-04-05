@@ -213,7 +213,7 @@ class PengurusanPenggunaController extends Controller
         $user->assignRole($request->jenis_pengguna);
         $user->save();
 
-        return redirect('/pengurusan_pengguna/senarai_pengguna/staf');
+        return redirect('/pengurusan_pengguna/pengguna/staf');
     }
 
     public function pengaktifan(Request $request, $id)
