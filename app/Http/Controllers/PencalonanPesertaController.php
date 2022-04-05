@@ -23,9 +23,9 @@ class PencalonanPesertaController extends Controller
     public function index()
     {
         if (Auth::user()->jenis_pengguna == 'Urus Setia ULS') {
-            $jadual = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', 'Staf')->get();
+            $jadual = JadualKursus::with(['tempat', 'status_pelaksanaan'])->get();
         } elseif (Auth::user()->jenis_pengguna == 'Urus Setia ULPK') {
-            $jadual = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', 'Pekebun Kecil')->get();
+            $jadual = JadualKursus::with(['tempat', 'status_pelaksanaan'])->get();
         } else {
             $jadual = JadualKursus::with(['tempat', 'status_pelaksanaan'])->get();
         }
