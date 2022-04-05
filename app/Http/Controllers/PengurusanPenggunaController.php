@@ -168,7 +168,7 @@ class PengurusanPenggunaController extends Controller
         }
         $user->save();
 
-        alert()->success('E-mel telah dihantar ke e-mel yang dimasukkan sebentar tadi. Kata laluan ditetapkan ialah RISDA2022', 'Pendaftaran Berjaya');
+        alert()->success('E-mel telah dihantar ke e-mel yang dimasukkan sebentar tadi. Kata laluan ditetapkan ialah RISDA2022', 'Pendaftaran Berjaya')->persistent('Tutup');;
 
         if ($request->jenis_pengguna == 'xdrf') {
             return redirect('/pengurusan_pengguna/pengguna/pekebun_kecil');
