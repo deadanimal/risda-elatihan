@@ -34,7 +34,7 @@
                 </form>
                 <form action="/pengurusan_pengguna/pengguna" method="post">
                     @csrf
-                    <input type="hidden" name="no_KP" id="sec_nric">
+                    <input type="hidden" name="sec_nric" id="sec_nric">
                     <input type="hidden" name="jenis_pengguna" value="xdrf">
                     <div class="row">
                         <div class="col-lg-10 mb-lg-3">
