@@ -65,12 +65,15 @@ class PermohonanController extends Controller
 
     public function katalog_uls()
     {
-        $kategori = KategoriKursus::where('UL_Kategori_Kursus','Staf')->get();
-        $tajuk = JadualKursus::where('kursus_unit_latihan', 'Staf')->get();
+        // $kategori = KategoriKursus::where('UL_Kategori_Kursus','Staf')->get(); tukar
+        // $tajuk = JadualKursus::where('kursus_unit_latihan', 'Staf')->get(); tukar
         // dd($tajuk);
         $kat_tempat = KategoriAgensi::where('Kategori_Agensi', 'Tempat Kursus')->first()->id;
         $lokasi = Agensi::where('kategori_agensi', $kat_tempat)->get();
-        $jadual = JadualKursus::where('kursus_unit_latihan', 'Staf')->get();
+        // $jadual = JadualKursus::where('kursus_unit_latihan', 'Staf')->get(); tukar
+        $jadual = JadualKursus::all();
+        $kategori = KategoriKursus::all();
+        $tajuk = JadualKursus::all();
         return view('permohonan_kursus.katalog.index', [
             'jadual' => $jadual,
             'kategori' => $kategori,
@@ -81,12 +84,15 @@ class PermohonanController extends Controller
 
     public function katalog_ulpk()
     {
-        $kategori = KategoriKursus::where('UL_Kategori_Kursus','Pekebun Kecil')->get();
-        $tajuk = JadualKursus::where('kursus_unit_latihan', 'Pekebun Kecil')->get();
+        // $kategori = KategoriKursus::where('UL_Kategori_Kursus','Pekebun Kecil')->get(); tukar
+        // $tajuk = JadualKursus::where('kursus_unit_latihan', 'Pekebun Kecil')->get();tukar
         // dd($tajuk);
         $kat_tempat = KategoriAgensi::where('Kategori_Agensi', 'Tempat Kursus')->first()->id;
         $lokasi = Agensi::where('kategori_agensi', $kat_tempat)->get();
-        $jadual = JadualKursus::where('kursus_unit_latihan', 'Pekebun Kecil')->get();
+        // $jadual = JadualKursus::where('kursus_unit_latihan', 'Pekebun Kecil')->get(); tukar
+        $jadual = JadualKursus::all();
+        $tajuk = JadualKursus::all();
+        $kategori = KategoriKursus::all();
         return view('permohonan_kursus.katalog.index', [
             'jadual' => $jadual,
             'kategori' => $kategori,
