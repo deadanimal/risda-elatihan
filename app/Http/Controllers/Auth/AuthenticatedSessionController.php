@@ -47,7 +47,11 @@ class AuthenticatedSessionController extends Controller
 
         }
 
-        $request->authenticate();
+        if ($kp != null) {
+            $request->authenticate();
+        }else{
+            $request->authenticate_email();
+        }
 
         $request->session()->regenerate();
 

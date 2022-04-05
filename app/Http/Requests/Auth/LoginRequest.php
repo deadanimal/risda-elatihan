@@ -44,20 +44,27 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('no_KP', 'password'), $this->boolean('remember'))) {
+        if (!Auth::attempt($this->only('no_KP', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
-            if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-                RateLimiter::hit($this->throttleKey());
-    
-                alert()->error('Sila pastikan ID dan kata laluan betul.');
-                throw ValidationException::withMessages([
-                    'email' => __('auth.failed'),
-                ]);
-                
-            }
+            alert()->error('Sila pastikan ID dan kata laluan betul.');
+            throw ValidationException::withMessages([
+                'email' => __('auth.failed'),
+            ]);
+        }
 
-            RateLimiter::clear($this->throttleKey());
+        RateLimiter::clear($this->throttleKey());
+    }
+
+    public function authenticate_email()
+    {
+        if (!Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+            RateLimiter::hit($this->throttleKey());
+
+            alert()->error('Sila pastikan ID dan kata laluan betul.');
+            throw ValidationException::withMessages([
+                'email' => __('auth.failed'),
+            ]);
         }
 
         RateLimiter::clear($this->throttleKey());
@@ -72,7 +79,7 @@ class LoginRequest extends FormRequest
      */
     public function ensureIsNotRateLimited()
     {
-        if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+        if (!RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
             return;
         }
 
@@ -95,6 +102,6 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey()
     {
-        return Str::lower($this->input('email')).'|'.$this->ip();
+        return Str::lower($this->input('email')) . '|' . $this->ip();
     }
 }
