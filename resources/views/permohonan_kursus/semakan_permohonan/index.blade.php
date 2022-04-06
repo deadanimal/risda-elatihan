@@ -222,8 +222,8 @@
                                         <tr>
                                             <td>{{ $key + 1 }}.</td>
                                             <td>{{ date('H:i, d/m/Y', strtotime($p->created_at)) }}</td>
-                                            <td>{{ $p->peserta->no_KP }}</td>
-                                            <td>{{ $p->peserta->name }}</td>
+                                            <td>{{ $p->peserta['no_KP'] }}</td>
+                                            <td>{{ $p->peserta['name'] }}</td>
                                             <td>{{ $p->pusat_tanggungjawab }}</td>
                                             <td>
                                                 @if ($p->jadual == null)

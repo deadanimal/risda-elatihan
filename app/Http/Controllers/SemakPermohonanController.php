@@ -36,9 +36,9 @@ class SemakPermohonanController extends Controller
 
         // dd($pemohon);
         foreach ($pemohon as $key => $p) {
-            if ($p->peserta->jenis_pengguna == 'Peserta ULS') {
+            if ($p->peserta['jenis_pengguna'] == 'Peserta ULS') {
                 $p->jenis_peserta = 'Peserta ULS';
-            } elseif ($p->peserta->jenis_pengguna == 'Peserta ULPK') {
+            } elseif ($p->peserta['jenis_pengguna'] == 'Peserta ULPK') {
                 $p->jenis_peserta = 'Peserta ULPK';
             }
 
@@ -79,12 +79,12 @@ class SemakPermohonanController extends Controller
 
             $p['tarikh'] = date('H:i, d/m/Y', strtotime($p->created_at));
         }
-        
+
         return view('permohonan_kursus.semakan_permohonan.index', [
             'pemohon' => $pemohon,
             'staf' => $staf,
             'pekebun_kecil' => $pekebun_kecil,
-            'tempat' =>$tempat
+            'tempat' => $tempat
         ]);
     }
 
@@ -118,21 +118,53 @@ class SemakPermohonanController extends Controller
     public function show($id)
     {
         $peserta = Permohonan::find($id);
-        $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
-            ->get('https://www4.risda.gov.my/fire/getallstaff/')
-            ->getBody()
-            ->getContents();
+        // dd($peserta->peserta);
 
-        $data_staf = json_decode($data_staf, true);
-        foreach ($data_staf as $key => $s) {
-            if ($s['nokp'] == $peserta->peserta->no_KP) {
-                $pemohon = $s;
+        if ($peserta->peserta->jenis_pengguna == 'Peserta ULS') {
+            $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
+                ->get('https://www4.risda.gov.my/fire/getallstaff/')
+                ->getBody()
+                ->getContents();
+
+            $data_staf = json_decode($data_staf, true);
+            foreach ($data_staf as $key => $s) {
+                if ($s['nokp'] == $peserta->peserta->no_KP) {
+                    $pemohon = $s;
+                }
             }
+
+            return view('permohonan_kursus.semakan_permohonan.uls.show', [
+                'staf' => $pemohon,
+                'user' => $peserta,
+            ]);
+        } elseif ($peserta->peserta->jenis_pengguna == 'Peserta ULPK') {
+            $data_pk = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', '1cc11a9fec81dc1f99f353f403d6f5bac620aa8f')
+                ->get('https://www4.risda.gov.my/espek/portalpkprofiltanah/?nokp=' . $peserta->peserta->no_KP)
+                ->getBody()
+                ->getContents();
+
+            $data_pk = json_decode($data_pk, true);
+
+            // check if not pk
+            if (!empty($data_pk['message'])) {
+                alert()->info('No. Kad Pengenalan anda tiada dalam sistem HRIP.')->persistent('Tutup');
+                return back();
+            } else {
+                $pk = $data_pk[0];
+                $pk['tarikh_lahir'] = substr($pk['No_KP'], 4, 2).'/'.substr($pk['No_KP'], 2, 2).'/'.'19'.substr($pk['No_KP'], 0, 2);
+            }
+
+            return view('permohonan_kursus.semakan_permohonan.ulpk.show', [
+                'pk' => $pk,
+                'user' => $peserta,
+            ]);
         }
-        return view('permohonan_kursus.semakan_permohonan.show', [
-            'staf' => $pemohon,
-            'user' => $peserta,
-        ]);
+
+
+        // return view('permohonan_kursus.semakan_permohonan.show', [
+        //     'staf' => $pemohon,
+        //     'user' => $peserta,
+        // ]);
     }
 
     /**
