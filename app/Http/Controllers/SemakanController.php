@@ -21,40 +21,6 @@ class SemakanController extends Controller
     {
         $nric = $request->nric;
 
-        // testing
-        if ($nric == '621003065611') {
-            $data = [];
-            return view('pendaftaran.staf', [
-                'nric' => $nric,
-            ]);
-        } elseif ($nric == '670208055215') {
-            $data = [];
-            return view('pendaftaran.staf', [
-                'nric' => $nric,
-            ]);
-        } elseif ($nric == '840209115186') {
-            $data = [];
-            return view('pendaftaran.staf', [
-                'nric' => $nric,
-            ]);
-        } elseif ($nric == '861120495509') {
-            $data = [];
-            return view('pendaftaran.staf', [
-                'nric' => $nric,
-            ]);
-        } elseif ($nric == '980410025195') {
-            $data = [];
-            return view('pendaftaran.pk', [
-                'nric' => $nric,
-            ]);
-        } elseif ($nric == '931117035449') {
-            // penyokong
-            $data = [];
-            return view('pendaftaran.staf', [
-                'nric' => $nric,
-            ]);
-        }
-
         // check staf
         $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
             ->get('https://www4.risda.gov.my/fire/getallstaff/')
@@ -82,6 +48,7 @@ class SemakanController extends Controller
                 $user->no_KP = $staf['nokp'];
                 $user->jenis_pengguna = 'Peserta ULS';
                 $user->assignRole('Peserta ULS');
+                $user->status_akaun = '1';
 
                 $user->save();
 
@@ -124,55 +91,21 @@ class SemakanController extends Controller
 
     public function daftar_pengguna(Request $request)
     {
-        if ($request->no_KP == '621003065611') {
+        if ($request->jenis_pengguna == 'ejen_pelaksana') {
             $user = new User;
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
             $user->no_KP = $request->no_KP;
-            $user->jenis_pengguna = 'AdminBTM';
-            // $user->assignRole('AdminBTM');
+            $user->jenis_pengguna = 'Ejen Pelaksana';
+            $user->assignRole('Ejen Pelaksana');
+            $user->status_akaun = '1';
+
             $user->save();
-            Mail::to($request->email)->send(new PendaftaranPK($user));
+            Mail::to($request->email)->send(new PendaftaranEP($user));
             alert()->success('Sila semak email anda untuk notifikasi pendaftaran.', 'Pendaftaran Berjaya');
             return redirect('/');
-        } else if ($request->no_KP == '670208055215') {
-            $user = new User;
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password = Hash::make($request->password);
-            $user->no_KP = $request->no_KP;
-            $user->jenis_pengguna = 'Urus Setia ULS';
-            $user->assignRole('Urus Setia ULS');
-            $user->save();
-            Mail::to($request->email)->send(new PendaftaranPK($user));
-            alert()->success('Sila semak email anda untuk notifikasi pendaftaran.', 'Pendaftaran Berjaya');
-            return redirect('/');
-        } else if ($request->no_KP == '840209115186') {
-            $user = new User;
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password = Hash::make($request->password);
-            $user->no_KP = $request->no_KP;
-            $user->jenis_pengguna = 'Peserta ULS';
-            $user->assignRole('Peserta ULS');
-            $user->save();
-            Mail::to($request->email)->send(new PendaftaranPK($user));
-            alert()->success('Sila semak email anda untuk notifikasi pendaftaran.', 'Pendaftaran Berjaya');
-            return redirect('/');
-        } else if ($request->no_KP == '861120495509') {
-            $user = new User;
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password = Hash::make($request->password);
-            $user->no_KP = $request->no_KP;
-            $user->jenis_pengguna = 'Urus Setia ULPK';
-            $user->assignRole('Urus Setia ULPK');
-            $user->save();
-            Mail::to($request->email)->send(new PendaftaranPK($user));
-            alert()->success('Sila semak email anda untuk notifikasi pendaftaran.', 'Pendaftaran Berjaya');
-            return redirect('/');
-        } else if ($request->no_KP == '660421015422') {
+        } else {
             $user = new User;
             $user->name = $request->name;
             $user->email = $request->email;
@@ -180,63 +113,12 @@ class SemakanController extends Controller
             $user->no_KP = $request->no_KP;
             $user->jenis_pengguna = 'Peserta ULPK';
             $user->assignRole('Peserta ULPK');
-            $user->save();
-            Mail::to($request->email)->send(new PendaftaranPK($user));
-            alert()->success('Sila semak email anda untuk notifikasi pendaftaran.', 'Pendaftaran Berjaya');
-            return redirect('/');
-        }  else if ($request->no_KP == '980410025195') {
-            $user = new User;
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password = Hash::make($request->password);
-            $user->no_KP = $request->no_KP;
-            $user->jenis_pengguna = 'Agen Pelaksana ULS';
+            $user->status_akaun = '1';
 
             $user->save();
             Mail::to($request->email)->send(new PendaftaranPK($user));
             alert()->success('Sila semak email anda untuk notifikasi pendaftaran.', 'Pendaftaran Berjaya');
             return redirect('/');
-        } elseif ($request->no_KP == '931117035449') {
-            $user = new User;
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password = Hash::make($request->password);
-            $user->no_KP = $request->no_KP;
-            $user->jenis_pengguna = 'Penyokong';
-            $user->assignRole('Penyokong');
-            $user->save();
-            Mail::to($request->email)->send(new PendaftaranPK($user));
-            alert()->success('Sila semak email anda untuk notifikasi pendaftaran.', 'Pendaftaran Berjaya');
-            return redirect('/');
-        } else {
-
-            if ($request->jenis_pengguna == 'ejen_pelaksana') {
-                $user = new User;
-                $user->name = $request->name;
-                $user->email = $request->email;
-                $user->password = Hash::make($request->password);
-                $user->no_KP = $request->no_KP;
-                $user->jenis_pengguna = 'Ejen Pelaksana';
-                $user->assignRole('Ejen Pelaksana');
-
-                $user->save();
-                Mail::to($request->email)->send(new PendaftaranEP($user));
-                alert()->success('Sila semak email anda untuk notifikasi pendaftaran.', 'Pendaftaran Berjaya');
-                return redirect('/');
-            } else {
-                $user = new User;
-                $user->name = $request->name;
-                $user->email = $request->email;
-                $user->password = Hash::make($request->password);
-                $user->no_KP = $request->no_KP;
-                $user->jenis_pengguna = 'Peserta ULPK';
-                $user->assignRole('Peserta ULPK');
-
-                $user->save();
-                Mail::to($request->email)->send(new PendaftaranPK($user));
-                alert()->success('Sila semak email anda untuk notifikasi pendaftaran.', 'Pendaftaran Berjaya');
-                return redirect('/');
-            }
         }
     }
 }
