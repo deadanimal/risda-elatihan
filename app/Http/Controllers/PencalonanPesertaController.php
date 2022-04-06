@@ -359,11 +359,8 @@ class PencalonanPesertaController extends Controller
             $jadual = JadualKursus::find($id);
             $hari = ['Pertama', 'Kedua', 'Ketiga', 'Keempat', 'Kelima', 'Keenam'];
             $date = displayDates($jadual->tarikh_mula, $jadual->tarikh_tamat);
-            // dd($date);
 
             $sejarah_permohonan = Permohonan::with('jadual')->where('no_pekerja', $id_peserta)->get();
-            $pencalonan_rekod = PencalonanPeserta::with('jadualKursus')->where('peserta', $id_peserta)->get();
-
             foreach ($sejarah_permohonan as $sp) {
                 foreach ($sp->kehadiran as $kh) {
                     // dd($kh);
@@ -373,17 +370,29 @@ class PencalonanPesertaController extends Controller
                 }
             }
 
+            $sejarah_pencalonan = PencalonanPeserta::with(['permohonan', 'kehadiran', 'jadualKursus', 'maklumat_peserta'])->where('peserta', $id_peserta)->get();
+            foreach ($sejarah_pencalonan as $sc) {
+                if ($sc->kehadiran != null) {
+                    foreach ($sc->kehadiran as $ch) {
+                        // dd($ch);
+                        $ch->aturcara = Aturcara::where('id', $ch->jadual_kursus_ref)->first();
+                        $ch->aturcara->ac_hari = (int)$ch->aturcara->ac_hari;
+                        $ch->aturcara->ac_hari = $ch->aturcara->ac_hari - 1;
+                    }
+                }
+            }
 
-
-            // dd($sejarah_permohonan);
             return view('pengurusan_peserta.pencalonan.maklumat_peserta_uls', [
                 'peserta' => $peserta,
                 'jadual' => $jadual,
                 'sejarah_permohonan' => $sejarah_permohonan,
+                'sejarah_pencalonan' => $sejarah_pencalonan,
                 'date' => $date,
                 'hari' => $hari
             ]);
+
         } elseif ($check->kursus_unit_latihan == 'Pekebun Kecil') {
+
             $ic = User::findOrFail($id_peserta)->no_KP;
             $data_pk = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', '1cc11a9fec81dc1f99f353f403d6f5bac620aa8f')
                 ->get('https://www4.risda.gov.my/espek/portalpkprofiltanah/?nokp=' . $ic)
@@ -393,29 +402,36 @@ class PencalonanPesertaController extends Controller
             $pk = $data_pk[0];
             $pk['alamat'] = $pk['Nombor'] . ', ' . $pk['Jalan'] . ', ' . $pk['Nama_Kampung'] . ', ' . $pk['Poskod'] . ' ' . $pk['Bandar'] . ', ' . $pk['Negeri'];
 
-            // dd($pk);
             $jadual = JadualKursus::find($id);
             $hari = ['Pertama', 'Kedua', 'Ketiga', 'Keempat', 'Kelima', 'Keenam'];
             $date = displayDates($jadual->tarikh_mula, $jadual->tarikh_tamat);
-            // dd($date);
 
             $sejarah_permohonan = Permohonan::with('jadual')->where('no_pekerja', $id_peserta)->get();
-            $pencalonan_rekod = PencalonanPeserta::with('jadualKursus')->where('peserta', $id_peserta)->get();
-
             foreach ($sejarah_permohonan as $sp) {
                 foreach ($sp->kehadiran as $kh) {
-                    // dd($kh);
                     $kh->aturcara = Aturcara::where('id', $kh->jadual_kursus_ref)->first();
                     $kh->aturcara->ac_hari = (int)$kh->aturcara->ac_hari;
                     $kh->aturcara->ac_hari = $kh->aturcara->ac_hari - 1;
                 }
             }
 
-            // dd($sejarah_permohonan);
+            $sejarah_pencalonan = PencalonanPeserta::with(['permohonan', 'kehadiran', 'jadualKursus', 'maklumat_peserta'])->where('peserta', $id_peserta)->get();
+            foreach ($sejarah_pencalonan as $sc) {
+                if ($sc->kehadiran != null) {
+                    foreach ($sc->kehadiran as $ch) {
+                        // dd($ch);
+                        $ch->aturcara = Aturcara::where('id', $ch->jadual_kursus_ref)->first();
+                        $ch->aturcara->ac_hari = (int)$ch->aturcara->ac_hari;
+                        $ch->aturcara->ac_hari = $ch->aturcara->ac_hari - 1;
+                    }
+                }
+            }
+
             return view('pengurusan_peserta.pencalonan.maklumat_peserta_ulpk', [
                 'peserta' => $pk,
                 'jadual' => $jadual,
                 'sejarah_permohonan' => $sejarah_permohonan,
+                'sejarah_pencalonan' => $sejarah_pencalonan,
                 'date' => $date,
                 'hari' => $hari
             ]);

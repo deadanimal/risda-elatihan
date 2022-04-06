@@ -84,6 +84,11 @@
         </div>
 
         <div class="card mt-3">
+            <div class="card-header">
+                <p class="h5 fw-bold mt-3">
+                    PERMOHONAN
+                </p>
+            </div>
             <div class="table-responsive scrollbar m-4">
                 <table class="table datatable table-bordered text-center">
                     <thead>
@@ -162,6 +167,103 @@
                                 </td>
                                 <td>{{ $p->jadual->kursus_catatan }}</td>
                                 
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="card mt-3">
+            <div class="card-header">
+                <p class="h5 fw-bold mt-3">
+                    PENCALONAN
+                </p>
+            </div>
+            <div class="table-responsive scrollbar m-4">
+                <table class="table datatable table-bordered text-center">
+                    <thead>
+                        <tr>
+                            <th scope="col">BIL.</th>
+                            <th scope="col">KOD NAMA KURSUS</th>
+                            <th scope="col">NAMA KURSUS</th>
+                            {{-- <th scope="col">ANJURAN</th> --}}
+                            <th scope="col">TARIKH MULA KURSUS</th>
+                            <th scope="col">TARIKH AKHIR KURSUS</th>
+                            <th scope="col">STATUS KEHADIRAN</th>
+                            <th scope="col">CATATAN</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($sejarah_pencalonan as $key => $c)
+                            <tr>
+                                <td>{{ $key + 1 }}.</td>
+                                <td>{{ $c->jadualKursus->kursus_kod_nama_kursus }}</td>
+                                <td>{{ $c->jadualKursus->kursus_nama }}</td>
+                                {{-- <td> </td> --}}
+                                <td>{{ $c->jadualKursus->tarikh_mula }}</td>
+                                <td>{{ $c->jadualKursus->tarikh_tamat }}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal"
+                                        data-bs-target="#status-kehadiran-{{ $c->id }}">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <div class="modal fade" id="status-kehadiran-{{ $c->id }}" tabindex="-1"
+                                        role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                            <div class="modal-content position-relative">
+                                                <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
+                                                    <button
+                                                        class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
+                                                        data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body p-0">
+                                                    <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
+                                                        <h4 class="mb-1" id="modalExampleDemoLabel">Status
+                                                            Kehadiran
+                                                        </h4>
+                                                    </div>
+                                                    <div class="p-2">
+                                                        {{-- test --}}
+                                                        <div class="table-responsive scrollbar m-3">
+                                                            <table class="table datatable table-bordered text-center">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>BIL.</th>
+                                                                        <th>TARIKH</th>
+                                                                        <th>HARI</th>
+                                                                        <th>SESI</th>
+                                                                        <th>STATUS KEHADIRAN</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach ($sejarah_pencalonan as $cba)
+                                                                        @if ($cba->kehadiran != null)
+                                                                            @foreach ($cba->kehadiran as $xyz => $spc)
+                                                                                <tr>
+                                                                                    <td>{{ $xyz + 1 }}.</td>
+                                                                                    <td>{{ date('d/m/Y', strtotime($spc->tarikh)) }}
+                                                                                    </td>
+                                                                                    <td>{{ $hari[$spc->aturcara->ac_hari] }}
+                                                                                    </td>
+                                                                                    <td>{{ $spc->sesi }}</td>
+                                                                                    <td>{{ $spc->status_kehadiran_ke_kursus }}
+                                                                                    </td>
+                                                                                </tr>
+                                                                            @endforeach
+                                                                        @endif
+                                                                    @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>{{ $c->jadualKursus->kursus_catatan }}</td>
+
                             </tr>
                         @endforeach
                     </tbody>
