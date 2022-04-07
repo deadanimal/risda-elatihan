@@ -59,4 +59,9 @@ class JadualKursus extends Model
     public function agensi() {
         return $this->belongsTo(Agensi::class,'kod_agensi', 'id');
     }
+
+    public function pencalonan()
+    {
+        return $this->hasMany(PencalonanPeserta::class, 'jadual', 'id');
+    }
 }
