@@ -87,7 +87,7 @@ class PencalonanPesertaController extends Controller
     {
         $jadual = JadualKursus::find($id);
         if ($jadual->kursus_unit_latihan == 'Staf') {
-            $peserta_daftar = PencalonanPeserta::with(['permohonan', 'kehadiran', 'jadualKursus', 'maklumat_peserta'])->where('jadual', $id)->get();
+            $peserta_daftar = PencalonanPeserta::with(['kehadiran', 'jadualKursus', 'maklumat_peserta'])->where('jadual', $id)->get();
             // dd($peserta_daftar->isNotEmpty());
             $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
                 ->get('https://www4.risda.gov.my/fire/getallstaff/')
@@ -115,7 +115,7 @@ class PencalonanPesertaController extends Controller
                 'jadual' => $jadual
             ]);
         } elseif ($jadual->kursus_unit_latihan == 'Pekebun Kecil') {
-            $peserta_daftar = PencalonanPeserta::with(['permohonan', 'kehadiran', 'jadualKursus', 'maklumat_peserta'])->where('jadual', $id)->get();
+            $peserta_daftar = PencalonanPeserta::with(['kehadiran', 'jadualKursus', 'maklumat_peserta'])->where('jadual', $id)->get();
             foreach ($peserta_daftar as $b => $pk) {
                 $data_pk = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', '1cc11a9fec81dc1f99f353f403d6f5bac620aa8f')
                     ->get('https://www4.risda.gov.my/espek/portalpkprofiltanah/?nokp=' . $pk->maklumat_peserta->no_KP)
@@ -165,7 +165,7 @@ class PencalonanPesertaController extends Controller
                     $hari = $hari + ($k->jadual->bilangan_hari);
                 }
 
-                $pencalonan = PencalonanPeserta::with('jadualKursus')->where('peserta', $ds->id)->whereYear('created_at', $tahun)->get();
+                $pencalonan = PencalonanPeserta::where('peserta', $ds->id)->whereYear('created_at', $tahun)->get();
                 // dd($pencalonan);
                 foreach ($pencalonan as $key => $pen) {
                     $hari = $hari + ($pen->jadualKursus->bilangan_hari);
@@ -370,7 +370,7 @@ class PencalonanPesertaController extends Controller
                 }
             }
 
-            $sejarah_pencalonan = PencalonanPeserta::with(['permohonan', 'kehadiran', 'jadualKursus', 'maklumat_peserta'])->where('peserta', $id_peserta)->get();
+            $sejarah_pencalonan = PencalonanPeserta::with(['kehadiran', 'jadualKursus', 'maklumat_peserta'])->where('peserta', $id_peserta)->get();
             foreach ($sejarah_pencalonan as $sc) {
                 if ($sc->kehadiran != null) {
                     foreach ($sc->kehadiran as $ch) {
@@ -415,7 +415,7 @@ class PencalonanPesertaController extends Controller
                 }
             }
 
-            $sejarah_pencalonan = PencalonanPeserta::with(['permohonan', 'kehadiran', 'jadualKursus', 'maklumat_peserta'])->where('peserta', $id_peserta)->get();
+            $sejarah_pencalonan = PencalonanPeserta::with(['kehadiran', 'jadualKursus', 'maklumat_peserta'])->where('peserta', $id_peserta)->get();
             foreach ($sejarah_pencalonan as $sc) {
                 if ($sc->kehadiran != null) {
                     foreach ($sc->kehadiran as $ch) {

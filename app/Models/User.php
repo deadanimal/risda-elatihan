@@ -47,9 +47,9 @@ class User extends Authenticatable
         return $this->hasOne(PekebunKecil::class);
     }
 
-    public function TRY()
+    public function pencalonan()
     {
-        # code...
+        return $this->hasMany(PencalonanPeserta::class, 'peserta','id');
     }
 
     public function pemohonan()
