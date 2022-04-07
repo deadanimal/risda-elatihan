@@ -136,13 +136,13 @@ class CetakKodQRController extends Controller
         // return view('uls.urus_setia.kehadiran.cetakkodqr.printQR', [
         //     'id' => $id,
         // ]);
-        $pdf = PDF::loadView('uls.urus_setia.kehadiran.cetakkodqr.printQR', [
+        $pdf = PDF::loadView('uls.urus_setia.kehadiran.cetakkodqr.test', [
                 'id' => $id,
                 'aturcara'=>$aturcara,
                 'kursus'=>$kursus
             ]);
 
-        return $pdf->download('QRCode Kursus ' . $kursus->kursus_nama. '- Sesi '. $aturcara->sesi .'.pdf');
+        return $pdf->download('QRCode Kursus ' . $kursus->kursus_nama. ' - Sesi '. $aturcara->ac_sesi .'.pdf');
 
         // return $pdf->stream("dompdf_out.pdf", array("Attachment" => false));
 
