@@ -21,17 +21,7 @@
                         <label class="col-form-label">UNIT LATIHAN:</label>
                     </div>
                     <div class="col-lg-9 mb-2">
-                        @role('Urus Setia ULS')
                             <input type="text" name="" id="" class="form-control" value="Staf" disabled>
-                            @elserole('Urus Setia ULPK')
-                            <input type="text" name="" id="" class="form-control" value="Pekebun Kecil" disabled>
-                        @else
-                            <select name="ul" id="unit_latihan" class="form-control">
-                                <option value="" selected hidden>Sila Pilih</option>
-                                <option value="Staf">Staf</option>
-                                <option value="Pekebun Kecil">Pekebun Kecil</option>
-                            </select>
-                        @endrole
                     </div>
                     <div class="col-lg-3 mb-2">
                         <label class="col-form-label">TEMPAT KURSUS:</label>
@@ -52,7 +42,7 @@
         <div class="row mt-4">
             <div class="col">
                 <div class="card">
-                    <form action="/pengurusan_peserta/semakan_pemohon/pengesahan_pukal" method="post">
+                    <form action="/pengurusan_peserta/semakan_pemohon/sokongan_pukal" method="post">
                         @csrf
 
                         <div class="table-responsive scrollbar m-3">
@@ -64,9 +54,7 @@
                                         <th class="sort">NO. KAD PENGENALAN</th>
                                         <th class="sort">NAMA PEMOHON</th>
                                         <th class="sort">PUSAT TANGGUNGJAWAB</th>
-                                        @role('Urus Setia ULS')
-                                            <th class="sort">GRED</th>
-                                        @endrole
+                                        <th class="sort">GRED</th>
                                         <th class="sort">KOD KURSUS</th>
                                         <th class="sort">NAMA KURSUS</th>
                                         <th class="sort">STATUS</th>
@@ -76,112 +64,61 @@
                                 </thead>
                                 <tbody class="bg-white" id="t_normal">
 
-                                    @role('Penyokong')
-                                        @foreach ($pemohon as $a => $p)
-                                            @if ($p->status_permohonan != 0)
-                                                <tr>
-                                                    <td>{{ $a + 1 }}.</td>
-                                                    <td>{{ date('H:i, d/m/Y', strtotime($p->created_at)) }}</td>
-                                                    <td>{{ $p->peserta->no_KP }}</td>
-                                                    <td>{{ $p->peserta->name }}</td>
-                                                    <td>{{ $p->pusat_tanggungjawab }}</td>
-                                                    <td>
-                                                        @if ($p->jadual == null)
-                                                            <span class="text-danger">Jadual telah dihapuskan</span>
-                                                        @else
-                                                            {{ $p->jadual->kursus_kod_nama_kursus }}
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        @if ($p->jadual == null)
-                                                            <span class="text-danger">Jadual telah dihapuskan</span>
-                                                        @else
-                                                            {{ $p->jadual->kursus_nama }}
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        @if ($p->status_permohonan == 0)
-                                                            Belum Disemak
-                                                        @elseif($p->status_permohonan == 1)
-                                                            Belum Disemak (Sokongan)
-                                                        @elseif($p->status_permohonan == 2)
-                                                            Disokong
-                                                        @elseif($p->status_permohonan == 3)
-                                                            Tidak Disokong
-                                                        @elseif($p->status_permohonan == 4)
-                                                            Telah Disemak (Penyokong)
-                                                        @elseif($p->status_permohonan == 5)
-                                                            Telah Disemak (Penyokong)
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        <a href="/permohonan_kursus/semakan_permohonan/{{ $p->id }}"
-                                                            class="btn btn-primary btn-sm">Butiran</a>
-                                                    </td>
-                                                    <td>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" name="pemohon"
-                                                                value="{{ $p->id }}" />
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                    @foreach ($staf as $b => $s)
+                                    <tr>
+                                        <td>{{ $b + 1 }}.</td>
+                                        <td>{{ date('H:i, d/m/Y', strtotime($s->created_at)) }}</td>
+                                        <td>{{ $s->peserta->no_KP }}</td>
+                                        <td>{{ $s->peserta->name }}</td>
+                                        <td>{{ $s->pusat_tanggungjawab }}</td>
+                                        <td>{{ $s->gred }}</td>
+                                        <td>
+                                            @if ($s->jadual == null)
+                                                <span class="text-danger">Jadual telah dihapuskan</span>
+                                            @else
+                                                {{ $s->jadual->kursus_kod_nama_kursus }}
                                             @endif
-                                        @endforeach
-                                    @else
-                                        @foreach ($pemohon as $key => $p)
-                                            <tr>
-                                                <td>{{ $key + 1 }}.</td>
-                                                <td>{{ date('H:i, d/m/Y', strtotime($p->created_at)) }}</td>
-                                                <td>{{ $p->peserta['no_KP'] }}</td>
-                                                <td>{{ $p->peserta['name'] }}</td>
-                                                <td>{{ $p->pusat_tanggungjawab }}</td>
-                                                <td>
-                                                    @if ($p->jadual == null)
-                                                        <span class="text-danger">Jadual telah dihapuskan</span>
-                                                    @else
-                                                        {{ $p->jadual->kursus_kod_nama_kursus }}
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    @if ($p->jadual == null)
-                                                        <span class="text-danger">Jadual telah dihapuskan</span>
-                                                    @else
-                                                        {{ $p->jadual->kursus_nama }}
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    @if ($p->status_permohonan == 0)
-                                                        Belum Disemak
-                                                    @elseif($p->status_permohonan == 1)
-                                                        Belum Disemak (Sokongan)
-                                                    @elseif($p->status_permohonan == 2)
-                                                        Disokong
-                                                    @elseif($p->status_permohonan == 3)
-                                                        Tidak Disokong
-                                                    @elseif($p->status_permohonan == 4)
-                                                        Lulus
-                                                    @elseif($p->status_permohonan == 5)
-                                                        Tidak Lulus
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    <a href="/permohonan_kursus/semakan_permohonan/{{ $p->id }}"
-                                                        class="btn btn-primary btn-sm">Butiran</a>
-                                                    {{-- <form action="/permohonan_kursus/semakan_permohonan/{{$p->id}}" method="POST">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button type="submit" class="btn btn-danger">buang</button>
-                                            </form> --}}
-                                                </td>
-                                                <td>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input pukal" type="checkbox" name="pemohon[]"
-                                                            value="{{ $p->id }}" />
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    @endrole
+                                        </td>
+                                        <td>
+                                            @if ($s->jadual == null)
+                                                <span class="text-danger">Jadual telah dihapuskan</span>
+                                            @else
+                                                {{ $s->jadual->kursus_nama }}
+                                            @endif
+
+                                        </td>
+                                        <td>
+                                            @if ($s->status_permohonan == 0)
+                                                Belum Disemak
+                                            @elseif($s->status_permohonan == 1)
+                                                Belum Disemak (Sokongan)
+                                            @elseif($s->status_permohonan == 2)
+                                                Disokong
+                                            @elseif($s->status_permohonan == 3)
+                                                Tidak Disokong
+                                            @elseif($s->status_permohonan == 4)
+                                                Lulus
+                                            @elseif($s->status_permohonan == 5)
+                                                Tidak Lulus
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="/permohonan_kursus/semakan_permohonan/{{ $s->id }}"
+                                                class="btn btn-primary btn-sm">Butiran</a>
+                                            {{-- <form action="/permohonan_kursus/semakan_permohonan/{{$p->id}}" method="POST">
+                                                        @method('DELETE')
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-danger">buang</button>
+                                                    </form> --}}
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input pukal" type="checkbox" name="pemohon[]"
+                                                    value="{{ $s->id }}" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
 
                                 </tbody>
 
@@ -192,7 +129,7 @@
 
                         <div class="row m-3" id="pukal">
                             <div class="col text-end">
-                                <button type="submit" class="btn btn-primary">Lulus</button>
+                                <button type="submit" class="btn btn-primary">Sokong</button>
                             </div>
                         </div>
                     </form>
@@ -201,7 +138,7 @@
         </div>
     </div>
 
-    @foreach ($pemohon as $key => $p)
+    @foreach ($staf as $key => $p)
         <div class="modal fade" id="delete-{{ $p->id }}" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
                 <div class="modal-content position-relative">
