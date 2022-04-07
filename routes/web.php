@@ -340,6 +340,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/pengurusan_peserta/pencalonan/{id}/{id_peserta}', [PencalonanPesertaController::class, 'maklumat_peserta']);
 
     Route::resource('/pengurusan_peserta/semakan_pemohon', SemakPermohonanController::class);
+    Route::post('/pengurusan_peserta/semakan_pemohon/pengesahan_pukal', [SemakPermohonanController::class, 'pengesahan_pukal']);
+    Route::post('/pengurusan_peserta/semakan_pemohon/sokongan_pukal', [SemakPermohonanController::class, 'sokongan_pukal']);
     Route::resource('/profil', ProfilController::class);
 
     Route::resource('/permohonan_kursus/katalog_kursus', PermohonanController::class);
