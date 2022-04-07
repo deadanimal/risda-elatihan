@@ -75,7 +75,10 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $k->kursus_kod_nama_kursus }}</td>
                                 <td>{{ $k->kursus_nama }}</td>
-                                <td>{{ date('d/m/Y', strtotime($k->tarikh_mula)) }}</td>
+                                <td>{{ date('d/m/Y', strtotime($k->tarikh_mula)) }}
+                                <br>-<br> 
+                                   {{ date('d/m/Y', strtotime($k->tarikh_tamat)) }}
+                                </td>
                                 <td>{{ $k->tempat->nama_Agensi }}</td>
                                 <td class="text-end"><a href="/us-uls/kehadiran/cetakkodQR/{{ $k->id }}"
                                         class="btn btn-primary btn-sm">CETAK KOD QR</a></td>
