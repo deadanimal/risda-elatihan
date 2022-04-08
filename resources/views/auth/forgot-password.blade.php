@@ -19,10 +19,13 @@
                                         @csrf
                                         <!-- Email Address -->
                                         <div>
-                                            <label class="form-label">Emel Yang Berdaftar</label>
+                                            <label class="form-label">No Kad Pengenalan Berdaftar</label>
 
-                                            <input id="email" class="form-control" type="email" name="email"
-                                                :value="old('email')" required autofocus />
+                                            {{-- <input id="email" class="form-control" type="email" name="email"
+                                                :value="old('email')" required autofocus /> --}}
+
+                                                <input class="form-control" type="text" name="no_KP"
+                                                :value="old('no_KP')" required autofocus />
                                         </div>
 
                                         <div class="flex items-center justify-end mt-4">
