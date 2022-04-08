@@ -112,6 +112,8 @@
                                                             Telah Disemak (Penyokong)
                                                         @elseif($p->status_permohonan == 5)
                                                             Telah Disemak (Penyokong)
+                                                        @elseif($p->status_permohonan == 6)
+                                                            Dicalonkan
                                                         @endif
                                                     </td>
                                                     <td>
@@ -159,9 +161,11 @@
                                                     @elseif($p->status_permohonan == 3)
                                                         Tidak Disokong
                                                     @elseif($p->status_permohonan == 4)
-                                                        Lulus
+                                                        Diluluskan
                                                     @elseif($p->status_permohonan == 5)
                                                         Tidak Lulus
+                                                    @elseif($p->status_permohonan == 6)
+                                                        Dicalonkan
                                                     @endif
                                                 </td>
                                                 <td>

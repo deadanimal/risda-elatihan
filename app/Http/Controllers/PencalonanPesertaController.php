@@ -65,15 +65,15 @@ class PencalonanPesertaController extends Controller
     public function store(StorePencalonanPesertaRequest $request)
     {
         // dd($request->all());
-        foreach ($request->peserta as $key => $value) {
-            $pencalonan = new PencalonanPeserta();
-            $pencalonan->peserta = $request->peserta[$key];
-            $pencalonan->jadual = $request->jadual;
-            $pencalonan->dicalon_oleh = Auth::id();
-            $pencalonan->status = 'Lulus';
+        foreach ($request->peserta as $key => $peserta) {
+            $pencalonan = new Permohonan;
+            $pencalonan->no_pekerja = $request->peserta[$key];
+            $pencalonan->kod_kursus = $request->jadual;
+            // $pencalonan->dicalon_oleh = Auth::id();
+            $pencalonan->status_permohonan = '6';
             $pencalonan->save();
         }
-        alert()->success('Maklumat telah disimpan.', ' Berjaya');
+        alert()->success('Peserta telah dicalonkan.', ' Berjaya');
         return redirect('/pengurusan_peserta/pencalonan/' . $request->jadual);
     }
 
@@ -87,7 +87,7 @@ class PencalonanPesertaController extends Controller
     {
         $jadual = JadualKursus::find($id);
         if ($jadual->kursus_unit_latihan == 'Staf') {
-            $peserta_daftar = PencalonanPeserta::with(['kehadiran', 'jadualKursus', 'maklumat_peserta'])->where('jadual', $id)->get();
+            $peserta_daftar = Permohonan::with(['kehadiran', 'jadual', 'peserta'])->where('kod_kursus', $id)->get();
             // dd($peserta_daftar->isNotEmpty());
             $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
                 ->get('https://www4.risda.gov.my/fire/getallstaff/')
@@ -99,8 +99,8 @@ class PencalonanPesertaController extends Controller
             if ($peserta_daftar->isNotEmpty()) {
                 foreach ($peserta_daftar as $key => $p) {
                     foreach ($data_staf as $a => $staf) {
-                        if ($p->maklumat_peserta != null) {
-                            if ($p->maklumat_peserta->no_KP == $staf['nokp']) {
+                        if ($p->peserta != null) {
+                            if ($p->peserta->no_KP == $staf['nokp']) {
                                 $p['pusat_tanggungjawab'] = $staf['NamaPT'];
                                 $p['gred'] = $staf['Gred'];
                             }
@@ -109,16 +109,15 @@ class PencalonanPesertaController extends Controller
                 }
             }
 
-            // dd($peserta_daftar->first()->maklumat_peserta);
-            return view('pengurusan_peserta.pencalonan.show_uls', [
+            return view('pengurusan_peserta.pencalonan.show', [
                 'peserta_daftar' => $peserta_daftar,
                 'jadual' => $jadual
             ]);
         } elseif ($jadual->kursus_unit_latihan == 'Pekebun Kecil') {
-            $peserta_daftar = PencalonanPeserta::with(['kehadiran', 'jadualKursus', 'maklumat_peserta'])->where('jadual', $id)->get();
+            $peserta_daftar = Permohonan::with(['kehadiran', 'jadual', 'peserta'])->where('kod_kursus', $id)->get();
             foreach ($peserta_daftar as $b => $pk) {
                 $data_pk = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', '1cc11a9fec81dc1f99f353f403d6f5bac620aa8f')
-                    ->get('https://www4.risda.gov.my/espek/portalpkprofiltanah/?nokp=' . $pk->maklumat_peserta->no_KP)
+                    ->get('https://www4.risda.gov.my/espek/portalpkprofiltanah/?nokp=' . $pk->peserta->no_KP)
                     ->getBody()
                     ->getContents();
                 $data_pk = json_decode($data_pk, true);
@@ -323,7 +322,7 @@ class PencalonanPesertaController extends Controller
      */
     public function destroy($id_pencalonan)
     {
-        $pencalonan = PencalonanPeserta::find($id_pencalonan);
+        $pencalonan = Permohonan::find($id_pencalonan);
         $pencalonan->delete();
 
         alert()->success('Pencalonan telah dihapus.', 'Berjaya');
