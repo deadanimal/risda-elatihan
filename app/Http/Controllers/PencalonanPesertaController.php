@@ -122,9 +122,12 @@ class PencalonanPesertaController extends Controller
                     ->getBody()
                     ->getContents();
                 $data_pk = json_decode($data_pk, true);
-                $data_pk = $data_pk[0];
-
-                $pk['alamat'] = $data_pk['Nombor'] . ', ' . $data_pk['Jalan'] . ', ' . $data_pk['Nama_Kampung'] . ', ' . $data_pk['Poskod'] . ' ' . $data_pk['Bandar'] . ', ' . $data_pk['Negeri'];
+                try {
+                    $data_pk = $data_pk[0];
+                    $pk['alamat'] = $data_pk['Nombor'] . ', ' . $data_pk['Jalan'] . ', ' . $data_pk['Nama_Kampung'] . ', ' . $data_pk['Poskod'] . ' ' . $data_pk['Bandar'] . ', ' . $data_pk['Negeri'];
+                } catch (\Throwable $th) {
+                    $pk['alamat'] = 'No. Kad Pengenalan tiada dalam e-SPEK Pekebun Kecil';
+                }
             }
 
             return view('pengurusan_peserta.pencalonan.show_ulpk', [
@@ -390,7 +393,6 @@ class PencalonanPesertaController extends Controller
                 'date' => $date,
                 'hari' => $hari
             ]);
-
         } elseif ($check->kursus_unit_latihan == 'Pekebun Kecil') {
 
             $ic = User::findOrFail($id_peserta)->no_KP;
