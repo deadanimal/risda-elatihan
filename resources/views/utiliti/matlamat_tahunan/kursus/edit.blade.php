@@ -60,8 +60,8 @@
                                                     <input type="hidden" name="title[]"
                                                         value="{{ $c->nama_Kategori_Kursus }}">
                                                 @elseif ($title == 'TAJUK KURSUS')
-                                                    {{ $c->tajuk }}
-                                                    <input type="hidden" name="title[]" value="{{ $c->tajuk }}">
+                                                    {{ $c->tajuk_Kursus }}
+                                                    <input type="hidden" name="title[]" value="{{ $c->tajuk_Kursus }}">
                                                 @endif
                                             </td>
                                             @foreach ($c->matlamat_kursus_cm as $k => $cm)

@@ -585,7 +585,7 @@
                                     </div>
                                 </a>
                                 <ul class="nav-item collapse {{ Request::is('utiliti/matlamat_tahunan/*') ? 'show' : 'false' }} my-1"
-                                    id="status">
+                                    id="matlamat">
                                     <li class="nav-item">
                                         <a class="nav-link {{ Request::is('utiliti/matlamat_tahunan/kursus') ? 'active' : '' }} py-0"
                                             href="/utiliti/matlamat_tahunan/kursus">

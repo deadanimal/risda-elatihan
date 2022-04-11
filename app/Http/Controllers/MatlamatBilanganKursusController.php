@@ -31,7 +31,7 @@ class MatlamatBilanganKursusController extends Controller
         } elseif($request->jenis_m == 'kategori kursus') {
             $carian = KategoriKursus::whereYear('created_at', $request->tahun)->get();
         }elseif($request->jenis_m == 'tajuk kursus'){
-            $carian = MatlamatBilanganKursus::whereYear('created_at', $request->tahun)
+            $carian = KodKursus::whereYear('created_at', $request->tahun)
                 ->get();
         }
 
@@ -82,6 +82,7 @@ class MatlamatBilanganKursusController extends Controller
         // dd($jenis);
         $title = strtoupper($request->jenis_m);
 
+        // dd($carian);
         return view('utiliti.matlamat_tahunan.kursus.carian',[
             'matlamat_tahunan'=>$carian,
             'tahun'=>$tahun,
@@ -98,7 +99,7 @@ class MatlamatBilanganKursusController extends Controller
         } elseif($title == 'kategori_kursus') {
             $carian = KategoriKursus::whereYear('created_at', $year)->get();
         }elseif($title == 'tajuk_kursus'){
-            $carian = MatlamatBilanganKursus::whereYear('created_at', $year)
+            $carian = KodKursus::whereYear('created_at', $year)
                 ->get();
         }
 
