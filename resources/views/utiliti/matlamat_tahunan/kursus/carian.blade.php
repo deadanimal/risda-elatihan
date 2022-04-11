@@ -92,7 +92,7 @@
                                             @elseif ($title == 'KATEGORI KURSUS')
                                                 {{ $c->nama_Kategori_Kursus }}
                                             @elseif ($title == 'TAJUK KURSUS')
-                                                {{ $c->tajuk }}
+                                                {{ $c->tajuk_Kursus }}
                                             @endif
                                         </td>
                                         @foreach ($c->matlamat_kursus_cm as $l => $cm)
