@@ -93,7 +93,9 @@
                                     @php
                                         $bid = BidangKursus::find($b->id);
                                         $bidang = MatlamatBilanganKursus::where('bidang', $bid->nama_Bidang_Kursus)->first();
-                                        $bidang_jumlah = $bidang['jan'] + $bidang['feb'] + $bidang['mac'] + $bidang['apr'] + $bidang['mei'] + $bidang['jun'] + $bidang['jul'] + $bidang['ogos'] + $bidang['sept'] + $bidang['okt'] + $bidang['nov'] + $bidang['dis'];
+                                        if ($bidang != null) {
+                                            $bidang_jumlah = $bidang['jan'] + $bidang['feb'] + $bidang['mac'] + $bidang['apr'] + $bidang['mei'] + $bidang['jun'] + $bidang['jul'] + $bidang['ogos'] + $bidang['sept'] + $bidang['okt'] + $bidang['nov'] + $bidang['dis'];
+                                        }
                                         // dd($bidang);
                                     @endphp
                                     <tr class="risda-bg-dg text-white">
@@ -127,7 +129,9 @@
                                             @php
                                                 $kat = KategoriKursus::find($k->id);
                                                 $kategori = MatlamatBilanganKursus::where('bidang', $kat->nama_Kategori_Kursus)->first();
-                                                $kategori_jumlah = $kategori['jan'] + $kategori['feb'] + $kategori['mac'] + $kategori['apr'] + $kategori['mei'] + $kategori['jun'] + $kategori['jul'] + $kategori['ogos'] + $kategori['sept'] + $kategori['okt'] + $kategori['nov'] + $kategori['dis'];
+                                                if ($kategori != null) {
+                                                    $kategori_jumlah = $kategori['jan'] + $kategori['feb'] + $kategori['mac'] + $kategori['apr'] + $kategori['mei'] + $kategori['jun'] + $kategori['jul'] + $kategori['ogos'] + $kategori['sept'] + $kategori['okt'] + $kategori['nov'] + $kategori['dis'];
+                                                }
                                                 // dd($kategori);
                                             @endphp
                                             <tr class="bg-soft-success">
