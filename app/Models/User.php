@@ -52,6 +52,11 @@ class User extends Authenticatable
         return $this->hasOne(PekebunKecil::class);
     }
 
+    public function staf()
+    {
+        return $this->hasOne(Staf::class, 'id_Pengguna', 'id');
+    }
+
     public function pencalonan()
     {
         return $this->hasMany(PencalonanPeserta::class, 'peserta','id');

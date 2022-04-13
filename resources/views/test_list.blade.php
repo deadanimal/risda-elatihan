@@ -1,6 +1,7 @@
 @extends('layouts.risda-base')
 @section('content')
-    @foreach ($user as $key => $u)
+<a href="/delete_staf" class="btn btn-danger">Remove All Peserta ULS </a> <br><a href="/add_staf" class="btn btn-warning">add</a><br>
+    {{-- @foreach ($user as $key => $u)
         {{ $u->id }}. {{ $u->no_KP }} ({{ $u->jenis_pengguna }})
         <br>
         <div class="col-lg-5">
@@ -23,7 +24,7 @@
             <button type="submit" class="btn btn-danger">buang</button>
         </form>
         <br><br>
-    @endforeach
+    @endforeach --}}
 
     {{-- <form action="/pengurusan_peserta/semakan_pemohon/9" method="post">
         @method('DELETE')
@@ -31,5 +32,5 @@
         <button type="submit" class="btn btn-warning">Tekan ni</button>
     </form> --}}
 
-    <a href="/add_staf" class="btn btn-warning">add</a>
+    
 @endsection

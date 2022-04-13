@@ -1,9 +1,9 @@
 @extends('layouts.risda-base')
 
 @section('content')
-@php
+    @php
     use App\Models\PencalonanPeserta;
-@endphp
+    @endphp
     <div class="container">
         <div class="row mt-3 mb-2">
             <div class="col-12 mb-2">
@@ -26,7 +26,7 @@
             <input type="hidden" name="jadual" value="{{ $id }}">
             <div class="card mt-3">
                 <div class="table-responsive scrollbar m-4">
-                    <table class="table datatable table-bordered text-center">
+                    <table class="table datatable table-bordered text-center" id="peserta">
                         <thead>
                             <tr>
                                 <th scope="col">Bil.</th>
@@ -44,8 +44,8 @@
                             @foreach ($list_staf as $key => $p)
                                 <tr>
                                     <td>{{ $key + 1 }}.</td>
-                                    <td>{{ $p->no_KP }}</td>
-                                    <td>{{ $p->name }}</td>
+                                    <td>{{ $p->pengguna->no_KP }}</td>
+                                    <td>{{ $p->pengguna->name }}</td>
                                     <td>{{ $p->NamaPT }}</td>
                                     <td>{{ $p->Gred }}</td>
                                     <td>{{ $p['hari_berkursus'] }}</td>
@@ -53,11 +53,11 @@
                                     <td>
                                         <div class="form-check justify-content-center d-flex">
                                             <input class="form-check-input" type="checkbox" name="peserta[]"
-                                                value="{{ $p->id }}"/>
+                                                value="{{ $p->id_Pengguna }}" />
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="/pengurusan_peserta/pencalonan/{{ $id }}/{{ $p->id }}"
+                                        <a href="/pengurusan_peserta/pencalonan/{{ $id }}/{{ $p->id_Pengguna }}"
                                             class="btn btn-primary">
                                             <i class="far fa-clipboard"></i>
                                         </a>
@@ -78,4 +78,22 @@
 
 
     </div>
+
+    <script>
+        $('#peserta').dataTable({
+            "columns": [
+                null,
+                null,
+                {
+                    "width": "40%"
+                },
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+            ]
+        });
+    </script>
 @endsection
