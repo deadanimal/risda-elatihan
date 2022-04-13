@@ -88,12 +88,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($bidang as $b)
+                                @foreach ($bidang_h as $b)
                                     @php
                                         $bid = BidangKursus::find($b->id);
                                         $bidang = MatlamatBilanganKursus::where('bidang', $bid->nama_Bidang_Kursus)->first();
-                                        $bidang_jumlah = $bidang['jan'] + $bidang['feb'] + $bidang['mac'] + $bidang['apr'] + $bidang['mei'] + $bidang['jun'] + $bidang['jul'] + $bidang['ogos'] + $bidang['sept'] + $bidang['okt'] + $bidang['nov'] + $bidang['dis'];
-                                        // dd($bidang);
+                                        if ($bidang != null) {
+                                            $bidang_jumlah = $bidang['jan'] + $bidang['feb'] + $bidang['mac'] + $bidang['apr'] + $bidang['mei'] + $bidang['jun'] + $bidang['jul'] + $bidang['ogos'] + $bidang['sept'] + $bidang['okt'] + $bidang['nov'] + $bidang['dis'];
+                                        }
                                     @endphp
                                     <tr class="risda-bg-dg text-white">
                                         <td>{{ $loop->iteration }}</td>
