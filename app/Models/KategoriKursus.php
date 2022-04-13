@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class KategoriKursus extends Model
 {
     use HasFactory;
+
+    public function bidang()
+    {
+        return $this->belongsTo(BidangKursus::class, 'U_Bidang_Kursus', 'id');
+    }
 }
