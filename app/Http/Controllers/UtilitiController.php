@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUtilitiRequest;
 use App\Http\Requests\UpdateUtilitiRequest;
 use App\Models\PekebunKecil;
+use App\Models\Permohonan;
 use App\Models\Staf;
 use App\Models\Tanah;
 use App\Models\Tanaman;
@@ -141,36 +142,62 @@ class UtilitiController extends Controller
 
     public function r_espek()
     {
+        ini_set('max_execution_time', 1800);
         $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
             ->get('https://www4.risda.gov.my/fire/getallstaff/')
             ->getBody()
             ->getContents();
 
         $data_staf = json_decode($data_staf, true);
-
+        // $user = User::all();
         foreach ($data_staf as $key => $staf) {
-            $user = User::all();
-            $sama = '';
-            foreach ($user as $key => $u) {
-                if ($u->no_KP == $staf['nokp']) {
-                    $sama = 'yes';
-                }
-            }
-            if ($sama != 'yes') {
-                $user = new User;
-                $user->name = $staf['nama'];
-                $user->email = $staf['email'];
-                $user->password = Hash::make('pnsb1234');
-                $user->no_KP = $staf['nokp'];
-                $user->jenis_pengguna = 'Peserta ULS';
-                $user->assignRole('Peserta ULS');
-                $user->no_telefon = $staf['notel'];
-                $user->status_akaun = '1';
-                $user->save();
-            }
+            $user = new User;
+            $user->name = $staf['nama'];
+            $user->email = $staf['email'];
+            $user->password = Hash::make('pnsb1234');
+            $user->no_KP = $staf['nokp'];
+            $user->jenis_pengguna = 'Peserta ULS';
+            $user->assignRole('Peserta ULS');
+            $user->no_telefon = $staf['notel'];
+            $user->status_akaun = '1';
+            $user->save();
+
+            $reg_staf = new Staf;
+            $reg_staf->id_Pengguna = $user->id;
+            $reg_staf->nopekerja = $staf['nopekerja'];
+            $reg_staf->GelaranJwtn = $staf['GelaranJwtn'];
+            $reg_staf->Gred = $staf['Gred'];
+            $reg_staf->Jawatan = $staf['Jawatan'];
+            $reg_staf->Kod_PT = $staf['Kod_PT'];
+            $reg_staf->NamaPT = $staf['NamaPT'];
+            $reg_staf->Negeri = $staf['Negeri'];
+            $reg_staf->NamaPA = $staf['NamaPA'];
+            $reg_staf->NamaUnit = $staf['NamaUnit'];
+            $reg_staf->StesenBertugas = $staf['NamaUnit'];
+            $reg_staf->notel = $staf['notel'];
+            $reg_staf->save();
         }
 
-        set_time_limit(300);
+        alert()->success('Habis');
+        // set_time_limit(300);
+        return redirect('/testing');
+    }
+
+    public function remove_user_uls()
+    {
+        $user = User::where('jenis_pengguna', 'Peserta ULS')->get();
+
+        foreach ($user as $key => $u) {
+            $permohonan = Permohonan::where('no_pekerja', $u->id)->get();
+            if ($permohonan != null) {
+                foreach ($permohonan as $key => $p) {
+                    $p->delete();
+                }
+            }
+            $u->delete();
+        }
+
+        alert()->success('Habis');
         return redirect('/testing');
     }
 }

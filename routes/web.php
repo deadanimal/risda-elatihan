@@ -329,6 +329,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/add_staf', [UtilitiController::class, 'r_espek']);
     Route::delete('/delete/{id}', [UtilitiController::class, 'test_user_delete']);
     Route::put('/update_role/{id}', [UtilitiController::class, 'test_user_update_role']);
+    Route::get('/delete_staf', [UtilitiController::class, 'remove_user_uls']);
 
     Route::get('testjap', [PermohonanController::class, 'katelog']);
 
@@ -338,6 +339,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/pengurusan_peserta/pencalonan', PencalonanPesertaController::class);
     Route::get('/pengurusan_peserta/pencalonan/{id}/{id_peserta}', [PencalonanPesertaController::class, 'maklumat_peserta']);
+    Route::post('/pengurusan_peserta/pencalonan/senarai_peserta/{id}', [PencalonanPesertaController::class, 'senarai_peserta']);
 
     Route::resource('/pengurusan_peserta/semakan_pemohon', SemakPermohonanController::class);
     Route::post('/pengurusan_peserta/semakan_pemohon/pengesahan_pukal', [SemakPermohonanController::class, 'pengesahan_pukal']);
