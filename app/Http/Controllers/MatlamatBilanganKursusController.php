@@ -119,13 +119,13 @@ class MatlamatBilanganKursusController extends Controller
             $jenis['sub'] = str_replace(' ', '_', $request->jenis_m);
             // dd($jenis);
             $title = strtoupper($request->jenis_m);
-            dd($carian, $bidang);
+            // dd($carian, $bidang);
             return view('utiliti.matlamat_tahunan.kursus.carian_kategori', [
                 'tahun' => $tahun,
                 'jenis' => $jenis,
                 'title' => $title,
                 'carian' => $carian,
-                'bidang' => $bidang
+                'bidang_h' => $bidang
             ]);
         } elseif ($request->jenis_m == 'tajuk kursus') {
             $bidang = BidangKursus::all();
