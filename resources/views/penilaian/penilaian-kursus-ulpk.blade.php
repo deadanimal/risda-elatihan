@@ -58,7 +58,7 @@
                 @if ($permohonan == null)
                     <button class="btn btn-primary" disabled>Mula Penilaian</button>
                 @else
-                    <a class="btn btn-primary" href="/penilaian/penilaian-kursus-ulpk/{{ $permohonan->jadual->id }}"
+                    <a class="btn btn-primary" href="/penilaian/penilaian-kursus/bahagianA/{{ $permohonan->jadual->id }}"
                         id="btn_start">Mula Penilaian</a>
                 @endif
             </div>
