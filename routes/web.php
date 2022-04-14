@@ -185,22 +185,22 @@ Route::middleware('auth')->group(function () {
         //from scan qrcode
         Route::resource('/permohonan/kehadiran', KehadiranController::class);
         Route::post('/pengesahan_kehadiran', [KehadiranController::class, 'store']);
+    });
 
-        //Peserta ULPK
-        Route::prefix('/ulpk')->group(function () {
-            //Permohonan Peserta
-            Route::group(['prefix' => '/permohonan', 'middleware' => 'can:katelog kursus'], function () {
-                Route::get('statuspermohonan', [PermohonanController::class, 'indexULPK']);
-                Route::get('katelog-kursus', [PermohonanController::class, 'katalog_ulpk']);
-                Route::get('kehadiran/{kod_kursus}', [KehadiranController::class, 'indexULPK']);
-            });
-
-            //rekod kehadiran
-            // Route::group(['prefix' => '/kehadiran'], function () {
-            //     Route::get('/', [KehadiranController::class, 'fromUlpkQR']);
-            // });
-
+    //Peserta ULPK
+    Route::prefix('/ulpk')->group(function () {
+        //Permohonan Peserta
+        Route::group(['prefix' => '/permohonan', 'middleware' => 'can:katelog kursus'], function () {
+            Route::get('statuspermohonan', [PermohonanController::class, 'indexULPK']);
+            Route::get('katelog-kursus', [PermohonanController::class, 'katalog_ulpk']);
+            Route::get('kehadiran/{kod_kursus}', [KehadiranController::class, 'indexULPK']);
         });
+
+        //rekod kehadiran
+        // Route::group(['prefix' => '/kehadiran'], function () {
+        //     Route::get('/', [KehadiranController::class, 'fromUlpkQR']);
+        // });
+
     });
 
     //Urus Setia ULS
