@@ -21,6 +21,7 @@ use App\Http\Controllers\KelayakanElauncutiController;
 use App\Http\Controllers\KodKursusController;
 use App\Http\Controllers\LaporanLainController;
 use App\Http\Controllers\MatlamatBilanganKursusController;
+use App\Http\Controllers\MatlamatTahunanPesertaController;
 use App\Http\Controllers\MukimController;
 use App\Http\Controllers\NegeriController;
 use App\Http\Controllers\NotaRujukanController;
@@ -130,6 +131,7 @@ Route::middleware('auth')->group(function () {
         '/utiliti/kursus/kod_objek' => ObjekController::class,
 
         '/utiliti/matlamat_tahunan/kursus' => MatlamatBilanganKursusController::class,
+        '/utiliti/matlamat_tahunan/peserta' => MatlamatTahunanPesertaController::class,
 
         '/pengurusan_kursus/semak_jadual' => JadualKursusController::class,
         '/pengurusan_kursus/peruntukan_peserta' => PeruntukanPesertaController::class,
@@ -147,6 +149,10 @@ Route::middleware('auth')->group(function () {
     // Route::resource('/pengurusan_pengguna/pengguna', PengurusanPenggunaController::class);
     Route::post('/utiliti/matlamat_tahunan/kursus/carian', [MatlamatBilanganKursusController::class, 'carian']);
     Route::get('/utiliti/matlamat_tahunan/kursus/{title}/{year}', [MatlamatBilanganKursusController::class, 'kemaskini']);
+
+    Route::post('/utiliti/matlamat_tahunan/peserta/carian', [MatlamatTahunanPesertaController::class, 'carian']);
+    Route::get('/utiliti/matlamat_tahunan/peserta/{title}/{year}', [MatlamatTahunanPesertaController::class, 'kemaskini']);
+
     Route::put('/utiliti/matlamat_tahunan/kursus', [MatlamatBilanganKursusController::class, 'update_table']);
     Route::get('/pengurusan_pengguna/pengguna/staf', [PengurusanPenggunaController::class, 'staf']);
 
@@ -180,22 +186,22 @@ Route::middleware('auth')->group(function () {
         //from scan qrcode
         Route::resource('/permohonan/kehadiran', KehadiranController::class);
         Route::post('/pengesahan_kehadiran', [KehadiranController::class, 'store']);
+    });
 
-        //Peserta ULPK
-        Route::prefix('/ulpk')->group(function () {
-            //Permohonan Peserta
-            Route::group(['prefix' => '/permohonan', 'middleware' => 'can:katelog kursus'], function () {
-                Route::get('statuspermohonan', [PermohonanController::class, 'indexULPK']);
-                Route::get('katelog-kursus', [PermohonanController::class, 'katalog_ulpk']);
-                Route::get('kehadiran/{kod_kursus}', [KehadiranController::class, 'indexULPK']);
-            });
-
-            //rekod kehadiran
-            // Route::group(['prefix' => '/kehadiran'], function () {
-            //     Route::get('/', [KehadiranController::class, 'fromUlpkQR']);
-            // });
-
+    //Peserta ULPK
+    Route::prefix('/ulpk')->group(function () {
+        //Permohonan Peserta
+        Route::group(['prefix' => '/permohonan', 'middleware' => 'can:katelog kursus'], function () {
+            Route::get('statuspermohonan', [PermohonanController::class, 'indexULPK']);
+            Route::get('katelog-kursus', [PermohonanController::class, 'katalog_ulpk']);
+            Route::get('kehadiran/{kod_kursus}', [KehadiranController::class, 'indexULPK']);
         });
+
+        //rekod kehadiran
+        // Route::group(['prefix' => '/kehadiran'], function () {
+        //     Route::get('/', [KehadiranController::class, 'fromUlpkQR']);
+        // });
+
     });
 
     //Urus Setia ULS

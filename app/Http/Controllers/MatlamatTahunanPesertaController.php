@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreMatlamatBilanganKursusRequest;
-use App\Http\Requests\UpdateMatlamatBilanganKursusRequest;
+use App\Http\Requests\StoreMatlamatTahunanPesertaRequest;
+use App\Http\Requests\UpdateMatlamatTahunanPesertaRequest;
 use App\Models\BidangKursus;
 use App\Models\KategoriKursus;
 use App\Models\KodKursus;
-use App\Models\MatlamatBilanganKursus;
+use App\Models\MatlamatTahunanPeserta;
 use Illuminate\Http\Request;
 
-class MatlamatBilanganKursusController extends Controller
+class MatlamatTahunanPesertaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +19,7 @@ class MatlamatBilanganKursusController extends Controller
      */
     public function index()
     {
-        return view('utiliti.matlamat_tahunan.kursus.index', [
-            'matlamat_tahunan' => MatlamatBilanganKursus::all()
-        ]);
+        return view('utiliti.matlamat_tahunan.peserta.index');
     }
 
     public function carian(Request $request)
@@ -83,7 +81,7 @@ class MatlamatBilanganKursusController extends Controller
                 'carian' => $carian
             ]);
         } elseif ($request->jenis_m == 'kategori kursus') {
-            $carian = KategoriKursus::with(['bidang', 'matlamat_kursus'])->whereYear('created_at', $request->tahun)->get()->groupBy('U_Bidang_Kursus');
+            $carian = KategoriKursus::with('bidang')->whereYear('created_at', $request->tahun)->get()->groupBy('U_Bidang_Kursus');
             $bidang = BidangKursus::all();
             foreach ($carian as $a => $c) {
                 foreach ($c as $aa => $cc) {
@@ -130,7 +128,7 @@ class MatlamatBilanganKursusController extends Controller
         } elseif ($request->jenis_m == 'tajuk kursus') {
             $bidang = BidangKursus::all();
             $kategori = KategoriKursus::get()->groupBy('U_Bidang_Kursus');
-            $carian = KodKursus::with('matlamat_kursus')->whereYear('created_at', $request->tahun)->get()->groupBy('U_Kategori_Kursus');
+            $carian = KodKursus::whereYear('created_at', $request->tahun)->get()->groupBy('U_Kategori_Kursus');
 
             foreach ($carian as $a => $c) {
                 foreach ($c as $aa => $cc) {
@@ -176,73 +174,6 @@ class MatlamatBilanganKursusController extends Controller
         }
     }
 
-    public function kemaskini($title, $year)
-    {
-        if ($title == 'bidang_kursus') {
-            $carian = BidangKursus::with('matlamat_kursus')->whereYear('created_at', $year)->get();
-        } elseif ($title == 'kategori_kursus') {
-            $carian = KategoriKursus::with('matlamat_kursus')->whereYear('created_at', $year)->get();
-        } elseif ($title == 'tajuk_kursus') {
-            $carian = KodKursus::with('matlamat_kursus')->whereYear('created_at', $year)
-                ->get();
-        }
-
-        $bulan = [
-            '1' => 0,
-            '2' => 0,
-            '3' => 0,
-            '4' => 0,
-            '5' => 0,
-            '6' => 0,
-            '7' => 0,
-            '8' => 0,
-            '9' => 0,
-            '10' => 0,
-            '11' => 0,
-            '12' => 0,
-        ];
-        foreach ($carian as $key => $c) {
-            if ($c->matlamat_kursus == null) {
-                $c['matlamat_kursus_cm'] = $bulan;
-                $status = 'create';
-            } else {
-                $c['matlamat_kursus_cm'] = [
-                    '1' => $c['matlamat_kursus']->jan,
-                    '2' => $c['matlamat_kursus']->feb,
-                    '3' => $c['matlamat_kursus']->mac,
-                    '4' => $c['matlamat_kursus']->apr,
-                    '5' => $c['matlamat_kursus']->mei,
-                    '6' => $c['matlamat_kursus']->jun,
-                    '7' => $c['matlamat_kursus']->jul,
-                    '8' => $c['matlamat_kursus']->ogos,
-                    '9' => $c['matlamat_kursus']->sept,
-                    '10' => $c['matlamat_kursus']->okt,
-                    '11' => $c['matlamat_kursus']->nov,
-                    '12' => $c['matlamat_kursus']->dis,
-                ];
-                $status = 'update';
-            }
-            $c['jumlah'] = array_sum($c['matlamat_kursus_cm']);
-        }
-
-        $tahun = $year;
-        $jenis = [];
-        $title = str_replace('_', ' ', $title);
-        $jenis['name'] = ucwords($title);
-        $jenis['val'] = $title;
-        $jenis['sub'] = str_replace(' ', '_', $title);
-        $title = strtoupper($title);
-
-        return view('utiliti.matlamat_tahunan.kursus.edit', [
-            'matlamat_tahunan' => $carian,
-            'tahun' => $tahun,
-            'jenis' => $jenis,
-            'title' => $title,
-            'carian' => $carian,
-            'status' => $status
-        ]);
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -256,117 +187,55 @@ class MatlamatBilanganKursusController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreMatlamatBilanganKursusRequest  $request
+     * @param  \App\Http\Requests\StoreMatlamatTahunanPesertaRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreMatlamatBilanganKursusRequest $request)
+    public function store(StoreMatlamatTahunanPesertaRequest $request)
     {
-        // dd($request->bulan);
-        $bulan = [
-            '',
-            'jan',
-            'feb',
-            'mac',
-            'apr',
-            'mei',
-            'jun',
-            'jul',
-            'ogos',
-            'sept',
-            'okt',
-            'nov',
-            'dis'
-        ];
-        foreach ($request->title as $key => $r) {
-            // dd($r, $key);
-            $mt_kursus = new MatlamatBilanganKursus;
-            $mt_kursus->bidang = $r;
-            foreach ($request->bulan[$key] as $l => $b) {
-                // dd($bulan[1]);
-                $mon = $bulan[$l];
-                $mt_kursus->$mon = $b;
-            }
-            $mt_kursus->save();
-        }
-
-        alert()->success('Maklumat telah berjaya disimpan', 'Berjaya');
-        return redirect('/utiliti/matlamat_tahunan/kursus');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\MatlamatBilanganKursus  $matlamatBilanganKursus
+     * @param  \App\Models\MatlamatTahunanPeserta  $matlamatTahunanPeserta
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(MatlamatTahunanPeserta $matlamatTahunanPeserta)
     {
-        // 
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\MatlamatBilanganKursus  $matlamatBilanganKursus
+     * @param  \App\Models\MatlamatTahunanPeserta  $matlamatTahunanPeserta
      * @return \Illuminate\Http\Response
      */
-    public function edit(MatlamatBilanganKursus $matlamatBilanganKursus)
+    public function edit(MatlamatTahunanPeserta $matlamatTahunanPeserta)
     {
-        // 
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateMatlamatBilanganKursusRequest  $request
-     * @param  \App\Models\MatlamatBilanganKursus  $matlamatBilanganKursus
+     * @param  \App\Http\Requests\UpdateMatlamatTahunanPesertaRequest  $request
+     * @param  \App\Models\MatlamatTahunanPeserta  $matlamatTahunanPeserta
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateMatlamatBilanganKursusRequest $request, MatlamatBilanganKursus $matlamatBilanganKursus)
+    public function update(UpdateMatlamatTahunanPesertaRequest $request, MatlamatTahunanPeserta $matlamatTahunanPeserta)
     {
         //
-    }
-
-    public function update_table(UpdateMatlamatBilanganKursusRequest $request)
-    {
-        $bulan = [
-            '',
-            'jan',
-            'feb',
-            'mac',
-            'apr',
-            'mei',
-            'jun',
-            'jul',
-            'ogos',
-            'sept',
-            'okt',
-            'nov',
-            'dis'
-        ];
-        foreach ($request->title as $key => $r) {
-            // dd($r, $key);
-            $mt_kursus = MatlamatBilanganKursus::where('bidang', $r)->first();
-            $mt_kursus->bidang = $r;
-            foreach ($request->bulan[$key] as $l => $b) {
-                // dd($bulan[1]);
-                $mon = $bulan[$l];
-                $mt_kursus->$mon = $b;
-            }
-            $mt_kursus->save();
-        }
-
-        alert()->success('Maklumat telah berjaya dikemaskini', 'Berjaya');
-        return redirect('/utiliti/matlamat_tahunan/kursus');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\MatlamatBilanganKursus  $matlamatBilanganKursus
+     * @param  \App\Models\MatlamatTahunanPeserta  $matlamatTahunanPeserta
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MatlamatBilanganKursus $matlamatBilanganKursus)
+    public function destroy(MatlamatTahunanPeserta $matlamatTahunanPeserta)
     {
         //
     }
