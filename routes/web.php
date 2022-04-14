@@ -32,6 +32,7 @@ use App\Http\Controllers\PenceramahKonsultanController;
 use App\Http\Controllers\PengajianLanjutanController;
 use App\Http\Controllers\PengurusanPenggunaController;
 use App\Http\Controllers\PenilaianPesertaController;
+use App\Http\Controllers\KursusPenilaianController;
 use App\Http\Controllers\PerananController;
 use App\Http\Controllers\PermohonanController;
 use App\Http\Controllers\PeruntukanPesertaController;
@@ -250,6 +251,15 @@ Route::middleware('auth')->group(function () {
             Route::get('/post-test/create/{jadualKursus}', [PostTestController::class, 'create'])->name('post-test.create');
             Route::post('/post-test/{jadual_kursus}/save', [JadualKursusController::class, 'tambah_masa_mula_tamat_post_test']);
 
+            Route::resource('/penilaian-kursus/ulpk',KursusPenilaianController::class);
+            // Route::get('/penilaian-kursus/bahagianA/{id}',[KursusPenilaianController::class,'bahagianA']);
+            Route::get('/penilaian-kursus/bahagianB/{id}',[KursusPenilaianController::class,'bahagianB']);
+            Route::get('/penilaian-kursus/bahagianC/{id}',[KursusPenilaianController::class,'bahagianC']);
+
+
+
+
+
             Route::get('/cetakQr', [PenilaianPesertaController::class, 'cetakQr']);
             Route::get('/cetakQr2/{jadual_kursus}', [PenilaianPesertaController::class, 'cetakQr2']);
         });
@@ -269,6 +279,9 @@ Route::middleware('auth')->group(function () {
             Route::get('/jawab-post-test', [PostTestController::class, 'jawabPost'])->name('jawabPost');
             Route::get('/mula-penilaian-post-test/{jadual_kursus}', [PostTestController::class, 'mulaPenilaianPost']);
             Route::POST('/mula-penilaian-post-test', [PostTestController::class, 'simpanPenilaianPost'])->name('simpanPenilaianPost');
+
+
+
         });
     });
 
