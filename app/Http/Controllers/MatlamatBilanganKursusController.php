@@ -83,7 +83,7 @@ class MatlamatBilanganKursusController extends Controller
                 'carian' => $carian
             ]);
         } elseif ($request->jenis_m == 'kategori kursus') {
-            $carian = KategoriKursus::with('bidang')->whereYear('created_at', $request->tahun)->get()->groupBy('U_Bidang_Kursus');
+            $carian = KategoriKursus::with(['bidang', 'matlamat_kursus'])->whereYear('created_at', $request->tahun)->get()->groupBy('U_Bidang_Kursus');
             $bidang = BidangKursus::all();
             foreach ($carian as $a => $c) {
                 foreach ($c as $aa => $cc) {
@@ -130,7 +130,7 @@ class MatlamatBilanganKursusController extends Controller
         } elseif ($request->jenis_m == 'tajuk kursus') {
             $bidang = BidangKursus::all();
             $kategori = KategoriKursus::get()->groupBy('U_Bidang_Kursus');
-            $carian = KodKursus::whereYear('created_at', $request->tahun)->get()->groupBy('U_Kategori_Kursus');
+            $carian = KodKursus::with('matlamat_kursus')->whereYear('created_at', $request->tahun)->get()->groupBy('U_Kategori_Kursus');
 
             foreach ($carian as $a => $c) {
                 foreach ($c as $aa => $cc) {
@@ -181,9 +181,9 @@ class MatlamatBilanganKursusController extends Controller
         if ($title == 'bidang_kursus') {
             $carian = BidangKursus::with('matlamat_kursus')->whereYear('created_at', $year)->get();
         } elseif ($title == 'kategori_kursus') {
-            $carian = KategoriKursus::whereYear('created_at', $year)->get();
+            $carian = KategoriKursus::with('matlamat_kursus')->whereYear('created_at', $year)->get();
         } elseif ($title == 'tajuk_kursus') {
-            $carian = KodKursus::whereYear('created_at', $year)
+            $carian = KodKursus::with('matlamat_kursus')->whereYear('created_at', $year)
                 ->get();
         }
 

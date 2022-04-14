@@ -26,7 +26,7 @@
                     @csrf
                     <div class="card mt-2">
                         <div class="table-responsive scrollbar m-3">
-                            <table class="table datatable text-center m-3">
+                            <table class="table text-center m-3">
                                 <thead style="background-color: #009640; color: white;">
                                     <tr>
                                         <th scope="col">BIL.</th>

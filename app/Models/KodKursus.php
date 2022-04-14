@@ -25,4 +25,9 @@ class KodKursus extends Model
         return $this->belongsTo(BidangKursus::class, 'U_Bidang_Kursus', 'id');
     }
 
+    public function matlamat_kursus()
+    {
+        return $this->hasOne(MatlamatBilanganKursus::class, 'bidang', 'tajuk_Kursus');
+    }
+
 }
