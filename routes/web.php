@@ -21,6 +21,7 @@ use App\Http\Controllers\KelayakanElauncutiController;
 use App\Http\Controllers\KodKursusController;
 use App\Http\Controllers\LaporanLainController;
 use App\Http\Controllers\MatlamatBilanganKursusController;
+use App\Http\Controllers\MatlamatTahunanPesertaController;
 use App\Http\Controllers\MukimController;
 use App\Http\Controllers\NegeriController;
 use App\Http\Controllers\NotaRujukanController;
@@ -129,6 +130,7 @@ Route::middleware('auth')->group(function () {
         '/utiliti/kursus/kod_objek' => ObjekController::class,
 
         '/utiliti/matlamat_tahunan/kursus' => MatlamatBilanganKursusController::class,
+        '/utiliti/matlamat_tahunan/peserta' => MatlamatTahunanPesertaController::class,
 
         '/pengurusan_kursus/semak_jadual' => JadualKursusController::class,
         '/pengurusan_kursus/peruntukan_peserta' => PeruntukanPesertaController::class,
@@ -146,6 +148,10 @@ Route::middleware('auth')->group(function () {
     // Route::resource('/pengurusan_pengguna/pengguna', PengurusanPenggunaController::class);
     Route::post('/utiliti/matlamat_tahunan/kursus/carian', [MatlamatBilanganKursusController::class, 'carian']);
     Route::get('/utiliti/matlamat_tahunan/kursus/{title}/{year}', [MatlamatBilanganKursusController::class, 'kemaskini']);
+
+    Route::post('/utiliti/matlamat_tahunan/peserta/carian', [MatlamatTahunanPesertaController::class, 'carian']);
+    Route::get('/utiliti/matlamat_tahunan/peserta/{title}/{year}', [MatlamatTahunanPesertaController::class, 'kemaskini']);
+
     Route::put('/utiliti/matlamat_tahunan/kursus', [MatlamatBilanganKursusController::class, 'update_table']);
     Route::get('/pengurusan_pengguna/pengguna/staf', [PengurusanPenggunaController::class, 'staf']);
 

@@ -12,12 +12,12 @@
         <div class="row mb-4">
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
-                    MATLAMAT BILANGAN KURSUS
+                    MATLAMAT BILANGAN PESERTA
                 </p>
             </div>
         </div>
 
-        <form action="/utiliti/matlamat_tahunan/kursus/carian" method="post">
+        <form action="/utiliti/matlamat_tahunan/peserta/carian" method="post">
             @csrf
             <div class="row justify-content-center">
                 <div class="col-lg-8">
