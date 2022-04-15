@@ -26,11 +26,7 @@
                             <label class="col-form-label">Tahun</label>
                         </div>
                         <div class="col-lg-7 mb-lg-3">
-                            <select name="tahun" id="tahun" class="form-control">
-                                <option value="" selected hidden>Sila Pilih</option>
-                                <option value="2021">2021</option>
-                                <option value="2022">2022</option>
-                            </select>
+                            <input class="form-control tahun" type="text" name="tahun" autocomplete="off" placeholder="yyyy"/>
                         </div>
     
                         <div class="col-lg-3 mb-lg-3">
@@ -52,4 +48,15 @@
             </div>
         </form>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $(".tahun").datepicker({
+                format: "yyyy",
+                viewMode: "years",
+                minViewMode: "years",
+                autoclose: true
+            });
+        });
+    </script>
 @endsection
