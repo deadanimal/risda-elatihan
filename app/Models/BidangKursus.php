@@ -23,4 +23,9 @@ class BidangKursus extends Model
     {
         return $this->hasOne(MatlamatBilanganKursus::class, 'bidang', 'nama_Bidang_Kursus');
     }
+
+    public function matlamat_peserta()
+    {
+        return $this->hasOne(MatlamatTahunanPeserta::class, 'bidang_ref', 'id');
+    }
 }

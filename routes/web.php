@@ -149,11 +149,12 @@ Route::middleware('auth')->group(function () {
     // Route::resource('/pengurusan_pengguna/pengguna', PengurusanPenggunaController::class);
     Route::post('/utiliti/matlamat_tahunan/kursus/carian', [MatlamatBilanganKursusController::class, 'carian']);
     Route::get('/utiliti/matlamat_tahunan/kursus/{title}/{year}', [MatlamatBilanganKursusController::class, 'kemaskini']);
+    Route::put('/utiliti/matlamat_tahunan/kursus', [MatlamatBilanganKursusController::class, 'update_table']);
 
     Route::post('/utiliti/matlamat_tahunan/peserta/carian', [MatlamatTahunanPesertaController::class, 'carian']);
     Route::get('/utiliti/matlamat_tahunan/peserta/{title}/{year}', [MatlamatTahunanPesertaController::class, 'kemaskini']);
+    Route::put('/utiliti/matlamat_tahunan/peserta', [MatlamatTahunanPesertaController::class, 'update_table']);
 
-    Route::put('/utiliti/matlamat_tahunan/kursus', [MatlamatBilanganKursusController::class, 'update_table']);
     Route::get('/pengurusan_pengguna/pengguna/staf', [PengurusanPenggunaController::class, 'staf']);
 
     Route::get('/pengurusan_pengguna/pengguna/pekebun_kecil', [PengurusanPenggunaController::class, 'pekebun_kecil']);
