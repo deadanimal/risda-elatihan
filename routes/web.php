@@ -194,6 +194,7 @@ Route::middleware('auth')->group(function () {
         //Permohonan Peserta
         Route::group(['prefix' => '/permohonan', 'middleware' => 'can:katelog kursus'], function () {
             Route::get('statuspermohonan', [PermohonanController::class, 'indexULPK']);
+            Route::get('statuspermohonan/nota_rujukan/{id}', [PermohonanController::class, 'nota_rujukan']);
             Route::get('katelog-kursus', [PermohonanController::class, 'katalog_ulpk']);
             Route::get('kehadiran/{kod_kursus}', [KehadiranController::class, 'indexULPK']);
         });
