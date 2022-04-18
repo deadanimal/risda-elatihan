@@ -192,6 +192,7 @@ class PengurusanPenggunaController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
+        $user->removeRole($user->jenis_pengguna);
         $user->jenis_pengguna = $request->jenis_pengguna;
         $user->assignRole($request->jenis_pengguna);
         $user->save();
