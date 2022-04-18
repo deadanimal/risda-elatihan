@@ -584,7 +584,25 @@
                                         <a class="nav-link {{ Request::is('utiliti/matlamat_tahunan/kursus') ? 'active' : '' }} py-0"
                                             href="/utiliti/matlamat_tahunan/kursus">
                                             <div class="d-flex align-items-center nav-link-side">
-                                                <span class="px-0">Kursus</span>
+                                                <span class="px-0">Matlamat Kursus</span>
+                                            </div>
+                                        </a>
+
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('utiliti/matlamat_tahunan/peserta') ? 'active' : '' }} py-0"
+                                            href="/utiliti/matlamat_tahunan/peserta">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">Matlamat Peserta</span>
+                                            </div>
+                                        </a>
+
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('utiliti/matlamat_tahunan/perbelanjaan') ? 'active' : '' }} py-0"
+                                            href="/utiliti/matlamat_tahunan/perbelanjaan">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">Matlamat Perbelanjaan</span>
                                             </div>
                                         </a>
 

@@ -23,4 +23,9 @@ class KategoriKursus extends Model
     {
         return $this->hasOne(MatlamatTahunanPeserta::class, 'kategori_ref', 'id');
     }
+
+    public function matlamat_perbelanjaan()
+    {
+        return $this->hasOne(MatlamatTahunanPerbelanjaan::class, 'kategori_ref', 'id');
+    }
 }
