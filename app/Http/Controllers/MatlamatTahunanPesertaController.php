@@ -375,7 +375,7 @@ class MatlamatTahunanPesertaController extends Controller
         }
 
         alert()->success('Maklumat telah berjaya dikemaskini', 'Berjaya');
-        return redirect('/utiliti/matlamat_tahunan/kursus');
+        return redirect('/utiliti/matlamat_tahunan/peserta');
     }
 
     /**

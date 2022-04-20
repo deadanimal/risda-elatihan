@@ -608,6 +608,15 @@
                                         </a>
 
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('utiliti/matlamat_tahunan/panggilan_peserta') ? 'active' : '' }} py-0"
+                                            href="/utiliti/matlamat_tahunan/panggilan_peserta">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">Matlamat Panggilan Peserta Kursus</span>
+                                            </div>
+                                        </a>
+
+                                    </li>
                                 </ul>
                             </li>
                         </ul>

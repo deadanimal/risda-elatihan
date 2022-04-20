@@ -33,4 +33,9 @@ class BidangKursus extends Model
     {
         return $this->hasOne(MatlamatTahunanPerbelanjaan::class, 'bidang_ref', 'id');
     }
+
+    public function matlamat_panggilan_peserta()
+    {
+        return $this->hasOne(MatlamatTahunanPanggilanPeserta::class, 'bidang_ref', 'id');
+    }
 }
