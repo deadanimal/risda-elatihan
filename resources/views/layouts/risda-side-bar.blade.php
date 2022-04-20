@@ -794,6 +794,7 @@
                             @endcan
 
                             @can('cipta penilaian')
+
                                 <li class="nav-item">
                                     <a class="nav-link py-0" href="/penilaian/pre-post-test">
                                         <div class="d-flex align-items-center nav-link-side">
@@ -801,6 +802,15 @@
                                         </div>
                                     </a>
                                 </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link py-0" href="/penilaian/penilaian-kursus/ulpk">
+                                        <div class="d-flex align-items-center nav-link-side">
+                                            <span class="px-0">PENILAIAN KURSUS</span>
+                                        </div>
+                                    </a>
+                                </li>
+
                                 <li class="nav-item">
                                     <a class="nav-link py-0" href="#">
                                         <div class="d-flex align-items-center nav-link-side">

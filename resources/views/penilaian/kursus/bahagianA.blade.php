@@ -26,7 +26,7 @@
 
         <div class="row justify-content-center mt-5">
             <div class="col-8">
-                <form method="POST" action="/penilaian/pre-post-test/{{ $jadual_kursus->id }}/save">
+                <form method="POST" action="/penilaian/penilaian-kursus/ulpk/{{ $jadual_kursus->id }}/save">
                     {{-- @method('POST') --}}
                     @csrf
 
@@ -163,7 +163,7 @@
 
         <div class="row">
             <div class="col text-end">
-                <a href="{{ route('createPrePost', $jadual_kursus->id) }}" class="btn btn-primary mt-3"><span
+                <a href="/penilaian/penilaian-kursus/ulpk/create/{{$jadual_kursus->id}}}}" class="btn btn-primary mt-3"><span
                         class="fas fa-plus"></span> Tambah Soalan</a>
             </div>
         </div>
