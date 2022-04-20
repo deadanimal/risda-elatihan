@@ -99,7 +99,7 @@
                                         // dd($bidang);
                                     @endphp
                                     <tr class="risda-bg-dg text-white">
-                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $huruf[$loop->iteration-1] }}.</td>
                                         @if ($bidang == null)
                                             <td>{{ $bid['nama_Bidang_Kursus'] }}</td>
                                             @for ($i = 0; $i < 12; $i++)
@@ -135,7 +135,7 @@
                                                 // dd($kategori);
                                             @endphp
                                             <tr class="bg-soft-success">
-                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $huruf_kecil[$loop->iteration-1] }})</td>
                                                 @if ($kategori == null)
                                                     <td>{{ $kat['nama_Kategori_Kursus'] }}</td>
                                                     @for ($i = 0; $i < 12; $i++)
@@ -162,7 +162,7 @@
                                             @if (isset($carian[$k->id]))
                                                 @foreach ($carian[$k->id] as $a => $cc)
                                                     <tr>
-                                                        <td>{{ $a + 1 }}</td>
+                                                        <td>{{ $a + 1 }}.</td>
                                                         <td>
                                                             {{ $cc->tajuk_Kursus }}
                                                         </td>

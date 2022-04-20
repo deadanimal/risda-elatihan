@@ -84,7 +84,7 @@
                             <tbody>
                                 @foreach ($bidang_h as $b)
                                     <tr class="risda-bg-dg text-white">
-                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $huruf[$loop->iteration-1] }}.</td>
                                         @if ($b->matlamat_perbelanjaan == null)
                                             <td>{{ $b['nama_Bidang_Kursus'] }}</td>
                                             @for ($i = 0; $i < 12; $i++)
@@ -112,7 +112,7 @@
                                     @if (isset($carian[$b->id]))
                                         @foreach ($carian[$b->id] as $a => $cc)
                                             <tr>
-                                                <td>{{ $a + 1 }}</td>
+                                                <td>{{ $a + 1 }}.</td>
                                                 <td>
                                                     {{ $cc->nama_Kategori_Kursus }}
                                                 </td>
