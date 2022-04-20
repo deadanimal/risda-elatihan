@@ -40,4 +40,9 @@ class KodKursus extends Model
         return $this->hasOne(MatlamatTahunanPerbelanjaan::class, 'tajuk_ref', 'id');
     }
 
+    public function matlamat_panggilan_peserta()
+    {
+        return $this->hasOne(MatlamatTahunanPanggilanPeserta::class, 'tajuk_ref', 'id');
+    }
+
 }
