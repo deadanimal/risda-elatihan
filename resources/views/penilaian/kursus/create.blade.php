@@ -17,16 +17,26 @@
             </div>
         </div>
 
-        <form action="/penilaian/penilaian-kursus/ulpk/{{$jadual->id}}" method="post">
+        <form action="/penilaian/penilaian-kursus/ulpk" method="post">
             @csrf
-            <input type="hidden" name="jadual_kursus_id" value="{{ $jk_id }}">
+            <input type="hidden" name="jadual_kursus_id" value="{{$jadual_kursus->id}}">
+
             <div class="row mt-5">
+
                 <div class="col-1"></div>
                 <div class="col-3 mt-2">
-                    <p class="h5 risda-dg">KATEGORI JAWAPAN</p>
+                    <p class="h5 risda-dg">BAHAGIAN </p>
                 </div>
                 <div class="col-8">
-                    <select class="form-select mb-3" onchange="kategori(this)" name="jenis">
+                    <input type=text class="form-control mb-3" name="bahagian" value="Bahagian A" readonly>
+                </div>
+
+                <div class="col-1"></div>
+                <div class="col-3 mt-2">
+                    <p class="h5 risda-dg">KATEGORI SOALAN</p>
+                </div>
+                <div class="col-8">
+                    <select class="form-select mb-3" onchange="kategori(this)" name="kategori_soalan">
                         <option selected disabled hidden>SILA PILIH</option>
                         <option value="A">FILL IN THE BLANK</option>
                         <option value="B">MULTIPLE CHOICE</option>
@@ -46,7 +56,7 @@
                     <p class="h5 risda-dg">STATUS SOALAN</p>
                 </div>
                 <div class="col-8">
-                    <select type="text" class="form-select mb-3" name="status_soalan" required>
+                    <select type="text" class="form-select mb-3" name="status" required>
                         <option selected disabled hidden>SILA PILIH</option>
                         <option value="Aktif">Aktif</option>
                         <option value="Tak Aktif">Tak Aktif</option>
