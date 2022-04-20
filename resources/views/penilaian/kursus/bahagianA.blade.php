@@ -121,31 +121,28 @@
                         <thead>
                             <tr>
                                 <th class="fw-bold text-dark" scope="col">BIL.</th>
-                                <th class="fw-bold text-dark" scope="col">JENIS SOALAN</th>
                                 <th class="fw-bold text-dark" scope="col">SOALAN</th>
                                 <th class="fw-bold text-dark" scope="col">STATUS</th>
                                 <th class="fw-bold text-dark" scope="col">TINDAKAN</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($jadual_kursus->preposttest as $ppt)
+                            @foreach ($penilaianKursus as $penilaianKursus)
                                 <tr>
                                     <td>
                                         {{ $loop->iteration }}
                                     </td>
+
                                     <td>
-                                        {{ $ppt->jenis_soalan }}
+                                        {{ $penilaianKursus->soalan }}
                                     </td>
                                     <td>
-                                        {{ $ppt->soalan }}
+                                        {{ $penilaianKursus->status_soalan }}
                                     </td>
                                     <td>
-                                        {{ $ppt->status }}
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('pre-post-test.edit', $ppt->id) }}"
+                                        <a href="/penilaian/penilaian-kursus/ulpk/{{$penilaianKursus->id}}/edit"
                                             class="btn btn-sm btn-primary">Kemaskini</a>
-                                        <form action="/penilaian/pre-post-test/{{ $ppt->id }}" method="post"
+                                        <form action="/penilaian/penilaian-kursus/ulpk/{{$penilaianKursus->id}}" method="post"
                                             class="d-inline-flex">
                                             @csrf
                                             @method('delete')
@@ -163,7 +160,7 @@
 
         <div class="row">
             <div class="col text-end">
-                <a href="/penilaian/penilaian-kursus/ulpk/create/{{$jadual_kursus->id}}}}" class="btn btn-primary mt-3"><span
+                <a href="/penilaian/penilaian-kursus/bahagianA/create/{{$jadual_kursus->id}}" class="btn btn-primary mt-3"><span
                         class="fas fa-plus"></span> Tambah Soalan</a>
             </div>
         </div>
