@@ -375,8 +375,8 @@ class MatlamatTahunanPerbelanjaanController extends Controller
         ];
         foreach ($request->title as $key => $r) {
             // dd($r, $key);
-            $mt_perbelanjaan = MatlamatTahunanPerbelanjaan::where('bidang', $r)->first();
-            $mt_perbelanjaan->bidang = $r;
+            $mt_perbelanjaan = MatlamatTahunanPerbelanjaan::where('nama', $r)->first();
+            $mt_perbelanjaan->nama = $r;
             foreach ($request->bulan[$key] as $l => $b) {
                 // dd($bulan[1]);
                 $mon = $bulan[$l];

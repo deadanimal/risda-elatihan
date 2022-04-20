@@ -363,8 +363,8 @@ class MatlamatTahunanPanggilanPesertaController extends Controller
         ];
         foreach ($request->title as $key => $r) {
             // dd($r, $key);
-            $mt_peserta = MatlamatTahunanPanggilanPeserta::where('bidang', $r)->first();
-            $mt_peserta->bidang = $r;
+            $mt_peserta = MatlamatTahunanPanggilanPeserta::where('nama', $r)->first();
+            $mt_peserta->nama = $r;
             foreach ($request->bulan[$key] as $l => $b) {
                 // dd($bulan[1]);
                 $mon = $bulan[$l];

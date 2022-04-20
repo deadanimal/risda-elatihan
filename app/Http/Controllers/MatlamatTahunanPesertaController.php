@@ -347,6 +347,7 @@ class MatlamatTahunanPesertaController extends Controller
 
     public function update_table(UpdateMatlamatTahunanPesertaRequest $request)
     {
+        // dd($request);
         $bulan = [
             '',
             'jan',
@@ -363,9 +364,9 @@ class MatlamatTahunanPesertaController extends Controller
             'dis'
         ];
         foreach ($request->title as $key => $r) {
-            // dd($r, $key);
-            $mt_peserta = MatlamatTahunanPeserta::where('bidang', $r)->first();
-            $mt_peserta->bidang = $r;
+            // dd($r);
+            $mt_peserta = MatlamatTahunanPeserta::where('nama', $r)->first();
+            $mt_peserta->nama = $r;
             foreach ($request->bulan[$key] as $l => $b) {
                 // dd($bulan[1]);
                 $mon = $bulan[$l];
