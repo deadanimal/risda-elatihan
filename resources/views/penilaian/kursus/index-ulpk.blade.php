@@ -107,7 +107,8 @@
 
                                     <td>
                                         <a class="btn btn-primary btn-sm mb-2"
-                                            href="/penilaian/penilaian-kursus/bahagianA/create/{{$jk->id}}">
+                                            href="/penilaian/penilaian-kursus/ulpk/{{$jk->id}}">
+
                                             <small> Kemaskini Bahagian A </small>
                                         </a>
                                         <a class="btn btn-primary btn-sm mb-2"  href="/penilaian/penilaian-kursus/bahagianB/{{$jk->id}}">

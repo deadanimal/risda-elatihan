@@ -33,10 +33,23 @@
 
                 <div class="col-1"></div>
                 <div class="col-3 mt-2">
-                    <p class="h5 risda-dg">KATEGORI SOALAN</p>
+                    <p class="h5 risda-dg">SLOT PROGRAM</p>
                 </div>
                 <div class="col-8">
-                    <select class="form-select mb-3" onchange="kategori(this)" name="kategori_soalan">
+                    <select class="form-select mb-3" name="kategori_soalan">
+                        <option selected disabled hidden>SILA PILIH</option>
+                        @foreach ($aturcara as $aturcara )
+                            <option value="{{$aturcara->id}}">HARI {{$aturcara->ac_hari}} SESI- {{$aturcara->ac_aturcara}}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-1"></div>
+                <div class="col-3 mt-2">
+                    <p class="h5 risda-dg">KATEGORI JAWAPAN</p>
+                </div>
+                <div class="col-8">
+                    <select class="form-select mb-3" onchange="kategori(this)" name="kategori_jawapan">
                         <option selected disabled hidden>SILA PILIH</option>
                         <option value="A">FILL IN THE BLANK</option>
                         <option value="B">MULTIPLE CHOICE</option>
@@ -56,7 +69,7 @@
                     <p class="h5 risda-dg">STATUS SOALAN</p>
                 </div>
                 <div class="col-8">
-                    <select type="text" class="form-select mb-3" name="status" required>
+                    <select type="text" class="form-select mb-3" name="status_soalan" required>
                         <option selected disabled hidden>SILA PILIH</option>
                         <option value="Aktif">Aktif</option>
                         <option value="Tak Aktif">Tak Aktif</option>

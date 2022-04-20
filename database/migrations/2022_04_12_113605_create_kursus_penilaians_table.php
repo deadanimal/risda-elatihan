@@ -23,6 +23,7 @@ class CreateKursusPenilaiansTable extends Migration
             $table->string('kategori_jawapan')->nullable();
             $table->string('soalan')->nullable();
             $table->string('jawapan')->nullable();
+            $table->string('jawapan_betul')->nullable();
             $table->string('status_soalan')->nullable();
             $table->string('pp_isi_kursus')->nullable();
             $table->string('pp_komen_isi')->nullable();
