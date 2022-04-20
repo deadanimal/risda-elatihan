@@ -110,11 +110,11 @@ Route::middleware('auth')->group(function () {
         '/utiliti/lokasi/kampung' => KampungController::class,
         '/utiliti/lokasi/seksyen' => SeksyenController::class,
         '/utiliti/lokasi/stesen' => StesenController::class,
+        '/utiliti/lokasi/pusat_tanggungjawab' => PusatTanggungjawabController::class,
 
         '/utiliti/kumpulan/kategori_agensi' => KategoriAgensiController::class,
         '/utiliti/kumpulan/agensi' => AgensiController::class,
         '/utiliti/kumpulan/pegawai_agensi' => PegawaiAgensiController::class,
-        '/utiliti/kumpulan/pusat_tanggungjawab' => PusatTanggungjawabController::class,
 
         '/utiliti/julat/julat_tahunan' => JulatTahunanController::class,
 
