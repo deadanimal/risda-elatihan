@@ -11,37 +11,38 @@
         <hr class="risda-g">
 
         <form action="#" id="form_search">
-            <div class="row mt-3 justify-content-center">
+            <div class="row mt-4 justify-content-center">
 
-                <div class="col-auto">
-                    <label class="col-form-label">NEGERI:</label>
-                </div>
-                <div class="col-5">
-                    <select class="form-select" name="negeri_search" id="negeri_search">
-                        <option selected="" hidden></option>
-                        @foreach ($negeri as $n)
-                            @if ($n->status_negeri == '1')
-                                <option value="{{ $n->id }}">{{ $n->Negeri }}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                </div>
-
-            </div>
-            <div class="row mt-3 justify-content-center">
-
-                <div class="col-auto">
-                    <label class="col-form-label">DAERAH:</label>
-                </div>
-                <div class="col-5">
-                    <select class="form-select" id="daerah_search" name="daerah_search">
-                        <option selected="" hidden></option>
-                        @foreach ($daerah as $d)
-                            @if ($d->status_daerah == '1')
-                                <option value="{{ $d->id }}">{{ $d->Daerah }}</option>
-                            @endif
-                        @endforeach
-                    </select>
+                <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <label class="col-form-label">NEGERI:</label>
+                        </div>
+                        <div class="col-lg-9 mb-3">
+                            <select class="form-select" name="negeri_search" id="negeri_search">
+                                <option selected hidden>Sila Pilih</option>
+                                @foreach ($negeri as $n)
+                                    @if ($n->status_negeri == '1')
+                                        <option value="{{ $n->id }}">{{ $n->Negeri }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+        
+                        <div class="col-lg-3">
+                            <label class="col-form-label">DAERAH:</label>
+                        </div>
+                        <div class="col-lg-9 mb-3">
+                            <select class="form-select" id="daerah_search" name="daerah_search">
+                                <option selected hidden>Sila Pilih</option>
+                                @foreach ($daerah as $d)
+                                    @if ($d->status_daerah == '1')
+                                        <option value="{{ $d->id }}">{{ $d->Daerah }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -91,7 +92,7 @@
                                         <div class="mb-3">
                                             <label class="col-form-label">KOD MUKIM</label>
                                             <input class="form-control" type="text" name="Mukim_Rkod"
-                                                value="" />
+                                                value="" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
                                         </div>
                                         <div class="mb-3">
                                             <label class="col-form-label">MUKIM</label>
@@ -209,7 +210,7 @@
                                                                 <label class="col-form-label">KOD MUKIM</label>
                                                                 <input class="form-control" type="text"
                                                                     name="Mukim_Rkod" value="{{ $m->Mukim_Rkod }}"
-                                                                    readonly />
+                                                                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label class="col-form-label">MUKIM</label>
@@ -426,7 +427,7 @@
 
             let option_new = "";
             $('#form_search select[name=daerah_search]').append(
-                `<option value=''>Sila Pilih</option>`);
+                `<option selected hidden>Sila Pilih</option>`);
             drh_sc.forEach(element => {
                 if (this.value == element.U_Negeri_ID) {
                     $('#form_search select[name=daerah_search]').append(
@@ -442,6 +443,8 @@
             console.log(drh);
 
             let option_new = "";
+            $('#form1 select[name=U_Daerah_ID]').append(
+                `<option selected hidden>Sila Pilih</option>`);
             drh.forEach(element => {
                 if (this.value == element.U_Negeri_ID) {
                     $('#form1 select[name=U_Daerah_ID]').append(
@@ -457,6 +460,8 @@
             console.log(drh);
 
             let option_new = "";
+            $('#form2 select[name=U_Daerah_ID]').append(
+                `<option selected hidden>Sila Pilih</option>`);
             drh.forEach(element => {
                 if (this.value == element.U_Negeri_ID) {
                     $('#form2 select[name=U_Daerah_ID]').append(
@@ -539,7 +544,7 @@
                                                         <div class="mb-3">
                                                             <label class="col-form-label">KOD DAERAH</label>
                                                             <input class="form-control" type="number" name="Daerah_Rkod"
-                                                                value="${ element.Daerah_Rkod }" readonly />
+                                                                value="${ element.Daerah_Rkod }" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
                                                         </div>
                                                         <div class="mb-3">
                                                             <label class="col-form-label">DAERAH</label>
@@ -679,7 +684,7 @@
                                                         <div class="mb-3">
                                                             <label class="col-form-label">KOD DAERAH</label>
                                                             <input class="form-control" type="number" name="Daerah_Rkod"
-                                                                value="${ element.Daerah_Rkod }" readonly />
+                                                                value="${ element.Daerah_Rkod }" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
                                                         </div>
                                                         <div class="mb-3">
                                                             <label class="col-form-label">DAERAH</label>

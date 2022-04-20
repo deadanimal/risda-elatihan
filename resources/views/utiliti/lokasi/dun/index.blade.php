@@ -11,39 +11,37 @@
         <hr class="risda-g">
     
         <form action="#" id="form_search">
-            <div class="row mt-3 justify-content-center">
-    
-                <div class="col-auto">
-                    <label class="col-form-label">NEGERI:</label>
+            <div class="row mt-4 justify-content-center">
+                <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col-lg-3 ">
+                            <label class="col-form-label">NEGERI:</label>
+                        </div>
+                        <div class="col-lg-9 mb-3">
+                            <select class="form-select" name="negeri_search" id="negeri_search">
+                                <option selected hidden>Sila Pilih</option>
+                                @foreach ($negeri as $n)
+                                    @if ($n->status_negeri == '1')
+                                        <option value="{{ $n->id }}">{{ $n->Negeri }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-lg-3 ">
+                            <label class="col-form-label">PARLIMEN:</label>
+                        </div>
+                        <div class="col-lg-9 mb-3">
+                            <select class="form-select" id="parlimen_search" name="parlimen_search">
+                                <option selected hidden>Sila Pilih</option>
+                                @foreach ($parlimen as $p)
+                                    @if ($p->status_daerah == '1')
+                                        <option value="{{ $p->id }}">{{ $p->Daerah }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-5">
-                    <select class="form-select" name="negeri_search" id="negeri_search">
-                        <option selected="" hidden></option>
-                        @foreach ($negeri as $n)
-                            @if ($n->status_negeri == '1')
-                                <option value="{{ $n->id }}">{{ $n->Negeri }}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                </div>
-    
-            </div>
-            <div class="row mt-3 justify-content-center">
-    
-                <div class="col-auto">
-                    <label class="col-form-label">PARLIMEN:</label>
-                </div>
-                <div class="col-5">
-                    <select class="form-select" id="parlimen_search" name="parlimen_search">
-                        <option selected="" hidden></option>
-                        @foreach ($parlimen as $p)
-                            @if ($p->status_daerah == '1')
-                                <option value="{{ $p->id }}">{{ $p->Daerah }}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                </div>
-    
             </div>
         </form>
     
@@ -91,7 +89,7 @@
                                         <div class="mb-3">
                                             <label class="col-form-label">KOD DUN</label>
                                             <input class="form-control" type="text" name="Dun_kod"
-                                                value="" />
+                                                value="" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
                                         </div>
                                         <div class="mb-3">
                                             <label class="col-form-label">DUN</label>
@@ -121,7 +119,7 @@
         <div class="row mt-3">
             <div class="col">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="table-responsive scrollbar m-3">
                         <table id="table_dun" class="table table-striped" style="width:100%">
                             <thead class="bg-200">
                                 <tr>
@@ -186,7 +184,7 @@
                                                         <div class="mb-3">
                                                             <label class="col-form-label">KOD DUN</label>
                                                             <input class="form-control" type="text" name="Dun_kod"
-                                                                value="{{ $d->Dun_kod }}" readonly />
+                                                                value="{{ $d->Dun_kod }}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
                                                         </div>
                                                         <div class="mb-3">
                                                             <label class="col-form-label">Dun</label>
@@ -327,7 +325,7 @@
                                                             <div class="mb-3">
                                                                 <label class="col-form-label">KOD DUN</label>
                                                                 <input class="form-control" type="number" name="Dun_kod"
-                                                                    value="{{ $d->Dun_kod }}" />
+                                                                    value="{{ $d->Dun_kod }}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label class="col-form-label">Dun</label>
@@ -437,6 +435,8 @@
             console.log(plm);
 
             let option_new = "";
+            $('#form1 select[name=U_Parlimen_ID]').append(
+                `<option selected hidden>Sila Pilih</option>`);
             plm.forEach(element => {
                 if (this.value == element.U_Negeri_ID) {
                     $('#form1 select[name=U_Parlimen_ID]').append(
@@ -452,6 +452,8 @@
             console.log(plm2);
 
             let option_new = "";
+            $('#form2 select[name=U_Parlimen_ID]').append(
+                `<option selected hidden>Sila Pilih</option>`);
             plm2.forEach(element => {
                 if (this.value == element.U_Negeri_ID) {
                     $('#form2 select[name=U_Parlimen_ID]').append(

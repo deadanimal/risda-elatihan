@@ -378,6 +378,16 @@
                                         </a>
 
                                     </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('utiliti/lokasi/pusat_tanggungjawab') ? 'active' : '' }} py-0"
+                                            href="/utiliti/lokasi/pusat_tanggungjawab">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">Pusat Tanggungjawab</span>
+                                            </div>
+                                        </a>
+
+                                    </li>
                                 </ul>
 
                             </li>
@@ -406,15 +416,6 @@
                                             href="/utiliti/kumpulan/agensi">
                                             <div class="d-flex align-items-center nav-link-side">
                                                 <span class="px-0">Senarai Agensi</span>
-                                            </div>
-                                        </a>
-
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link {{ Request::is('utiliti/kumpulan/pusat_tanggungjawab') ? 'active' : '' }} py-0"
-                                            href="/utiliti/kumpulan/pusat_tanggungjawab">
-                                            <div class="d-flex align-items-center nav-link-side">
-                                                <span class="px-0">Pusat Tanggungjawab</span>
                                             </div>
                                         </a>
 
