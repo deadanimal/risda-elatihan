@@ -130,6 +130,9 @@ class MatlamatTahunanPerbelanjaanController extends Controller
 
     public function carian(Request $request)
     {
+        $huruf = range('A', 'Z');
+        $huruf_kecil = range('a', 'z');
+
         $bulan = [
             '1' => 0,
             '2' => 0,
@@ -184,7 +187,9 @@ class MatlamatTahunanPerbelanjaanController extends Controller
                 'tahun' => $tahun,
                 'jenis' => $jenis,
                 'title' => $title,
-                'carian' => $carian
+                'carian' => $carian,
+                'huruf' => $huruf,
+                'huruf_kecil' => $huruf_kecil,
             ]);
         } elseif ($request->jenis_m == 'kategori kursus') {
             $carian = KategoriKursus::with( 'matlamat_perbelanjaan' )->whereYear('created_at', $request->tahun)->get()->groupBy('U_Bidang_Kursus');
@@ -229,6 +234,8 @@ class MatlamatTahunanPerbelanjaanController extends Controller
                 'jenis' => $jenis,
                 'title' => $title,
                 'carian' => $carian,
+                'huruf' => $huruf,
+                'huruf_kecil' => $huruf_kecil,
                 'bidang_h' => $bidang
             ]);
         } elseif ($request->jenis_m == 'tajuk kursus') {
@@ -274,6 +281,8 @@ class MatlamatTahunanPerbelanjaanController extends Controller
                 'jenis' => $jenis,
                 'title' => $title,
                 'carian' => $carian,
+                'huruf' => $huruf,
+                'huruf_kecil' => $huruf_kecil,
                 'bidang_h' => $bidang,
                 'kategori_h' => $kategori
             ]);
