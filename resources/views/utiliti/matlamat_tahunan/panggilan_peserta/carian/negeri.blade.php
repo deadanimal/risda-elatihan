@@ -12,7 +12,7 @@
         <div class="row mb-4">
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
-                    MATLAMAT BILANGAN PANGGILAN PESERTA MENGIKUT BIDANG KURSUS
+                    MATLAMAT BILANGAN PESERTA MENGIKUT BIDANG KURSUS
                 </p>
             </div>
         </div>
@@ -26,8 +26,7 @@
                             <label class="col-form-label">Tahun</label>
                         </div>
                         <div class="col-lg-7 mb-lg-3">
-                            <input class="form-control tahun" type="text" name="tahun" autocomplete="off"
-                                value="{{ $tahun }}" />
+                            <input class="form-control tahun" type="text" name="tahun" autocomplete="off" value="{{ $tahun }}"/>
                         </div>
 
                         <div class="col-lg-3 mb-lg-3">
@@ -40,7 +39,6 @@
                                 <option value="kategori kursus">Kategori Kursus</option>
                                 <option value="tajuk kursus">Tajuk Kursus</option>
                                 <option value="pusat latihan">Pusat Latihan</option>
-                                <option value="negeri">Negeri</option>
                             </select>
                         </div>
                         <div class="col-lg-2 mb-lg-3 ps-lg-0 text-end">
@@ -53,8 +51,7 @@
 
         <div class="row">
             <div class="col text-end">
-                <a href="/utiliti/matlamat_tahunan/panggilan_peserta/{{ $jenis['sub'] }}/{{ $tahun }}"
-                    class="btn btn-primary">Kemaskini</a>
+                <a href="/utiliti/matlamat_tahunan/panggilan_peserta/{{$jenis['sub']}}/{{$tahun}}" class="btn btn-primary">Kemaskini</a>
             </div>
         </div>
 
@@ -67,18 +64,20 @@
                                 <tr>
                                     <th scope="col">BIL.</th>
                                     <th scope="col">{{ $title }}</th>
-                                    <th scope="col">JAN</th>
-                                    <th scope="col">FEB</th>
-                                    <th scope="col">MAC</th>
-                                    <th scope="col">APRIL</th>
-                                    <th scope="col">MEI</th>
-                                    <th scope="col">JUN</th>
-                                    <th scope="col">JUL</th>
-                                    <th scope="col">OGOS</th>
-                                    <th scope="col">SEP</th>
-                                    <th scope="col">OKT</th>
-                                    <th scope="col">NOV</th>
-                                    <th scope="col">DIS</th>
+                                    <th scope="col">JOHOR</th>
+                                    <th scope="col">KEDAH</th>
+                                    <th scope="col">KELANTAN</th>
+                                    <th scope="col">MELAKA</th>
+                                    <th scope="col">NEGERI SEMBILAN</th>
+                                    <th scope="col">PAHANG</th>
+                                    <th scope="col">PERAK</th>
+                                    <th scope="col">PERLIS</th>
+                                    <th scope="col">PULAU PINANG</th>
+                                    <th scope="col">SELANGOR</th>
+                                    <th scope="col">TERENGGANU</th>
+                                    <th scope="col">SARAWAK</th>
+                                    <th scope="col">SABAH</th>
+                                    <th scope="col">W.P. KUALA LUMPUR</th>
                                     <th scope="col">JUMLAH</th>
                                 </tr>
                             </thead>
@@ -87,18 +86,10 @@
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
                                         <td>
-                                            @if ($title == 'BIDANG KURSUS')
-                                                {{ $c->nama_Bidang_Kursus }}
-                                            @elseif ($title == 'KATEGORI KURSUS')
-                                                {{ $c->nama_Kategori_Kursus }}
-                                            @elseif ($title == 'TAJUK KURSUS')
-                                                {{ $c->tajuk_Kursus }}
-                                            @elseif ($title == 'PUSAT LATIHAN')
-                                                {{ $c->nama }}
-                                            @endif
+                                            {{ $c->tajuk_Kursus }}
                                         </td>
-                                        @foreach ($c->matlamat_panggilan_peserta_cm as $l => $cm)
-                                            <td>{{ $cm }}</td>
+                                        @foreach ($c->matlamat_negeri_panggilan_cm as $l => $cm)
+                                        <td>{{ $cm }}</td>
                                         @endforeach
                                         <td>{{ $c->jumlah }}</td>
                                     </tr>
