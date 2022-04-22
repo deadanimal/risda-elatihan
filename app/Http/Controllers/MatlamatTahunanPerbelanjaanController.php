@@ -148,7 +148,109 @@ class MatlamatTahunanPerbelanjaanController extends Controller
             '12' => 0,
         ];
 
-        if ($request->jenis_m == 'bidang kursus') {
+        if ($request->jenis_m == 'pusat latihan') {
+           
+            $check = MatlamatTahunanPerbelanjaan::where('jenis', 'pusat_latihan')->whereYear('created_at', $request->tahun)->get();
+            $month = [
+                '',
+                'jan',
+                'feb',
+                'mac',
+                'apr',
+                'mei',
+                'jun',
+                'jul',
+                'ogos',
+                'sept',
+                'okt',
+                'nov',
+                'dis'
+            ];
+            if ($check->isEmpty()) {
+                $pusat = [
+                    'IKPK Kelantan',
+                    'IKPK Perak',
+                    'Kolej RISDA Pahang',
+                    'UCAM Melaka',
+                    'Sabah',
+                    'Sarawak',
+                    'Pusat Tanggungjawab',
+                    'Kolej RISDA Sdn Bhd'
+                ];
+
+                foreach ($pusat as $key => $pl) {
+                    $reg_pl = new MatlamatTahunanPerbelanjaan;
+                    $reg_pl->jenis = 'pusat_latihan';
+                    $reg_pl->nama = $pl;
+                    for ($i = 1; $i < 13; $i++) {
+                        $nama_bulan = $month[$i];
+                        $reg_pl->$nama_bulan = 0;
+                    }
+
+                    $reg_pl->save();
+                }
+            }
+
+            $carian = $check;
+            foreach ($carian as $key => $c) {
+                if ($c->matlamat_perbelanjaan == null) {
+
+                    if ($request->jenis_m == 'pusat latihan') {
+                        $c['matlamat_perbelanjaan_cm'] = [
+                            '1' => $c->jan,
+                            '2' => $c->feb,
+                            '3' => $c->mac,
+                            '4' => $c->apr,
+                            '5' => $c->mei,
+                            '6' => $c->jun,
+                            '7' => $c->jul,
+                            '8' => $c->ogos,
+                            '9' => $c->sept,
+                            '10' => $c->okt,
+                            '11' => $c->nov,
+                            '12' => $c->dis,
+                        ];
+                    } else {
+                        $c['matlamat_perbelanjaan_cm'] = $bulan;
+                    }
+                } else {
+                    $c['matlamat_perbelanjaan_cm'] = [
+                        '1' => $c['matlamat_perbelanjaan']->jan,
+                        '2' => $c['matlamat_perbelanjaan']->feb,
+                        '3' => $c['matlamat_perbelanjaan']->mac,
+                        '4' => $c['matlamat_perbelanjaan']->apr,
+                        '5' => $c['matlamat_perbelanjaan']->mei,
+                        '6' => $c['matlamat_perbelanjaan']->jun,
+                        '7' => $c['matlamat_perbelanjaan']->jul,
+                        '8' => $c['matlamat_perbelanjaan']->ogos,
+                        '9' => $c['matlamat_perbelanjaan']->sept,
+                        '10' => $c['matlamat_perbelanjaan']->okt,
+                        '11' => $c['matlamat_perbelanjaan']->nov,
+                        '12' => $c['matlamat_perbelanjaan']->dis,
+                    ];
+                }
+                // dd($c['matlamat_perbelanjaan_cm']);
+                $c['jumlah'] = array_sum($c['matlamat_perbelanjaan_cm']);
+            }
+            $tahun = $request->tahun;
+            $jenis = [];
+            $jenis['name'] = ucwords($request->jenis_m);
+            $jenis['val'] = $request->jenis_m;
+            $jenis['sub'] = str_replace(' ', '_', $request->jenis_m);
+            // dd($jenis);
+            $title = strtoupper($request->jenis_m);
+
+            return view('utiliti.matlamat_tahunan.perbelanjaan.carian.bidang', [
+                'matlamat_tahunan' => $carian,
+                'tahun' => $tahun,
+                'jenis' => $jenis,
+                'title' => $title,
+                'carian' => $carian,
+                'huruf' => $huruf,
+                'huruf_kecil' => $huruf_kecil,
+            ]);
+
+        } else if ($request->jenis_m == 'bidang kursus') {
             $carian = BidangKursus::with('matlamat_perbelanjaan')->whereYear('created_at', $request->tahun)->get();
             foreach ($carian as $key => $c) {
                 if ($c->matlamat_perbelanjaan == null) {
@@ -298,6 +400,9 @@ class MatlamatTahunanPerbelanjaanController extends Controller
         } elseif ($title == 'tajuk_kursus') {
             $carian = KodKursus::with('matlamat_perbelanjaan')->whereYear('created_at', $year)
                 ->get();
+        } elseif ($title == 'pusat_latihan') {
+            $carian = MatlamatTahunanPerbelanjaan::where('jenis', 'pusat_latihan')->whereYear('created_at', $year)
+                ->get();
         }
 
         $bulan = [
@@ -317,7 +422,11 @@ class MatlamatTahunanPerbelanjaanController extends Controller
         foreach ($carian as $key => $c) {
             if ($c->matlamat_perbelanjaan == null) {
                 $c['matlamat_perbelanjaan_cm'] = $bulan;
-                $status = 'create';
+                if ($title == 'pusat_latihan') {
+                    $status = 'update';
+                } else {
+                    $status = 'create';
+                }
             } else {
                 $c['matlamat_perbelanjaan_cm'] = [
                     '1' => $c['matlamat_perbelanjaan']->jan,
@@ -375,7 +484,8 @@ class MatlamatTahunanPerbelanjaanController extends Controller
         ];
         foreach ($request->title as $key => $r) {
             // dd($r, $key);
-            $mt_perbelanjaan = MatlamatTahunanPerbelanjaan::where('nama', $r)->first();
+            $id = $request->id_mt[$key];
+            $mt_perbelanjaan = MatlamatTahunanPerbelanjaan::find($id);
             $mt_perbelanjaan->nama = $r;
             foreach ($request->bulan[$key] as $l => $b) {
                 // dd($bulan[1]);
@@ -386,6 +496,6 @@ class MatlamatTahunanPerbelanjaanController extends Controller
         }
 
         alert()->success('Maklumat telah berjaya dikemaskini', 'Berjaya');
-        return redirect('/utiliti/matlamat_tahunan/kursus');
+        return redirect('/utiliti/matlamat_tahunan/perbelanjaan');
     }
 }

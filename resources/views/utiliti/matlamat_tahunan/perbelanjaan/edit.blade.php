@@ -57,15 +57,22 @@
                                                     <input type="hidden" name="title[]"
                                                         value="{{ $c->nama_Bidang_Kursus }}">
                                                     <input type="hidden" name="id_title[]" value="{{ $c->id }}">
+                                                    <input type="hidden" name="id_mt[]" value="{{ $c->matlamat_perbelanjaan->id }}">
                                                 @elseif ($title == 'KATEGORI KURSUS')
                                                     {{ $c->nama_Kategori_Kursus }}
                                                     <input type="hidden" name="title[]"
                                                         value="{{ $c->nama_Kategori_Kursus }}">
                                                     <input type="hidden" name="id_title[]" value="{{ $c->id }}">
+                                                    <input type="hidden" name="id_mt[]" value="{{ $c->matlamat_perbelanjaan->id }}">
                                                 @elseif ($title == 'TAJUK KURSUS')
                                                     {{ $c->tajuk_Kursus }}
                                                     <input type="hidden" name="title[]" value="{{ $c->tajuk_Kursus }}">
                                                     <input type="hidden" name="id_title[]" value="{{ $c->id }}">
+                                                    <input type="hidden" name="id_mt[]" value="{{ $c->matlamat_perbelanjaan->id }}">
+                                                @elseif ($title == 'PUSAT LATIHAN')
+                                                    {{ $c->nama }}
+                                                    <input type="hidden" name="title[]" value="{{ $c->nama }}">
+                                                    <input type="hidden" name="id_mt[]" value="{{ $c->id }}">
                                                 @endif
                                             </td>
                                             @foreach ($c->matlamat_perbelanjaan_cm as $k => $cm)
