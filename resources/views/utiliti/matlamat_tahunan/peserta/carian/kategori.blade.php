@@ -40,6 +40,7 @@
                                 <option value="bidang kursus">Bidang Kursus</option>
                                 <option value="kategori kursus">Kategori Kursus</option>
                                 <option value="tajuk kursus">Tajuk Kursus</option>
+                                <option value="pusat latihan">Pusat Latihan</option>
                             </select>
                         </div>
                         <div class="col-lg-2 mb-lg-3 ps-lg-0 text-end">
