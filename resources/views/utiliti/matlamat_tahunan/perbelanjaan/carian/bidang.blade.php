@@ -26,7 +26,8 @@
                             <label class="col-form-label">Tahun</label>
                         </div>
                         <div class="col-lg-7 mb-lg-3">
-                            <input class="form-control tahun" type="text" name="tahun" autocomplete="off" value="{{ $tahun }}"/>
+                            <input class="form-control tahun" type="text" name="tahun" autocomplete="off"
+                                value="{{ $tahun }}" />
                         </div>
 
                         <div class="col-lg-3 mb-lg-3">
@@ -50,7 +51,8 @@
 
         <div class="row">
             <div class="col text-end">
-                <a href="/utiliti/matlamat_tahunan/perbelanjaan/{{$jenis['sub']}}/{{$tahun}}" class="btn btn-primary">Kemaskini</a>
+                <a href="/utiliti/matlamat_tahunan/perbelanjaan/{{ $jenis['sub'] }}/{{ $tahun }}"
+                    class="btn btn-primary">Kemaskini</a>
             </div>
         </div>
 
@@ -89,10 +91,12 @@
                                                 {{ $c->nama_Kategori_Kursus }}
                                             @elseif ($title == 'TAJUK KURSUS')
                                                 {{ $c->tajuk_Kursus }}
+                                            @elseif ($title == 'PUSAT LATIHAN')
+                                                {{ $c->nama }}
                                             @endif
                                         </td>
                                         @foreach ($c->matlamat_perbelanjaan_cm as $l => $cm)
-                                        <td>{{ $cm }}</td>
+                                            <td>{{ $cm }}</td>
                                         @endforeach
                                         <td>{{ $c->jumlah }}</td>
                                     </tr>
