@@ -111,7 +111,7 @@
 
                                             <small> Kemaskini Bahagian A </small>
                                         </a>
-                                        <a class="btn btn-primary btn-sm mb-2"  href="/penilaian/penilaian-kursus/bahagianB/{{$jk->id}}">
+                                        {{-- <a class="btn btn-primary btn-sm mb-2"  href="/penilaian/penilaian-kursus/bahagianB/{{$jk->id}}">
                                             <small> Kemaskini Bahagian B</small>
                                         </a>
 
@@ -119,7 +119,7 @@
                                         href="/penilaian/penilaian-kursus/bahagianC/{{$jk->id}}">
                                             <small> Kemaskini Bahagian C </small>
                                         </a>
-
+ --}}
 
                                     </td>
                                 </tr>

@@ -33,15 +33,10 @@
 
                 <div class="col-1"></div>
                 <div class="col-3 mt-2">
-                    <p class="h5 risda-dg">SLOT PROGRAM</p>
+                    <p class="h5 risda-dg">KATEGORI SOALAN</p>
                 </div>
                 <div class="col-8">
-                    <select class="form-select mb-3" name="kategori_soalan">
-                        <option selected disabled hidden>SILA PILIH</option>
-                        @foreach ($aturcara as $aturcara )
-                            <option value="{{$aturcara->id}}">HARI {{$aturcara->ac_hari}} SESI- {{$aturcara->ac_aturcara}}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" class="form-control mb-3" name="kategori_soalan" value="Penilaian Setiap Slot Program" readonly>
                 </div>
 
                 <div class="col-1"></div>
@@ -163,10 +158,10 @@
                         <input type="hidden" id="multiple-iteration" value="1">
                         <div class="row">
                             <div class="col-1 text-center">
-                                <input type="radio" name="check-betul" value="true" class="form-check-input">
+                                <input type="radio" name="jawapan_betul" value="true" class="form-check-input">
                             </div>
                             <div class="col-11">
-                                <input type="text" name="jawapanMultiple[0]" class="form-control">
+                                <input type="text" name="pilihanJawapan[0]" class="form-control">
                             </div>
                         </div>
                         <div class="text-end mt-1">

@@ -121,6 +121,7 @@
                         <thead>
                             <tr>
                                 <th class="fw-bold text-dark" scope="col">BIL.</th>
+                                <th class="fw-bold text-dark" scope="col">KATEGORI SOALAN</th>
                                 <th class="fw-bold text-dark" scope="col">SOALAN</th>
                                 <th class="fw-bold text-dark" scope="col">STATUS</th>
                                 <th class="fw-bold text-dark" scope="col">TINDAKAN</th>
@@ -134,8 +135,15 @@
                                     </td>
 
                                     <td>
+                                        {{ $penilaianKursus->kategori_soalan}}
+                                    </td>
+
+
+                                    <td>
                                         {{ $penilaianKursus->soalan }}
                                     </td>
+
+
                                     <td>
                                         {{ $penilaianKursus->status_soalan }}
                                     </td>
