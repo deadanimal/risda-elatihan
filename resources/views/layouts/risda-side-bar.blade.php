@@ -832,14 +832,14 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link py-0" href="#">
+                                    <a class="nav-link py-0" href="/penilaian/keberkesanan-kursus/create">
                                         <div class="d-flex align-items-center nav-link-side">
                                             <span class="px-0">PENILAIAN KEBERKESANAN KURSUS</span>
                                         </div>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link py-0" href="#">
+                                    <a class="nav-link py-0" href="/penilaian/ejen-pelaksana/create">
                                         <div class="d-flex align-items-center nav-link-side">
                                             <span class="px-0">PENILAIAN EJEN PELAKSANA</span>
                                         </div>

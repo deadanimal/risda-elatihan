@@ -50,6 +50,8 @@ use App\Http\Controllers\StatusPelaksanaanController;
 use App\Http\Controllers\StesenController;
 use App\Http\Controllers\SumberController;
 use App\Http\Controllers\UtilitiController;
+use App\Http\Controllers\PenilaianKeberkesananController;
+use App\Http\Controllers\PenilaianEjenPelaksanaController;
 use App\Models\JadualKursus;
 use Illuminate\Support\Facades\Route;
 
@@ -275,6 +277,8 @@ Route::middleware('auth')->group(function () {
             Route::get('/penilaian-kursus/bahagianA/create/{id}',[KursusPenilaianController::class,'create']);
             Route::get('/penilaian-kursus/bahagianB/{id}',[KursusPenilaianController::class,'bahagianB']);
             Route::get('/penilaian-kursus/bahagianC/{id}',[KursusPenilaianController::class,'bahagianC']);
+            Route::resource('/keberkesanan-kursus',PenilaianKeberkesananController::class);
+            Route::resource('/ejen-pelaksana',PenilaianEjenPelaksanaController::class);
 
 
 
