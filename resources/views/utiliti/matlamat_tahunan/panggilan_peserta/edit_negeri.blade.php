@@ -12,7 +12,7 @@
         <div class="row mb-4">
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
-                    MATLAMAT BILANGAN PANGGILAN PESERTA MENGIKUT {{ $title }}
+                    MATLAMAT BILANGAN PESERTA MENGIKUT {{ $title }}
                 </p>
             </div>
         </div>
@@ -32,18 +32,20 @@
                                     <tr>
                                         <th scope="col">BIL.</th>
                                         <th scope="col">{{ $title }}</th>
-                                        <th scope="col">JAN</th>
-                                        <th scope="col">FEB</th>
-                                        <th scope="col">MAC</th>
-                                        <th scope="col">APRIL</th>
-                                        <th scope="col">MEI</th>
-                                        <th scope="col">JUN</th>
-                                        <th scope="col">JUL</th>
-                                        <th scope="col">OGOS</th>
-                                        <th scope="col">SEP</th>
-                                        <th scope="col">OKT</th>
-                                        <th scope="col">NOV</th>
-                                        <th scope="col">DIS</th>
+                                        <th scope="col">JOHOR</th>
+                                        <th scope="col">KEDAH</th>
+                                        <th scope="col">KELANTAN</th>
+                                        <th scope="col">MELAKA</th>
+                                        <th scope="col">NEGERI SEMBILAN</th>
+                                        <th scope="col">PAHANG</th>
+                                        <th scope="col">PERAK</th>
+                                        <th scope="col">PERLIS</th>
+                                        <th scope="col">PULAU PINANG</th>
+                                        <th scope="col">SELANGOR</th>
+                                        <th scope="col">TERENGGANU</th>
+                                        <th scope="col">SARAWAK</th>
+                                        <th scope="col">SABAH</th>
+                                        <th scope="col">W.P. KUALA LUMPUR</th>
                                         <th scope="col">JUMLAH</th>
                                     </tr>
                                 </thead>
@@ -52,27 +54,15 @@
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
                                             <td>
-                                                @if ($title == 'BIDANG KURSUS')
-                                                    {{ $c->nama_Bidang_Kursus }}
-                                                    <input type="hidden" name="title[]"
-                                                        value="{{ $c->nama_Bidang_Kursus }}">
-                                                    <input type="hidden" name="id_title[]" value="{{ $c->id }}">
-                                                @elseif ($title == 'KATEGORI KURSUS')
-                                                    {{ $c->nama_Kategori_Kursus }}
-                                                    <input type="hidden" name="title[]"
-                                                        value="{{ $c->nama_Kategori_Kursus }}">
-                                                    <input type="hidden" name="id_title[]" value="{{ $c->id }}">
-                                                @elseif ($title == 'TAJUK KURSUS')
-                                                    {{ $c->tajuk_Kursus }}
-                                                    <input type="hidden" name="title[]" value="{{ $c->tajuk_Kursus }}">
-                                                    <input type="hidden" name="id_title[]" value="{{ $c->id }}">
-                                                @elseif ($title == 'PUSAT LATIHAN')
-                                                    {{ $c->nama }}
-                                                    <input type="hidden" name="title[]" value="{{ $c->nama }}">
-                                                    <input type="hidden" name="id_mt[]" value="{{ $c->id }}">
+                                                {{ $c->tajuk_Kursus }}
+                                                <input type="hidden" name="title[]" value="{{ $c->tajuk_Kursus }}">
+                                                <input type="hidden" name="id_title[]" value="{{ $c->id }}">
+                                                @if ($status == 'update')
+                                                    <input type="hidden" name="id_mt[]"
+                                                        value="{{ $c->matlamat_negeri_panggilan->id }}">
                                                 @endif
                                             </td>
-                                            @foreach ($c->matlamat_panggilan_peserta_cm as $k => $cm)
+                                            @foreach ($c->matlamat_negeri_panggilan_cm as $k => $cm)
                                                 <td>
                                                     <input type="text"
                                                         class="form-control form-control-sm line_{{ $key }}"
