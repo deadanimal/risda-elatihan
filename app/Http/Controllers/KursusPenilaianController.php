@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\KursusPenilaian;
+use App\Models\JawapanPk;
 use App\Models\JadualKursus;
 use App\Models\Aturcara;
 use App\Models\Agensi;
 use App\Models\Permohonan;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 class KursusPenilaianController extends Controller
@@ -64,96 +66,124 @@ class KursusPenilaianController extends Controller
 
     public function store(Request $request)
     {
-        // $kursusPenilaian = new KursusPenilaian;
+        $kursusPenilaian = new KursusPenilaian;
 
-        // $kursusPenilaian->jadual_kursus_id= $request->jadual_kursus_id;
-        // $kursusPenilaian->bahagian="A";
-        // $kursusPenilaian->kategori_jawapan=$request->kategori_jawapan;
-        // $kursusPenilaian->kategori_soalan=$request->kategori_soalan;
-        // $kursusPenilaian->jawapan=$request->jawapan;
-        // $kursusPenilaian->soalan=$request->soalan;
-        // $kursusPenilaian->status_soalan=$request->status_soalan;
 
-        // $kursusPenilaian->save();
-        // alert()->success('Soalan Telah Ditambah', 'Berjaya');
-        // return redirect('/penilaian/penilaian-kursus/ulpk/'.$kursusPenilaian->jadual_kursus_id);
+        $kursusPenilaian->jadual_kursus_id= $request->jadual_kursus_id;
+        $kursusPenilaian->bahagian="A";
+        $kursusPenilaian->kategori_jawapan="C";
+        $kursusPenilaian->kategori_soalan="Penilaian Setiap Slot Program";
+        $kursusPenilaian->jawapan=$request->jawapan;
+        $kursusPenilaian->jawapan_betul=$request->jawapan_betul;
+        $kursusPenilaian->soalan=$request->soalan;
+        $kursusPenilaian->status_soalan=$request->status_soalan;
 
-        switch ($request->jenis) {
-            case 'A':
-                KursusPenilaian::create([
-                    'jadual_kursus_id' => $request->jadual_kursus_id,
-                    'jenis_soalan' => "FILL IN THE BLANK",
-                    'soalan' => $request->soalan,
-                    'status' => $request->status_soalan,
-                    'jawapan' => $request->jawapanA,
-                ]);
-                break;
-            case 'B':
-                $post = KursusPenilaian::create([
-                    'jadual_kursus_id' => $request->jadual_kursus_id,
-                    'jenis_soalan' => "MULTIPLE CHOICE",
-                    'soalan' => $request->soalan,
-                    'status' => $request->status_soalan,
-                    'jawapan' => null,
-                ]);
-                foreach ($request->jawapanMultiple as $key => $jawapan) {
-                    $str = "check-" . $key;
-                    if ($request->$str) {
-                        JawapanMultiplePost::create([
-                            'post_test_id' => $post->id,
-                            'jawapan' => $jawapan,
-                            'yang_betul' => 'betul',
-                        ]);
-                    } else {
-                        JawapanMultiplePost::create([
-                            'post_test_id' => $post->id,
-                            'jawapan' => $jawapan,
-                            'yang_betul' => 'salah',
-                        ]);
-                    }
-                }
-                break;
-            case 'C':
-                $post = KursusPenilaian::create([
-                    'jadual_kursus_id' => $request->jadual_kursus_id,
-                    'jenis_soalan' => "SINGLE CHOICE",
-                    'soalan' => $request->soalan,
-                    'status' => $request->status_soalan,
-                    'jawapan' => null,
-                ]);
-                foreach ($request->jawapanMultiple as $key => $jawapan) {
-                    $str = "check-" . $key;
-                    if ($request->$str) {
-                        JawapanMultiplePost::create([
-                            'post_test_id' => $post->id,
-                            'jawapan' => $jawapan,
-                            'yang_betul' => 'betul',
-                        ]);
-                    } else {
-                        JawapanMultiplePost::create([
-                            'post_test_id' => $post->id,
-                            'jawapan' => $jawapan,
-                            'yang_betul' => 'salah',
-                        ]);
-                    }
-                }
-                break;
-            case 'D':
-                KursusPenilaian::create([
-                    'jadual_kursus_id' => $request->jadual_kursus_id,
-                    'jenis_soalan' => "TRUE OR FALSE",
-                    'soalan' => $request->soalan,
-                    'status' => $request->status_soalan,
-                    'jawapan' => $request->jawapanD,
-                ]);
-                break;
-            default:
-                return abort(404);
-                break;
-        }
+        $kursusPenilaian->save();
 
-        alert()->success('SOALAN POST TEST TELAH DISIMPAN', 'BERJAYA');
-        return redirect(route('post-test.index', $request->jadual_kursus_id));
+        // $jawapanPK = new JawapanPk;
+        // // $jawapanPk->kursus_penilaian_id = $request->jadual_kursus_id;
+        // $jawapanPk->pilihanJawapan = $request->pilihanJawapan;
+
+        // $jawapanPk->save();
+
+        // KursusPenilaian::create([
+        //     "jadual_kursus_id" =>$jadual_kursus_id,
+        //     "bahagian" => "A",
+        //     "kategori_jawapan"=>"Penilaian Setiap Slot Program",
+        //     "kategori_soalan"=>$kategori_soalan,
+        //     "jawapan"=>$jawapan,
+        //     "soalan"=>$soalan,
+        //     "status_soalan"=>$status_soalan
+
+        // ]);
+
+        // JawapanPk::create([
+        //    "kursus_penilaian_id"=>$KursusPenilaian->id,
+        //    "pilihanJawapan"=>$pilihanJawapan
+        // ]);
+
+
+
+        alert()->success('Soalan Telah Ditambah', 'Berjaya');
+        return redirect('/penilaian/penilaian-kursus/ulpk/'.$kursusPenilaian->jadual_kursus_id);
+
+        // switch ($request->jenis) {
+        //     case 'A':
+        //         KursusPenilaian::create([
+        //             'jadual_kursus_id' => $request->jadual_kursus_id,
+        //             'jenis_soalan' => "FILL IN THE BLANK",
+        //             'soalan' => $request->soalan,
+        //             'status' => $request->status_soalan,
+        //             'jawapan' => $request->jawapanA,
+        //         ]);
+        //         break;
+        //     case 'B':
+        //         $post = KursusPenilaian::create([
+        //             'jadual_kursus_id' => $request->jadual_kursus_id,
+        //             'jenis_soalan' => "MULTIPLE CHOICE",
+        //             'soalan' => $request->soalan,
+        //             'status' => $request->status_soalan,
+        //             'jawapan' => null,
+        //         ]);
+        //         foreach ($request->jawapanMultiple as $key => $jawapan) {
+        //             $str = "check-" . $key;
+        //             if ($request->$str) {
+        //                 JawapanMultiplePost::create([
+        //                     'post_test_id' => $post->id,
+        //                     'jawapan' => $jawapan,
+        //                     'yang_betul' => 'betul',
+        //                 ]);
+        //             } else {
+        //                 JawapanMultiplePost::create([
+        //                     'post_test_id' => $post->id,
+        //                     'jawapan' => $jawapan,
+        //                     'yang_betul' => 'salah',
+        //                 ]);
+        //             }
+        //         }
+        //         break;
+        //     case 'C':
+        //         $post = KursusPenilaian::create([
+        //             'jadual_kursus_id' => $request->jadual_kursus_id,
+        //             'jenis_soalan' => "SINGLE CHOICE",
+        //             'soalan' => $request->soalan,
+        //             'status_soalan' => $request->status_soalan,
+        //             'jawapan' => null,
+
+        //         ]);
+        //         foreach ($request->jawapanMultiple as $key => $jawapan) {
+        //             $str = "check-" . $key;
+        //             if ($request->$str) {
+        //                 JawapanPk::create([
+        //                     'post_test_id' => $post->id,
+        //                     'jawapan' => $jawapan,
+        //                     'yang_betul' => 'betul',
+        //                 ]);
+        //             } else {
+        //                 JawapanMultiplePost::create([
+        //                     'post_test_id' => $post->id,
+        //                     'jawapan' => $jawapan,
+        //                     'yang_betul' => 'salah',
+        //                 ]);
+        //             }
+        //         }
+        //         break;
+        //     case 'D':
+        //         KursusPenilaian::create([
+        //             'jadual_kursus_id' => $request->jadual_kursus_id,
+        //             'jenis_soalan' => "TRUE OR FALSE",
+        //             'soalan' => $request->soalan,
+        //             'status' => $request->status_soalan,
+        //             'jawapan' => $request->jawapanD,
+        //         ]);
+        //         break;
+        //     default:
+        //         return abort(404);
+        //         break;
+        // }
+
+        // alert()->success('SOALAN POST TEST TELAH DISIMPAN', 'BERJAYA');
+        // return redirect(route('post-test.index', $request->jadual_kursus_id));
 
     }
 
@@ -219,11 +249,10 @@ class KursusPenilaianController extends Controller
 
         // $jadual_kursus =JadualKursus::where('id',$penilaiankursus->jadual_kursus_id)->get()->first();
 
-        // $aturcara = Aturcara::where('ac_jadual_kursus',$penilaiankursus->jadual_kursus_id)->get();
+
 
         return view('penilaian.kursus.edit', [
         // 'jadual_kursus'=>$jadual_kursus,
-        // 'aturcara'=>$aturcara,
         'penilaiankursus'=>$penilaiankursus
     ]);
     }
@@ -235,8 +264,10 @@ class KursusPenilaianController extends Controller
      * @param  \App\Models\KursusPenilaian  $kursusPenilaian
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, KursusPenilaian $kursusPenilaian)
+    public function update(Request $request, $id)
     {
+        $kursusPenilaian = KursusPenilaian::find($id);
+
         $kursusPenilaian->jadual_kursus_id= $request->jadual_kursus_id;
         $kursusPenilaian->bahagian="A";
         $kursusPenilaian->kategori_jawapan=$request->kategori_jawapan;
@@ -244,7 +275,7 @@ class KursusPenilaianController extends Controller
         $kursusPenilaian->jawapan=$request->jawapan;
         $kursusPenilaian->status_soalan=$request->status_soalan;
 
-        elseif ($request->kategori_jawapan == 'C') {
+        if ($request->kategori_jawapan == 'C') {
             foreach ($KursusPenilaian->multiple as $jawapanM) {
                 $jawapanM->update([
                     'yang_betul' => 'salah',
@@ -271,13 +302,19 @@ class KursusPenilaianController extends Controller
      * @param  \App\Models\KursusPenilaian  $kursusPenilaian
      * @return \Illuminate\Http\Response
      */
-    public function destroy(KursusPenilaian $kursusPenilaian)
-    {
-        //
-    }
-
-    public function jawab_penilaian(KursusPenilaian $kursusPenilaian)
+    public function destroy($id)
     {
 
+        $kursusPenilaian = KursusPenilaian::where('id',$id)->first();
+        $kursusPenilaian->delete();
+        alert()->success('Soalan Telah Dihapus', 'Berjaya');
+
+        return redirect()->back();
+
     }
+
+    // public function jawab_penilaian(KursusPenilaian $kursusPenilaian)
+    // {
+    //     return view ()
+    // }
 }
