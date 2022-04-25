@@ -31,11 +31,7 @@
                             <label class="col-form-label">Tahun</label>
                         </div>
                         <div class="col-lg-7 mb-lg-3">
-                            <select name="tahun" id="tahun" class="form-control">
-                                <option value="{{ $tahun }}" selected hidden>{{ $tahun }}</option>
-                                <option value="2021">2021</option>
-                                <option value="2022">2022</option>
-                            </select>
+                            <input class="form-control tahun" type="text" name="tahun" autocomplete="off" value="{{ $tahun }}"/>
                         </div>
 
                         <div class="col-lg-3 mb-lg-3">
@@ -47,6 +43,7 @@
                                 <option value="bidang kursus">Bidang Kursus</option>
                                 <option value="kategori kursus">Kategori Kursus</option>
                                 <option value="tajuk kursus">Tajuk Kursus</option>
+                                <option value="pusat latihan">Pusat Latihan</option>
                             </select>
                         </div>
                         <div class="col-lg-2 mb-lg-3 ps-lg-0 text-end">
@@ -90,75 +87,61 @@
                             </thead>
                             <tbody>
                                 @foreach ($bidang_h as $b)
-                                    @php
-                                        $bid = BidangKursus::find($b->id);
-                                        $bidang = MatlamatBilanganKursus::where('bidang', $bid->nama_Bidang_Kursus)->first();
-                                        if ($bidang != null) {
-                                            $bidang_jumlah = $bidang['jan'] + $bidang['feb'] + $bidang['mac'] + $bidang['apr'] + $bidang['mei'] + $bidang['jun'] + $bidang['jul'] + $bidang['ogos'] + $bidang['sept'] + $bidang['okt'] + $bidang['nov'] + $bidang['dis'];
-                                        }
-                                        // dd($bidang);
-                                    @endphp
-                                    <tr class="risda-bg-dg text-white">
-                                        <td>{{ $huruf[$loop->iteration-1] }}.</td>
-                                        @if ($bidang == null)
-                                            <td>{{ $bid['nama_Bidang_Kursus'] }}</td>
-                                            @for ($i = 0; $i < 12; $i++)
-                                                <td>0</td>
-                                            @endfor
+                                <tr class="risda-bg-dg text-white">
+                                    <td>{{ $huruf[$loop->iteration-1] }}.</td>
+                                    @if ($b->matlamat_kursus == null)
+                                        <td>{{ $b['nama_Bidang_Kursus'] }}</td>
+                                        @for ($i = 0; $i < 12; $i++)
                                             <td>0</td>
-                                        @else
-                                            <td>{{ $bidang['bidang'] }}</td>
-                                            <td>{{ $bidang['jan'] }}</td>
-                                            <td>{{ $bidang['feb'] }}</td>
-                                            <td>{{ $bidang['mac'] }}</td>
-                                            <td>{{ $bidang['apr'] }}</td>
-                                            <td>{{ $bidang['mei'] }}</td>
-                                            <td>{{ $bidang['jun'] }}</td>
-                                            <td>{{ $bidang['jul'] }}</td>
-                                            <td>{{ $bidang['ogos'] }}</td>
-                                            <td>{{ $bidang['sept'] }}</td>
-                                            <td>{{ $bidang['okt'] }}</td>
-                                            <td>{{ $bidang['nov'] }}</td>
-                                            <td>{{ $bidang['dis'] }}</td>
-                                            <td>{{ $bidang_jumlah }}</td>
-                                        @endif
-                                    </tr>
+                                        @endfor
+                                        <td>0</td>
+                                    @else
+                                        <td>{{ $b->matlamat_kursus->nama }}</td>
+                                        <td>{{ $b->matlamat_kursus->jan }}</td>
+                                        <td>{{ $b->matlamat_kursus->feb }}</td>
+                                        <td>{{ $b->matlamat_kursus->mac }}</td>
+                                        <td>{{ $b->matlamat_kursus->apr }}</td>
+                                        <td>{{ $b->matlamat_kursus->mei }}</td>
+                                        <td>{{ $b->matlamat_kursus->jun }}</td>
+                                        <td>{{ $b->matlamat_kursus->jul }}</td>
+                                        <td>{{ $b->matlamat_kursus->ogos }}</td>
+                                        <td>{{ $b->matlamat_kursus->sept }}</td>
+                                        <td>{{ $b->matlamat_kursus->okt }}</td>
+                                        <td>{{ $b->matlamat_kursus->nov }}</td>
+                                        <td>{{ $b->matlamat_kursus->dis }}</td>
+                                        <td>{{ $b->matlamat_kursus->jan +$b->matlamat_kursus->feb +$b->matlamat_kursus->mac +$b->matlamat_kursus->apr +$b->matlamat_kursus->jun +$b->matlamat_kursus->jul +$b->matlamat_kursus->ogos +$b->matlamat_kursus->sept +$b->matlamat_kursus->okt +$b->matlamat_kursus->nov +$b->matlamat_kursus->dis }}
+                                        </td>
+                                    @endif
+                                </tr>
 
                                     @if (isset($kategori_h[$b->id]))
                                         @foreach ($kategori_h[$b->id] as $k)
-                                            @php
-                                                $kat = KategoriKursus::find($k->id);
-                                                $kategori = MatlamatBilanganKursus::where('bidang', $kat->nama_Kategori_Kursus)->first();
-                                                if ($kategori != null) {
-                                                    $kategori_jumlah = $kategori['jan'] + $kategori['feb'] + $kategori['mac'] + $kategori['apr'] + $kategori['mei'] + $kategori['jun'] + $kategori['jul'] + $kategori['ogos'] + $kategori['sept'] + $kategori['okt'] + $kategori['nov'] + $kategori['dis'];
-                                                }
-                                                // dd($kategori);
-                                            @endphp
-                                            <tr class="bg-soft-success">
-                                                <td>{{ $huruf_kecil[$loop->iteration-1] }})</td>
-                                                @if ($kategori == null)
-                                                    <td>{{ $kat['nama_Kategori_Kursus'] }}</td>
-                                                    @for ($i = 0; $i < 12; $i++)
-                                                        <td>0</td>
-                                                    @endfor
+                                        <tr class="bg-soft-success">
+                                            <td>{{ $huruf_kecil[$loop->iteration-1] }})</td>
+                                            @if ($k->matlamat_kursus == null)
+                                                <td>{{ $k['nama_Kategori_Kursus'] }}</td>
+                                                @for ($i = 0; $i < 12; $i++)
                                                     <td>0</td>
-                                                @else
-                                                    <td>{{ $kategori['bidang'] }}</td>
-                                                    <td>{{ $kategori['jan'] }}</td>
-                                                    <td>{{ $kategori['feb'] }}</td>
-                                                    <td>{{ $kategori['mac'] }}</td>
-                                                    <td>{{ $kategori['apr'] }}</td>
-                                                    <td>{{ $kategori['mei'] }}</td>
-                                                    <td>{{ $kategori['jun'] }}</td>
-                                                    <td>{{ $kategori['jul'] }}</td>
-                                                    <td>{{ $kategori['ogos'] }}</td>
-                                                    <td>{{ $kategori['sept'] }}</td>
-                                                    <td>{{ $kategori['okt'] }}</td>
-                                                    <td>{{ $kategori['nov'] }}</td>
-                                                    <td>{{ $kategori['dis'] }}</td>
-                                                    <td>{{ $kategori_jumlah }}</td>
-                                                @endif
-                                            </tr>
+                                                @endfor
+                                                <td>0</td>
+                                            @else
+                                                <td>{{ $k->matlamat_kursus->nama }}</td>
+                                                <td>{{ $k->matlamat_kursus->jan }}</td>
+                                                <td>{{ $k->matlamat_kursus->feb }}</td>
+                                                <td>{{ $k->matlamat_kursus->mac }}</td>
+                                                <td>{{ $k->matlamat_kursus->apr }}</td>
+                                                <td>{{ $k->matlamat_kursus->mei }}</td>
+                                                <td>{{ $k->matlamat_kursus->jun }}</td>
+                                                <td>{{ $k->matlamat_kursus->jul }}</td>
+                                                <td>{{ $k->matlamat_kursus->ogos }}</td>
+                                                <td>{{ $k->matlamat_kursus->sept }}</td>
+                                                <td>{{ $k->matlamat_kursus->okt }}</td>
+                                                <td>{{ $k->matlamat_kursus->nov }}</td>
+                                                <td>{{ $k->matlamat_kursus->dis }}</td>
+                                                <td>{{ $k->matlamat_kursus->jan +$k->matlamat_kursus->feb +$k->matlamat_kursus->mac +$k->matlamat_kursus->apr +$k->matlamat_kursus->jun +$k->matlamat_kursus->jul +$k->matlamat_kursus->ogos +$k->matlamat_kursus->sept +$k->matlamat_kursus->okt +$k->matlamat_kursus->nov +$k->matlamat_kursus->dis }}
+                                                </td>
+                                            @endif
+                                        </tr>
                                             @if (isset($carian[$k->id]))
                                                 @foreach ($carian[$k->id] as $a => $cc)
                                                     <tr>

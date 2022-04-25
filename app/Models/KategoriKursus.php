@@ -16,7 +16,7 @@ class KategoriKursus extends Model
 
     public function matlamat_kursus()
     {
-        return $this->hasOne(MatlamatBilanganKursus::class, 'bidang', 'nama_Kategori_Kursus');
+        return $this->hasOne(MatlamatBilanganKursus::class, 'kategori_ref', 'id');
     }
 
     public function matlamat_peserta()
