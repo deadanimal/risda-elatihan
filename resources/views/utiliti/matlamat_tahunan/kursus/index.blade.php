@@ -43,11 +43,11 @@
                         </div>
                         <div class="col-lg-2 mb-lg-3 ps-lg-0 text-end">
                             <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Cari</button>
-                            <form action="/utiliti/matlamat_tahunan/kursus/1" method="post">
+                            {{-- <form action="/utiliti/matlamat_tahunan/kursus/1" method="post">
                                 @method('DELETE')
                                 @csrf
                                 <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
+                            </form> --}}
                         </div>
                     </div>
                 </div>
