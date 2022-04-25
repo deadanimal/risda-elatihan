@@ -27,7 +27,7 @@ class KodKursus extends Model
 
     public function matlamat_kursus()
     {
-        return $this->hasOne(MatlamatBilanganKursus::class, 'bidang', 'tajuk_Kursus');
+        return $this->hasOne(MatlamatBilanganKursus::class, 'tajuk_ref', 'id');
     }
 
     public function matlamat_peserta()
