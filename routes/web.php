@@ -7,6 +7,7 @@ use App\Http\Controllers\BangsaController;
 use App\Http\Controllers\BidangKursusController;
 use App\Http\Controllers\CetakKodQRController;
 use App\Http\Controllers\DaerahController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DunController;
 use App\Http\Controllers\ElaunCutiController;
 use App\Http\Controllers\GredPegawaiController;
@@ -66,9 +67,9 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::get('/', function () {
-    return view('dashboard');
-})->middleware(['auth']);
+// Route::get('/', function () {
+//     return view('dashboard');
+// })->middleware(['auth']);
 Route::get('/falcon', function () {
     return view('falcon');
 });
@@ -101,6 +102,8 @@ Route::post('/semak_nric', [SemakanController::class, 'check_espek']);
 Route::post('/daftar_pengguna', [SemakanController::class, 'daftar_pengguna']);
 
 Route::middleware('auth')->group(function () {
+
+    Route::resource('/', DashboardController::class);
 
     Route::resources([
         // '/profil' => ProfilController::class,
