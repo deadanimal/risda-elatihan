@@ -130,6 +130,14 @@ class MatlamatTahunanPerbelanjaanController extends Controller
 
     public function carian(Request $request)
     {
+        if ($request->tahun == 'yyyy') {
+            alert()->error('Sila masukkan tahun yang betul', 'Gagal');
+            return back();
+        } elseif ($request->tahun == null) {
+            alert()->error('Sila masukkan tahun yang betul', 'Gagal');
+            return back();
+        }
+        
         $huruf = range('A', 'Z');
         $huruf_kecil = range('a', 'z');
 
