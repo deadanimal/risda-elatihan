@@ -42,13 +42,14 @@
             </div>
         </div>
 
-        <div class="row justify-content-center mt-5">
+        {{-- <div class="row justify-content-center mt-5">
             <div class="col-8 d-inline-flex">
                 <div class="col-4">
                     <p class="pt-2 fw-bold">KOD NAMA KURSUS</p>
                 </div>
                 <div class="col-8">
-                    <input type="text" class="form-control mb-4" value="{{ $jadualkursus->kursus_kod_nama_kursus }}" readonly>
+                    <input type="text" class="form-control mb-4" value="{{ $jadualkursus->kursus_kod_nama_kursus }}"
+                        readonly>
                 </div>
             </div>
             <div class="col-8 d-inline-flex">
@@ -64,7 +65,9 @@
                     <p class="pt-2 fw-bold">TARIKH KURSUS</p>
                 </div>
                 <div class="col-8">
-                    <input type="text" class="form-control mb-3" value="{{ date('d/m/Y', strtotime($jadualkursus->tarikh_mula)) }} - {{ date('d/m/Y', strtotime($jadualkursus->tarikh_tamat)) }}" readonly>
+                    <input type="text" class="form-control mb-3"
+                        value="{{ date('d/m/Y', strtotime($jadualkursus->tarikh_mula)) }} - {{ date('d/m/Y', strtotime($jadualkursus->tarikh_tamat)) }}"
+                        readonly>
                 </div>
             </div>
             <div class="col-8 d-inline-flex">
@@ -93,6 +96,58 @@
                         <option selected value="1">Sesi 1</option>
                         <option value="2">Sesi 2</option>
                     </select>
+                </div>
+            </div>
+        </div> --}}
+
+        <div class="row justify-content-center mt-5">
+            <div class="col-8">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <p class="pt-2 fw-bold">KOD NAMA KURSUS</p>
+                    </div>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control mb-4" value="{{ $jadualkursus->kursus_kod_nama_kursus }}"
+                            readonly>
+                    </div>
+                    <div class="col-lg-4">
+                        <p class="pt-2 fw-bold">NAMA KURSUS</p>
+                    </div>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control mb-3" value="{{ $jadualkursus->kursus_nama }}" readonly>
+                    </div>
+                    <div class="col-lg-4">
+                        <p class="pt-2 fw-bold">TARIKH KURSUS</p>
+                    </div>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control mb-3"
+                            value="{{ date('d/m/Y', strtotime($jadualkursus->tarikh_mula)) }} - {{ date('d/m/Y', strtotime($jadualkursus->tarikh_tamat)) }}"
+                            readonly>
+                    </div>
+                    <div class="col-lg-4">
+                        <p class="pt-2 fw-bold">HARI</p>
+                    </div>
+                    <div class="col-lg-8">
+                        <select class="form-select" id="select-hari">
+                            <option disabled hidden selected>Pilih</option>
+                            <?= $temp = 0 ?>
+                            @foreach ($aturcara as $val)
+                                @if ($temp != $val->ac_hari)
+                                    <option value="{{ $val->ac_hari }}">{{ $val->hari }}</option>
+                                @endif
+                                <?= $temp = $val->ac_hari ?>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-lg-4">
+                        <p class="pt-2 fw-bold">SESI</p>
+                    </div>
+                    <div class="col-lg-8">
+                        <select class="form-select" id="select-sesi">
+                            <option selected value="1">Sesi 1</option>
+                            <option value="2">Sesi 2</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
@@ -293,10 +348,14 @@
 
             aturcara.forEach(e => {
                 console.log(this.value);
-                let status = 'CALON ASAL'
+                let status = 'CALON ASAL';
+                let nama_pengganti = '-';
+                let ic_pengganti = '-';
                 if (e.aturcara.ac_hari == this.value && e.aturcara.ac_sesi == sesi) {
-                    if (e.pengganti.name != null) {
+                    if (e.nama_pengganti != null) {
                         status = 'PENGGANTI';
+                        nama_pengganti = e.pengganti.name;
+                        ic_pengganti = e.pengganti.no_KP;
                     }
                     $("#table-body").append(`
                             <tr>
@@ -306,9 +365,9 @@
                                 
                                 <td>` + (e.status_kehadiran ?? '-') + `</td>
                                 <td>` + (e.status_kehadiran_ke_kursus ?? '-') + `</td>
-                                <td>`+ status +`</td>
-                                <td>` + (e.pengganti.no_KP ?? '-') + `</td>
-                                <td>` + (e.pengganti.name ?? '-') + `</td>
+                                <td>` + status + `</td>
+                                <td>` + ic_pengganti + `</td>
+                                <td>` + nama_pengganti  + `</td>
                                 <td>
                                 <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
                                 data-bs-target="#modal-rekod-kehadiran" onclick="kemaskini(` + e.id +
@@ -333,16 +392,20 @@
 
         $("#select-sesi").change(function() {
             $("#table-body").html("");
-            
+
             var aturcara = @json($list->toArray());
             var hari = $("#select-hari").val();
             var iteration = 1;
 
             aturcara.forEach(e => {
-                let status = 'CALON ASAL'
+                let status = 'CALON ASAL';
+                let nama_pengganti = '-';
+                let ic_pengganti = '-';
                 if (e.aturcara.ac_sesi == this.value && e.aturcara.ac_hari == hari) {
-                    if (e.pengganti.name != null) {
+                    if (e.nama_pengganti != null) {
                         status = 'PENGGANTI';
+                        nama_pengganti = e.pengganti.name;
+                        ic_pengganti = e.pengganti.no_KP;
                     }
                     $("#table-body").append(`
                     <tr>
@@ -352,9 +415,9 @@
 
                                 <td>` + (e.status_kehadiran ?? '') + `</td>
                                 <td>` + (e.status_kehadiran_ke_kursus ?? '') + `</td>
-                                <td>`+ status +`</td>
-                                <td>` + (e.pengganti.no_KP ?? '-') + `</td>
-                                <td>` + (e.pengganti.name ?? '-') + `</td>
+                                <td>` + status + `</td>
+                                <td>` + ic_pengganti + `</td>
+                                <td>` + nama_pengganti  + `</td>
                                 <td>
                                 <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
                                 data-bs-target="#modal-rekod-kehadiran" onclick="kemaskini(` + e.id +

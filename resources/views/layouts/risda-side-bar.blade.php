@@ -11,20 +11,21 @@
         color: white;
     }
 
-    .modal{
+    .modal {
         position: fixed;
         top: 0;
         right: 0;
         z-index: 10000 !important
-        /* width: 100vw;
+            /* width: 100vw;
         height: 100vh; */
 
 
     }
 
-    .modal-content{
+    .modal-content {
         z-index: 20000 !important
     }
+
     /* .nav-link-text {
         color: white;
     }
@@ -33,7 +34,6 @@
         color: white;
         background-color: #009640;
     } */
-
 
 </style>
 <script>
@@ -44,53 +44,47 @@
         container.classList.add('container-fluid');
     }
 </script>
-<div class="modal fade" id="tukar-password" tabindex="-1" role="dialog"
-                                            aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered" role="document"
-                                                style="max-width: 500px">
-                                                <div class="modal-content position-relative">
-                                                    <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
-                                                        <button
-                                                            class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
-                                                            data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <form action="/profil/{{ Auth::id() }}" method="POST">
-                                                        @method('PUT')
-                                                        @csrf
-                                                        <div class="modal-body p-0">
-                                                            <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
-                                                                <h4 class="mb-1" id="modalExampleDemoLabel">
-                                                                    Tukar
-                                                                    Kata
-                                                                    Laluan</h4>
-                                                            </div>
-                                                            <div class="p-4 pb-0">
+<div class="modal fade" id="tukar-password" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+        <div class="modal-content position-relative">
+            <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
+                <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
+                    data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/profil/{{ Auth::id() }}" method="POST">
+                @method('PUT')
+                @csrf
+                <div class="modal-body p-0">
+                    <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
+                        <h4 class="mb-1" id="modalExampleDemoLabel">
+                            Tukar
+                            Kata
+                            Laluan</h4>
+                    </div>
+                    <div class="p-4 pb-0">
 
-                                                                <div class="mb-3">
-                                                                    <label class="col-form-label">Kata Laluan
-                                                                        Sekarang:</label>
-                                                                    <input class="form-control" type="password"
-                                                                        name="kl_sekarang" />
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label class="col-form-label">Kata Laluan
-                                                                        Baru:</label>
-                                                                    <input class="form-control" type="password"
-                                                                        name="kl_baru" />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button class="btn btn-secondary" type="button"
-                                                                data-bs-dismiss="modal">Batal</button>
-                                                            <button class="btn btn-success" type="submit">Tukar Kata
-                                                                Laluan
-                                                            </button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
+                        <div class="mb-3">
+                            <label class="col-form-label">Kata Laluan
+                                Sekarang:</label>
+                            <input class="form-control" type="password" name="kl_sekarang" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="col-form-label">Kata Laluan
+                                Baru:</label>
+                            <input class="form-control" type="password" name="kl_baru" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Batal</button>
+                    <button class="btn btn-success" type="submit">Tukar Kata
+                        Laluan
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <nav class="navbar navbar-light navbar-vertical navbar-expand-xl">
     <script>
         var navbarStyle = localStorage.getItem("navbarStyle");
@@ -384,6 +378,16 @@
                                         </a>
 
                                     </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('utiliti/lokasi/pusat_tanggungjawab') ? 'active' : '' }} py-0"
+                                            href="/utiliti/lokasi/pusat_tanggungjawab">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">Pusat Tanggungjawab</span>
+                                            </div>
+                                        </a>
+
+                                    </li>
                                 </ul>
 
                             </li>
@@ -412,15 +416,6 @@
                                             href="/utiliti/kumpulan/agensi">
                                             <div class="d-flex align-items-center nav-link-side">
                                                 <span class="px-0">Senarai Agensi</span>
-                                            </div>
-                                        </a>
-
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link {{ Request::is('utiliti/kumpulan/pusat_tanggungjawab') ? 'active' : '' }} py-0"
-                                            href="/utiliti/kumpulan/pusat_tanggungjawab">
-                                            <div class="d-flex align-items-center nav-link-side">
-                                                <span class="px-0">Pusat Tanggungjawab</span>
                                             </div>
                                         </a>
 
@@ -585,12 +580,39 @@
                                     </div>
                                 </a>
                                 <ul class="nav-item collapse {{ Request::is('utiliti/matlamat_tahunan/*') ? 'show' : 'false' }} my-1"
-                                    id="status">
+                                    id="matlamat">
                                     <li class="nav-item">
                                         <a class="nav-link {{ Request::is('utiliti/matlamat_tahunan/kursus') ? 'active' : '' }} py-0"
                                             href="/utiliti/matlamat_tahunan/kursus">
                                             <div class="d-flex align-items-center nav-link-side">
-                                                <span class="px-0">Kursus</span>
+                                                <span class="px-0">Matlamat Kursus</span>
+                                            </div>
+                                        </a>
+
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('utiliti/matlamat_tahunan/peserta') ? 'active' : '' }} py-0"
+                                            href="/utiliti/matlamat_tahunan/peserta">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">Matlamat Peserta</span>
+                                            </div>
+                                        </a>
+
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('utiliti/matlamat_tahunan/perbelanjaan') ? 'active' : '' }} py-0"
+                                            href="/utiliti/matlamat_tahunan/perbelanjaan">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">Matlamat Perbelanjaan</span>
+                                            </div>
+                                        </a>
+
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('utiliti/matlamat_tahunan/panggilan_peserta') ? 'active' : '' }} py-0"
+                                            href="/utiliti/matlamat_tahunan/panggilan_peserta">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">Matlamat Panggilan Peserta Kursus</span>
                                             </div>
                                         </a>
 
@@ -601,9 +623,9 @@
                     @endcan
 
                     {{-- Peserta ULS --}}
-                    @role('Peserta ULS')
-                        @if (auth()->user()->can('katelog kursus') ||
-    auth()->user()->can('status permohonan'))
+
+                    @if (auth()->user()->can('katelog kursus') || auth()->user()->can('status permohonan'))
+                        @role('Peserta ULS')
                             <a class="nav-link py-0 dropdown-indicator" href="#permohonan" role="button"
                                 data-bs-toggle="collapse"
                                 aria-expanded="{{ Request::is('uls/permohonan/*') ? 'true' : 'false' }}"
@@ -636,13 +658,10 @@
                                     </li>
                                 @endcan
                             </ul>
-                        @endif
-                    @endrole
+                        @endrole
 
-                    {{-- Peserta ULPK --}}
-                    @role('Peserta ULPK')
-                        @if (auth()->user()->can('katelog kursus') ||
-    auth()->user()->can('status permohonan'))
+                        {{-- Peserta ULPK --}}
+                        @role('Peserta ULPK')
                             <a class="nav-link py-0 dropdown-indicator" href="#permohonan" role="button"
                                 data-bs-toggle="collapse"
                                 aria-expanded="{{ Request::is('ulpk/permohonan/*') ? 'true' : 'false' }}"
@@ -675,8 +694,8 @@
                                     </li>
                                 @endcan
                             </ul>
-                        @endif
-                    @endrole
+                        @endrole
+                    @endif
 
                     @can('kehadiran')
                         <a class="nav-link py-0 dropdown-indicator" href="#kehadiran" role="button"
@@ -762,7 +781,8 @@
                                 @if (auth()->user()->jenis_pengguna == 'Peserta ULS' || auth()->user()->jenis_pengguna == 'Peserta ULPK')
                                     <span class="px-3"><span class="fab fa-wpforms"></span> PENILAIAN</span>
                                 @else
-                                    <span class="px-3"><span class="fab fa-wpforms"></span> PENGURUSAN PENILAIAN</span>
+                                    <span class="px-3"><span class="fab fa-wpforms"></span> PENGURUSAN
+                                        PENILAIAN</span>
                                 @endif
                             </div>
                         </a>
@@ -785,7 +805,7 @@
                                 </li>
                                 <li class="nav-item">
                                     {{-- <a class="nav-link py-0" href="{{ route('jawab-post.index') }}"> --}}
-                                        <a class="nav-link py-0" href="/penilaian/jawab-post-test">
+                                    <a class="nav-link py-0" href="/penilaian/jawab-post-test">
                                         <div class="d-flex align-items-center nav-link-side">
                                             <span class="px-0">PENILAIAN POST TEST</span>
                                         </div>

@@ -69,29 +69,12 @@ class ProfilController extends Controller
                 ]);
             }
         } else {
-            // check staf
-            $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
-                ->get('https://www4.risda.gov.my/fire/getallstaff/')
-                ->getBody()
-                ->getContents();
 
-            $data_staf = json_decode($data_staf, true);
-            foreach ($data_staf as $key => $staf) {
-                if ($staf['nokp'] == $user->no_KP) {
-                    $profil = Staf::where('id_Pengguna', $user->id)->first();
-                    $jenis = 'Staf';
-                    return view('profil.index_staf', [
-                        'user' => $user,
-                        'staf' => $staf,
-                        'jenis' => $jenis,
-                        'profil' => $profil
-                    ]);
-                }
-            }
-
-            // return as ejen pelaksana
-            alert()->error('Tiada dalam senarai staf');
-            return back();
+            return view('profil.index_staf', [
+                'user' => $user,
+                'staf' => Staf::where('id_Pengguna', $user->id)->first(),
+                'jenis' => 'Staf',
+            ]);
         }
     }
 

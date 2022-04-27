@@ -63,7 +63,7 @@
             @csrf
             <div class="card mt-5">
                 <div class="table-responsive scrollbar">
-                    <table class="table datatble table text-center">
+                    <table class="table text-center">
                         <thead>
                             <tr>
                                 <th scope="col">Bil.</th>

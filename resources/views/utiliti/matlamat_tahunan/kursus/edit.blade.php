@@ -24,9 +24,10 @@
                         @method('PUT')
                     @endif
                     @csrf
+                    <input type="hidden" name="jenis" value="{{ $jenis['sub'] }}">
                     <div class="card mt-2">
                         <div class="table-responsive scrollbar m-3">
-                            <table class="table datatable text-center m-3">
+                            <table class="table text-center m-3">
                                 <thead style="background-color: #009640; color: white;">
                                     <tr>
                                         <th scope="col">BIL.</th>
@@ -55,13 +56,34 @@
                                                     {{ $c->nama_Bidang_Kursus }}
                                                     <input type="hidden" name="title[]"
                                                         value="{{ $c->nama_Bidang_Kursus }}">
+                                                    <input type="hidden" name="id_title[]" value="{{ $c->id }}">
+                                                    @if ($status == 'update')
+                                                    <input type="hidden" name="id_mt[]" value="{{ $c->matlamat_kursus->id }}">
+                                                    @endif
+                                                    
                                                 @elseif ($title == 'KATEGORI KURSUS')
                                                     {{ $c->nama_Kategori_Kursus }}
                                                     <input type="hidden" name="title[]"
                                                         value="{{ $c->nama_Kategori_Kursus }}">
+                                                    <input type="hidden" name="id_title[]" value="{{ $c->id }}">
+                                                    @if ($status == 'update')
+                                                    <input type="hidden" name="id_mt[]" value="{{ $c->matlamat_kursus->id }}">
+                                                    @endif
+                                                    
                                                 @elseif ($title == 'TAJUK KURSUS')
-                                                    {{ $c->tajuk }}
-                                                    <input type="hidden" name="title[]" value="{{ $c->tajuk }}">
+                                                    {{ $c->tajuk_Kursus }}
+                                                    <input type="hidden" name="title[]" value="{{ $c->tajuk_Kursus }}">
+                                                    <input type="hidden" name="id_title[]" value="{{ $c->id }}">
+                                                    @if ($status == 'update')
+                                                    <input type="hidden" name="id_mt[]" value="{{ $c->matlamat_kursus->id }}">
+                                                    @endif
+                                                @elseif ($title == 'PUSAT LATIHAN')
+                                                    {{ $c->nama }}
+                                                    <input type="hidden" name="title[]" value="{{ $c->nama }}">
+                                                    @if ($status == 'update')
+                                                    <input type="hidden" name="id_mt[]" value="{{ $c->id }}">
+                                                    @endif
+                                                    
                                                 @endif
                                             </td>
                                             @foreach ($c->matlamat_kursus_cm as $k => $cm)

@@ -32,7 +32,7 @@
                                         <div class="mb-3">
                                             <label class="col-form-label">KOD NEGERI</label>
                                             <input class="form-control" type="text" name="Negeri_Rkod"
-                                                value=""/>
+                                                value="" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
                                         </div>
                                         <div class="mb-3">
                                             <label class="col-form-label">NEGERI</label>
@@ -96,6 +96,8 @@
                                             </button>
                                         </td>
                                     </tr>
+
+
                                     <div class="modal fade" id="edit_negeri_{{ $negeri->id }}" tabindex="-1" role="dialog"
                                         aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document"
@@ -112,13 +114,15 @@
                                                         </h4>
                                                     </div>
                                                     <div class="p-4 pb-0">
+
+
                                                         <form action="/utiliti/lokasi/negeri/{{ $negeri->id }}" method="POST">
                                                             @method('PUT')
                                                             @csrf
                                                             <div class="mb-3">
                                                                 <label class="col-form-label">KOD NEGERI</label>
                                                                 <input class="form-control" type="text" name="Negeri_Rkod"
-                                                                    value="{{ $negeri->Negeri_Rkod }}" readonly />
+                                                                    value="{{ $negeri->Negeri_Rkod }}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label class="col-form-label">NEGERI</label>

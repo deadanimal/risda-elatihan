@@ -7,6 +7,7 @@ use App\Http\Controllers\BangsaController;
 use App\Http\Controllers\BidangKursusController;
 use App\Http\Controllers\CetakKodQRController;
 use App\Http\Controllers\DaerahController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DunController;
 use App\Http\Controllers\ElaunCutiController;
 use App\Http\Controllers\GredPegawaiController;
@@ -21,6 +22,7 @@ use App\Http\Controllers\KelayakanElauncutiController;
 use App\Http\Controllers\KodKursusController;
 use App\Http\Controllers\LaporanLainController;
 use App\Http\Controllers\MatlamatBilanganKursusController;
+use App\Http\Controllers\MatlamatTahunanPesertaController;
 use App\Http\Controllers\MukimController;
 use App\Http\Controllers\NegeriController;
 use App\Http\Controllers\NotaRujukanController;
@@ -33,6 +35,8 @@ use App\Http\Controllers\PengajianLanjutanController;
 use App\Http\Controllers\PengurusanPenggunaController;
 use App\Http\Controllers\PenilaianPesertaController;
 use App\Http\Controllers\KursusPenilaianController;
+use App\Http\Controllers\MatlamatTahunanPanggilanPesertaController;
+use App\Http\Controllers\MatlamatTahunanPerbelanjaanController;
 use App\Http\Controllers\PerananController;
 use App\Http\Controllers\PermohonanController;
 use App\Http\Controllers\PeruntukanPesertaController;
@@ -63,9 +67,9 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::get('/', function () {
-    return view('dashboard');
-})->middleware(['auth']);
+// Route::get('/', function () {
+//     return view('dashboard');
+// })->middleware(['auth']);
 Route::get('/falcon', function () {
     return view('falcon');
 });
@@ -99,6 +103,8 @@ Route::post('/daftar_pengguna', [SemakanController::class, 'daftar_pengguna']);
 
 Route::middleware('auth')->group(function () {
 
+    Route::resource('/', DashboardController::class);
+
     Route::resources([
         // '/profil' => ProfilController::class,
 
@@ -110,11 +116,11 @@ Route::middleware('auth')->group(function () {
         '/utiliti/lokasi/kampung' => KampungController::class,
         '/utiliti/lokasi/seksyen' => SeksyenController::class,
         '/utiliti/lokasi/stesen' => StesenController::class,
+        '/utiliti/lokasi/pusat_tanggungjawab' => PusatTanggungjawabController::class,
 
         '/utiliti/kumpulan/kategori_agensi' => KategoriAgensiController::class,
         '/utiliti/kumpulan/agensi' => AgensiController::class,
         '/utiliti/kumpulan/pegawai_agensi' => PegawaiAgensiController::class,
-        '/utiliti/kumpulan/pusat_tanggungjawab' => PusatTanggungjawabController::class,
 
         '/utiliti/julat/julat_tahunan' => JulatTahunanController::class,
 
@@ -132,6 +138,9 @@ Route::middleware('auth')->group(function () {
         '/utiliti/kursus/kod_objek' => ObjekController::class,
 
         '/utiliti/matlamat_tahunan/kursus' => MatlamatBilanganKursusController::class,
+        '/utiliti/matlamat_tahunan/peserta' => MatlamatTahunanPesertaController::class,
+        '/utiliti/matlamat_tahunan/perbelanjaan' => MatlamatTahunanPerbelanjaanController::class,
+        '/utiliti/matlamat_tahunan/panggilan_peserta' => MatlamatTahunanPanggilanPesertaController::class,
 
         '/pengurusan_kursus/semak_jadual' => JadualKursusController::class,
         '/pengurusan_kursus/peruntukan_peserta' => PeruntukanPesertaController::class,
@@ -150,6 +159,19 @@ Route::middleware('auth')->group(function () {
     Route::post('/utiliti/matlamat_tahunan/kursus/carian', [MatlamatBilanganKursusController::class, 'carian']);
     Route::get('/utiliti/matlamat_tahunan/kursus/{title}/{year}', [MatlamatBilanganKursusController::class, 'kemaskini']);
     Route::put('/utiliti/matlamat_tahunan/kursus', [MatlamatBilanganKursusController::class, 'update_table']);
+
+    Route::post('/utiliti/matlamat_tahunan/peserta/carian', [MatlamatTahunanPesertaController::class, 'carian']);
+    Route::get('/utiliti/matlamat_tahunan/peserta/{title}/{year}', [MatlamatTahunanPesertaController::class, 'kemaskini']);
+    Route::put('/utiliti/matlamat_tahunan/peserta', [MatlamatTahunanPesertaController::class, 'update_table']);
+
+    Route::post('/utiliti/matlamat_tahunan/perbelanjaan/carian', [MatlamatTahunanPerbelanjaanController::class, 'carian']);
+    Route::get('/utiliti/matlamat_tahunan/perbelanjaan/{title}/{year}', [MatlamatTahunanPerbelanjaanController::class, 'kemaskini']);
+    Route::put('/utiliti/matlamat_tahunan/perbelanjaan', [MatlamatTahunanPerbelanjaanController::class, 'update_table']);
+
+    Route::post('/utiliti/matlamat_tahunan/panggilan_peserta/carian', [MatlamatTahunanPanggilanPesertaController::class, 'carian']);
+    Route::get('/utiliti/matlamat_tahunan/panggilan_peserta/{title}/{year}', [MatlamatTahunanPanggilanPesertaController::class, 'kemaskini']);
+    Route::put('/utiliti/matlamat_tahunan/panggilan_peserta', [MatlamatTahunanPanggilanPesertaController::class, 'update_table']);
+
     Route::get('/pengurusan_pengguna/pengguna/staf', [PengurusanPenggunaController::class, 'staf']);
 
     Route::get('/pengurusan_pengguna/pengguna/pekebun_kecil', [PengurusanPenggunaController::class, 'pekebun_kecil']);
@@ -182,22 +204,23 @@ Route::middleware('auth')->group(function () {
         //from scan qrcode
         Route::resource('/permohonan/kehadiran', KehadiranController::class);
         Route::post('/pengesahan_kehadiran', [KehadiranController::class, 'store']);
+    });
 
-        //Peserta ULPK
-        Route::prefix('/ulpk')->group(function () {
-            //Permohonan Peserta
-            Route::group(['prefix' => '/permohonan', 'middleware' => 'can:katelog kursus'], function () {
-                Route::get('statuspermohonan', [PermohonanController::class, 'indexULPK']);
-                Route::get('katelog-kursus', [PermohonanController::class, 'katalog_ulpk']);
-                Route::get('kehadiran/{kod_kursus}', [KehadiranController::class, 'indexULPK']);
-            });
-
-            //rekod kehadiran
-            // Route::group(['prefix' => '/kehadiran'], function () {
-            //     Route::get('/', [KehadiranController::class, 'fromUlpkQR']);
-            // });
-
+    //Peserta ULPK
+    Route::prefix('/ulpk')->group(function () {
+        //Permohonan Peserta
+        Route::group(['prefix' => '/permohonan', 'middleware' => 'can:katelog kursus'], function () {
+            Route::get('statuspermohonan', [PermohonanController::class, 'indexULPK']);
+            Route::get('statuspermohonan/nota_rujukan/{id}', [PermohonanController::class, 'nota_rujukan']);
+            Route::get('katelog-kursus', [PermohonanController::class, 'katalog_ulpk']);
+            Route::get('kehadiran/{kod_kursus}', [KehadiranController::class, 'indexULPK']);
         });
+
+        //rekod kehadiran
+        // Route::group(['prefix' => '/kehadiran'], function () {
+        //     Route::get('/', [KehadiranController::class, 'fromUlpkQR']);
+        // });
+
     });
 
     //Urus Setia ULS
@@ -348,6 +371,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/add_staf', [UtilitiController::class, 'r_espek']);
     Route::delete('/delete/{id}', [UtilitiController::class, 'test_user_delete']);
     Route::put('/update_role/{id}', [UtilitiController::class, 'test_user_update_role']);
+    Route::get('/delete_staf', [UtilitiController::class, 'remove_user_uls']);
 
     Route::get('testjap', [PermohonanController::class, 'katelog']);
 
@@ -357,8 +381,11 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/pengurusan_peserta/pencalonan', PencalonanPesertaController::class);
     Route::get('/pengurusan_peserta/pencalonan/{id}/{id_peserta}', [PencalonanPesertaController::class, 'maklumat_peserta']);
+    Route::post('/pengurusan_peserta/pencalonan/senarai_peserta/{id}', [PencalonanPesertaController::class, 'senarai_peserta']);
 
     Route::resource('/pengurusan_peserta/semakan_pemohon', SemakPermohonanController::class);
+    Route::post('/pengurusan_peserta/semakan_pemohon/pengesahan_pukal', [SemakPermohonanController::class, 'pengesahan_pukal']);
+    Route::post('/pengurusan_peserta/semakan_pemohon/sokongan_pukal', [SemakPermohonanController::class, 'sokongan_pukal']);
     Route::resource('/profil', ProfilController::class);
 
     Route::resource('/permohonan_kursus/katalog_kursus', PermohonanController::class);
