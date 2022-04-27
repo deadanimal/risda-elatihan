@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Agensi extends Model
 {
     use HasFactory;
-  
+
     public function penceramahKonsultan()
     {
         return $this->hasMany(PenceramahKonsultan::class, 'pc_id', 'id');
@@ -18,4 +18,10 @@ class Agensi extends Model
     {
         return $this->belongsTo(KategoriAgensi::class, 'kategori_agensi', 'id');
     }
+
+    public function penilaian()
+    {
+        return $this->hasMany(PenilaianEjenPelaksana::class);
+    }
+
 }

@@ -259,6 +259,8 @@ Route::middleware('auth')->group(function () {
             Route::get('/penilaian-kursus/bahagianC/{id}',[KursusPenilaianController::class,'bahagianC']);
             Route::resource('/keberkesanan-kursus',PenilaianKeberkesananController::class);
             Route::resource('/ejen-pelaksana',PenilaianEjenPelaksanaController::class);
+            Route::get('/penilaian-ejen-pelaksana/{id}',[PenilaianEjenPelaksanaController::class,'create']);
+            Route::get('/penilaian-keberkesanan-kursus/{id}',[PenilaianKeberkesananController::class,'create']);
 
 
 

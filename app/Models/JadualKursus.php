@@ -59,4 +59,10 @@ class JadualKursus extends Model
     public function agensi() {
         return $this->belongsTo(Agensi::class,'kod_agensi', 'id');
     }
+
+    public function penilaian() {
+        return $this->hasMany(Penilaian::class);
+    }
+
+
 }

@@ -12,10 +12,11 @@
     </style>
 
     <div class="container">
-        <form action="/ejen-pelaksana" method="POST">
+        <form action="/penilaian/ejen-pelaksana" method="POST">
             @csrf
 
-            {{-- <input type="hidden" name="jadual_id" value="{{ $jadual_kursus->id }}"> --}}
+            <input type="hidden" name="jadual_id" value="{{ $kursus->id }}">
+            {{-- <input type="hidden" name="agensi_id" value="{{ $agensi->id }}"> --}}
 
             <div class="row mt-3 mb-2">
                 <div class="col-12 mb-2">
@@ -49,7 +50,7 @@
                         <p class="text-white d-inline-flex h6">4-Sangat Setuju</p>
                     </div>
                 </div>
-
+                <input type="hidden" name="jadual_kursus_id" value="{{$kursus->id}}">
                 <div class="col-12 mt-5 d-inline-flex">
                     <p class="h5"><span class="h5" style="color: #0F5E31">PENGISIAN PROGRAM</span>
                     </p>
