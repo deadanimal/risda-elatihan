@@ -43,43 +43,43 @@
                                         @foreach ($staf as $key => $u)
                                             <tr>
                                                 <td>{{ $key + 1 }}.</td>
-                                                <td>{{ $u->no_KP }}</td>
-                                                <td>{{ $u->name }}</td>
-                                                <td>{{ $u->no_pekerja }}</td>
-                                                <td>{{ $u->pusat_tanggungjawab }}</td>
-                                                <td>{{ $u->gred }}</td>
-                                                <td>{{ $u->jawatan }}</td>
-                                                <td>{{ $u->email }}</td>
-                                                <td>{{ $u->jenis_pengguna }}</td>
+                                                <td>{{ $u->pengguna->no_KP }}</td>
+                                                <td>{{ $u->pengguna->name }}</td>
+                                                <td>{{ $u->nopekerja }}</td>
+                                                <td>{{ $u->NamaPT }}</td>
+                                                <td>{{ $u->Gred }}</td>
+                                                <td>{{ $u->Jawatan }}</td>
+                                                <td>{{ $u->pengguna->email }}</td>
+                                                <td>{{ $u->pengguna->jenis_pengguna }}</td>
                                                 <td>{{ date('d-m-Y', strtotime($u->created_at)) }}</td>
                                                 <td>
                                                     <div class="form-switch">
-                                                        <form action="/pengurusan_pengguna/pengguna/pengaktifan/{{$u->id}}" method="post" id="statusForm{{ $u->id }}" class="pengaktifan">
+                                                        <form action="/pengurusan_pengguna/pengguna/pengaktifan/{{$u->pengguna->id}}" method="post" id="statusForm{{ $u->id }}" class="pengaktifan">
                                                             @csrf
-                                                            <input class="form-check-input up-switch-risda" id="active_{{ $u->id }}"
+                                                            <input class="form-check-input up-switch-risda" id="active_{{ $u->pengguna->id }}"
                                                             type="checkbox" value="1"
-                                                            {{ isset($u->status_akaun) && $u->status_akaun == '1' ? 'checked' : '' }}
+                                                            {{ isset($u->pengguna->status_akaun) && $u->pengguna->status_akaun == '1' ? 'checked' : '' }}
                                                             name="status"
-                                                            onchange="document.getElementById('statusForm{{ $u->id }}').submit()" />
+                                                            onchange="document.getElementById('statusForm{{ $u->pengguna->id }}').submit()" />
                                                         </form>
                                                         {{-- <label class="form-check-label" id="aktif">Aktif</label> --}}
                                                     </div>
                                                     {{-- <button class="btn btn-primary" type="button" data-bs-toggle="modal"
-                                                        data-bs-target="#edit_pengguna_{{ $u->id }}">
+                                                        data-bs-target="#edit_pengguna_{{ $u->pengguna->id }}">
                                                         <i class="fas fa-pen"></i>
                                                     </button> --}}
                                                 </td>
                                                 <td>
                                                     <button class="btn btn-primary" type="button" data-bs-toggle="modal"
-                                                    data-bs-target="#edit_pengguna_{{ $u->id }}"><i class="fas fa-pen"></i>
+                                                    data-bs-target="#edit_pengguna_{{ $u->pengguna->id }}"><i class="fas fa-pen"></i>
                                                     </button>
 
                                                     <button class="btn risda-bg-dg text-white" type="button" data-bs-toggle="modal"
-                                                        data-bs-target="#delete_{{ $u->id }}"><i class="fas fa-trash"></i>
+                                                        data-bs-target="#delete_{{ $u->pengguna->id }}"><i class="fas fa-trash"></i>
                                                     </button>
                                                 </td>
                                                 {{-- <td>
-                                                    <form method="POST" action="/pengurusan_pengguna/pengguna/staf/{{$u->id}}">
+                                                    <form method="POST" action="/pengurusan_pengguna/pengguna/staf/{{$u->pengguna->id}}">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button class="btn p-0 ms-2" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="Padam"><span class="text-500 fas fa-trash-alt"></span></button>
@@ -87,7 +87,7 @@
                                                 </td> --}}
                                             </tr>
 
-                                            <div class="modal fade" id="edit_pengguna_{{ $u->id }}"
+                                            <div class="modal fade" id="edit_pengguna_{{ $u->pengguna->id }}"
                                                 tabindex="-1" role="dialog" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered" role="document"
                                                     style="max-width: 500px">
@@ -104,7 +104,7 @@
                                                             </div>
                                                             <div class="p-4 pb-0">
                                                                 <form
-                                                                    action="/pengurusan_pengguna/pengguna/{{ $u->id }}"
+                                                                    action="/pengurusan_pengguna/pengguna/{{ $u->pengguna->id }}"
                                                                     method="POST">
                                                                     @method('PUT')
                                                                     @csrf
@@ -136,7 +136,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="modal fade" id="delete_{{ $u->id }}" tabindex="-1"
+                                            <div class="modal fade" id="delete_{{ $u->pengguna->id }}" tabindex="-1"
                                                 role="dialog" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered" role="document"
                                                     style="max-width: 500px">
@@ -151,14 +151,14 @@
                                                                 <div class="col text-center m-3">
                                                                     <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
                                                                     <br>
-                                                                    Anda pasti untuk menghapus data {{$u->nama}} ini?
+                                                                    Anda pasti untuk menghapus data {{$u->pengguna->name}} ini?
 
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button class="btn btn-secondary" type="button"
                                                                     data-bs-dismiss="modal">Batal</button>
-                                                                <form method="POST" action="/pengurusan_pengguna/pengguna/staf/{{$u->id}}">
+                                                                <form method="POST" action="/pengurusan_pengguna/pengguna/staf/{{$u->pengguna->id}}">
                                                                     @method('DELETE')
                                                                     @csrf
                                                                     <button class="btn btn-primary" type="submit">Hapus

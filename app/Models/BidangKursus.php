@@ -21,6 +21,21 @@ class BidangKursus extends Model
 
     public function matlamat_kursus()
     {
-        return $this->hasOne(MatlamatBilanganKursus::class, 'bidang', 'nama_Bidang_Kursus');
+        return $this->hasOne(MatlamatBilanganKursus::class, 'bidang_ref', 'id');
+    }
+
+    public function matlamat_peserta()
+    {
+        return $this->hasOne(MatlamatTahunanPeserta::class, 'bidang_ref', 'id');
+    }
+
+    public function matlamat_perbelanjaan()
+    {
+        return $this->hasOne(MatlamatTahunanPerbelanjaan::class, 'bidang_ref', 'id');
+    }
+
+    public function matlamat_panggilan_peserta()
+    {
+        return $this->hasOne(MatlamatTahunanPanggilanPeserta::class, 'bidang_ref', 'id');
     }
 }

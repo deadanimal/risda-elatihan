@@ -12,7 +12,7 @@
         <div class="row mb-4">
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
-                    MATLAMAT BILANGAN KURSUS MENGIKUT BIDANG KURSUS
+                    MATLAMAT BILANGAN KURSUS
                 </p>
             </div>
         </div>
@@ -26,11 +26,7 @@
                             <label class="col-form-label">Tahun</label>
                         </div>
                         <div class="col-lg-7 mb-lg-3">
-                            <select name="tahun" id="tahun" class="form-control">
-                                <option value="" selected hidden>Sila Pilih</option>
-                                <option value="2021">2021</option>
-                                <option value="2022">2022</option>
-                            </select>
+                            <input class="form-control tahun" type="text" name="tahun" autocomplete="off" value="yyyy"/>
                         </div>
     
                         <div class="col-lg-3 mb-lg-3">
@@ -42,14 +38,31 @@
                                 <option value="bidang kursus">Bidang Kursus</option>
                                 <option value="kategori kursus">Kategori Kursus</option>
                                 <option value="tajuk kursus">Tajuk Kursus</option>
+                                <option value="pusat latihan">Pusat Latihan</option>
                             </select>
                         </div>
                         <div class="col-lg-2 mb-lg-3 ps-lg-0 text-end">
                             <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Cari</button>
+                            {{-- <form action="/utiliti/matlamat_tahunan/kursus/1" method="post">
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form> --}}
                         </div>
                     </div>
                 </div>
             </div>
         </form>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $(".tahun").datepicker({
+                format: "yyyy",
+                viewMode: "years",
+                minViewMode: "years",
+                autoclose: true
+            });
+        });
+    </script>
 @endsection

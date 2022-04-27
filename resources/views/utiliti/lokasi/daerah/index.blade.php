@@ -11,23 +11,25 @@
         <hr class="risda-g">
     
         <form action="#">
-            <div class="row mt-3 justify-content-center">
-    
-                <div class="col-auto">
-                    <label class="col-form-label">NEGERI:</label>
+            <div class="row mt-4 justify-content-center">
+                <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <label class="col-form-label">NEGERI:</label>
+                        </div>
+                        <div class="col-lg-9 mb-3">
+                            <select class="form-select" name="U_Negeri_ID" id="negeri_search">
+                                <option value="" selected hidden>Sila Pilih</option>
+                                @foreach ($negeri as $n)
+                                    @if ($n->status_negeri == '1')
+                                        <option value="{{ $n->id }}">{{ $n->Negeri }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                            {{-- <input class="form-control form-control-sm" type="text" name="search_negeri" /> --}}
+                        </div>
+                    </div>
                 </div>
-                <div class="col-5">
-                    <select class="form-select" name="U_Negeri_ID" id="negeri_search">
-                        <option selected="" hidden></option>
-                        @foreach ($negeri as $n)
-                            @if ($n->status_negeri == '1')
-                                <option value="{{ $n->id }}">{{ $n->Negeri }}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                    {{-- <input class="form-control form-control-sm" type="text" name="search_negeri" /> --}}
-                </div>
-    
             </div>
         </form>
     
@@ -64,7 +66,7 @@
                                         <div class="mb-3">
                                             <label class="col-form-label">KOD DAERAH</label>
                                             <input class="form-control" type="text" name="Daerah_Rkod"
-                                                value=""/>
+                                                value="" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
                                         </div>
                                         <div class="mb-3">
                                             <label class="col-form-label">DAERAH</label>
@@ -94,7 +96,7 @@
         <div class="row mt-3">
             <div class="col">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="table-responsive scrollbar m-3">
                         <table id="table_daerah" class="table table-striped" style="width:100%">
                             <thead class="bg-200">
                                 <tr>
@@ -143,7 +145,7 @@
                                                         <div class="mb-3">
                                                             <label class="col-form-label">KOD DAERAH</label>
                                                             <input class="form-control" type="number" name="Daerah_Rkod"
-                                                                value="{{ $d->Daerah_Rkod }}" readonly />
+                                                                value="{{ $d->Daerah_Rkod }}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
                                                         </div>
                                                         <div class="mb-3">
                                                             <label class="col-form-label">DAERAH</label>

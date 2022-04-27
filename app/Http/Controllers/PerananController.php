@@ -38,7 +38,10 @@ class PerananController extends Controller
      */
     public function store(Request $request)
     {
-        Role::create(['name' => $request->name]);
+        // Role::create(['name' => $request->name]);
+        $peranan = new Role($request->all());
+        $peranan->save();
+        alert()->success('Peranan telah ditambah', 'Berjaya');
         return redirect('/pengurusan_pengguna/peranan');
     }
 
@@ -102,7 +105,10 @@ class PerananController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $peranan = Role::find($id);
+        $peranan->delete();
+        alert()->success('Peranan telah dihapuskan', 'Hapus');
+        return redirect('/pengurusan_pengguna/peranan');
     }
 
     public function tambah_kebenaran(Request $request)

@@ -23,10 +23,11 @@ class KodKursusController extends Controller
     {
         $bidangKursus = BidangKursus::all();
         $kategoriKursus = KategoriKursus::all();
-        $kodKursus = BidangKursus::join('kategori_kursuses', 'bidang_kursuses.id', 'kategori_kursuses.U_Bidang_Kursus')
-            ->join('kod_kursuses', 'kategori_kursuses.id', 'kod_kursuses.U_Kategori_Kursus')
-            ->select('*')->get();
-        // dd($kategoriKursus);
+        // $kodKursus = BidangKursus::join('kategori_kursuses', 'bidang_kursuses.id', 'kategori_kursuses.U_Bidang_Kursus')
+        //     ->join('kod_kursuses', 'kategori_kursuses.id', 'kod_kursuses.U_Kategori_Kursus')
+        //     ->select('*')->get();
+        $kodKursus = KodKursus::with('jadual', 'kategori', 'bidang')->get();
+        // dd($kodKursus);
 
         $bil_staf = KodKursus::where('UL_Kod_Kursus', 'Staf')->get();
         $bil_pk = KodKursus::where('UL_Kod_Kursus', 'Pekebun Kecil')->get();

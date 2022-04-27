@@ -32,8 +32,7 @@
                                 <th scope="col">Bil.</th>
                                 <th scope="col">NO KAD PENGENALAN</th>
                                 <th scope="col">NAMA</th>
-                                <th scope="col">PUSAT TANGGUNGJAWAB</th>
-                                <th scope="col">GRED</th>
+                                <th scope="col">ALAMAT</th>
                                 <th scope="col">JUMLAH HARI BERKURSUS SETAHUN</th>
                                 <th scope="col">CATATAN</th>
                                 <th scope="col">PILIH</th>
@@ -41,15 +40,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($list_staf as $key => $p)
+                            @foreach ($list_pk as $key => $p)
                                 <tr>
                                     <td>{{ $key + 1 }}.</td>
                                     <td>{{ $p->no_KP }}</td>
                                     <td>{{ $p->name }}</td>
-                                    <td>{{ $p->NamaPT }}</td>
-                                    <td>{{ $p->Gred }}</td>
-                                    <td>{{ $p['hari_berkursus'] }}</td>
-                                    <td>{{ $p['catatan'] }}</td>
+                                    <td>{{ $p->alamat }}</td>
+                                    <td>{{ $p->hari_berkursus }}</td>
+                                    <td>{{ $p->catatan }}</td>
                                     <td>
                                         <div class="form-check justify-content-center d-flex">
                                             <input class="form-check-input" type="checkbox" name="peserta[]"

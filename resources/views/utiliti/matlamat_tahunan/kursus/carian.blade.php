@@ -26,11 +26,7 @@
                             <label class="col-form-label">Tahun</label>
                         </div>
                         <div class="col-lg-7 mb-lg-3">
-                            <select name="tahun" id="tahun" class="form-control">
-                                <option value="{{ $tahun }}" selected hidden>{{ $tahun }}</option>
-                                <option value="2021">2021</option>
-                                <option value="2022">2022</option>
-                            </select>
+                            <input class="form-control tahun" type="text" name="tahun" autocomplete="off" value="{{ $tahun }}"/>
                         </div>
 
                         <div class="col-lg-3 mb-lg-3">
@@ -42,6 +38,7 @@
                                 <option value="bidang kursus">Bidang Kursus</option>
                                 <option value="kategori kursus">Kategori Kursus</option>
                                 <option value="tajuk kursus">Tajuk Kursus</option>
+                                <option value="pusat latihan">Pusat Latihan</option>
                             </select>
                         </div>
                         <div class="col-lg-2 mb-lg-3 ps-lg-0 text-end">
@@ -54,7 +51,8 @@
 
         <div class="row">
             <div class="col text-end">
-                <a href="/utiliti/matlamat_tahunan/kursus/{{$jenis['sub']}}/{{$tahun}}" class="btn btn-primary">Kemaskini</a>
+                <a href="/utiliti/matlamat_tahunan/kursus/{{ $jenis['sub'] }}/{{ $tahun }}"
+                    class="btn btn-primary">Kemaskini</a>
             </div>
         </div>
 
@@ -92,11 +90,13 @@
                                             @elseif ($title == 'KATEGORI KURSUS')
                                                 {{ $c->nama_Kategori_Kursus }}
                                             @elseif ($title == 'TAJUK KURSUS')
-                                                {{ $c->tajuk }}
+                                                {{ $c->tajuk_Kursus }}
+                                            @elseif ($title == 'PUSAT LATIHAN')
+                                                {{ $c->nama }}
                                             @endif
                                         </td>
                                         @foreach ($c->matlamat_kursus_cm as $l => $cm)
-                                        <td>{{ $cm }}</td>
+                                            <td>{{ $cm }}</td>
                                         @endforeach
                                         <td>{{ $c->jumlah }}</td>
                                     </tr>

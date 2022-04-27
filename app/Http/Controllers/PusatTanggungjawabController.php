@@ -30,7 +30,7 @@ class PusatTanggungjawabController extends Controller
         }
         $bil = $bil + 1;
         $bil = sprintf("%02d", $bil);
-        return view('utiliti.kumpulan.pusat_tanggungjawab.index',[
+        return view('utiliti.lokasi.pusat_tanggungjawab.index',[
             'pt_data'=>$pt_data,
             'negeri'=>$negeri,
             'bil'=>$bil
@@ -74,7 +74,7 @@ class PusatTanggungjawabController extends Controller
         $pusatTanggungjawab->status_PT = $status;
 
         $pusatTanggungjawab->save();
-        return redirect('/utiliti/kumpulan/pusat_tanggungjawab');
+        return redirect('/utiliti/lokasi/pusat_tanggungjawab');
     }
 
     /**
@@ -126,7 +126,7 @@ class PusatTanggungjawabController extends Controller
         $pusatTanggungjawab->status_PT = $status;
 
         $pusatTanggungjawab->save();
-        return redirect('/utiliti/kumpulan/pusat_tanggungjawab');
+        return redirect('/utiliti/lokasi/pusat_tanggungjawab');
     }
 
     /**
@@ -138,6 +138,6 @@ class PusatTanggungjawabController extends Controller
     public function destroy(PusatTanggungjawab $pusatTanggungjawab)
     {
         $pusatTanggungjawab->delete();
-        return redirect('/utiliti/kumpulan/pusat_tanggungjawab');
+        return redirect('/utiliti/lokasi/pusat_tanggungjawab');
     }
 }

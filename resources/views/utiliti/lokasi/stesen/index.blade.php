@@ -11,75 +11,66 @@
         <hr class="risda-g">
     
         <form action="#" id="form_search">
-            <div class="row mt-3 justify-content-center">
-    
-                <div class="col-auto">
-                    <label class="col-form-label">NEGERI:</label>
+            <div class="row mt-4 justify-content-center">
+                <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <label class="col-form-label">NEGERI:</label>
+                        </div>
+                        <div class="col-lg-9 mb-3">
+                            <select class="form-select" name="negeri_search" id="negeri_search">
+                                <option selected hidden>Sila Pilih</option>
+                                @foreach ($negeri as $n)
+                                    @if ($n->status_negeri == '1')
+                                        <option value="{{ $n->id }}">{{ $n->Negeri }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+        
+                        <div class="col-lg-3">
+                            <label class="col-form-label">DAERAH:</label>
+                        </div>
+                        <div class="col-lg-9 mb-3">
+                            <select class="form-select" id="daerah_search" name="daerah_search">
+                                <option selected hidden>Sila Pilih</option>
+                                @foreach ($daerah as $d)
+                                    @if ($d->status_daerah == '1')
+                                        <option value="{{ $d->id }}">{{ $d->Daerah }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+        
+                        <div class="col-lg-3">
+                            <label class="col-form-label">MUKIM:</label>
+                        </div>
+                        <div class="col-lg-9 mb-3">
+                            <select class="form-select" id="mukim_search" name="mukim_search">
+                                <option selected hidden>Sila Pilih</option>
+                                @foreach ($mukim as $m)
+                                    @if ($m->status_mukim == '1')
+                                        <option value="{{ $m->id }}">{{ $m->Mukim }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+        
+                        <div class="col-lg-3">
+                            <label class="col-form-label">KAMPUNG:</label>
+                        </div>
+                        <div class="col-lg-9 mb-3">
+                            <select class="form-select" id="kampung_search" name="kampung_search">
+                                <option selected hidden>Sila Pilih</option>
+                                @foreach ($kampung as $k)
+                                    @if ($k->status_kampung == '1')
+                                        <option value="{{ $k->id }}">{{ $k->Mukim }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-5">
-                    <select class="form-select" name="negeri_search" id="negeri_search">
-                        <option selected="" hidden></option>
-                        @foreach ($negeri as $n)
-                            @if ($n->status_negeri == '1')
-                                <option value="{{ $n->id }}">{{ $n->Negeri }}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                </div>
-    
-            </div>
-            <div class="row mt-3 justify-content-center">
-    
-                <div class="col-auto">
-                    <label class="col-form-label">DAERAH:</label>
-                </div>
-                <div class="col-5">
-                    <select class="form-select" id="daerah_search" name="daerah_search">
-                        <option selected="" hidden></option>
-                        @foreach ($daerah as $d)
-                            @if ($d->status_daerah == '1')
-                                <option value="{{ $d->id }}">{{ $d->Daerah }}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                </div>
-    
-            </div>
-    
-            <div class="row mt-3 justify-content-center">
-    
-                <div class="col-auto">
-                    <label class="col-form-label">MUKIM:</label>
-                </div>
-                <div class="col-5">
-                    <select class="form-select" id="mukim_search" name="mukim_search">
-                        <option selected="" hidden></option>
-                        @foreach ($mukim as $m)
-                            @if ($m->status_mukim == '1')
-                                <option value="{{ $m->id }}">{{ $m->Mukim }}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                </div>
-    
-            </div>
-    
-            <div class="row mt-3 justify-content-center">
-    
-                <div class="col-auto">
-                    <label class="col-form-label">KAMPUNG:</label>
-                </div>
-                <div class="col-5">
-                    <select class="form-select" id="kampung_search" name="kampung_search">
-                        <option selected="" hidden></option>
-                        @foreach ($kampung as $k)
-                            @if ($k->status_kampung == '1')
-                                <option value="{{ $k->id }}">{{ $k->Mukim }}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                </div>
-    
             </div>
         </form>
     
@@ -149,7 +140,7 @@
                                         <div class="mb-3">
                                             <label class="col-form-label">KOD STESEN</label>
                                             <input class="form-control" type="text" name="Stesen_kod"
-                                                value=""/>
+                                                value="" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
                                         </div>
                                         <div class="mb-3">
                                             <label class="col-form-label">STESEN</label>
@@ -179,7 +170,7 @@
         <div class="row mt-3">
             <div class="col">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="table-responsive scrollbar m-3">
                         <table class="table datatable table-striped" style="width:100%">
                             <thead class="bg-200">
                                 <tr>
@@ -275,7 +266,7 @@
                                                         <div class="mb-3">
                                                             <label class="col-form-label">KOD STESEN</label>
                                                             <input class="form-control" type="number" name="Stesen_kod"
-                                                                value="{{ $s->Stesen_kod }}" readonly />
+                                                                value="{{ $s->Stesen_kod }}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
                                                         </div>
                                                         <div class="mb-3">
                                                             <label class="col-form-label">STESEN</label>
@@ -441,7 +432,7 @@
                                                             <div class="mb-3">
                                                                 <label class="col-form-label">KOD STESEN</label>
                                                                 <input class="form-control" type="text" name="Stesen_kod"
-                                                                    value="{{ $s->Stesen_kod }}"/>
+                                                                    value="{{ $s->Stesen_kod }}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label class="col-form-label">STESEN</label>
@@ -587,6 +578,8 @@
             console.log(drh);
 
             let option_new = "";
+            $('#form1 select[name=U_Daerah_ID]').append(
+                `<option value='' hidden>Sila Pilih</option>`);
             drh.forEach(element => {
                 if (this.value == element.U_Negeri_ID) {
                     $('#form1 select[name=U_Daerah_ID]').append(
@@ -601,7 +594,9 @@
             var mkm = @json($mukim->toArray());
             console.log(mkm);
 
-
+            let option_new = "";
+            $('#form1 select[name=U_Mukim_ID]').append(
+                `<option value='' hidden>Sila Pilih</option>`);
             mkm.forEach(element => {
                 if (this.value == element.U_Daerah_ID) {
                     $('#form1 select[name=U_Mukim_ID]').append(
@@ -616,7 +611,9 @@
             var kpg = @json($kampung->toArray());
             console.log(kpg);
 
-
+            let option_new = "";
+            $('#form1 select[name=U_Kampung_ID]').append(
+                `<option value='' hidden>Sila Pilih</option>`);
             kpg.forEach(element => {
                 if (this.value == element.U_Mukim_ID) {
                     $('#form1 select[name=U_Kampung_ID]').append(
@@ -633,6 +630,8 @@
             console.log(up_dae);
 
             let option_new = "";
+            $('#form2 select[name=U_Daerah_ID]').append(
+                `<option value='' hidden>Sila Pilih</option>`);
             up_dae.forEach(element => {
                 if (this.value == element.U_Negeri_ID) {
                     $('#form2 select[name=U_Daerah_ID]').append(
@@ -647,6 +646,9 @@
             var mkm2 = @json($muk2->toArray());
             console.log(mkm2);
 
+            let option_new = "";
+            $('#form2 select[name=U_Mukim_ID]').append(
+                `<option value='' hidden>Sila Pilih</option>`);
             mkm2.forEach(element => {
                 if (this.value == element.U_Daerah_ID) {
                     $('#form2 select[name=U_Mukim_ID]').append(

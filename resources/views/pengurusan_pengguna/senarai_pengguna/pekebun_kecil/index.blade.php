@@ -100,15 +100,7 @@
                                                             <div class="mb-3">
                                                                 <label class="col-form-label">PERANAN</label>
                                                                 <select class="form-select" name="jenis_pengguna">
-                                                                    {{-- <option selected="" hidden
-                                                                        value="{{ $u->jenis_pengguna }}">
-                                                                        {{ $u->jenis_pengguna }}
-                                                                    </option>
-                                                                    @foreach ($peranan as $p)
-                                                                        <option value="{{ $p->name }}">
-                                                                            {{ $p->name }}
-                                                                        </option>
-                                                                    @endforeach --}}
+                                                                    <option value="" selected hidden>Sila Pilih</option>
                                                                     @foreach ($peranan as $p)
                                                                       <option @if ($u->jenis_pengguna=="{{$p->name}}") selected @endif value="{{$p->name}}">{{$p->name}}</option>
                                                                     @endforeach

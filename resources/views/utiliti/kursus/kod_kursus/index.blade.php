@@ -99,7 +99,7 @@
         <div class="row mt-3">
             <div class="col">
                 <div class="card">
-                    <div class="table-responsive scrollbar">
+                    <div class="table-responsive scrollbar m-3">
                         <table class="table datatable table-striped" style="width:100%">
                             <thead class="bg-200">
                                 <tr>
@@ -121,9 +121,51 @@
                                         <td>{{ $KK->kod_Kursus }}</td>
                                         <td>{{ $KK->tajuk_Kursus }}</td>
                                         <td>
-                                            <a href="#" class="btn btn-primary btn-sm">
+                                            <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
+                                                data-bs-target="#siri_{{ $KK->id }}">
                                                 <i class="fas fa-eye"></i>
-                                            </a>
+                                            </button>
+                                            <div class="modal fade" id="siri_{{ $KK->id }}" tabindex="-1" role="dialog"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document"
+                                                    style="max-width: 500px">
+                                                    <div class="modal-content position-relative">
+                                                        <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
+                                                            <button
+                                                                class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body p-0">
+                                                            <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
+                                                                <h4 class="mb-1">Siri
+                                                                </h4>
+                                                            </div>
+                                                            <div class="p-3">
+                                                                <div class="table-responsive scrollbar text-center">
+                                                                    <table class="table table">
+                                                                        <thead class="risda-bg-g text-white">
+                                                                            <tr>
+                                                                                <th class="sort">BIL.</th>
+                                                                                <th class="sort">SIRI</th>
+                                                                                <th class="sort">NAMA KURSUS</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody class="bg-white">
+                                                                            @foreach ($KK->jadual as $a => $siri)
+                                                                            <tr>
+                                                                                <td>{{$a+1}}.</td>
+                                                                                <td>Siri {{$siri->id_siri}}</td>
+                                                                                <td>{{$siri->kursus_nama}}</td>
+                                                                            </tr>
+                                                                            @endforeach
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                         <td>{{ $KK->tahun_Kursus }}</td>
                                         <td>
@@ -143,8 +185,9 @@
                                             </button>
                                         </td>
                                     </tr>
-                                    <div class="modal fade" id="edit_BK_{{ $KK->id }}" tabindex="-1" role="dialog"
-                                        aria-hidden="true">
+                                    
+                                    <div class="modal fade" id="edit_BK_{{ $KK->id }}" tabindex="-1"
+                                        role="dialog" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document"
                                             style="max-width: 500px">
                                             <div class="modal-content position-relative">
@@ -193,7 +236,7 @@
                                                                 <select class="form-select" name="U_Bidang_Kursus">
                                                                     <option selected="" hidden
                                                                         value="{{ $KK->U_Bidang_Kursus }}">
-                                                                        {{ $KK->nama_Bidang_Kursus }}</option>
+                                                                        {{ $KK->bidang->nama_Bidang_Kursus }}</option>
                                                                     @foreach ($bidangKursus as $BK2)
                                                                         <option value="{{ $BK2->id }}">
                                                                             {{ $BK2->nama_Bidang_Kursus }}</option>
@@ -205,7 +248,8 @@
                                                                 <select class="form-select" name="U_Kategori_Kursus">
                                                                     <option selected="" hidden
                                                                         value="{{ $KK->U_Kategori_Kursus }}">
-                                                                        {{ $KK->nama_Kategori_Kursus }}</option>
+                                                                        {{ $KK->kategori->nama_Kategori_Kursus }}
+                                                                    </option>
                                                                     @foreach ($kategoriKursus as $kat)
                                                                         <option value="{{ $kat->id }}">
                                                                             {{ $kat->nama_Kategori_Kursus }}</option>
