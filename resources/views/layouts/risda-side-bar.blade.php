@@ -44,6 +44,9 @@
         container.classList.add('container-fluid');
     }
 </script>
+@php
+    use App\Models\Dashboard;
+@endphp
 <div class="modal fade" id="tukar-password" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
         <div class="modal-content position-relative">
@@ -249,8 +252,7 @@
                         </ul>
                     @endcan
 
-                    @if (auth()->user()->can('pencalonan peserta') ||
-    auth()->user()->can('semakan permohonan'))
+                    @if (auth()->user()->can('pencalonan peserta') || auth()->user()->can('semakan permohonan'))
                         <a class="nav-link py-0 dropdown-indicator" href="#pengurusan_peserta" role="button"
                             data-bs-toggle="collapse"
                             aria-expanded="{{ Request::is('pengurusan_peserta/*') ? 'true' : 'false' }}"
@@ -1089,6 +1091,13 @@
 
 
                 </li>
+                @php
+                    $pelawat = Dashboard::where('status', 'masuk')->get();
+                    $jumlah_pelawat = count($pelawat);
+                @endphp
+                <div class="row navbar-vertical-label-wrapper mt-4 mb-2">
+                    <span class="text-white text-center"> Jumlah Pelawat: {{$jumlah_pelawat}}</span>
+                </div>
             </ul>
         </div>
     </div>
