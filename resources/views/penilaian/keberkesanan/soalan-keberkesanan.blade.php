@@ -15,7 +15,7 @@
         <form action="/penilaian/keberkesananKursus" method="POST">
             @csrf
 
-            {{-- <input type="hidden" name="jadual_id" value="{{ $jadual_kursus->id }}"> --}}
+            <input type="hidden" name="jadual_kursus_id" value="{{ $jadual_kursus->id }}">
 
             <div class="row mt-3 mb-2">
                 <div class="col-12 mb-2">
@@ -188,7 +188,7 @@
                     </div>
                     <p>
                     <div class="col-3">
-                        <textarea class="form-control" rows="3" cols="9"></textarea>
+                        <textarea class="form-control" rows="3" cols="9" name="komen_penyelia"></textarea>
                     </div>
                 </p>
                 </div>

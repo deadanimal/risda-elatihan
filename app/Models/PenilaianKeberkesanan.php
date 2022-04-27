@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class PenilaianKeberkesanan extends Model
 {
     use HasFactory;
+
+    public function kehadiran()
+    {
+        return $this->hasOne(User::class, 'id', 'nama_pengganti');
+    }
 }

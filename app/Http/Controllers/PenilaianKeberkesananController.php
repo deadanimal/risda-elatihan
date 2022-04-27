@@ -5,29 +5,70 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePenilaianKeberkesananRequest;
 use App\Http\Requests\UpdatePenilaianKeberkesananRequest;
 use App\Models\PenilaianKeberkesanan;
+use App\Models\Kehadiran;
+use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\JadualKursus;
 
 class PenilaianKeberkesananController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     *-
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $kehadiran=Kehadiran::where('status_kehadiran_ke_kursus','HADIR')->get();
+        // $kursus=JadualKursus::where('id',$kehadiran->jadual_kursus_id)->first();
+
+
+        foreach ($kehadiran as $k) {
+            $keberkesanan = PenilaianKeberkesanan::where('kehadiran_id',$k->id)->first();
+            $kursus=JadualKursus::where('id',$k->jadual_kursus_id)->first();
+            // $peserta=User::where('id',$k->no_pekerja)->where('no_KP',$k->noKP_pengganti)->first();
+        }
+
+        // dd($kehadiran);
+
+        return view('penilaian.keberkesanan.index',[
+            'kehadiran'=>$kehadiran,
+            'kursus'=>$kursus,
+            // 'peserta'=>$peserta,
+            'keberkesanan'=>$keberkesanan
+        ]);
     }
 
 
-    public function create()
+    public function create($id)
     {
-        return view('penilaian.keberkesanan.soalan-keberkesanan');
+        $kehadiran=Kehadiran::find($id);
+
+        return view('penilaian.keberkesanan.soalan-keberkesanan',[
+            'kehadiran'=>$kehadiran
+        ]);
     }
 
 
-    public function store(StorePenilaianKeberkesananRequest $request)
+    public function store(Request $request)
+
     {
-        //
+        $keberkesanan= new PenilaianKeberkesanan;
+
+        $keberkesanan->kehadiran_id=$request->kehadiran_id;
+        $keberkesanan->tahap_pengetahuan=$request->tahap_pengetahuan;
+        $keberkesanan->tempoh_tugasan=$request->tempoh_tugasan;
+        $keberkesanan->baiki_kerja=$request->baiki_kerja;
+        $keberkesanan->kesungguhan_kerja=$request->kesungguhan_kerja;
+        $keberkesanan->tahap_displin=$request->tahap_displin;
+        $keberkesanan->prestasi_kerja=$request->prestasi_kerja;
+        $keberkesanan->komen_penyelia=$request->komen_penyelia;
+
+        $keberkesanan->save();
+
+        alert()->success('Penilaian telah berjaya dibuat!', 'Berjaya');
+        return redirect('/penilaian/keberkesanan-kursus');
+
     }
 
     /**
@@ -36,9 +77,11 @@ class PenilaianKeberkesananController extends Controller
      * @param  \App\Models\PenilaianKeberkesanan  $penilaianKeberkesanan
      * @return \Illuminate\Http\Response
      */
-    public function show(PenilaianKeberkesanan $penilaianKeberkesanan)
+    public function show($id)
     {
-        //
+        $penilaian = PenilaianKeberkesanan::find($id);
+
+        
     }
 
     /**
