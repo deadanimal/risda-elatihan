@@ -487,7 +487,7 @@
                     </div>
                     <p>
                     <div class="col-3">
-                        <textarea class="form-control" rows="3" cols="9" name="komen_penyelia">{{$penilaian_keberkesan->komen_penyelia}}</textarea>
+                        <textarea class="form-control" rows="3" cols="9" name="komen_penyelia" readonly>{{$penilaian_keberkesanan->komen_penyelia}}</textarea>
                     </div>
                 </p>
                 </div>
@@ -495,8 +495,8 @@
 
 
                 <div class="col-12 text-end mt-3">
-                    <button class="btn btn-primary" type="submit" id="btnsubmit"> <i class="fas fa-arrow-right"></i>
-                        Hantar</button>
+                    <a href="/penilaian/keberkesanan-kursus" class="btn btn-primary" type="submit" id="btnsubmit">
+                        Kembali</a>
                 </div>
             </div>
         </form>

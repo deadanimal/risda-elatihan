@@ -36,9 +36,9 @@ class Kehadiran extends Model
         return $this->hasOne(User::class, 'id', 'nama_pengganti');
     }
 
-    public function penilaian()
+    public function penilaiankeberkesanan()
     {
-        return $this->hasOne(PenilaianKeberkesanan::class);
+        return $this->hasOne(PenilaianKeberkesanan::class, 'kehadiran_id','id');
     }
 
 

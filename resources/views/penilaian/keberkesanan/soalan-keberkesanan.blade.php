@@ -12,10 +12,10 @@
     </style>
 
     <div class="container">
-        <form action="/penilaian/keberkesananKursus" method="POST">
+        <form action="/penilaian/keberkesanan-kursus" method="POST">
             @csrf
 
-            <input type="hidden" name="jadual_kursus_id" value="{{ $jadual_kursus->id }}">
+            <input type="hidden" name="kehadiran_id" value="{{ $kehadiran->id }}">
 
             <div class="row mt-3 mb-2">
                 <div class="col-12 mb-2">
@@ -196,7 +196,7 @@
 
 
                 <div class="col-12 text-end mt-3">
-                    <button class="btn btn-primary" type="submit" id="btnsubmit"> <i class="fas fa-arrow-right"></i>
+                    <button class="btn btn-primary" type="submit"> <i class="fas fa-arrow-right"></i>
                         Hantar</button>
                 </div>
             </div>

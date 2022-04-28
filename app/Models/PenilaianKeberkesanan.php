@@ -11,6 +11,6 @@ class PenilaianKeberkesanan extends Model
 
     public function kehadiran()
     {
-        return $this->hasOne(User::class, 'id', 'nama_pengganti');
+        return $this->belongsTo(Kehadiran::class, 'id', 'kehadiran_id');
     }
 }
