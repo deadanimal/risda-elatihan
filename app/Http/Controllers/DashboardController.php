@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dashboard;
 use App\Models\JadualKursus;
 use App\Models\Kehadiran;
 use App\Models\Permohonan;
@@ -35,6 +36,8 @@ class DashboardController extends Controller
                 $s++;
             }
         }
+
+        $pelawat = Dashboard::where('status', 'masuk')->get();
         // dd($kehadiran_staf);
 
         return view('dashboard',[
@@ -44,6 +47,7 @@ class DashboardController extends Controller
             'permohonan_tahun_ini' => count($permohonan_tahun_ini),
             'kehadiran_pk' => $pk,
             'kehadiran_staf' => $s,
+            'jumlah_pelawat' => count($pelawat),
         ]);
     }
 

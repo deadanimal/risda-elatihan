@@ -1,7 +1,5 @@
 @extends('layouts.risda-base')
 @section('content')
-<style>
-    </style>
 
     <div class="container">
         <div class="row">
@@ -18,7 +16,7 @@
                                 <h3 class="h5 text-white mb-0">KURSUS BULAN INI</h3>
                             </div>
                             <div class="col-5 text-center">
-                                <h3 class="text-white mb-0">{{$bulan_ini}}</h3>
+                                <h3 class="text-white mb-0">{{ $bulan_ini }}</h3>
                             </div>
                         </div>
                     </div>
@@ -32,7 +30,7 @@
                                 <h3 class="h5 text-white mb-0">KURSUS BULAN LALU</h3>
                             </div>
                             <div class="col-5 text-center">
-                                <h3 class="text-white mb-0">{{$bulan_lalu}}</h3>
+                                <h3 class="text-white mb-0">{{ $bulan_lalu }}</h3>
                             </div>
                         </div>
                     </div>
@@ -48,7 +46,7 @@
                                 <h3 class="h5 text-white mb-0">KURSUS BULAN HADAPAN</h3>
                             </div>
                             <div class="col-5 text-center">
-                                <h3 class="text-white mb-0">{{$bulan_depan}}</h3>
+                                <h3 class="text-white mb-0">{{ $bulan_depan }}</h3>
                             </div>
                         </div>
                     </div>
@@ -92,7 +90,7 @@
                                 <h5 class="text-white mb-0">JUMLAH PERMOHONAN TAHUN SEMASA:</h5>
                             </div>
                             <div class="col-2 text-end">
-                                <h5 class="text-white mb-0">{{$permohonan_tahun_ini}}</h5>
+                                <h5 class="text-white mb-0">{{ $permohonan_tahun_ini }}</h5>
                             </div>
                         </div>
                     </div>
@@ -113,7 +111,7 @@
                                 <h5 class="text-white mb-0">STAF - </h5>
                             </div>
                             <div class="col-2 text-end">
-                                <h5 class="text-white mb-0">{{$kehadiran_staf}} </h5>
+                                <h5 class="text-white mb-0">{{ $kehadiran_staf }} </h5>
                             </div>
                         </div>
                         <div class="row justify-content-end">
@@ -121,7 +119,7 @@
                                 <h5 class="text-white mb-0">PEKEBUN KECIL - </h5>
                             </div>
                             <div class="col-2 text-end">
-                                <h5 class="text-white mb-0">{{$kehadiran_pk}} </h5>
+                                <h5 class="text-white mb-0">{{ $kehadiran_pk }} </h5>
                             </div>
                         </div>
                     </div>
