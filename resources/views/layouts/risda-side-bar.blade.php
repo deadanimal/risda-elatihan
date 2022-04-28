@@ -163,7 +163,7 @@
                             <hr class="mb-0 navbar-vertical-divider" />
                         </div>
                     </div>
-                    <a class="nav-link py-0" href="/dashboard" role="button">
+                    <a class="nav-link py-0" href="/" role="button">
                         <div class="d-flex align-items-center nav-link-side px-0">
                             <span class="px-3"><span class="fas fa-home"></span> DASHBOARD</span>
                         </div>
