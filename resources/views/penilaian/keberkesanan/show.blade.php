@@ -135,10 +135,6 @@
                     </div>
                     <div class="col-3">
 
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="tempoh_tugasan" value="1">
-                        </div>
-
                         @if ($penilaian_keberkesanan->tempoh_tugasan=="1")
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="tempoh_tugasan" value="1" checked="checked">
@@ -406,18 +402,6 @@
                         <h6 class="mt-1">6. Prestasi kerja yang ditunjukkan oleh pegawai/staf bagi meningkatkan produktiviti perkhidmatan</h6>
                     </div>
                     <div class="col-3">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="prestasi_kerja" value="1">
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="prestasi_kerja" value="2">
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="prestasi_kerja" value="3">
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="prestasi_kerja" value="4">
-                        </div>
 
                         @if ($penilaian_keberkesanan->prestasi_kerja=="1")
                         <div class="form-check form-check-inline">

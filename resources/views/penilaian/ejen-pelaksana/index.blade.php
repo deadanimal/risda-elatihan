@@ -31,13 +31,13 @@
                             <h5>NAMA KURSUS</h5>
                         </div>
                         <div class="col-8">
-                            {{-- <select  class="form-select" name="nama_kursus" id="kursus" required>
+                             <select  class="form-select" name="nama_kursus" id="kursus" required>
                                     <option hidden>SILA PILIH</option>
-                                    @foreach ($kursus as $kursus)
+                                    {{-- @foreach ($kursus as $kursus)
                                         <option value={{$kursus->id}}>{{$kursus->kursus_nama}}</option>
-                                    @endforeach
-                            {{-- <input type="text" class="form-control" value="{{ $jadual_kursus->kursus_nama }}" readonly>
-                            </select> --}}
+                                    @endforeach --}}
+                            {{-- <input type="text" class="form-control" value="{{ $jadual_kursus->kursus_nama }}" readonly>--}}
+                            </select>
                         </div>
                     </div>
                     <div class="row">
@@ -58,7 +58,7 @@
                 </p>
             </div>
         </div>
-
+       
         <div class="card mt-5">
             <div class="card-body">
                 <div class="table-responsive scrollbar ">
@@ -98,14 +98,24 @@
                                         {{ $e->agensi->nama_Agensi }}
                                     </td>
 
+
+
                                     <td>
+
+
+                                        @if($e->penilaian==null)
+
                                         <a class="btn btn-primary btn-sm mb-2"
                                         href="/penilaian/penilaian-ejen-pelaksana/{{$e->jadual_kursus->id}}">
-                                            <small> Mula Penilaian</small>
+                                             Mula Penilaian
                                         </a>
-                                        <a class="btn btn-primary btn-sm" href="/penilaian/ejen-pelaksana/{{$e->id}}">
-                                            <small> Papar Penilaian</small>
+
+                                        @else
+                                        <a class="btn btn-primary btn-sm" href="/penilaian/ejen-pelaksana/{{$e->penilaian->id}}">
+                                             Papar Penilaian
                                         </a>
+                                        @endif
+
                                     </td>
                                 </tr>
                                 @endforeach
