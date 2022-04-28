@@ -31,10 +31,12 @@ class PenilaianEjenPelaksanaController extends Controller
     // //    dd($kursus);
 
         $ejen=PenceramahKonsultan::with(['agensi', 'jadual_kursus'])->get();
+        // $penilaian=Agensi::with(['penilaian'])->first();
+        // $penilaian = PenilaianEjenPelaksana::where('agensi_id',)
+        // $penilaian = Agensi::with('penilaian')->get();
         // $agensi = Agensi::where('id',$ejen->agensi->id)->first();
         // $kursus = JadualKursus::where('id',$ejen->jadual_kursus->id)->first();
-        // $penilaian_ejen=PenilaianEjenPelaksana::where('jadual_kursus_id',$ejen->jadual_kursus->id)
-        // ->where('agensi_id',$ejen->agensi->id)->get();
+
 
 
 
@@ -45,7 +47,7 @@ class PenilaianEjenPelaksanaController extends Controller
 
         return view('penilaian.ejen-pelaksana.index',[
             'ejen'=>$ejen,
-            // 'penilaian_ejen'=>$penilaian_ejen
+            // 'penilaian'=>$penilaian
 
         ]);
 
@@ -59,6 +61,7 @@ class PenilaianEjenPelaksanaController extends Controller
     public function create($id)
     {
         $kursus = JadualKursus::find($id);
+        $agensi = PenceramahKonsultan::where('pc_jadual_kursus',$kursus->id)->first();
         // $agensi = PenceramahKonsultan::where('pc_jadual_kursus',$kursus->id)->first();
         //     foreach ($agensi as $a) {
         //         $ejen = Agensi::where('id',$a->pc_id)->first();
@@ -67,7 +70,7 @@ class PenilaianEjenPelaksanaController extends Controller
         // dd($ejen);
         return view('penilaian.ejen-pelaksana.soalan-ejen',[
             'kursus'=>$kursus,
-            // 'agensi'=>$agensi
+            'agensi'=>$agensi
         ]);
     }
 

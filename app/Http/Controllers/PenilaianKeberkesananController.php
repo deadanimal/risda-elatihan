@@ -36,7 +36,7 @@ class PenilaianKeberkesananController extends Controller
         // dd($kehadiran);
 
         return view('penilaian.keberkesanan.index',[
-            'kehadiran'=>$kehadiran,
+            'kehadiran'=>$kehadiran
             // 'kursus'=>$kursus
             // 'peserta'=>$peserta,
             // 'keberkesanan'=>$keberkesanan

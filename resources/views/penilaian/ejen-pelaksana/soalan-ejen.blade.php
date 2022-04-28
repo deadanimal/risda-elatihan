@@ -16,7 +16,7 @@
             @csrf
 
             <input type="hidden" name="jadual_id" value="{{ $kursus->id }}">
-            {{-- <input type="hidden" name="agensi_id" value="{{ $agensi->id }}"> --}}
+            <input type="hidden" name="agensi_id" value="{{ $agensi->id }}">
 
             <div class="row mt-3 mb-2">
                 <div class="col-12 mb-2">
