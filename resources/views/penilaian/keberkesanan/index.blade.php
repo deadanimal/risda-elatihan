@@ -65,7 +65,7 @@
                    <table class="table datatable text-center">
                         <thead>
                             <tr>
-                                {{-- <th class="fw-bold text-dark" scope="col">BIL.</th> --}}
+                                <th class="fw-bold text-dark" scope="col">BIL.</th>
                                 <th class="fw-bold text-dark" scope="col">KOD NAMA KURSUS</th>
                                 <th class="fw-bold text-dark" scope="col">TARIKH KURSUS</th>
                                 <th class="fw-bold text-dark" scope="col">NAMA PESERTA</th>
@@ -73,43 +73,37 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($kehadiran as $k)
+
 
                                 <tr>
-                                    {{-- <td>
+                                    <td>
                                         {{ $loop->iteration }}
-                                    </td> --}}
+                                    </td>
+
+                                    <td> {{$k->jadual_kursus}}</td>
+
+                                    <td>{{date('d/m/Y', strtotime($k->tarikh ))}}</td>
 
                                     <td>
-                                        {{$kursus->kursus_nama}}
+                                         {{$k->no_pekerja}}
+
                                     </td>
 
 
-                                    <td>
-                                        {{date('d/m/Y', strtotime($kursus->tarikh_mula ))}} -  {{date('d/m/Y', strtotime($kursus->tarikh_tamat))}}
-                                    </td>
-
-                                    <td>
-                                        {{$user->id}}
-
-                                    </td>
-
-                                    <td>
-                                        {{ $kursus->id}}
-                                    </td>
-
-
-                                        @if($keberkesanan==null)
+                                        @if($k->penilaiankeberkesanan===null)
                                         <td><a class="btn btn-primary btn-sm mb-2"
-                                        href="/penilaian/penilaian-keberkesanan-kursus/{{$kursus->id}}">
-                                            <small> Mula Penilaian</small>
+                                        href="/penilaian/penilaian-keberkesanan-kursus/{{$k->id}}">
+                                             Mula Penilaian
                                         </a></td>
                                         @else
-                                        <td><a class="btn btn-primary btn-sm" href="/penilaian/ejen-pelaksana/{{$keberkesanan->id}}">
-                                            <small> Papar Penilaian</small>
+                                        <td><a class="btn btn-primary btn-sm" href="/penilaian/keberkesanan-kursus/{{$k->penilaiankeberkesanan->id}}">
+                                             Papar Penilaian
                                         </a></td>
                                         @endif
 
                                 </tr>
+                            @endforeach
 
                         </tbody>
                     </table>

@@ -19,23 +19,27 @@ class PenilaianKeberkesananController extends Controller
      */
     public function index()
     {
-        $kehadiran=Kehadiran::where('status_kehadiran_ke_kursus','HADIR')->get();
+        $kehadiran=Kehadiran::where('status_kehadiran_ke_kursus','HADIR')->
+        with('penilaiankeberkesanan')->
+        with('aturcara')->with('staff')->get();
+
+        // $kursus=JadualKursus::with('aturcara')->get();
         // $kursus=JadualKursus::where('id',$kehadiran->jadual_kursus_id)->first();
 
 
-        foreach ($kehadiran as $k) {
-            $keberkesanan = PenilaianKeberkesanan::where('kehadiran_id',$k->id)->first();
-            $kursus=JadualKursus::where('id',$k->jadual_kursus_id)->first();
-            // $peserta=User::where('id',$k->no_pekerja)->where('no_KP',$k->noKP_pengganti)->first();
-        }
+        // foreach ($kehadiran as $k) {
+        //     // $keberkesanan = PenilaianKeberkesanan::where('kehadiran_id',$k->id)->first();
+        //     $kursus=JadualKursus::where('id',$k->jadual_kursus_id)->first();
+        //     // $peserta=User::where('id',$k->no_pekerja)->orWhere('no_KP',$k->noKP_pengganti)->first();
+        //}
 
         // dd($kehadiran);
 
         return view('penilaian.keberkesanan.index',[
             'kehadiran'=>$kehadiran,
-            'kursus'=>$kursus,
+            // 'kursus'=>$kursus
             // 'peserta'=>$peserta,
-            'keberkesanan'=>$keberkesanan
+            // 'keberkesanan'=>$keberkesanan
         ]);
     }
 
@@ -67,7 +71,7 @@ class PenilaianKeberkesananController extends Controller
         $keberkesanan->save();
 
         alert()->success('Penilaian telah berjaya dibuat!', 'Berjaya');
-        return redirect('/penilaian/keberkesanan-kursus');
+        return redirect('/penilaian/keberkesanan-kursus/');
 
     }
 
@@ -79,9 +83,13 @@ class PenilaianKeberkesananController extends Controller
      */
     public function show($id)
     {
-        $penilaian = PenilaianKeberkesanan::find($id);
+        $penilaian_keberkesanan= PenilaianKeberkesanan::find($id);
 
-        
+        return view('penilaian.keberkesanan.show',[
+            'penilaian_keberkesanan'=>$penilaian_keberkesanan
+        ]);
+
+
     }
 
     /**
