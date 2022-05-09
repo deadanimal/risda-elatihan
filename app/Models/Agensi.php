@@ -24,4 +24,6 @@ class Agensi extends Model
         return $this->hasMany(PenilaianEjenPelaksana::class);
     }
 
+  
+
 }

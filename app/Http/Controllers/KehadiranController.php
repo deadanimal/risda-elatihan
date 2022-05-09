@@ -10,9 +10,11 @@ use App\Models\Kehadiran;
 use App\Models\KodKursus;
 use App\Models\Permohonan;
 use App\Models\User;
+use App\Models\Agensi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use PDF;
+
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class KehadiranController extends Controller
 {
@@ -374,6 +376,48 @@ class KehadiranController extends Controller
     {
         return view('ulpk.urus_setia.kehadiran.kehadiran-ke-kursus.rekod-pengesahan-peserta');
     }
+
+    public function cetak_qr_pl($id){
+
+        $agensi = Agensi::find($id);
+
+        $pdf = PDF::loadView('ulpk.urus_setia.kehadiran.kehadiran-pl.qr-pl', [
+            'agensi'=>$agensi
+        ]);
+
+        return $pdf->download('QRCode Pusat Latihan ' . $agensi->nama_Agensi .'.pdf');
+    }
+
+    public function kehadiran_pl($id){
+
+        $agensi = Agensi::find($id);
+        $kursus =JadualKursus::where('kursus_tempat',$agensi->id)->with('kehadiran')->get();
+        $kehadiran=Kehadiran::with('staff')->get();
+        // foreach ($kursus as $k) {
+        //     $kehadiran = Kehadiran::where('jadual_kursus_id', $k->id)->get();
+
+        //     foreach ($kehadiran as $kh) {
+        //         $peserta=User::where('id', $kh->no_pekerja)->get();
+        //     }
+        // }
+
+        // }
+
+
+        // dd($agensi);
+        return view('ulpk.urus_setia.kehadiran.kehadiran-pl.1',[
+            'agensi'=>$agensi,
+            'kursus'=>$kursus,
+            'kehadiran'=>$kehadiran
+
+
+
+        ]);
+
+
+    }
+
+
 
 
 

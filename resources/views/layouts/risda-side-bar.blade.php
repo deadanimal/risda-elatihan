@@ -1072,7 +1072,8 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link py-0" href="#">
+                                <a class="nav-link py-0"
+                                href="/us-uls/kehadiran/senarai-pl">
                                     <div class="d-flex align-items-center nav-link-side">
                                         <span class="px-0">CETAK KOD QR PUSAT LATIHAN</span>
                                     </div>
