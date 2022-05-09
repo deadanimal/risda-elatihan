@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aturcara;
 use App\Models\Dashboard;
 use App\Models\JadualKursus;
 use App\Models\Kehadiran;
 use App\Models\Permohonan;
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -21,26 +23,63 @@ class DashboardController extends Controller
         $hari_ini = date('m');
         $tahun_ini = date('Y');
         $kursus_bulan_ini = JadualKursus::whereMonth('tarikh_mula', $hari_ini)->whereYear('tarikh_mula', $tahun_ini)->get();
-        $kursus_bulan_lalu = JadualKursus::whereMonth('tarikh_mula', $hari_ini-1)->whereYear('tarikh_mula', $tahun_ini)->get();
-        $kursus_bulan_depan = JadualKursus::whereMonth('tarikh_mula', $hari_ini+1)->whereYear('tarikh_mula', $tahun_ini)->get();
+        $kursus_bulan_lalu = JadualKursus::whereMonth('tarikh_mula', $hari_ini - 1)->whereYear('tarikh_mula', $tahun_ini)->get();
+        $kursus_bulan_depan = JadualKursus::whereMonth('tarikh_mula', $hari_ini + 1)->whereYear('tarikh_mula', $tahun_ini)->get();
         $permohonan_tahun_ini = Permohonan::whereYear('created_at', $tahun_ini)->get();
-        
-        $kehadiran = Kehadiran::where('tarikh_imbasQR', '!=', null)->get();
+
+        $kehadiran = Kehadiran::where('tarikh_imbasQR', '!=', null)->get()->groupBy('no_pekerja');
         $s = 0;
         $pk = 0;
-        foreach ($kehadiran as $key => $k) {
-            $check = Str::contains($k->kod_kursus, 'PK');
-            if ($check) {
-                $pk++;
-            } else {
-                $s++;
-            }
-        }
 
+        // dd($kehadiran);
+        // foreach ($kehadiran as $key => $k) {
+        //     $check = Str::contains($k->kod_kursus, 'PK');
+        //     if ($check) {
+        //         $pk++;
+        //     } else {
+        //         $s++;
+        //     }
+        // }
+
+        foreach ($kehadiran as $a => $peserta) {
+            // dd($peserta);
+            $check_pengguna = User::where('id', $a)->first();
+            if ($check_pengguna != null) {
+                $jenis = $check_pengguna->jenis_pengguna;
+                if ($jenis == 'Peserta ULPK') {
+                    foreach ($peserta as $key => $j) {
+                        dd($peserta);
+                        $group_jadual = $peserta->groupBy('kod_kursus');
+                        foreach ($group_jadual as $ab => $gj) {
+                            $bil_kehadiran = count($gj);
+                            $jadual = Aturcara::where('ac_jadual_kursus', $j->jadual_kursus_id)->get();
+                            $bil_sesi = count($jadual);
+                            $peratus = $bil_kehadiran / $bil_sesi * 100;
+                            if ($peratus >= 50) {
+                                $pk++;
+                            }
+                            
+                        }
+                    }
+                    dd($pk);
+                } else {
+                    $bil_kehadiran = count($peserta->groupBy('kod_kursus'));
+                    if ($bil_kehadiran >= 1) {
+                        $s++;
+                    }
+                }
+            }
+
+            // foreach ($peserta as $b => $ac) {
+            //     $num_sesi = Aturcara::where('ac_jadual_kursus', $ac->jadual_kursus_id)->get();
+            //     $num_sesi = count($num_sesi);
+
+            // }
+        }
         $pelawat = Dashboard::where('status', 'masuk')->get();
         // dd($kehadiran_staf);
 
-        return view('dashboard',[
+        return view('dashboard', [
             'bulan_ini' => count($kursus_bulan_ini),
             'bulan_lalu' => count($kursus_bulan_lalu),
             'bulan_depan' => count($kursus_bulan_depan),
