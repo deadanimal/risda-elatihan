@@ -86,8 +86,8 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $jadual->kursus_kod_nama_kursus }}</td>
                                 <td>{{ $jadual->kursus_nama }}</td>
-                                <td>{{ date('d/m/Y', strtotime($jadual->tarikh_mula)) }}</td>
-                                <td>{{ date('d/m/Y', strtotime($jadual->tarikh_tamat)) }}</td>
+                                <td>{{ date('d-m-Y', strtotime($jadual->tarikh_mula)) }}</td>
+                                <td>{{ date('d-m-Y', strtotime($jadual->tarikh_tamat)) }}</td>
 
                                     @if ($jadual->tarikh_mula > date('Y-m-d'))
                                         <td class="risda-g fw-bold">BELUM DILAKSANA</td>

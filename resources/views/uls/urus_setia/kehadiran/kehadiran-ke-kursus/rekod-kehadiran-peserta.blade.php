@@ -66,7 +66,7 @@
                 </div>
                 <div class="col-8">
                     <input type="text" class="form-control mb-3"
-                        value="{{ date('d/m/Y', strtotime($jadualkursus->tarikh_mula)) }} - {{ date('d/m/Y', strtotime($jadualkursus->tarikh_tamat)) }}"
+                        value="{{ date('d-m-Y', strtotime($jadualkursus->tarikh_mula)) }} - {{ date('d-m-Y', strtotime($jadualkursus->tarikh_tamat)) }}"
                         readonly>
                 </div>
             </div>
@@ -121,7 +121,7 @@
                     </div>
                     <div class="col-lg-8">
                         <input type="text" class="form-control mb-3"
-                            value="{{ date('d/m/Y', strtotime($jadualkursus->tarikh_mula)) }} - {{ date('d/m/Y', strtotime($jadualkursus->tarikh_tamat)) }}"
+                            value="{{ date('d-m-Y', strtotime($jadualkursus->tarikh_mula)) }} - {{ date('d-m-Y', strtotime($jadualkursus->tarikh_tamat)) }}"
                             readonly>
                     </div>
                     <div class="col-lg-4">

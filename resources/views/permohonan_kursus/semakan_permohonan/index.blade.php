@@ -81,7 +81,7 @@
                                             @if ($p->status_permohonan != 0)
                                                 <tr>
                                                     <td>{{ $a + 1 }}.</td>
-                                                    <td>{{ date('H:i, d/m/Y', strtotime($p->created_at)) }}</td>
+                                                    <td>{{ date('H:i, d-m-Y', strtotime($p->created_at)) }}</td>
                                                     <td>{{ $p->peserta->no_KP }}</td>
                                                     <td>{{ $p->peserta->name }}</td>
                                                     <td>{{ $p->pusat_tanggungjawab }}</td>
@@ -133,7 +133,7 @@
                                         @foreach ($pemohon as $key => $p)
                                             <tr>
                                                 <td>{{ $key + 1 }}.</td>
-                                                <td>{{ date('H:i, d/m/Y', strtotime($p->created_at)) }}</td>
+                                                <td>{{ date('H:i, d-m-Y', strtotime($p->created_at)) }}</td>
                                                 <td>{{ $p->peserta['no_KP'] }}</td>
                                                 <td>{{ $p->peserta['name'] }}</td>
                                                 <td>{{ $p->pusat_tanggungjawab }}</td>

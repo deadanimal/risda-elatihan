@@ -64,7 +64,7 @@
                                 @foreach ($staf as $b => $s)
                                     <tr>
                                         <td>{{ $b + 1 }}.</td>
-                                        <td>{{ date('H:i, d/m/Y', strtotime($s->created_at)) }}</td>
+                                        <td>{{ date('H:i, d-m-Y', strtotime($s->created_at)) }}</td>
                                         <td>{{ $s->peserta->no_KP }}</td>
                                         <td>{{ $s->peserta->name }}</td>
                                         <td>{{ $s->pusat_tanggungjawab }}</td>

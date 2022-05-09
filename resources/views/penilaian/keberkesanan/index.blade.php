@@ -83,7 +83,7 @@
 
                                     <td> {{$k->jadual_kursus}}</td>
 
-                                    <td>{{date('d/m/Y', strtotime($k->tarikh ))}}</td>
+                                    <td>{{date('d-m-Y', strtotime($k->tarikh ))}}</td>
 
                                     <td>
                                          {{$k->no_pekerja}}

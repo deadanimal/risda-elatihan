@@ -48,7 +48,7 @@
                         <p class="pt-2 fw-bold">TARIKH KURSUS</p>
                     </div>
                     <div class="col-7">
-                        <input type="text" readonly value="{{ date('d/m/Y', strtotime($jadual->tarikh_mula)) }} - {{ date('d/m/Y', strtotime($jadual->tarikh_tamat)) }}" class="form-control mb-3">
+                        <input type="text" readonly value="{{ date('d-m-Y', strtotime($jadual->tarikh_mula)) }} - {{ date('d-m-Y', strtotime($jadual->tarikh_tamat)) }}" class="form-control mb-3">
                     </div>
                 </div>
                 <div class="col-9 d-inline-flex">

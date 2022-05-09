@@ -62,7 +62,7 @@
                                 @foreach ($pekebun_kecil as $c => $pk)
                                     <tr>
                                         <td>{{ $c + 1 }}.</td>
-                                        <td>{{ date('H:i, d/m/Y', strtotime($pk->created_at)) }}</td>
+                                        <td>{{ date('H:i, d-m-Y', strtotime($pk->created_at)) }}</td>
                                         <td>{{ $pk->peserta->no_KP }}</td>
                                         <td>{{ $pk->peserta->name }}</td>
                                         <td>{{ $pk->pusat_tanggungjawab }}</td>
