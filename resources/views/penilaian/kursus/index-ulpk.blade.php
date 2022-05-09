@@ -83,9 +83,9 @@
                                         {{-- {{ $jk->kursus_status }} --}}
 
 
-                                        {{ date('d/m/Y', strtotime($jk->tarikh_mula)) }} <br>
+                                        {{ date('d-m-Y', strtotime($jk->tarikh_mula)) }} <br>
                                         - <br>
-                                        {{ date('d/m/Y', strtotime($jk->tarikh_tamat)) }}
+                                        {{ date('d-m-Y', strtotime($jk->tarikh_tamat)) }}
                                     </td>
                                     <td>
                                         {{ $jk->tempat->nama_Agensi }}

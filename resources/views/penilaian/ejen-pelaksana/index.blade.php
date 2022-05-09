@@ -87,11 +87,11 @@
 
 
                                     <td>
-                                        {{date('d/m/Y', strtotime($e->jadual_kursus->tarikh_mula ))}}
+                                        {{date('d-m-Y', strtotime($e->jadual_kursus->tarikh_mula ))}}
                                     </td>
 
                                     <td>
-                                        {{date('d/m/Y', strtotime($e->jadual_kursus->tarikh_tamat))}}
+                                        {{date('d-m-Y', strtotime($e->jadual_kursus->tarikh_tamat))}}
                                     </td>
 
                                     <td>

@@ -149,7 +149,7 @@
                                                                         @foreach ($abc->kehadiran as $lol => $spk)
                                                                             <tr>
                                                                                 <td>{{ $lol + 1 }}.</td>
-                                                                                <td>{{ date('d/m/Y', strtotime($spk->tarikh)) }}</td>
+                                                                                <td>{{ date('d-m-Y', strtotime($spk->tarikh)) }}</td>
                                                                                 <td>{{$hari[$spk->aturcara->ac_hari]}}</td>
                                                                                 <td>{{ $spk->sesi }}</td>
                                                                                 <td>{{ $spk->status_kehadiran_ke_kursus }}</td>
@@ -242,7 +242,7 @@
                                                                             @foreach ($cba->kehadiran as $xyz => $spc)
                                                                                 <tr>
                                                                                     <td>{{ $xyz + 1 }}.</td>
-                                                                                    <td>{{ date('d/m/Y', strtotime($spc->tarikh)) }}
+                                                                                    <td>{{ date('d-m-Y', strtotime($spc->tarikh)) }}
                                                                                     </td>
                                                                                     <td>{{ $hari[$spc->aturcara->ac_hari] }}
                                                                                     </td>

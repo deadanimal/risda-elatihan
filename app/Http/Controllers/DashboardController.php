@@ -48,7 +48,7 @@ class DashboardController extends Controller
                 $jenis = $check_pengguna->jenis_pengguna;
                 if ($jenis == 'Peserta ULPK') {
                     foreach ($peserta as $key => $j) {
-                        dd($peserta);
+                        // dd($peserta);
                         $group_jadual = $peserta->groupBy('kod_kursus');
                         foreach ($group_jadual as $ab => $gj) {
                             $bil_kehadiran = count($gj);

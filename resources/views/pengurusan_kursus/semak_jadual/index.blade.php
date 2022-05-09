@@ -109,11 +109,11 @@
                                         <td>{{ $key + 1 }}.</td>
                                         <td>{{ $j->kursus_kod_nama_kursus }}</td>
                                         <td>{{ $j->kursus_nama }}</td>
-                                        <td>{{ date('d/m/Y', strtotime($j->tarikh_mula)) }} <br>
+                                        <td>{{ date('d-m-Y', strtotime($j->tarikh_mula)) }} <br>
 
                                             - <br>
 
-                                            {{ date('d/m/Y', strtotime($j->tarikh_tamat)) }}
+                                            {{ date('d-m-Y', strtotime($j->tarikh_tamat)) }}
                                         <td>
                                             {{$j->tempat->nama_Agensi}}
                                         </td>

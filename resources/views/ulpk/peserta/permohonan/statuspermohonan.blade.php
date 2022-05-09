@@ -150,7 +150,7 @@
                                                                     <td>{{ $p->jadual->kursus_kod_nama_kursus }}
                                                                     </td>
                                                                     <td>{{ $p->jadual->kursus_nama }}</td>
-                                                                    <td>{{ date('d/m/Y', strtotime($p->jadual->tarikh_mula)) }}
+                                                                    <td>{{ date('d-m-Y', strtotime($p->jadual->tarikh_mula)) }}
                                                                     </td>
                                                                     <td>
                                                                         @if ($p->status_permohonan == 0)
@@ -189,7 +189,7 @@
                                                                             <td>{{ $p->jadual->kursus_kod_nama_kursus }}
                                                                             </td>
                                                                             <td>{{ $p->jadual->kursus_nama }}</td>
-                                                                            <td>{{ date('d/m/Y', strtotime($p->jadual->tarikh_mula)) }}
+                                                                            <td>{{ date('d-m-Y', strtotime($p->jadual->tarikh_mula)) }}
                                                                             </td>
                                                                             <td>
                                                                                 @if ($p->status_permohonan == 0)
@@ -232,7 +232,7 @@
                                                                             <td>{{ $p->jadual->kursus_kod_nama_kursus }}
                                                                             </td>
                                                                             <td>{{ $p->jadual->kursus_nama }}</td>
-                                                                            <td>{{ date('d/m/Y', strtotime($p->jadual->tarikh_mula)) }}
+                                                                            <td>{{ date('d-m-Y', strtotime($p->jadual->tarikh_mula)) }}
                                                                             </td>
                                                                             <td>
                                                                                 @if ($p->status_permohonan == 0)
@@ -268,7 +268,7 @@
                                                                         <td>{{ $p->jadual->kursus_kod_nama_kursus }}
                                                                         </td>
                                                                         <td>{{ $p->jadual->kursus_nama }}</td>
-                                                                        <td>{{ date('d/m/Y', strtotime($p->jadual->tarikh_mula)) }}
+                                                                        <td>{{ date('d-m-Y', strtotime($p->jadual->tarikh_mula)) }}
                                                                         </td>
                                                                         <td>
                                                                             @if ($p->status_permohonan == 0)
@@ -362,7 +362,7 @@
                                                                     <td>{{ $loop->iteration }}.</td>
                                                                     <td>{{ $p->jadual->kursus_kod_nama_kursus }}</td>
                                                                     <td>{{ $p->jadual->kursus_nama }}</td>
-                                                                    <td>{{ date('d/m/Y', strtotime($p->jadual->tarikh_mula)) }}
+                                                                    <td>{{ date('d-m-Y', strtotime($p->jadual->tarikh_mula)) }}
                                                                     </td>
                                                                     <td>{{ $p->status_kehadiran }}</td>
                                                                     <td class="text-end"

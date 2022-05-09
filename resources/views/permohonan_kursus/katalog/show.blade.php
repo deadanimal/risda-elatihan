@@ -38,7 +38,7 @@
                 <div class="card h-100">
                     <div class="card-body risda-bg-g text-white text-center">
                         <p class="card-text my-0 p-0">TARIKH KURSUS</p>
-                        <h5 class="card-title text-white my-0 p-0">{{ date('d/m/Y', strtotime($jadual->tarikh_mula)) }}
+                        <h5 class="card-title text-white my-0 p-0">{{ date('d-m-Y', strtotime($jadual->tarikh_mula)) }}
                         </h5>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
                     <div class="card-body risda-bg-g text-white text-center">
                         <p class="card-text my-0 p-0">TARIKH BUKA PERMOHONAN</p>
                         <h5 class="card-title text-white my-0 p-0">
-                            {{ date('d/m/Y', strtotime($jadual->kursus_tarikh_daftar)) }}
+                            {{ date('d-m-Y', strtotime($jadual->kursus_tarikh_daftar)) }}
                         </h5>
                     </div>
                 </div>
@@ -90,7 +90,7 @@
                     <div class="card-body risda-bg-g text-white text-center">
                         <p class="card-text my-0 p-0">TARIKH TUTUP PERMOHONAN</p>
                         <h5 class="card-title text-white my-0 p-0">
-                            {{ date('d/m/Y', strtotime($jadual->kursus_tarikh_tutup)) }}</h5>
+                            {{ date('d-m-Y', strtotime($jadual->kursus_tarikh_tutup)) }}</h5>
                     </div>
                 </div>
             </div>

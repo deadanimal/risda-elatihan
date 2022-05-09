@@ -102,8 +102,8 @@
                         </div>
                         <div class="card-body my-2 mt-0 py-0">
                             <p class="card-text my-0 p-0 text-white">TARIKH KURSUS</p>
-                            <h5 class="card-title my-0 p-0 text-white">{{ date('d/m/Y', strtotime($j->tarikh_mula)) }} -
-                                {{ date('d/m/Y', strtotime($j->tarikh_tamat)) }}</h5>
+                            <h5 class="card-title my-0 p-0 text-white">{{ date('d-m-Y', strtotime($j->tarikh_mula)) }} -
+                                {{ date('d-m-Y', strtotime($j->tarikh_tamat)) }}</h5>
                         </div>
                         <div class="card-body my-2 mt-0 py-0 mb-3">
                             <p class="card-text my-0 p-0 text-white">TEMPAT KURSUS</p>
@@ -189,8 +189,8 @@
                                 </div>
                                 <div class="card-body my-2 mt-0 py-0">
                                     <p class="card-text my-0 p-0">TARIKH KURSUS</p>
-                                    <h5 class="card-title my-0 p-0">{{ date('d/m/Y', strtotime(`+element.tarikh_mula+`)) }} -
-                                        {{ date('d/m/Y', strtotime(`+element.tarikh_tamat+`)) }}</h5>
+                                    <h5 class="card-title my-0 p-0">{{ date('d-m-Y', strtotime(`+element.tarikh_mula+`)) }} -
+                                        {{ date('d-m-Y', strtotime(`+element.tarikh_tamat+`)) }}</h5>
                                 </div>
                                 <div class="card-body my-2 mt-0 py-0">
                                     <p class="card-text my-0 p-0">TEMPAT KURSUS</p>
@@ -249,8 +249,8 @@
                                 </div>
                                 <div class="card-body my-2 mt-0 py-0">
                                     <p class="card-text my-0 p-0">TARIKH KURSUS</p>
-                                    <h5 class="card-title my-0 p-0">{{ date('d/m/Y', strtotime(`+element.tarikh_mula+`)) }} -
-                                        {{ date('d/m/Y', strtotime(`+element.tarikh_tamat+`)) }}</h5>
+                                    <h5 class="card-title my-0 p-0">{{ date('d-m-Y', strtotime(`+element.tarikh_mula+`)) }} -
+                                        {{ date('d-m-Y', strtotime(`+element.tarikh_tamat+`)) }}</h5>
                                 </div>
                                 <div class="card-body my-2 mt-0 py-0">
                                     <p class="card-text my-0 p-0">TEMPAT KURSUS</p>
