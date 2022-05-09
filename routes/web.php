@@ -54,6 +54,7 @@ use App\Http\Controllers\UtilitiController;
 use App\Http\Controllers\PenilaianKeberkesananController;
 use App\Http\Controllers\PenilaianEjenPelaksanaController;
 use App\Models\JadualKursus;
+use App\Models\Agensi;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -230,7 +231,28 @@ Route::middleware('auth')->group(function () {
             //dari QR  - merekod kehadiran
             Route::resource('cetakkodQR', CetakKodQRController::class);
 
+
+            Route::get('/senarai-pl', function () {
+                $agensi=Agensi::all();
+                return view('ulpk.urus_setia.kehadiran.kehadiran-pl.index',[
+                    'agensi'=>$agensi
+                ]);
+            });
+
+            Route::get('/kehadiran-pl', function () {
+                $agensi=Agensi::all();
+                return view('ulpk.urus_setia.kehadiran.kehadiran-pl.kehadiran-pl',[
+                    'agensi'=>$agensi
+                ]);
+            });
+            Route::get('/kehadiran-pl/{id}',[KehadiranController::class,'kehadiran_pl']);
+            Route::get('/cetak-pl/{id}',[KehadiranController::class,'cetak_qr_pl']);
+
             Route::get('printQR/{id}', [CetakKodQRController::class, 'printQR'])->name('printQR');
+
+
+
+
             Route::prefix('ke-kursus')->group(function () {
                 //kehadiran
                 Route::get('merekod-kehadiran', [KehadiranController::class, 'rekod']);
@@ -252,6 +274,10 @@ Route::middleware('auth')->group(function () {
                     ->name('mengesah-kehadiran-peserta');
                 Route::post('update-rekod-pengesahan-peserta', [KehadiranController::class, 'update_pengesahan_peserta_UsUls'])
                     ->name('update-rekod-pengesahan-peserta');
+
+
+
+
             });
         });
 
