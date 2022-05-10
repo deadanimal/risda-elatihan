@@ -221,7 +221,7 @@ class KehadiranController extends Controller
      */
     public function update(UpdateKehadiranRequest $request, Kehadiran $kehadiran)
     {
-        dd($kehadiran->status_kehadiran);
+        // dd($kehadiran->status_kehadiran);
         $kehadiran->update(['status_kehadiran' => $request->status_kehadiran]);
         return back();
     }

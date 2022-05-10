@@ -61,7 +61,7 @@ class DashboardController extends Controller
                             
                         }
                     }
-                    dd($pk);
+                    // dd($pk);
                 } else {
                     $bil_kehadiran = count($peserta->groupBy('kod_kursus'));
                     if ($bil_kehadiran >= 1) {
