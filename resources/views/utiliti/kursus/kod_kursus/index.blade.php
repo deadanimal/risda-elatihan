@@ -31,11 +31,21 @@
                                         @csrf
                                         <div class="mb-3">
                                             <label class="col-form-label">UNIT LATIHAN</label>
+                                            @role('Urus Setia ULS')
+                                            <select class="form-select" disabled name="UL_Kod_Kursus" id="unitlatihan">
+                                                <option value="Staf" selected>Staf</option>
+                                            </select>
+                                            @elserole('Urus Setia UlPK')
+                                            <select class="form-select" name="UL_Kod_Kursus" id="unitlatihan">
+                                                <option value="Pekebun Kecil" selected>Pekebun Kecil</option>
+                                            </select>
+                                            @else
                                             <select class="form-select" name="UL_Kod_Kursus" id="unitlatihan">
                                                 <option selected="" hidden>Sila Pilih</option>
                                                 <option value="Staf">Staf</option>
                                                 <option value="Pekebun Kecil">Pekebun Kecil</option>
                                             </select>
+                                            @endrole
                                         </div>
                                         <div class="mb-3">
                                             <label class="col-form-label">TAHUN</label>

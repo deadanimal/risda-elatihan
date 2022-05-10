@@ -140,8 +140,8 @@ class SemakPermohonanController extends Controller
 
                     // check if not pk
                     if (!empty($data_pk['message'])) {
-                        alert()->error('No. Kad Pengenalan tiada dalam pangkalan data HRIP');
-                        return back();
+                        // alert()->error('No. Kad Pengenalan tiada dalam pangkalan data HRIP');
+                        // return back();
                     } else {
                         $p->pekebun_kecil = $data_pk[0];
                         array_push($pekebun_kecil, $p);
@@ -287,7 +287,6 @@ class SemakPermohonanController extends Controller
 
     public function pengesahan_pukal(Request $request)
     {
-        // dd($request);
 
         foreach ($request->pemohon as $key => $p) {
             $pemohon = Permohonan::find($p);

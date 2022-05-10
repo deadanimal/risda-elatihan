@@ -17,8 +17,10 @@ use App\Models\Negeri;
 use App\Models\NotaRujukan;
 use App\Models\PenceramahKonsultan;
 use App\Models\PeruntukanPeserta;
+use App\Models\Staf;
 use App\Models\StatusPelaksanaan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class JadualKursusController extends Controller
 {
@@ -33,21 +35,56 @@ class JadualKursusController extends Controller
      */
     public function index()
     {
-        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->get();
-        foreach ($jadualKursus as $key => $jk) {
-            $sum = 0;
-            $bil = PeruntukanPeserta::where('pp_jadual_kursus', $jk->id)->get();
-            foreach ($bil as $k => $b) {
-                $sum = $sum + $b->pp_peruntukan_calon;
+        $check_auth = Auth::user()->jenis_pengguna;
+        if ($check_auth == 'Urus Setia ULS') {
+            $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', 'Staf')->get();
+            foreach ($jadualKursus as $key => $jk) {
+                $sum = 0;
+                $bil = PeruntukanPeserta::where('pp_jadual_kursus', $jk->id)->get();
+                foreach ($bil as $k => $b) {
+                    $sum = $sum + $b->pp_peruntukan_calon;
+                }
+                $jk['bilangan'] = $sum;
             }
-            $jk['bilangan'] = $sum;
-        }
-        $bidang = BidangKursus::all();
+            $bidang = BidangKursus::all();
 
-        // dd($jadualKursus);
-        return view('pengurusan_kursus.semak_jadual.index', [
-            'jadual' => $jadualKursus,
-        ]);
+            // dd($jadualKursus);
+            return view('pengurusan_kursus.semak_jadual.index.staf', [
+                'jadual' => $jadualKursus,
+            ]);
+        } else if($check_auth == 'Urus Setia ULPK'){
+            $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', 'Pekebun Kecil')->get();
+            foreach ($jadualKursus as $key => $jk) {
+                $sum = 0;
+                $bil = PeruntukanPeserta::where('pp_jadual_kursus', $jk->id)->get();
+                foreach ($bil as $k => $b) {
+                    $sum = $sum + $b->pp_peruntukan_calon;
+                }
+                $jk['bilangan'] = $sum;
+            }
+            $bidang = BidangKursus::all();
+
+            // dd($jadualKursus);
+            return view('pengurusan_kursus.semak_jadual.index.pk', [
+                'jadual' => $jadualKursus,
+            ]);
+        } else {
+            $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->get();
+            foreach ($jadualKursus as $key => $jk) {
+                $sum = 0;
+                $bil = PeruntukanPeserta::where('pp_jadual_kursus', $jk->id)->get();
+                foreach ($bil as $k => $b) {
+                    $sum = $sum + $b->pp_peruntukan_calon;
+                }
+                $jk['bilangan'] = $sum;
+            }
+            $bidang = BidangKursus::all();
+
+            // dd($jadualKursus);
+            return view('pengurusan_kursus.semak_jadual.index.index', [
+                'jadual' => $jadualKursus,
+            ]);
+        }
     }
 
     /**
@@ -74,6 +111,7 @@ class JadualKursusController extends Controller
         $list_jadual = JadualKursus::all();
         $negeri = Negeri::all();
         $daerah = Daerah::all();
+        $staf_bertanggungjawab = Staf::with('pengguna')->where('NamaPT', 'Bahagian Latihan')->get();
         return view('pengurusan_kursus.semak_jadual.create', [
             'bidang' => $bidang,
             'kategori' => $kategori,
@@ -87,6 +125,7 @@ class JadualKursusController extends Controller
             'list_jadual' => $list_jadual,
             'negeri' => $negeri,
             'daerah' => $daerah,
+            'staf_bertanggungjawab'=>$staf_bertanggungjawab
         ]);
     }
 
@@ -236,7 +275,7 @@ class JadualKursusController extends Controller
 
         $jadualKursus->kursus_masa_mula_pre_post_test = $request->kursus_masa_mula_pre_post_test;
         $jadualKursus->kursus_masa_tamat_pre_post_test = $request->kursus_masa_tamat_pre_post_test;
-        
+
         $jadualKursus->save();
 
         alert()->success('Maklumat telah disimipan', 'Berjaya Disimpan');
@@ -249,7 +288,7 @@ class JadualKursusController extends Controller
 
         $jadualKursus->kursus_masa_mula_post_test = $request->kursus_masa_mula_post_test;
         $jadualKursus->kursus_masa_tamat_post_test = $request->kursus_masa_tamat_post_test;
-        
+
         $jadualKursus->save();
 
         alert()->success('Maklumat telah disimipan', 'Berjaya Disimpan');

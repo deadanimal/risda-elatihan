@@ -23,16 +23,27 @@
                     <div class="row mb-2">
                         <div class="col-lg-7">
                             <label class="col-form-label p-0">UNIT LATIHAN</label>
-                            <select class="form-select form-control" name="kursus_unit_latihan" id="unitlatihan" required oninvalid="this.setCustomValidity('Sila pilih unit latihan.')" oninput="setCustomValidity('')">
-                                <option value="" selected hidden>Sila Pilih</option>
-                                <option value="Staf">Staf</option>
-                                <option value="Pekebun Kecil">Pekebun Kecil</option>
+                            <select class="form-select form-control" name="kursus_unit_latihan" id="unitlatihan"
+                                @role('Urus Setia ULS') disabled @elserole('Urus Setia ULPK') disabled @endrole required
+                                oninvalid="this.setCustomValidity('Sila pilih unit latihan.')"
+                                oninput="setCustomValidity('')">
+                                @role('Urus Setia ULS')
+                                    <option value="Staf" selected>Staf</option>
+                                    @elserole('Urus Setia ULPK')
+                                    <option value="Pekebun Kecil" selected>Pekebun Kecil</option>
+                                @else
+                                    <option value="" selected hidden>Sila Pilih</option>
+                                    <option value="Staf">Staf</option>
+                                    <option value="Pekebun Kecil">Pekebun Kecil</option>
+                                @endrole
                             </select>
                         </div>
                         <div class="col-lg-3">
                             <label class="col-form-label">STATUS</label>
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" name="status"  oninvalid="this.setCustomValidity('Sila pilih status.')" oninput="setCustomValidity('')" />
+                                <input class="form-check-input" type="checkbox" name="status"
+                                    oninvalid="this.setCustomValidity('Sila pilih status.')"
+                                    oninput="setCustomValidity('')" />
                                 <label class="form-check-label">Aktif</label>
                             </div>
                         </div>
@@ -56,7 +67,9 @@
                     <div class="row mb-3">
                         <div class="col">
                             <label class="col-form-label">BIDANG KURSUS</label>
-                            <select class="form-select form-control" name="kursus_bidang" id="kursus_bidang" required oninvalid="this.setCustomValidity('Sila pilih bidang kursus.')" oninput="setCustomValidity('')">
+                            <select class="form-select form-control" name="kursus_bidang" id="kursus_bidang" required
+                                oninvalid="this.setCustomValidity('Sila pilih bidang kursus.')"
+                                oninput="setCustomValidity('')">
                                 <option value="" selected hidden>Sila Pilih</option>
                                 @foreach ($bidang as $b)
                                     <option value="{{ $b->id }}">{{ $b->nama_Bidang_Kursus }}</option>
@@ -67,7 +80,9 @@
                     <div class="row mb-3">
                         <div class="col">
                             <label class="col-form-label">KATEGORI KURSUS</label>
-                            <select class="form-select form-control" name="kod_kategori" id="kursus_kategori" required oninvalid="this.setCustomValidity('Sila pilih kategori kursus.')" oninput="setCustomValidity('')">
+                            <select class="form-select form-control" name="kod_kategori" id="kursus_kategori" required
+                                oninvalid="this.setCustomValidity('Sila pilih kategori kursus.')"
+                                oninput="setCustomValidity('')">
                                 <option value="" selected hidden>Sila Pilih</option>
                                 @foreach ($kategori as $k)
                                     <option value="{{ $k->id }}">{{ $k->nama_Kategori_Kursus }}</option>
@@ -78,7 +93,9 @@
                     <div class="row mb-3">
                         <div class="col">
                             <label class="col-form-label">TAJUK KURSUS</label>
-                            <select class="form-select form-control" name="kod_kursus" id="tajuk" required oninvalid="this.setCustomValidity('Sila pilih tajuk kursus.')" oninput="setCustomValidity('')">
+                            <select class="form-select form-control" name="kod_kursus" id="tajuk" required
+                                oninvalid="this.setCustomValidity('Sila pilih tajuk kursus.')"
+                                oninput="setCustomValidity('')">
                                 <option value="" selected hidden>Sila Pilih</option>
                                 @foreach ($kod_kursus as $t)
                                     <option value="{{ $t->id }}">{{ $t->tajuk_Kursus }}</option>
@@ -115,13 +132,17 @@
                             <div class="mb-3">
                                 <label class="col-form-label">TARIKH MULA KURSUS</label>
                                 <input class="form-control" type="date" name="tarikh_mula" id="tm"
-                                    min="<?php echo date('Y-m-d'); ?>" required oninvalid="this.setCustomValidity('Sila pilih tarikh mula.')" oninput="setCustomValidity('')"/>
+                                    min="<?php echo date('Y-m-d'); ?>" required
+                                    oninvalid="this.setCustomValidity('Sila pilih tarikh mula.')"
+                                    oninput="setCustomValidity('')" />
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="mb-3">
                                 <label class="col-form-label">TARIKH TAMAT KURSUS</label>
-                                <input class="form-control" type="date" name="tarikh_tamat" id="tt" required oninvalid="this.setCustomValidity('Sila pilih tarikh tamat.')" oninput="setCustomValidity('')"/>
+                                <input class="form-control" type="date" name="tarikh_tamat" id="tt" required
+                                    oninvalid="this.setCustomValidity('Sila pilih tarikh tamat.')"
+                                    oninput="setCustomValidity('')" />
                             </div>
                         </div>
                     </div>
@@ -129,18 +150,20 @@
                         <div class="col-lg-6">
                             <div class="mb-3">
                                 <label class="col-form-label">TEMPOH KURSUS (HARI)</label>
-                                <input class="form-control" type="text" name="bilangan_hari" id="tk" readonly/>
+                                <input class="form-control" type="text" name="bilangan_hari" id="tk" readonly />
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="mb-3">
-                                <label class="col-form-label">STATUS PERLAKSANAAN</label>
-                                <select class="form-select form-control" name="kursus_status_pelaksanaan" required oninvalid="this.setCustomValidity('Sila pilih status pelaksanaan.')" oninput="setCustomValidity('')">
+                                {{-- <label class="col-form-label">STATUS PERLAKSANAAN</label>
+                                <select class="form-select form-control" name="kursus_status_pelaksanaan" required
+                                    oninvalid="this.setCustomValidity('Sila pilih status pelaksanaan.')"
+                                    oninput="setCustomValidity('')">
                                     <option value="" selected hidden>Sila Pilih</option>
                                     @foreach ($status_pelaksanaan as $sp)
                                         <option value="{{ $sp->id }}">{{ $sp->Status_Pelaksanaan }}</option>
                                     @endforeach
-                                </select>
+                                </select> --}}
                             </div>
                         </div>
                     </div>
@@ -151,14 +174,18 @@
                                 {{-- <input class="form-control datetimepicker" name="kursus_masa_pendaftaran" id="timepicker1"
                                     type="text" placeholder="H:i"
                                     data-options='{"enableTime":true,"noCalendar":true,"dateFormat":"H:i","disableMobile":true}' /> --}}
-                                <input class="form-control" name="kursus_masa_pendaftaran" type="time" placeholder="H:i" required oninvalid="this.setCustomValidity('Sila pilih masa pendaftaran.')" oninput="setCustomValidity('')"/>
+                                <input class="form-control" name="kursus_masa_pendaftaran" type="time" placeholder="H:i"
+                                    required oninvalid="this.setCustomValidity('Sila pilih masa pendaftaran.')"
+                                    oninput="setCustomValidity('')" />
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="mb-3">
                                 <label class="col-form-label">TARIKH TUTUP TAWARAN</label>
                                 <input class="form-control" type="date" name="kursus_tarikh_tutup"
-                                    min="<?php echo date('Y-m-d'); ?>" required oninvalid="this.setCustomValidity('Sila pilih tarikh tutup tawaran.')" oninput="setCustomValidity('')"/>
+                                    min="<?php echo date('Y-m-d'); ?>" required
+                                    oninvalid="this.setCustomValidity('Sila pilih tarikh tutup tawaran.')"
+                                    oninput="setCustomValidity('')" />
                             </div>
                         </div>
                     </div>
@@ -198,7 +225,9 @@
                     <div class="row mb-3">
                         <div class="col">
                             <label class="col-form-label">PENGENDALI LATIHAN</label>
-                            <select class="form-select form-control" name="kursus_pengendali_latihan" required oninvalid="this.setCustomValidity('Sila pilih pengendali latihan.')" oninput="setCustomValidity('')">
+                            <select class="form-select form-control" name="kursus_pengendali_latihan" required
+                                oninvalid="this.setCustomValidity('Sila pilih pengendali latihan.')"
+                                oninput="setCustomValidity('')">
                                 <option value="" selected hidden>Sila Pilih</option>
                                 @foreach ($pengendali as $pl)
                                     @if ($pl->kategori->Kategori_Agensi != 'Tempat Kursus')
@@ -218,9 +247,11 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label class="col-form-label">TEMPAT KURSUS</label>
-                                <label class="col-form-label text-danger font-italic">KATEGORI "Tempat Kursus" TIADA DIDALAM
+                                <label class="col-form-label text-danger font-italic">KATEGORI "Tempat Kursus" TIADA
+                                    DIDALAM
                                     SENARAI
-                                    AGENSI. SILA TAMBAH DI BAHAGIAN AGENSI (UTILITI->KOD KUMPULAN) UNTUK MENERUSKAN PENAMBAHAN
+                                    AGENSI. SILA TAMBAH DI BAHAGIAN AGENSI (UTILITI->KOD KUMPULAN) UNTUK MENERUSKAN
+                                    PENAMBAHAN
                                     JADUAL KURSUS</label>
                             </div>
                         </div>
@@ -228,7 +259,9 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label class="col-form-label">TEMPAT KURSUS</label>
-                                <select class="form-select form-control" name="kursus_tempat" id="tempat" required oninvalid="this.setCustomValidity('Sila pilih tempat kursus.')" oninput="setCustomValidity('')">
+                                <select class="form-select form-control" name="kursus_tempat" id="tempat" required
+                                    oninvalid="this.setCustomValidity('Sila pilih tempat kursus.')"
+                                    oninput="setCustomValidity('')">
                                     <option value="" selected hidden>Sila Pilih</option>
                                     @foreach ($tempat as $tk)
                                         <option value="{{ $tk->id }}">{{ $tk->nama_Agensi }}</option>
@@ -240,8 +273,7 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label class="col-form-label">ALAMAT TEMPAT KURSUS</label>
-                                <textarea class="form-control" rows="3" name="kursus_alamat_tempat_kursus"
-                                    id="alamat"></textarea>
+                                <textarea class="form-control" rows="3" name="kursus_alamat_tempat_kursus" id="alamat"></textarea>
                             </div>
                         </div>
                     @endif
@@ -249,7 +281,9 @@
                     <div class="row mb-3">
                         <div class="col">
                             <label class="col-form-label">OBJEKTIF</label>
-                            <textarea class="form-control" rows="3" name="kursus_objektif" required oninvalid="this.setCustomValidity('Sila nyatakan objektif kursus.')" oninput="setCustomValidity('')"></textarea>
+                            <textarea class="form-control" rows="3" name="kursus_objektif" required
+                                oninvalid="this.setCustomValidity('Sila nyatakan objektif kursus.')"
+                                oninput="setCustomValidity('')"></textarea>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -279,7 +313,13 @@
                     <div class="row mb-3">
                         <div class="col">
                             <label class="col-form-label">STAF YANG BERTANGGUNGJAWAB</label>
-                            <input type="text" class="form-control" name="kursus_staf_yang_bertanggungjawab">
+                            {{-- <input type="text" class="form-control" name="kursus_staf_yang_bertanggungjawab"> --}}
+                            <select name="kursus_staf_yang_bertanggungjawab" class="form-control">
+                                <option value="" selected hidden>Sila Pilih</option>
+                                @foreach ($staf_bertanggungjawab as $sb)
+                                    <option value="{{ $sb->pengguna->name }}">{{ $sb->pengguna->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
 
