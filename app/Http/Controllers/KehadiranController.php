@@ -391,8 +391,9 @@ class KehadiranController extends Controller
     public function kehadiran_pl($id){
 
         $agensi = Agensi::find($id);
-        $kursus =JadualKursus::where('kursus_tempat',$agensi->id)->with('kehadiran')->get();
-        $kehadiran=Kehadiran::with('staff')->get();
+        $kehadiran=Kehadiran::with('staff')->where('status_kehadiran','HADIR')->get();
+        $kursus =JadualKursus::with(['tempat','kehadiran'])->get();
+
         // foreach ($kursus as $k) {
         //     $kehadiran = Kehadiran::where('jadual_kursus_id', $k->id)->get();
 
@@ -403,15 +404,13 @@ class KehadiranController extends Controller
 
         // }
 
+        
 
-        // dd($agensi);
+        // dd($kehadiran);
         return view('ulpk.urus_setia.kehadiran.kehadiran-pl.1',[
             'agensi'=>$agensi,
             'kursus'=>$kursus,
             'kehadiran'=>$kehadiran
-
-
-
         ]);
 
 
