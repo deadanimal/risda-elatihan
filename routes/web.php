@@ -55,6 +55,7 @@ use App\Http\Controllers\PenilaianKeberkesananController;
 use App\Http\Controllers\PenilaianEjenPelaksanaController;
 use App\Models\JadualKursus;
 use App\Models\Agensi;
+use App\Models\KategoriAgensi;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -233,9 +234,12 @@ Route::middleware('auth')->group(function () {
 
 
             Route::get('/senarai-pl', function () {
-                $agensi=Agensi::all();
+                $agensi=Agensi::where('Kategori_Agensi','2')->get();
+                // $kategori = KategoriAgensi::where('Kategori_Agensi','Penceramah')->get();
+
                 return view('ulpk.urus_setia.kehadiran.kehadiran-pl.index',[
-                    'agensi'=>$agensi
+                    'agensi'=>$agensi,
+
                 ]);
             });
 
