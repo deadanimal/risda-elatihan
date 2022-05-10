@@ -391,20 +391,24 @@ class KehadiranController extends Controller
     public function kehadiran_pl($id){
 
         $agensi = Agensi::find($id);
-        $kehadiran=Kehadiran::with('staff')->where('status_kehadiran','HADIR')->get();
+        $kehadiran=Kehadiran::where('status_kehadiran','HADIR')->with('staff')->get();
         $kursus =JadualKursus::with(['tempat','kehadiran'])->get();
 
-        // foreach ($kursus as $k) {
-        //     $kehadiran = Kehadiran::where('jadual_kursus_id', $k->id)->get();
 
-        //     foreach ($kehadiran as $kh) {
-        //         $peserta=User::where('id', $kh->no_pekerja)->get();
-        //     }
-        // }
+        // $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
+        // ->get('https://www4.risda.gov.my/fire/getallstaff/')
+        // ->getBody()
+        // ->getContents();
 
-        // }
+        // $data_staf = json_decode($data_staf, true);
 
-        
+        // $jadual = JadualKursus::with('tempat')->get();
+
+        // $list_peserta = Kehadiran::with(['aturcara', 'staff', 'pengganti'])->get();
+
+        // $kehadiran = Kehadiran::where('status_kehadiran','HADIR')->get();
+
+
 
         // dd($kehadiran);
         return view('ulpk.urus_setia.kehadiran.kehadiran-pl.1',[
