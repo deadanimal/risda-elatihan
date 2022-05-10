@@ -390,7 +390,7 @@ class KehadiranController extends Controller
 
     public function kehadiran_pl($id){
 
-        $agensi = Agensi::find($id);
+        $agensi = Agensi::where($id);
         $kehadiran=Kehadiran::where('status_kehadiran','HADIR')->with('staff')->get();
         $kursus =JadualKursus::with(['tempat','kehadiran'])->get();
 
