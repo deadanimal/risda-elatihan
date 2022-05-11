@@ -8,6 +8,7 @@ use Database\Seeders\KategoriKursusSeeder;
 use Database\Seeders\KehadiranSeeder;
 use Database\Seeders\KodKursusSeeder;
 use Database\Seeders\PermohonanSeeder;
+use Database\Seeders\SqlStafSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -26,7 +27,8 @@ class DatabaseSeeder extends Seeder
             // JadualKursusSeeder::class,
             // KehadiranSeeder::class,
             // PermohonanSeeder::class,
-            PermissionSeeder::class,
+            // PermissionSeeder::class,
+            SqlStafSeeder::class,
         ]);
 
         // \App\Models\User::factory(10)->create();
