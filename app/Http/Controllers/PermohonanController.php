@@ -181,14 +181,20 @@ class PermohonanController extends Controller
      */
     public function update(UpdatePermohonanRequest $request, $id)
     {
-        $permohonan = Permohonan::find($id);
+        $permohonan = Permohonan::find($id)->with('peserta')->first();
+
+        $agensi=Agensi::where('id',$permohonan->jadual->kursus_tempat)->first();
+
         $permohonan->status_permohonan = $request->status_permohonan;
         $permohonan->save();
 
+        // dd($agensi->id);
+
         if ($permohonan->status_permohonan == '4') {
-            Mail::to('applicantsppeps01@gmail.com')->send(new PermohonanLulus($permohonan));
+            Mail::to('azyfays@gmail.com')->send(new PermohonanLulus($permohonan,$agensi));
+
         }elseif($permohonan->status_permohonan == '5'){
-            Mail::to('applicantsppeps01@gmail.com')->send(new PermohonanGagal($permohonan));
+            Mail::to('azyfays@gmail.com')->send(new PermohonanGagal($permohonan,$agensi));
         }
         alert()->success('Status permohonan telah dikemaskini', 'Berjaya');
         return redirect('/permohonan_kursus/semakan_permohonan');
