@@ -21,6 +21,7 @@ class PermohonanLulus extends Mailable
     public function __construct(Permohonan $permohonan)
     {
         $this->permohonan = $permohonan;
+
     }
 
     /**
