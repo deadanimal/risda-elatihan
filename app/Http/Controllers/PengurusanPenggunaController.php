@@ -32,7 +32,6 @@ class PengurusanPenggunaController extends Controller
     {
    
         return view('pengurusan_pengguna.senarai_pengguna.staf.index2', [
-            'test' => User::where('name', 'Najhan Najib')->first(),
             'staf' => Staf::with('pengguna')->get(),
             'peranan' => Role::all(),
         ]);
