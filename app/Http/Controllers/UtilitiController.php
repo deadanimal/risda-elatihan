@@ -195,6 +195,9 @@ class UtilitiController extends Controller
                 }
             }
             $u->delete();
+
+            $staf = Staf::where('id_Pengguna', $u->id)->first();
+            $staf->delete();
         }
 
         alert()->success('Habis');
