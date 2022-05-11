@@ -32,6 +32,7 @@ class PengurusanPenggunaController extends Controller
     {
    
         return view('pengurusan_pengguna.senarai_pengguna.staf.index2', [
+            'test' => User::where('name', 'Najhan Najib')->first(),
             'staf' => Staf::with('pengguna')->get(),
             'peranan' => Role::all(),
         ]);
@@ -218,6 +219,10 @@ class PengurusanPenggunaController extends Controller
     public function destroy($id)
     {
         $user = User::where('id',$id)->first();
+        $check = Staf::where('id_Pengguna', $user->id)->first();
+        if ($check != null) {
+            $check->delete();
+        }
         $user->delete();
 
         alert()->success('Data' . $user->name . ' telah dihapuskan', 'Berjaya');
