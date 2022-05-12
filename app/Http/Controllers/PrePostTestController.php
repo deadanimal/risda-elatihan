@@ -135,7 +135,7 @@ class PrePostTestController extends Controller
         ]);
 
         alert()->success('Selesai Menjawab Penilaian : Markah anda ' . $newMarkah . "%");
-        return redirect()->route('dashboard');
+        return redirect('/');
     }
 
     /**
