@@ -22,7 +22,7 @@
                     <div class="col-12">
                         <div class="card mt-2">
                             <div class="table-responsive scrollbar m-3">
-                                <table class="table datatable table m-3">
+                                <table id="test" class="table datatable table m-3">
                                     <thead>
                                         <tr>
                                             <th scope="col">BIL.</th>
@@ -40,10 +40,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        
+
                                         @foreach ($staf as $key => $u)
                                             <tr>
-                                                <td>{{ $key + 1 }}.</td>
+                                                <td>{{ $key + $staf->firstItem() }}.</td>
 
                                                 @if ($u->pengguna != null)
                                                     <td>{{ $u->pengguna->no_KP }}</td>
@@ -207,6 +207,7 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                                {{ $staf->links() }}
                             </div>
                         </div>
                     </div>
@@ -215,4 +216,14 @@
         </div>
 
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#test').DataTable({
+                "paging": false,
+                "ordering": false,
+                "info": false
+            });
+        });
+    </script>
 @endsection
