@@ -32,7 +32,7 @@ class PengurusanPenggunaController extends Controller
     {
    
         return view('pengurusan_pengguna.senarai_pengguna.staf.index2', [
-            'staf' => Staf::with('pengguna')->get(),
+            'staf' => Staf::with('pengguna')->paginate(20),
             'peranan' => Role::all(),
         ]);
     }
