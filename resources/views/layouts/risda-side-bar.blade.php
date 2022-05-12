@@ -1057,12 +1057,42 @@
                                 </ul>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link py-0 dropdown-indicator" href="#kehadiran-ke-PL" role="button"
+                                    data-bs-toggle="collapse"
+                                    aria-expanded="{{ Request::is('/us-ulpk/kehadiran/kehadiran-pl*') ? 'true' : 'false' }}"
+                                    aria-controls="kehadiran-ke-PL">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">KEHADIRAN KE PUSAT LATIHAN</span>
+                                    </div>
+                                </a>
+                                <ul class="nav-item collapse {{ Request::is('/us-ulpk/kehadiran/kehadiran-pl/*') ? 'show' : 'false' }} my-1"
+                                    id="kehadiran-ke-PL">
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('/us-ulpk/kehadiran/kehadiran-pl') ? 'active' : '' }} py-0"
+                                            href="/us-ulpk/kehadiran/kehadiran-pl">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">MEREKOD KEHADIRAN</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link py-0  {{ Request::is('/us-ulpk/kehadiran/kehadiran-pl/mengesahkan-kehadiran') ? 'active' : '' }}"
+                                            href="/us-ulpk/kehadiran/kehadiran-pl/mengesahkan-kehadiran">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">MENGESAHKAN KEHADIRAN</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            {{-- <li class="nav-item">
                                 <a class="nav-link py-0 {{ Request::is('/us-ulpk/kehadiran/kehadiran-pl') ? 'active' : '' }}"  href="/us-uls/kehadiran/kehadiran-pl" >
                                     <div class="d-flex align-items-center nav-link-side">
                                         <span class="px-0">KEHADIRAN KE PUSAT LATIHAN</span>
                                     </div>
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item">
                                 <a class="nav-link {{ Request::is('us-ulpk/kehadiran/cetakkodQR') ? 'active' : '' }} py-0"
                                     href="/us-ulpk/kehadiran/cetakkodQR">

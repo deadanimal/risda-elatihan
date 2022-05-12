@@ -390,9 +390,10 @@ class KehadiranController extends Controller
 
     public function kehadiran_pl($id){
 
-        $agensi = Agensi::where($id);
-        $kehadiran=Kehadiran::where('status_kehadiran','HADIR')->with('staff')->get();
-        $kursus =JadualKursus::with(['tempat','kehadiran'])->get();
+        $agensi = Agensi::find($id);
+        // $kursus =JadualKursus::with(['tempat','kehadiran'])->where('kursus_tempat',$agensi->id)->get();
+        // $kehadiran=Kehadiran::where('status_kehadiran','HADIR')->orWhere('jadual_kursus_id',$kursus->kehadiran->id)->with('staff')->get();
+
 
 
         // $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
@@ -402,19 +403,22 @@ class KehadiranController extends Controller
 
         // $data_staf = json_decode($data_staf, true);
 
-        // $jadual = JadualKursus::with('tempat')->get();
+        $kursus = JadualKursus::with(['tempat','kehadiran'])->where('kursus_tempat',$agensi->id)->get();
 
-        // $list_peserta = Kehadiran::with(['aturcara', 'staff', 'pengganti'])->get();
-
-        // $kehadiran = Kehadiran::where('status_kehadiran','HADIR')->get();
-
+        $peserta = Kehadiran::with(['kursus', 'staff', 'pengganti'])->where('status_kehadiran','HADIR')
+        ->get();
 
 
-        // dd($kehadiran);
+
+
+
+        // dd($peserta);
+
         return view('ulpk.urus_setia.kehadiran.kehadiran-pl.1',[
-            'agensi'=>$agensi,
+            'peserta'=>$peserta,
             'kursus'=>$kursus,
-            'kehadiran'=>$kehadiran
+            'agensi'=>$agensi
+            // 'kehadiran'=>$kehadiran
         ]);
 
 

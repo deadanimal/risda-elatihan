@@ -41,5 +41,10 @@ class Kehadiran extends Model
         return $this->hasOne(PenilaianKeberkesanan::class, 'kehadiran_id','id');
     }
 
+    public function kursus()
+    {
+        return $this->belongsTo(JadualKursus::class);
+    }
+
 
 }
