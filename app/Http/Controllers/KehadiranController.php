@@ -172,7 +172,7 @@ class KehadiranController extends Controller
 
         $kehadiran->save();
         alert()->success('Maklumat telah direkodkan', 'Berjaya');
-        return redirect('/dashboard');
+        return redirect('/');
 
 
         // if ($request->status == "CALON ASAL") {
