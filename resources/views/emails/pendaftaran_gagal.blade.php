@@ -1,4 +1,4 @@
-{{-- <p>Salam sejahtera,</p>
+<p>Salam sejahtera,</p>
 
 <p class="mt-4">Tuan/Puan,</p>
 
@@ -6,9 +6,9 @@
 
 <p class="mt-4">Sekian, terima kasih.</p>
 
-<p class="mt-4">PENTADBIR e-LATIHAN, RISDA</p> --}}
+<p class="mt-4">PENTADBIR e-LATIHAN, RISDA</p>
 
-<style>
+{{-- <style>
     .text-right {
         text-align: right;
     }
@@ -56,4 +56,4 @@
 
     <p>3. Sebarang pertanyaan atau maklumat lanjut boleh berhubung dengan Urus setia Latihan.
 
-        <br>Sekian, terima kasih dan harap maklum.</p>
+        <br>Sekian, terima kasih dan harap maklum.</p> --}}

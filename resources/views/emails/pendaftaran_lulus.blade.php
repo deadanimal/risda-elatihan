@@ -26,16 +26,32 @@
 
 
 
-<link href="/vendor/mail/html/themes/default.css" rel="stylesheet">
+{{-- <link href="/vendor/mail/html/themes/default.css" rel="stylesheet"> --}}
 
-<img class="center" src="/img/risda_logo.png" width="3">
-<h3 class="center">PIHAK BERKUASA KEMAJUAN PEKEBUN KECIL PERUSAHAAN GETAH (GETAH)</h3>
- <h4 class="center"> PENGESAHAN KEHADIRAN PROGRAM LATIHAN</h4>
+{{-- <img class="header a" src="/img/risda_logo.png" > --}}
+
+<img class="header a" src="{{ $message->embed(public_path() . '/img/risda_logo.png') }}" width="30%"/>
+
+<h3 class="header">PIHAK BERKUASA KEMAJUAN PEKEBUN KECIL PERUSAHAAN GETAH (GETAH)</h3>
+ <h4 class="header"> PENGESAHAN KEHADIRAN PROGRAM LATIHAN</h4>
 
 
-<p class="text-left">No. Kad Pengenalan	: {{$permohonan->peserta->no_KP}}</p>        <p class="text-right">Tarikh : {{date('d-m-Y', strtotime($permohonan->updated_at))}}</p>
+{{-- <p class="text-left">No. Kad Pengenalan	: {{$permohonan->peserta->no_KP}}</p>        <p class="text-right">Tarikh : {{date('d-m-Y', strtotime($permohonan->updated_at))}}</p>
 <p class="text-left"> Nama :{{$permohonan->peserta->name}}</p>
-<p class="text-left">Pusat Tanggungjawab: </p>
+<p class="text-left">Pusat Tanggungjawab: </p> --}}
+
+<table>
+    <tr>
+        <td>No. Kad Pengenalan	: {{$permohonan->peserta->no_KP}}</td>
+        <td>Tarikh : {{date('d-m-Y', strtotime($permohonan->updated_at))}}</td>
+    </tr>
+    <tr>
+        <td>Nama :{{$permohonan->peserta->name}}</td>
+    </tr>
+    <tr>
+        <td>Pusat Tanggungjawab: </td>
+    </tr>
+</table>
 
 Tuan/Puan,
 
