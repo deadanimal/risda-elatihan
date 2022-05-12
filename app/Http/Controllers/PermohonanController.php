@@ -191,10 +191,10 @@ class PermohonanController extends Controller
         // dd($agensi->id);
 
         if ($permohonan->status_permohonan == '4') {
-            Mail::to('azyfays@gmail.com')->send(new PermohonanLulus($permohonan,$agensi));
+            Mail::to('applicantsppeps01@gmail.com')->send(new PermohonanLulus($permohonan,$agensi));
 
         }elseif($permohonan->status_permohonan == '5'){
-            Mail::to('azyfays@gmail.com')->send(new PermohonanGagal($permohonan,$agensi));
+            Mail::to('applicantsppeps01@gmail.com')->send(new PermohonanGagal($permohonan));
         }
         alert()->success('Status permohonan telah dikemaskini', 'Berjaya');
         return redirect('/permohonan_kursus/semakan_permohonan');
