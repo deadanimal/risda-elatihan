@@ -75,9 +75,9 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
-        $pelawat = Dashboard::where('user_id', Auth::id())->where('status', 'masuk')->first();
-        $pelawat->status = 'keluar';
-        $pelawat->save();
+        // $pelawat = Dashboard::where('user_id', Auth::id())->where('status', 'masuk')->first();
+        // $pelawat->status = 'keluar';
+        // $pelawat->save();
 
         Auth::guard('web')->logout();
 
