@@ -143,7 +143,7 @@
                                             ANDA TIDAK DIBENARKAN MENGEMASKINI
                                             KEHADIRAN LEBIH DARI SATU KALI
                                         </p>
-                                        <a href="/dashboard" class="btn btn-primary btn-sm">OK</a>
+                                        <a href="/" class="btn btn-primary btn-sm">OK</a>
                                     </div>
                                 </div>
                             </div>

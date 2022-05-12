@@ -133,6 +133,6 @@ class RegisteredUserController extends Controller
         alert()->success('Sila semak email anda untuk notifikasi pendaftaran.','Pendaftaran Berjaya');
 
         Auth::login($user);
-        return redirect('/dashboard');
+        return redirect('/');
     }
 }
