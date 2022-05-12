@@ -30,7 +30,7 @@ class PengurusanPenggunaController extends Controller
     // list user
     public function staf()
     {
-   
+
         return view('pengurusan_pengguna.senarai_pengguna.staf.index2', [
             'staf' => Staf::with('pengguna')->get(),
             'peranan' => Role::all(),
@@ -83,6 +83,8 @@ class PengurusanPenggunaController extends Controller
             return view('pengurusan_pengguna.senarai_pengguna.pekebun_kecil.create');
         } elseif (Route::getCurrentRoute()->uri == "pengurusan_pengguna/pengguna/ejen_pelaksana/create") {
             return view('pengurusan_pengguna.senarai_pengguna.ejen_pelaksana.create');
+        } elseif (Route::getCurrentRoute()->uri == "pengurusan_pengguna/pengguna/staf/create") {
+            return view('pengurusan_pengguna.senarai_pengguna.staf.create');
         }
     }
 
@@ -118,33 +120,33 @@ class PengurusanPenggunaController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make('RISDA2022');
         $user->no_KP = $request->sec_nric;
-// dd($request->jenis_pengguna);
+
         if ($request->jenis_pengguna == 'xdrf') {
             $user->jenis_pengguna = 'Peserta ULPK';
             $user->assignRole('Peserta ULPK');
             Mail::to($request->email)->send(new PendaftaranPK($user));
         } elseif ($request->jenis_pengguna == 'ep') {
-            
+
             try {
                 if (Auth::user()->jenis_pengguna == 'Urus Setia ULS') {
                     $user->jenis_pengguna = 'Ejen Pelaksana ULS';
                     $user->assignRole('Ejen Pelaksana ULS');
-                } elseif(Auth::user()->jenis_pengguna == 'Urus Setia ULPK') {
+                } elseif (Auth::user()->jenis_pengguna == 'Urus Setia ULPK') {
                     $user->jenis_pengguna = 'Ejen Pelaksana ULPK';
                     $user->assignRole('Ejen Pelaksana ULPK');
-                }else{
+                } else {
                     $user->jenis_pengguna = $request->jenis_pengguna_2;
                     $user->assignRole($request->jenis_pengguna_2);
                 }
             } catch (\Throwable $th) {
                 if (Auth::user()->jenis_pengguna == 'Urus Setia ULS') {
                     alert()->error('Sila tambah peranan "Ejen Pelaksana ULS" di bahagian Kumpulan Pengguna.');
-                } elseif(Auth::user()->jenis_pengguna == 'Urus Setia ULPK') {
+                } elseif (Auth::user()->jenis_pengguna == 'Urus Setia ULPK') {
                     alert()->error('Sila tambah peranan "Ejen Pelaksana ULPK" di bahagian Kumpulan Pengguna.');
-                }else{
+                } else {
                     alert()->error('Sila tambah peranan "Ejen Pelaksana ULS" atau "Ejen Pelaksana ULPK" di bahagian Kumpulan Pengguna.');
                 }
-                
+
                 return back();
             }
             Mail::to($request->email)->send(new PendaftaranEP($user));
@@ -192,12 +194,13 @@ class PengurusanPenggunaController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
-        $user->removeRole($user->jenis_pengguna);
         $user->jenis_pengguna = $request->jenis_pengguna;
-        $user->assignRole($request->jenis_pengguna);
+        $user->syncRoles($request->jenis_pengguna);
         $user->save();
 
-        return redirect('/pengurusan_pengguna/pengguna/staf');
+        // return redirect('/pengurusan_pengguna/pengguna/staf');
+        alert()->success('Akaun bagi ' . $user->name . ' telah dikemaskini', 'Berjaya');
+        return redirect()->back();
     }
 
     public function pengaktifan(Request $request, $id)
@@ -211,13 +214,12 @@ class PengurusanPenggunaController extends Controller
 
         alert()->success('Akaun bagi ' . $user->name . ' telah dikemaskini', 'Berjaya');
         return redirect()->back();
-
     }
 
 
     public function destroy($id)
     {
-        $user = User::where('id',$id)->first();
+        $user = User::where('id', $id)->first();
         $check = Staf::where('id_Pengguna', $user->id)->first();
         if ($check != null) {
             $check->delete();
@@ -246,5 +248,51 @@ class PengurusanPenggunaController extends Controller
                 'pekebun' => $data_pk[0]
             ]);
         }
+    }
+
+    public function semak_nric_staf(Request $request)
+    {
+        $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
+            ->get('https://www4.risda.gov.my/fire/getallstaff/')
+            ->getBody()
+            ->getContents();
+
+        $data_staf = json_decode($data_staf, true);
+        foreach ($data_staf as $key => $staf) {
+            if ($staf['nokp'] == $request->no_KP) {
+
+                // create staff
+                $user = new User;
+                $user->name = $staf['nama'];
+                $user->email = $staf['email']; #tukar email staf
+                $user->password = Hash::make('pnsb1234');
+                $user->no_KP = $staf['nokp'];
+                $user->jenis_pengguna = 'Peserta ULS';
+                $user->assignRole('Peserta ULS');
+                $user->status_akaun = '1';
+
+                $user->save();
+
+                $reg_staf = new Staf;
+                $reg_staf->id_Pengguna = $user->id;
+                $reg_staf->nopekerja = $staf['nopekerja'];
+                $reg_staf->GelaranJwtn = $staf['GelaranJwtn'];
+                $reg_staf->Gred = $staf['Gred'];
+                $reg_staf->Jawatan = $staf['Jawatan'];
+                $reg_staf->Kod_PT = $staf['Kod_PT'];
+                $reg_staf->NamaPT = $staf['NamaPT'];
+                $reg_staf->Negeri = $staf['Negeri'];
+                $reg_staf->NamaPA = $staf['NamaPA'];
+                $reg_staf->NamaUnit = $staf['NamaUnit'];
+                $reg_staf->StesenBertugas = $staf['NamaUnit'];
+                $reg_staf->notel = $staf['notel'];
+                $reg_staf->save();
+
+                alert()->success('Staf telah didaftarkan. Kata laluan default ialah pnsb1234', 'Berjaya')->persistent('Tutup');;
+                return redirect('/pengurusan_pengguna/pengguna/staf');
+            }
+        }
+
+
     }
 }
