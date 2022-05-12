@@ -221,7 +221,6 @@
         $(document).ready(function() {
             $('#test').DataTable({
                 "paging": false,
-                "ordering": false,
                 "info": false
             });
         });
