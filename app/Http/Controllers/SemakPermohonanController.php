@@ -38,7 +38,7 @@ class SemakPermohonanController extends Controller
 
             $staf = [];
             foreach ($pemohon as $key => $p) {
-                if ($p->peserta['jenis_pengguna'] == 'Peserta ULS') {
+                if ($p->peserta->jenis_pengguna == 'Peserta ULS') {
                     $p->jenis_peserta = 'Peserta ULS';
                 }
                 if ($p->jenis_peserta == 'Peserta ULS') {
