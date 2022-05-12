@@ -164,7 +164,7 @@
                                     value="{{ $jadual->bilangan_hari }}" />
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        {{-- <div class="col-lg-6">
                             <div class="mb-3">
                                 <label class="col-form-label">STATUS PERLAKSANAAN</label>
                                 <select class="form-select form-control" name="kursus_status_pelaksanaan">
@@ -176,7 +176,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="row mb-0">
                         <div class="col-lg-6">
