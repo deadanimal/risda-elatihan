@@ -31,7 +31,6 @@ class SemakPermohonanController extends Controller
         $check = Auth::user()->jenis_pengguna;
         // dd($check);
         $pemohon = Permohonan::with(['jadual', 'peserta'])->get();
-        dd($pemohon);
         $kategori = KategoriAgensi::where('Kategori_Agensi', 'Tempat Kursus')->first()->id;
         $tempat = Agensi::with('kategori')->where('kategori_agensi', $kategori)->get();
 
@@ -39,28 +38,32 @@ class SemakPermohonanController extends Controller
 
             $staf = [];
             foreach ($pemohon as $key => $p) {
-                if ($p->peserta['jenis_pengguna'] == 'Peserta ULS') {
-                    $p->jenis_peserta = 'Peserta ULS';
-                }
-                if ($p->jenis_peserta == 'Peserta ULS') {
-                    $p->gred = null;
-                    $p->pusat_tanggungjawab = null;
-                    $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
-                        ->get('https://www4.risda.gov.my/fire/getallstaff/')
-                        ->getBody()
-                        ->getContents();
-
-                    $data_staf = json_decode($data_staf, true);
-                    foreach ($data_staf as $key => $s) {
-                        if ($s['nokp'] == $p->peserta->no_KP) {
-                            $p->gred = $s['Gred'];
-                            $p->pusat_tanggungjawab = $s['NamaPT'];
-                        }
+                if ($p->peserta == null) {
+                    $p->delete();
+                } else {
+                    if ($p->peserta['jenis_pengguna'] == 'Peserta ULS') {
+                        $p->jenis_peserta = 'Peserta ULS';
                     }
+                    if ($p->jenis_peserta == 'Peserta ULS') {
+                        $p->gred = null;
+                        $p->pusat_tanggungjawab = null;
+                        $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
+                            ->get('https://www4.risda.gov.my/fire/getallstaff/')
+                            ->getBody()
+                            ->getContents();
 
-                    array_push($staf, $p);
+                        $data_staf = json_decode($data_staf, true);
+                        foreach ($data_staf as $key => $s) {
+                            if ($s['nokp'] == $p->peserta->no_KP) {
+                                $p->gred = $s['Gred'];
+                                $p->pusat_tanggungjawab = $s['NamaPT'];
+                            }
+                        }
+
+                        array_push($staf, $p);
+                    }
+                    $p['tarikh'] = date('H:i, d/m/Y', strtotime($p->created_at));
                 }
-                $p['tarikh'] = date('H:i, d/m/Y', strtotime($p->created_at));
             }
 
             return view('permohonan_kursus.semakan_permohonan.uls.index', [
@@ -68,7 +71,6 @@ class SemakPermohonanController extends Controller
                 'staf' => $staf,
                 'tempat' => $tempat
             ]);
-
         } elseif ($check == 'Urus Setia ULPK') {
             $pekebun_kecil = [];
             foreach ($pemohon as $key => $p) {
@@ -100,7 +102,6 @@ class SemakPermohonanController extends Controller
                 'pekebun_kecil' => $pekebun_kecil,
                 'tempat' => $tempat
             ]);
-
         } else {
 
             $staf = [];
