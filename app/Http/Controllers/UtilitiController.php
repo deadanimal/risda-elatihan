@@ -97,11 +97,15 @@ class UtilitiController extends Controller
     // test
     public function test_user_list()
     {
+        $test = User::where('name', 'Najhan Najib')->first();
+        $staf = Staf::with('pengguna')->get();
         $user = User::all();
         $role = Role::all();
         return view('test_list', [
             'user' => $user,
-            'role' => $role
+            'role' => $role,
+            'staf' => $staf,
+            'test' => $test,
         ]);
     }
 
@@ -198,6 +202,19 @@ class UtilitiController extends Controller
 
             $staf = Staf::where('id_Pengguna', $u->id)->first();
             $staf->delete();
+        }
+
+        alert()->success('Habis');
+        return redirect('/testing');
+    }
+
+    public function change_role_uls()
+    {
+        ini_set('max_execution_time', 1800);
+        $user = User::where('jenis_pengguna', 'Peserta ULS')->get();
+
+        foreach ($user as $key => $u) {
+            $u->syncRoles('Peserta ULS');
         }
 
         alert()->success('Habis');

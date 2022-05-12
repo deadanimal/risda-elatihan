@@ -402,6 +402,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/delete/{id}', [UtilitiController::class, 'test_user_delete']);
     Route::put('/update_role/{id}', [UtilitiController::class, 'test_user_update_role']);
     Route::get('/delete_staf', [UtilitiController::class, 'remove_user_uls']);
+    Route::get('/change_role_uls', [UtilitiController::class, 'change_role_uls']);
 
     Route::get('testjap', [PermohonanController::class, 'katelog']);
 
