@@ -186,7 +186,7 @@
                                     type="text" placeholder="H:i"
                                     data-options='{"enableTime":true,"noCalendar":true,"dateFormat":"H:i","disableMobile":true}'
                                     value="{{ $jadual->kursus_masa_pendaftaran }}" /> --}}
-                                    <input class="form-control" name="kursus_masa_pendaftaran" type="time" placeholder="H:i"/>
+                                    <input class="form-control" name="kursus_masa_pendaftaran" type="time" value="{{$jadual->kursus_masa_pendaftaran}}"/>
                             </div>
                         </div>
                         <div class="col-lg-6">
