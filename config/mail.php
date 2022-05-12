@@ -108,7 +108,7 @@ return [
     */
 
     'markdown' => [
-        'theme' => 'default',
+        'theme' => 'default.css',
 
         'paths' => [
             resource_path('views/vendor/mail'),
