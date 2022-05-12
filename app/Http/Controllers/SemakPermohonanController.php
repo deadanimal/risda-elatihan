@@ -31,6 +31,7 @@ class SemakPermohonanController extends Controller
         $check = Auth::user()->jenis_pengguna;
         // dd($check);
         $pemohon = Permohonan::with(['jadual', 'peserta'])->get();
+        dd($pemohon);
         $kategori = KategoriAgensi::where('Kategori_Agensi', 'Tempat Kursus')->first()->id;
         $tempat = Agensi::with('kategori')->where('kategori_agensi', $kategori)->get();
 
@@ -38,7 +39,7 @@ class SemakPermohonanController extends Controller
 
             $staf = [];
             foreach ($pemohon as $key => $p) {
-                if ($p->peserta->jenis_pengguna == 'Peserta ULS') {
+                if ($p->peserta['jenis_pengguna'] == 'Peserta ULS') {
                     $p->jenis_peserta = 'Peserta ULS';
                 }
                 if ($p->jenis_peserta == 'Peserta ULS') {
