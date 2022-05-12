@@ -74,11 +74,11 @@
                                 <td>{{ date('d-m-Y', strtotime($p->tarikh_mula)) }} -
                                     {{ date('d-m-Y', strtotime($p->tarikh_tamat)) }}</td>
                                 <td>{{ $p->tempat->nama_Agensi }}</td>
-                                @if ($j->tarikh_mula > date('Y-m-d'))
+                                @if ($p->tarikh_mula > date('Y-m-d'))
                                     <td>BELUM DILAKSANA</td>
-                                @elseif ($j->tarikh_tamat < date('Y-m-d'))
+                                @elseif ($p->tarikh_tamat < date('Y-m-d'))
                                     <td>SELESAI</td>
-                                @elseif ($j->tarikh_tamat >= date('Y-m-d'))
+                                @elseif ($p->tarikh_tamat >= date('Y-m-d'))
                                     <td>SEDANG DILAKSANAKAN</td>
                                 @endif
                                 <td>
