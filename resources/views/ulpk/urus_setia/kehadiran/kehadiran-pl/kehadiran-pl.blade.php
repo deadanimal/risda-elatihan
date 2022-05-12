@@ -70,7 +70,7 @@
                     <thead>
                         <tr>
                             <th scope="col">BIL.</th>
-                            <th scope="col">PUSAT LATIHAN</th>
+                            <th scope="col">NAMA KURSUS</th>
                             <th scope="col">ALAMAT</th>
                             <th scope="col">TINDAKAN</th>
 

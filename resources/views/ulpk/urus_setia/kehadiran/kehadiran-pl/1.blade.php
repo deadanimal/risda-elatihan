@@ -31,7 +31,7 @@
         <div class="row">
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
-                    KEHADIRAN PESERTA KE PUSAR LATIHAN
+                    KEHADIRAN PESERTA KE PUSAT LATIHAN
                 </p>
             </div>
         </div>
@@ -66,21 +66,29 @@
                             <th scope="col">NO KAD PENGENALAN</th>
                             <th scope="col">NAMA</th>
                             <th scope="col">KOD KURSUS</th>
-                            <th scope="col">NAMA KURSUS</th>
+                            <th scope="col">NAMA KURSUS </th>
                             <th scope="col">TARIKH KEHADIRAN</th>
+                            <th scope="col">PENGESAHAN</th>
+
                         </tr>
                     </thead>
                      <tbody>
-                        @foreach($kursus as $ku)
-                        <tr>
-                          @foreach($ku->kehadiran as $k)
 
+                         @foreach($kursus as $ku)
+                            @foreach($ku->kehadiran as $k)
+                        <tr>
                             <td>{{$loop->iteration}}</td>
-                            <td>{{$k->staff->name ?? ''}}</td>
                             <td>{{$k->staff->no_KP ?? ''}}</td>
+                            <td>{{$k->staff->name ?? ''}}</td>
                             <td>{{$k->kod_kursus}}</td>
                             <td >{{$ku->kursus_nama}}</td>
                             <td >{{date('d-m-Y', strtotime($k->tarikh))}}</td>
+                            <td>
+
+                                    <input class="form-check-input pukal" type="checkbox" name="pemohon[]"
+                                        value="{{ $k->id }}" />
+
+                            </td>
 
 
                         </tr>
@@ -117,9 +125,6 @@
 
                         </tr> --}}
 
-                        @foreach ($kehadiran as $item)
-
-                        @endforeach
                     </tbody>
                 </table>
             </div>

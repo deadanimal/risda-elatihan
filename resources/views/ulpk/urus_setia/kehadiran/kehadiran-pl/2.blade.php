@@ -31,7 +31,7 @@
         <div class="row">
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
-                    KEHADIRAN PESERTA KE PUSAR LATIHAN
+                    KEHADIRAN PESERTA
                 </p>
             </div>
         </div>
@@ -39,18 +39,18 @@
         <div class="row justify-content-center mt-5">
             <div class="col-8 d-inline-flex">
                 <div class="col-4">
-                    <p class="pt-2 fw-bold">PUSAT LATIHAN</p>
+                    <p class="pt-2 fw-bold">TAHUN</p>
                 </div>
-                <div class="col-6">
-                    <input type="text" class="form-control mb-4 tahun" autocomplete="OFF" value="{{$agensi->nama_Agensi}}">
+                <div class="col-2">
+                    <input type="text" class="form-control mb-4 tahun" autocomplete="OFF">
                 </div>
             </div>
             <div class="col-8 d-inline-flex">
                 <div class="col-4">
-                    <p class="pt-2 fw-bold">TARIKH KEHADIRAN</p>
+                    <p class="pt-2 fw-bold">UNIT LATIHAN</p>
                 </div>
                 <div class="col-6">
-                    <input type="date" class="form-control mb-3">
+                    <input type="text" class="form-control mb-3">
                 </div>
             </div>
 
@@ -65,25 +65,21 @@
                             <th scope="col">BIL.</th>
                             <th scope="col">NO KAD PENGENALAN</th>
                             <th scope="col">NAMA</th>
-                            <th scope="col">KOD KURSUS</th>
-                            <th scope="col">NAMA KURSUS</th>
-                            <th scope="col">TARIKH KEHADIRAN</th>
+                            <th scope="col">PUSAT TANGGUNGJAWAB</th>
+                            <th scope="col">KOD<br>KURSUS</th>
+                            <th scope="col">NAMA<br>KURSUS</th>
+                            <th scope="col">TARIKH<br>KEHADIRAN</th>
+                            <th class="text-end" scope="col">PENGESAHAN</th>
                         </tr>
                     </thead>
-                     <tbody>
-                        @foreach ($kehadiran as $kh )
-                        <tr>
+                    <tbody>
+                        @foreach($kursus as $ku)
+                        @foreach($kehadiran as $k)
 
-                            <td>{{$loop->iteration}}</td>
-                            <td>{{$k->staff->name ?? ''}}</td>
-                            <td>{{$k->staff->no_KP ?? ''}}</td>
-                                @foreach ($kh->kursus as $ku)
-                                <td>{{$k->kod_kursus}}</td>
-                                <td >{{$ku->kursus_nama}}</td>
-                                <td >{{date('d-m-Y', strtotime($ku->tarikh_mula))}}</td>
-                                @endforeach
-                        </tr>
-                        @endforeach
+                        <tr>
+                          <td
+                       <tr>
+
                     </tbody>
                 </table>
             </div>
