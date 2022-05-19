@@ -19,14 +19,14 @@ class SumberController extends Controller
         $bil_sumber = Sumber::orderBy('id', 'desc')->first();
         if ($bil_sumber != null) {
             $bil = $bil_sumber->kod_Sumber;
-        }else{
+        } else {
             $bil = 0;
         }
         $bil = $bil + 1;
         $bil = sprintf("%02d", $bil);
         return view('utiliti.generik.sumber.index', [
-            'sumber'=>$sumber,
-            'bil'=>$bil
+            'sumber' => $sumber,
+            'bil' => $bil
         ]);
     }
 
@@ -59,6 +59,8 @@ class SumberController extends Controller
         $sumber->status_sumber = $status;
 
         $sumber->save();
+        AuditTrailController::audit('utiliti', 'sumber', 'cipta');
+        alert()->success('Maklumat telah disimpan', 'Berjaya');
         return redirect('/utiliti/generik/sumber');
     }
 
@@ -103,6 +105,8 @@ class SumberController extends Controller
         $sumber->status_sumber = $status;
 
         $sumber->save();
+        AuditTrailController::audit('utiliti', 'sumber', 'kemaskini');
+        alert()->success('Maklumat telah dikemaskini', 'Berjaya');
         return redirect('/utiliti/generik/sumber');
     }
 
@@ -115,6 +119,8 @@ class SumberController extends Controller
     public function destroy(Sumber $sumber)
     {
         $sumber->delete();
+        AuditTrailController::audit('utiliti', 'sumber', 'hapus');
+        alert()->success('Maklumat telah dihapuskan', 'Berjaya');
         return redirect('/utiliti/generik/sumber');
     }
 }

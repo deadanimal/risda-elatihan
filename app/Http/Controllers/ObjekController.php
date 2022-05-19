@@ -23,14 +23,14 @@ class ObjekController extends Controller
         $bil_obj = Objek::orderBy('id', 'desc')->first();
         if ($bil_obj != null) {
             $bil = $bil_obj->kod_Objek;
-        }else{
+        } else {
             $bil = 0;
         }
         $bil = $bil + 1;
         $bil = sprintf("%02d", $bil);
-        return view('utiliti.kursus.objek.index',[
-            'bil'=>$bil,
-            'objek'=>$objek
+        return view('utiliti.kursus.objek.index', [
+            'bil' => $bil,
+            'objek' => $objek
         ]);
     }
 
@@ -63,7 +63,8 @@ class ObjekController extends Controller
         $objek->status_Objek = $status;
 
         $objek->save();
-        alert()->success('Maklumat telah ditambah', 'Tambah');
+        AuditTrailController::audit('utiliti', 'kod objek', 'cipta');
+        alert()->success('Maklumat telah disimpan', 'Berjaya');
         return redirect('/utiliti/kursus/kod_objek');
     }
 
@@ -98,7 +99,7 @@ class ObjekController extends Controller
      */
     public function update(UpdateObjekRequest $request, $objek)
     {
-        $objek=Objek::find($objek);
+        $objek = Objek::find($objek);
         $objek->kod_Objek = $request->kod_Objek;
         $objek->nama_Objek = $request->nama_Objek;
         if ($request->status == 'on') {
@@ -109,7 +110,8 @@ class ObjekController extends Controller
         $objek->status_Objek = $status;
 
         $objek->save();
-        alert()->success('Maklumat telah dikemaskini', 'Kemaskini');
+        AuditTrailController::audit('utiliti', 'kod objek', 'kemaskini');
+        alert()->success('Maklumat telah dikemaskini', 'Berjaya');
         return redirect('/utiliti/kursus/kod_objek');
     }
 
@@ -121,9 +123,10 @@ class ObjekController extends Controller
      */
     public function destroy($objek)
     {
-        $objek=Objek::find($objek);
+        $objek = Objek::find($objek);
         $objek->delete();
-        alert()->success('Maklumat telah dihapuskan', 'Hapus');
+        AuditTrailController::audit('utiliti','kod objek','hapus');
+        alert()->success('Maklumat telah dihapuskan', 'Berjaya');
         return redirect('/utiliti/kursus/kod_objek');
     }
 }

@@ -63,6 +63,8 @@ class NegeriController extends Controller
         $negeri->status_negeri = $status;
 
         $negeri->save();
+        AuditTrailController::audit('utiliti','negeri','cipta');
+        alert()->success('Maklumat telah disimpan', 'Berjaya');
         return redirect('/utiliti/lokasi/negeri');
     }
 
@@ -109,6 +111,8 @@ class NegeriController extends Controller
         $negeri->status_negeri = $status;
 
         $negeri->save();
+        AuditTrailController::audit('utiliti','negeri','cipta');
+        alert()->success('Maklumat telah dikemaskini', 'Berjaya');
         return redirect('/utiliti/lokasi/negeri');
     }
 
@@ -121,6 +125,8 @@ class NegeriController extends Controller
     public function destroy(Negeri $negeri)
     {
         $negeri->delete();
+        AuditTrailController::audit('utiliti','negeri','hapus');
+        alert()->success('Maklumat telah dihapus', 'Berjaya');
         return redirect('/utiliti/lokasi/negeri');
     }
 }

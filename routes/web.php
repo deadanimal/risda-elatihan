@@ -3,6 +3,7 @@
 use App\Http\Controllers\AgamaController;
 use App\Http\Controllers\AgensiController;
 use App\Http\Controllers\AturcaraController;
+use App\Http\Controllers\AuditTrailController;
 use App\Http\Controllers\BangsaController;
 use App\Http\Controllers\BidangKursusController;
 use App\Http\Controllers\CetakKodQRController;
@@ -152,6 +153,7 @@ Route::middleware('auth')->group(function () {
         '/pengurusan_kursus/kelayakan_elaun_cuti' => KelayakanElauncutiController::class,
         '/permohonan_kursus/semakan_permohonan' => SemakPermohonanController::class,
 
+        '/audit_trail' => AuditTrailController::class,
         // '/pengurusan_pengguna/pengguna' => PengurusanPenggunaController::class,
     ]);
 
