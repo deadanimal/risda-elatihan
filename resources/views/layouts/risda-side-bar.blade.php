@@ -764,6 +764,13 @@
                         </ul>
                     @endcan
 
+                    <a class="nav-link py-0 {{ Request::is('us-uls/PelajarPraktikal') ? 'active' : '' }}"
+                    href="/us-uls/PelajarPraktikal" role="button">
+                    <div class="d-flex align-items-center nav-link-side px-0">
+                            <span class="px-3"><span class="far fa-address-book"></span> PELAJAR PRAKTIKAL</span>
+                    </div>
+                </a>
+
                     @can('pengajian lanjutan')
                         <a class="nav-link py-0 {{ Request::is('us-uls/pengajian-lanjutan') ? 'active' : '' }}"
                             href="/us-uls/pengajian-lanjutan" role="button">
