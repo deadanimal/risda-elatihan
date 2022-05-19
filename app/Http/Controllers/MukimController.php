@@ -80,6 +80,8 @@ class MukimController extends Controller
         $mukim->status_mukim = $status;
         // dd($mukim);
         $mukim->save();
+        AuditTrailController::audit('utiliti','mukim','cipta');
+        alert()->success('Maklumat telah disimpan','Berjaya');
         return redirect('/utiliti/lokasi/mukim');
     }
 
@@ -127,6 +129,8 @@ class MukimController extends Controller
         }
         $mukim->status_mukim = $status;
         $mukim->save();
+        AuditTrailController::audit('utiliti','mukim','kemaskini');
+        alert()->success('Maklumat telah dikemaskini', 'Berjaya');
         return redirect('/utiliti/lokasi/mukim');
     }
 
@@ -139,6 +143,8 @@ class MukimController extends Controller
     public function destroy(Mukim $mukim)
     {
         $mukim->delete();
+        AuditTrailController::audit('utiliti','mukim','hapus');
+        alert()->success('Maklumat telah dihapus', 'Berjaya');
         return redirect('/utiliti/lokasi/mukim');
     }
 }

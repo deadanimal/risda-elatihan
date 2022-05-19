@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBidangKursusRequest;
 use App\Http\Requests\UpdateBidangKursusRequest;
+use App\Models\AuditTrail;
 use App\Models\BidangKursus;
+use Illuminate\Support\Facades\Auth;
 
 class BidangKursusController extends Controller
 {
@@ -72,6 +74,12 @@ class BidangKursusController extends Controller
         $bidangKursus->status_Bidang_Kursus = $status;
 
         $bidangKursus->save();
+
+        $audit = new AuditTrail;
+        $audit->butiran = "Bidang Kursus ditambah: ".$request->nama_Bidang_Kursus;
+        $audit->id_pengguna = Auth::id();
+        $audit->save();
+
         alert()->success('Maklumat telah disimpan', 'Berjaya');
         return redirect('/utiliti/kursus/bidang_kursus');
     }

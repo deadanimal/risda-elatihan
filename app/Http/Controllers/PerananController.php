@@ -15,8 +15,8 @@ class PerananController extends Controller
      */
     public function index()
     {
-        return view('pengurusan_pengguna.peranan.index',[
-            'peranan'=> Role::all(),
+        return view('pengurusan_pengguna.peranan.index', [
+            'peranan' => Role::all(),
         ]);
     }
 
@@ -41,6 +41,7 @@ class PerananController extends Controller
         // Role::create(['name' => $request->name]);
         $peranan = new Role($request->all());
         $peranan->save();
+        AuditTrailController::audit('pengurusan pengguna', 'peranan', 'cipta');
         alert()->success('Peranan telah ditambah', 'Berjaya');
         return redirect('/pengurusan_pengguna/peranan');
     }
@@ -55,7 +56,7 @@ class PerananController extends Controller
     {
         return view('pengurusan_pengguna.peranan.show', [
             'peranan' => Role::find($id),
-            'kebenaran' =>Permission::all(),
+            'kebenaran' => Permission::all(),
             'id' => $id
         ]);
     }
@@ -85,16 +86,17 @@ class PerananController extends Controller
         $role = Role::findByName($nama_role);
         $kebenaran = Permission::get();
 
-        foreach($kebenaran as $kebenaran){
+        foreach ($kebenaran as $kebenaran) {
             $role->revokePermissionTo($kebenaran->name);
-            $nama = str_replace(" ","_",$kebenaran->name);
-            if($request->$nama == "1"){
+            $nama = str_replace(" ", "_", $kebenaran->name);
+            if ($request->$nama == "1") {
                 $role->givePermissionTo($kebenaran->name);
             }
         }
 
+        AuditTrailController::audit('pengurusan pengguna', 'peranan', 'kemaskini');
         alert()->success('Kebenaran telah dikemaskini', 'Berjaya');
-        return redirect('/pengurusan_pengguna/peranan/'.$id);
+        return redirect('/pengurusan_pengguna/peranan/' . $id);
     }
 
     /**
@@ -107,6 +109,7 @@ class PerananController extends Controller
     {
         $peranan = Role::find($id);
         $peranan->delete();
+        AuditTrailController::audit('pengurusan pengguna', 'peranan', 'hapus');
         alert()->success('Peranan telah dihapuskan', 'Hapus');
         return redirect('/pengurusan_pengguna/peranan');
     }

@@ -70,6 +70,8 @@ class ParlimenController extends Controller
         }
         $parlimen->status_parlimen = $status;
         $parlimen->save();
+        AuditTrailController::audit('utiliti','parlimen','cipta');
+        alert()->success('Maklumat telah disimpan','Berjaya');
         return redirect('/utiliti/lokasi/parlimen');
     }
 
@@ -115,6 +117,8 @@ class ParlimenController extends Controller
         }
         $parlimen->status_parlimen = $status;
         $parlimen->save();
+        AuditTrailController::audit('utiliti','parlimen','kemaskini');
+        alert()->success('Maklumat telah dikemaskini', 'Berjaya');
         return redirect('/utiliti/lokasi/parlimen');
     }
 
@@ -128,6 +132,8 @@ class ParlimenController extends Controller
     {
         $parlimen = Parlimen::find($parlimen);
         $parlimen->delete();
+        AuditTrailController::audit('utiliti','parlimen','hapus');
+        alert()->success('Maklumat telah dihapuskan', 'Berjaya');
         return redirect('/utiliti/lokasi/parlimen');
     }
 }

@@ -71,8 +71,9 @@ class DaerahController extends Controller
             $status = 0;
         }
         $daerah->status_daerah = $status;
-        // dd($daerah);
         $daerah->save();
+        alert()->success('Maklumat telah dicipta', 'Berjaya');
+        AuditTrailController::audit('utiliti', 'daerah', 'cipta');
         return redirect('/utiliti/lokasi/daerah');
     }
 
@@ -119,6 +120,8 @@ class DaerahController extends Controller
         $daerah->status_daerah = $status;
 
         $daerah->save();
+        alert()->success('Maklumat telah dikemaskini', 'Berjaya');
+        AuditTrailController::audit('utiliti', 'daerah', 'kemaskini');
         return redirect('/utiliti/lokasi/daerah');
     }
 
@@ -132,6 +135,8 @@ class DaerahController extends Controller
     {
         $daerah = Daerah::find($daerah);
         $daerah->delete();
+        alert()->success('Maklumat telah dihapus', 'Berjaya');
+        AuditTrailController::audit('utiliti', 'daerah', 'hapus');
         return redirect('/utiliti/lokasi/daerah');
     }
 }
