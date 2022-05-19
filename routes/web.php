@@ -53,6 +53,7 @@ use App\Http\Controllers\SumberController;
 use App\Http\Controllers\UtilitiController;
 use App\Http\Controllers\PenilaianKeberkesananController;
 use App\Http\Controllers\PenilaianEjenPelaksanaController;
+use App\Http\Controllers\PelajarPraktikalController;
 use App\Models\JadualKursus;
 use App\Models\Agensi;
 use App\Models\KategoriAgensi;
@@ -227,8 +228,13 @@ Route::middleware('auth')->group(function () {
 
     });
 
+
     //Urus Setia ULS
     Route::group(['prefix' => 'us-uls'], function () {
+
+        Route::resource('PelajarPraktikal',PelajarPraktikalController::class);
+
+
 
         Route::group(['prefix' => 'kehadiran', 'middleware' => 'can:kehadiran'], function () {
             //dari QR  - merekod kehadiran
@@ -308,7 +314,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/post-test/create/{jadualKursus}', [PostTestController::class, 'create'])->name('post-test.create');
             Route::post('/post-test/{jadual_kursus}/save', [JadualKursusController::class, 'tambah_masa_mula_tamat_post_test']);
 
-            Route::resource('/penilaian-kursus/ulpk',KursusPenilaianController::class);
+            Route::resource('/penilaian-kursus/uls',KursusPenilaianController::class);
             Route::get('/penilaian-kursus/bahagianA/create/{id}',[KursusPenilaianController::class,'create']);
             Route::get('/penilaian-kursus/bahagianB/{id}',[KursusPenilaianController::class,'bahagianB']);
             Route::get('/penilaian-kursus/bahagianC/{id}',[KursusPenilaianController::class,'bahagianC']);
