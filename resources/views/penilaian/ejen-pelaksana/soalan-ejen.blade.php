@@ -15,13 +15,14 @@
         <form action="/penilaian/ejen-pelaksana" method="POST">
             @csrf
 
-            <input type="hidden" name="jadual_id" value="{{ $kursus->id }}">
-            <input type="hidden" name="agensi_id" value="{{ $agensi->id }}">
+            {{-- <input type="hidden" name="jadual_id" value="{{ $kursus->id }}">
+            <input type="hidden" name="agensi_id" value="{{ $agensi->id }}"> --}}
+            <input type="hidden" name="penceramah_konsultan_id" value="{{ $penilaian->id }}">
 
             <div class="row mt-3 mb-2">
                 <div class="col-12 mb-2">
                     <p class="h1 mb-0 fw-bold" style="color: rgb(43,93,53);">PENILAIAN</p>
-                    <p class="h5" style="color: rgb(43,93,53); ">PENILAIAN EJEN PELAKSANA</p>
+                    <p class="h5" style="color: rgb(43,93,53); ">EJEN PELAKSANA</p>
                 </div>
             </div>
             <hr style="color: rgba(81,179,90, 60%);height:2px;">
@@ -29,7 +30,7 @@
             <div class="row">
                 <div class="col-12">
                     <p class="h4 fw-bold mt-3">
-                        PENILAIAN EJEN PELAKSANA
+                         PENILAIAN EJEN PELAKSANA
                     </p>
                 </div>
             </div>
@@ -50,7 +51,7 @@
                         <p class="text-white d-inline-flex h6">4-Sangat Setuju</p>
                     </div>
                 </div>
-                <input type="hidden" name="jadual_kursus_id" value="{{$kursus->id}}">
+                {{-- <input type="hidden" name="jadual_kursus_id" value="{{$kursus->id}}"> --}}
                 <div class="col-12 mt-5 d-inline-flex">
                     <p class="h5"><span class="h5" style="color: #0F5E31">PENGISIAN PROGRAM</span>
                     </p>
@@ -317,7 +318,7 @@
 
                 <div class="col-12 d-inline-flex">
                     <div class="col-9">
-                        <h6 class="mt-1">4. Kualiti perkhidmatan memenuhi ekspektasi Ketepatan masa mengemukakan dokumen sebutharga, invois, laporan dan dokumen sokongan/h6>
+                        <h6 class="mt-1">4. Kualiti perkhidmatan memenuhi ekspektasi Ketepatan masa mengemukakan dokumen sebutharga, invois, laporan dan dokumen sokongan</h6>
                     </div>
                     <div class="col-3">
                         <div class="form-check form-check-inline">
