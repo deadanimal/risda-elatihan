@@ -54,9 +54,9 @@ use App\Http\Controllers\SumberController;
 use App\Http\Controllers\UtilitiController;
 use App\Http\Controllers\PenilaianKeberkesananController;
 use App\Http\Controllers\PenilaianEjenPelaksanaController;
+use App\Http\Controllers\PerbelanjaanYuranController;
 use App\Models\JadualKursus;
 use App\Models\Agensi;
-use App\Models\KategoriAgensi;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -289,10 +289,21 @@ Route::middleware('auth')->group(function () {
             });
         });
 
-        //pengajian lanjutan
+        //pengajian lanjutan ULS
         Route::group(['middleware' => 'can:pengajian lanjutan'], function () {
             Route::get('/pengajian-lanjutan', [PengajianLanjutanController::class, 'indexUls']);
+            Route::get('/pengajian-lanjutan/create', [PengajianLanjutanController::class, 'createUls']);
+            Route::get('/pengajian-lanjutan/{staf_pl}', [PengajianLanjutanController::class, 'editUls']);
+            Route::post('/pengajian-lanjutan', [PengajianLanjutanController::class, 'storeUls']);
+            Route::post('/pengajian-lanjutan/{staf_pl}', [PengajianLanjutanController::class, 'updateUls']);
+            Route::delete('/pengajian-lanjutan/{staf_pl}', [PengajianLanjutanController::class, 'destroyUls']);
             Route::get('/pengajian-lanjutan-yuran', [PengajianLanjutanController::class, 'yuranUls']);
+
+            // Route::resource('/pengajian-lanjutan/perbelanjaan-yuran', PerbelanjaanYuranController::class);
+            Route::post('/tambah-yuran', [PerbelanjaanYuranController::class, 'store']);
+            Route::get('/pengajian-lanjutan/perbelanjaan-yuran/{id_pengajian_lanjutan}', [PerbelanjaanYuranController::class, 'show']);
+            Route::delete('/pengajian-lanjutan/perbelanjaan-yuran/{perbelanjaanYuran}', [PerbelanjaanYuranController::class, 'destroy']);
+
         });
     });
 
@@ -425,7 +436,6 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/permohonan_kursus/katalog_kursus', PermohonanController::class);
     Route::get('ulpk/permohonan/katelog-kursus', [PermohonanController::class, 'katalog_ulpk']);
-
 
     Route::get('/janjan/{kehadiran}', [KehadiranController::class, 'janjan']);
 });

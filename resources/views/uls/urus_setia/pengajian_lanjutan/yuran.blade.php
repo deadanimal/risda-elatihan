@@ -40,127 +40,176 @@
             </div>
         </div>
 
-        <div class="row justify-content-center my-4">
-            <div class="col-9 d-inline-flex">
-                <div class="col-5">
-                    <p class="pt-2 fw-bold">TAHUN</p>
+        <form action="/us-uls/tambah-yuran" method="POST">
+            @csrf
+            <div class="row justify-content-center my-4">
+                <input type="hidden" name="id_pengajian_lanjutan" value="{{$id_pengajian_lanjutan}}">
+                <div class="col-9 d-inline-flex">
+                    <div class="col-5">
+                        <p class="pt-2 fw-bold">TAHUN</p>
+                    </div>
+                    <div class="col-2">
+                        <input class="form-control datepicker" name="tahun" type="text" autocomplete="off" />
+                    </div>
                 </div>
-                <div class="col-2">
-                    <input class="form-control datepicker" type="text" autocomplete="off" readonly />
+                <div class="col-9 d-inline-flex">
+                    <div class="col-5">
+                        <p class="pt-2 fw-bold">SEMESTER</p>
+                    </div>
+                    <div class="col-7">
+                        <select class="form-control" name="semester">
+                            <option hidden selected="">Sila Pilih</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+                </div>
+                {{-- <div class="col-9 d-inline-flex">
+                    <div class="col-5">
+                        <p class="pt-2 fw-bold">Kelulusan Pembiayaan(RM)</p>
+                    </div>
+                    <div class="col-7">
+                        <input class="form-control mb-3" name="" type="text"
+                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
+                    </div>
+                </div> --}}
+                <div class="col-9 d-inline-flex">
+                    <div class="col-5">
+                        <p class="pt-2 fw-bold">PERBELANJAAN</p>
+                    </div>
+                    <div class="col-7">
+                        <select class="form-control" name="perbelanjaan">
+                            <option hidden selected="">Sila Pilih</option>
+                            <option value="CB001">CB001 - Yuran Pengajian</option>
+                            <option value="CB002">CB002 - Elaun Sara Hidup</option>
+                            <option value="CB003">CB003 - Elaun Buku</option>
+                            <option value="CB004">CB004 - Elaun Penempatan</option>
+                            <option value="CB005">CB005 - Yuran Pendaftaran</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-9 d-inline-flex">
+                    <div class="col-5">
+                        <p class="pt-2 fw-bold">JUMLAH (RM)</p>
+                    </div>
+                    <div class="col-7">
+                        <input class="form-control mb-3" type="text" name="jumlah"
+                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
+                    </div>
+                </div>
+                <div class="col-9 d-inline-flex">
+                    <div class="col-5">
+                        <p class="pt-2 fw-bold">NO. RUJUKAN</p>
+                    </div>
+                    <div class="col-7">
+                        <input type="text" class="form-control" name="no_rujukan">
+                    </div>
+                </div>
+                <div class="col-9 d-inline-flex">
+                    <div class="col-5">
+                        <p class="pt-2 fw-bold">CATATAN</p>
+                    </div>
+                    <div class="col-7">
+                        <textarea rows="3" name="catatan" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="col-9 text-end mt-4">
+                    <button class="btn btn-primary btn-sm" type="submit"><span
+                            class="fas fa-plus"></span>Tambah</button>
                 </div>
             </div>
-            <div class="col-9 d-inline-flex">
-                <div class="col-5">
-                    <p class="pt-2 fw-bold">SEMESTER</p>
-                </div>
-                <div class="col-7">
-                    <select class="form-control">
-                        <option hidden selected="">Sila Pilih</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                    </select>
+        </form>
+
+        <div class="row mt-3">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="datatable table " style="width:100%">
+                            <thead >
+                                <tr>
+                                    <th scope="col">Bil.</th>
+                                    <th scope="col">Tahun</th>
+                                    <th scope="col">Semester</th>
+                                    <th scope="col">Perbelanjaan</th>
+                                    <th scope="col">Jumlah <br> (RM)</th>
+                                    <th scope="col">Tindakan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($perbelanjaan_yuran as $py)
+                                    <tr>
+                                        <td>{{$loop->iteration}}</td>
+                                        <td>{{$py->tahun}}</td>
+                                        <td>{{$py->semester}}</td>
+                                        <td>{{$py->perbelanjaan}}</td>
+                                        <td>{{$py->jumlah}}</td>
+                                        <td>
+                                            <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                                                data-bs-target="#delete_{{ $py->id }}">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <div class="modal fade" id="delete_{{ $py->id }}" tabindex="-1"
+                                        role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document"
+                                            style="max-width: 500px">
+                                            <div class="modal-content position-relative">
+                                                <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
+                                                    <button
+                                                        class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
+                                                        data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body p-0">
+                                                    <div class="row">
+                                                        <div class="col text-center m-3">
+                                                            <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
+                                                            <br>
+                                                            Anda pasti untuk menghapuskan rekod ini?
+    
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-secondary" type="button"
+                                                            data-bs-dismiss="modal">Batal</button>
+                                                        <form method="POST" action="/us-uls/pengajian-lanjutan/perbelanjaan-yuran/{{ $py->id }}">
+                                                            @method('DELETE')
+                                                            @csrf
+                                                            <button class="btn btn-primary" type="submit">Hapus
+                                                            </button>
+                                                        </form>
+    
+                                                    </div>
+                                                </div>
+    
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-            <div class="col-9 d-inline-flex">
-                <div class="col-5">
-                    <p class="pt-2 fw-bold">Kelulusan Pembiayaan(RM)</p>
-                </div>
-                <div class="col-7">
-                    <input class="form-control mb-3" type="text"
-                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
-                </div>
-            </div>
-            <div class="col-9 d-inline-flex">
-                <div class="col-5">
-                    <p class="pt-2 fw-bold">PERBELANJAAN</p>
-                </div>
-                <div class="col-7">
-                    <select class="form-control">
-                        <option hidden selected="">Sila Pilih</option>
-                        <option value="CB001">CB001 - Yuran Pengajian</option>
-                        <option value="CB002">CB002 - Elaun Sara Hidup</option>
-                        <option value="CB003">CB003 - Elaun Buku</option>
-                        <option value="CB004">CB004 - Elaun Penempatan</option>
-                        <option value="CB005">CB005 - Yuran Pendaftaran</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-9 d-inline-flex">
-                <div class="col-5">
-                    <p class="pt-2 fw-bold">JUMLAH (RM)</p>
-                </div>
-                <div class="col-7">
-                    <input class="form-control mb-3" type="text"
-                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
-                </div>
-            </div>
-            <div class="col-9 d-inline-flex">
-                <div class="col-5">
-                    <p class="pt-2 fw-bold">NO. RUJUKAN</p>
-                </div>
-                <div class="col-7">
-                    <input type="text" class="form-control">
-                </div>
-            </div>
-            <div class="col-9 d-inline-flex">
-                <div class="col-5">
-                    <p class="pt-2 fw-bold">CATATAN</p>
-                </div>
-                <div class="col-7">
-                    <textarea rows="3" class="form-control"></textarea>
-                </div>
-            </div>
-            <div class="col-9 text-end mt-4">
-                <button class="btn btn-primary btn-sm" onclick="confirmations()"><span
-                        class="fas fa-plus"></span>Tambah</button>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col text-end">
+                <a href="/us-uls/pengajian-lanjutan/maklumat-keputusan-peperiksaan/{{$id_pengajian_lanjutan}}" class="btn btn-primary">Seterusnya</a>
             </div>
         </div>
     </div>
 
-    <div class="card">
-        <div class="card-body">
-            <div class="table-responsive scrollbar">
-                <table class="table datatable">
-                    <thead>
-                        <tr>
-                            <th scope="col">Bil.</th>
-                            <th scope="col">Tahun</th>
-                            <th scope="col">Semester</th>
-                            <th scope="col">Perbelanjaan</th>
-                            <th scope="col">Jumlah <br> (RM)</th>
-                            <th scope="col">Tindakan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td><a class="btn btn-sm btn-primary"><span class="fas fa-trash-alt"></span></a></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td><a class="btn btn-sm btn-primary"><span class="fas fa-trash-alt"></span></a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+    
+    
 
 
     <script>
@@ -189,11 +238,12 @@
                 cancelButtonText: 'Tidak'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Swal.fire(
-                        'Ditambah!',
-                        'MAKLUMAT STAF YANG MENGIKUTI PENGAJIAN LANJUTAN TELAH DISIMPAN',
-                        'success'
-                    )
+                    // Swal.fire(
+                    //     'Ditambah!',
+                    //     'MAKLUMAT STAF YANG MENGIKUTI PENGAJIAN LANJUTAN TELAH DISIMPAN',
+                    //     'success'
+                    // )
+                    $('#form-yuran').submit();
                 }
             });
         }

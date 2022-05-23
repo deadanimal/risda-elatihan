@@ -1016,13 +1016,13 @@
                         </ul>
                     @endcan
 
-                    {{-- @can('audit trail') --}}
+                    @can('audit trail')
                     <a class="nav-link {{ Request::is('audit_trail') ? 'active' : '' }} py-0" href="/audit_trail" role="button"">
                         <div class="d-flex align-items-center nav-link-side px-0">
                             <span class="px-3"><span class="far fa-chart-bar"></span> AUDIT TRAIL</span>
                         </div>
                     </a>
-                    {{-- @endcan --}}
+                    @endcan
 
                     @can('UlpkUrusSetia')
                         <a class="nav-link py-0 dropdown-indicator" href="#kehadiran" role="button"
