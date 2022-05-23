@@ -75,7 +75,6 @@
                         <tbody>
                             @foreach ($kehadiran as $k)
 
-
                                 <tr>
                                     <td>
                                         {{ $loop->iteration }}
@@ -85,25 +84,62 @@
 
                                     <td>{{date('d-m-Y', strtotime($k->tarikh ))}}</td>
 
+
                                     <td>
-                                         {{$k->no_pekerja}}
+                                         {{$k->name}}
+                                         {{-- {{$s->name}} --}}
+
 
                                     </td>
 
 
+
                                         @if($k->penilaiankeberkesanan===null)
-                                        <td><a class="btn btn-primary btn-sm mb-2"
+
+                                        <td>
+                                            <a class="btn btn-primary btn-sm mb-2"
+                                                href="/penilaian/penilaian-keberkesanan-kursus/{{$k->id}}">
+                                                 Mula Penilaian
+                                            </a>
+                                            <a class="btn btn-primary btn-sm" href="#">
+                                                Papar Penilaian
+                                            </a>
+                                        </td>
+
+                                        @else
+                                        <td>
+                                            <a class="btn btn-primary btn-sm mb-2"
+                                                href="#">
+                                                 Mula Penilaian
+                                            </a>
+                                            <a class="btn btn-primary btn-sm" href="/penilaian/keberkesanan-kursus/{{$k->penilaiankeberkesanan->id}}">
+                                                Papar Penilaian
+                                            </a>
+                                        </td>
+
+
+
+                                        {{-- <td><a class="btn btn-primary btn-sm mb-2"
                                         href="/penilaian/penilaian-keberkesanan-kursus/{{$k->id}}">
                                              Mula Penilaian
                                         </a></td>
                                         @else
                                         <td><a class="btn btn-primary btn-sm" href="/penilaian/keberkesanan-kursus/{{$k->penilaiankeberkesanan->id}}">
                                              Papar Penilaian
-                                        </a></td>
+                                        </a>
+                                        <a class="btn btn-primary btn-sm mb-2"
+                                        href="#">
+                                             Mula Penilaian
+                                        </a>
+                                    </td> --}}
+
+
                                         @endif
 
                                 </tr>
+                            {{-- @endforeach --}}
                             @endforeach
+
 
                         </tbody>
                     </table>
