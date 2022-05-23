@@ -101,9 +101,6 @@
                                                 href="/penilaian/penilaian-keberkesanan-kursus/{{$k->id}}">
                                                  Mula Penilaian
                                             </a>
-                                            <a class="btn btn-primary btn-sm" href="#">
-                                                Papar Penilaian
-                                            </a>
                                         </td>
 
                                         @else

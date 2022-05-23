@@ -19,6 +19,13 @@ class PenceramahKonsultan extends Model
         return $this->belongsTo(JadualKursus::class, 'pc_jadual_kursus', 'id');
     }
 
+    public function penilaianejen()
+    {
+        return $this->hasOne(PenilaianEjenPelaksana::class);
+    }
+
+
+
 
 
 
