@@ -262,7 +262,6 @@
                         <option @if ($pelajar->status_praktikal == '2') selected @endif value="2">Telah Tamat Praktikal</option>
                         <option @if ($pelajar->status_praktikal == '3') selected @endif value="3">Berhenti Separuh Jalan</option>
 
-
                     </select>
             </div>
             </div>
@@ -342,7 +341,7 @@
                             oninput="setCustomValidity('')" value="{{$pelajar->kelayakan_elaun}}" />
                         <label class="form-check-label">Ya</label> --}}
 
-                        @if ($pelajar->status == 'on')
+                        @if ($pelajar->kelayakan_elaun == 'on')
                             <div class="form-check form-switch">
                                 <input class="form-check-input" checked="" type="checkbox" name="kelayakan_elaun" />
                                 <label class="form-check-label">Ya</label>
