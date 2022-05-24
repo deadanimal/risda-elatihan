@@ -43,7 +43,7 @@ class Kehadiran extends Model
 
     public function kursus()
     {
-        return $this->belongsTo(JadualKursus::class);
+        return $this->belongsTo(JadualKursus::class,'jadual_kursus_id','id');
     }
 
 

@@ -66,7 +66,8 @@
                         <thead>
                             <tr>
                                 <th class="fw-bold text-dark" scope="col">BIL.</th>
-                                <th class="fw-bold text-dark" scope="col">KOD NAMA KURSUS</th>
+                                <th class="fw-bold text-dark" scope="col">KOD KURSUS</th>
+                                <th class="fw-bold text-dark" scope="col">NAMA KURSUS</th>
                                 <th class="fw-bold text-dark" scope="col">TARIKH KURSUS</th>
                                 <th class="fw-bold text-dark" scope="col">NAMA PESERTA</th>
                                 <th class="fw-bold text-dark" scope="col">TINDAKAN</th>
@@ -75,23 +76,24 @@
                         <tbody>
                             @foreach ($kehadiran as $k)
 
+
                                 <tr>
                                     <td>
                                         {{ $loop->iteration }}
                                     </td>
 
-                                    <td> {{$k->jadual_kursus}}</td>
+                                    <td> {{$k->kod_kursus}}</td>
 
-                                    <td>{{date('d-m-Y', strtotime($k->tarikh ))}}</td>
+                                    <td> {{$k->kursus->kursus_nama}}</td>
+
+                                    <td>{{date('d-m-Y', strtotime($k->kursus->tarikh_mula))}} <br> - <br> {{date('d-m-Y', strtotime($k->kursus->tarikh_tamat))}}</td>
 
 
                                     <td>
-                                         {{$k->name}}
-                                         {{-- {{$s->name}} --}}
+                                         {{$k->staff->name}}
 
 
                                     </td>
-
 
 
                                         @if($k->penilaiankeberkesanan===null)
@@ -99,42 +101,22 @@
                                         <td>
                                             <a class="btn btn-primary btn-sm mb-2"
                                                 href="/penilaian/penilaian-keberkesanan-kursus/{{$k->id}}">
-                                                 Mula Penilaian
+                                                Mula Penilaian
                                             </a>
                                         </td>
 
                                         @else
                                         <td>
-                                            <a class="btn btn-primary btn-sm mb-2"
-                                                href="#">
-                                                 Mula Penilaian
-                                            </a>
                                             <a class="btn btn-primary btn-sm" href="/penilaian/keberkesanan-kursus/{{$k->penilaiankeberkesanan->id}}">
                                                 Papar Penilaian
                                             </a>
                                         </td>
 
 
-
-                                        {{-- <td><a class="btn btn-primary btn-sm mb-2"
-                                        href="/penilaian/penilaian-keberkesanan-kursus/{{$k->id}}">
-                                             Mula Penilaian
-                                        </a></td>
-                                        @else
-                                        <td><a class="btn btn-primary btn-sm" href="/penilaian/keberkesanan-kursus/{{$k->penilaiankeberkesanan->id}}">
-                                             Papar Penilaian
-                                        </a>
-                                        <a class="btn btn-primary btn-sm mb-2"
-                                        href="#">
-                                             Mula Penilaian
-                                        </a>
-                                    </td> --}}
-
-
                                         @endif
 
                                 </tr>
-                            {{-- @endforeach --}}
+
                             @endforeach
 
 

@@ -20,7 +20,7 @@ class PenilaianKeberkesananController extends Controller
     public function index()
     {
         $kehadiran=Kehadiran::where('status_kehadiran_ke_kursus','HADIR')->
-        with(['penilaiankeberkesanan','aturcara','staff'])->get();
+        with(['penilaiankeberkesanan','kursus','staff'])->get();
 
         // $kursus=JadualKursus::with('aturcara')->get();
         // $kursus=JadualKursus::where('id',$kehadiran->jadual_kursus_id)->first();
