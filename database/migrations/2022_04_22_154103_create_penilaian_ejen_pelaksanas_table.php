@@ -4,6 +4,7 @@ use App\Models\Agensi;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use App\Models\JadualKursus;
+use App\Models\PenceramahKonsultan;
 use Illuminate\Support\Facades\Schema;
 
 class CreatePenilaianEjenPelaksanasTable extends Migration

@@ -30,23 +30,12 @@ class PenilaianEjenPelaksanaController extends Controller
 
     // //    dd($kursus);
 
-        $ejen=PenceramahKonsultan::with(['agensi', 'jadual_kursus'])->get();
-        // $penilaian=Agensi::with(['penilaian'])->first();
-        // $penilaian = PenilaianEjenPelaksana::where('agensi_id',)
-        // $penilaian = Agensi::with('penilaian')->get();
-        // $agensi = Agensi::where('id',$ejen->agensi->id)->first();
-        // $kursus = JadualKursus::where('id',$ejen->jadual_kursus->id)->first();
+        $ejen=PenceramahKonsultan::with(['penilaianejen','agensi', 'jadual_kursus'])->get();
+            // $penilaian_ejen=PenilaianEjenPelaksana::where('jadual_kursus_id',$ejen->pc_jadual_kursus)->first();
 
-
-
-
-        // dd($penilaian_ejen);
-        // foreach ($ejen as $e) {
-        //     $kursus=JadualKursus::where('kursus_status_pelaksanaan','1')->with('penceramah')->first();
-        // }
 
         return view('penilaian.ejen-pelaksana.index',[
-            'ejen'=>$ejen,
+            'ejen'=>$ejen
             // 'penilaian'=>$penilaian
 
         ]);
@@ -60,8 +49,9 @@ class PenilaianEjenPelaksanaController extends Controller
      */
     public function create($id)
     {
-        $kursus = JadualKursus::find($id);
-        $agensi = PenceramahKonsultan::where('pc_jadual_kursus',$kursus->id)->first();
+        $penilaian=PenceramahKonsultan::find($id);
+        // $kursus = JadualKursus::find($id);
+        // $agensi = PenceramahKonsultan::where('pc_jadual_kursus',$kursus->id)->first();
         // $agensi = PenceramahKonsultan::where('pc_jadual_kursus',$kursus->id)->first();
         //     foreach ($agensi as $a) {
         //         $ejen = Agensi::where('id',$a->pc_id)->first();
@@ -69,8 +59,9 @@ class PenilaianEjenPelaksanaController extends Controller
 
         // dd($ejen);
         return view('penilaian.ejen-pelaksana.soalan-ejen',[
-            'kursus'=>$kursus,
-            'agensi'=>$agensi
+            // 'kursus'=>$kursus,
+            'penilaian'=>$penilaian,
+            // 'agensi'=>$agensi
         ]);
     }
 
@@ -79,8 +70,7 @@ class PenilaianEjenPelaksanaController extends Controller
     {
         $penilaian_ejen = New PenilaianEjenPelaksana;
 
-        $penilaian_ejen->jadual_kursus_id=$request->jadual_kursus_id;
-        $penilaian_ejen->agensi_id=$request->agensi_id;
+        $penilaian_ejen->penceramah_konsultan_id=$request->penceramah_konsultan_id;
         $penilaian_ejen->urusetia_sesuai=$request->urusetia_sesuai;
         $penilaian_ejen->pematuhan_masa=$request->pematuhan_masa;
         $penilaian_ejen->mudah_dihubungi=$request->mudah_dihubungi;

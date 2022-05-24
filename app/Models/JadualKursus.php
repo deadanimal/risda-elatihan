@@ -13,7 +13,7 @@ class JadualKursus extends Model
 
     public function kehadiran()
     {
-        return $this->hasMany(Kehadiran::class,'jadual_kursus_id','id');
+        return $this->hasMany(Kehadiran::class,'jadual_kursus_id');
     }
     public function aturcara()
     {

@@ -58,7 +58,7 @@
                 </p>
             </div>
         </div>
-       
+
         <div class="card mt-5">
             <div class="card-body">
                 <div class="table-responsive scrollbar ">
@@ -75,46 +75,46 @@
                         </thead>
                         <tbody>
 
-                            @foreach ($ejen as $e)
+                            @foreach ($ejen as $ejen)
                                 <tr>
                                     <td>
                                         {{ $loop->iteration }}
                                     </td>
 
                                     <td>
-                                        {{$e->jadual_kursus->kursus_nama}}
+                                        {{$ejen->jadual_kursus->kursus_nama}}
                                     </td>
 
 
                                     <td>
-                                        {{date('d-m-Y', strtotime($e->jadual_kursus->tarikh_mula ))}}
+                                        {{date('d-m-Y', strtotime($ejen->jadual_kursus->tarikh_mula ))}}
                                     </td>
 
                                     <td>
-                                        {{date('d-m-Y', strtotime($e->jadual_kursus->tarikh_tamat))}}
+                                        {{date('d-m-Y', strtotime($ejen->jadual_kursus->tarikh_tamat))}}
                                     </td>
 
                                     <td>
-                                        {{ $e->agensi->nama_Agensi }}
+                                        {{ $ejen->agensi->nama_Agensi }}
                                     </td>
 
 
 
-                                    <td>
-
-
-                                        @if($e->penilaian==null)
-
+                                        @if($ejen->penilaianejen===null)
+                                     <td>
                                         <a class="btn btn-primary btn-sm mb-2"
-                                        href="/penilaian/penilaian-ejen-pelaksana/{{$e->jadual_kursus->id}}">
+                                        href="/penilaian/penilaian-ejen-pelaksana/{{$ejen->id}}">
                                              Mula Penilaian
                                         </a>
+                                     </td>
 
                                         @else
-                                        <a class="btn btn-primary btn-sm" href="/penilaian/ejen-pelaksana/{{$e->penilaian->id}}">
-                                             Papar Penilaian
-                                        </a>
-                                        @endif
+                                        <td>
+                                            <a class="btn btn-primary btn-sm" href="/penilaian/ejen-pelaksana/{{$ejen->penilaianejen->id}}">
+                                                Papar Penilaian
+                                            </a>
+                                        </td>
+                                            @endif
 
                                     </td>
                                 </tr>
