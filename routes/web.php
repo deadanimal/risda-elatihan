@@ -36,6 +36,7 @@ use App\Http\Controllers\PengajianLanjutanController;
 use App\Http\Controllers\PengurusanPenggunaController;
 use App\Http\Controllers\PenilaianPesertaController;
 use App\Http\Controllers\KursusPenilaianController;
+use App\Http\Controllers\MaklumatKeputusanPeperiksaanController;
 use App\Http\Controllers\MatlamatTahunanPanggilanPesertaController;
 use App\Http\Controllers\MatlamatTahunanPerbelanjaanController;
 use App\Http\Controllers\PerananController;
@@ -304,6 +305,10 @@ Route::middleware('auth')->group(function () {
             Route::get('/pengajian-lanjutan/perbelanjaan-yuran/{id_pengajian_lanjutan}', [PerbelanjaanYuranController::class, 'show']);
             Route::delete('/pengajian-lanjutan/perbelanjaan-yuran/{perbelanjaanYuran}', [PerbelanjaanYuranController::class, 'destroy']);
 
+            // Route::resource('/pengajian-lanjutan/maklumat-keputusan-peperiksaan', MaklumatKeputusanPeperiksaanController::class);
+            Route::post('/tambah-keputusan', [MaklumatKeputusanPeperiksaanController::class, 'store']);
+            Route::get('/pengajian-lanjutan/maklumat-keputusan-peperiksaan/{id_pengajian_lanjutan}', [MaklumatKeputusanPeperiksaanController::class, 'show']);
+            Route::delete('/pengajian-lanjutan/maklumat-keputusan-peperiksaan/{maklumatKeputusanPeperiksaan}', [MaklumatKeputusanPeperiksaanController::class, 'destroy']);
         });
     });
 

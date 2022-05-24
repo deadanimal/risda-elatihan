@@ -57,8 +57,8 @@
                         <label class="col-form-label">NO. KAD PENGENALAN:</label>
                     </div>
                     <div class="col-lg-8 mb-3">
-                        <input type="text" class="form-control" name="nric" placeholder="000000000000"
-                            maxlength="12" size="12"
+                        <input type="text" class="form-control" name="nric" placeholder="000000000000" maxlength="12"
+                            size="12"
                             oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                     </div>
 
@@ -73,7 +73,8 @@
                         <label class="col-form-label">TAHUN:</label>
                     </div>
                     <div class="col-lg-8 mb-3">
-                        <input class="form-control tahun " type="text" name="tahun" id="tahun" autocomplete="off" placeholder="YYYY"/>
+                        <input class="form-control tahun " type="text" name="tahun" id="tahun" autocomplete="off"
+                            placeholder="YYYY" />
                     </div>
 
                     <div class="col-lg-4 p-lg-0 mb-3">
@@ -98,7 +99,7 @@
                         </select>
                     </div>
 
-                    
+
                 </div>
             </div>
         </div>
@@ -137,8 +138,60 @@
                             <tbody class="bg-white">
                                 @foreach ($pengajian_lanjutan as $pl)
                                     <tr>
-                                        <td>{{$loop->iteration}}</td>
-                                        {{-- <td>{{}}</td> --}}
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $pl->pengguna->no_KP }}</td>
+                                        <td>{{ $pl->pengguna->name }}</td>
+                                        <td>{{ $pl->data_staf->Jawatan }}</td>
+                                        <td>{{ $pl->data_staf->Gred }}</td>
+                                        <td>TANYA SA</td>
+                                        <td>{{ $pl->bidang_pengajian }}</td>
+                                        <td>{{ date('d-m-Y', strtotime($pl->tarikh_mula_pengajian)) }}</td>
+                                        <td>{{ date('d-m-Y', strtotime($pl->tarikh_tamat_pengajian)) }}</td>
+                                        <td>
+                                            @if ($pl->kategori_pengajian_lanjutan == 1)
+                                                Cuti Belajar - Kursus Jangka Sederhana
+                                            @elseif($pl->kategori_pengajian_lanjutan == 2)
+                                                Cuti Belajar - Diploma
+                                            @elseif($pl->kategori_pengajian_lanjutan == 3)
+                                                Cuti Belajar - Ijazah
+                                            @elseif($pl->kategori_pengajian_lanjutan == 4)
+                                                Cuti Belajar - Sarjana
+                                            @elseif($pl->kategori_pengajian_lanjutan == 5)
+                                                Cuti Belajar - Phd
+                                            @elseif($pl->kategori_pengajian_lanjutan == 6)
+                                                Sambilan - Diploma
+                                            @elseif($pl->kategori_pengajian_lanjutan == 7)
+                                                Sambilan - Ijazah
+                                            @elseif($pl->kategori_pengajian_lanjutan == 8)
+                                                Sambilan - Sarjana
+                                            @elseif($pl->kategori_pengajian_lanjutan == 9)
+                                                Sambilan - Program Keahlian Badan professional
+                                            @endif
+                                        </td>
+                                        <td>TANYA SA</td>
+                                        <td>{{ $pl->anjuran }}</td>
+                                        <td>TANYA SA</td>
+                                        <td>
+                                            @foreach ($pl->perbelanjaan as $s)
+                                                RM {{ $s->jumlah }} (Tahun: {{ $s->tahun }}, Semester:
+                                                {{ $s->semester }}) <br>
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            @if ($pl->status_pengajian_lanjutan == 1)
+                                                Masih di dalam pengajian
+                                            @elseif($pl->status_pengajian_lanjutan == 2)
+                                                Tamat pengajian dengan jaya
+                                            @elseif($pl->status_pengajian_lanjutan == 3)
+                                                Tidak berjaya tamatkan pengajian
+                                            @elseif($pl->status_pengajian_lanjutan == 4)
+                                                Berhenti/Tarik Diri
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="/us-uls/pengajian-lanjutan/{{ $pl->id }}"
+                                                class="btn btn-primary"><i class="fas fa-pen"></i></a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

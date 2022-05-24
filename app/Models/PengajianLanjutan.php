@@ -12,11 +12,21 @@ class PengajianLanjutan extends Model
 
     public function pengguna()
     {
-        return $this->hasOne(User::class, 'staf', 'id');
+        return $this->hasOne(User::class, 'id', 'staf');
     }
 
-    public function pusat_tanggungjawab()
+    public function data_pusat_tanggungjawab()
     {
-        return $this->hasOne(PusatTanggungjawab::class, 'pusat_tanggungjawab', 'id');
+        return $this->hasOne(PusatTanggungjawab::class, 'id', 'pusat_tanggungjawab');
+    }
+
+    public function data_staf()
+    {
+        return $this->hasOne(Staf::class, 'id_Pengguna', 'staf');
+    }
+
+    public function perbelanjaan()
+    {
+        return $this->hasMany(PerbelanjaanYuran::class, 'id_pengajian_lanjutan', 'id');
     }
 }
