@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateKodKursusRequest;
 use App\Models\KodKursus;
 use App\Models\KategoriKursus;
 use App\Models\BidangKursus;
+use Illuminate\Support\Facades\Auth;
 
 class KodKursusController extends Controller
 {
@@ -21,14 +22,21 @@ class KodKursusController extends Controller
      */
     public function index()
     {
-        $bidangKursus = BidangKursus::all();
+        $check = Auth::user()->jenis_pengguna;
+        if ($check == 'Urus Setia ULS') {
+            $kodKursus = KodKursus::with('jadual', 'kategori', 'bidang')->where('UL_Kod_Kursus', 'Staf')->get();
+            $bidangKursus = BidangKursus::where('UL_Bidang_Kursus', 'Staf')->get();
+        } 
+        elseif ($check == 'Urus Setia ULPK') {
+            $kodKursus = KodKursus::with('jadual', 'kategori', 'bidang')->where('UL_Kod_Kursus', 'Pekebun Kecil')->get();
+            $bidangKursus = BidangKursus::where('UL_Bidang_Kursus', 'Pekebun Kecil')->get();
+        }
+        else {
+            $kodKursus = KodKursus::with('jadual', 'kategori', 'bidang')->get();
+            $bidangKursus = BidangKursus::all();
+        }
+        
         $kategoriKursus = KategoriKursus::all();
-        // $kodKursus = BidangKursus::join('kategori_kursuses', 'bidang_kursuses.id', 'kategori_kursuses.U_Bidang_Kursus')
-        //     ->join('kod_kursuses', 'kategori_kursuses.id', 'kod_kursuses.U_Kategori_Kursus')
-        //     ->select('*')->get();
-        $kodKursus = KodKursus::with('jadual', 'kategori', 'bidang')->get();
-        // dd($kodKursus);
-
         $bil_staf = KodKursus::where('UL_Kod_Kursus', 'Staf')->get();
         $bil_pk = KodKursus::where('UL_Kod_Kursus', 'Pekebun Kecil')->get();
 

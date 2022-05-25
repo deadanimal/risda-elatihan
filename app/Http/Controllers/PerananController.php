@@ -81,6 +81,7 @@ class PerananController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request);
         $nama_role = Role::where('id', $id)->first();
         $nama_role = $nama_role->name;
         $role = Role::findByName($nama_role);
