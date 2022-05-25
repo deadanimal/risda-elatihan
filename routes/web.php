@@ -55,8 +55,8 @@ use App\Http\Controllers\SumberController;
 use App\Http\Controllers\UtilitiController;
 use App\Http\Controllers\PenilaianKeberkesananController;
 use App\Http\Controllers\PenilaianEjenPelaksanaController;
-use App\Http\Controllers\PerbelanjaanYuranController;]
-use App\Http\Controllers\PelajarPraktikalController;\
+use App\Http\Controllers\PerbelanjaanYuranController;
+use App\Http\Controllers\PelajarPraktikalController;
 use App\Models\JadualKursus;
 use App\Models\Agensi;
 use Illuminate\Support\Facades\Route;
