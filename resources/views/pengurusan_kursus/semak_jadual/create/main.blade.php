@@ -23,28 +23,14 @@
                     <div class="row mb-2">
                         <div class="col-lg-7">
                             <label class="col-form-label p-0">UNIT LATIHAN</label>
-                            @role('Urus Setia ULS')
-                                <select class="form-select form-control" name="kursus_unit_latihan" id="unitlatihan" required
-                                    oninvalid="this.setCustomValidity('Sila pilih unit latihan.')"
-                                    oninput="setCustomValidity('')">
-                                    <option value="Staf" selected>Staf</option>
-                                </select>
-                            @elserole('Urus Setia ULPK')
-                                <select class="form-select form-control" name="kursus_unit_latihan" id="unitlatihan" required
-                                    oninvalid="this.setCustomValidity('Sila pilih unit latihan.')"
-                                    oninput="setCustomValidity('')">
-                                    <option value="Pekebun Kecil" selected>Pekebun Kecil</option>
-                                </select>
-                            @else
-                                <select class="form-select form-control" name="kursus_unit_latihan" id="unitlatihan" required
-                                    oninvalid="this.setCustomValidity('Sila pilih unit latihan.')"
-                                    oninput="setCustomValidity('')">
+                            <select class="form-select form-control" name="kursus_unit_latihan" id="unitlatihan" required
+                                oninvalid="this.setCustomValidity('Sila pilih unit latihan.')"
+                                oninput="setCustomValidity('')">
 
-                                    <option value="" selected hidden>Sila Pilih</option>
-                                    <option value="Staf">Staf</option>
-                                    <option value="Pekebun Kecil">Pekebun Kecil</option>
-                                </select>
-                            @endrole
+                                <option value="" selected hidden>Sila Pilih</option>
+                                <option value="Staf">Staf</option>
+                                <option value="Pekebun Kecil">Pekebun Kecil</option>
+                            </select>
                         </div>
                         <div class="col-lg-3">
                             <label class="col-form-label">STATUS</label>
@@ -204,30 +190,6 @@
                                 <input class="form-control" type="text" name="kursus_hrmis" />
                             </div>
                         </div>
-                        @role('Urus Setia ULS')
-                        <div class="col-lg-6">
-                            <div class="mb-3">
-                                
-                            </div>
-                        </div>
-                        @elserole('Urus Setia ULPK')
-                        <div class="col-lg-6">
-                            <div class="mb-3">
-                                <label class="col-form-label">JULAT UMUR</label>
-                                <div class="row m-0 p-0">
-                                    <div class="col-lg-4 p-0 m-0">
-                                        <input class="form-control" type="text" name="kursus_julat_umur1" />
-                                    </div>
-                                    <div class="col-lg-4 p-0 m-0 text-center">
-                                        <span class="risda-g">HINGGA</span>
-                                    </div>
-                                    <div class="col-lg-4 p-0 m-0">
-                                        <input class="form-control" type="text" name="kursus_julat_umur2" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @else
                         <div class="col-lg-6">
                             <div class="mb-3" id="julat_umur">
                                 <label class="col-form-label">JULAT UMUR</label>
@@ -244,50 +206,9 @@
                                 </div>
                             </div>
                         </div>
-                        @endrole
                     </div>
-                    @role('Urus Setia ULS')
-                    <div class="col-lg-6">
-                        <div class="mb-3">
-                            
-                        </div>
-                    </div>
-                    @elserole('Urus Setia ULPK')
-                    <div class="col-lg-6">
-                        <div class="mb-3">
-                            <label class="col-form-label">JULAT UMUR</label>
-                            <div class="row m-0 p-0">
-                                <div class="col-lg-4 p-0 m-0">
-                                    <input class="form-control" type="text" name="kursus_julat_umur1" />
-                                </div>
-                                <div class="col-lg-4 p-0 m-0 text-center">
-                                    <span class="risda-g">HINGGA</span>
-                                </div>
-                                <div class="col-lg-4 p-0 m-0">
-                                    <input class="form-control" type="text" name="kursus_julat_umur2" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @else
-                    <div class="col-lg-6">
-                        <div class="mb-3" id="julat_umur">
-                            <label class="col-form-label">JULAT UMUR</label>
-                            <div class="row m-0 p-0">
-                                <div class="col-lg-4 p-0 m-0">
-                                    <input class="form-control" type="text" name="kursus_julat_umur1" />
-                                </div>
-                                <div class="col-lg-4 p-0 m-0 text-center">
-                                    <span class="risda-g">HINGGA</span>
-                                </div>
-                                <div class="col-lg-4 p-0 m-0">
-                                    <input class="form-control" type="text" name="kursus_julat_umur2" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @endrole
-                    <div class="row mb-3">
+                    
+                    <div class="row mb-3" id="kump_sasaran">
                         <div class="col">
                             <label class="col-form-label">KUMPULAN SASARAN</label>
                             <select class="form-select form-control" name="kursus_kumpulan_sasaran">
@@ -296,6 +217,7 @@
                             </select>
                         </div>
                     </div>
+                    
                     <div class="row mb-3">
                         <div class="col">
                             <label class="col-form-label">PENGENDALI LATIHAN</label>
@@ -426,6 +348,15 @@
         });
 
         $('#unitlatihan').change(function() {
+            var unit = $('#unitlatihan').val();
+            console.log(unit);
+            if (unit == 'Staf') {
+                $('#julat_umur').hide();
+                $('#kump_sasaran').show();
+            } else if(unit == 'Pekebun Kecil') {
+                $('#julat_umur').show();
+                $('#kump_sasaran').hide();
+            }
 
             $('#form_add select[name=kursus_bidang]').html("");
             var bid = @json($bidang->toArray());

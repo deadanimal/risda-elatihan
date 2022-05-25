@@ -55,7 +55,7 @@ class JadualKursusController extends Controller
                 'jadual' => $jadualKursus,
                 'tempat' => $tempat
             ]);
-        } else if($check_auth == 'Urus Setia ULPK'){
+        } else if ($check_auth == 'Urus Setia ULPK') {
             $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', 'Pekebun Kecil')->get();
             foreach ($jadualKursus as $key => $jk) {
                 $sum = 0;
@@ -99,39 +99,106 @@ class JadualKursusController extends Controller
      */
     public function create()
     {
-        $jadualKursus = JadualKursus::all();
-        $hari_ini = date("Y-m-d");
-        $tahun_ini = date("Y");
-        $bidang = BidangKursus::all();
-        $kategori = KategoriKursus::all();
-        $tajuk = KodKursus::all();
-        $status_pelaksanaan = StatusPelaksanaan::all();
-        $kod_tempat = KategoriAgensi::where('Kategori_Agensi', 'Tempat Kursus')->first();
-        if ($kod_tempat != null) {
-            $tempat = Agensi::where('kategori_agensi', $kod_tempat->id)->get();
+        $check = Auth::user()->jenis_pengguna;
+        if ($check == 'Urus Setia ULS') {
+            $kumpulan_sasaran = Staf::orderBy('Gred', 'ASC')->get()->groupBy('Gred');
+            $hari_ini = date("Y-m-d");
+            $tahun_ini = date("Y");
+            $bidang = BidangKursus::where('UL_Bidang_Kursus', 'Staf')->get();
+            $kategori = KategoriKursus::where('UL_kategori_kursus', 'Staf')->get();
+            $tajuk = KodKursus::where('UL_kod_kursus', 'Staf')->get();
+            $kod_tempat = KategoriAgensi::where('Kategori_Agensi', 'Tempat Kursus')->first();
+            if ($kod_tempat != null) {
+                $tempat = Agensi::where('kategori_agensi', $kod_tempat->id)->get();
+            } else {
+                $tempat = null;
+            }
+            $pengendali = Agensi::with('kategori')->get();
+            $list_jadual = JadualKursus::all();
+            $negeri = Negeri::all();
+            $daerah = Daerah::all();
+            $staf_bertanggungjawab = Staf::with('pengguna')->where('NamaPT', 'Bahagian Latihan')->get();
+            return view('pengurusan_kursus.semak_jadual.create.uls', [
+                'bidang' => $bidang,
+                'kategori' => $kategori,
+                'kod_kursus' => $tajuk,
+                'hari_ini' => $hari_ini,
+                'pengendali' => $pengendali,
+                'tempat' => $tempat,
+                'tahun_ini' => $tahun_ini,
+                'list_jadual' => $list_jadual,
+                'negeri' => $negeri,
+                'daerah' => $daerah,
+                'staf_bertanggungjawab' => $staf_bertanggungjawab,
+                'kumpulan_sasaran' => $kumpulan_sasaran
+            ]);
+        } elseif ($check == 'Urus Setia ULPK') {
+            $hari_ini = date("Y-m-d");
+            $tahun_ini = date("Y");
+            $bidang = BidangKursus::where('UL_Bidang_Kursus', 'Pekebun Kecil')->get();
+            $kategori = KategoriKursus::where('UL_kategori_kursus', 'Pekebun Kecil')->get();
+            $tajuk = KodKursus::where('UL_kod_kursus', 'Pekebun Kecil')->get();
+            $kod_tempat = KategoriAgensi::where('Kategori_Agensi', 'Tempat Kursus')->first();
+            if ($kod_tempat != null) {
+                $tempat = Agensi::where('kategori_agensi', $kod_tempat->id)->get();
+            } else {
+                $tempat = null;
+            }
+            $pengendali = Agensi::with('kategori')->get();
+            $list_jadual = JadualKursus::all();
+            $negeri = Negeri::all();
+            $daerah = Daerah::all();
+            $staf_bertanggungjawab = Staf::with('pengguna')->where('NamaPT', 'Bahagian Latihan')->get();
+            return view('pengurusan_kursus.semak_jadual.create.ulpk', [
+                'bidang' => $bidang,
+                'kategori' => $kategori,
+                'kod_kursus' => $tajuk,
+                'hari_ini' => $hari_ini,
+                'pengendali' => $pengendali,
+                'tempat' => $tempat,
+                'tahun_ini' => $tahun_ini,
+                'list_jadual' => $list_jadual,
+                'negeri' => $negeri,
+                'daerah' => $daerah,
+                'staf_bertanggungjawab' => $staf_bertanggungjawab
+            ]);
         } else {
-            $tempat = null;
+            $kumpulan_sasaran = Staf::orderBy('Gred', 'ASC')->get()->groupBy('Gred');
+            $jadualKursus = JadualKursus::all();
+            $hari_ini = date("Y-m-d");
+            $tahun_ini = date("Y");
+            $bidang = BidangKursus::all();
+            $kategori = KategoriKursus::all();
+            $tajuk = KodKursus::all();
+            $status_pelaksanaan = StatusPelaksanaan::all();
+            $kod_tempat = KategoriAgensi::where('Kategori_Agensi', 'Tempat Kursus')->first();
+            if ($kod_tempat != null) {
+                $tempat = Agensi::where('kategori_agensi', $kod_tempat->id)->get();
+            } else {
+                $tempat = null;
+            }
+            $pengendali = Agensi::with('kategori')->get();
+            $list_jadual = JadualKursus::all();
+            $negeri = Negeri::all();
+            $daerah = Daerah::all();
+            $staf_bertanggungjawab = Staf::with('pengguna')->where('NamaPT', 'Bahagian Latihan')->get();
+            return view('pengurusan_kursus.semak_jadual.create.main', [
+                'bidang' => $bidang,
+                'kategori' => $kategori,
+                'kod_kursus' => $tajuk,
+                'status_pelaksanaan' => $status_pelaksanaan,
+                'hari_ini' => $hari_ini,
+                'pengendali' => $pengendali,
+                'tempat' => $tempat,
+                'tahun_ini' => $tahun_ini,
+                'jadual' => $jadualKursus,
+                'list_jadual' => $list_jadual,
+                'negeri' => $negeri,
+                'daerah' => $daerah,
+                'staf_bertanggungjawab' => $staf_bertanggungjawab,
+                'kumpulan_sasaran' => $kumpulan_sasaran
+            ]);
         }
-        $pengendali = Agensi::with('kategori')->get();
-        $list_jadual = JadualKursus::all();
-        $negeri = Negeri::all();
-        $daerah = Daerah::all();
-        $staf_bertanggungjawab = Staf::with('pengguna')->where('NamaPT', 'Bahagian Latihan')->get();
-        return view('pengurusan_kursus.semak_jadual.create', [
-            'bidang' => $bidang,
-            'kategori' => $kategori,
-            'kod_kursus' => $tajuk,
-            'status_pelaksanaan' => $status_pelaksanaan,
-            'hari_ini' => $hari_ini,
-            'pengendali' => $pengendali,
-            'tempat' => $tempat,
-            'tahun_ini' => $tahun_ini,
-            'jadual' => $jadualKursus,
-            'list_jadual' => $list_jadual,
-            'negeri' => $negeri,
-            'daerah' => $daerah,
-            'staf_bertanggungjawab'=>$staf_bertanggungjawab
-        ]);
     }
 
     /**
@@ -151,7 +218,7 @@ class JadualKursusController extends Controller
         $jadualKursus->kursus_status = $status;
         $jadualKursus->save();
 
-        AuditTrailController::audit('jadual', 'kursus','cipta');
+        AuditTrailController::audit('jadual', 'kursus', 'cipta');
         alert()->success('Maklumat telah disimipan', 'Berjaya Disimpan');
         return redirect('/pengurusan_kursus/peruntukan_peserta/' . $jadualKursus->id);
     }
@@ -211,7 +278,7 @@ class JadualKursusController extends Controller
         $input = $request->all();
         $jadualKursus->kursus_status = $status;
         $jadualKursus->fill($input)->save();
-        AuditTrailController::audit('jadual','kursus','kemaskini');
+        AuditTrailController::audit('jadual', 'kursus', 'kemaskini');
         alert()->success('Maklumat telah disimipan', 'Berjaya Disimpan');
         return redirect('/pengurusan_kursus/peruntukan_peserta/' . $jadualKursus->id);
     }
@@ -253,7 +320,7 @@ class JadualKursusController extends Controller
 
         $jadualKursus = JadualKursus::find($id);
         $jadualKursus->delete();
-        AuditTrailController::audit('jadual','kursus','hapus');
+        AuditTrailController::audit('jadual', 'kursus', 'hapus');
         alert()->success('Maklumat telah dihapus', 'Hapus');
         return redirect('/pengurusan_kursus/semak_jadual');
     }
