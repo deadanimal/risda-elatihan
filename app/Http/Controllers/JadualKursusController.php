@@ -36,6 +36,8 @@ class JadualKursusController extends Controller
     public function index()
     {
         $check_auth = Auth::user()->jenis_pengguna;
+        $tempat_kursus = KategoriAgensi::where('Kategori_Agensi', 'Tempat Kursus')->first();
+        $tempat = Agensi::where('kategori_agensi', $tempat_kursus->id)->get();
         if ($check_auth == 'Urus Setia ULS') {
             $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', 'Staf')->get();
             foreach ($jadualKursus as $key => $jk) {
@@ -51,6 +53,7 @@ class JadualKursusController extends Controller
             // dd($jadualKursus);
             return view('pengurusan_kursus.semak_jadual.index.staf', [
                 'jadual' => $jadualKursus,
+                'tempat' => $tempat
             ]);
         } else if($check_auth == 'Urus Setia ULPK'){
             $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', 'Pekebun Kecil')->get();
@@ -67,6 +70,7 @@ class JadualKursusController extends Controller
             // dd($jadualKursus);
             return view('pengurusan_kursus.semak_jadual.index.pk', [
                 'jadual' => $jadualKursus,
+                'tempat' => $tempat
             ]);
         } else {
             $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->get();
@@ -83,6 +87,7 @@ class JadualKursusController extends Controller
             // dd($jadualKursus);
             return view('pengurusan_kursus.semak_jadual.index.index', [
                 'jadual' => $jadualKursus,
+                'tempat' => $tempat
             ]);
         }
     }
