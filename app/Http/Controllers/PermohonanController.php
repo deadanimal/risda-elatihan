@@ -35,7 +35,7 @@ class PermohonanController extends Controller
         $permohonan = Permohonan::with(['jadual', 'kehadiran'])->where('no_pekerja', Auth::id())->get();
         foreach ($permohonan as $key => $p) {
             $p->status_kehadiran = null;
-            foreach($p->kehadiran as $pk){
+            foreach ($p->kehadiran as $pk) {
                 if ($pk->status_kehadiran == 'HADIR') {
                     $p->status_kehadiran = 'Hadir';
                 }
@@ -51,7 +51,7 @@ class PermohonanController extends Controller
         $permohonan = Permohonan::with(['jadual', 'kehadiran'])->where('no_pekerja', Auth::id())->get();
         foreach ($permohonan as $key => $p) {
             $p->status_kehadiran = null;
-            foreach($p->kehadiran as $pk){
+            foreach ($p->kehadiran as $pk) {
                 if ($pk->status_kehadiran == 'HADIR') {
                     $p->status_kehadiran = 'Hadir';
                 }
@@ -76,7 +76,7 @@ class PermohonanController extends Controller
 
     public function katalog_uls()
     {
-        $kategori = KategoriKursus::where('UL_Kategori_Kursus','Staf')->get();
+        $kategori = KategoriKursus::where('UL_Kategori_Kursus', 'Staf')->get();
         $tajuk = JadualKursus::where('kursus_unit_latihan', 'Staf')->get();
         // dd($tajuk);
         $kat_tempat = KategoriAgensi::where('Kategori_Agensi', 'Tempat Kursus')->first()->id;
@@ -86,13 +86,13 @@ class PermohonanController extends Controller
             'jadual' => $jadual,
             'kategori' => $kategori,
             'tajuk' => $tajuk,
-            'lokasi'=> $lokasi
+            'lokasi' => $lokasi
         ]);
     }
 
     public function katalog_ulpk()
     {
-        $kategori = KategoriKursus::where('UL_Kategori_Kursus','Pekebun Kecil')->get();
+        $kategori = KategoriKursus::where('UL_Kategori_Kursus', 'Pekebun Kecil')->get();
         $tajuk = JadualKursus::where('kursus_unit_latihan', 'Pekebun Kecil')->get();
         // dd($tajuk);
         $kat_tempat = KategoriAgensi::where('Kategori_Agensi', 'Tempat Kursus')->first()->id;
@@ -102,7 +102,7 @@ class PermohonanController extends Controller
             'jadual' => $jadual,
             'kategori' => $kategori,
             'tajuk' => $tajuk,
-            'lokasi'=> $lokasi
+            'lokasi' => $lokasi
         ]);
     }
 
@@ -138,10 +138,9 @@ class PermohonanController extends Controller
         if ($user == "Peserta ULS") {
             alert()->success('Permohonan anda telah didaftarkan', 'Berjaya');
             return redirect('/uls/permohonan/katelog-kursus');
-        }else {
+        } else {
             alert()->success('Permohonan anda telah didaftarkan', 'Berjaya');
             return redirect('/ulpk/permohonan/katelog-kursus');
-
         }
     }
 
@@ -154,10 +153,10 @@ class PermohonanController extends Controller
     public function show($id)
     {
         $jadual = JadualKursus::find($id);
-        $pengendali = Agensi::where('id',$jadual->kursus_pengendali_latihan)->first();
+        $pengendali = Agensi::where('id', $jadual->kursus_pengendali_latihan)->first();
         return view('permohonan_kursus.katalog.show', [
             'jadual' => $jadual,
-            'pengendali'=>$pengendali
+            'pengendali' => $pengendali
         ]);
     }
 
@@ -181,19 +180,14 @@ class PermohonanController extends Controller
      */
     public function update(UpdatePermohonanRequest $request, $id)
     {
-        $permohonan = Permohonan::find($id)->with('peserta')->first();
-
-        $agensi=Agensi::where('id',$permohonan->jadual->kursus_tempat)->first();
-
+        $permohonan = Permohonan::find($id);
+        $agensi = Agensi::where('id', $permohonan->jadual->kursus_tempat)->first();
         $permohonan->status_permohonan = $request->status_permohonan;
         $permohonan->save();
 
-        // dd($agensi->id);
-
         if ($permohonan->status_permohonan == '4') {
-            Mail::to('applicantsppeps01@gmail.com')->send(new PermohonanLulus($permohonan,$agensi));
-
-        }elseif($permohonan->status_permohonan == '5'){
+            Mail::to('applicantsppeps01@gmail.com')->send(new PermohonanLulus($permohonan, $agensi));
+        } elseif ($permohonan->status_permohonan == '5') {
             Mail::to('applicantsppeps01@gmail.com')->send(new PermohonanGagal($permohonan));
         }
         alert()->success('Status permohonan telah dikemaskini', 'Berjaya');
@@ -223,7 +217,7 @@ class PermohonanController extends Controller
         $semak_permohonan = Permohonan::where('kod_kursus', $id)->where('no_pekerja', Auth::id())->first();
         if ($semak_permohonan != null) {
             $sp = 1;
-        }else{
+        } else {
             $sp = 0;
         }
 
@@ -243,8 +237,8 @@ class PermohonanController extends Controller
                     'jadual' => $jadual,
                     'user' => $user,
                     'staf' => $staf,
-                    'profil'=>$profil,
-                    'sp'=>$sp
+                    'profil' => $profil,
+                    'sp' => $sp
                 ]);
             }
         }
@@ -261,22 +255,22 @@ class PermohonanController extends Controller
             return back();
         } else {
             $pk = $data_pk[0];
-            $pk['tarikh_lahir'] = substr($pk['No_KP'], 4, 2).'/'.substr($pk['No_KP'], 2, 2).'/'.'19'.substr($pk['No_KP'], 0, 2);
+            $pk['tarikh_lahir'] = substr($pk['No_KP'], 4, 2) . '/' . substr($pk['No_KP'], 2, 2) . '/' . '19' . substr($pk['No_KP'], 0, 2);
             // dd($pk);
             return view('permohonan_kursus.katalog.register.pekebun_kecil', [
                 'user' => $user,
-                'pk'=>$pk,
+                'pk' => $pk,
                 'jadual' => $jadual,
-                'sp'=>$sp
+                'sp' => $sp
             ]);
         }
     }
 
     public function nota_rujukan($id)
     {
-        return view('ulpk.peserta.permohonan.nota_rujukan',[
+        return view('ulpk.peserta.permohonan.nota_rujukan', [
             'nota_rujukan' => NotaRujukan::where('nr_jadual_kursus', $id)->get(),
-            'id'=>$id
+            'id' => $id
         ]);
     }
 }
