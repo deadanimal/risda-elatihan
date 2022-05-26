@@ -134,7 +134,13 @@ class DaerahController extends Controller
     public function destroy($daerah)
     {
         $daerah = Daerah::find($daerah);
-        $daerah->delete();
+        try {
+            $daerah->delete();
+        } catch (\Throwable $th) {
+            alert()->error('Maklumat berkait dengan rekod di bahagian lain, sila hapuskan rekod di bahagian tersebut dahulu.', 'Tidak Berjaya')->persistent('Tutup');
+            return back();
+        }
+        
         alert()->success('Maklumat telah dihapus', 'Berjaya');
         AuditTrailController::audit('utiliti', 'daerah', 'hapus');
         return redirect('/utiliti/lokasi/daerah');

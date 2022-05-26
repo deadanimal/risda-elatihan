@@ -140,7 +140,12 @@ class DunController extends Controller
      */
     public function destroy(Dun $dun)
     {
-        $dun->delete();
+        try {
+            $dun->delete();
+        } catch (\Throwable $th) {
+            alert()->error('Maklumat berkait dengan rekod di bahagian lain, sila hapuskan rekod di bahagian tersebut dahulu.', 'Tidak Berjaya')->persistent('Tutup');
+            return back();
+        }
         alert()->success('Maklumat telah dihapus', 'Berjaya');
         AuditTrailController::audit('utiliti', 'dun', 'hapus');
         return redirect('/utiliti/lokasi/dun');

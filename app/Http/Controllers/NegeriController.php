@@ -124,7 +124,12 @@ class NegeriController extends Controller
      */
     public function destroy(Negeri $negeri)
     {
-        $negeri->delete();
+        try {
+            $negeri->delete();
+        } catch (\Throwable $th) {
+            alert()->error('Maklumat berkait dengan rekod di bahagian lain, sila hapuskan rekod di bahagian tersebut dahulu.', 'Tidak Berjaya')->persistent('Tutup');
+            return back();
+        }
         AuditTrailController::audit('utiliti','negeri','hapus');
         alert()->success('Maklumat telah dihapus', 'Berjaya');
         return redirect('/utiliti/lokasi/negeri');

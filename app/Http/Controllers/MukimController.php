@@ -142,7 +142,12 @@ class MukimController extends Controller
      */
     public function destroy(Mukim $mukim)
     {
-        $mukim->delete();
+        try {
+            $mukim->delete();
+        } catch (\Throwable $th) {
+            alert()->error('Maklumat berkait dengan rekod di bahagian lain, sila hapuskan rekod di bahagian tersebut dahulu.', 'Tidak Berjaya')->persistent('Tutup');
+            return back();
+        }
         AuditTrailController::audit('utiliti','mukim','hapus');
         alert()->success('Maklumat telah dihapus', 'Berjaya');
         return redirect('/utiliti/lokasi/mukim');
