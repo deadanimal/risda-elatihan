@@ -244,7 +244,7 @@ class KehadiranController extends Controller
         $jadual = JadualKursus::find($jadual_kursus);
 
         $list_peserta = Kehadiran::with(['aturcara', 'staff', 'pengganti'])->where('jadual_kursus_id', $jadual_kursus)->get();
-dd($list_peserta);
+        
         $kehadiran = Kehadiran::with(['staff', 'pengganti'])->get();
 
         $pesertaUls = User::where('jenis_pengguna', 'Peserta ULS')->get();
