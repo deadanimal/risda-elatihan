@@ -33,9 +33,9 @@
                         <div class="col-8">
                              <select  class="form-select" name="nama_kursus" id="kursus" required>
                                     <option hidden>SILA PILIH</option>
-                                    {{-- @foreach ($kursus as $kursus)
-                                        <option value={{$kursus->id}}>{{$kursus->kursus_nama}}</option>
-                                    @endforeach --}}
+                                    @foreach ($ejen as $s)
+                                        <option value="{{$s->jadual_kursus->id}}">{{$s->jadual_kursus->kursus_nama}}</option>
+                                    @endforeach
                             {{-- <input type="text" class="form-control" value="{{ $jadual_kursus->kursus_nama }}" readonly>--}}
                             </select>
                         </div>
