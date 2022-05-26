@@ -131,7 +131,12 @@ class ParlimenController extends Controller
     public function destroy( $parlimen)
     {
         $parlimen = Parlimen::find($parlimen);
-        $parlimen->delete();
+        try {
+            $parlimen->delete();
+        } catch (\Throwable $th) {
+            alert()->error('Maklumat berkait dengan rekod di bahagian lain, sila hapuskan rekod di bahagian tersebut dahulu.', 'Tidak Berjaya')->persistent('Tutup');
+            return back();
+        }
         AuditTrailController::audit('utiliti','parlimen','hapus');
         alert()->success('Maklumat telah dihapuskan', 'Berjaya');
         return redirect('/utiliti/lokasi/parlimen');

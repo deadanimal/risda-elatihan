@@ -141,7 +141,12 @@ class PusatTanggungjawabController extends Controller
      */
     public function destroy(PusatTanggungjawab $pusatTanggungjawab)
     {
-        $pusatTanggungjawab->delete();
+        try {
+            $pusatTanggungjawab->delete();
+        } catch (\Throwable $th) {
+            alert()->error('Maklumat berkait dengan rekod di bahagian lain, sila hapuskan rekod di bahagian tersebut dahulu.', 'Tidak Berjaya')->persistent('Tutup');
+            return back();
+        }
         AuditTrailController::audit('utiliti', 'pusat tanggungjawab', 'hapus');
         alert()->success('Maklumat telah dihapuskan', 'Berjaya');
         return redirect('/utiliti/lokasi/pusat_tanggungjawab');

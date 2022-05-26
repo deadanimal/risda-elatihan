@@ -149,7 +149,12 @@ class SeksyenController extends Controller
      */
     public function destroy(Seksyen $seksyen)
     {
-        $seksyen->delete();
+        try {
+            $seksyen->delete();
+        } catch (\Throwable $th) {
+            alert()->error('Maklumat berkait dengan rekod di bahagian lain, sila hapuskan rekod di bahagian tersebut dahulu.', 'Tidak Berjaya')->persistent('Tutup');
+            return back();
+        }
         AuditTrailController::audit('utiliti', 'seksyen', 'hapus');
         alert()->success('Maklumat telah dihapuskan', 'Berjaya');
         return redirect('/utiliti/lokasi/seksyen');
