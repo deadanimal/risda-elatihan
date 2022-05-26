@@ -18,7 +18,6 @@ class CreatePenilaianKeberkesanansTable extends Migration
     {
         Schema::create('penilaian_keberkesanans', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Kehadiran::class);
             $table->string('id_Pengguna')->constrained('users');
             $table->string('tahap_pengetahuan')->nullable();
             $table->string('tempoh_tugasan')->nullable();
