@@ -61,58 +61,60 @@
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white" id="t_normal">
-                                    @foreach ($pekebun_kecil as $c => $pk)
-                                        <tr>
-                                            <td>{{ $c + 1 }}.</td>
-                                            <td>{{ date('H:i, d-m-Y', strtotime($pk->created_at)) }}</td>
-                                            <td>{{ $pk->peserta->no_KP }}</td>
-                                            <td>{{ $pk->peserta->name }}</td>
-                                            <td>{{ $pk->pusat_tanggungjawab }}</td>
-                                            <td>
-                                                @if ($pk->jadual == null)
-                                                    <span class="text-danger">Jadual telah dihapuskan</span>
-                                                @else
-                                                    {{ $pk->jadual->kursus_kod_nama_kursus }}
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if ($pk->jadual == null)
-                                                    <span class="text-danger">Jadual telah dihapuskan</span>
-                                                @else
-                                                    {{ $pk->jadual->kursus_nama }}
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if ($pk->status_permohonan == 0)
-                                                    Belum Disemak
-                                                @elseif($pk->status_permohonan == 1)
-                                                    Belum Disemak (Sokongan)
-                                                @elseif($pk->status_permohonan == 2)
-                                                    Disokong
-                                                @elseif($pk->status_permohonan == 3)
-                                                    Tidak Disokong
-                                                @elseif($pk->status_permohonan == 4)
-                                                    Lulus
-                                                @elseif($pk->status_permohonan == 5)
-                                                    Tidak Lulus
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <a href="/permohonan_kursus/semakan_permohonan/{{ $pk->id }}"
-                                                    class="btn btn-primary btn-sm">Butiran</a>
-                                                {{-- <form action="/permohonan_kursus/semakan_permohonan/{{$p->id}}" method="POST">
+                                    @foreach ($pemohon as $c => $pk)
+                                        @if ($s->peserta->jenis_pengguna == 'Peserta ULS')
+                                            <tr>
+                                                <td>{{ $c + 1 }}.</td>
+                                                <td>{{ date('H:i, d-m-Y', strtotime($pk->created_at)) }}</td>
+                                                <td>{{ $pk->peserta->no_KP }}</td>
+                                                <td>{{ $pk->peserta->name }}</td>
+                                                <td>TANYA SA</td>
+                                                <td>
+                                                    @if ($pk->jadual == null)
+                                                        <span class="text-danger">Jadual telah dihapuskan</span>
+                                                    @else
+                                                        {{ $pk->jadual->kursus_kod_nama_kursus }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($pk->jadual == null)
+                                                        <span class="text-danger">Jadual telah dihapuskan</span>
+                                                    @else
+                                                        {{ $pk->jadual->kursus_nama }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($pk->status_permohonan == 0)
+                                                        Belum Disemak
+                                                    @elseif($pk->status_permohonan == 1)
+                                                        Belum Disemak (Sokongan)
+                                                    @elseif($pk->status_permohonan == 2)
+                                                        Disokong
+                                                    @elseif($pk->status_permohonan == 3)
+                                                        Tidak Disokong
+                                                    @elseif($pk->status_permohonan == 4)
+                                                        Lulus
+                                                    @elseif($pk->status_permohonan == 5)
+                                                        Tidak Lulus
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <a href="/permohonan_kursus/semakan_permohonan/{{ $pk->id }}"
+                                                        class="btn btn-primary btn-sm">Butiran</a>
+                                                    {{-- <form action="/permohonan_kursus/semakan_permohonan/{{$p->id}}" method="POST">
                                                 @method('DELETE')
                                                 @csrf
                                                 <button type="submit" class="btn btn-danger">buang</button>
                                             </form> --}}
-                                            </td>
-                                            <td>
-                                                <div class="form-check">
-                                                    <input class="form-check-input pukal" type="checkbox" name="pemohon[]"
-                                                        value="{{ $pk->id }}" />
-                                                </div>
-                                            </td>
-                                        </tr>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input pukal" type="checkbox"
+                                                            name="pemohon[]" value="{{ $pk->id }}" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endif
                                     @endforeach
                                 </tbody>
 

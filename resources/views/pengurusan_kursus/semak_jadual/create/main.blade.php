@@ -213,7 +213,9 @@
                             <label class="col-form-label">KUMPULAN SASARAN</label>
                             <select class="form-select form-control" name="kursus_kumpulan_sasaran">
                                 <option value="" selected hidden>Sila Pilih</option>
-                                {{-- kumpulan sasaran --}}
+                                @foreach ($kumpulan_sasaran as $ks=>$item)
+                                    <option value="{{$ks}}">{{$ks}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>

@@ -63,60 +63,57 @@
                                 </thead>
                                 <tbody class="bg-white" id="t_normal">
 
-                                    @foreach ($staf as $b => $s)
-                                        <tr>
-                                            <td>{{ $b + 1 }}.</td>
-                                            <td>{{ date('H:i, d-m-Y', strtotime($s->created_at)) }}</td>
-                                            <td>{{ $s->peserta->no_KP }}</td>
-                                            <td>{{ $s->peserta->name }}</td>
-                                            <td>{{ $s->pusat_tanggungjawab }}</td>
-                                            <td>{{ $s->gred }}</td>
-                                            <td>
-                                                @if ($s->jadual == null)
-                                                    <span class="text-danger">Jadual telah dihapuskan</span>
-                                                @else
-                                                    {{ $s->jadual->kursus_kod_nama_kursus }}
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if ($s->jadual == null)
-                                                    <span class="text-danger">Jadual telah dihapuskan</span>
-                                                @else
-                                                    {{ $s->jadual->kursus_nama }}
-                                                @endif
+                                    @foreach ($pemohon as $b => $s)
+                                        @if ($s->peserta->jenis_pengguna == 'Peserta ULS')
+                                            <tr>
+                                                <td>{{ $b + 1 }}.</td>
+                                                <td>{{ date('H:i, d-m-Y', strtotime($s->created_at)) }}</td>
+                                                <td>{{ $s->peserta->no_KP }}</td>
+                                                <td>{{ $s->peserta->name }}</td>
+                                                <td>{{ $s->data_staf->NamaPT }}</td>
+                                                <td>{{ $s->data_staf->Gred }}</td>
+                                                <td>
+                                                    @if ($s->jadual == null)
+                                                        <span class="text-danger">Jadual telah dihapuskan</span>
+                                                    @else
+                                                        {{ $s->jadual->kursus_kod_nama_kursus }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($s->jadual == null)
+                                                        <span class="text-danger">Jadual telah dihapuskan</span>
+                                                    @else
+                                                        {{ $s->jadual->kursus_nama }}
+                                                    @endif
 
-                                            </td>
-                                            <td>
-                                                @if ($s->status_permohonan == 0)
-                                                    Belum Disemak
-                                                @elseif($s->status_permohonan == 1)
-                                                    Belum Disemak (Sokongan)
-                                                @elseif($s->status_permohonan == 2)
-                                                    Disokong
-                                                @elseif($s->status_permohonan == 3)
-                                                    Tidak Disokong
-                                                @elseif($s->status_permohonan == 4)
-                                                    Lulus
-                                                @elseif($s->status_permohonan == 5)
-                                                    Tidak Lulus
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <a href="/permohonan_kursus/semakan_permohonan/{{ $s->id }}"
-                                                    class="btn btn-primary btn-sm">Butiran</a>
-                                                {{-- <form action="/permohonan_kursus/semakan_permohonan/{{$p->id}}" method="POST">
-                                                        @method('DELETE')
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-danger">buang</button>
-                                                    </form> --}}
-                                            </td>
-                                            <td>
-                                                <div class="form-check">
-                                                    <input class="form-check-input pukal" type="checkbox" name="pemohon[]"
-                                                        value="{{ $s->id }}" />
-                                                </div>
-                                            </td>
-                                        </tr>
+                                                </td>
+                                                <td>
+                                                    @if ($s->status_permohonan == 0)
+                                                        Belum Disemak
+                                                    @elseif($s->status_permohonan == 1)
+                                                        Belum Disemak (Sokongan)
+                                                    @elseif($s->status_permohonan == 2)
+                                                        Disokong
+                                                    @elseif($s->status_permohonan == 3)
+                                                        Tidak Disokong
+                                                    @elseif($s->status_permohonan == 4)
+                                                        Lulus
+                                                    @elseif($s->status_permohonan == 5)
+                                                        Tidak Lulus
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <a href="/permohonan_kursus/semakan_permohonan/{{ $s->id }}"
+                                                        class="btn btn-primary btn-sm">Butiran</a>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input pukal" type="checkbox"
+                                                            name="pemohon[]" value="{{ $s->id }}" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endif
                                     @endforeach
 
                                 </tbody>
@@ -137,7 +134,7 @@
         </div>
     </div>
 
-    @foreach ($staf as $key => $p)
+    @foreach ($pemohon as $key => $p)
         <div class="modal fade" id="delete-{{ $p->id }}" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
                 <div class="modal-content position-relative">
