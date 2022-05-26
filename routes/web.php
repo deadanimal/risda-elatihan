@@ -179,6 +179,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/utiliti/matlamat_tahunan/panggilan_peserta', [MatlamatTahunanPanggilanPesertaController::class, 'update_table']);
 
     Route::get('/pengurusan_pengguna/pengguna/staf', [PengurusanPenggunaController::class, 'staf']);
+    Route::post('/pengurusan_pengguna/pengguna/staf', [PengurusanPenggunaController::class, 'filter_staf']);
     Route::get('/pengurusan_pengguna/pengguna/staf/create', [PengurusanPenggunaController::class, 'create']);
     Route::post('/pengurusan_pengguna/pengguna/staf/semak', [PengurusanPenggunaController::class, 'semak_nric_staf']);
 
