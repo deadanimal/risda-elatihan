@@ -12,4 +12,9 @@ class Daerah extends Model
     {
         return $this->hasMany(Mukim::class);
     }
+
+    public function negeri()
+    {
+        return $this->belongsTo(Negeri::class, 'U_Negeri_ID', 'id');
+    }
 }
