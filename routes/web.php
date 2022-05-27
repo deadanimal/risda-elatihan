@@ -160,6 +160,7 @@ Route::middleware('auth')->group(function () {
     ]);
 
     Route::get('/pengurusan_kursus/filter-jadual-kursus/{search}', [JadualKursusController::class, 'filter']);
+    Route::get('/pengurusan_kursus/filter-daerah/{search}', [DaerahController::class, 'filter']);
 
     // Route::resource('/pengurusan_pengguna/pengguna', PengurusanPenggunaController::class);
     Route::post('/utiliti/matlamat_tahunan/kursus/carian', [MatlamatBilanganKursusController::class, 'carian']);

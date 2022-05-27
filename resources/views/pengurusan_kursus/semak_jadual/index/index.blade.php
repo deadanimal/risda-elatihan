@@ -209,6 +209,19 @@
                     let iteration = 1;
                     jadual_kursus.forEach(e => {
                         console.log(e);
+                        var tarikh_mula = e.tarikh_mula;
+                        var tarikh_tamat = e.tarikh_tamat;
+                        var hari_ini = @json($hari_ini);
+                        var status = ''
+                        if (tarikh_mula > hari_ini) {
+                            status = 'BELUM DILAKSANA';
+                        }
+                        else if(tarikh_tamat < hari_ini) {
+                            status = 'SELESAI';
+                        }
+                        else if(tarikh_tamat >= hari_ini) {
+                            status = 'SEDANG DILAKSANAKAN';
+                        }
                         $("#t_normal").append(`
                           <tr>
                                         <td>` + iteration + `.</td>
@@ -221,6 +234,9 @@
                                         <td>` + e.bilangan + `</td>
                                         <td>
                                             ` + e.status_pelaksanaan.Status_Pelaksanaan + `
+                                        </td>
+                                        <td>
+                                            ` + status + `
                                         </td>
                                         <td>
                                             <a href="/pengurusan_kursus/semak_jadual/` + e.id + `/edit"
