@@ -84,7 +84,7 @@
                                                                         </td>
                                                                         <td class="text-end" style="width:210px;">
                                                                             <div class="d-grid gap-2">
-                                                                                <a class="btn btn-primary btn-sm" href="#">
+                                                                                <a class="btn btn-primary btn-sm" href="/cetak_surat_tawaran/{{$p->id}}">
                                                                                     Cetak Surat Tawaran
                                                                                 </a>
                                                                                 @if ($p->status_permohonan == 4)
@@ -135,7 +135,7 @@
                                                                         </td>
                                                                         <td class="text-end" style="width:210px;">
                                                                             <div class="d-grid gap-2">
-                                                                                <a class="btn btn-primary btn-sm" href="#">
+                                                                                <a class="btn btn-primary btn-sm" href="/cetak_surat_tawaran/{{$p->id}}">
                                                                                     Cetak Surat Tawaran
                                                                                 </a>
                                                                                 <a class="btn btn-primary btn-sm"
@@ -171,7 +171,7 @@
                                                                     </td>
                                                                     <td class="text-end" style="width:210px;">
                                                                         <div class="d-grid gap-2">
-                                                                            <a class="btn btn-primary btn-sm" href="#">
+                                                                            <a class="btn btn-primary btn-sm" href="/cetak_surat_tawaran/{{$p->id}}">
                                                                                 Cetak Surat Tawaran
                                                                             </a>
                                                                             <a class="btn btn-primary btn-sm"
@@ -210,7 +210,7 @@
                                                                             </td>
                                                                             <td class="text-end" style="width:210px;">
                                                                                 <div class="d-grid gap-2">
-                                                                                    <a class="btn btn-primary btn-sm" href="#">
+                                                                                    <a class="btn btn-primary btn-sm" href="/cetak_surat_tawaran/{{$p->id}}">
                                                                                         Cetak Surat Tawaran
                                                                                     </a>
                                                                                     @if ($p->status_permohonan == 4)
@@ -253,7 +253,7 @@
                                                                             </td>
                                                                             <td class="text-end" style="width:210px;">
                                                                                 <div class="d-grid gap-2">
-                                                                                    <a class="btn btn-primary btn-sm" href="#">
+                                                                                    <a class="btn btn-primary btn-sm" href="/cetak_surat_tawaran/{{$p->id}}">
                                                                                         Cetak Surat Tawaran
                                                                                     </a>
                                                                                     <a class="btn btn-primary btn-sm"
@@ -289,7 +289,7 @@
                                                                         </td>
                                                                         <td class="text-end" style="width:210px;">
                                                                             <div class="d-grid gap-2">
-                                                                                <a class="btn btn-primary btn-sm" href="#">
+                                                                                <a class="btn btn-primary btn-sm" href="/cetak_surat_tawaran/{{$p->id}}">
                                                                                     Cetak Surat Tawaran
                                                                                 </a>
                                                                                 <a class="btn btn-primary btn-sm"
@@ -342,7 +342,7 @@
                                                                 <td>{{ $p->status_kehadiran }}</td>
                                                                 <td class="text-end" style="width:210px !important">
                                                                     <div class="d-grid gap-2">
-                                                                        <a class="btn btn-primary btn-sm" href="#">
+                                                                        <a class="btn btn-primary btn-sm" href="/cetak_surat_tawaran/{{$p->id}}">
                                                                             Cetak Surat Tawaran
                                                                         </a>
                                                                     </div>
@@ -368,7 +368,7 @@
                                                                     <td class="text-end"
                                                                         style="width:210px !important">
                                                                         <div class="d-grid gap-2">
-                                                                            <a class="btn btn-primary btn-sm" href="#">
+                                                                            <a class="btn btn-primary btn-sm" href="/cetak_surat_tawaran/{{$p->id}}">
                                                                                 Cetak Surat Tawaran
                                                                             </a>
                                                                         </div>
