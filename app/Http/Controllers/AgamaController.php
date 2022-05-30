@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAgamaRequest;
 use App\Http\Requests\UpdateAgamaRequest;
 use App\Models\Agama;
+use App\Models\AuditTrail;
+use Illuminate\Support\Facades\Auth;
 
 class AgamaController extends Controller
 {
@@ -61,8 +63,10 @@ class AgamaController extends Controller
             $status = 0;
         }
         $agama->status_agama = $status;
-
         $agama->save();
+
+        alert()->success('Maklumat telah dicipta', 'Berjaya');
+        AuditTrailController::audit('utiliti', 'agama', 'cipta');
         return redirect('/utiliti/generik/agama');
     }
 
@@ -105,8 +109,9 @@ class AgamaController extends Controller
             $status = 0;
         }
         $agama->status_agama = $status;
-
         $agama->save();
+        alert()->success('Maklumat telah dikemaskini', 'Berjaya');
+        AuditTrailController::audit('utiliti', 'agama', 'kemaskini');
         return redirect('/utiliti/generik/agama');
     }
 
@@ -119,6 +124,8 @@ class AgamaController extends Controller
     public function destroy(Agama $agama)
     {
         $agama->delete();
+        alert()->success('Maklumat telah dihapus', 'Berjaya');
+        AuditTrailController::audit('utiliti', 'agama', 'hapus');
         return redirect('/utiliti/generik/agama');
     }
 }

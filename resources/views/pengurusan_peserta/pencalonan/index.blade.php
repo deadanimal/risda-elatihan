@@ -34,7 +34,7 @@
                             <div class="col-lg-9">
                                 @role('Urus Setia ULS')
                                     <input type="text" class="form-control form-control-sm mb-2" disabled value="Staf" disabled>
-                                @elserole('Urus Setia ULPK')
+                                    @elserole('Urus Setia ULPK')
                                     <input type="text" class="form-control form-control-sm mb-2" disabled value="Pekebun Kecil"
                                         disabled>
                                 @else
@@ -71,9 +71,16 @@
                                 <td>{{ $key + 1 }}.</td>
                                 <td>{{ $p->kursus_kod_nama_kursus }}</td>
                                 <td>{{ $p->kursus_nama }}</td>
-                                <td>{{ date('d-m-Y', strtotime($p->tarikh_mula)) }} - {{ date('d-m-Y', strtotime($p->tarikh_tamat)) }}</td>
+                                <td>{{ date('d-m-Y', strtotime($p->tarikh_mula)) }} -
+                                    {{ date('d-m-Y', strtotime($p->tarikh_tamat)) }}</td>
                                 <td>{{ $p->tempat->nama_Agensi }}</td>
-                                <td>{{ $p->status_pelaksanaan->Status_Pelaksanaan }}</td>
+                                @if ($p->tarikh_mula > date('Y-m-d'))
+                                    <td>BELUM DILAKSANA</td>
+                                @elseif ($p->tarikh_tamat < date('Y-m-d'))
+                                    <td>SELESAI</td>
+                                @elseif ($p->tarikh_tamat >= date('Y-m-d'))
+                                    <td>SEDANG DILAKSANAKAN</td>
+                                @endif
                                 <td>
                                     <a href="/pengurusan_peserta/pencalonan/{{ $p->id }}" class="btn btn-primary">
                                         <i class="far fa-clipboard"></i>

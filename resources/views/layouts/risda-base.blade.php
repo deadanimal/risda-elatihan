@@ -83,6 +83,7 @@
 
 <body>
     <style>
+
         .preloader {
             position: fixed;
             top: 0;
@@ -96,19 +97,20 @@
             align-items: center;
             background: none repeat scroll 0 0 #ffffff75;
         }
-    
+
         .word {
             position: absolute;
             margin-top: 120px;
             margin-left: 25px;
             font-weight: bold;
         }
+
         .spinner {
             border: 1px solid transparent;
             border-radius: 3px;
             position: relative;
         }
-    
+
         .spinner:before {
             content: "";
             box-sizing: border-box;
@@ -124,19 +126,19 @@
             border-top-color: #ffffff00;
             animation: spinner 0.9s linear infinite;
         }
-    
+
         @keyframes spinner {
             to {
                 transform: rotate(360deg);
             }
         }
-    
+
         @keyframes spinner {
             to {
                 transform: rotate(360deg);
             }
         }
-    
+
     </style>
     @include('sweet::alert')
     <style>
@@ -406,11 +408,15 @@
             }
         }
 
-        .form-check-input:checked{
+        .form-check-input:checked {
             background-color: #009640;
             border-color: #009640;
         }
 
+        .flatpickr-day.selected {
+            background-color: #009640;
+            border-color: #009640;
+        }
     </style>
     <?php
     use Illuminate\Support\Facades\Auth;

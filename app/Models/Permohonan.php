@@ -30,4 +30,28 @@ class Permohonan extends Model
     {
         return $this->hasMany(Kehadiran::class, 'jadual_kursus_id', 'kod_kursus');
     }
+
+    public function data_staf()
+    {
+        return $this->hasOneThrough(
+            Staf::class,
+            User::class,
+            'id',
+            'id_Pengguna',
+            'no_pekerja',
+            'id'
+        );
+    }
+
+    public function data_pk()
+    {
+        return $this->hasOneThrough(
+            PekebunKecil::class,
+            User::class,
+            'id',
+            'id_Pengguna',
+            'no_pekerja',
+            'id'
+        );
+    }
 }

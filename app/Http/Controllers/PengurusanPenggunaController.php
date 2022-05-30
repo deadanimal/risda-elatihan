@@ -31,11 +31,27 @@ class PengurusanPenggunaController extends Controller
     public function staf()
     {
 
+        // return view('pengurusan_pengguna.senarai_pengguna.staf.index2', [
+        //     'staf' => Staf::with('pengguna')->get(),
+        //     'peranan' => Role::all(),
+        // ]);
+
+        return view('pengurusan_pengguna.senarai_pengguna.staf.filter_staf', [
+            'gred' => Staf::orderBy('Gred', 'asc')->get()->groupBy('Gred'),
+            'namaPT' => Staf::get()->groupBy('NamaPT'),
+        ]);
+        
+    }
+
+    public function filter_staf(Request $request)
+    {
+        $staf = Staf::with('pengguna')->where('Gred', $request->gred)->orWhere('NamaPT', $request->namaPT)->get();
         return view('pengurusan_pengguna.senarai_pengguna.staf.index2', [
-            'staf' => Staf::with('pengguna')->get(),
+            'staf' => $staf,
             'peranan' => Role::all(),
         ]);
     }
+
     public function pekebun_kecil()
     {
         $pekebun = User::where('jenis_pengguna', 'Peserta ULPK')->get();

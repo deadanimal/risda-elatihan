@@ -25,15 +25,15 @@ class PusatTanggungjawabController extends Controller
         $bil_pt = PusatTanggungjawab::orderBy('id', 'desc')->first();
         if ($bil_pt != null) {
             $bil = $bil_pt->kod_PT;
-        }else{
+        } else {
             $bil = 0;
         }
         $bil = $bil + 1;
         $bil = sprintf("%02d", $bil);
-        return view('utiliti.lokasi.pusat_tanggungjawab.index',[
-            'pt_data'=>$pt_data,
-            'negeri'=>$negeri,
-            'bil'=>$bil
+        return view('utiliti.lokasi.pusat_tanggungjawab.index', [
+            'pt_data' => $pt_data,
+            'negeri' => $negeri,
+            'bil' => $bil
         ]);
     }
 
@@ -74,6 +74,8 @@ class PusatTanggungjawabController extends Controller
         $pusatTanggungjawab->status_PT = $status;
 
         $pusatTanggungjawab->save();
+        AuditTrailController::audit('utiliti', 'pusat tanggungjawab', 'cipta');
+        alert()->success('Maklumat telah disimpan', 'Berjaya');
         return redirect('/utiliti/lokasi/pusat_tanggungjawab');
     }
 
@@ -126,6 +128,8 @@ class PusatTanggungjawabController extends Controller
         $pusatTanggungjawab->status_PT = $status;
 
         $pusatTanggungjawab->save();
+        AuditTrailController::audit('utiliti', 'pusat tanggungjawab', 'kemaskini');
+        alert()->success('Maklumat telah dikemaskini', 'Berjaya');
         return redirect('/utiliti/lokasi/pusat_tanggungjawab');
     }
 
@@ -137,7 +141,14 @@ class PusatTanggungjawabController extends Controller
      */
     public function destroy(PusatTanggungjawab $pusatTanggungjawab)
     {
-        $pusatTanggungjawab->delete();
+        try {
+            $pusatTanggungjawab->delete();
+        } catch (\Throwable $th) {
+            alert()->error('Maklumat berkait dengan rekod di bahagian lain, sila hapuskan rekod di bahagian tersebut dahulu.', 'Tidak Berjaya')->persistent('Tutup');
+            return back();
+        }
+        AuditTrailController::audit('utiliti', 'pusat tanggungjawab', 'hapus');
+        alert()->success('Maklumat telah dihapuskan', 'Berjaya');
         return redirect('/utiliti/lokasi/pusat_tanggungjawab');
     }
 }

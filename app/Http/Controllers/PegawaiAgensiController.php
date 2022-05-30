@@ -52,6 +52,8 @@ class PegawaiAgensiController extends Controller
         $pegawai->no_faks_Pegawai = $request->no_faks_Pegawai;
 
         $pegawai->save();
+        AuditTrailController::audit('utiliti','pegawai agensi','cipta');
+        alert()->success('Maklumat telah disimpan', 'Berjaya');
         return redirect('/pegawai_agensi/'.$pegawai->id_agensi);
     }
 
@@ -102,6 +104,8 @@ class PegawaiAgensiController extends Controller
         $pegawaiAgensi->no_faks_Pegawai = $request->no_faks_Pegawai;
 
         $pegawaiAgensi->save();
+        AuditTrailController::audit('utiliti','pegawai agensi','kemaskini');
+        alert()->success('Maklumat telah dikemaskini', 'Berjaya');
         return redirect('/pegawai_agensi/'.$pegawaiAgensi->id_agensi);
     }
 
@@ -114,6 +118,8 @@ class PegawaiAgensiController extends Controller
     public function destroy(PegawaiAgensi $pegawaiAgensi)
     {
         $pegawaiAgensi->delete();
+        AuditTrailController::audit('utiliti','pegawai agensi','hapus');
+        alert()->success('Maklumat telah dihapuskan', 'Berjaya');
         return redirect('/pegawai_agensi/'.$pegawaiAgensi->id_agensi);
     }
 }

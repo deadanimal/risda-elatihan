@@ -110,6 +110,7 @@
                                     <th class="sort">TEMPAT KURSUS</th>
                                     <th class="sort">BILANGAN PESERTA</th>
                                     <th class="sort">STATUS PELAKSANAAN</th>
+                                    <th class="sort">STATUS KURSUS</th>
                                     <th class="sort">TINDAKAN</th>
                                 </tr>
                             </thead>
@@ -125,24 +126,26 @@
 
                                             {{ date('d-m-Y', strtotime($j->tarikh_tamat)) }}
                                         <td>
-                                            {{$j->tempat->nama_Agensi}}
+                                            {{ $j->tempat->nama_Agensi }}
                                         </td>
                                         <td>{{ $j->bilangan }}</td>
-                                            {{-- {{$j->status_pelaksanaan->Status_Pelaksanaan}} --}}
-                                            {{-- @if ($j->kursus_status_pelaksanaan==1) --}}
-
+                                        <td>
                                             @if ($j->tarikh_mula > date('Y-m-d'))
-                                                <td>BELUM DILAKSANA</td>
-
+                                                BELUM DILAKSANA
                                             @elseif ($j->tarikh_tamat < date('Y-m-d'))
-                                                <td>SELESAI</td>
-
+                                                SELESAI
                                             @elseif ($j->tarikh_tamat >= date('Y-m-d'))
-                                                <td>SEDANG DILAKSANAKAN</td>
+                                                SEDANG DILAKSANAKAN
                                             @endif
-                                        {{-- @else --}}
+                                        </td>
 
-                                        {{-- @endif --}}
+                                        <td>
+                                            @if ($j->kursus_status == 1)
+                                                <span class="badge badge-soft-success">Aktif</span>
+                                            @else
+                                                <span class="badge badge-soft-danger">Deraf</span>
+                                            @endif
+                                        </td>
                                         <td>
                                             <a href="/pengurusan_kursus/semak_jadual/{{ $j->id }}/edit"
                                                 class="btn btn-sm btn-primary">
@@ -216,6 +219,19 @@
                     let iteration = 1;
                     jadual_kursus.forEach(e => {
                         console.log(e);
+                        var tarikh_mula = e.tarikh_mula;
+                        var tarikh_tamat = e.tarikh_tamat;
+                        var hari_ini = @json($hari_ini);
+                        var status = ''
+                        if (tarikh_mula > hari_ini) {
+                            status = 'BELUM DILAKSANA';
+                        }
+                        else if(tarikh_tamat < hari_ini) {
+                            status = 'SELESAI';
+                        }
+                        else if(tarikh_tamat >= hari_ini) {
+                            status = 'SEDANG DILAKSANAKAN';
+                        }
                         $("#t_normal").append(`
                           <tr>
                                         <td>` + iteration + `.</td>
@@ -223,24 +239,27 @@
                                         <td>` + e.kursus_nama + `</td>
                                         <td>` + e.tarikh_mula + `</td>
                                         <td>
-                                            `+e.tempat.nama_Agensi+`
+                                            ` + e.tempat.nama_Agensi + `
                                         </td>
-                                        <td>`+e.bilangan+`</td>
+                                        <td>` + e.bilangan + `</td>
                                         <td>
-                                            `+e.status_pelaksanaan.Status_Pelaksanaan+`
+                                            ` + e.status_pelaksanaan.Status_Pelaksanaan + `
                                         </td>
                                         <td>
-                                            <a href="/pengurusan_kursus/semak_jadual/`+e.id+`/edit"
+                                            ` + status + `
+                                        </td>
+                                        <td>
+                                            <a href="/pengurusan_kursus/semak_jadual/` + e.id + `/edit"
                                                 class="btn btn-sm btn-primary">
                                                 <i class="fas fa-pen"></i>
                                             </a>
                                             <button class="btn btn-sm risda-bg-dg text-white" type="button"
-                                                data-bs-toggle="modal" data-bs-target="#delete_BK_`+e.id+`">
+                                                data-bs-toggle="modal" data-bs-target="#delete_BK_` + e.id + `">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </td>
                             </tr>
-                                    <div class="modal fade" id="delete_BK_`+e.id+`" tabindex="-1"
+                                    <div class="modal fade" id="delete_BK_` + e.id + `" tabindex="-1"
                                         role="dialog" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document"
                                             style="max-width: 500px">
@@ -255,7 +274,7 @@
                                                         <div class="col text-center m-3">
                                                             <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
                                                             <br>
-                                                            Anda pasti untuk menghapus `+e.kursus_nama+`?
+                                                            Anda pasti untuk menghapus ` + e.kursus_nama + `?
 
                                                         </div>
                                                     </div>
@@ -263,7 +282,7 @@
                                                         <button class="btn btn-secondary" type="button"
                                                             data-bs-dismiss="modal">Batal</button>
                                                         <form method="POST"
-                                                            action="/pengurusan_kursus/semak_jadual/`+e.id+`">
+                                                            action="/pengurusan_kursus/semak_jadual/` + e.id + `">
                                                             @method('DELETE')
                                                             @csrf
                                                             <button class="btn btn-primary" type="submit">Hapus

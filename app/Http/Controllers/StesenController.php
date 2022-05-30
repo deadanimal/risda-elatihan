@@ -93,6 +93,8 @@ class StesenController extends Controller
         }
         $Stesen->status_stesen = $status;
         $Stesen->save();
+        AuditTrailController::audit('utiliti','stesen','cipta');
+        alert()->success('Maklumat telah disimpan','Berjaya');
         return redirect('/utiliti/lokasi/stesen');
     }
 
@@ -141,6 +143,8 @@ class StesenController extends Controller
         }
         $Stesen->status_stesen = $status;
         $Stesen->save();
+        AuditTrailController::audit('utiliti','stesen','kemaskini');
+        alert()->success('Maklumat telah dikemaskini', 'Berjaya');
         return redirect('/utiliti/lokasi/stesen');
     }
 
@@ -152,7 +156,14 @@ class StesenController extends Controller
      */
     public function destroy(Stesen $stesen)
     {
-        $stesen->delete();
+        try {
+            $stesen->delete();
+        } catch (\Throwable $th) {
+            alert()->error('Maklumat berkait dengan rekod di bahagian lain, sila hapuskan rekod di bahagian tersebut dahulu.', 'Tidak Berjaya')->persistent('Tutup');
+            return back();
+        }
+        AuditTrailController::audit('utiliti','stesen','hapus');
+        alert()->success('Maklumat telah dihapuskan', 'Berjaya');
         return redirect('/utiliti/lokasi/stesen');
     }
 }

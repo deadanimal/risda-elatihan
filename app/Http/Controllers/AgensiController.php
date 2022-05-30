@@ -73,6 +73,8 @@ class AgensiController extends Controller
         $agensi->U_Daerah_ID = $request->U_Daerah_ID;
 
         $agensi->save();
+        alert()->success('Maklumat telah ditambah', 'Berjaya');
+        AuditTrailController::audit('utiliti', 'agensi', 'cipta');
         return redirect('/utiliti/kumpulan/agensi');
     }
 
@@ -129,6 +131,9 @@ class AgensiController extends Controller
         $agensi->U_Daerah_ID = $request->U_Daerah_ID;
 
         $agensi->save();
+        alert()->success('Maklumat telah dikemaskini', 'Berjaya');
+        AuditTrailController::audit('utiliti', 'agensi', 'kemaskini');
+
         return redirect('/utiliti/kumpulan/agensi');
     }
 
@@ -141,6 +146,8 @@ class AgensiController extends Controller
     public function destroy(Agensi $agensi)
     {
         $agensi->delete();
+        alert()->success('Maklumat telah dihapus', 'Berjaya');
+        AuditTrailController::audit('utiliti', 'agensi', 'hapus');
         return redirect('/utiliti/kumpulan/agensi');
     }
 }
