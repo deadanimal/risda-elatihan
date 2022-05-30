@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PermohonanController extends Controller
 {
@@ -186,8 +187,10 @@ class PermohonanController extends Controller
         $permohonan->save();
 
         if ($permohonan->status_permohonan == '4') {
+
             Mail::to('applicantsppeps01@gmail.com')->send(new PermohonanLulus($permohonan, $agensi));
         } elseif ($permohonan->status_permohonan == '5') {
+
             Mail::to('applicantsppeps01@gmail.com')->send(new PermohonanGagal($permohonan));
         }
         alert()->success('Status permohonan telah dikemaskini', 'Berjaya');
@@ -272,5 +275,18 @@ class PermohonanController extends Controller
             'nota_rujukan' => NotaRujukan::where('nr_jadual_kursus', $id)->get(),
             'id' => $id
         ]);
+    }
+
+
+    public function cetaksurattawaran($id){
+
+        $permohonan = Permohonan::find($id)
+        ->with(['jadual', 'kehadiran'])->where('no_pekerja', Auth::id())->get();
+
+
+        $pdf = PDF::loadView('pdf.surat-tawaran-kursus', [
+            'permohonan'=>$permohonan]);
+
+        return $pdf->download('Surat Tawaran Kursus'.'.pdf');
     }
 }

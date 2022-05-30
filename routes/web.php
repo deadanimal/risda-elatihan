@@ -161,6 +161,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/pengurusan_kursus/filter-jadual-kursus/{search}', [JadualKursusController::class, 'filter']);
     Route::get('/cetak_jadual',[JadualKursusController::class,'cetakjadualkursus']);
+    Route::get('/cetak_surat_tawaran/{id}',[PermohonanController::class,'cetaksurattawaran']);
 
     Route::get('/pengurusan_kursus/filter-daerah/{search}', [DaerahController::class, 'filter']);
 
