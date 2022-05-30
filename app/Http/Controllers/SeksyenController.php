@@ -29,16 +29,17 @@ class SeksyenController extends Controller
         $dae2 = Daerah::all();
         $mukim = Mukim::all();
         $muk2 = Mukim::all();
+        $kampung = Kampung::all();
 
         $seksyen = Negeri::join('daerahs', 'negeris.id', 'daerahs.U_Negeri_ID')
-        ->join('mukims', 'daerahs.id', 'mukims.U_Daerah_ID')
-        ->join('seksyens', 'mukims.id', 'seksyens.U_Mukim_ID')
-        ->get();
-        
+            ->join('mukims', 'daerahs.id', 'mukims.U_Daerah_ID')
+            ->join('seksyens', 'mukims.id', 'seksyens.U_Mukim_ID')
+            ->get();
+
         $bil_seksyen = Seksyen::orderBy('id', 'desc')->first();
         if ($bil_seksyen != null) {
             $bil = $bil_seksyen->Seksyen_kod;
-        }else{
+        } else {
             $bil = 0;
         }
         $bil = $bil + 1;
@@ -51,7 +52,8 @@ class SeksyenController extends Controller
             'mukim' => $mukim,
             'muk2' => $muk2,
             'seksyen' => $seksyen,
-            'bil' => $bil
+            'bil' => $bil,
+            'kampung' => $kampung
         ]);
     }
 
@@ -87,6 +89,8 @@ class SeksyenController extends Controller
         }
         $seksyen->status_seksyen = $status;
         $seksyen->save();
+        AuditTrailController::audit('utiliti', 'seksyen', 'cipta');
+        alert()->success('Maklumat telah disimpan', 'Berjaya');
         return redirect('/utiliti/lokasi/seksyen');
     }
 
@@ -134,6 +138,8 @@ class SeksyenController extends Controller
         }
         $seksyen->status_seksyen = $status;
         $seksyen->save();
+        AuditTrailController::audit('utiliti', 'seksyen', 'kemaskini');
+        alert()->success('Maklumat telah dikemaskini', 'Berjaya');
         return redirect('/utiliti/lokasi/seksyen');
     }
 
@@ -145,7 +151,14 @@ class SeksyenController extends Controller
      */
     public function destroy(Seksyen $seksyen)
     {
-        $seksyen->delete();
+        try {
+            $seksyen->delete();
+        } catch (\Throwable $th) {
+            alert()->error('Maklumat berkait dengan rekod di bahagian lain, sila hapuskan rekod di bahagian tersebut dahulu.', 'Tidak Berjaya')->persistent('Tutup');
+            return back();
+        }
+        AuditTrailController::audit('utiliti', 'seksyen', 'hapus');
+        alert()->success('Maklumat telah dihapuskan', 'Berjaya');
         return redirect('/utiliti/lokasi/seksyen');
     }
 }

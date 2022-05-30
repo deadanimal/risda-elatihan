@@ -61,9 +61,9 @@
                                             <label class="col-form-label">BIDANG KURSUS</label>
                                             <select class="form-select" name="U_Bidang_Kursus" id="bid">
                                                 <option selected="" hidden>Sila Pilih</option>
-                                                {{-- @foreach ($bidangKursus as $BK)
+                                                @foreach ($bidangKursus as $BK)
                                                     <option value="{{ $BK->id }}">{{ $BK->nama_Bidang_Kursus }}</option>
-                                                @endforeach --}}
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="mb-3">

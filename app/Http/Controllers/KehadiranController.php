@@ -172,7 +172,7 @@ class KehadiranController extends Controller
 
         $kehadiran->save();
         alert()->success('Maklumat telah direkodkan', 'Berjaya');
-        return redirect('/dashboard');
+        return redirect('/');
 
 
         // if ($request->status == "CALON ASAL") {
@@ -241,18 +241,11 @@ class KehadiranController extends Controller
     // Kehadiran
     public function admin_rekod_kehadiran_peserta_UsUls($jadual_kursus)
     {
-        $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
-            ->get('https://www4.risda.gov.my/fire/getallstaff/')
-            ->getBody()
-            ->getContents();
-
-        $data_staf = json_decode($data_staf, true);
-
         $jadual = JadualKursus::find($jadual_kursus);
 
         $list_peserta = Kehadiran::with(['aturcara', 'staff', 'pengganti'])->where('jadual_kursus_id', $jadual_kursus)->get();
-
-        $kehadiran = Kehadiran::all();
+        
+        $kehadiran = Kehadiran::with(['staff', 'pengganti'])->get();
 
         $pesertaUls = User::where('jenis_pengguna', 'Peserta ULS')->get();
 

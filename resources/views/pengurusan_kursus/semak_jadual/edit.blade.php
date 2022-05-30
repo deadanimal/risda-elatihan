@@ -164,7 +164,7 @@
                                     value="{{ $jadual->bilangan_hari }}" />
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        {{-- <div class="col-lg-6">
                             <div class="mb-3">
                                 <label class="col-form-label">STATUS PERLAKSANAAN</label>
                                 <select class="form-select form-control" name="kursus_status_pelaksanaan">
@@ -176,7 +176,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="row mb-0">
                         <div class="col-lg-6">
@@ -186,7 +186,7 @@
                                     type="text" placeholder="H:i"
                                     data-options='{"enableTime":true,"noCalendar":true,"dateFormat":"H:i","disableMobile":true}'
                                     value="{{ $jadual->kursus_masa_pendaftaran }}" /> --}}
-                                    <input class="form-control" name="kursus_masa_pendaftaran" type="time" placeholder="H:i"/>
+                                    <input class="form-control" name="kursus_masa_pendaftaran" type="time" value="{{$jadual->kursus_masa_pendaftaran}}"/>
                             </div>
                         </div>
                         <div class="col-lg-6">

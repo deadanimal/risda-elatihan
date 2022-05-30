@@ -63,6 +63,9 @@ class BangsaController extends Controller
         $bangsa->status_bangsa = $status;
 
         $bangsa->save();
+        alert()->success('Maklumat telah dicipta', 'Berjaya');
+        AuditTrailController::audit('utiliti', 'bangsa', 'cipta');
+
         return redirect('/utiliti/generik/bangsa');
     }
 
@@ -107,6 +110,8 @@ class BangsaController extends Controller
         $bangsa->status_bangsa = $status;
 
         $bangsa->save();
+        alert()->success('Maklumat telah dikemaskini', 'Berjaya');
+        AuditTrailController::audit('utiliti', 'bangsa', 'kemaskini');
         return redirect('/utiliti/generik/bangsa');
     }
 
@@ -119,6 +124,8 @@ class BangsaController extends Controller
     public function destroy(Bangsa $bangsa)
     {
         $bangsa->delete();
+        alert()->success('Maklumat telah dihapus', 'Berjaya');
+        AuditTrailController::audit('utiliti', 'bangsa', 'hapus');
         return redirect('/utiliti/generik/bangsa');
     }
 }

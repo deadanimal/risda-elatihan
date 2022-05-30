@@ -7,9 +7,9 @@
                 <h5 class="risda-dg">SEKSYEN</h5>
             </div>
         </div>
-    
+
         <hr class="risda-g">
-    
+
         <form action="#" id="form_search">
             <div class="row mt-4 justify-content-center">
                 <div class="col-lg-8">
@@ -27,7 +27,7 @@
                                 @endforeach
                             </select>
                         </div>
-        
+
                         <div class="col-lg-3">
                             <label class="col-form-label">DAERAH:</label>
                         </div>
@@ -41,7 +41,7 @@
                                 @endforeach
                             </select>
                         </div>
-        
+
                         <div class="col-lg-3">
                             <label class="col-form-label">MUKIM:</label>
                         </div>
@@ -59,7 +59,7 @@
                 </div>
             </div>
         </form>
-    
+
         <div class="row mt-5">
             <div class="col">
                 <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#tambah-negeri">
@@ -103,7 +103,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label class="col-form-label">MUKIM</label>
-                                            <select class="form-select" name="U_Mukim_ID">
+                                            <select class="form-select" name="U_Mukim_ID" id="mkm">
                                                 <option selected="" hidden>Sila Pilih</option>
                                                 {{-- @foreach ($daerah as $d)
                                                     @if ($s->status_daerah == '1')
@@ -113,13 +113,19 @@
                                             </select>
                                         </div>
                                         <div class="mb-3">
-                                            <label class="col-form-label">KOD SEKSYEN</label>
-                                            <input class="form-control" type="text" name="Seksyen_kod"
-                                                value="" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
+                                            <label class="col-form-label">KAMPUNG</label>
+                                            <select class="form-select" name="Kampung">
+                                                <option value="" selected hidden>Sila Pilih</option>
+                                                {{-- @foreach ($kampung as $k)
+                                                    <option value="{{ $k->id }}">
+                                                        {{ $k->Kampung }}</option>
+                                                @endforeach --}}
+                                            </select>
                                         </div>
                                         <div class="mb-3">
-                                            <label class="col-form-label">KAMPUNG</label>
-                                            <input class="form-control" type="text" name="Kampung" />
+                                            <label class="col-form-label">KOD SEKSYEN</label>
+                                            <input class="form-control" type="text" name="Seksyen_kod" value=""
+                                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
                                         </div>
                                         <div class="mb-3">
                                             <label class="col-form-label">SEKSYEN</label>
@@ -145,7 +151,7 @@
                 </div>
             </div>
         </div>
-    
+
         <div class="row mt-3">
             <div class="col">
                 <div class="card">
@@ -162,13 +168,13 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white" id="t_seksyen_negeri">
-    
+
                             </tbody>
                             <tbody class="bg-white" id="t_seksyen_daerah">
-    
+
                             </tbody>
                             <tbody class="bg-white" id="t_seksyen_mukim">
-    
+
                             </tbody>
                             <tbody class="bg-white" id="t_normal">
                                 @foreach ($seksyen as $key => $s)
@@ -189,7 +195,7 @@
                                                 data-bs-target="#edit_seksyen_{{ $s->id }}">
                                                 <i class="fas fa-pen"></i>
                                             </button>
-    
+
                                             <button class="btn risda-bg-dg text-white" type="button" data-bs-toggle="modal"
                                                 data-bs-target="#delete_seksyen_{{ $s->id }}">
                                                 <i class="fas fa-trash"></i>
@@ -212,14 +218,17 @@
                                                         </h4>
                                                     </div>
                                                     <div class="p-4 pb-0">
-                                                        <form id="form2" action="/utiliti/lokasi/seksyen/{{ $s->id }}"
+                                                        <form id="form2"
+                                                            action="/utiliti/lokasi/seksyen/{{ $s->id }}"
                                                             method="POST">
                                                             @method('PUT')
                                                             @csrf
                                                             <div class="mb-3">
                                                                 <label class="col-form-label">NEGERI</label>
-                                                                <select class="form-select" name="U_Negeri_ID" id="ngri2">
-                                                                    <option selected="" value="{{ $s->U_Negeri_ID }}" hidden>
+                                                                <select class="form-select" name="U_Negeri_ID"
+                                                                    id="ngri2">
+                                                                    <option selected="" value="{{ $s->U_Negeri_ID }}"
+                                                                        hidden>
                                                                         {{ $s->Negeri }}</option>
                                                                     @foreach ($neg2 as $neg)
                                                                         @if ($neg['status_negeri'] == '1')
@@ -231,8 +240,10 @@
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label class="col-form-label">DAERAH</label>
-                                                                <select class="form-select" name="U_Daerah_ID" id="drah2">
-                                                                    <option selected="" value="{{ $s->U_Daerah_ID }}" hidden>
+                                                                <select class="form-select" name="U_Daerah_ID"
+                                                                    id="drah2">
+                                                                    <option selected="" value="{{ $s->U_Daerah_ID }}"
+                                                                        hidden>
                                                                         {{ $s->Daerah }}</option>
                                                                     {{-- @foreach ($daerah as $d)
                                                                         @if ($s->status_daerah == '1')
@@ -243,8 +254,9 @@
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label class="col-form-label">MUKIM</label>
-                                                                <select class="form-select" name="U_Mukim_ID">
-                                                                    <option selected="" value="{{ $s->U_Mukim_ID }}" hidden>
+                                                                <select class="form-select" name="U_Mukim_ID" id="mkm2">
+                                                                    <option selected="" value="{{ $s->U_Mukim_ID }}"
+                                                                        hidden>
                                                                         {{ $s->Mukim }}</option>
                                                                     {{-- @foreach ($daerah as $d)
                                                                         @if ($s->status_daerah == '1')
@@ -254,14 +266,21 @@
                                                                 </select>
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label class="col-form-label">KOD SEKSYEN</label>
-                                                                <input class="form-control" type="text" name="Seksyen_kod"
-                                                                    value="{{ $s->Seksyen_kod }}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
+                                                                <label class="col-form-label">KAMPUNG</label>
+                                                                <select class="form-select" name="Kampung">
+                                                                    <option value="{{ $s->Kampung }}" selected hidden>{{ $s->Kampung }}
+                                                                    </option>
+                                                                    {{-- @foreach ($kampung as $k)
+                                                                        <option value="{{ $k->id }}">
+                                                                            {{ $k->Kampung }}</option>
+                                                                    @endforeach --}}
+                                                                </select>
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label class="col-form-label">KAMPUNG</label>
-                                                                <input class="form-control" type="text" name="Kampung"
-                                                                    value="{{ $s->Kampung }}" />
+                                                                <label class="col-form-label">KOD SEKSYEN</label>
+                                                                <input class="form-control" type="text"
+                                                                    name="Seksyen_kod" value="{{ $s->Seksyen_kod }}"
+                                                                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label class="col-form-label">SEKSYEN</label>
@@ -307,25 +326,27 @@
                                                 <div class="modal-body p-0">
                                                     <div class="row">
                                                         <div class="col text-center m-3">
-                                                            <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
+                                                            <i class="far fa-times-circle fa-7x"
+                                                                style="color: #ea0606"></i>
                                                             <br>
                                                             Anda pasti untuk menghapus {{ $s->Seksyen }}?
-    
+
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button class="btn btn-secondary" type="button"
                                                             data-bs-dismiss="modal">Batal</button>
-                                                        <form method="POST" action="/utiliti/lokasi/seksyen/{{ $s->id }}">
+                                                        <form method="POST"
+                                                            action="/utiliti/lokasi/seksyen/{{ $s->id }}">
                                                             @method('DELETE')
                                                             @csrf
                                                             <button class="btn btn-primary" type="submit">Hapus
                                                             </button>
                                                         </form>
-    
+
                                                     </div>
                                                 </div>
-    
+
                                             </div>
                                         </div>
                                     </div>
@@ -401,11 +422,11 @@
             });
         });
 
-        $('#drah').click(function() {
+        $('#drah').change(function() {
 
             $('#form1 select[name=U_Mukim_ID]').html("");
             var mkm = @json($mukim->toArray());
-            console.log(mkm);
+            console.log('ni', mkm);
 
             let option_new = "";
             $('#form1 select[name=U_Mukim_ID]').append(
@@ -435,7 +456,7 @@
             });
         });
 
-        $('#drah2').click(function() {
+        $('#drah2').change(function() {
 
             $('#form2 select[name=U_Mukim_ID]').html("");
             var mkm2 = @json($muk2->toArray());
@@ -448,6 +469,40 @@
                 if (this.value == element.U_Daerah_ID) {
                     $('#form2 select[name=U_Mukim_ID]').append(
                         `<option value=${element.id}>${element.Mukim}</option>`);
+                }
+            });
+        });
+
+        $('#mkm').change(function() {
+
+            $('#form1 select[name=Kampung]').html("");
+            var kg = @json($kampung->toArray());
+            console.log(kg);
+
+            let option_new = "";
+            $('#form1 select[name=Kampung]').append(
+                `<option value='' hidden>Sila Pilih</option>`);
+            kg.forEach(element => {
+                if (this.value == element.U_Mukim_ID) {
+                    $('#form1 select[name=Kampung]').append(
+                        `<option value=${element.id}>${element.Kampung}</option>`);
+                }
+            });
+        });
+
+        $('#mkm2').change(function() {
+
+            $('#form2 select[name=Kampung]').html("");
+            var kg = @json($kampung->toArray());
+            console.log(kg);
+
+            let option_new = "";
+            $('#form2 select[name=Kampung]').append(
+                `<option value='' hidden>Sila Pilih</option>`);
+            kg.forEach(element => {
+                if (this.value == element.U_Mukim_ID) {
+                    $('#form2 select[name=Kampung]').append(
+                        `<option value=${element.id}>${element.Kampung}</option>`);
                 }
             });
         });

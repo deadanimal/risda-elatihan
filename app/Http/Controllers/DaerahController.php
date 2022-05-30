@@ -71,8 +71,9 @@ class DaerahController extends Controller
             $status = 0;
         }
         $daerah->status_daerah = $status;
-        // dd($daerah);
         $daerah->save();
+        alert()->success('Maklumat telah dicipta', 'Berjaya');
+        AuditTrailController::audit('utiliti', 'daerah', 'cipta');
         return redirect('/utiliti/lokasi/daerah');
     }
 
@@ -119,6 +120,8 @@ class DaerahController extends Controller
         $daerah->status_daerah = $status;
 
         $daerah->save();
+        alert()->success('Maklumat telah dikemaskini', 'Berjaya');
+        AuditTrailController::audit('utiliti', 'daerah', 'kemaskini');
         return redirect('/utiliti/lokasi/daerah');
     }
 
@@ -131,7 +134,20 @@ class DaerahController extends Controller
     public function destroy($daerah)
     {
         $daerah = Daerah::find($daerah);
-        $daerah->delete();
+        try {
+            $daerah->delete();
+        } catch (\Throwable $th) {
+            alert()->error('Maklumat berkait dengan rekod di bahagian lain, sila hapuskan rekod di bahagian tersebut dahulu.', 'Tidak Berjaya')->persistent('Tutup');
+            return back();
+        }
+        
+        alert()->success('Maklumat telah dihapus', 'Berjaya');
+        AuditTrailController::audit('utiliti', 'daerah', 'hapus');
         return redirect('/utiliti/lokasi/daerah');
+    }
+    public function filter($search)
+    {
+        $daerah = Daerah::where('U_Negeri_ID', $search)->get();
+        return response()->json($daerah);
     }
 }

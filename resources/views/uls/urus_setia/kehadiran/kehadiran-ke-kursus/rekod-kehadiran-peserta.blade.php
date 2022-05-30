@@ -189,140 +189,157 @@
 
 
 
-    <div class="modal fade" id="modal-rekod-kehadiran" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1"
-        aria-labelledby="modal-rekod-kehadiranLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg mt-6" role="document">
-            <div class="modal-content border-0">
-                <div class="position-absolute top-0 end-0 mt-3 me-3 z-index-1">
-                    <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
-                        data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form method="post" id="form_kehadiran_update">
-                    @csrf
-                    @method('put')
-                    <div class="modal-body p-0">
-                        <div class="bg-light rounded-top-lg py-3 ps-4 pe-6">
-                            <p class="mb-1 h4 fw-bold" style="color: rgb(15, 94, 49);" id="modal-rekod-kehadiranLabel">REKOD
-                                KEHADIRAN</p>
-                        </div>
-                        <div class="p-4">
-                            <div class="row justify-content-center">
-                                <div class="col-8 mb-4">
-                                    <div class="col-5 d-inline-flex">
-                                        <span class="">STATUS STAF</span>
+    @foreach ($list as $l)
+        <div class="modal fade" id="modal-rekod-kehadiran_{{ $l->id }}" data-bs-keyboard="false"
+            data-bs-backdrop="static" tabindex="-1" aria-labelledby="modal-rekod-kehadiranLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg mt-6" role="document">
+                <div class="modal-content border-0">
+                    <div class="position-absolute top-0 end-0 mt-3 me-3 z-index-1">
+                        <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form method="post" id="form_kehadiran_update">
+                        @csrf
+                        @method('put')
+                        <div class="modal-body p-0">
+                            <div class="bg-light rounded-top-lg py-3 ps-4 pe-6">
+                                <p class="mb-1 h4 fw-bold" style="color: rgb(15, 94, 49);" id="modal-rekod-kehadiranLabel">
+                                    REKOD
+                                    KEHADIRAN</p>
+                            </div>
+                            <div class="p-4">
+                                <div class="row justify-content-center">
+                                    <div class="col-8 mb-4">
+                                        <div class="col-5 d-inline-flex">
+                                            <span class="">STATUS STAF</span>
+                                        </div>
+                                        <div class="col-6 d-inline-flex">
+                                            <select class="form-select" id="status-staff" name="status_staff">
+                                                @if ($l->nama_pengganti == null)
+                                                    <option value="Calon Asal" selected hidden>Calon Asal</option>
+                                                @else
+                                                    <option value="Pengganti" selected hidden>Pengganti</option>
+                                                @endif
+                                                <option value="Calon Asal">Calon Asal</option>
+                                                <option value="Pengganti">Pengganti</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="col-6 d-inline-flex">
-                                        <select class="form-select" id="status-staff" name="status_staff">
-                                            <option value="Calon Asal">Calon Asal</option>
-                                            <option value="Pengganti">Pengganti</option>
-                                        </select>
+                                    <div class="col-8 mb-4">
+                                        <div class="col-5 d-inline-flex">
+                                            <span class="">NAMA CALON ASAL</span>
+                                        </div>
+                                        <div class="col-6 d-inline-flex">
+                                            <select class="form-select" name="nama_calon_asal">
+                                                <option value="{{ $l->staff->name }}" selected hidden>{{ $l->staff->name }}
+                                                </option>
+                                                @foreach ($pesertaUls as $pUls)
+                                                    <option value="{{ $pUls->name }}">{{ $pUls->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-8 mb-4">
-                                    <div class="col-5 d-inline-flex">
-                                        <span class="">NAMA CALON ASAL</span>
+                                    <div class="col-8 mb-4 pengganti">
+                                        <div class="col-5 d-inline-flex">
+                                            <span class="">NO KAD PENGENALAN PENGGANTI</span>
+                                        </div>
+                                        <div class="col-6 d-inline-flex">
+                                            <input type="text" class="form-control" name="kad_pengenalan_pengganti">
+                                        </div>
                                     </div>
-                                    <div class="col-6 d-inline-flex">
-                                        <select class="form-select" name="nama_calon_asal">
-                                            @foreach ($pesertaUls as $pUls)
-                                                <option value="{{ $pUls->name }}">{{ $pUls->name }}</option>
-                                            @endforeach
-                                        </select>
+                                    <div class="col-8 mb-4 pengganti">
+                                        <div class="col-5 d-inline-flex">
+                                            <span class="">NAMA PENGGANTI</span>
+                                        </div>
+                                        <div class="col-6 d-inline-flex">
+                                            <input type="text" class="form-control" name="nama_pengganti">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-8 mb-4 pengganti">
-                                    <div class="col-5 d-inline-flex">
-                                        <span class="">NO KAD PENGENALAN PENGGANTI</span>
+                                    <div class="col-8 mb-4">
+                                        <div class="col-5 d-inline-flex">
+                                            <span class="">STATUS KEHADIRAN</span>
+                                        </div>
+                                        <div class="col-6 d-inline-flex">
+                                            <select class="form-select" name="status_kehadiran">
+                                                @if ($l->tarikh_imbasQR == null)
+                                                    <option value="TIDAK HADIR" selected hidden>TIDAK HADIR</option>
+                                                @else
+                                                    <option value="HADIR" selected hidden>HADIR</option>
+                                                @endif
+                                                <option value="HADIR">HADIR</option>
+                                                <option value="TIDAK HADIR">TIDAK HADIR</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="col-6 d-inline-flex">
-                                        <input type="text" class="form-control" name="kad_pengenalan_pengganti">
-                                    </div>
-                                </div>
-                                <div class="col-8 mb-4 pengganti">
-                                    <div class="col-5 d-inline-flex">
-                                        <span class="">NAMA PENGGANTI</span>
-                                    </div>
-                                    <div class="col-6 d-inline-flex">
-                                        <input type="text" class="form-control" name="nama_pengganti">
-                                    </div>
-                                </div>
-                                <div class="col-8 mb-4">
-                                    <div class="col-5 d-inline-flex">
-                                        <span class="">STATUS KEHADIRAN</span>
-                                    </div>
-                                    <div class="col-6 d-inline-flex">
-                                        <select class="form-select" name="status_kehadiran">
-                                            <option value="HADIR">HADIR</option>
-                                            <option value="TIDAK HADIR">TIDAK HADIR</option>
-                                        </select>
-                                    </div>
-                                </div>
 
-                                <div class="col-12 mt-3 text-end">
-                                    <button class="btn btn-primary" type="submit"><span class="far fa-save"></span>
-                                        Simpan</button>
-                                </div>
+                                    <div class="col-12 mt-3 text-end">
+                                        <button class="btn btn-primary" type="submit"><span class="far fa-save"></span>
+                                            Simpan</button>
+                                    </div>
 
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="modal fade" id="modal-rekod-ketidakhadiran" data-bs-keyboard="false" data-bs-backdrop="static"
-        tabindex="-1" aria-labelledby="modal-rekod-ketidakhadiranLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg mt-6" role="document">
-            <div class="modal-content border-0">
-                <div class="position-absolute top-0 end-0 mt-3 me-3 z-index-1">
-                    <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
-                        data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form id="form_kehadiran_update2" method="post">
-                    @csrf
-                    @method('put')
-                    <div class="modal-body p-0">
-                        <div class="bg-light rounded-top-lg py-3 ps-4 pe-6">
-                            <p class="mb-1 h4 fw-bold" style="color: rgb(15, 94, 49);" id="modal-rekod-ketidakhadiranLabel">
-                                Alasan Ketidakhadiran</p>
-                        </div>
-                        <div class="p-4">
-                            <div class="row justify-content-center">
-                                <div class="col-10 mb-4">
-                                    <div class="col-5 d-inline-flex">
-                                        <span class="">STATUS STAF</span>
+        <div class="modal fade" id="modal-rekod-ketidakhadiran_{{ $l->id }}" data-bs-keyboard="false"
+            data-bs-backdrop="static" tabindex="-1" aria-labelledby="modal-rekod-ketidakhadiranLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg mt-6" role="document">
+                <div class="modal-content border-0">
+                    <div class="position-absolute top-0 end-0 mt-3 me-3 z-index-1">
+                        <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form id="form_kehadiran_update2" method="post">
+                        @csrf
+                        @method('put')
+                        <div class="modal-body p-0">
+                            <div class="bg-light rounded-top-lg py-3 ps-4 pe-6">
+                                <p class="mb-1 h4 fw-bold" style="color: rgb(15, 94, 49);"
+                                    id="modal-rekod-ketidakhadiranLabel">
+                                    Alasan Ketidakhadiran</p>
+                            </div>
+                            <div class="p-4">
+                                <div class="row justify-content-center">
+                                    <div class="col-10 mb-4">
+                                        <div class="col-5 d-inline-flex">
+                                            <span class="">STATUS STAF</span>
+                                        </div>
+                                        <div class="col-6 d-inline-flex">
+                                            <select class="form-select" name="jenis_kehadiran">
+                                                <option value="1">KEHADIRAN SEBELUM KURSUS</option>
+                                                <option value="2">KEHADIRAN KE KURSUS</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="col-6 d-inline-flex">
-                                        <select class="form-select" name="jenis_kehadiran">
-                                            <option value="1">KEHADIRAN SEBELUM KURSUS</option>
-                                            <option value="2">KEHADIRAN KE KURSUS</option>
-                                        </select>
-                                    </div>
-                                </div>
 
-                                <div class="col-10 mb-4">
-                                    <div class="col-5 d-inline-flex">
-                                        <span class="">ALASAN</span>
+                                    <div class="col-10 mb-4">
+                                        <div class="col-5 d-inline-flex">
+                                            <span class="">ALASAN</span>
+                                        </div>
+                                        <div class="col-6 d-inline-flex">
+                                            <textarea type="text" class="form-control" rows="3" name="alasan"></textarea>
+                                        </div>
                                     </div>
-                                    <div class="col-6 d-inline-flex">
-                                        <textarea type="text" class="form-control" rows="3" name="alasan"></textarea>
+
+                                    <div class="col-12 mt-3 text-end">
+                                        <button class="btn btn-primary" type="submit"><span class="far fa-save"></span>
+                                            Simpan</button>
                                     </div>
-                                </div>
 
-                                <div class="col-12 mt-3 text-end">
-                                    <button class="btn btn-primary" type="submit"><span class="far fa-save"></span>
-                                        Simpan</button>
                                 </div>
-
                             </div>
                         </div>
-                    </div>
 
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
+    @endforeach
+
 
 
     <script>
@@ -367,15 +384,17 @@
                                 <td>` + (e.status_kehadiran_ke_kursus ?? '-') + `</td>
                                 <td>` + status + `</td>
                                 <td>` + ic_pengganti + `</td>
-                                <td>` + nama_pengganti  + `</td>
+                                <td>` + nama_pengganti + `</td>
                                 <td>
                                 <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
-                                data-bs-target="#modal-rekod-kehadiran" onclick="kemaskini(` + e.id +
+                                data-bs-target="#modal-rekod-kehadiran_` + e.id +
+                        `" onclick="kemaskini(` + e.id +
                         `)">Kemaskini</button> 
                                 <br>
                         ` + (e.status_kehadiran == "TIDAK HADIR" || e.status_kehadiran_ke_kursus ==
                             "TIDAK HADIR" ? `<button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
-                                data-bs-target="#modal-rekod-ketidakhadiran" onclick="kemaskini2(` + e.id +
+                                data-bs-target="#modal-rekod-ketidakhadiran_` + e.id + `" onclick="kemaskini2(` + e
+                            .id +
                             `)">Alasan Ketidakhadiran</button> ` : ""
 
                         ) + `
@@ -417,15 +436,17 @@
                                 <td>` + (e.status_kehadiran_ke_kursus ?? '') + `</td>
                                 <td>` + status + `</td>
                                 <td>` + ic_pengganti + `</td>
-                                <td>` + nama_pengganti  + `</td>
+                                <td>` + nama_pengganti + `</td>
                                 <td>
                                 <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
-                                data-bs-target="#modal-rekod-kehadiran" onclick="kemaskini(` + e.id +
+                                data-bs-target="#modal-rekod-kehadiran_` + e.id +
+                        `" onclick="kemaskini(` + e.id +
                         `)">Kemaskini</button> 
                                 <br>
                         ` + (e.status_kehadiran == "TIDAK HADIR" || e.status_kehadiran_ke_kursus ==
                             "TIDAK HADIR" ? `<button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
-                                data-bs-target="#modal-rekod-ketidakhadiran" onclick="kemaskini2(` + e.id +
+                                data-bs-target="#modal-rekod-ketidakhadiran_` + e.id + `" onclick="kemaskini2(` + e
+                            .id +
                             `)">Alasan Ketidakhadiran</button> ` : ""
 
                         ) + `

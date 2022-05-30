@@ -764,12 +764,11 @@
                         </ul>
                     @endcan
 
-                    <a class="nav-link py-0 {{ Request::is('us-uls/PelajarPraktikal') ? 'active' : '' }}"
-                    href="/us-uls/PelajarPraktikal" role="button">
-                    <div class="d-flex align-items-center nav-link-side px-0">
-                            <span class="px-3"><span class="far fa-address-book"></span> PELAJAR PRAKTIKAL</span>
-                    </div>
-                </a>
+                    <a class="nav-link py-0 {{ Request::is('us-uls/PelajarPraktikal') ? 'active' : '' }}" href="/us-uls/PelajarPraktikal" role="button">
+                        <div class="d-flex align-items-center nav-link-side px-0">
+                                <span class="px-3"><span class="far fa-address-book"></span> PELAJAR PRAKTIKAL</span>
+                        </div>
+                    </a>
 
                     @can('pengajian lanjutan')
                         <a class="nav-link py-0 {{ Request::is('us-uls/pengajian-lanjutan') ? 'active' : '' }}"
@@ -871,7 +870,7 @@
                         <a class="nav-link py-0 dropdown-indicator" href="#laporan" role="button" data-bs-toggle="collapse"
                             aria-expanded="{{ Request::is('laporan/*') ? 'true' : 'false' }}" aria-controls="laporan">
                             <div class="d-flex align-items-center nav-link-side px-0">
-                                <span class="px-3"><span class="fab fa-wpforms"></span> Laporan</span>
+                                <span class="px-3"><span class="fas fa-file-alt"></span> LAPORAN</span>
                             </div>
                         </a>
                         <ul class="nav-item collapse {{ Request::is('laporan/*') ? 'show' : 'false' }} my-1"
@@ -1021,6 +1020,14 @@
                             </li>
 
                         </ul>
+                    @endcan
+
+                    @can('audit trail')
+                        <a class="nav-link {{ Request::is('audit_trail') ? 'active' : '' }} py-0" href="/audit_trail" role="button"">
+                            <div class="d-flex align-items-center nav-link-side px-0">
+                                <span class="px-3"><span class="far fa-chart-bar"></span> AUDIT TRAIL</span>
+                            </div>
+                        </a>
                     @endcan
 
                     @can('UlpkUrusSetia')

@@ -81,8 +81,9 @@ class KampungController extends Controller
         }
         $kampung->status_kampung = $status;
         $kampung->save();
+        AuditTrailController::audit('utiliti','kampung','cipta');
+        alert()->success('Maklumat telah disimpan', 'Berjaya');
         return redirect('/utiliti/lokasi/kampung');
-
     }
 
     /**
@@ -128,6 +129,8 @@ class KampungController extends Controller
         }
         $kampung->status_kampung = $status;
         $kampung->save();
+        AuditTrailController::audit('utiliti','kampung','kemaskini');
+        alert()->success('Maklumat telah dikemaskini', 'Berjaya');
         return redirect('/utiliti/lokasi/kampung');
     }
 
@@ -139,7 +142,14 @@ class KampungController extends Controller
      */
     public function destroy(Kampung $kampung)
     {
-        $kampung->delete();
+        try {
+            $kampung->delete();
+        } catch (\Throwable $th) {
+            alert()->error('Maklumat berkait dengan rekod di bahagian lain, sila hapuskan rekod di bahagian tersebut dahulu.', 'Tidak Berjaya')->persistent('Tutup');
+            return back();
+        }
+        AuditTrailController::audit('utiliti','kampung','hapus');
+        alert()->success('Maklumat telah dihapus', 'Berjaya');
         return redirect('/utiliti/lokasi/kampung');
     }
 }

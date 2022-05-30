@@ -8,4 +8,25 @@ use Illuminate\Database\Eloquent\Model;
 class PengajianLanjutan extends Model
 {
     use HasFactory;
+    protected $guarded = ['id'];
+
+    public function pengguna()
+    {
+        return $this->hasOne(User::class, 'id', 'staf');
+    }
+
+    public function data_pusat_tanggungjawab()
+    {
+        return $this->hasOne(PusatTanggungjawab::class, 'id', 'pusat_tanggungjawab');
+    }
+
+    public function data_staf()
+    {
+        return $this->hasOne(Staf::class, 'id_Pengguna', 'staf');
+    }
+
+    public function perbelanjaan()
+    {
+        return $this->hasMany(PerbelanjaanYuran::class, 'id_pengajian_lanjutan', 'id');
+    }
 }
