@@ -21,6 +21,8 @@ use App\Models\Staf;
 use App\Models\StatusPelaksanaan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Carbon;
 
 class JadualKursusController extends Controller
 {
@@ -370,5 +372,73 @@ class JadualKursusController extends Controller
 
         alert()->success('Maklumat telah disimipan', 'Berjaya Disimpan');
         return redirect('/penilaian/post-test/' . $id);
+    }
+
+    public function cetakjadualkursus()
+    {
+        $today = Carbon::now()->format('dmY');
+        $pengguna = Auth::user()->jenis_pengguna;
+
+
+        if ($pengguna == 'Urus Setia ULS') {
+            $kursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', 'Staf')->get();
+             foreach ($kursus as $key => $jk) {
+                $sum = 0;
+                $bil = PeruntukanPeserta::where('pp_jadual_kursus', $jk->id)->get();
+                foreach ($bil as $k => $b) {
+                    $sum = $sum + $b->pp_peruntukan_calon;
+                }
+                $jk['bilangan'] = $sum;
+            }
+
+            $pdf = PDF::loadView('cetak_jadual', [
+            'kursus'=>$kursus
+        ]);
+
+            return $pdf->download('Jadual_Kursus '.'Unit Latihan Staff'.$today .'.pdf');
+        }
+
+        else if($pengguna == 'Urus Setia ULPK'){
+            $kursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', 'Pekebun Kecil')->get();
+             foreach ($kursus as $key => $jk) {
+                $sum = 0;
+                $bil = PeruntukanPeserta::where('pp_jadual_kursus', $jk->id)->get();
+                foreach ($bil as $k => $b) {
+                    $sum = $sum + $b->pp_peruntukan_calon;
+                }
+                $jk['bilangan'] = $sum;
+            }
+
+
+            $pdf = PDF::loadView('cetak_jadual', [
+            'kursus'=>$kursus
+        ]);
+
+            return $pdf->download('Jadual_Kursus '.'Unit Latihan Pekebun Kecil'.$today .'.pdf');
+        }
+
+        else {
+            $kursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->get();
+             foreach ($kursus as $key => $jk) {
+                $sum = 0;
+                $bil = PeruntukanPeserta::where('pp_jadual_kursus', $jk->id)->get();
+                foreach ($bil as $k => $b) {
+                    $sum = $sum + $b->pp_peruntukan_calon;
+                }
+                $jk['bilangan'] = $sum;
+            }
+
+
+            $pdf = PDF::loadView('cetak_jadual', [
+                'kursus'=>$kursus
+            ]);
+
+                return $pdf->download('Jadual_Kursus -'.$today.'.pdf');
+
+            }
+
+        // return $pdf->stream("dompdf_out.pdf", array("Attachment" => false));
+
+
     }
 }
