@@ -1,5 +1,7 @@
 @extends('layouts.risda-base')
 @section('content')
+
+
     @php
     use App\Models\StatusPelaksanaan;
     use App\Models\Agensi;
@@ -86,9 +88,27 @@
             </div>
         </div>
 
-        <div class="row mt-4">
-            <div class="col">
-                <div class="card">
+        <a id="downloadpdf" download="LaporanPencapaianMatlamatKehadiran.pdf" style="display: none"
+        href="#">Download</a>
+
+    <a id="downloadexcel" style="display: none" href="{{ route('pmk') }}">Download</a>
+
+    <hr style="color: rgba(81,179,90, 60%);height:2px;">
+
+    <div class="card mt-5">
+        <div class="card-body">
+
+            <div class="row justify-content">
+                <div class="col-xl-2">
+                    <a cl href="/cetak_jadual" class="btn btn-primary">Cetak</a>
+                    {{-- <select class="form-select risda-bg-g text-white" onchange="download(this)">
+                        <option selected disabled hidden>Cetak</option>
+                        <option value="Excel">Excel</option>
+                        <option value="Pdf">PDF</option>
+                    </select> --}}
+                </div>
+            </div>
+
                     <div class="table-responsive scrollbar m-3">
                         <table class="table datatable table-striped" style="width:100%">
                             <thead class="bg-200">
@@ -277,4 +297,18 @@
             });
         }
     </script>
+
+<script>
+    function download(el) {
+        let val = el.value;
+        if (val == "Pdf") {
+            document.getElementById('downloadpdf').click();
+        }
+        if (val == "Excel") {
+            document.getElementById('downloadexcel').click();
+        }
+    }
+</script>
+
+
 @endsection
