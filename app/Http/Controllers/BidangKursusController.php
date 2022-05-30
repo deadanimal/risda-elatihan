@@ -139,7 +139,13 @@ class BidangKursusController extends Controller
     public function destroy($bidangKursus)
     {
         $bidangKursus = BidangKursus::find($bidangKursus);
-        $bidangKursus->delete();
+        
+        try {
+            $bidangKursus->delete();
+        } catch (\Throwable $th) {
+            alert()->error('Maklumat ini berkait dengan rekod di bahagian lain, sila hapuskan rekod di bahagian tersebut dahulu.', 'Tidak Berjaya')->persistent('Tutup');
+            return back();
+        }
 
         alert()->success('Berjaya dihapus','Hapus');
         return redirect('/utiliti/kursus/bidang_kursus');

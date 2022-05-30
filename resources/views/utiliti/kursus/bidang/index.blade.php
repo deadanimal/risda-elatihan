@@ -40,7 +40,7 @@
                                         <div class="mb-3">
                                             <label class="col-form-label">KOD BIDANG KURSUS</label>
                                             <input class="form-control" type="text" name="kod_Bidang_Kursus"
-                                                id="kod_bid" />
+                                                id="kod_bid" readonly/>
                                         </div>
                                         <div class="mb-3">
                                             <label class="col-form-label">BIDANG KURSUS</label>
