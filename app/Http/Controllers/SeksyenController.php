@@ -29,6 +29,7 @@ class SeksyenController extends Controller
         $dae2 = Daerah::all();
         $mukim = Mukim::all();
         $muk2 = Mukim::all();
+        $kampung = Kampung::all();
 
         $seksyen = Negeri::join('daerahs', 'negeris.id', 'daerahs.U_Negeri_ID')
             ->join('mukims', 'daerahs.id', 'mukims.U_Daerah_ID')
@@ -51,7 +52,8 @@ class SeksyenController extends Controller
             'mukim' => $mukim,
             'muk2' => $muk2,
             'seksyen' => $seksyen,
-            'bil' => $bil
+            'bil' => $bil,
+            'kampung' => $kampung
         ]);
     }
 
