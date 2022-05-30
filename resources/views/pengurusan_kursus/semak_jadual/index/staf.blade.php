@@ -84,9 +84,16 @@
             </div>
         </div>
 
-        <div class="row mt-4">
-            <div class="col">
-                <div class="card">
+        <hr style="color: rgba(81,179,90, 60%);height:2px;">
+
+        <div class="card mt-5">
+            <div class="card-body">
+
+                <div class="row justify-content">
+                    <div class="col-xl-2">
+                        <a cl href="/cetak_jadual" class="btn btn-primary">Cetak</a>
+                    </div>
+                </div>
                     <div class="table-responsive scrollbar m-3">
                         <table class="table datatable table-striped" style="width:100%">
                             <thead class="bg-200">
