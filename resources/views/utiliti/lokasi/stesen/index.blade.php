@@ -194,6 +194,34 @@
                             <tbody class="bg-white" id="t_stesen_kampung">
     
                             </tbody>
+                            
+                            <tbody class="bg-white" id="t_normal">
+                                @foreach ($stesen as $key => $s)
+                                    <tr>
+                                        <td>{{ $key + 1 }}.</td>
+                                        <td>{{ $s->Stesen_kod }}</td>
+                                        <td>{{ $s->Stesen }}</td>
+                                        <td>
+                                            @if ($s->status_stesen == '1')
+                                                <span class="badge badge-soft-success">Aktif</span>
+                                            @else
+                                                <span class="badge badge-soft-danger">Tidak Aktif</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                                                data-bs-target="#edit_stesen_{{ $s->id }}">
+                                                <i class="fas fa-pen"></i>
+                                            </button>
+    
+                                            <button class="btn risda-bg-dg text-white" type="button" data-bs-toggle="modal"
+                                                data-bs-target="#delete_stesen_{{ $s->id }}">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
                             @foreach ($stesen as $key => $s)
                                 <div class="modal fade" id="edit_stesen_{{ $s->id }}" tabindex="-1" role="dialog"
                                     aria-hidden="true">
@@ -320,7 +348,7 @@
                                                 <div class="modal-footer">
                                                     <button class="btn btn-secondary" type="button"
                                                         data-bs-dismiss="modal">Batal</button>
-                                                    <form method="POST" action="/utiliti/lokasi/seksyen/{{ $s->id }}">
+                                                    <form method="POST" action="/utiliti/lokasi/stesen/{{ $s->id }}">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button class="btn btn-primary" type="submit">Hapus
@@ -334,174 +362,6 @@
                                     </div>
                                 </div>
                             @endforeach
-                            <tbody class="bg-white" id="t_normal">
-                                @foreach ($stesen as $key => $s)
-                                    <tr>
-                                        <td>{{ $key + 1 }}.</td>
-                                        <td>{{ $s->Stesen_kod }}</td>
-                                        <td>{{ $s->Stesen }}</td>
-                                        <td>
-                                            @if ($s->status_stesen == '1')
-                                                <span class="badge badge-soft-success">Aktif</span>
-                                            @else
-                                                <span class="badge badge-soft-danger">Tidak Aktif</span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-primary" type="button" data-bs-toggle="modal"
-                                                data-bs-target="#edit_stesen_{{ $s->id }}">
-                                                <i class="fas fa-pen"></i>
-                                            </button>
-    
-                                            <button class="btn risda-bg-dg text-white" type="button" data-bs-toggle="modal"
-                                                data-bs-target="#delete_stesen_{{ $s->id }}">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <div class="modal fade" id="edit_stesen_{{ $s->id }}" tabindex="-1"
-                                        role="dialog" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document"
-                                            style="max-width: 500px">
-                                            <div class="modal-content position-relative">
-                                                <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
-                                                    <button
-                                                        class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
-                                                        data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body p-0">
-                                                    <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
-                                                        <h4 class="mb-1" id="modalExampleDemoLabel">KEMASKINI
-                                                        </h4>
-                                                    </div>
-                                                    <div class="p-4 pb-0">
-                                                        <form id="form2" action="/utiliti/lokasi/stesen/{{ $s->id }}"
-                                                            method="POST">
-                                                            @method('PUT')
-                                                            @csrf
-                                                            <div class="mb-3">
-                                                                <label class="col-form-label">NEGERI</label>
-                                                                <select class="form-select" name="U_Negeri_ID" id="ngri2">
-                                                                    <option selected="" value="{{ $s->U_Negeri_ID }}" hidden>
-                                                                        {{ $s->Negeri }}</option>
-                                                                    @foreach ($neg2 as $neg)
-                                                                        @if ($neg['status_negeri'] == '1')
-                                                                            <option value="{{ $neg->id }}">
-                                                                                {{ $neg->Negeri }}</option>
-                                                                        @endif
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label class="col-form-label">DAERAH</label>
-                                                                <select class="form-select" name="U_Daerah_ID" id="drah2">
-                                                                    <option selected="" value="{{ $s->U_Daerah_ID }}" hidden>
-                                                                        {{ $s->Daerah }}</option>
-                                                                    {{-- @foreach ($daerah as $d)
-                                                                        @if ($s->status_daerah == '1')
-                                                                            <option value="{{ $s->id }}">{{ $s->Daerah }}</option>
-                                                                        @endif
-                                                                    @endforeach --}}
-                                                                </select>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label class="col-form-label">MUKIM</label>
-                                                                <select class="form-select" name="U_Mukim_ID">
-                                                                    <option selected="" value="{{ $s->U_Mukim_ID }}" hidden>
-                                                                        {{ $s->Mukim }}</option>
-                                                                    {{-- @foreach ($daerah as $d)
-                                                                        @if ($s->status_daerah == '1')
-                                                                            <option value="{{ $s->id }}">{{ $s->Daerah }}</option>
-                                                                        @endif
-                                                                    @endforeach --}}
-                                                                </select>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label class="col-form-label">KAMPUNG</label>
-                                                                <select class="form-select" name="U_Kampung_ID">
-                                                                    <option selected="" value="{{ $s->U_Kampung_ID }}"
-                                                                        hidden>
-                                                                        {{ $s->Kampung }}</option>
-                                                                    {{-- @foreach ($daerah as $d)
-                                                                        @if ($s->status_daerah == '1')
-                                                                            <option value="{{ $s->id }}">{{ $s->Daerah }}</option>
-                                                                        @endif
-                                                                    @endforeach --}}
-                                                                </select>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label class="col-form-label">KOD STESEN</label>
-                                                                <input class="form-control" type="text" name="Stesen_kod"
-                                                                    value="{{ $s->Stesen_kod }}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label class="col-form-label">STESEN</label>
-                                                                <input class="form-control" type="text" name="Stesen"
-                                                                    value="{{ $s->Stesen }}" />
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label class="col-form-label">STATUS</label>
-                                                                <div class="form-check form-switch">
-                                                                    @if ($s->status_stesen == '1')
-                                                                        <input class="form-check-input" type="checkbox"
-                                                                            name="status" checked="" />
-                                                                        <label class="form-check-label">Aktif</label>
-                                                                    @else
-                                                                        <input class="form-check-input" type="checkbox"
-                                                                            name="status" />
-                                                                        <label class="form-check-label">Aktif</label>
-                                                                    @endif
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button class="btn btn-secondary" type="button"
-                                                                    data-bs-dismiss="modal">Batal</button>
-                                                                <button class="btn btn-primary" type="submit">Simpan
-                                                                </button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal fade" id="delete_stesen_{{ $s->id }}" tabindex="-1"
-                                        role="dialog" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document"
-                                            style="max-width: 500px">
-                                            <div class="modal-content position-relative">
-                                                <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
-                                                    <button
-                                                        class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
-                                                        data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body p-0">
-                                                    <div class="row">
-                                                        <div class="col text-center m-3">
-                                                            <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
-                                                            <br>
-                                                            Anda pasti untuk menghapus {{ $s->Stesen }}?
-    
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button class="btn btn-secondary" type="button"
-                                                            data-bs-dismiss="modal">Batal</button>
-                                                        <form method="POST" action="/utiliti/lokasi/seksyen/{{ $s->id }}">
-                                                            @method('DELETE')
-                                                            @csrf
-                                                            <button class="btn btn-primary" type="submit">Hapus
-                                                            </button>
-                                                        </form>
-    
-                                                    </div>
-                                                </div>
-    
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </tbody>
                         </table>
                     </div>
                 </div>
