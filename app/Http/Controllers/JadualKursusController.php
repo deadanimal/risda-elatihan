@@ -318,12 +318,13 @@ class JadualKursusController extends Controller
             'kursus'=>$kursus
         ]);
 
-            return $pdf->download('Jadual_Kursus '.'Unit Latihan Staff'.$today .'.pdf');
+            return $pdf->download('Jadual_Kursus '.'Unit Latihan Staff'. $today .'.pdf');
         }
 
         else if($pengguna == 'Urus Setia ULPK'){
             $kursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', 'Pekebun Kecil')->get();
-             foreach ($kursus as $key => $jk) {
+
+            foreach ($kursus as $key => $jk) {
                 $sum = 0;
                 $bil = PeruntukanPeserta::where('pp_jadual_kursus', $jk->id)->get();
                 foreach ($bil as $k => $b) {
@@ -332,12 +333,11 @@ class JadualKursusController extends Controller
                 $jk['bilangan'] = $sum;
             }
 
-
             $pdf = PDF::loadView('cetak_jadual', [
             'kursus'=>$kursus
         ]);
 
-            return $pdf->download('Jadual_Kursus '.'Unit Latihan Pekebun Kecil'.$today .'.pdf');
+            return $pdf->download('Jadual_Kursus '.'Unit Latihan Pekebun Kecil '. $today .'.pdf');
         }
 
         else {
@@ -356,7 +356,7 @@ class JadualKursusController extends Controller
                 'kursus'=>$kursus
             ]);
 
-                return $pdf->download('Jadual_Kursus -'.$today.'.pdf');
+                return $pdf->download('Jadual_Kursus '. $today.'.pdf');
 
             }
 

@@ -88,11 +88,6 @@
             </div>
         </div>
 
-        <a id="downloadpdf" download="LaporanPencapaianMatlamatKehadiran.pdf" style="display: none"
-        href="#">Download</a>
-
-    <a id="downloadexcel" style="display: none" href="{{ route('pmk') }}">Download</a>
-
     <hr style="color: rgba(81,179,90, 60%);height:2px;">
 
     <div class="card mt-5">
@@ -101,11 +96,6 @@
             <div class="row justify-content">
                 <div class="col-xl-2">
                     <a cl href="/cetak_jadual" class="btn btn-primary">Cetak</a>
-                    {{-- <select class="form-select risda-bg-g text-white" onchange="download(this)">
-                        <option selected disabled hidden>Cetak</option>
-                        <option value="Excel">Excel</option>
-                        <option value="Pdf">PDF</option>
-                    </select> --}}
                 </div>
             </div>
 
