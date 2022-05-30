@@ -5,13 +5,15 @@
     use App\Models\Negeri;
     use App\Models\Daerah;
 @endphp
+<div class="container">
     <div class="row">
         <div class="col">
             <h1 class="mb-0 risda-dg"><strong>UTILITI</strong></h1>
             <h5 class="risda-dg">SENARAI AGENSI - <span class="risda-g">Kemaskini AGENSI</span></h5>
-            <span class="border position-absolute mt-4 translate-middle-y w-100 start-0"></span>
         </div>
     </div>
+
+    <hr class="risda-g">
 
     <div class="row">
         <div class="col">
@@ -20,7 +22,7 @@
                     <h5>MAKLUMAT AGENSI</h5>
                 </div>
             </div>
-            <form action="/agensi/{{$agensi->id}}" method="POST">
+            <form action="/utiliti/kumpulan/agensi/{{$agensi->id}}" method="POST">
                 @method('PUT')
                 @csrf
                 <div class="row ms-5 mt-4">
@@ -155,5 +157,7 @@
             
         </div>
     </div>
+</div>
+    
 
 @stop
