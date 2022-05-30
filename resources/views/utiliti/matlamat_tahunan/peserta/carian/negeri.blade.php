@@ -12,7 +12,7 @@
         <div class="row mb-4">
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
-                    MATLAMAT BILANGAN PESERTA MENGIKUT BIDANG KURSUS
+                    MATLAMAT BILANGAN PESERTA MENGIKUT {{$title}}
                 </p>
             </div>
         </div>
@@ -39,6 +39,7 @@
                                 <option value="kategori kursus">Kategori Kursus</option>
                                 <option value="tajuk kursus">Tajuk Kursus</option>
                                 <option value="pusat latihan">Pusat Latihan</option>
+                                <option value="negeri">Negeri</option>
                             </select>
                         </div>
                         <div class="col-lg-2 mb-lg-3 ps-lg-0 text-end">
