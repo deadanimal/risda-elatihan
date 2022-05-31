@@ -13,7 +13,7 @@
         <div class="row mb-4">
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
-                    MATLAMAT BILANGAN PESERTA MENGIKUT KATAGORI KURSUS
+                    MATLAMAT BILANGAN PESERTA MENGIKUT KATEGORI KURSUS
                 </p>
             </div>
         </div>
