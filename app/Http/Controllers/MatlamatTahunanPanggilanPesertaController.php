@@ -502,7 +502,6 @@ class MatlamatTahunanPanggilanPesertaController extends Controller
         $jenis['sub'] = str_replace(' ', '_', $title);
         $title = strtoupper($title);
 
-        dd($carian);
         return view('utiliti.matlamat_tahunan.panggilan_peserta.edit', [
             'matlamat_tahunan' => $carian,
             'tahun' => $tahun,
