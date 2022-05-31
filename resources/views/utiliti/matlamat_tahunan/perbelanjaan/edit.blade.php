@@ -57,22 +57,33 @@
                                                     <input type="hidden" name="title[]"
                                                         value="{{ $c->nama_Bidang_Kursus }}">
                                                     <input type="hidden" name="id_title[]" value="{{ $c->id }}">
-                                                    <input type="hidden" name="id_mt[]" value="{{ $c->matlamat_perbelanjaan->id }}">
+                                                    @if ($status == 'update')
+                                                        <input type="hidden" name="id_mt[]"
+                                                            value="{{ $c->matlamat_perbelanjaan->id }}">
+                                                    @endif
                                                 @elseif ($title == 'KATEGORI KURSUS')
                                                     {{ $c->nama_Kategori_Kursus }}
                                                     <input type="hidden" name="title[]"
                                                         value="{{ $c->nama_Kategori_Kursus }}">
                                                     <input type="hidden" name="id_title[]" value="{{ $c->id }}">
-                                                    <input type="hidden" name="id_mt[]" value="{{ $c->matlamat_perbelanjaan->id }}">
+                                                    @if ($status == 'update')
+                                                        <input type="hidden" name="id_mt[]"
+                                                            value="{{ $c->matlamat_perbelanjaan->id }}">
+                                                    @endif
                                                 @elseif ($title == 'TAJUK KURSUS')
                                                     {{ $c->tajuk_Kursus }}
                                                     <input type="hidden" name="title[]" value="{{ $c->tajuk_Kursus }}">
                                                     <input type="hidden" name="id_title[]" value="{{ $c->id }}">
-                                                    <input type="hidden" name="id_mt[]" value="{{ $c->matlamat_perbelanjaan->id }}">
+                                                    @if ($status == 'update')
+                                                        <input type="hidden" name="id_mt[]"
+                                                            value="{{ $c->matlamat_perbelanjaan->id }}">
+                                                    @endif
                                                 @elseif ($title == 'PUSAT LATIHAN')
                                                     {{ $c->nama }}
                                                     <input type="hidden" name="title[]" value="{{ $c->nama }}">
-                                                    <input type="hidden" name="id_mt[]" value="{{ $c->id }}">
+                                                    @if ($status == 'update')
+                                                        <input type="hidden" name="id_mt[]" value="{{ $c->id }}">
+                                                    @endif
                                                 @endif
                                             </td>
                                             @foreach ($c->matlamat_perbelanjaan_cm as $k => $cm)
