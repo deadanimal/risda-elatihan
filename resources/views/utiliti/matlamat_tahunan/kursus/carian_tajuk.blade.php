@@ -109,7 +109,7 @@
                                         <td>{{ $b->matlamat_kursus->okt }}</td>
                                         <td>{{ $b->matlamat_kursus->nov }}</td>
                                         <td>{{ $b->matlamat_kursus->dis }}</td>
-                                        <td>{{ $b->matlamat_kursus->jan +$b->matlamat_kursus->feb +$b->matlamat_kursus->mac +$b->matlamat_kursus->apr +$b->matlamat_kursus->jun +$b->matlamat_kursus->jul +$b->matlamat_kursus->ogos +$b->matlamat_kursus->sept +$b->matlamat_kursus->okt +$b->matlamat_kursus->nov +$b->matlamat_kursus->dis }}
+                                        <td>{{ $b->matlamat_kursus->jan +$b->matlamat_kursus->feb +$b->matlamat_kursus->mac +$b->matlamat_kursus->apr + $b->matlamat_kursus->mei+$b->matlamat_kursus->jun +$b->matlamat_kursus->jul +$b->matlamat_kursus->ogos +$b->matlamat_kursus->sept +$b->matlamat_kursus->okt +$b->matlamat_kursus->nov +$b->matlamat_kursus->dis }}
                                         </td>
                                     @endif
                                 </tr>
