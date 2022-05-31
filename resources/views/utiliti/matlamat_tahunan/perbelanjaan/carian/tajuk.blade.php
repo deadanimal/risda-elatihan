@@ -1,6 +1,5 @@
 @extends('layouts.risda-base')
 @section('content')
-
     <div class="container">
         <div class="row mt-3 mb-2">
             <div class="col-12 mb-2">
@@ -84,7 +83,7 @@
                             <tbody>
                                 @foreach ($bidang_h as $b)
                                     <tr class="risda-bg-dg text-white">
-                                        <td>{{ $huruf[$loop->iteration-1] }}.</td>
+                                        <td>{{ $huruf[$loop->iteration - 1] }}.</td>
                                         @if ($b->matlamat_perbelanjaan == null)
                                             <td>{{ $b['nama_Bidang_Kursus'] }}</td>
                                             @for ($i = 0; $i < 12; $i++)
@@ -105,16 +104,15 @@
                                             <td>{{ $b->matlamat_perbelanjaan->okt }}</td>
                                             <td>{{ $b->matlamat_perbelanjaan->nov }}</td>
                                             <td>{{ $b->matlamat_perbelanjaan->dis }}</td>
-                                            <td>{{ $b->matlamat_perbelanjaan->jan +$b->matlamat_perbelanjaan->feb +$b->matlamat_perbelanjaan->mac +$b->matlamat_perbelanjaan->apr +$b->matlamat_perbelanjaan->jun +$b->matlamat_perbelanjaan->jul +$b->matlamat_perbelanjaan->ogos +$b->matlamat_perbelanjaan->sept +$b->matlamat_perbelanjaan->okt +$b->matlamat_perbelanjaan->nov +$b->matlamat_perbelanjaan->dis }}
+                                            <td>{{ $b->matlamat_perbelanjaan->jan + $b->matlamat_perbelanjaan->feb + $b->matlamat_perbelanjaan->mac + $b->matlamat_perbelanjaan->apr + $b->matlamat_perbelanjaan->mei + $b->matlamat_perbelanjaan->jun + $b->matlamat_perbelanjaan->jul + $b->matlamat_perbelanjaan->ogos + $b->matlamat_perbelanjaan->sept + $b->matlamat_perbelanjaan->okt + $b->matlamat_perbelanjaan->nov + $b->matlamat_perbelanjaan->dis }}
                                             </td>
                                         @endif
                                     </tr>
 
                                     @if (isset($kategori_h[$b->id]))
                                         @foreach ($kategori_h[$b->id] as $k)
-                                            
                                             <tr class="bg-soft-success">
-                                                <td>{{ $huruf_kecil[$loop->iteration-1] }})</td>
+                                                <td>{{ $huruf_kecil[$loop->iteration - 1] }})</td>
                                                 @if ($k->matlamat_perbelanjaan == null)
                                                     <td>{{ $k['nama_Kategori_Kursus'] }}</td>
                                                     @for ($i = 0; $i < 12; $i++)
@@ -135,7 +133,7 @@
                                                     <td>{{ $k->matlamat_perbelanjaan->okt }}</td>
                                                     <td>{{ $k->matlamat_perbelanjaan->nov }}</td>
                                                     <td>{{ $k->matlamat_perbelanjaan->dis }}</td>
-                                                    <td>{{ $k->matlamat_perbelanjaan->jan +$k->matlamat_perbelanjaan->feb +$k->matlamat_perbelanjaan->mac +$k->matlamat_perbelanjaan->apr +$k->matlamat_perbelanjaan->jun +$k->matlamat_perbelanjaan->jul +$k->matlamat_perbelanjaan->ogos +$k->matlamat_perbelanjaan->sept +$k->matlamat_perbelanjaan->okt +$k->matlamat_perbelanjaan->nov +$k->matlamat_perbelanjaan->dis }}
+                                                    <td>{{ $k->matlamat_perbelanjaan->jan + $k->matlamat_perbelanjaan->feb + $k->matlamat_perbelanjaan->mac + $k->matlamat_perbelanjaan->apr + $k->matlamat_perbelanjaan->mei +  $k->matlamat_perbelanjaan->jun + $k->matlamat_perbelanjaan->jul + $k->matlamat_perbelanjaan->ogos + $k->matlamat_perbelanjaan->sept + $k->matlamat_perbelanjaan->okt + $k->matlamat_perbelanjaan->nov + $k->matlamat_perbelanjaan->dis }}
                                                     </td>
                                                 @endif
                                             </tr>

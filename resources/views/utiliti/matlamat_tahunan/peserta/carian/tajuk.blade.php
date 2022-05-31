@@ -1,6 +1,5 @@
 @extends('layouts.risda-base')
 @section('content')
-
     <div class="container">
         <div class="row mt-3 mb-2">
             <div class="col-12 mb-2">
@@ -86,7 +85,7 @@
                             <tbody>
                                 @foreach ($bidang_h as $b)
                                     <tr class="risda-bg-dg text-white">
-                                        <td>{{ $huruf[$loop->iteration-1] }}.</td>
+                                        <td>{{ $huruf[$loop->iteration - 1] }}.</td>
                                         @if ($b->matlamat_peserta == null)
                                             <td>{{ $b['nama_Bidang_Kursus'] }}</td>
                                             @for ($i = 0; $i < 12; $i++)
@@ -107,16 +106,15 @@
                                             <td>{{ $b->matlamat_peserta->okt }}</td>
                                             <td>{{ $b->matlamat_peserta->nov }}</td>
                                             <td>{{ $b->matlamat_peserta->dis }}</td>
-                                            <td>{{ $b->matlamat_peserta->jan +$b->matlamat_peserta->feb +$b->matlamat_peserta->mac +$b->matlamat_peserta->apr +$b->matlamat_peserta->jun +$b->matlamat_peserta->jul +$b->matlamat_peserta->ogos +$b->matlamat_peserta->sept +$b->matlamat_peserta->okt +$b->matlamat_peserta->nov +$b->matlamat_peserta->dis }}
+                                            <td>{{ $b->matlamat_peserta->jan + $b->matlamat_peserta->feb + $b->matlamat_peserta->mac + $b->matlamat_peserta->apr + $b->matlamat_peserta->mei + $b->matlamat_peserta->jun + $b->matlamat_peserta->jul + $b->matlamat_peserta->ogos + $b->matlamat_peserta->sept + $b->matlamat_peserta->okt + $b->matlamat_peserta->nov + $b->matlamat_peserta->dis }}
                                             </td>
                                         @endif
                                     </tr>
 
                                     @if (isset($kategori_h[$b->id]))
                                         @foreach ($kategori_h[$b->id] as $k)
-                                            
                                             <tr class="bg-soft-success">
-                                                <td>{{ $huruf_kecil[$loop->iteration-1] }})</td>
+                                                <td>{{ $huruf_kecil[$loop->iteration - 1] }})</td>
                                                 @if ($k->matlamat_peserta == null)
                                                     <td>{{ $k['nama_Kategori_Kursus'] }}</td>
                                                     @for ($i = 0; $i < 12; $i++)
@@ -137,7 +135,7 @@
                                                     <td>{{ $k->matlamat_peserta->okt }}</td>
                                                     <td>{{ $k->matlamat_peserta->nov }}</td>
                                                     <td>{{ $k->matlamat_peserta->dis }}</td>
-                                                    <td>{{ $k->matlamat_peserta->jan +$k->matlamat_peserta->feb +$k->matlamat_peserta->mac +$k->matlamat_peserta->apr +$k->matlamat_peserta->jun +$k->matlamat_peserta->jul +$k->matlamat_peserta->ogos +$k->matlamat_peserta->sept +$k->matlamat_peserta->okt +$k->matlamat_peserta->nov +$k->matlamat_peserta->dis }}
+                                                    <td>{{ $k->matlamat_peserta->jan + $k->matlamat_peserta->feb + $k->matlamat_peserta->mac + $k->matlamat_peserta->apr + $k->matlamat_peserta->mei + $k->matlamat_peserta->jun + $k->matlamat_peserta->jul + $k->matlamat_peserta->ogos + $k->matlamat_peserta->sept + $k->matlamat_peserta->okt + $k->matlamat_peserta->nov + $k->matlamat_peserta->dis }}
                                                     </td>
                                                 @endif
                                             </tr>
