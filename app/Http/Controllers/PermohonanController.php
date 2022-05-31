@@ -14,6 +14,7 @@ use App\Models\KodKursus;
 use App\Models\NotaRujukan;
 use App\Models\Permohonan;
 use App\Models\Staf;
+use App\Models\Aturcara;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
@@ -280,13 +281,23 @@ class PermohonanController extends Controller
 
     public function cetaksurattawaran($id){
 
-        $permohonan = Permohonan::find($id)
-        ->with(['jadual', 'kehadiran'])->where('no_pekerja', Auth::id())->get();
+        $permohonan = Permohonan::find($id);
+        $jadual=JadualKursus::where('id',$permohonan->kod_kursus)->with(['tempat'])->first();
+        $agensi = Agensi::where('id',$jadual->kursus_tempat)->with(['daerah','negeri'])->first();
+        $aturcara = Aturcara::where('ac_jadual_kursus',$jadual->id)->get();
+
+        // ->with(['jadual', 'kehadiran'])->where('no_pekerja', Auth::id())->get();
 
 
         $pdf = PDF::loadView('pdf.surat-tawaran-kursus', [
-            'permohonan'=>$permohonan]);
+            'permohonan'=>$permohonan,
+            'jadual'=>$jadual,
+            'aturcara'=>$aturcara,
+            'agensi'=>$agensi,
+            'hari_ini' => date("d m Y"),
+        ]);
 
-        return $pdf->download('Surat Tawaran Kursus'.'.pdf');
+
+        return $pdf->download('Surat Tawaran Kursus'. $jadual->kursus_nama .'.pdf');
     }
 }

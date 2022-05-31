@@ -24,6 +24,19 @@ class Agensi extends Model
         return $this->hasMany(PenilaianEjenPelaksana::class);
     }
 
-  
+    public function negeri()
+    {
+        return $this->belongsTo(Negeri::class,'U_Negeri_ID','id');
+    }
+
+    public function daerah()
+    {
+        return $this->belongsTo(Daerah::class,'U_Daerah_ID','id');
+    }
+
+
+
+
+
 
 }

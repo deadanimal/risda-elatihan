@@ -17,4 +17,9 @@ class Daerah extends Model
     {
         return $this->belongsTo(Negeri::class, 'U_Negeri_ID', 'id');
     }
+
+    public function agensi()
+    {
+        return $this->hasMany(Agensi::class);
+    }
 }

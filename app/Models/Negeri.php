@@ -33,4 +33,10 @@ class Negeri extends Model
     {
         return $this->hasMany(Kampung::class);
     }
+
+    public function agensi()
+    {
+        return $this->hasMany(Agensi::class);
+    }
+
 }
