@@ -145,6 +145,7 @@ class DaerahController extends Controller
         AuditTrailController::audit('utiliti', 'daerah', 'hapus');
         return redirect('/utiliti/lokasi/daerah');
     }
+    
     public function filter($search)
     {
         $daerah = Daerah::where('U_Negeri_ID', $search)->get();

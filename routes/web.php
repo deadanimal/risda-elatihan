@@ -163,9 +163,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/cetak_jadual',[JadualKursusController::class,'cetakjadualkursus']);
     Route::get('/cetak_surat_tawaran/{id}',[PermohonanController::class,'cetaksurattawaran']);
 
-    Route::get('/pengurusan_kursus/filter-daerah/{search}', [DaerahController::class, 'filter']);
-
-
     // Route::resource('/pengurusan_pengguna/pengguna', PengurusanPenggunaController::class);
     Route::post('/utiliti/matlamat_tahunan/kursus/carian', [MatlamatBilanganKursusController::class, 'carian']);
     Route::get('/utiliti/matlamat_tahunan/kursus/{title}/{year}', [MatlamatBilanganKursusController::class, 'kemaskini']);
@@ -455,6 +452,10 @@ Route::middleware('auth')->group(function () {
     Route::get('ulpk/permohonan/katelog-kursus', [PermohonanController::class, 'katalog_ulpk']);
 
     Route::get('/janjan/{kehadiran}', [KehadiranController::class, 'janjan']);
+
+    // filetr route
+    Route::get('/pengurusan_kursus/filter-daerah/{search}', [DaerahController::class, 'filter']);
+    Route::get('/pengurusan_kursus/filter-stesen/{data}', [StesenController::class, 'filter']);
 });
 
 require __DIR__ . '/auth.php';
