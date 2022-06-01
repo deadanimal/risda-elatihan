@@ -20,6 +20,9 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Barryvdh\DomPDF\Facade\Pdf;
+use iio\libmergepdf\Merger;
+use Dompdf\Dompdf;
+use Symfony\Component\HttpFoundation\Response;
 
 class PermohonanController extends Controller
 {
@@ -280,24 +283,33 @@ class PermohonanController extends Controller
 
 
     public function cetaksurattawaran($id){
-
         $permohonan = Permohonan::find($id);
-        $jadual=JadualKursus::where('id',$permohonan->kod_kursus)->with(['tempat'])->first();
-        $agensi = Agensi::where('id',$jadual->kursus_tempat)->with(['daerah','negeri'])->first();
-        $aturcara = Aturcara::where('ac_jadual_kursus',$jadual->id)->get();
+        $jadual=JadualKursus::where('id', $permohonan->kod_kursus)->with(['tempat'])->first();
+        $agensi = Agensi::where('id', $jadual->kursus_tempat)->with(['daerah','negeri'])->first();
+        $aturcara = Aturcara::where('ac_jadual_kursus', $jadual->id)->get();
 
-        // ->with(['jadual', 'kehadiran'])->where('no_pekerja', Auth::id())->get();
-
-
-        $pdf = PDF::loadView('pdf.surat-tawaran-kursus', [
+        $surat_tawaran = PDF::loadView('pdf.surat-tawaran-kursus', [
             'permohonan'=>$permohonan,
             'jadual'=>$jadual,
             'aturcara'=>$aturcara,
             'agensi'=>$agensi,
             'hari_ini' => date("d m Y"),
         ]);
+        $surat_tawaran->setPaper('a4', 'potrait');
 
+        $jadual_aturcara = PDF::loadView('pdf.surat-tawaran-jadual', [
+            'permohonan'=>$permohonan,
+            'jadual'=>$jadual,
+            'aturcara'=>$aturcara,
+            'agensi'=>$agensi,
+            'hari_ini' => date("d m Y"),
+        ]);
+        $jadual_aturcara->setPaper('a4', 'landscape');
 
-        return $pdf->download('Surat Tawaran Kursus'. $jadual->kursus_nama .'.pdf');
+        $m = new Merger();
+        $m->addRaw($surat_tawaran->output());
+        $m->addRaw($jadual_aturcara->output());
+        $contents = $m->merge();
+        return new Response($contents, 200, array('Content-Type' => 'application/pdf','Content-Disposition'=>"inline;filename=Surat Tawaran Kursus $jadual->kursus_nama .pdf"));
     }
 }

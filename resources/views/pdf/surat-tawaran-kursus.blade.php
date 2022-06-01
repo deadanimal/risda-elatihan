@@ -125,9 +125,7 @@
             <div class="column-side">
                 <img src="img/risda_logo.png" alt="PGN" height="80" style="">
             </div>
-            <div class="column-center">
-                <b>
-                    PIHAK BERKUASA KEMAJUAN PEKEBUN KECIL PERUSAHAAN GETAH (RISDA)<br>
+            <div class="column-center"><b>PIHAK BERKUASA KEMAJUAN PEKEBUN KECIL PERUSAHAAN GETAH (RISDA)<br>
                     (KEMENTERIAN PEMBANGUNAN LUAR BANDAR)</b>
                     <br>Bangunan RISDA, KM 7, Jalan Ampang, Karung Berkunci 11067, 50990 Kuala Lumpur<br>
             </div>
@@ -160,7 +158,7 @@
         <p>Dengan segala hormatnya, perkara di atas adalah dirujuk.</p>
 
         <p class="justify"> 2. Sukacita dimaklumkan bahawa, Pihak Pengurusan RISDA telah mencalonkan tuan untuk mengikuti kursus tersebut. Maklumat kursus adalah seperti ketetapan berikut:</p>
-            <table width=100% class="table-clear">
+            <table width=100% class="table-clear" style="margin-left:10px">
 
                 <tr>
                     <td> Tarikh</td>
@@ -210,27 +208,6 @@
 
 
         <footer> <hr> Memacu masyarakat pekebun kecil makmur daripada sumber komoditidan hasil baharu berlandaskan revolusi perindustrian digital serta teknologi hijau</footer>
-</p>
-
-<p class="landscape page_break">
-
-    <table width="100%">
-        <tr>
-            @foreach ($aturcara as $ac)
-            <th> </th>
-            <td> {{$ac->ac_masa}}</td>
-            @endforeach
-        </tr>
-        <tr>
-            @foreach ($aturcara as $a)
-
-            <td></td>
-            <td>{{$a->ac_aturcara}}</td>
-            @endforeach
-        </tr>
-
-
-    </table>
 </p>
 </body>
 
