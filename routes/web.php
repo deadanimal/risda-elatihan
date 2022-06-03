@@ -57,6 +57,7 @@ use App\Http\Controllers\PenilaianKeberkesananController;
 use App\Http\Controllers\PenilaianEjenPelaksanaController;
 use App\Http\Controllers\PerbelanjaanYuranController;
 use App\Http\Controllers\PelajarPraktikalController;
+use App\Http\Controllers\PerbelanjaanKursusController;
 use App\Models\JadualKursus;
 use App\Models\Agensi;
 use Illuminate\Support\Facades\Route;
@@ -160,8 +161,8 @@ Route::middleware('auth')->group(function () {
     ]);
 
     Route::get('/pengurusan_kursus/filter-jadual-kursus/{search}', [JadualKursusController::class, 'filter']);
-    Route::get('/cetak_jadual',[JadualKursusController::class,'cetakjadualkursus']);
-    Route::get('/cetak_surat_tawaran/{id}',[PermohonanController::class,'cetaksurattawaran']);
+    Route::get('/cetak_jadual', [JadualKursusController::class, 'cetakjadualkursus']);
+    Route::get('/cetak_surat_tawaran/{id}', [PermohonanController::class, 'cetaksurattawaran']);
 
     // Route::resource('/pengurusan_pengguna/pengguna', PengurusanPenggunaController::class);
     Route::post('/utiliti/matlamat_tahunan/kursus/carian', [MatlamatBilanganKursusController::class, 'carian']);
@@ -238,7 +239,7 @@ Route::middleware('auth')->group(function () {
     //Urus Setia ULS
     Route::group(['prefix' => 'us-uls'], function () {
 
-        Route::resource('PelajarPraktikal',PelajarPraktikalController::class);
+        Route::resource('PelajarPraktikal', PelajarPraktikalController::class);
 
 
 
@@ -248,23 +249,23 @@ Route::middleware('auth')->group(function () {
 
 
             Route::get('/senarai-pl', function () {
-                $agensi=Agensi::where('Kategori_Agensi','2')->get();
+                $agensi = Agensi::where('Kategori_Agensi', '2')->get();
                 // $kategori = KategoriAgensi::where('Kategori_Agensi','Penceramah')->get();
 
-                return view('ulpk.urus_setia.kehadiran.kehadiran-pl.index',[
-                    'agensi'=>$agensi,
+                return view('ulpk.urus_setia.kehadiran.kehadiran-pl.index', [
+                    'agensi' => $agensi,
 
                 ]);
             });
 
             Route::get('/kehadiran-pl', function () {
-                $agensi=Agensi::all();
-                return view('ulpk.urus_setia.kehadiran.kehadiran-pl.kehadiran-pl',[
-                    'agensi'=>$agensi
+                $agensi = Agensi::all();
+                return view('ulpk.urus_setia.kehadiran.kehadiran-pl.kehadiran-pl', [
+                    'agensi' => $agensi
                 ]);
             });
-            Route::get('/kehadiran-pl/{id}',[KehadiranController::class,'kehadiran_pl']);
-            Route::get('/cetak-pl/{id}',[KehadiranController::class,'cetak_qr_pl']);
+            Route::get('/kehadiran-pl/{id}', [KehadiranController::class, 'kehadiran_pl']);
+            Route::get('/cetak-pl/{id}', [KehadiranController::class, 'cetak_qr_pl']);
 
             Route::get('printQR/{id}', [CetakKodQRController::class, 'printQR'])->name('printQR');
 
@@ -292,10 +293,6 @@ Route::middleware('auth')->group(function () {
                     ->name('mengesah-kehadiran-peserta');
                 Route::post('update-rekod-pengesahan-peserta', [KehadiranController::class, 'update_pengesahan_peserta_UsUls'])
                     ->name('update-rekod-pengesahan-peserta');
-
-
-
-
             });
         });
 
@@ -335,14 +332,14 @@ Route::middleware('auth')->group(function () {
             Route::get('/post-test/create/{jadualKursus}', [PostTestController::class, 'create'])->name('post-test.create');
             Route::post('/post-test/{jadual_kursus}/save', [JadualKursusController::class, 'tambah_masa_mula_tamat_post_test']);
 
-            Route::resource('/penilaian-kursus/uls',KursusPenilaianController::class);
-            Route::get('/penilaian-kursus/bahagianA/create/{id}',[KursusPenilaianController::class,'create']);
-            Route::get('/penilaian-kursus/bahagianB/{id}',[KursusPenilaianController::class,'bahagianB']);
-            Route::get('/penilaian-kursus/bahagianC/{id}',[KursusPenilaianController::class,'bahagianC']);
-            Route::resource('/keberkesanan-kursus',PenilaianKeberkesananController::class);
-            Route::resource('/ejen-pelaksana',PenilaianEjenPelaksanaController::class);
-            Route::get('/penilaian-ejen-pelaksana/{id}',[PenilaianEjenPelaksanaController::class,'create']);
-            Route::get('/penilaian-keberkesanan-kursus/{id}',[PenilaianKeberkesananController::class,'create']);
+            Route::resource('/penilaian-kursus/uls', KursusPenilaianController::class);
+            Route::get('/penilaian-kursus/bahagianA/create/{id}', [KursusPenilaianController::class, 'create']);
+            Route::get('/penilaian-kursus/bahagianB/{id}', [KursusPenilaianController::class, 'bahagianB']);
+            Route::get('/penilaian-kursus/bahagianC/{id}', [KursusPenilaianController::class, 'bahagianC']);
+            Route::resource('/keberkesanan-kursus', PenilaianKeberkesananController::class);
+            Route::resource('/ejen-pelaksana', PenilaianEjenPelaksanaController::class);
+            Route::get('/penilaian-ejen-pelaksana/{id}', [PenilaianEjenPelaksanaController::class, 'create']);
+            Route::get('/penilaian-keberkesanan-kursus/{id}', [PenilaianKeberkesananController::class, 'create']);
 
 
 
@@ -367,9 +364,6 @@ Route::middleware('auth')->group(function () {
             Route::get('/jawab-post-test', [PostTestController::class, 'jawabPost'])->name('jawabPost');
             Route::get('/mula-penilaian-post-test/{jadual_kursus}', [PostTestController::class, 'mulaPenilaianPost']);
             Route::POST('/mula-penilaian-post-test', [PostTestController::class, 'simpanPenilaianPost'])->name('simpanPenilaianPost');
-
-
-
         });
     });
 
@@ -452,6 +446,11 @@ Route::middleware('auth')->group(function () {
     Route::get('ulpk/permohonan/katelog-kursus', [PermohonanController::class, 'katalog_ulpk']);
 
     Route::get('/janjan/{kehadiran}', [KehadiranController::class, 'janjan']);
+
+    // perbelanjaan kursus
+    Route::resource('/perbelanjaan-kursus', PerbelanjaanKursusController::class);
+    Route::post('/perbelanjaan-kursus/carian', [PerbelanjaanKursusController::class, 'carian']);
+    Route::get('/perbelanjaan-kursus/butiran/{tahun}/{kod_pa}/{kod_objek}/{no_pesanan}', [PerbelanjaanKursusController::class, 'butiran_rekod']);
 
     // filetr route
     Route::get('/pengurusan_kursus/filter-daerah/{search}', [DaerahController::class, 'filter']);
