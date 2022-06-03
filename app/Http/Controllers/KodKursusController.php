@@ -81,6 +81,7 @@ class KodKursusController extends Controller
         $kodKursus->kod_Kursus = $request->kod_Kursus;
         $kodKursus->no_kod_Kursus = $request->no_kod_Kursus;
         $kodKursus->tajuk_Kursus = $request->tajuk_Kursus;
+        $kodKursus->kursus_unit_latihan = $request->UL_Kod_Kursus;
         if ($request->status == 'on') {
             $status = 1;
         } else {
