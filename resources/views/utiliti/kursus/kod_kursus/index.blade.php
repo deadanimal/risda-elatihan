@@ -78,7 +78,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label class="col-form-label">KOD KURSUS</label>
-                                            <input class="form-control" type="text" name="kod_Kursus" id="kod_kur" />
+                                            <input class="form-control" type="text" name="kod_Kursus" id="kod_kur" readonly/>
                                             <input type="hidden" name="no_kod_Kursus" id="no_kod_Kursus">
                                         </div>
                                         <div class="mb-3">
