@@ -32,11 +32,13 @@
                                         <div class="mb-3">
                                             <label class="col-form-label">UNIT LATIHAN</label>
                                             @role('Urus Setia ULS')
-                                            <select class="form-select" disabled name="UL_Kod_Kursus" id="unitlatihan">
+                                            <input type="hidden" name="UL_Kod_Kursus" value="Staf">
+                                            <select class="form-select" disabled="true" name="UL_Kod_Kursus" id="unitlatihan">
                                                 <option value="Staf" selected>Staf</option>
                                             </select>
                                             @elserole('Urus Setia UlPK')
-                                            <select class="form-select" name="UL_Kod_Kursus" id="unitlatihan">
+                                            <input type="hidden" name="UL_Kod_Kursus" value="Pekebun Kecil">
+                                            <select class="form-select" readonly name="UL_Kod_Kursus" id="unitlatihan">
                                                 <option value="Pekebun Kecil" selected>Pekebun Kecil</option>
                                             </select>
                                             @else
