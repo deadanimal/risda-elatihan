@@ -59,6 +59,7 @@ use App\Http\Controllers\PerbelanjaanYuranController;
 use App\Http\Controllers\PelajarPraktikalController;
 use App\Models\JadualKursus;
 use App\Models\Agensi;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -75,6 +76,10 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('dashboard');
 // })->middleware(['auth']);
+Route::get('findtable/{tablename}', function ($table) {
+    return DB::getSchemaBuilder()->getColumnListing($table);
+});
+
 Route::get('/falcon', function () {
     return view('falcon');
 });
