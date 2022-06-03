@@ -1,8 +1,7 @@
 @extends('layouts.risda-base')
 @section('content')
-
     <style>
-        p{
+        p {
             color: rgb(15, 94, 49);
         }
 
@@ -23,6 +22,7 @@
             vertical-align: middle;
 
         }
+
     </style>
 
     <div class="container">
@@ -78,13 +78,13 @@
                     </thead>
                     <tbody>
                         @foreach ($agensi as $pl)
-                        <tr>
-                            <td>{{$loop->iteration}}</td>
-                            <td>{{$pl->nama_Agensi}}</td>
-                            <td>{{$pl->alamat_Agensi_baris1}} <br> {{$pl->alamat_Agensi_baris2}} <br> {{$pl->alamat_Agensi_baris3}}</td>
-                            <td class=" text-end"><a href="/us-uls/kehadiran/kehadiran-pl/{{$pl->id}}"
-                                class="btn btn-primary btn-sm">SENARAI KEHADIRAN</a></td>
-
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $pl->nama_Agensi }}</td>
+                                <td>{{ $pl->alamat_Agensi_baris1 }} <br> {{ $pl->alamat_Agensi_baris2 }} <br>
+                                    {{ $pl->alamat_Agensi_baris3 }}</td>
+                                <td class=" text-end"><a href="/us-uls/kehadiran/kehadiran-pl/{{ $pl->id }}"
+                                        class="btn btn-primary btn-sm">SENARAI KEHADIRAN</a></td>
                         @endforeach
 
                         <tr>
@@ -92,6 +92,7 @@
                 </table>
             </div>
         </div>
+    </div>
 
 
         <script>
@@ -105,21 +106,20 @@
             });
         </script>
 
-    <script>
-        $(document).ready(function() {
-            let qr = $(".qrcode");
-            jQuery.each(qr, function(key, val) {
-                var outUrl = APP_URL + "/uls/kehadiran/" + val.id;
-                new QRCode(document.getElementById(val.id), {
-                    text: outUrl,
-                    width: 90,
-                    height: 90,
-                    colorDark: "#000000",
-                    colorLight: "#ffffff",
-                    correctLevel: QRCode.CorrectLevel.H
+        <script>
+            $(document).ready(function() {
+                let qr = $(".qrcode");
+                jQuery.each(qr, function(key, val) {
+                    var outUrl = APP_URL + "/uls/kehadiran/" + val.id;
+                    new QRCode(document.getElementById(val.id), {
+                        text: outUrl,
+                        width: 90,
+                        height: 90,
+                        colorDark: "#000000",
+                        colorLight: "#ffffff",
+                        correctLevel: QRCode.CorrectLevel.H
+                    });
                 });
             });
-        });
-    </script>
-
+        </script>
     @endsection
