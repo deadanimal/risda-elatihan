@@ -1030,6 +1030,28 @@
                         </a>
                     @endcan
 
+                    <a class="nav-link py-0 dropdown-indicator" href="#perbelanjaan" role="button"
+                        data-bs-toggle="collapse"
+                        aria-expanded="{{ Request::is('perbelanjaan/*') ? 'true' : 'false' }}"
+                        aria-controls="perbelanjaan">
+                        <div class="d-flex align-items-center nav-link-side px-0">
+                            <span class=" px-3"><span class="fas fa-file-invoice-dollar"></span> PERBELANJAAN</span>
+                        </div>
+                    </a>
+                    <ul class="nav-item collapse {{ Request::is('/perbelanjaan-kursus') ? 'show' : 'false' }} my-1"
+                        id="perbelanjaan">
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('/perbelanjaan-kursus') ? 'active' : '' }} py-0"
+                                href="/perbelanjaan-kursus">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">Kursus</span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+
+                    
+
                     @can('UlpkUrusSetia')
                         <a class="nav-link py-0 dropdown-indicator" href="#kehadiran" role="button"
                             data-bs-toggle="collapse"
