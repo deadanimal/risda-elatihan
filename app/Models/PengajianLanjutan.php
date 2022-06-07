@@ -29,4 +29,9 @@ class PengajianLanjutan extends Model
     {
         return $this->hasMany(PerbelanjaanYuran::class, 'id_pengajian_lanjutan', 'id');
     }
+
+    public function perbelanjaan_pl()
+    {
+        return $this->hasOne(PerbelanjaanPengajianLanjutan::class, 'pengguna_id', 'id');
+    }
 }

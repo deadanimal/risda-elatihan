@@ -189,8 +189,12 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="/us-uls/pengajian-lanjutan/{{ $pl->id }}"
-                                                class="btn btn-primary"><i class="fas fa-pen"></i></a>
+                                            <a href="/us-uls/pengajian-lanjutan/{{ $pl->id }}" class="btn btn-sm btn-primary">
+                                                <i class="fas fa-pen"></i>
+                                            </a>
+                                            <a href="/us-uls/pengajian-lanjutan/{{ $pl->id }}/perbelanjaan" class="btn btn-sm btn-primary">
+                                                <i class="fas fa-file-invoice-dollar"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach

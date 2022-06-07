@@ -4,7 +4,7 @@
         <div class="row mt-3 mb-2">
             <div class="col-12 mb-2">
                 <p class="h1 mb-0 fw-bold" style="color: rgb(43,93,53);  ">PERBELANJAAN</p>
-                <p class="h5" style="color: rgb(43,93,53); ">KURSUS</p>
+                <p class="h5" style="color: rgb(43,93,53); ">PENGAJIAN LANJUTAN</p>
             </div>
         </div>
         <hr style="color: rgba(81,179,90, 60%);height:2px;">
@@ -12,19 +12,19 @@
         <div class="row">
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
-                    SEMAKAN PERBELANJAAN KURSUS
+                    SEMAKAN PERBELANJAAN PENGAJIAN LANJUTAN
                 </p>
             </div>
         </div>
 
         <div class="row justify-content-center">
             <div class="col-lg-9">
-                <form action="/perbelanjaan/perbelanjaan-kursus/carian" method="post">
+                <form action="/perbelanjaan/pengajian-lanjutan/carian" method="post">
                     @csrf
                     <div class="row">
                         <div class="col-8 col-lg-10 mb-lg-3 pe-0 pe-lg-3">
-                            <label class="col-form-label">KOD PA</label>
-                            <input type="text" name="kod_pa" id="kod_pa" class="form-control">
+                            <label class="col-form-label">KOD PA ABB</label>
+                            <input type="text" name="kod_pa_abb" id="kod_pa_abb" class="form-control">
                         </div>
                         <div class="col-8 col-lg-10 mb-lg-3 pe-0 pe-lg-3">
                             <label class="col-form-label">KOD PT</label>
@@ -44,7 +44,7 @@
                                     <option value="{{ $obj->kod_Objek }}">{{ $pt->kod_Objek }}</option>
                                 @endforeach
                             </select> --}}
-                            <input type="text" name="kod_objek" id="kod_objek" class="form-control">
+                            <input type="text" name="kod_objek_abb" id="kod_objek_abb" class="form-control">
                         </div>
                         <div class="col-4 col-lg-2 mb-lg-3 align-self-end text-end ps-0">
                             <button type="submit" class="btn risda-bg-dg text-white"><i class="fas fa-search"></i>

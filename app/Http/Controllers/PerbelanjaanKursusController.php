@@ -52,7 +52,7 @@ class PerbelanjaanKursusController extends Controller
     {
         $semak = PerbelanjaanKursus::where('No_Pesanan', $no_pesanan)->first();
         if ($semak != null) {
-            return redirect('/perbelanjaan-kursus/'.$semak->id.'/edit');
+            return redirect('/perbelanjaan/perbelanjaan-kursus/'.$semak->id.'/edit');
         }
         $rafis = Http::withBasicAuth('fc63259e09f9a60b2b793fbe5aa05dde9a47be11', '6b283bb060c269432d08ac33b47a337c0a40035d')
             ->get('https://www4.risda.gov.my/rafis/senaraipesanan/?tahun=' . $tahun . '&kod_PA=' . $kod_pa . '&kod_obj=' . $kod_objek)
