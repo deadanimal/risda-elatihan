@@ -48,13 +48,12 @@ class PengajianLanjutanController extends Controller
 
         // AuditTrailController::audit('kehadiran', 'pengajian lanjutan', 'cipta');
         alert()->success('Maklumat telah disimpan', 'Berjaya');
-        return redirect('/us-uls/pengajian-lanjutan/perbelanjaan-yuran/' . $staf_pl->id);
+        return redirect('/us-uls/pengajian-lanjutan/maklumat-keputusan-peperiksaan/'. $staf_pl->id);
     }
 
     public function editUls($staf_pl)
     {
         $staf_pl = PengajianLanjutan::with(['data_pusat_tanggungjawab', 'pengguna'])->where('id', $staf_pl)->first();
-        // dd($staf_pl);
         return view('uls.urus_setia.pengajian_lanjutan.edit', [
             'staf_pl' => $staf_pl,
             'pusat_tanggungjawab' => PusatTanggungjawab::all(),
@@ -69,6 +68,15 @@ class PengajianLanjutanController extends Controller
         AuditTrailController::audit('kehadiran', 'pengajian lanjutan', 'kemaskini');
         alert()->success('Maklumat telah dikemaskini', 'Berjaya');
         return redirect('/us-uls/pengajian-lanjutan/perbelanjaan-yuran/' . $staf_pl->id);
+    }
+
+    public function showUls($id_pengajian_lanjutan)
+    {
+        $pengajian_lanjutan = PengajianLanjutan::find($id_pengajian_lanjutan);
+        return view('uls.urus_setia.pengajian_lanjutan.perbelanjaan', [
+            'id_pengajian_lanjutan' => $id_pengajian_lanjutan,
+            'pl' => $pengajian_lanjutan,
+        ]);
     }
 
     public function destroyUls(PengajianLanjutan $staf_pl)

@@ -58,6 +58,7 @@ use App\Http\Controllers\PenilaianEjenPelaksanaController;
 use App\Http\Controllers\PerbelanjaanYuranController;
 use App\Http\Controllers\PelajarPraktikalController;
 use App\Http\Controllers\PerbelanjaanKursusController;
+use App\Http\Controllers\PerbelanjaanPengajianLanjutanController;
 use App\Models\JadualKursus;
 use App\Models\Agensi;
 use Illuminate\Support\Facades\DB;
@@ -308,6 +309,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/pengajian-lanjutan/{staf_pl}', [PengajianLanjutanController::class, 'editUls']);
             Route::post('/pengajian-lanjutan', [PengajianLanjutanController::class, 'storeUls']);
             Route::post('/pengajian-lanjutan/{staf_pl}', [PengajianLanjutanController::class, 'updateUls']);
+            Route::get('/pengajian-lanjutan/{id_pengajian_lanjutan}/perbelanjaan', [PengajianLanjutanController::class, 'showUls']);
             Route::delete('/pengajian-lanjutan/{staf_pl}', [PengajianLanjutanController::class, 'destroyUls']);
             Route::get('/pengajian-lanjutan-yuran', [PengajianLanjutanController::class, 'yuranUls']);
 
@@ -452,10 +454,19 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/janjan/{kehadiran}', [KehadiranController::class, 'janjan']);
 
-    // perbelanjaan kursus
-    Route::resource('/perbelanjaan-kursus', PerbelanjaanKursusController::class);
-    Route::post('/perbelanjaan-kursus/carian', [PerbelanjaanKursusController::class, 'carian']);
-    Route::get('/perbelanjaan-kursus/butiran/{tahun}/{kod_pa}/{kod_objek}/{no_pesanan}', [PerbelanjaanKursusController::class, 'butiran_rekod']);
+    Route::group(['prefix' => 'perbelanjaan'], function () {
+
+        // perbelanjaan kursus
+        Route::resource('perbelanjaan-kursus', PerbelanjaanKursusController::class);
+        Route::post('perbelanjaan-kursus/carian', [PerbelanjaanKursusController::class, 'carian']);
+        Route::get('perbelanjaan-kursus/butiran/{tahun}/{kod_pa}/{kod_objek}/{no_pesanan}', [PerbelanjaanKursusController::class, 'butiran_rekod']);
+
+        // perbelanjaan pengajian lanjutan
+        Route::resource('pengajian-lanjutan', PerbelanjaanPengajianLanjutanController::class);
+        Route::post('pengajian-lanjutan/carian', [PerbelanjaanPengajianLanjutanController::class, 'carian']);
+        Route::get('pengajian-lanjutan/butiran/{tahun}/{kod_pa}/{kod_objek}/{no_dbil}', [PerbelanjaanPengajianLanjutanController::class, 'butiran_rekod']);
+
+    });
 
     // filetr route
     Route::get('/pengurusan_kursus/filter-daerah/{search}', [DaerahController::class, 'filter']);
