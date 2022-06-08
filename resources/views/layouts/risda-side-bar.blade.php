@@ -1038,13 +1038,22 @@
                             <span class=" px-3"><span class="fas fa-file-invoice-dollar"></span> PERBELANJAAN</span>
                         </div>
                     </a>
-                    <ul class="nav-item collapse {{ Request::is('perbelanjaan/*') ? 'show' : 'false' }} my-1"
-                        id="perbelanjaan">
+                    <ul class="nav-item collapse {{ Request::is('perbelanjaan/*') ? 'show' : 'false' }} my-1" id="perbelanjaan">
+
                         <li class="nav-item">
                             <a class="nav-link {{ Request::is('perbelanjaan/perbelanjaan-kursus') ? 'active' : '' }} {{ Request::is('perbelanjaan/perbelanjaan-kursus/*') ? 'active' : '' }} py-0"
                                 href="/perbelanjaan/perbelanjaan-kursus">
                                 <div class="d-flex align-items-center nav-link-side">
                                     <span class="px-0">Kursus</span>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('perbelanjaan/pelajar-praktikal') ? 'active' : '' }} {{ Request::is('perbelanjaan/pelajar-praktikal/*') ? 'active' : '' }} py-0"
+                                href="/perbelanjaan/pelajar-praktikal">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">Pelajar Praktikal</span>
                                 </div>
                             </a>
                         </li>
@@ -1057,6 +1066,7 @@
                                 </div>
                             </a>
                         </li>
+
                     </ul>
 
                     
