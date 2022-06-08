@@ -98,5 +98,71 @@
                 </div>
             </div>
         </div>
+
+        <div class="row mt-3 justify-content-center">
+            <div class="col-lg-10">
+                    <div class="card-body">
+                        <div class="table-responsive scrollbar m-3">
+                            @if((Auth::user()->jenis_pengguna=="Urus Setia ULS")||(Auth::user()->jenis_pengguna=="Peserta ULS"))
+                            <table class="table datatable table-striped" style="width:100%">
+                                <thead class="bg-200">
+                                    <tr>
+                                        <th class="sort">BIL.</th>
+                                        <th class="sort">KOD NAMA KURSUS</th>
+                                        <th class="sort">NAMA KURSUS</th>
+                                        <th class="sort">TARIKH KURSUS</th>
+                                        <th class="sort">TEMPAT KURSUS</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white" id="t_normal">
+                                    @foreach ($jadual_uls as $key => $j)
+                                        <tr>
+                                            <td>{{ $key + 1 }}.</td>
+                                            <td>{{ $j->kursus_kod_nama_kursus }}</td>
+                                            <td>{{ $j->kursus_nama }}</td>
+                                            <td>{{ date('d-m-Y', strtotime($j->tarikh_mula)) }} - {{ date('d-m-Y', strtotime($j->tarikh_tamat)) }}</td>
+                                            <td>
+                                                {{$j->tempat->nama_Agensi}}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            @elseif((Auth::user()->jenis_pengguna=="Urus Setia ULPK")||(Auth::user()->jenis_pengguna=="Peserta ULPK"))
+                            <table class="table datatable table-striped" style="width:100%">
+                                <thead class="bg-200">
+                                    <tr>
+                                        <th class="sort">BIL.</th>
+                                        <th class="sort">KOD NAMA KURSUS</th>
+                                        <th class="sort">NAMA KURSUS</th>
+                                        <th class="sort">TARIKH KURSUS</th>
+                                        <th class="sort">TEMPAT KURSUS</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white" id="t_normal">
+                                    @foreach ($jadual_ulpk as $key => $j)
+                                        <tr>
+                                            <td>{{ $key + 1 }}.</td>
+                                            <td>{{ $j->kursus_kod_nama_kursus }}</td>
+                                            <td>{{ $j->kursus_nama }}</td>
+                                            <td>{{ date('d-m-Y', strtotime($j->tarikh_mula)) }} - {{ date('d-m-Y', strtotime($j->tarikh_tamat)) }}</td>
+                                            <td>
+                                                {{$j->tempat->nama_Agensi}}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        @endif
+                </div>
+
+        </div>
+
+
+
+
+
+
     </div>
 @endsection
