@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
-                    SEMAKAN PERBELANJAAN KURSUS
+                    SEMAKAN PERBELANJAAN PENGAJIAN LANJUTAN
                 </p>
             </div>
         </div>

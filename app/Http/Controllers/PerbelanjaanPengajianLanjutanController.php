@@ -78,7 +78,7 @@ class PerbelanjaanPengajianLanjutanController extends Controller
             $peserta = PengajianLanjutan::with('pengguna')->get();
         }
 
-        return view('perbelanjaan.pengajian_lanjutan.show', [
+        return view('perbelanjaan.pengajian_lanjutan.create', [
             'rafis' => $rafis_butiran,
             'peserta' => $peserta
         ]);

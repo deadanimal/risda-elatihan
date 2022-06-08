@@ -58,6 +58,7 @@ use App\Http\Controllers\PenilaianEjenPelaksanaController;
 use App\Http\Controllers\PerbelanjaanYuranController;
 use App\Http\Controllers\PelajarPraktikalController;
 use App\Http\Controllers\PerbelanjaanKursusController;
+use App\Http\Controllers\PerbelanjaanPelajarPraktikalController;
 use App\Http\Controllers\PerbelanjaanPengajianLanjutanController;
 use App\Models\JadualKursus;
 use App\Models\Agensi;
@@ -454,6 +455,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/janjan/{kehadiran}', [KehadiranController::class, 'janjan']);
 
+    // perbelanjaan
     Route::group(['prefix' => 'perbelanjaan'], function () {
 
         // perbelanjaan kursus
@@ -465,7 +467,11 @@ Route::middleware('auth')->group(function () {
         Route::resource('pengajian-lanjutan', PerbelanjaanPengajianLanjutanController::class);
         Route::post('pengajian-lanjutan/carian', [PerbelanjaanPengajianLanjutanController::class, 'carian']);
         Route::get('pengajian-lanjutan/butiran/{tahun}/{kod_pa}/{kod_objek}/{no_dbil}', [PerbelanjaanPengajianLanjutanController::class, 'butiran_rekod']);
-
+        
+        // perbelanjaan pelajar praktikal
+        Route::resource('pelajar-praktikal', PerbelanjaanPelajarPraktikalController::class);
+        Route::post('pelajar-praktikal/carian', [PerbelanjaanPelajarPraktikalController::class, 'carian']);
+        Route::get('pelajar-praktikal/butiran/{tahun}/{kod_pa}/{kod_objek}/{no_dbil}', [PerbelanjaanPelajarPraktikalController::class, 'butiran_rekod']);
     });
 
     // filetr route

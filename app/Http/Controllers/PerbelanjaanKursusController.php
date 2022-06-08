@@ -74,7 +74,7 @@ class PerbelanjaanKursusController extends Controller
             $jadual = JadualKursus::all();
         }
         
-        return view('perbelanjaan.kursus.show', [
+        return view('perbelanjaan.kursus.create', [
             'rafis' => $rafis_butiran,
             'jadual' => $jadual
         ]);
