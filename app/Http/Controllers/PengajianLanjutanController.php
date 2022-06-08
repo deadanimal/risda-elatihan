@@ -65,7 +65,8 @@ class PengajianLanjutanController extends Controller
     {
         $data = $request->all();
         $staf_pl->fill($data)->save();
-        AuditTrailController::audit('kehadiran', 'pengajian lanjutan', 'kemaskini');
+        $nama = $staf_pl->pengguna->name;
+        AuditTrailController::audit('kehadiran', 'pengajian lanjutan', 'kemaskini', $nama);
         alert()->success('Maklumat telah dikemaskini', 'Berjaya');
         return redirect('/us-uls/pengajian-lanjutan/perbelanjaan-yuran/' . $staf_pl->id);
     }
@@ -81,8 +82,9 @@ class PengajianLanjutanController extends Controller
 
     public function destroyUls(PengajianLanjutan $staf_pl)
     {
+        $nama = $staf_pl->pengguna->name;
         $staf_pl->delete();
-        AuditTrailController::audit('kehadiran', 'pengajian lanjutan', 'hapus');
+        AuditTrailController::audit('kehadiran', 'pengajian lanjutan', 'hapus', $nama);
         alert()->success('Maklumat telah dihapuskan', 'Berjaya');
         return redirect('/us-uls/pengajian-lanjutan');
     }

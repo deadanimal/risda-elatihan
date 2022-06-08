@@ -41,7 +41,7 @@ class PerananController extends Controller
         // Role::create(['name' => $request->name]);
         $peranan = new Role($request->all());
         $peranan->save();
-        AuditTrailController::audit('pengurusan pengguna', 'peranan', 'cipta');
+        AuditTrailController::audit('pengurusan pengguna', 'peranan', 'cipta', $peranan->name);
         alert()->success('Peranan telah ditambah', 'Berjaya');
         return redirect('/pengurusan_pengguna/peranan');
     }
@@ -95,7 +95,7 @@ class PerananController extends Controller
             }
         }
 
-        AuditTrailController::audit('pengurusan pengguna', 'peranan', 'kemaskini');
+        AuditTrailController::audit('pengurusan pengguna', 'peranan', 'kemaskini', $role->name);
         alert()->success('Kebenaran telah dikemaskini', 'Berjaya');
         return redirect('/pengurusan_pengguna/peranan/' . $id);
     }
@@ -110,7 +110,7 @@ class PerananController extends Controller
     {
         $peranan = Role::find($id);
         $peranan->delete();
-        AuditTrailController::audit('pengurusan pengguna', 'peranan', 'hapus');
+        AuditTrailController::audit('pengurusan pengguna', 'peranan', 'hapus', $peranan->name);
         alert()->success('Peranan telah dihapuskan', 'Hapus');
         return redirect('/pengurusan_pengguna/peranan');
     }

@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class AuditTrailController extends Controller
 {
-    public static function audit($modul, $sub, $perkara)
+    public static function audit($modul, $submodul, $perkara , $subjek)
     {
         $auditTrail = new AuditTrail();
         $auditTrail->id_pengguna = Auth::id();
-        $auditTrail->butiran = ucfirst($perkara).' '.$modul.' '.$sub;
+        $auditTrail->butiran = ucfirst($perkara).' '.$modul.' '.$submodul.': '.$subjek;
         $auditTrail->save();
     }
     /**

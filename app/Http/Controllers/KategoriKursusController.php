@@ -71,7 +71,7 @@ class KategoriKursusController extends Controller
         }
         $kategoriKursus->status_Kategori_Kursus = $status;
         $kategoriKursus->save();
-        AuditTrailController::audit('utiliti','kategori kursus','cipta');
+        AuditTrailController::audit('utiliti','kategori kursus','cipta', $kategoriKursus->nama_Kategori_Kursus);
         alert()->success('Maklumat telah disimpan', 'Berjaya');
         return redirect('/utiliti/kursus/kategori_kursus');
     }
@@ -120,7 +120,7 @@ class KategoriKursusController extends Controller
         }
         $kategoriKursus->status_Kategori_Kursus = $status;
         $kategoriKursus->save();
-        AuditTrailController::audit('utiliti','kategori kursus','kemaskini');
+        AuditTrailController::audit('utiliti','kategori kursus','kemaskini', $kategoriKursus->nama_Kategori_Kursus);
         alert()->success('Maklumat telah dikemaskini', 'Berjaya');
         return redirect('/utiliti/kursus/kategori_kursus');
     }
@@ -138,8 +138,9 @@ class KategoriKursusController extends Controller
             $kk->delete();
         }
         $kategoriKursus = KategoriKursus::find($id);
+        $nama = $kategoriKursus->nama_Kategori_Kursus;
         $kategoriKursus->delete();
-        AuditTrailController::audit('utiliti','kategori kursus','hapus');
+        AuditTrailController::audit('utiliti','kategori kursus','hapus', $nama);
         alert()->success('Maklumat telah dihapus', 'Berjaya');
         return redirect('/utiliti/kursus/kategori_kursus');
     }
