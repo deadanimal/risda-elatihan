@@ -59,7 +59,7 @@ class StatusPelaksanaanController extends Controller
         $statusPelaksanaan->status_status_pelaksanaan = $status;
 
         $statusPelaksanaan->save();
-        AuditTrailController::audit('utiliti','status pelaksanaan','cipta');
+        AuditTrailController::audit('utiliti','status pelaksanaan','cipta', $statusPelaksanaan->Status_Pelaksanaan);
         alert()->success('Maklumat telah disimpan', 'Berjaya');
         return redirect('/utiliti/status/status_pelaksanaan');
     }
@@ -105,7 +105,7 @@ class StatusPelaksanaanController extends Controller
         $statusPelaksanaan->status_status_pelaksanaan = $status;
 
         $statusPelaksanaan->save();
-        AuditTrailController::audit('utiliti','status pelaksanaan','kemaskini');
+        AuditTrailController::audit('utiliti','status pelaksanaan','kemaskini', $statusPelaksanaan->Status_Pelaksanaan);
         alert()->success('Maklumat telah dikemaskini', 'Berjaya');
         return redirect('/utiliti/status/status_pelaksanaan');
     }
@@ -118,8 +118,9 @@ class StatusPelaksanaanController extends Controller
      */
     public function destroy(StatusPelaksanaan $statusPelaksanaan)
     {
+        $nama = $statusPelaksanaan->Status_Pelaksanaan;
         $statusPelaksanaan->delete();
-        AuditTrailController::audit('utiliti','status pelaksaan','hapus');
+        AuditTrailController::audit('utiliti','status pelaksaan','hapus', $nama);
         alert()->success('Maklumat telah dihapuskan', 'Berjaya');
         return redirect('/utiliti/status/status_pelaksanaan');
     }

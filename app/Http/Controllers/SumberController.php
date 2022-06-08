@@ -59,7 +59,7 @@ class SumberController extends Controller
         $sumber->status_sumber = $status;
 
         $sumber->save();
-        AuditTrailController::audit('utiliti', 'sumber', 'cipta');
+        AuditTrailController::audit('utiliti', 'sumber', 'cipta', $sumber->nama_Sumber);
         alert()->success('Maklumat telah disimpan', 'Berjaya');
         return redirect('/utiliti/generik/sumber');
     }
@@ -105,7 +105,7 @@ class SumberController extends Controller
         $sumber->status_sumber = $status;
 
         $sumber->save();
-        AuditTrailController::audit('utiliti', 'sumber', 'kemaskini');
+        AuditTrailController::audit('utiliti', 'sumber', 'kemaskini', $sumber->nama_Sumber);
         alert()->success('Maklumat telah dikemaskini', 'Berjaya');
         return redirect('/utiliti/generik/sumber');
     }
@@ -118,8 +118,9 @@ class SumberController extends Controller
      */
     public function destroy(Sumber $sumber)
     {
+        $nama = $sumber->nama_Sumber;
         $sumber->delete();
-        AuditTrailController::audit('utiliti', 'sumber', 'hapus');
+        AuditTrailController::audit('utiliti', 'sumber', 'hapus', $nama);
         alert()->success('Maklumat telah dihapuskan', 'Berjaya');
         return redirect('/utiliti/generik/sumber');
     }

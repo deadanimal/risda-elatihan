@@ -89,7 +89,7 @@ class SeksyenController extends Controller
         }
         $seksyen->status_seksyen = $status;
         $seksyen->save();
-        AuditTrailController::audit('utiliti', 'seksyen', 'cipta');
+        AuditTrailController::audit('utiliti', 'seksyen', 'cipta', $seksyen->Seksyen);
         alert()->success('Maklumat telah disimpan', 'Berjaya');
         return redirect('/utiliti/lokasi/seksyen');
     }
@@ -138,7 +138,7 @@ class SeksyenController extends Controller
         }
         $seksyen->status_seksyen = $status;
         $seksyen->save();
-        AuditTrailController::audit('utiliti', 'seksyen', 'kemaskini');
+        AuditTrailController::audit('utiliti', 'seksyen', 'kemaskini', $seksyen->Seksyen);
         alert()->success('Maklumat telah dikemaskini', 'Berjaya');
         return redirect('/utiliti/lokasi/seksyen');
     }
@@ -151,13 +151,14 @@ class SeksyenController extends Controller
      */
     public function destroy(Seksyen $seksyen)
     {
+        $nama = $seksyen->Seksyen;
         try {
             $seksyen->delete();
         } catch (\Throwable $th) {
             alert()->error('Maklumat berkait dengan rekod di bahagian lain, sila hapuskan rekod di bahagian tersebut dahulu.', 'Tidak Berjaya')->persistent('Tutup');
             return back();
         }
-        AuditTrailController::audit('utiliti', 'seksyen', 'hapus');
+        AuditTrailController::audit('utiliti', 'seksyen', 'hapus', $nama);
         alert()->success('Maklumat telah dihapuskan', 'Berjaya');
         return redirect('/utiliti/lokasi/seksyen');
     }
