@@ -42,7 +42,7 @@
                                         <td>{{ $r['Kod_Pembekal'] }}</td>
                                         <td>{{ $r['Tujuan'] }}</td>
                                         <td>
-                                            <a href="/perbelanjaan-kursus/butiran/{{$r['Thn_Kew']}}/{{$r['Kod_PA']}}/{{$r['Kod_Obj']}}/{{$r['No_Pesanan']}}" class="btn btn-primary">Butiran</a>
+                                            <a href="/perbelanjaan/perbelanjaan-kursus/butiran/{{$r['Thn_Kew']}}/{{$r['Kod_PA']}}/{{$r['Kod_Obj']}}/{{$r['No_Pesanan']}}" class="btn btn-primary">Butiran</a>
                                         </td>
                                     </tr>
                                 @endforeach

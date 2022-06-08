@@ -43,7 +43,7 @@ class PerbelanjaanKursusController extends Controller
             }
         }
 
-        return view('perbelanjaan.kursus.index.uls', [
+        return view('perbelanjaan.kursus.index', [
             'rafis' => $rafis_pt,
         ]);
     }
@@ -74,7 +74,7 @@ class PerbelanjaanKursusController extends Controller
             $jadual = JadualKursus::all();
         }
         
-        return view('perbelanjaan.kursus.show.uls', [
+        return view('perbelanjaan.kursus.show', [
             'rafis' => $rafis_butiran,
             'jadual' => $jadual
         ]);
@@ -158,14 +158,14 @@ class PerbelanjaanKursusController extends Controller
      * @param  \App\Models\PerbelanjaanKursus  $perbelanjaanKursus
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePerbelanjaanKursusRequest $request, PerbelanjaanKursus $perbelanjaanKursus)
+    public function update(UpdatePerbelanjaanKursusRequest $request,  $id)
     {
-        dd('$perbelanjaanKursus');
-        $perbelanjaanKursus = new PerbelanjaanKursus($request->all());
-        $perbelanjaanKursus->save();
+        $perbelanjaanKursus = PerbelanjaanKursus::find($id);
+        $input = $request->all();
+        $perbelanjaanKursus->fill($input)->save();
 
-        alert()->success('Maklumat telah disimpan', 'Berjaya');
-        return redirect('/perbelanjaan-kursus');
+        alert()->success('Maklumat telah dikemaskini', 'Berjaya');
+        return redirect('/perbelanjaan/perbelanjaan-kursus');
     }
 
     /**
