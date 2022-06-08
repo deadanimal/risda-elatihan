@@ -35,7 +35,7 @@ class PerbelanjaanPengajianLanjutanController extends Controller
             ->getBody()
             ->getContents();
         $rafis = json_decode($rafis, true);
-        
+
         $rafis_pt = [];
         foreach ($rafis as $key => $r) {
             if ($r['Kod_PT'] == $request->kod_pt) {
@@ -47,7 +47,7 @@ class PerbelanjaanPengajianLanjutanController extends Controller
             }
         }
 
-        return view('perbelanjaan.pengajian_lanjutan.index.uls', [
+        return view('perbelanjaan.pengajian_lanjutan.index', [
             'rafis' => $rafis_pt,
         ]);
     }
@@ -56,7 +56,7 @@ class PerbelanjaanPengajianLanjutanController extends Controller
     {
         $semak = PerbelanjaanPengajianLanjutan::where('No_DBil', $no_dbil)->first();
         if ($semak != null) {
-            return redirect('/perbelanjaan/pengajian-lanjutan/'.$semak->id.'/edit');
+            return redirect('/perbelanjaan/pengajian-lanjutan/' . $semak->id . '/edit');
         }
         $rafis = Http::withBasicAuth('fc63259e09f9a60b2b793fbe5aa05dde9a47be11', '6b283bb060c269432d08ac33b47a337c0a40035d')
             ->get('https://www4.risda.gov.my/rafis/pengajianlanjutan/?tahun=' . $tahun)
@@ -74,11 +74,11 @@ class PerbelanjaanPengajianLanjutanController extends Controller
             $peserta = PengajianLanjutan::with('pengguna')->where('unit_latihan', 'Staf')->get();
         } elseif ($check == 'Urus Setia ULPK') {
             $peserta = PengajianLanjutan::with('pengguna')->where('unit_latihan', 'Pekebun Kecil')->get();
-        } else{
+        } else {
             $peserta = PengajianLanjutan::with('pengguna')->get();
         }
-        
-        return view('perbelanjaan.pengajian_lanjutan.show.uls', [
+
+        return view('perbelanjaan.pengajian_lanjutan.show', [
             'rafis' => $rafis_butiran,
             'peserta' => $peserta
         ]);
@@ -145,7 +145,7 @@ class PerbelanjaanPengajianLanjutanController extends Controller
             $peserta = PengajianLanjutan::with('pengguna')->where('unit_latihan', 'Staf')->get();
         } elseif ($check == 'Urus Setia ULPK') {
             $peserta = PengajianLanjutan::with('pengguna')->where('unit_latihan', 'Pekebun Kecil')->get();
-        } else{
+        } else {
             $peserta = PengajianLanjutan::with('pengguna')->get();
         }
         return view('perbelanjaan.pengajian_lanjutan.edit', [
@@ -162,9 +162,14 @@ class PerbelanjaanPengajianLanjutanController extends Controller
      * @param  \App\Models\PerbelanjaanPengajianLanjutan  $perbelanjaanPengajianLanjutan
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePerbelanjaanPengajianLanjutanRequest $request, PerbelanjaanPengajianLanjutan $perbelanjaanPengajianLanjutan)
+    public function update(UpdatePerbelanjaanPengajianLanjutanRequest $request, $id)
     {
-        //
+        $perbelanjaanPengajianLanjutan = PerbelanjaanPengajianLanjutan::find($id);
+        $input = $request->all();
+        $perbelanjaanPengajianLanjutan->fill($input)->save();
+
+        alert()->success('Maklumat telah dikemaskini', 'Berjaya');
+        return redirect('/perbelanjaan/pengajian-lanjutan');
     }
 
     /**

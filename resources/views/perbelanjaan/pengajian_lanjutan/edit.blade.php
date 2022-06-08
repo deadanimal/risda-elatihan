@@ -22,7 +22,8 @@
             <div class="col">
                 <div class="card ">
                     <div class="card-body mx-lg-5">
-                        <form action="/perbelanjaan/pengajian-lanjutan" method="post">
+                        <form action="/perbelanjaan/pengajian-lanjutan/{{$rafis_risda->id}}" method="post">
+                            @method('PUT')
                             @csrf
                             <div class="row p-3">
                                 <div class="col-lg-3 pt-lg-2">

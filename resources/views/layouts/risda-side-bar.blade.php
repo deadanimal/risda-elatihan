@@ -1041,10 +1041,19 @@
                     <ul class="nav-item collapse {{ Request::is('perbelanjaan/*') ? 'show' : 'false' }} my-1"
                         id="perbelanjaan">
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('perbelanjaan/perbelanjaan-kursus') ? 'active' : '' }} py-0"
+                            <a class="nav-link {{ Request::is('perbelanjaan/perbelanjaan-kursus') ? 'active' : '' }} {{ Request::is('perbelanjaan/perbelanjaan-kursus/*') ? 'active' : '' }} py-0"
                                 href="/perbelanjaan/perbelanjaan-kursus">
                                 <div class="d-flex align-items-center nav-link-side">
                                     <span class="px-0">Kursus</span>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('perbelanjaan/pengajian-lanjutan') ? 'active' : '' }} {{ Request::is('perbelanjaan/pengajian-lanjutan/*') ? 'active' : '' }} py-0"
+                                href="/perbelanjaan/pengajian-lanjutan">
+                                <div class="d-flex align-items-center nav-link-side">
+                                    <span class="px-0">Pengajian Lanjutan</span>
                                 </div>
                             </a>
                         </li>
