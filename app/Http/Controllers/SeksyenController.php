@@ -31,10 +31,7 @@ class SeksyenController extends Controller
         $muk2 = Mukim::all();
         $kampung = Kampung::all();
 
-        $seksyen = Negeri::join('daerahs', 'negeris.id', 'daerahs.U_Negeri_ID')
-            ->join('mukims', 'daerahs.id', 'mukims.U_Daerah_ID')
-            ->join('seksyens', 'mukims.id', 'seksyens.U_Mukim_ID')
-            ->get();
+        $seksyen = Seksyen::with(['kampung', 'negeri', 'daerah', 'mukim'])->get();
 
         $bil_seksyen = Seksyen::orderBy('id', 'desc')->first();
         if ($bil_seksyen != null) {
