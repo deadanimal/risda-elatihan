@@ -20,10 +20,16 @@ class PerbelanjaanPelajarPraktikalController extends Controller
      */
     public function index()
     {
-        return view('perbelanjaan.pelajar_praktikal.main', [
-            'pusat_tanggungjawab' => PusatTanggungjawab::all(),
-            'objek' => Objek::all(),
-        ]);
+        $check = Auth::user()->jenis_pengguna;
+        if ($check == 'Urus Setia ULPK') {
+            alert()->info('Perbelanjaan Pelajar Praktikal hanya untuk unit latihan Staf sahaja.');
+        } else {
+            return view('perbelanjaan.pelajar_praktikal.main', [
+                'pusat_tanggungjawab' => PusatTanggungjawab::all(),
+                'objek' => Objek::all(),
+            ]);
+        }
+        
     }
 
     public function carian(StorePerbelanjaanPelajarPraktikalRequest $request)
@@ -69,15 +75,11 @@ class PerbelanjaanPelajarPraktikalController extends Controller
         }
 
         $check = Auth::user()->jenis_pengguna;
-        // if ($check == 'Urus Setia ULS') {
-        //     $pelajar = PelajarPraktikal::where('unit_latihan', 'Staf')->get();
-        // } elseif ($check == 'Urus Setia ULPK') {
-        //     $pelajar = PelajarPraktikal::where('unit_latihan', 'Pekebun Kecil')->get();
-        // } else {
-        //     $pelajar = PelajarPraktikal::all();
-        // }
-
-        $pelajar = PelajarPraktikal::all();
+        if ($check == 'Urus Setia ULPK') {
+            alert()->info('Perbelanjaan Pelajar Praktikal hanya untuk unit latihan Staf sahaja.');
+        } else {
+            $pelajar = PelajarPraktikal::all();
+        }
 
         return view('perbelanjaan.pelajar_praktikal.create', [
             'rafis' => $rafis_butiran,
@@ -142,15 +144,11 @@ class PerbelanjaanPelajarPraktikalController extends Controller
         }
 
         $check = Auth::user()->jenis_pengguna;
-        // if ($check == 'Urus Setia ULS') {
-        //     $peserta = PelajarPraktikal::where('unit_latihan', 'Staf')->get();
-        // } elseif ($check == 'Urus Setia ULPK') {
-        //     $peserta = PelajarPraktikal::where('unit_latihan', 'Pekebun Kecil')->get();
-        // } else {
-        //     $peserta = PelajarPraktikal::all();
-        // }
-
-        $pelajar = PelajarPraktikal::all();
+        if ($check == 'Urus Setia ULPK') {
+            alert()->info('Perbelanjaan Pelajar Praktikal hanya untuk unit latihan Staf sahaja.');
+        } else {
+            $pelajar = PelajarPraktikal::all();
+        }
 
         return view('perbelanjaan.pelajar_praktikal.edit', [
             'rafis' => $rafis_butiran,
