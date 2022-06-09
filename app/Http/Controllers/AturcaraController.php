@@ -48,7 +48,8 @@ class AturcaraController extends Controller
             $aturcara->ac_jadual_kursus = $request->ac_jadual_kursus[$h];
             $aturcara->ac_hari = $request->hari[$h];
             $aturcara->ac_sesi = $request->ac_sesi[$h];
-            $aturcara->ac_masa = $request->ac_masa[$h];
+            $aturcara->ac_masa_mula = $request->ac_masa_mula[$h];
+            $aturcara->ac_masa_tamat = $request->ac_masa_tamat[$h];
             $aturcara->ac_aturcara = $request->ac_aturcara[$h];
             $aturcara->save();
         }

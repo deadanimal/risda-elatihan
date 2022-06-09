@@ -108,7 +108,7 @@
                                         <td class="align-middle">{{ $date[$k->ac_hari - 1] }}</td>
                                         <td class="align-middle">{{ $hari[$k->ac_hari - 1] }}</td>
                                         <td>{{ $k->ac_sesi }}</td>
-                                        <td>{{ $k->ac_masa }}</td>
+                                        <td>{{ $k->ac_masa_mula }}</td>
                                         <td>
                                             <div class="qrcode" id="{{ $k->id }}"></div>
                                         </td>
