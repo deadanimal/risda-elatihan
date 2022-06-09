@@ -33,12 +33,12 @@
                                             <label class="col-form-label">UNIT LATIHAN</label>
                                             @role('Urus Setia ULS')
                                             <input type="hidden" name="UL_Kod_Kursus" value="Staf">
-                                            <select class="form-select" disabled="true" name="UL_Kod_Kursus" id="unitlatihan">
+                                            <select class="form-select form-control" disabled="true" id="unitlatihan">
                                                 <option value="Staf" selected>Staf</option>
                                             </select>
                                             @elserole('Urus Setia UlPK')
                                             <input type="hidden" name="UL_Kod_Kursus" value="Pekebun Kecil">
-                                            <select class="form-select" readonly name="UL_Kod_Kursus" id="unitlatihan">
+                                            <select class="form-select" readonly id="unitlatihan">
                                                 <option value="Pekebun Kecil" selected>Pekebun Kecil</option>
                                             </select>
                                             @else
@@ -61,7 +61,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label class="col-form-label">BIDANG KURSUS</label>
-                                            <select class="form-select" name="U_Bidang_Kursus" id="bid">
+                                            <select class="form-select form-control" name="U_Bidang_Kursus" id="bid">
                                                 <option selected="" hidden>Sila Pilih</option>
                                                 @foreach ($bidangKursus as $BK)
                                                     <option value="{{ $BK->id }}">{{ $BK->nama_Bidang_Kursus }}</option>
@@ -70,7 +70,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label class="col-form-label">KATEGORI KURSUS</label>
-                                            <select class="form-select" name="U_Kategori_Kursus" id="kat_kur">
+                                            <select class="form-select form-control" name="U_Kategori_Kursus" id="kat_kur">
                                                 <option selected="" hidden>Sila Pilih</option>
                                                 {{-- @foreach ($kategoriKursus as $kat)
                                                     <option value="{{ $kat->id }}">{{ $kat->nama_Kategori_Kursus }}
