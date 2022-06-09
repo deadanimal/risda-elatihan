@@ -112,7 +112,7 @@
                                 <td class="align-middle">{{ $date[$k->ac_hari - 1] }}</td>
                                 <td class="align-middle">{{ $hari[$k->ac_hari - 1] }}</td>
                                 <td>{{ $k->ac_sesi }}</td>
-                                <td>{{ $k->ac_masa }}</td>
+                                <td>{{ $k->ac_masa_mula }} - {{ $k->ac_masa_tamat }}</td>
                                 @if ($k->kehadiran == null)
                                     <td>
                                         <button class="btn btn-primary mx-0" type="button" onclick="" data-bs-toggle="modal"
@@ -184,7 +184,7 @@
                                                                     <input type="hidden" name="sesi"
                                                                         value="{{ $k->ac_sesi }}">
                                                                     <input type="hidden" name="masa"
-                                                                        value="{{ $k->ac_masa }}">
+                                                                        value="{{ $k->ac_masa_mula }}">
                                                                     <input type="hidden" name="jadual_kursus_id"
                                                                         value="{{ $id_jadual }}">
                                                                     <input type="hidden" name="no_pekerja"
@@ -245,7 +245,7 @@
                                 <td class="align-middle">{{ $date[$k->ac_hari - 1] }}</td>
                                 <td class="align-middle">{{ $hari[$k->ac_hari - 1] }}</td>
                                 <td>{{ $k->ac_sesi }}</td>
-                                <td>{{ $k->ac_masa }}</td>
+                                <td>{{ $k->ac_masa_mula }} - {{ $k->ac_masa_tamat }}</td>
                                 @if ($k->kehadiran == null)
                                     <td>
                                         <button class="btn btn-primary mx-0" type="button" data-bs-toggle="modal"

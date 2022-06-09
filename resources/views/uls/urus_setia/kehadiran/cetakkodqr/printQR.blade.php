@@ -30,7 +30,7 @@
                 {{-- <img src="https://api.qrserver.com/v1/create-qr-code/?data=http://127.0.0.1:8000/uls/kehadiran/{{$id}}" alt="" title="" /> --}}
             </div>
     </div>
-                    <h4> Masa: {{$aturcara->ac_masa}}</h4>
+                    <h4> Masa: {{$aturcara->ac_masa_mula}} - {{$aturcara->ac_masa_tamat}}</h4>
                     <h4> Nama Kursus: {{$kursus->kursus_nama}}</h4>
                     <h4> Hari: {{$aturcara->ac_hari}}</h4>
                     <h4> Sesi: {{$aturcara->ac_sesi}}</h4>
