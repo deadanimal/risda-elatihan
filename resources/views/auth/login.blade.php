@@ -87,7 +87,7 @@
                                                             data-fa-transform="grow-8"></span> google</a>
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <a class="btn btn-outline-facebook btn-sm d-block w-100" href="#"><span
+                                                    <a class="btn btn-outline-facebook btn-sm d-block w-100" href="{{ url('auth/facebook') }}"><span
                                                             class="fab fa-facebook-square me-2"
                                                             data-fa-transform="grow-8"></span> facebook</a>
                                                 </div>
