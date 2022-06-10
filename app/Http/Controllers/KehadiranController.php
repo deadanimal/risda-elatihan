@@ -12,7 +12,9 @@ use App\Models\Permohonan;
 use App\Models\User;
 use App\Models\Agensi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+
 
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -244,7 +246,7 @@ class KehadiranController extends Controller
         $jadual = JadualKursus::find($jadual_kursus);
 
         $list_peserta = Kehadiran::with(['aturcara', 'staff', 'pengganti'])->where('jadual_kursus_id', $jadual_kursus)->get();
-        
+
         $kehadiran = Kehadiran::with(['staff', 'pengganti'])->get();
 
         $pesertaUls = User::where('jenis_pengguna', 'Peserta ULS')->get();
@@ -414,6 +416,26 @@ class KehadiranController extends Controller
             // 'kehadiran'=>$kehadiran
         ]);
 
+
+    }
+
+
+    public function cetaksijilkursus($id){
+
+        $kehadiran = Kehadiran::find($id);
+        $jadual=JadualKursus::where('id', $kehadiran->jadual_kursus_id)->with(['tempat'])->first();
+        $agensi = Agensi::where('id', $jadual->kursus_tempat)->where('kategori_agensi',['penganjur','Penganjur'])->with(['kategori'])->first();
+
+       
+
+        $pdf = PDF::loadView('pdf.sijil_kursus', [
+            'kehadiran'=>$kehadiran,
+            'jadual'=>$jadual,
+            'agensi'=>$agensi,
+            'hari_ini' => date("d m Y")]);
+
+
+        return $pdf->stream('Sijil Kursus' . $jadual->kursus_nama .'.pdf');
 
     }
 
