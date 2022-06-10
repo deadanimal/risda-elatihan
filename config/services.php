@@ -33,7 +33,7 @@ return [
     'facebook' => [
         'client_id' => '730667815043132',
         'client_secret' => 'c671cb4554f725e5a097397634a51945',
-        'redirect' => 'http://risda-elatihan.prototype.com.my/auth/facebook/callback',
+        'redirect' => 'https://risda-elatihan.prototype.com.my/auth/facebook/callback',
     ],
 
 ];
