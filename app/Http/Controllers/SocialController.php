@@ -16,6 +16,7 @@ class SocialController extends Controller
     }
     public function loginWithFacebook()
     {
+        dd('sini');
         $user = Socialite::driver('facebook')->user();
         $isUser = User::where('fb_id', $user->id)->first();
         dd($user, $isUser);
