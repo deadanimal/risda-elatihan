@@ -60,6 +60,7 @@ use App\Http\Controllers\PelajarPraktikalController;
 use App\Http\Controllers\PerbelanjaanKursusController;
 use App\Http\Controllers\PerbelanjaanPelajarPraktikalController;
 use App\Http\Controllers\PerbelanjaanPengajianLanjutanController;
+use App\Http\Controllers\SocialController;
 use App\Models\JadualKursus;
 use App\Models\Agensi;
 use Illuminate\Support\Facades\DB;
@@ -79,6 +80,10 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('dashboard');
 // })->middleware(['auth']);
+
+Route::get('auth/facebook', [SocialController::class, 'facebookRedirect']);
+Route::get('auth/facebook/callback', [SocialController::class, 'loginWithFacebook']);
+
 Route::get('findtable/{tablename}', function ($table) {
     return DB::getSchemaBuilder()->getColumnListing($table);
 });
