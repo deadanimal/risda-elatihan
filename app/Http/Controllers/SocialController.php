@@ -16,29 +16,22 @@ class SocialController extends Controller
     }
     public function loginWithFacebook()
     {
-        dd('masuk');
-    //     try {
-    
-    //         $user = Socialite::driver('facebook')->user();
-    //         $isUser = User::where('fb_id', $user->id)->first();
-    //  dd($user, $isUser);
-    //         if($isUser){
-    //             Auth::login($isUser);
-    //             return redirect('/dashboard');
-    //         }else{
-    //             $createUser = User::create([
-    //                 'name' => $user->name,
-    //                 'email' => $user->email,
-    //                 'fb_id' => $user->id,
-    //                 'password' => encrypt('pnsb1234')
-    //             ]);
-    
-    //             Auth::login($createUser);
-    //             return redirect('/dashboard');
-    //         }
-    
-    //     } catch (Exception $exception) {
-    //         return redirect('/');
-    //     }
+        $user = Socialite::driver('facebook')->user();
+        $isUser = User::where('fb_id', $user->id)->first();
+        dd($user, $isUser);
+        if ($isUser) {
+            Auth::login($isUser);
+            return redirect('/dashboard');
+        } else {
+            $createUser = User::create([
+                'name' => $user->name,
+                'email' => $user->email,
+                'fb_id' => $user->id,
+                'password' => encrypt('pnsb1234')
+            ]);
+
+            Auth::login($createUser);
+            return redirect('/dashboard');
+        }
     }
 }
