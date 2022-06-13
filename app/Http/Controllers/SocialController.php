@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -16,23 +14,51 @@ class SocialController extends Controller
     }
     public function loginWithFacebook()
     {
-        dd('sini');
         $user = Socialite::driver('facebook')->user();
-        $isUser = User::where('fb_id', $user->id)->first();
-        dd($user, $isUser);
+        $isUser = User::where('email', $user->email)->first();
         if ($isUser) {
             Auth::login($isUser);
-            return redirect('/dashboard');
         } else {
             $createUser = User::create([
                 'name' => $user->name,
                 'email' => $user->email,
                 'fb_id' => $user->id,
-                'password' => encrypt('pnsb1234')
+                'password' => encrypt('pnsb1234'),
+                'jenis_pengguna' => 'Peserta ULPK',
             ]);
+            $test = User::find($createUser->id);
+            $test->jenis_pengguna = 'Peserta ULPK';
+            $test->save();
 
             Auth::login($createUser);
-            return redirect('/dashboard');
         }
+        return redirect('/');
+    }
+
+    public function googleRedirect()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+    public function loginWithGoogle()
+    {
+        $user = Socialite::driver('google')->stateless()->user();
+        $isUser = User::where('email', $user->email)->first();
+        if ($isUser) {
+            Auth::login($isUser);
+        } else {
+            $createUser = User::create([
+                'name' => $user->name,
+                'email' => $user->email,
+                'google_id' => $user->id,
+                'password' => encrypt('pnsb1234'),
+            ]);
+
+            $test = User::find($createUser->id);
+            $test->jenis_pengguna = 'Peserta ULPK';
+            $test->save();
+            Auth::login($createUser);
+        }
+        return redirect('/');
+
     }
 }

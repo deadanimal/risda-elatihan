@@ -13,7 +13,6 @@ use App\Http\Controllers\DunController;
 use App\Http\Controllers\ElaunCutiController;
 use App\Http\Controllers\GredPegawaiController;
 use App\Http\Controllers\JadualKursusController;
-use App\Http\Controllers\JawabPostTestController;
 use App\Http\Controllers\JulatTahunanController;
 use App\Http\Controllers\KampungController;
 use App\Http\Controllers\KategoriAgensiController;
@@ -21,8 +20,12 @@ use App\Http\Controllers\KategoriKursusController;
 use App\Http\Controllers\KehadiranController;
 use App\Http\Controllers\KelayakanElauncutiController;
 use App\Http\Controllers\KodKursusController;
+use App\Http\Controllers\KursusPenilaianController;
 use App\Http\Controllers\LaporanLainController;
+use App\Http\Controllers\MaklumatKeputusanPeperiksaanController;
 use App\Http\Controllers\MatlamatBilanganKursusController;
+use App\Http\Controllers\MatlamatTahunanPanggilanPesertaController;
+use App\Http\Controllers\MatlamatTahunanPerbelanjaanController;
 use App\Http\Controllers\MatlamatTahunanPesertaController;
 use App\Http\Controllers\MukimController;
 use App\Http\Controllers\NegeriController;
@@ -30,16 +33,19 @@ use App\Http\Controllers\NotaRujukanController;
 use App\Http\Controllers\ObjekController;
 use App\Http\Controllers\ParlimenController;
 use App\Http\Controllers\PegawaiAgensiController;
+use App\Http\Controllers\PelajarPraktikalController;
 use App\Http\Controllers\PencalonanPesertaController;
 use App\Http\Controllers\PenceramahKonsultanController;
 use App\Http\Controllers\PengajianLanjutanController;
 use App\Http\Controllers\PengurusanPenggunaController;
+use App\Http\Controllers\PenilaianEjenPelaksanaController;
+use App\Http\Controllers\PenilaianKeberkesananController;
 use App\Http\Controllers\PenilaianPesertaController;
-use App\Http\Controllers\KursusPenilaianController;
-use App\Http\Controllers\MaklumatKeputusanPeperiksaanController;
-use App\Http\Controllers\MatlamatTahunanPanggilanPesertaController;
-use App\Http\Controllers\MatlamatTahunanPerbelanjaanController;
 use App\Http\Controllers\PerananController;
+use App\Http\Controllers\PerbelanjaanKursusController;
+use App\Http\Controllers\PerbelanjaanPelajarPraktikalController;
+use App\Http\Controllers\PerbelanjaanPengajianLanjutanController;
+use App\Http\Controllers\PerbelanjaanYuranController;
 use App\Http\Controllers\PermohonanController;
 use App\Http\Controllers\PeruntukanPesertaController;
 use App\Http\Controllers\PostTestController;
@@ -49,20 +55,13 @@ use App\Http\Controllers\PusatTanggungjawabController;
 use App\Http\Controllers\SeksyenController;
 use App\Http\Controllers\SemakanController;
 use App\Http\Controllers\SemakPermohonanController;
+use App\Http\Controllers\SocialController;
 use App\Http\Controllers\StatusPelaksanaanController;
 use App\Http\Controllers\StesenController;
 use App\Http\Controllers\SumberController;
 use App\Http\Controllers\UtilitiController;
-use App\Http\Controllers\PenilaianKeberkesananController;
-use App\Http\Controllers\PenilaianEjenPelaksanaController;
-use App\Http\Controllers\PerbelanjaanYuranController;
-use App\Http\Controllers\PelajarPraktikalController;
-use App\Http\Controllers\PerbelanjaanKursusController;
-use App\Http\Controllers\PerbelanjaanPelajarPraktikalController;
-use App\Http\Controllers\PerbelanjaanPengajianLanjutanController;
-use App\Http\Controllers\SocialController;
-use App\Models\JadualKursus;
 use App\Models\Agensi;
+use App\Models\JadualKursus;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
@@ -81,8 +80,11 @@ use Illuminate\Support\Facades\Route;
 //     return view('dashboard');
 // })->middleware(['auth']);
 
-Route::get('auth/facebook', [SocialController::class, 'facebookRedirect']);
-Route::get('auth/facebook/callback', [SocialController::class, 'loginWithFacebook']);
+Route::get('/auth/facebook', [SocialController::class, 'facebookRedirect']);
+Route::get('/auth/facebook/callback', [SocialController::class, 'loginWithFacebook']);
+
+Route::get('/auth/google', [SocialController::class, 'googleRedirect']);
+Route::get('/auth/google/callback', [SocialController::class, 'loginWithGoogle']);
 
 Route::get('findtable/{tablename}', function ($table) {
     return DB::getSchemaBuilder()->getColumnListing($table);
@@ -247,18 +249,14 @@ Route::middleware('auth')->group(function () {
 
     });
 
-
     //Urus Setia ULS
     Route::group(['prefix' => 'us-uls'], function () {
 
         Route::resource('PelajarPraktikal', PelajarPraktikalController::class);
 
-
-
         Route::group(['prefix' => 'kehadiran', 'middleware' => 'can:kehadiran'], function () {
             //dari QR  - merekod kehadiran
             Route::resource('cetakkodQR', CetakKodQRController::class);
-
 
             Route::get('/senarai-pl', function () {
                 $agensi = Agensi::where('Kategori_Agensi', '2')->get();
@@ -273,16 +271,13 @@ Route::middleware('auth')->group(function () {
             Route::get('/kehadiran-pl', function () {
                 $agensi = Agensi::all();
                 return view('ulpk.urus_setia.kehadiran.kehadiran-pl.kehadiran-pl', [
-                    'agensi' => $agensi
+                    'agensi' => $agensi,
                 ]);
             });
             Route::get('/kehadiran-pl/{id}', [KehadiranController::class, 'kehadiran_pl']);
             Route::get('/cetak-pl/{id}', [KehadiranController::class, 'cetak_qr_pl']);
 
             Route::get('printQR/{id}', [CetakKodQRController::class, 'printQR'])->name('printQR');
-
-
-
 
             Route::prefix('ke-kursus')->group(function () {
                 //kehadiran
@@ -353,10 +348,6 @@ Route::middleware('auth')->group(function () {
             Route::resource('/ejen-pelaksana', PenilaianEjenPelaksanaController::class);
             Route::get('/penilaian-ejen-pelaksana/{id}', [PenilaianEjenPelaksanaController::class, 'create']);
             Route::get('/penilaian-keberkesanan-kursus/{id}', [PenilaianKeberkesananController::class, 'create']);
-
-
-
-
 
             Route::get('/cetakQr', [PenilaianPesertaController::class, 'cetakQr']);
             Route::get('/cetakQr2/{jadual_kursus}', [PenilaianPesertaController::class, 'cetakQr2']);
@@ -472,7 +463,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('pengajian-lanjutan', PerbelanjaanPengajianLanjutanController::class);
         Route::post('pengajian-lanjutan/carian', [PerbelanjaanPengajianLanjutanController::class, 'carian']);
         Route::get('pengajian-lanjutan/butiran/{tahun}/{kod_pa}/{kod_objek}/{no_dbil}', [PerbelanjaanPengajianLanjutanController::class, 'butiran_rekod']);
-        
+
         // perbelanjaan pelajar praktikal
         Route::resource('pelajar-praktikal', PerbelanjaanPelajarPraktikalController::class);
         Route::post('pelajar-praktikal/carian', [PerbelanjaanPelajarPraktikalController::class, 'carian']);
