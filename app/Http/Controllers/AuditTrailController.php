@@ -24,7 +24,7 @@ class AuditTrailController extends Controller
     public function index()
     {
         return view('audit_trail.index', [
-            'auditTrail' => AuditTrail::with('pengguna')->get(),
+            'auditTrail' => AuditTrail::with('pengguna')->orderBy('created_at', 'desc')->get(),
         ]);
     }
 
