@@ -37,12 +37,12 @@
                                 @foreach ($rafis as $key => $r)
                                     <tr>
                                         <td>{{ $key + 1 }}.</td>
-                                        <td>RM {{ $r['Amaun_Bayar'] }}</td>
+                                        <td>RM {{ $r['Amaun'] }}</td>
                                         <td>{{ $r['No_DBil'] }}</td>
                                         <td>{{ $r['Kod_Pembekal'] }}</td>
                                         <td>{{ $r['Perihal'] }}</td>
                                         <td>
-                                            <a href="/perbelanjaan/pelajar-praktikal/butiran/{{$r['Thn_Kew']}}/{{$r['Kod_PA_ABB']}}/{{$r['Kod_Objek_ABB']}}/{{$r['No_DBil']}}" class="btn btn-primary">Butiran</a>
+                                            <a href="/perbelanjaan/pelajar-praktikal/butiran/{{$r['Thn_Kew']}}/{{$r['Kod_PA']}}/{{$r['Kod_Objek']}}/{{$r['No_DBil']}}" class="btn btn-primary">Butiran</a>
                                         </td>
                                     </tr>
                                 @endforeach

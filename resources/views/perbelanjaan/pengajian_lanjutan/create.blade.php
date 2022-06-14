@@ -41,13 +41,13 @@
                                     <p class="h5">Kod PA</p>
                                 </div>
                                 <div class="col-lg-9">
-                                    <input type="text" class="form-control mb-2" readonly value="{{ $rafis['Kod_PA_ABB'] }}" name="Kod_PA_ABB">
+                                    <input type="text" class="form-control mb-2" readonly value="{{ $rafis['Kod_PA'] }}" name="Kod_PA">
                                 </div>
                                 <div class="col-lg-3 pt-lg-2">
                                     <p class="h5">Kod Objek</p>
                                 </div>
                                 <div class="col-lg-9">
-                                    <input type="text" class="form-control mb-2" readonly value="{{ $rafis['Kod_Objek_ABB'] }}" name="Kod_Objek_ABB">
+                                    <input type="text" class="form-control mb-2" readonly value="{{ $rafis['Kod_Objek'] }}" name="Kod_Objek">
                                 </div>
                                 <div class="col-lg-3 pt-lg-2">
                                     <p class="h5">No. DBil</p>
@@ -101,7 +101,7 @@
                                     <p class="h5">Amaun Bayar (RM)</p>
                                 </div>
                                 <div class="col-lg-9">
-                                    <input type="text" class="form-control mb-2" readonly value="{{ $rafis['Amaun_Bayar'] }}" name="Amaun_Bayar">
+                                    <input type="text" class="form-control mb-2" readonly value="{{ $rafis['Amaun'] }}" name="Amaun">
                                 </div>
     
                                 <div class="col-lg-3 pt-lg-2">

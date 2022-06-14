@@ -44,8 +44,8 @@ class PerbelanjaanPelajarPraktikalController extends Controller
         $rafis_pt = [];
         foreach ($rafis as $key => $r) {
             if ($r['Kod_PT'] == $request->kod_pt) {
-                if ($r['Kod_PA_ABB'] == $request->kod_pa_abb) {
-                    if ($r['Kod_Objek_ABB'] == $request->kod_objek_abb) {
+                if ($r['Kod_PA'] == $request->Kod_PA) {
+                    if ($r['Kod_Objek'] == $request->Kod_Objek) {
                         array_push($rafis_pt, $r);
                     }
                 }

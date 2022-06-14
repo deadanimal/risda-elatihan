@@ -23,28 +23,28 @@
                     @csrf
                     <div class="row">
                         <div class="col-8 col-lg-10 mb-lg-3 pe-0 pe-lg-3">
-                            <label class="col-form-label">KOD PA ABB</label>
-                            <input type="text" name="kod_pa_abb" id="kod_pa_abb" class="form-control">
+                            <label class="col-form-label">KOD PA</label>
+                            <input type="text" name="Kod_PA" id="Kod_PA" class="form-control">
                         </div>
                         <div class="col-8 col-lg-10 mb-lg-3 pe-0 pe-lg-3">
                             <label class="col-form-label">KOD PT</label>
-                            {{-- <select name="kod_pt" class="form-select form-control">
+                            <select name="kod_pt" class="form-select form-control">
                                 <option value="" selected hidden>Sila Pilih</option>
                                 @foreach ($pusat_tanggungjawab as $pt)
                                     <option value="{{ $pt->kod_PT }}">{{ $pt->kod_PT }}</option>
                                 @endforeach
-                            </select> --}}
-                            <input type="text" name="kod_pt" id="kod_pt" class="form-control">
+                            </select>
+                            {{-- <input type="text" name="kod_pt" id="kod_pt" class="form-control"> --}}
                         </div>
                         <div class="col-8 col-lg-10 mb-lg-3 pe-0 pe-lg-3">
                             <label class="col-form-label">KOD OBJEK</label>
-                            {{-- <select name="kod_objek" class="form-select form-control">
+                            <select name="kod_objek" class="form-select form-control">
                                 <option value="" selected hidden>Sila Pilih</option>
                                 @foreach ($objek as $obj)
                                     <option value="{{ $obj->kod_Objek }}">{{ $pt->kod_Objek }}</option>
                                 @endforeach
-                            </select> --}}
-                            <input type="text" name="kod_objek_abb" id="kod_objek_abb" class="form-control">
+                            </select>
+                            {{-- <input type="text" name="Kod_Objek" id="Kod_Objek" class="form-control"> --}}
                         </div>
                         <div class="col-4 col-lg-2 mb-lg-3 align-self-end text-end ps-0">
                             <button type="submit" class="btn risda-bg-dg text-white"><i class="fas fa-search"></i>
