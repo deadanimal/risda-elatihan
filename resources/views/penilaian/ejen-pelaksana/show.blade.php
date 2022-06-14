@@ -890,7 +890,7 @@
 
                 <div class="col-12 d-inline-flex">
                     <div class="col-9">
-                        <h6 class="mt-1">4. Ketepatan masa mengemukakan dokumen sebutharga, invois, laporan dan dokumen sokongan/h6>
+                        <h6 class="mt-1">4. Ketepatan masa mengemukakan dokumen sebutharga, invois, laporan dan dokumen sokongan</h6>
                     </div>
                     <div class="col-3">
 

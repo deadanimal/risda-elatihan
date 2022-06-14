@@ -62,7 +62,7 @@
         <div class="card mt-5">
             <div class="card-body">
                 <div class="table-responsive scrollbar ">
-                   <table class="table datatable text-center">
+                    <table class="table datatable text-center">
                         <thead>
                             <tr>
                                 <th class="fw-bold text-dark" scope="col">BIL.</th>
@@ -91,25 +91,25 @@
 
                                     <td>
                                          {{$k->staff->name}}
-
-
                                     </td>
 
 
                                         @if($k->penilaiankeberkesanan===null)
 
-                                        <td>
-                                            <a class="btn btn-primary btn-sm mb-2"
-                                                href="/penilaian/penilaian-keberkesanan-kursus/{{$k->id}}">
-                                                Mula Penilaian
-                                            </a>
+                                        <td class="">
+
+                                            <button class="btn btn-primary btn-sm mb-2" onclick="window.location.href='/penilaian/penilaian-keberkesanan-kursus/{{$k->id}}'">
+                                               MULA PENILAIAN</button>
+
+
                                         </td>
 
                                         @else
                                         <td>
-                                            <a class="btn btn-primary btn-sm" href="/penilaian/keberkesanan-kursus/{{$k->penilaiankeberkesanan->id}}">
-                                                Papar Penilaian
-                                            </a>
+
+                                            <button class="btn btn-primary btn-sm mb-2" onclick="window.location.href='/penilaian/keberkesanan-kursus/{{$k->penilaiankeberkesanan->id}}'">
+                                               PAPAR PENILAIAN</button>
+
                                         </td>
 
 

@@ -12,6 +12,7 @@ use App\Models\JadualKursus;
 use App\Models\Agensi;
 use App\Models\PenceramahKonsultan;
 use BeyondCode\QueryDetector\Outputs\Alert;
+use Illuminate\Support\Facades\DB;
 
 class PenilaianEjenPelaksanaController extends Controller
 {
@@ -20,6 +21,7 @@ class PenilaianEjenPelaksanaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
     //    $kursus=JadualKursus::where('kursus_status_pelaksanaan','1')->get();
