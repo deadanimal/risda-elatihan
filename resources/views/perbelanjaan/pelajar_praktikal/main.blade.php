@@ -41,7 +41,7 @@
                             <select name="kod_objek" class="form-select form-control">
                                 <option value="" selected hidden>Sila Pilih</option>
                                 @foreach ($objek as $obj)
-                                    <option value="{{ $obj->kod_Objek }}">{{ $pt->kod_Objek }}</option>
+                                    <option value="{{ $obj->kod_Objek }}">{{ $obj->nama_Objek }}</option>
                                 @endforeach
                             </select>
                             {{-- <input type="text" name="Kod_Objek" id="Kod_Objek" class="form-control"> --}}
