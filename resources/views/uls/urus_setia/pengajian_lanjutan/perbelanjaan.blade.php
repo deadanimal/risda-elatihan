@@ -47,13 +47,13 @@
                                     <p class="h5">Kod PA</p>
                                 </div>
                                 <div class="col-lg-9">
-                                    <input type="text" class="form-control mb-2" readonly value="{{ $pl->perbelanjaan_pl->Kod_PA_ABB }}">
+                                    <input type="text" class="form-control mb-2" readonly value="{{ $pl->perbelanjaan_pl->Kod_PA }}">
                                 </div>
                                 <div class="col-lg-3 pt-lg-2">
                                     <p class="h5">Kod Objek</p>
                                 </div>
                                 <div class="col-lg-9">
-                                    <input type="text" class="form-control mb-2" readonly value="{{ $pl->perbelanjaan_pl->Kod_Objek_ABB }}">
+                                    <input type="text" class="form-control mb-2" readonly value="{{ $pl->perbelanjaan_pl->Kod_Objek }}">
                                 </div>
                                 <div class="col-lg-3 pt-lg-2">
                                     <p class="h5">No. DBil</p>
@@ -107,7 +107,7 @@
                                     <p class="h5">Amaun Bayar (RM)</p>
                                 </div>
                                 <div class="col-lg-9">
-                                    <input type="text" class="form-control mb-2" readonly value="{{ $pl->perbelanjaan_pl->Amaun_Bayar }}">
+                                    <input type="text" class="form-control mb-2" readonly value="{{ $pl->perbelanjaan_pl->Amaun }}">
                                 </div>
 
                                 <div class="row mt-5">
