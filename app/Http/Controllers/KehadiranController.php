@@ -400,7 +400,7 @@ class KehadiranController extends Controller
 
         $kursus = JadualKursus::with(['tempat','kehadiran'])->where('kursus_tempat',$agensi->id)->get();
 
-        $peserta = Kehadiran::with(['kursus', 'staff', 'pengganti'])->where('status_kehadiran','HADIR')
+        $peserta = Kehadiran::with(['staff','kursus', 'pengganti'])->where('status_kehadiran','HADIR')
         ->get();
 
 
@@ -426,7 +426,7 @@ class KehadiranController extends Controller
         $jadual=JadualKursus::where('id', $kehadiran->jadual_kursus_id)->with(['tempat'])->first();
         $agensi = Agensi::where('id', $jadual->kursus_tempat)->where('kategori_agensi',['penganjur','Penganjur'])->with(['kategori'])->first();
 
-       
+
 
         $pdf = PDF::loadView('pdf.sijil_kursus', [
             'kehadiran'=>$kehadiran,

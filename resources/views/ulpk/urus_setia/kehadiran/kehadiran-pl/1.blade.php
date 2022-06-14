@@ -62,7 +62,7 @@
                 <table class="table datatable">
                     <thead>
                         <tr>
-                            <th scope="col">BIL.</th>
+                            <th scope="col">BIL</th>
                             <th scope="col">NO KAD PENGENALAN</th>
                             <th scope="col">NAMA</th>
                             <th scope="col">KOD KURSUS</th>
@@ -73,16 +73,14 @@
                         </tr>
                     </thead>
                      <tbody>
-
-                         @foreach($kursus as $ku)
-                            @foreach($ku->kehadiran as $k)
+                    @foreach($peserta as $k)
                         <tr>
                             <td>{{$loop->iteration}}</td>
                             <td>{{$k->staff->no_KP ?? ''}}</td>
                             <td>{{$k->staff->name ?? ''}}</td>
                             <td>{{$k->kod_kursus}}</td>
-                            <td >{{$ku->kursus_nama}}</td>
-                            <td >{{date('d-m-Y', strtotime($k->tarikh))}}</td>
+                            <td >{{$k->kursus->kursus_nama}}</td>
+                            <td >{{date('d-m-Y', strtotime($k->created_at))}} <br> {{date('H:i:s', strtotime($k->created_at))}}</td>
                             <td>
 
                                     <input class="form-check-input pukal" type="checkbox" name="pemohon[]"
@@ -90,9 +88,7 @@
 
                             </td>
 
-
                         </tr>
-                        @endforeach
                         @endforeach
 
                         {{-- <tr>
