@@ -102,7 +102,7 @@ class PerbelanjaanKursusController extends Controller
         $perbelanjaanKursus->save();
 
         alert()->success('Maklumat telah disimpan', 'Berjaya');
-        return redirect('/perbelanjaan-kursus');
+        return redirect('/perbelanjaan/perbelanjaan-kursus');
     }
 
     /**
