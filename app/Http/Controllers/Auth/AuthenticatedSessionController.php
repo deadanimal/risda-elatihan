@@ -31,18 +31,56 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request)
 
     {
-        // dd($request->session()->all());
+        // dd($request);
+
         $email = $request->email;
         $kp = $request->no_KP;
         $password = $request->password;
+
+        // condition untuk berbeza tab(pk, staf, ejen)
+        if ($request->pengguna == 'staf') {
+            $check_staf = User::where('no_KP', $kp)->first()->jenis_pengguna;
+
+            if ($check_staf == 'Peserta ULPK') {
+                alert()->error('Sila log masuk menggunakan tab log masuk yang betul', 'Gagal');
+                return back();
+            }
+            elseif ($check_staf == 'Ejen Pelaksana') {
+                alert()->error('Sila log masuk menggunakan tab log masuk yang betul', 'Gagal');
+                return back();
+            }
+        }
+
+        // confition untuk login type
+        if ($request->pengguna == 'pk') {
+            if ($kp != null) {
+                $check_ic = User::where('no_KP', $kp)->first();
+                $login_type = $check_ic->login_type;
+            } else {
+                $check_ic = User::where('email', $email)->first();
+                $login_type = $check_ic->login_type;
+            }
+
+            if ($login_type == 'emel') {
+                if ($email == null) {
+                    alert()->error('Sila log masuk menggunakan jenis ID yang dipilih semasa pendaftaran', 'Gagal');
+                    return back();
+                }
+            } elseif ($login_type == 'nric') {
+                if ($kp == null) {
+                    alert()->error('Sila log masuk menggunakan jenis ID yang dipilih semasa pendaftaran', 'Gagal');
+                    return back();
+                }
+            }
+        }
 
         $user = User::where('email', $email)->orWhere('no_KP', $kp)->first();
         if ($user == null) {
             alert()->error('No . Kad Pengenalan atau emel yang dimasukkan tiada dalam pangkalan data RISDA e-Latihan');
             return back();
         }
-        // dd($user->id);
 
+        // check status akaun
         if ($user->status_akaun == null) {
             alert()->error('Akaun Anda Tidak Aktif', 'Gagal');
             return redirect()->back();

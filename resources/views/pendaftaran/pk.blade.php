@@ -20,7 +20,7 @@
                                     </div> --}}
                                     <div class="mb-3 col-lg-6">
                                         <label class="form-label">Sila Pilih Jenis ID</label>
-                                        <select name="id_jenis" id="id_jenis" class="form-control">
+                                        <select name="login_type" id="id_jenis" class="form-control">
                                             <option value="" selected hidden>Sila Pilih</option>
                                             <option value="emel">E-MEL</option>
                                             <option value="nric">NO. KAD PENGENALAN</option>
