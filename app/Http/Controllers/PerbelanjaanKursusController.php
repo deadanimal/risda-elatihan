@@ -67,11 +67,11 @@ class PerbelanjaanKursusController extends Controller
 
         $check = Auth::user()->jenis_pengguna;
         if ($check == 'Urus Setia ULS') {
-            $jadual = JadualKursus::where('kursus_unit_latihan', 'Staf')->get();
+            $jadual = JadualKursus::doesntHave('perbelanjaan')->where('kursus_unit_latihan', 'Staf')->get();
         } elseif ($check == 'Urus Setia ULPK') {
-            $jadual = JadualKursus::where('kursus_unit_latihan', 'Pekebun Kecil')->get();
+            $jadual = JadualKursus::doesntHave('perbelanjaan')->where('kursus_unit_latihan', 'Pekebun Kecil')->get();
         } else{
-            $jadual = JadualKursus::all();
+            $jadual = JadualKursus::doesntHave('perbelanjaan')->get();
         }
         
         return view('perbelanjaan.kursus.create', [
@@ -102,7 +102,7 @@ class PerbelanjaanKursusController extends Controller
         $perbelanjaanKursus->save();
 
         alert()->success('Maklumat telah disimpan', 'Berjaya');
-        return redirect('/perbelanjaan-kursus');
+        return redirect('/perbelanjaan/perbelanjaan-kursus');
     }
 
     /**
