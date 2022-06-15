@@ -764,11 +764,13 @@
                         </ul>
                     @endcan
 
-                    <a class="nav-link py-0 {{ Request::is('us-uls/PelajarPraktikal') ? 'active' : '' }}" href="/us-uls/PelajarPraktikal" role="button">
-                        <div class="d-flex align-items-center nav-link-side px-0">
-                                <span class="px-3"><span class="far fa-address-book"></span> PELAJAR PRAKTIKAL</span>
-                        </div>
-                    </a>
+                    @can('pelajar praktikal')
+                        <a class="nav-link py-0 {{ Request::is('us-uls/PelajarPraktikal') ? 'active' : '' }}" href="/us-uls/PelajarPraktikal" role="button">
+                            <div class="d-flex align-items-center nav-link-side px-0">
+                                    <span class="px-3"><span class="far fa-address-book"></span> PELAJAR PRAKTIKAL</span>
+                            </div>
+                        </a>
+                    @endcan
 
                     @can('pengajian lanjutan')
                         <a class="nav-link py-0 {{ Request::is('us-uls/pengajian-lanjutan') ? 'active' : '' }}"
@@ -1030,44 +1032,47 @@
                         </a>
                     @endcan
 
-                    <a class="nav-link py-0 dropdown-indicator" href="#perbelanjaan" role="button"
+                    @can('perbelanjaan')
+                        <a class="nav-link py-0 dropdown-indicator" href="#perbelanjaan" role="button"
                         data-bs-toggle="collapse"
                         aria-expanded="{{ Request::is('perbelanjaan/*') ? 'true' : 'false' }}"
                         aria-controls="perbelanjaan">
-                        <div class="d-flex align-items-center nav-link-side px-0">
-                            <span class=" px-3"><span class="fas fa-file-invoice-dollar"></span> PERBELANJAAN</span>
-                        </div>
-                    </a>
-                    <ul class="nav-item collapse {{ Request::is('perbelanjaan/*') ? 'show' : 'false' }} my-1" id="perbelanjaan">
+                            <div class="d-flex align-items-center nav-link-side px-0">
+                                <span class=" px-3"><span class="fas fa-file-invoice-dollar"></span> PERBELANJAAN</span>
+                            </div>
+                        </a>
+                        <ul class="nav-item collapse {{ Request::is('perbelanjaan/*') ? 'show' : 'false' }} my-1" id="perbelanjaan">
 
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('perbelanjaan/perbelanjaan-kursus') ? 'active' : '' }} {{ Request::is('perbelanjaan/perbelanjaan-kursus/*') ? 'active' : '' }} py-0"
-                                href="/perbelanjaan/perbelanjaan-kursus">
-                                <div class="d-flex align-items-center nav-link-side">
-                                    <span class="px-0">Kursus</span>
-                                </div>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is('perbelanjaan/perbelanjaan-kursus') ? 'active' : '' }} {{ Request::is('perbelanjaan/perbelanjaan-kursus/*') ? 'active' : '' }} py-0"
+                                    href="/perbelanjaan/perbelanjaan-kursus">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">Kursus</span>
+                                    </div>
+                                </a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('perbelanjaan/pelajar-praktikal') ? 'active' : '' }} {{ Request::is('perbelanjaan/pelajar-praktikal/*') ? 'active' : '' }} py-0"
-                                href="/perbelanjaan/pelajar-praktikal">
-                                <div class="d-flex align-items-center nav-link-side">
-                                    <span class="px-0">Pelajar Praktikal</span>
-                                </div>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is('perbelanjaan/pelajar-praktikal') ? 'active' : '' }} {{ Request::is('perbelanjaan/pelajar-praktikal/*') ? 'active' : '' }} py-0"
+                                    href="/perbelanjaan/pelajar-praktikal">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">Pelajar Praktikal</span>
+                                    </div>
+                                </a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('perbelanjaan/pengajian-lanjutan') ? 'active' : '' }} {{ Request::is('perbelanjaan/pengajian-lanjutan/*') ? 'active' : '' }} py-0"
-                                href="/perbelanjaan/pengajian-lanjutan">
-                                <div class="d-flex align-items-center nav-link-side">
-                                    <span class="px-0">Pengajian Lanjutan</span>
-                                </div>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is('perbelanjaan/pengajian-lanjutan') ? 'active' : '' }} {{ Request::is('perbelanjaan/pengajian-lanjutan/*') ? 'active' : '' }} py-0"
+                                    href="/perbelanjaan/pengajian-lanjutan">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">Pengajian Lanjutan</span>
+                                    </div>
+                                </a>
+                            </li>
 
-                    </ul>
+                        </ul>
+                    @endcan
+                    
 
                     
 

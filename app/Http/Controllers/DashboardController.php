@@ -88,6 +88,9 @@ class DashboardController extends Controller
         if (str_contains($jp, 'ULPK')) {
             $jpermohonan = 1;
         }
+        elseif (str_contains($jp, 'Ejen')) {
+            $jpermohonan = 1;
+        }
         else {
             $jpermohonan = 0;
         }
