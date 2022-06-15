@@ -22,6 +22,9 @@ class PenilaianKeberkesananController extends Controller
         $kehadiran=Kehadiran::where('status_kehadiran_ke_kursus','HADIR')->
         with(['penilaiankeberkesanan','kursus','staff'])->get();
 
+        $hari_ini = date('m-d');
+
+        // dd($hari_ini);
         // $kursus=JadualKursus::with('aturcara')->get();
         // $kursus=JadualKursus::where('id',$kehadiran->jadual_kursus_id)->first();
 
@@ -35,7 +38,8 @@ class PenilaianKeberkesananController extends Controller
         // dd($kehadiran->staff);
 
         return view('penilaian.keberkesanan.index',[
-            'kehadiran'=>$kehadiran
+            'kehadiran'=>$kehadiran,
+            'hari_ini'=>$hari_ini
             // 'kursus'=>$kursus
             // 'peserta'=>$peserta,
             // 'keberkesanan'=>$keberkesanan
@@ -48,7 +52,8 @@ class PenilaianKeberkesananController extends Controller
         $kehadiran=Kehadiran::find($id);
 
         return view('penilaian.keberkesanan.soalan-keberkesanan',[
-            'kehadiran'=>$kehadiran
+            'kehadiran'=>$kehadiran,
+
         ]);
     }
 

@@ -96,17 +96,23 @@
 
                                         @if($k->penilaiankeberkesanan===null)
 
-                                        <td class="">
+                                            @if(($hari_ini=="01-01")||($hari_ini=="04-01")||($hari_ini=="07-01")||($hari_ini=="10-01"))
 
-                                            <button class="btn btn-primary btn-sm mb-2" onclick="window.location.href='/penilaian/penilaian-keberkesanan-kursus/{{$k->id}}'">
-                                               MULA PENILAIAN</button>
+                                            <td>
+                                                <button class="btn btn-primary btn-sm mb-2" onclick="window.location.href='/penilaian/penilaian-keberkesanan-kursus/{{$k->id}}'">
+                                                    MULA PENILAIAN
+                                                </button>
+                                            </td>
 
+                                            @else
 
-                                        </td>
+                                            <td>
+                                                <button class="btn btn-secondary btn-sm"  href="#" @disabled(true)>MULA PENILAIAN</button>
+                                            </td>
 
+                                            @endif
                                         @else
                                         <td>
-
                                             <button class="btn btn-primary btn-sm mb-2" onclick="window.location.href='/penilaian/keberkesanan-kursus/{{$k->penilaiankeberkesanan->id}}'">
                                                PAPAR PENILAIAN</button>
 
