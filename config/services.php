@@ -30,14 +30,14 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
     'facebook' => [
-        'client_id' => env('FB_CLIENT_ID'),
-        'client_secret' => env('FB_CLIENT_SECRET'),
-        'redirect' => env('FB_REDIRECT_URL'),
+        'client_id' => "1454056791696727",
+        'client_secret' => "f8fbfcf0b3538877f60b0c77bc3da52d",
+        'redirect' => "https://risda-elatihan.prototype.com.my/auth/facebook/callback",
     ],
     'google' => [
-        'client_id' => env('GOOGLE_CLIENT_ID'),
-        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect' => env('GOOGLE_REDIRECT_URL'),
+        'client_id' => "1081285377646-m8f3c2lnrm75m3se8a43lsuo6si72rc9.apps.googleusercontent.com",
+        'client_secret' => "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",
+        'redirect' => "https://risda-elatihan.prototype.com.my/auth/google/callback",
     ],
 
 ];
