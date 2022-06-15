@@ -10,6 +10,7 @@ use App\Models\Permohonan;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -83,6 +84,14 @@ class DashboardController extends Controller
         // dd($kehadiran_staf);
 
 
+        $jp = Auth::user()->jenis_pengguna;
+        if (str_contains($jp, 'ULPK')) {
+            $jpermohonan = 1;
+        }
+        else {
+            $jpermohonan = 0;
+        }
+        
 
         return view('dashboard', [
             'bulan_ini' => count($kursus_bulan_ini),
@@ -94,7 +103,8 @@ class DashboardController extends Controller
             'jumlah_pelawat' => count($pelawat),
             'jadual_uls' => $jadual_uls,
             'jadual_ulpk' => $jadual_ulpk,
-            'jadual' => $jadual_admin
+            'jadual' => $jadual_admin,
+            'jperm' => $jpermohonan
         ]);
     }
 

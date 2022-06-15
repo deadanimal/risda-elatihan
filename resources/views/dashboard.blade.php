@@ -53,58 +53,62 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-5 justify-content-center">
-            <div class="col-lg-8">
-                <div class="card risda-bg-g">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-10">
-                                <h5 class="text-white mb-0">JUMLAH PERMOHONAN TAHUN SEMASA:</h5>
-                            </div>
-                            <div class="col-2 text-end">
-                                <h5 class="text-white mb-0">{{ $permohonan_tahun_ini }}</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-3 justify-content-center">
-            <div class="col-lg-8">
-                <div class="card risda-bg-g">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-10">
-                                <h5 class="text-white mb-0">JUMLAH KEHADIRAN PESERTA KURSUS:</h5>
-                            </div>
-                        </div>
-                        <div class="row justify-content-end">
-                            <div class="col-4 text-end">
-                                <h5 class="text-white mb-0">STAF - </h5>
-                            </div>
-                            <div class="col-2 text-end">
-                                <h5 class="text-white mb-0">{{ $kehadiran_staf }} </h5>
-                            </div>
-                        </div>
-                        <div class="row justify-content-end">
-                            <div class="col-4 text-end">
-                                <h5 class="text-white mb-0">PEKEBUN KECIL - </h5>
-                            </div>
-                            <div class="col-2 text-end">
-                                <h5 class="text-white mb-0">{{ $kehadiran_pk }} </h5>
+
+        @if ($jperm == 0)
+            <div class="row mt-5 justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card risda-bg-g">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-10">
+                                    <h5 class="text-white mb-0">JUMLAH PERMOHONAN TAHUN SEMASA:</h5>
+                                </div>
+                                <div class="col-2 text-end">
+                                    <h5 class="text-white mb-0">{{ $permohonan_tahun_ini }}</h5>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <div class="row mt-3 justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card risda-bg-g">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-10">
+                                    <h5 class="text-white mb-0">JUMLAH KEHADIRAN PESERTA KURSUS:</h5>
+                                </div>
+                            </div>
+                            <div class="row justify-content-end">
+                                <div class="col-4 text-end">
+                                    <h5 class="text-white mb-0">STAF - </h5>
+                                </div>
+                                <div class="col-2 text-end">
+                                    <h5 class="text-white mb-0">{{ $kehadiran_staf }} </h5>
+                                </div>
+                            </div>
+                            <div class="row justify-content-end">
+                                <div class="col-4 text-end">
+                                    <h5 class="text-white mb-0">PEKEBUN KECIL - </h5>
+                                </div>
+                                <div class="col-2 text-end">
+                                    <h5 class="text-white mb-0">{{ $kehadiran_pk }} </h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
 
         <div class="row mt-3 justify-content-center">
             <div class="col-lg-10">
                 <p>
                 <div class="d-grid gap-2">
                     <button class="btn btn-primary ms-sm-2 mt-2" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#jadual" aria-expanded="false" aria-controls="jadual">Jadual Tahunan Ini</span></button>
+                        data-bs-target="#jadual" aria-expanded="false" aria-controls="jadual">Jadual Tahunan
+                        Ini</span></button>
                 </div>
                 </p>
                 <div class="collapse" id="jadual">
