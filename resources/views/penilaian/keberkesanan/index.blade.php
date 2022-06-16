@@ -89,7 +89,7 @@
 
                                     <td>
                                         @if ($k->staff == null)
-                                            Maklumat tiada dalam rekod
+                                            Maklumat peserta tiada dalam rekod atau telah dihapuskan.
                                         @else
                                             {{ $k->staff['name'] }}
                                         @endif
