@@ -58,7 +58,7 @@
                         <p class="h6 p-0 m-0 risda-dg">TEMPAT KURSUS</p>
                     </div>
                     <div class="col-9">
-                        <input type="text" class="form-control" value="{{ $jadual_kursus->kursus_tempat }}" readonly>
+                        <input type="text" class="form-control" value="{{ $jadual_kursus->tempat->nama_Agensi }}" readonly>
                     </div>
                 </div>
             </div>
@@ -108,7 +108,7 @@
                                 <td>
                                     <p class="h5 risda-g">PENILAIAN POST TEST</p>
                                 </td>
-                                <td>kod qr</td>
+                                <td><div class="qrcode" id="qr3"></div></td>
                                 <td><a href="#" class="btn btn-primary"><i class="fas fa-print"></i></a></td>
                             </tr>
                         </tbody>
@@ -120,7 +120,7 @@
 
     <script>
         $(document).ready(function() {
-            var outUrl1 = APP_URL + "/penilaian/penilaian-kursus";
+            var outUrl1 = APP_URL + "http://risda-elatihan.prototype.com.my/penilaian/penilaian-kursus";
             new QRCode(document.getElementById('qr1'), {
                 text: outUrl1,
                 width: 90,
@@ -130,9 +130,19 @@
                 correctLevel: QRCode.CorrectLevel.H,
             });
 
-            var outUrl2 = APP_URL + "/penilaian/jawab-pre-post-test";
+            var outUrl2 = APP_URL + "http://risda-elatihan.prototype.com.my/penilaian/jawab-pre-post-test";
             new QRCode(document.getElementById('qr2'), {
                 text: outUrl2,
+                width: 90,
+                height: 90,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H,
+            });
+
+            var outUrl3 = APP_URL + "http://risda-elatihan.prototype.com.my/penilaian/jawab-pre-post-test";
+            new QRCode(document.getElementById('qr3'), {
+                text: outUrl3,
                 width: 90,
                 height: 90,
                 colorDark: "#000000",
