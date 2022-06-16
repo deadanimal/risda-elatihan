@@ -7,7 +7,12 @@ use App\Http\Requests\UpdatePeruntukanPesertaRequest;
 use App\Models\JadualKursus;
 use App\Models\PeruntukanPeserta;
 use App\Models\Negeri;
+use App\Models\Agensi;
 use App\Models\PusatTanggungjawab;
+use App\Mail\PanggilanKeKursus;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Mail;
+
 
 class PeruntukanPesertaController extends Controller
 {
@@ -41,7 +46,30 @@ class PeruntukanPesertaController extends Controller
     {
         $peruntukanPeserta = new PeruntukanPeserta($request->all());
         $peruntukanPeserta->save();
-        alert()->success('Maklumat telah disimipan', 'Berjaya Disimpan');
+
+        alert()->success('Maklumat telah disimpan', 'Berjaya Disimpan');
+
+        $jadual=JadualKursus::where('id',$peruntukanPeserta->pp_jadual_kursus)->with(['tempat'])->get();
+        $agensi = Agensi::with(['negeri'])->first();
+
+        $pdf = Pdf::loadView('pdf.surat-panggilan-kursus',[
+
+            'jadual'=>$jadual,
+            'agensi'=>$agensi,
+            'peruntukanPeserta'=>$peruntukanPeserta,
+            'hari_ini' => date("d m Y")
+        ]);
+
+        $peruntukanpeserta=PeruntukanPeserta::where('pp_jadual_kursus',$jadual->id)->get();
+        $receiver=$peruntukanpeserta->email;
+
+        // Mail::to($receiver)->send(new PanggilanKeKursus());
+
+        Mail::send('emails.panggilan-ke-kursus', function ($message) use ($receiver, $pdf) {
+            $message->to($receiver)
+                ->attachData($pdf->output(), 'Surat_Panggilan.pdf');
+        });
+
         return redirect('/pengurusan_kursus/peruntukan_peserta/'.$request->pp_jadual_kursus);
     }
 
