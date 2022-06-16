@@ -80,7 +80,7 @@ class DunController extends Controller
         $dun->status_dun = $status;
         $dun->save();
         alert()->success('Maklumat telah dicipta', 'Berjaya');
-        AuditTrailController::audit('utiliti', 'dun', 'cipta');
+        AuditTrailController::audit('utiliti', 'dun', 'cipta', $dun->Dun);
         return redirect('/utiliti/lokasi/dun');
     }
 
@@ -128,7 +128,7 @@ class DunController extends Controller
         $dun->status_dun = $status;
         $dun->save();
         alert()->success('Maklumat telah dikemaskini', 'Berjaya');
-        AuditTrailController::audit('utiliti', 'dun', 'kemaskini');
+        AuditTrailController::audit('utiliti', 'dun', 'kemaskini', $dun->Dun);
         return redirect('/utiliti/lokasi/dun');
     }
 
@@ -141,13 +141,14 @@ class DunController extends Controller
     public function destroy(Dun $dun)
     {
         try {
+            $nama = $dun->Dun;
             $dun->delete();
         } catch (\Throwable $th) {
             alert()->error('Maklumat berkait dengan rekod di bahagian lain, sila hapuskan rekod di bahagian tersebut dahulu.', 'Tidak Berjaya')->persistent('Tutup');
             return back();
         }
         alert()->success('Maklumat telah dihapus', 'Berjaya');
-        AuditTrailController::audit('utiliti', 'dun', 'hapus');
+        AuditTrailController::audit('utiliti', 'dun', 'hapus', $nama);
         return redirect('/utiliti/lokasi/dun');
     }
 }

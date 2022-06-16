@@ -153,7 +153,7 @@
                                                     <div class="modal-footer">
                                                         <button class="btn btn-secondary" type="button"
                                                             data-bs-dismiss="modal">Batal</button>
-                                                        <form method="POST" action="/pengurusan_pengguna/pengguna/staf/{{$u->id}}">
+                                                        <form method="POST" action="/pengurusan_pengguna/pengguna/{{$u->id}}">
                                                             @method('DELETE')
                                                             @csrf
                                                             <button class="btn btn-primary" type="submit">Hapus

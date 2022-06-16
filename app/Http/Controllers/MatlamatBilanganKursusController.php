@@ -33,7 +33,7 @@ class MatlamatBilanganKursusController extends Controller
             alert()->error('Sila masukkan tahun yang betul', 'Gagal');
             return back();
         }
-        
+
         $huruf = range('A', 'Z');
         $huruf_kecil = range('a', 'z');
 
@@ -152,7 +152,7 @@ class MatlamatBilanganKursusController extends Controller
                 'huruf' => $huruf,
                 'huruf_kecil' => $huruf_kecil,
             ]);
-        }else if ($request->jenis_m == 'bidang kursus') {
+        } else if ($request->jenis_m == 'bidang kursus') {
             $carian = BidangKursus::with('matlamat_kursus')->whereYear('created_at', $request->tahun)->get();
             foreach ($carian as $key => $c) {
                 if ($c->matlamat_kursus == null) {
@@ -299,6 +299,9 @@ class MatlamatBilanganKursusController extends Controller
             $carian = KategoriKursus::with('matlamat_kursus')->whereYear('created_at', $year)->get();
         } elseif ($title == 'tajuk_kursus') {
             $carian = KodKursus::with('matlamat_kursus')->whereYear('created_at', $year)
+                ->get();
+        } elseif ($title == 'pusat_latihan') {
+            $carian = MatlamatBilanganKursus::where('jenis', 'pusat_latihan')->whereYear('created_at', $year)
                 ->get();
         }
 

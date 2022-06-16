@@ -10,6 +10,7 @@ use App\Models\Permohonan;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -27,8 +28,9 @@ class DashboardController extends Controller
         $kursus_bulan_depan = JadualKursus::whereMonth('tarikh_mula', $hari_ini + 1)->whereYear('tarikh_mula', $tahun_ini)->get();
         $permohonan_tahun_ini = Permohonan::whereYear('created_at', $tahun_ini)->get();
 
-        $jadual_uls=JadualKursus::with('tempat')->whereYear('tarikh_mula',$tahun_ini)->where('kursus_unit_latihan','Staf')->orderBy('tarikh_mula', 'asc')->get();
-        $jadual_ulpk=JadualKursus::with('tempat')->where('kursus_unit_latihan','Pekebun Kecil')->orderBy('tarikh_mula', 'asc')->whereYear('tarikh_mula',$tahun_ini)->get();
+        $jadual_uls = JadualKursus::with('tempat')->whereYear('tarikh_mula', $tahun_ini)->where('kursus_unit_latihan', 'Staf')->orderBy('tarikh_mula', 'asc')->get();
+        $jadual_ulpk = JadualKursus::with('tempat')->where('kursus_unit_latihan', 'Pekebun Kecil')->orderBy('tarikh_mula', 'asc')->whereYear('tarikh_mula', $tahun_ini)->get();
+        $jadual_admin = JadualKursus::with('tempat')->whereYear('tarikh_mula', $tahun_ini)->orderBy('tarikh_mula', 'asc')->get();
 
         $kehadiran = Kehadiran::where('tarikh_imbasQR', '!=', null)->get()->groupBy('no_pekerja');
         $s = 0;
@@ -61,7 +63,6 @@ class DashboardController extends Controller
                             if ($peratus >= 50) {
                                 $pk++;
                             }
-
                         }
                     }
                     // dd($pk);
@@ -83,6 +84,17 @@ class DashboardController extends Controller
         // dd($kehadiran_staf);
 
 
+        $jp = Auth::user()->jenis_pengguna;
+        if (str_contains($jp, 'ULPK')) {
+            $jpermohonan = 1;
+        }
+        elseif (str_contains($jp, 'Ejen')) {
+            $jpermohonan = 1;
+        }
+        else {
+            $jpermohonan = 0;
+        }
+        
 
         return view('dashboard', [
             'bulan_ini' => count($kursus_bulan_ini),
@@ -92,8 +104,10 @@ class DashboardController extends Controller
             'kehadiran_pk' => $pk,
             'kehadiran_staf' => $s,
             'jumlah_pelawat' => count($pelawat),
-            'jadual_uls'=>$jadual_uls,
-            'jadual_ulpk'=>$jadual_ulpk
+            'jadual_uls' => $jadual_uls,
+            'jadual_ulpk' => $jadual_ulpk,
+            'jadual' => $jadual_admin,
+            'jperm' => $jpermohonan
         ]);
     }
 

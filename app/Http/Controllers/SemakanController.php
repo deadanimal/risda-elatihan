@@ -20,6 +20,12 @@ class SemakanController extends Controller
     public function check_espek(Request $request)
     {
         $nric = $request->nric;
+        $check_nric = User::where('no_KP', $nric)->first();
+
+        if ($check_nric != null) {
+            alert()->info('Nombor kad pengenalan ini telah didaftarkan', 'Semakan Gagal');
+            return back();
+        }
 
         // check staf
         $data_staf = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', 'f9d00dae5c6d6d549c306bae6e88222eb2f84307')
@@ -91,6 +97,11 @@ class SemakanController extends Controller
 
     public function daftar_pengguna(Request $request)
     {
+        $check_pengguna = User::where('email', $request->email)->first();
+        if ($check_pengguna != null) {
+            alert()->info('Email ini telah didaftarkan', 'Pendaftaran Gagal');
+            return redirect('/register');
+        }
         if ($request->jenis_pengguna == 'ejen_pelaksana') {
             $user = new User;
             $user->name = $request->name;
@@ -107,6 +118,7 @@ class SemakanController extends Controller
             return redirect('/');
         } else {
             $user = new User;
+            $user->login_type = $request->login_type;
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = Hash::make($request->password);

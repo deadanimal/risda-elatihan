@@ -7,9 +7,9 @@
                 <h5 class="risda-dg">STESEN</h5>
             </div>
         </div>
-    
+
         <hr class="risda-g">
-    
+
         <form action="#" id="form_search">
             <div class="row mt-4 justify-content-center">
                 <div class="col-lg-8">
@@ -18,8 +18,8 @@
                             <label class="col-form-label">NEGERI:</label>
                         </div>
                         <div class="col-lg-9 mb-3">
-                            <select class="form-select" name="negeri_search" id="negeri_search">
-                                <option selected hidden>Sila Pilih</option>
+                            <select class="form-select" name="negeri_search" onchange="stesen_fil()" id="negeri_search">
+                                <option value='' selected hidden>Sila Pilih</option>
                                 @foreach ($negeri as $n)
                                     @if ($n->status_negeri == '1')
                                         <option value="{{ $n->id }}">{{ $n->Negeri }}</option>
@@ -27,13 +27,13 @@
                                 @endforeach
                             </select>
                         </div>
-        
+
                         <div class="col-lg-3">
                             <label class="col-form-label">DAERAH:</label>
                         </div>
                         <div class="col-lg-9 mb-3">
-                            <select class="form-select" id="daerah_search" name="daerah_search">
-                                <option selected hidden>Sila Pilih</option>
+                            <select class="form-select" onchange="stesen_fil()" name="daerah_search" id="daerah_search">
+                                <option value='' selected hidden>Sila Pilih</option>
                                 @foreach ($daerah as $d)
                                     @if ($d->status_daerah == '1')
                                         <option value="{{ $d->id }}">{{ $d->Daerah }}</option>
@@ -41,13 +41,13 @@
                                 @endforeach
                             </select>
                         </div>
-        
+
                         <div class="col-lg-3">
                             <label class="col-form-label">MUKIM:</label>
                         </div>
                         <div class="col-lg-9 mb-3">
-                            <select class="form-select" id="mukim_search" name="mukim_search">
-                                <option selected hidden>Sila Pilih</option>
+                            <select class="form-select" id="mukim_search" name="mukim_search" onchange="stesen_fil()">
+                                <option value='' selected hidden>Sila Pilih</option>
                                 @foreach ($mukim as $m)
                                     @if ($m->status_mukim == '1')
                                         <option value="{{ $m->id }}">{{ $m->Mukim }}</option>
@@ -55,13 +55,14 @@
                                 @endforeach
                             </select>
                         </div>
-        
+
                         <div class="col-lg-3">
                             <label class="col-form-label">KAMPUNG:</label>
                         </div>
                         <div class="col-lg-9 mb-3">
-                            <select class="form-select" id="kampung_search" name="kampung_search">
-                                <option selected hidden>Sila Pilih</option>
+                            <select class="form-select" id="kampung_search" name="kampung_search"
+                                onchange="stesen_fil()">
+                                <option value='' selected hidden>Sila Pilih</option>
                                 @foreach ($kampung as $k)
                                     @if ($k->status_kampung == '1')
                                         <option value="{{ $k->id }}">{{ $k->Mukim }}</option>
@@ -73,7 +74,7 @@
                 </div>
             </div>
         </form>
-    
+
         <div class="row mt-5">
             <div class="col">
                 <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#tambah-negeri">
@@ -139,8 +140,8 @@
                                         </div>
                                         <div class="mb-3">
                                             <label class="col-form-label">KOD STESEN</label>
-                                            <input class="form-control" type="text" name="Stesen_kod"
-                                                value="" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
+                                            <input class="form-control" type="text" name="Stesen_kod" value=""
+                                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
                                         </div>
                                         <div class="mb-3">
                                             <label class="col-form-label">STESEN</label>
@@ -166,7 +167,7 @@
                 </div>
             </div>
         </div>
-    
+
         <div class="row mt-3">
             <div class="col">
                 <div class="card">
@@ -181,20 +182,6 @@
                                     <th class="sort">TINDAKAN</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white" id="t_stesen_negeri">
-    
-                            </tbody>
-    
-                            <tbody class="bg-white" id="t_stesen_daerah">
-    
-                            </tbody>
-                            <tbody class="bg-white" id="t_stesen_mukim">
-    
-                            </tbody>
-                            <tbody class="bg-white" id="t_stesen_kampung">
-    
-                            </tbody>
-                            
                             <tbody class="bg-white" id="t_normal">
                                 @foreach ($stesen as $key => $s)
                                     <tr>
@@ -213,7 +200,7 @@
                                                 data-bs-target="#edit_stesen_{{ $s->id }}">
                                                 <i class="fas fa-pen"></i>
                                             </button>
-    
+
                                             <button class="btn risda-bg-dg text-white" type="button" data-bs-toggle="modal"
                                                 data-bs-target="#delete_stesen_{{ $s->id }}">
                                                 <i class="fas fa-trash"></i>
@@ -223,9 +210,10 @@
                                 @endforeach
                             </tbody>
                             @foreach ($stesen as $key => $s)
-                                <div class="modal fade" id="edit_stesen_{{ $s->id }}" tabindex="-1" role="dialog"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+                                <div class="modal fade" id="edit_stesen_{{ $s->id }}" tabindex="-1"
+                                    role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document"
+                                        style="max-width: 500px">
                                         <div class="modal-content position-relative">
                                             <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
                                                 <button
@@ -282,7 +270,8 @@
                                                         <div class="mb-3">
                                                             <label class="col-form-label">KAMPUNG</label>
                                                             <select class="form-select" name="U_Kampung_ID">
-                                                                <option selected="" value="{{ $s->U_Kampung_ID }}" hidden>
+                                                                <option selected="" value="{{ $s->U_Kampung_ID }}"
+                                                                    hidden>
                                                                     {{ $s->Kampung }}</option>
                                                                 {{-- @foreach ($daerah as $d)
                                                                 @if ($s->status_daerah == '1')
@@ -294,7 +283,8 @@
                                                         <div class="mb-3">
                                                             <label class="col-form-label">KOD STESEN</label>
                                                             <input class="form-control" type="number" name="Stesen_kod"
-                                                                value="{{ $s->Stesen_kod }}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
+                                                                value="{{ $s->Stesen_kod }}"
+                                                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
                                                         </div>
                                                         <div class="mb-3">
                                                             <label class="col-form-label">STESEN</label>
@@ -327,9 +317,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="modal fade" id="delete_stesen_{{ $s->id }}" tabindex="-1" role="dialog"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+                                <div class="modal fade" id="delete_stesen_{{ $s->id }}" tabindex="-1"
+                                    role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document"
+                                        style="max-width: 500px">
                                         <div class="modal-content position-relative">
                                             <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
                                                 <button
@@ -342,22 +333,23 @@
                                                         <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
                                                         <br>
                                                         Anda pasti untuk menghapus {{ $s->Stesen }}?
-    
+
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button class="btn btn-secondary" type="button"
                                                         data-bs-dismiss="modal">Batal</button>
-                                                    <form method="POST" action="/utiliti/lokasi/stesen/{{ $s->id }}">
+                                                    <form method="POST"
+                                                        action="/utiliti/lokasi/stesen/{{ $s->id }}">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button class="btn btn-primary" type="submit">Hapus
                                                         </button>
                                                     </form>
-    
+
                                                 </div>
                                             </div>
-    
+
                                         </div>
                                     </div>
                                 </div>
@@ -517,33 +509,40 @@
             });
         });
 
-        $('#negeri_search').change(function() {
-            $('#t_normal').hide();
-            $('#t_stesen_daerah').hide();
-            $('#t_stesen_negeri').show();
-            $('#t_stesen_mukim').hide();
-            $('#t_stesen_stesen').hide();
+        // filter
+        function stesen_fil() {
+            var negeri = $('#negeri_search option:selected').val();
+            var daerah = $('#daerah_search option:selected').val();
+            var mukim = $('#mukim_search option:selected').val();
+            var kampung = $('#kampung_search option:selected').val();
+            console.log(negeri);
+            $.ajax({
+                type: 'get',
+                url: '/pengurusan_kursus/filter-stesen/' + negeri + '_' + daerah + '_' + mukim + '_' + kampung,
+                data: {
+                    'negeri': negeri,
+                    'daerah': daerah,
+                    'mukim': mukim,
+                    'kampung': kampung
+                },
+                success: function(stesen) {
+                    $("#t_normal").html("");
 
-            $('#t_stesen_negeri').html("");
-            var sts_tb = @json($stesen->toArray());
-            console.log(sts_tb);
+                    $('.datatable').dataTable().fnClearTable();
+                    $('.datatable').dataTable().fnDestroy();
 
-            let option_new = "";
-            var i = 0;
-            sts_tb.forEach(element => {
-
-                if (this.value == element.U_Negeri_ID) {
-                    $('#t_stesen_negeri').append(
-                        `
-                                <tr>
-                                    <td>` + (i = i + 1) + `.</td>
+                    let iteration = 1;
+                    stesen.forEach(element => {
+                        $("#t_normal").append(`
+                        <tr>
+                                    <td>` + iteration + `.</td>
                                     <td>${ element.Stesen_kod }</td>
                                     <td>${ element.Stesen }</td>
                                     <td>` +
-                        (element.status_stesen == '1' ?
-                            '<span class="badge badge-soft-success">Aktif</span>' :
-                            '<span class="badge badge-soft-danger">Tidak Aktif</span>') +
-                        `</td>
+                            (element.status_stesen == '1' ?
+                                '<span class="badge badge-soft-success">Aktif</span>' :
+                                '<span class="badge badge-soft-danger">Tidak Aktif</span>') +
+                            `</td>
                                     <td>
                                         <button class="btn btn-primary" type="button" data-bs-toggle="modal"
                                             data-bs-target="#edit_kampung_${ element.id }">
@@ -555,141 +554,19 @@
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </td>
-                                </tr>`);
-                }
+                                </tr>
+                        `);
+
+                        iteration++;
+                    });
+
+                    $('.datatable').dataTable();
+                    console.log(stesen);
+                },
+                error: function() {
+                    console.log('success');
+                },
             });
-        });
-
-        $('#daerah_search').change(function() {
-            $('#t_normal').hide();
-            $('#t_stesen_daerah').show();
-            $('#t_stesen_negeri').hide();
-            $('#t_stesen_mukim').hide();
-            $('#t_stesen_kampung').hide();
-
-            $('#t_stesen_daerah').html("");
-            var sts_tb2 = @json($stesen->toArray());
-            console.log(sts_tb2);
-
-            let option_new = "";
-            var i = 0;
-            sts_tb2.forEach(element => {
-
-                if (this.value == element.U_Daerah_ID) {
-                    console.log('check');
-                    $('#t_stesen_daerah').append(
-                        `
-                                <tr>
-                                    <td>` + (i = i + 1) + `.</td>
-                                    <td>${ element.Stesen_kod }</td>
-                                    <td>${ element.Stesen }</td>
-                                    <td>` +
-                        (element.status_stesen == '1' ?
-                            '<span class="badge badge-soft-success">Aktif</span>' :
-                            '<span class="badge badge-soft-danger">Tidak Aktif</span>') +
-                        `</td>
-                                    <td>
-                                        <button class="btn btn-primary" type="button" data-bs-toggle="modal"
-                                            data-bs-target="#edit_kampung_${ element.id }">
-                                            <i class="fas fa-pen"></i>
-                                        </button>
-
-                                        <button class="btn risda-bg-dg text-white" type="button" data-bs-toggle="modal"
-                                            data-bs-target="#delete_kampung_${ element.id }">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>`);
-                }
-            });
-        });
-
-        $('#mukim_search').change(function() {
-            $('#t_normal').hide();
-            $('#t_stesen_daerah').hide();
-            $('#t_stesen_negeri').hide();
-            $('#t_stesen_mukim').show();
-            $('#t_stesen_kampung').show();
-
-            $('#t_stesen_mukim').html("");
-            var sts_tb3 = @json($stesen->toArray());
-            console.log(sts_tb3);
-
-            let option_new = "";
-            var i = 0;
-            sts_tb3.forEach(element => {
-
-                if (this.value == element.U_Mukim_ID) {
-                    console.log('check2');
-                    $('#t_stesen_mukim').append(
-                        `
-                                <tr>
-                                    <td>` + (i = i + 1) + `.</td>
-                                    <td>${ element.Stesen_kod }</td>
-                                    <td>${ element.Stesen }</td>
-                                    <td>` +
-                        (element.status_stesen == '1' ?
-                            '<span class="badge badge-soft-success">Aktif</span>' :
-                            '<span class="badge badge-soft-danger">Tidak Aktif</span>') +
-                        `</td>
-                                    <td>
-                                        <button class="btn btn-primary" type="button" data-bs-toggle="modal"
-                                            data-bs-target="#edit_kampung_${ element.id }">
-                                            <i class="fas fa-pen"></i>
-                                        </button>
-
-                                        <button class="btn risda-bg-dg text-white" type="button" data-bs-toggle="modal"
-                                            data-bs-target="#delete_kampung_${ element.id }">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>`);
-                }
-            });
-        });
-
-        $('#kampung_search').change(function() {
-            $('#t_normal').hide();
-            $('#t_stesen_daerah').hide();
-            $('#t_stesen_negeri').hide();
-            $('#t_stesen_mukim').hide();
-            $('#t_stesen_kampung').show();
-
-            $('#t_stesen_kampung').html("");
-            var sts_tb4 = @json($stesen->toArray());
-            console.log(sts_tb4);
-
-            let option_new = "";
-            var i = 0;
-            sts_tb4.forEach(element => {
-
-                if (this.value == element.U_Kampung_ID) {
-                    console.log('check2');
-                    $('#t_stesen_kampung').append(
-                        `
-                                <tr>
-                                    <td>` + (i = i + 1) + `.</td>
-                                    <td>${ element.Stesen_kod }</td>
-                                    <td>${ element.Stesen }</td>
-                                    <td>` +
-                        (element.status_stesen == '1' ?
-                            '<span class="badge badge-soft-success">Aktif</span>' :
-                            '<span class="badge badge-soft-danger">Tidak Aktif</span>') +
-                        `</td>
-                                    <td>
-                                        <button class="btn btn-primary" type="button" data-bs-toggle="modal"
-                                            data-bs-target="#edit_kampung_${ element.id }">
-                                            <i class="fas fa-pen"></i>
-                                        </button>
-
-                                        <button class="btn risda-bg-dg text-white" type="button" data-bs-toggle="modal"
-                                            data-bs-target="#delete_kampung_${ element.id }">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>`);
-                }
-            });
-        });
+        }
     </script>
 @endsection

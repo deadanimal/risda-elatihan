@@ -74,7 +74,7 @@
                 <div class="b">
                     <div class="col" style="text-align: justify">
                         <h4> Nama Kursus: {{$kursus->kursus_nama}}</h4>
-                        <h4> Masa: {{$aturcara->ac_masa}}</h4>
+                        <h4> Masa: {{$aturcara->ac_masa_mula}}</h4>
                         <h4> Hari: {{$aturcara->ac_hari}}</h4>
                         <h4> Sesi: {{$aturcara->ac_sesi}}</h4>
                         <h4> Aturcara: {{$aturcara->ac_aturcara}}</h4>

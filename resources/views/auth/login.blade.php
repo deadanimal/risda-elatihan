@@ -29,7 +29,8 @@
                                                 </div>
                                             </div>
                                             <div class="mb-3 col-lg-6">
-                                                <select name="id_type" class="form-control" onchange="tukar()" id="pilihan">
+                                                <select name="id_type" class="form-control" onchange="tukar()"
+                                                    id="pilihan">
                                                     {{-- <option value="" selected hidden>Jenis ID</option> --}}
                                                     <option value="ic">No. Kad Pengenalan</option>
                                                     <option value="email">Email</option>
@@ -39,35 +40,36 @@
                                                 @csrf
                                                 <input type="hidden" name="pengguna" value="pk">
                                                 <div class="mb-3" id="nric">
-                                                    <label class="form-label"  >No.
+                                                    <label class="form-label">No.
                                                         Kad Pengenalan</label>
                                                     <input class="form-control" type="text" name="no_KP"
                                                         :value="old('no_KP')" maxlength="12" size="12"
-                                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
+                                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
                                                 </div>
                                                 <div class="mb-3" id="emel" style="display:none">
-                                                    <label class="form-label"  >E-mel</label>
+                                                    <label class="form-label">E-mel</label>
                                                     <input class="form-control" type="email" name="email"
                                                         :value="old('email')" autofocus />
                                                 </div>
                                                 <div class="mb-3">
                                                     <div class="d-flex justify-content-between">
-                                                        <label class="form-label" >Kata
+                                                        <label class="form-label">Kata
                                                             Laluan</label>
                                                     </div>
-                                                    <input class="form-control" type="password"
-                                                        name="password" required autocomplete="current-password" />
+                                                    <input class="form-control" type="password" name="password" required
+                                                        autocomplete="current-password" />
                                                 </div>
                                                 <div class="form-check mb-0">
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <input class="form-check-input" type="checkbox"
                                                                 checked="checked" />
-                                                            <label class="form-check-label" >Ingati
+                                                            <label class="form-check-label">Ingati
                                                                 Saya</label>
                                                         </div>
                                                         <div class="col-lg-6 text-end">
-                                                            <a class="fs--1" href="/lupa_katalaluan">Terlupa Kata Laluan?</a>
+                                                            <a class="fs--1" href="/lupa_katalaluan">Terlupa Kata
+                                                                Laluan?</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -83,18 +85,21 @@
                                             <div class="row g-2 mt-2">
                                                 <div class="col-sm-6">
                                                     <a class="btn btn-outline-google-plus btn-sm d-block w-100"
-                                                        href="#"><span class="fab fa-google-plus-g me-2"
+                                                        href="{{ url('auth/google') }}"><span
+                                                            class="fab fa-google-plus-g me-2"
                                                             data-fa-transform="grow-8"></span> google</a>
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <a class="btn btn-outline-facebook btn-sm d-block w-100" href="#"><span
+                                                    <a class="btn btn-outline-facebook btn-sm d-block w-100"
+                                                        href="{{ url('auth/facebook') }}"><span
                                                             class="fab fa-facebook-square me-2"
                                                             data-fa-transform="grow-8"></span> facebook</a>
                                                 </div>
                                             </div>
                                             <div class="row mt-3">
                                                 <div class="col text-center">
-                                                    <a href="/register" class="risda-g">Tiada Akaun? Daftar Sekarang</a>
+                                                    <a href="/register" class="risda-g">Tiada Akaun? Daftar
+                                                        Sekarang</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -120,30 +125,31 @@
                                                 @csrf
                                                 <input type="hidden" value="staf" name="pengguna">
                                                 <div class="mb-3" id="nric">
-                                                    <label class="form-label"  >No.
+                                                    <label class="form-label">No.
                                                         Kad Pengenalan</label>
                                                     <input class="form-control" type="text" name="no_KP"
                                                         :value="old('no_KP')" maxlength="12" size="12"
-                                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
+                                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
                                                 </div>
                                                 <div class="mb-3">
                                                     <div class="d-flex justify-content-between">
-                                                        <label class="form-label" >Kata
+                                                        <label class="form-label">Kata
                                                             Laluan</label>
                                                     </div>
-                                                    <input class="form-control" type="password"
-                                                        name="password" required autocomplete="current-password" />
+                                                    <input class="form-control" type="password" name="password" required
+                                                        autocomplete="current-password" />
                                                 </div>
                                                 <div class="form-check mb-0">
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <input class="form-check-input" type="checkbox"
                                                                 checked="checked" />
-                                                            <label class="form-check-label" >Ingati
+                                                            <label class="form-check-label">Ingati
                                                                 Saya</label>
                                                         </div>
                                                         <div class="col-lg-6 text-end">
-                                                            <a class="fs--1" href="/lupa_katalaluan">Terlupa Kata Laluan?</a>
+                                                            <a class="fs--1" href="/lupa_katalaluan">Terlupa Kata
+                                                                Laluan?</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -156,10 +162,11 @@
                                                 <hr class="bg-300" />
                                                 <div class="divider-content-center">atau log masuk dengan</div>
                                             </div>
-                                            
+
                                             <div class="row mt-3">
                                                 <div class="col text-center">
-                                                    <a href="/register" class="risda-g">Tiada Akaun? Daftar Sekarang</a>
+                                                    <a href="/register" class="risda-g">Tiada Akaun? Daftar
+                                                        Sekarang</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -185,30 +192,31 @@
                                                 @csrf
                                                 <input type="hidden" value="ep" name="pengguna">
                                                 <div class="mb-3" id="nric">
-                                                    <label class="form-label"  >No.
+                                                    <label class="form-label">No.
                                                         Kad Pengenalan</label>
                                                     <input class="form-control" type="text" name="no_KP"
                                                         :value="old('no_KP')" maxlength="12" size="12"
-                                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
+                                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
                                                 </div>
                                                 <div class="mb-3">
                                                     <div class="d-flex justify-content-between">
-                                                        <label class="form-label" >Kata
+                                                        <label class="form-label">Kata
                                                             Laluan</label>
                                                     </div>
-                                                    <input class="form-control" type="password"
-                                                        name="password" required autocomplete="current-password" />
+                                                    <input class="form-control" type="password" name="password" required
+                                                        autocomplete="current-password" />
                                                 </div>
                                                 <div class="form-check mb-0">
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <input class="form-check-input" type="checkbox"
                                                                 checked="checked" />
-                                                            <label class="form-check-label" >Ingati
+                                                            <label class="form-check-label">Ingati
                                                                 Saya</label>
                                                         </div>
                                                         <div class="col-lg-6 text-end">
-                                                            <a class="fs--1" href="/lupa_katalaluan">Terlupa Kata Laluan?</a>
+                                                            <a class="fs--1" href="/lupa_katalaluan">Terlupa Kata
+                                                                Laluan?</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -217,10 +225,11 @@
                                                         name="submit">Log Masuk</button>
                                                 </div>
                                             </form>
-                                            
+
                                             <div class="row mt-3">
                                                 <div class="col text-center">
-                                                    <a href="/register" class="risda-g">Tiada Akaun? Daftar Sekarang</a>
+                                                    <a href="/register" class="risda-g">Tiada Akaun? Daftar
+                                                        Sekarang</a>
                                                 </div>
                                             </div>
                                         </div>

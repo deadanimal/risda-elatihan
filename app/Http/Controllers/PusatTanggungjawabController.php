@@ -74,7 +74,7 @@ class PusatTanggungjawabController extends Controller
         $pusatTanggungjawab->status_PT = $status;
 
         $pusatTanggungjawab->save();
-        AuditTrailController::audit('utiliti', 'pusat tanggungjawab', 'cipta');
+        AuditTrailController::audit('utiliti', 'pusat tanggungjawab', 'cipta', $pusatTanggungjawab->nama_PT);
         alert()->success('Maklumat telah disimpan', 'Berjaya');
         return redirect('/utiliti/lokasi/pusat_tanggungjawab');
     }
@@ -128,7 +128,7 @@ class PusatTanggungjawabController extends Controller
         $pusatTanggungjawab->status_PT = $status;
 
         $pusatTanggungjawab->save();
-        AuditTrailController::audit('utiliti', 'pusat tanggungjawab', 'kemaskini');
+        AuditTrailController::audit('utiliti', 'pusat tanggungjawab', 'kemaskini', $pusatTanggungjawab->nama_PT);
         alert()->success('Maklumat telah dikemaskini', 'Berjaya');
         return redirect('/utiliti/lokasi/pusat_tanggungjawab');
     }
@@ -141,13 +141,14 @@ class PusatTanggungjawabController extends Controller
      */
     public function destroy(PusatTanggungjawab $pusatTanggungjawab)
     {
+        $nama = $pusatTanggungjawab->nama_PT;
         try {
             $pusatTanggungjawab->delete();
         } catch (\Throwable $th) {
             alert()->error('Maklumat berkait dengan rekod di bahagian lain, sila hapuskan rekod di bahagian tersebut dahulu.', 'Tidak Berjaya')->persistent('Tutup');
             return back();
         }
-        AuditTrailController::audit('utiliti', 'pusat tanggungjawab', 'hapus');
+        AuditTrailController::audit('utiliti', 'pusat tanggungjawab', 'hapus', $nama);
         alert()->success('Maklumat telah dihapuskan', 'Berjaya');
         return redirect('/utiliti/lokasi/pusat_tanggungjawab');
     }

@@ -174,7 +174,7 @@
                                                         <button class="btn btn-secondary" type="button"
                                                             data-bs-dismiss="modal">Batal</button>
                                                         <form method="POST"
-                                                            action="/utiliti/status_pelaksanaan/{{ $sp->id }}">
+                                                            action="/utiliti/status/status_pelaksanaan/{{ $sp->id }}">
                                                             @method('DELETE')
                                                             @csrf
                                                             <button class="btn btn-primary" type="submit">Hapus

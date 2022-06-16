@@ -189,7 +189,14 @@ class SemakPermohonanController extends Controller
                 return back();
             } else {
                 $pk = $data_pk[0];
-                $pk['tarikh_lahir'] = substr($pk['No_KP'], 4, 2) . '/' . substr($pk['No_KP'], 2, 2) . '/' . '19' . substr($pk['No_KP'], 0, 2);
+                $tahun = substr($pk['No_KP'], 0, 2);
+                $tahun = (int)$tahun;
+                if ($tahun <= 30) {
+                    $tahun_lahir = '20'.$tahun;
+                }else{
+                    $tahun_lahir = '19'.$tahun;
+                }
+                $pk['tarikh_lahir'] = substr($pk['No_KP'], 4, 2) . '/' . substr($pk['No_KP'], 2, 2) . '/' . $tahun_lahir;
             }
 
             return view('permohonan_kursus.semakan_permohonan.ulpk.show', [

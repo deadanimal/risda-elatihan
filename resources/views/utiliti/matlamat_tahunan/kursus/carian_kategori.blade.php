@@ -16,7 +16,7 @@
         <div class="row mb-4">
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
-                    MATLAMAT BILANGAN KURSUS MENGIKUT BIDANG KURSUS
+                    MATLAMAT BILANGAN KURSUS MENGIKUT {{$title}}
                 </p>
             </div>
         </div>

@@ -37,7 +37,7 @@
                                             <select class="form-select form-control select-sesi" name="bil_sesi[]"
                                                 id="bil_sesi_{{ $i }}">
                                                 <option selected="" hidden>Sila Pilih</option>
-                                                @for ($j = 1; $j <= 5; $j++)
+                                                @for ($j = 1; $j <= 10; $j++)
                                                     <option value='{{ $j }}'>{{ $j }}
                                                     </option>
                                                 @endfor
@@ -92,7 +92,7 @@
                                             {{ $ac->ac_sesi }}
                                         </td>
                                         <td>
-                                            {{ $ac->ac_masa }}
+                                            {{ $ac->ac_masa_mula }} - {{ $ac->ac_masa_tamat }}
                                         </td>
                                         <td>
                                             {{ $ac->ac_aturcara }}
@@ -123,8 +123,12 @@
                                                                             <input type="text" class="form-control" readonly value="{{$ac->ac_sesi}}" name="ac_sesi">
                                                                         </div>
                                                                         <div class="col-lg-6 mb-lg-3">
-                                                                            <label class="col-form-label">MASA</label>
-                                                                            <input class="form-control" name="ac_masa" type="time" value="{{$ac->ac_masa}}"/>
+                                                                            <label class="col-form-label">MASA MULA</label>
+                                                                            <input class="form-control" name="ac_masa_mula" type="time" value="{{$ac->ac_masa_mula}}"/>
+                                                                        </div>
+                                                                        <div class="col-lg-6 mb-lg-3">
+                                                                            <label class="col-form-label">MASA TAMAT</label>
+                                                                            <input class="form-control" name="ac_masa_tamat" type="time" value="{{$ac->ac_masa_tamat}}"/>
                                                                         </div>
                                                                         <div class="col">
                                                                             <label class="col-form-label">ATURCARA</label>
@@ -189,9 +193,13 @@
                                     <input type="text" class="form-control" readonly value="` + j +
                             `" name="ac_sesi[]">
                                 </div>
-                                <div class="col-lg-6">
-                                    <label class="col-form-label">MASA</label>
-                                    <input class="form-control" name="ac_masa[]" type="time" placeholder="H:i"/>
+                                <div class="col-lg-3">
+                                    <label class="col-form-label">MASA MULA</label>
+                                    <input class="form-control" name="ac_masa_mula[]" type="time" placeholder="H:i"/>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label class="col-form-label">MASA TAMAT</label>
+                                    <input class="form-control" name="ac_masa_tamat[]" type="time" placeholder="H:i"/>
                                 </div>
                             </div>
                             <input type="hidden" name="ac_jadual_kursus[]" value="`+id_jadual+`">
