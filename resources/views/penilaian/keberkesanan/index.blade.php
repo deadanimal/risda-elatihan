@@ -90,7 +90,7 @@
 
 
                                     <td>
-                                         {{$k->staff->name}}
+                                         {{$k->staff['name']}}
                                     </td>
 
 
