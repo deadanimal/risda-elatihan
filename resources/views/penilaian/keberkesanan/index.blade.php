@@ -4,7 +4,6 @@
         h5 {
             color: #0F5E31;
         }
-
     </style>
     <div class="container">
         <div class="row mt-3 mb-2">
@@ -18,7 +17,7 @@
         <div class="row">
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
-                   SENARAI KURSUS
+                    SENARAI KURSUS
                 </p>
             </div>
         </div>
@@ -26,25 +25,25 @@
 
         <div class="row justify-content-center mt-5">
             <div class="col-8">
-                    <div class="row mb-3">
-                        <div class="col-4 mt-2">
-                            <h5>NAMA PESERTA</h5>
-                        </div>
-                        <div class="col-8">
-                            <select  class="form-select" required>
-                                    <option hidden>SILA PILIH</option>
-                                    {{-- @foreach ($kehadiran->user as $kk)
+                <div class="row mb-3">
+                    <div class="col-4 mt-2">
+                        <h5>NAMA PESERTA</h5>
+                    </div>
+                    <div class="col-8">
+                        <select class="form-select" required>
+                            <option hidden>SILA PILIH</option>
+                            {{-- @foreach ($kehadiran->user as $kk)
                                         <option value={{$kk->id}}>{{$k->name}}</option>
                                     @endforeach --}}
                             {{-- <input type="text" class="form-control" value="{{ $jadual_kursus->kursus_nama }}" readonly> --}}
-                             </select>
-                        </div>
+                        </select>
                     </div>
-                    <div class="row">
-                        <div class="col text-end">
-                            {{-- <a href="/penilaian/penilaian-kursus/bahagianA/create/{{$kursus->id}}" class="btn btn-primary mt-3">PAPAR EJEN KURSUS</a> --}}
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="col text-end">
+                        {{-- <a href="/penilaian/penilaian-kursus/bahagianA/create/{{$kursus->id}}" class="btn btn-primary mt-3">PAPAR EJEN KURSUS</a> --}}
                     </div>
+                </div>
                 </form>
             </div>
         </div>
@@ -75,54 +74,53 @@
                         </thead>
                         <tbody>
                             @foreach ($kehadiran as $k)
-
-
                                 <tr>
                                     <td>
                                         {{ $loop->iteration }}
                                     </td>
 
-                                    <td> {{$k->kod_kursus}}</td>
+                                    <td> {{ $k->kod_kursus }}</td>
 
-                                    <td> {{$k->kursus->kursus_nama}}</td>
+                                    <td> {{ $k->kursus->kursus_nama }}</td>
 
-                                    <td>{{date('d-m-Y', strtotime($k->kursus->tarikh_mula))}} <br> - <br> {{date('d-m-Y', strtotime($k->kursus->tarikh_tamat))}}</td>
+                                    <td>{{ date('d-m-Y', strtotime($k->kursus->tarikh_mula)) }} <br> - <br>
+                                        {{ date('d-m-Y', strtotime($k->kursus->tarikh_tamat)) }}</td>
 
 
                                     <td>
-                                         {{$k->staff['name']}}
+                                        @if ($k->staff == null)
+                                            Maklumat tiada dalam rekod
+                                        @else
+                                            {{ $k->staff['name'] }}
+                                        @endif
+
                                     </td>
 
 
-                                        @if($k->penilaiankeberkesanan===null)
-
-                                            @if(($hari_ini=="01-01")||($hari_ini=="04-01")||($hari_ini=="07-01")||($hari_ini=="10-01"))
-
+                                    @if ($k->penilaiankeberkesanan === null)
+                                        @if ($hari_ini == '01-01' || $hari_ini == '04-01' || $hari_ini == '07-01' || $hari_ini == '10-01')
                                             <td>
-                                                <button class="btn btn-primary btn-sm mb-2" onclick="window.location.href='/penilaian/penilaian-keberkesanan-kursus/{{$k->id}}'">
+                                                <button class="btn btn-primary btn-sm mb-2"
+                                                    onclick="window.location.href='/penilaian/penilaian-keberkesanan-kursus/{{ $k->id }}'">
                                                     MULA PENILAIAN
                                                 </button>
                                             </td>
-
-                                            @else
-
-                                            <td>
-                                                <button class="btn btn-secondary btn-sm"  href="#" @disabled(true)>MULA PENILAIAN</button>
-                                            </td>
-
-                                            @endif
                                         @else
+                                            <td>
+                                                <button class="btn btn-secondary btn-sm" href="#"
+                                                    @disabled(true)>MULA PENILAIAN</button>
+                                            </td>
+                                        @endif
+                                    @else
                                         <td>
-                                            <button class="btn btn-primary btn-sm mb-2" onclick="window.location.href='/penilaian/keberkesanan-kursus/{{$k->penilaiankeberkesanan->id}}'">
-                                               PAPAR PENILAIAN</button>
+                                            <button class="btn btn-primary btn-sm mb-2"
+                                                onclick="window.location.href='/penilaian/keberkesanan-kursus/{{ $k->penilaiankeberkesanan->id }}'">
+                                                PAPAR PENILAIAN</button>
 
                                         </td>
-
-
-                                        @endif
+                                    @endif
 
                                 </tr>
-
                             @endforeach
 
 
