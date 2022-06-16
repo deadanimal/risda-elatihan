@@ -167,6 +167,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/pengurusan_kursus/filter-jadual-kursus/{search}', [JadualKursusController::class, 'filter']);
     Route::get('/cetak_jadual',[JadualKursusController::class,'cetakjadualkursus']);
     Route::get('/cetak_surat_tawaran/{id}',[PermohonanController::class,'cetaksurattawaran']);
+    Route::get('/cetak_sijilkursus/{id}',[KehadiranController::class,'cetaksijilkursus']);
 
     Route::get('/pengurusan_kursus/filter-daerah/{search}', [DaerahController::class, 'filter']);
 
@@ -358,6 +359,7 @@ Route::middleware('auth')->group(function () {
 
             Route::get('/cetakQr', [PenilaianPesertaController::class, 'cetakQr']);
             Route::get('/cetakQr2/{jadual_kursus}', [PenilaianPesertaController::class, 'cetakQr2']);
+            Route::get('/cetakQrPenilaian/{jadual_kursus}', [PenilaianPesertaController::class, 'cetakQr2']);
         });
 
         Route::group(['middleware' => 'role:Peserta ULS|Peserta ULPK'], function () {
