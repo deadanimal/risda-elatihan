@@ -55,11 +55,13 @@
         <br><br>
         <div class="row">
             <div class="col-12 text-center">
-                @if ($permohonan == null)
-                    <button class="btn btn-primary" disabled>Mula Penilaian</button>
+                @if ($permohonan->dinilai == "Ya")
+                    <button class="btn btn-secondary" disabled>Mula Penilaian</button>
                 @else
-                    <a class="btn btn-primary" href="/penilaian/penilaian-kursus/{{ $permohonan->jadual->id }}"
-                        id="btn_start">Mula Penilaian</a>
+
+                <a class="btn btn-primary" href="/penilaian/penilaian-kursus/{{ $permohonan->jadual->id }}"
+                    id="btn_start">Mula Penilaian</a>
+
                 @endif
             </div>
         </div>
