@@ -84,17 +84,21 @@
                                                                         </td>
                                                                         <td class="text-end" style="width:210px;">
                                                                             <div class="d-grid gap-2">
-                                                                                <a class="btn btn-primary btn-sm" href="#">
-                                                                                    Cetak Surat Tawaran
-                                                                                </a>
+
                                                                                 @if ($p->status_permohonan == 4)
                                                                                     <a class="btn btn-primary btn-sm"
                                                                                         href="/uls/permohonan/kehadiran/{{ $p->kod_kursus }}">Kehadiran</a>
+
+                                                                                        <a class="btn btn-primary btn-sm" href="/cetak_surat_tawaran/{{$p->id}}">
+                                                                                            Cetak Surat Tawaran
+                                                                                        </a>
                                                                                 @else
-                                                                                    <button class="btn btn-secondary btn-sm"
-                                                                                        href="/uls/permohonan/kehadiran/{{ $p->kod_kursus }}"
-                                                                                        @disabled(true)>Kehadiran</button>
+
+                                                                                <button class="btn btn-secondary btn-sm"
+                                                                                href="#" @disabled(true)>Cetak Surat Tawaran</button>
+
                                                                                 @endif
+
                                                                                 <form
                                                                                     action="/permohonan_kursus/katalog_kursus/{{ $p->id }}"
                                                                                     method="post">
@@ -210,12 +214,14 @@
                                                                             </td>
                                                                             <td class="text-end" style="width:210px;">
                                                                                 <div class="d-grid gap-2">
-                                                                                    <a class="btn btn-primary btn-sm" href="#">
-                                                                                        Cetak Surat Tawaran
-                                                                                    </a>
+
                                                                                     @if ($p->status_permohonan == 4)
                                                                                         <a class="btn btn-primary btn-sm"
                                                                                             href="/uls/permohonan/kehadiran/{{ $p->kod_kursus }}">Kehadiran</a>
+
+                                                                                            <a class="btn btn-primary btn-sm" href="/cetak_surat_tawaran/{{$p->id}}">
+                                                                                                Cetak Surat Tawaran
+                                                                                            </a>
                                                                                     @else
                                                                                         <button class="btn btn-secondary btn-sm"
                                                                                             href="/uls/permohonan/kehadiran/{{ $p->kod_kursus }}"
@@ -371,11 +377,64 @@
                                                                             <a href="/ulpk/permohonan/statuspermohonan/nota_rujukan/{{ $p->jadual->id }}"
                                                                                 class="btn btn-sm btn-primary">Nota
                                                                                 Rujukan</a>
-                                                                        </div>
-                                                                        <div class="d-grid gap-2">
-                                                                            <a class="btn btn-primary btn-sm" href="#">
-                                                                                Cetak Surat Tawaran
-                                                                            </a>
+
+
+                                                                                @if ($p->dinilai == null && $p->dinilai_pre == null && $p->dinilai_post == null)
+                                                                                <button class="btn btn-secondary btn-sm"
+                                                                                    @disabled(true)>
+                                                                                    Cetak Sijil Kursus
+                                                                                </button>
+
+                                                                             @elseif ($p->dinilai == !null && $p->dinilai_pre == null && $p->dinilai_post == null)
+                                                                                <button class="btn btn-secondary btn-sm"
+                                                                                    @disabled(true)>
+                                                                                    Cetak Sijil Kursus
+                                                                                </button>
+
+                                                                            @elseif ($p->dinilai == !null && $p->dinilai_pre == !null && $p->dinilai_post == null)
+                                                                                <button class="btn btn-secondary btn-sm"
+                                                                                    @disabled(true)>
+                                                                                    Cetak Sijil Kursus
+                                                                                </button>
+
+                                                                            @elseif ($p->dinilai == null && $p->dinilai_pre == !null && $p->dinilai_post == !null)
+                                                                                <button class="btn btn-secondary btn-sm"
+                                                                                    @disabled(true)>
+                                                                                    Cetak Sijil Kursus
+                                                                                </button>
+
+                                                                            @elseif ($p->dinilai == null && $p->dinilai_pre == !null && $p->dinilai_post == null)
+                                                                                <button class="btn btn-secondary btn-sm"
+                                                                                    @disabled(true)>
+                                                                                    Cetak Sijil Kursus
+                                                                                </button>
+
+                                                                            @elseif ($p->dinilai == null && $p->dinilai_pre == !null && $p->dinilai_post == !null)
+                                                                                <button class="btn btn-secondary btn-sm"
+                                                                                    @disabled(true)>
+                                                                                    Cetak Sijil Kursus
+                                                                                </button>
+
+                                                                             @elseif ($p->dinilai == !null && $p->dinilai_pre == !null && $p->dinilai_post == null)
+                                                                                <button class="btn btn-secondary btn-sm"
+                                                                                    @disabled(true)>
+                                                                                    Cetak Sijil Kursus
+                                                                                </button>
+
+                                                                            @elseif ($p->dinilai == !null && $p->dinilai_pre == null && $p->dinilai_post == !null)
+                                                                                <button class="btn btn-secondary btn-sm"
+                                                                                    @disabled(true)>
+                                                                                    Cetak Sijil Kursus
+                                                                                </button>
+
+                                                                            @else
+                                                                                <a class="btn btn-primary btn-sm"
+                                                                                    href="/cetak_sijilkursus/{{ $p->id }}">
+                                                                                    Cetak Sijil Kursus
+                                                                                </a>
+                                                                        
+
+                                                                            @endif
                                                                         </div>
                                                                     </td>
                                                                 </tr>

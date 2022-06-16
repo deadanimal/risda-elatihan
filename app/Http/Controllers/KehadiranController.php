@@ -14,8 +14,6 @@ use App\Models\Agensi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
-
-
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class KehadiranController extends Controller
@@ -404,9 +402,6 @@ class KehadiranController extends Controller
         ->get();
 
 
-
-
-
         // dd($peserta);
 
         return view('ulpk.urus_setia.kehadiran.kehadiran-pl.1',[
@@ -422,14 +417,14 @@ class KehadiranController extends Controller
 
     public function cetaksijilkursus($id){
 
-        $kehadiran = Kehadiran::find($id);
-        $jadual=JadualKursus::where('id', $kehadiran->jadual_kursus_id)->with(['tempat'])->first();
+        $permohonan=Permohonan::find($id);
+        $jadual=JadualKursus::where('id', $permohonan->kod_kursus)->with(['tempat'])->first();
         $agensi = Agensi::where('id', $jadual->kursus_tempat)->where('kategori_agensi',['penganjur','Penganjur'])->with(['kategori'])->first();
 
 
 
         $pdf = PDF::loadView('pdf.sijil_kursus', [
-            'kehadiran'=>$kehadiran,
+            'permohonan'=>$permohonan,
             'jadual'=>$jadual,
             'agensi'=>$agensi,
             'hari_ini' => date("d m Y")]);
