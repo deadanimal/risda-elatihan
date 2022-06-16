@@ -1,6 +1,5 @@
 @extends('layouts.risda-base')
 @section('content')
-
     <div class="container">
         <div class="row mt-3 mb-2">
             <div class="col-12 mb-2">
@@ -86,7 +85,7 @@
                             <tbody>
                                 @foreach ($bidang_h as $b)
                                     <tr class="risda-bg-dg text-white">
-                                        <td>{{ $huruf[$loop->iteration-1] }}.</td>
+                                        <td>{{ $huruf[$loop->iteration - 1] }}.</td>
                                         @if ($b->matlamat_panggilan_peserta == null)
                                             <td>{{ $b['nama_Bidang_Kursus'] }}</td>
                                             @for ($i = 0; $i < 12; $i++)
@@ -107,16 +106,15 @@
                                             <td>{{ $b->matlamat_panggilan_peserta->okt }}</td>
                                             <td>{{ $b->matlamat_panggilan_peserta->nov }}</td>
                                             <td>{{ $b->matlamat_panggilan_peserta->dis }}</td>
-                                            <td>{{ $b->matlamat_panggilan_peserta->jan +$b->matlamat_panggilan_peserta->feb +$b->matlamat_panggilan_peserta->mac +$b->matlamat_panggilan_peserta->apr +$b->matlamat_panggilan_peserta->jun +$b->matlamat_panggilan_peserta->jul +$b->matlamat_panggilan_peserta->ogos +$b->matlamat_panggilan_peserta->sept +$b->matlamat_panggilan_peserta->okt +$b->matlamat_panggilan_peserta->nov +$b->matlamat_panggilan_peserta->dis }}
+                                            <td>{{ $b->matlamat_panggilan_peserta->jan + $b->matlamat_panggilan_peserta->feb + $b->matlamat_panggilan_peserta->mac + $b->matlamat_panggilan_peserta->apr + $b->matlamat_panggilan_peserta->mei + $b->matlamat_panggilan_peserta->jun + $b->matlamat_panggilan_peserta->jul + $b->matlamat_panggilan_peserta->ogos + $b->matlamat_panggilan_peserta->sept + $b->matlamat_panggilan_peserta->okt + $b->matlamat_panggilan_peserta->nov + $b->matlamat_panggilan_peserta->dis }}
                                             </td>
                                         @endif
                                     </tr>
 
                                     @if (isset($kategori_h[$b->id]))
                                         @foreach ($kategori_h[$b->id] as $k)
-                                            
                                             <tr class="bg-soft-success">
-                                                <td>{{ $huruf_kecil[$loop->iteration-1] }})</td>
+                                                <td>{{ $huruf_kecil[$loop->iteration - 1] }})</td>
                                                 @if ($k->matlamat_panggilan_peserta == null)
                                                     <td>{{ $k['nama_Kategori_Kursus'] }}</td>
                                                     @for ($i = 0; $i < 12; $i++)
@@ -137,7 +135,7 @@
                                                     <td>{{ $k->matlamat_panggilan_peserta->okt }}</td>
                                                     <td>{{ $k->matlamat_panggilan_peserta->nov }}</td>
                                                     <td>{{ $k->matlamat_panggilan_peserta->dis }}</td>
-                                                    <td>{{ $k->matlamat_panggilan_peserta->jan +$k->matlamat_panggilan_peserta->feb +$k->matlamat_panggilan_peserta->mac +$k->matlamat_panggilan_peserta->apr +$k->matlamat_panggilan_peserta->jun +$k->matlamat_panggilan_peserta->jul +$k->matlamat_panggilan_peserta->ogos +$k->matlamat_panggilan_peserta->sept +$k->matlamat_panggilan_peserta->okt +$k->matlamat_panggilan_peserta->nov +$k->matlamat_panggilan_peserta->dis }}
+                                                    <td>{{ $k->matlamat_panggilan_peserta->jan + $k->matlamat_panggilan_peserta->feb + $k->matlamat_panggilan_peserta->mac + $k->matlamat_panggilan_peserta->apr + $k->matlamat_panggilan_peserta->mei + $k->matlamat_panggilan_peserta->jun + $k->matlamat_panggilan_peserta->jul + $k->matlamat_panggilan_peserta->ogos + $k->matlamat_panggilan_peserta->sept + $k->matlamat_panggilan_peserta->okt + $k->matlamat_panggilan_peserta->nov + $k->matlamat_panggilan_peserta->dis }}
                                                     </td>
                                                 @endif
                                             </tr>

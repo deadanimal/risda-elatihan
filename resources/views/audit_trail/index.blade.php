@@ -4,8 +4,8 @@
     
     <div class="row">
         <div class="col">
-            <h1 class="mb-0 risda-dg"><strong>UTILITI</strong></h1>
-            <h5 class="risda-dg">BIDANG KURSUS</h5>
+            <h1 class="mb-0 risda-dg"><strong>AUDIT TRAIL</strong></h1>
+            <h5 class="risda-dg">JEJAK AUDIT</h5>
         </div>
     </div>
 

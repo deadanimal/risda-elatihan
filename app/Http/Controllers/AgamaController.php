@@ -66,7 +66,7 @@ class AgamaController extends Controller
         $agama->save();
 
         alert()->success('Maklumat telah dicipta', 'Berjaya');
-        AuditTrailController::audit('utiliti', 'agama', 'cipta');
+        AuditTrailController::audit('utiliti', 'agama', 'cipta', $agama->nama_agama);
         return redirect('/utiliti/generik/agama');
     }
 
@@ -111,7 +111,7 @@ class AgamaController extends Controller
         $agama->status_agama = $status;
         $agama->save();
         alert()->success('Maklumat telah dikemaskini', 'Berjaya');
-        AuditTrailController::audit('utiliti', 'agama', 'kemaskini');
+        AuditTrailController::audit('utiliti', 'agama', 'kemaskini', $agama->nama_Agama);
         return redirect('/utiliti/generik/agama');
     }
 
@@ -123,9 +123,10 @@ class AgamaController extends Controller
      */
     public function destroy(Agama $agama)
     {
+        $nama = $agama->nama_Agama;
         $agama->delete();
         alert()->success('Maklumat telah dihapus', 'Berjaya');
-        AuditTrailController::audit('utiliti', 'agama', 'hapus');
+        AuditTrailController::audit('utiliti', 'agama', 'hapus', $nama);
         return redirect('/utiliti/generik/agama');
     }
 }

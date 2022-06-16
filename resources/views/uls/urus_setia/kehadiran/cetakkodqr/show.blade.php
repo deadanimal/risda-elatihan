@@ -71,7 +71,7 @@
                     <p class="pt-2 fw-bold">TARIKH KURSUS</p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control mb-3" readonly value="{{ $kod_kursus->tarikh_mula }}">
+                    <input type="text" class="form-control mb-3" readonly value="{{ date('d-m-Y', strtotime($kod_kursus->tarikh_mula)) }} hingga {{ date('d-m-Y', strtotime($kod_kursus->tarikh_tamat)) }}">
                 </div>
             </div>
             <div class="col-9 d-inline-flex">
@@ -108,7 +108,7 @@
                                         <td class="align-middle">{{ $date[$k->ac_hari - 1] }}</td>
                                         <td class="align-middle">{{ $hari[$k->ac_hari - 1] }}</td>
                                         <td>{{ $k->ac_sesi }}</td>
-                                        <td>{{ $k->ac_masa }}</td>
+                                        <td>{{ $k->ac_masa_mula }}</td>
                                         <td>
                                             <div class="qrcode" id="{{ $k->id }}"></div>
                                         </td>

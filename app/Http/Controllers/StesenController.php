@@ -33,15 +33,15 @@ class StesenController extends Controller
         $kam2 = Kampung::all();
 
         $stesen = Negeri::join('daerahs', 'negeris.id', 'daerahs.U_Negeri_ID')
-        ->join('mukims', 'daerahs.id', 'mukims.U_Daerah_ID')
-        ->join('kampungs', 'mukims.id', 'kampungs.U_Mukim_ID')
-        ->join('stesens', 'kampungs.id', 'stesens.U_Kampung_ID')
-        ->get();
+            ->join('mukims', 'daerahs.id', 'mukims.U_Daerah_ID')
+            ->join('kampungs', 'mukims.id', 'kampungs.U_Mukim_ID')
+            ->join('stesens', 'kampungs.id', 'stesens.U_Kampung_ID')
+            ->get();
         // dd($stesen);
         $bil_Stesen = Stesen::orderBy('id', 'desc')->first();
         if ($bil_Stesen != null) {
             $bil = $bil_Stesen->Stesen_kod;
-        }else{
+        } else {
             $bil = 0;
         }
         $bil = $bil + 1;
@@ -93,8 +93,8 @@ class StesenController extends Controller
         }
         $Stesen->status_stesen = $status;
         $Stesen->save();
-        AuditTrailController::audit('utiliti','stesen','cipta');
-        alert()->success('Maklumat telah disimpan','Berjaya');
+        AuditTrailController::audit('utiliti', 'stesen', 'cipta', $Stesen->Stesen);
+        alert()->success('Maklumat telah disimpan', 'Berjaya');
         return redirect('/utiliti/lokasi/stesen');
     }
 
@@ -143,7 +143,7 @@ class StesenController extends Controller
         }
         $Stesen->status_stesen = $status;
         $Stesen->save();
-        AuditTrailController::audit('utiliti','stesen','kemaskini');
+        AuditTrailController::audit('utiliti', 'stesen', 'kemaskini', $Stesen->Stesen);
         alert()->success('Maklumat telah dikemaskini', 'Berjaya');
         return redirect('/utiliti/lokasi/stesen');
     }
@@ -156,14 +156,145 @@ class StesenController extends Controller
      */
     public function destroy(Stesen $stesen)
     {
+        $nama = $stesen->Stesen;
         try {
             $stesen->delete();
         } catch (\Throwable $th) {
             alert()->error('Maklumat berkait dengan rekod di bahagian lain, sila hapuskan rekod di bahagian tersebut dahulu.', 'Tidak Berjaya')->persistent('Tutup');
             return back();
         }
-        AuditTrailController::audit('utiliti','stesen','hapus');
+        AuditTrailController::audit('utiliti', 'stesen', 'hapus', $nama);
         alert()->success('Maklumat telah dihapuskan', 'Berjaya');
         return redirect('/utiliti/lokasi/stesen');
+    }
+
+    public function filter($data)
+    {
+        $data = explode('_', $data);
+        $negeri = $data[0]; $daerah = $data[1]; $mukim = $data[2]; $kampung = $data[3];
+
+        if ($negeri != null) {
+            // ADA NEGERI
+            if ($daerah != null) {
+                //ADA DAERAH
+                if ($mukim != null) {
+                    //ADA MUKIM
+                    if ($kampung != null) {
+                        //ADA KAMPUNG
+                        $stesen = Stesen::where('U_Negeri_ID', $negeri)->where('U_Daerah_ID', $daerah)->where('U_Mukim_ID', $mukim)->where('U_Kampung_ID', $kampung)->get(); //ABCD
+
+                    } else {
+                        //TIADA KAMPUNG
+                        $stesen = Stesen::where('U_Negeri_ID', $negeri)->where('U_Daerah_ID', $daerah)->where('U_Mukim_ID', $mukim)->get(); //ABC
+
+                    }
+                    
+                } else {
+                    //TIADA MUKIM
+                    if ($kampung != null) {
+                        //ADA KAMPUNG
+                        $stesen = Stesen::where('U_Negeri_ID', $negeri)->where('U_Daerah_ID', $daerah)->where('U_Kampung_ID', $kampung)->get(); //ABD
+
+                    } else {
+                        // TIADA KAMPUNG
+                        $stesen = Stesen::where('U_Negeri_ID', $negeri)->where('U_Daerah_ID', $daerah)->get(); //AB
+
+                    }
+
+                }
+                
+            } else {
+                //TIADA DAERAH
+                if ($mukim != null) {
+                    //ADA MUKIM
+                    if ($kampung != null) {
+                        //ADA KAMPUNG
+                        $stesen = Stesen::where('U_Negeri_ID', $negeri)->where('U_Mukim_ID', $mukim)->where('U_Kampung_ID', $kampung)->get(); //ACD
+
+                    } else {
+                        //TIADA KAMPUNG
+                        $stesen = Stesen::where('U_Negeri_ID', $negeri)->where('U_Mukim_ID', $mukim)->get(); //AC
+
+                    }
+                    
+                } else {
+                    //TIADA MUKIM
+                    if ($kampung != null) {
+                        //ADA KAMPUNG
+                        $stesen = Stesen::where('U_Negeri_ID', $negeri)->where('U_Kampung_ID', $kampung)->get(); //AD
+
+                    } else {
+                        //TIADA KAMPUNG
+                        $stesen = Stesen::where('U_Negeri_ID', $negeri)->get(); //A
+
+                    }
+
+                }
+
+            }
+            
+        } else {
+            //TIADA NEGERI
+            if ($daerah != null) {
+                //ADA DAERAH
+                if ($mukim != null) {
+                    //ADA MUKIM
+                    if ($kampung != null) {
+                        //ADA KAMPUNG
+                        $stesen = Stesen::where('U_Daerah_ID', $daerah)->where('U_Mukim_ID', $mukim)->where('U_Kampung_ID', $kampung)->get(); //BCD
+
+                    } else {
+                        //TIADA KAMPUNG
+                        $stesen = Stesen::where('U_Daerah_ID', $daerah)->where('U_Mukim_ID', $mukim)->get(); //BC
+
+                    }
+                    
+                } else {
+                    //TIADA MUKIM
+                    if ($kampung != null) {
+                        //ADA KAMPUNG
+                        $stesen = Stesen::where('U_Daerah_ID', $daerah)->where('U_Kampung_ID', $kampung)->get(); //BD
+
+                    } else {
+                        //TIADA KAMPUNG
+                        $stesen = Stesen::where('U_Daerah_ID', $daerah)->get(); //B
+
+                    }
+
+                }
+                
+            } else {
+                //TIADA DAERAH
+                if ($mukim != null) {
+                    //ADA MUKIM
+                    if ($kampung != null) {
+                        //ADA KAMPUNG
+                        $stesen = Stesen::where('U_Mukim_ID', $mukim)->where('U_Kampung_ID', $kampung)->get(); //CD
+
+                    } else {
+                        //TIADA KAMPUNG
+                        $stesen = Stesen::where('U_Mukim_ID', $mukim)->get(); //C
+
+                    }
+                    
+                } else {
+                    //TIADA MUKIM
+                    if ($kampung != null) {
+                        //ADA KAMPUNG
+                        $stesen = Stesen::where('U_Kampung_ID', $kampung)->get(); //D
+
+                    } else {
+                        //TIADA KAMPUNG
+                        $stesen = Stesen::all(); //SEMUA
+
+                    }
+
+                }
+
+            }
+
+        }
+        
+        return response()->json($stesen);
     }
 }

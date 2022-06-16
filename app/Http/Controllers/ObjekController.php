@@ -63,7 +63,7 @@ class ObjekController extends Controller
         $objek->status_Objek = $status;
 
         $objek->save();
-        AuditTrailController::audit('utiliti', 'kod objek', 'cipta');
+        AuditTrailController::audit('utiliti', 'kod objek', 'cipta', $objek->nama_Objek);
         alert()->success('Maklumat telah disimpan', 'Berjaya');
         return redirect('/utiliti/kursus/kod_objek');
     }
@@ -110,7 +110,7 @@ class ObjekController extends Controller
         $objek->status_Objek = $status;
 
         $objek->save();
-        AuditTrailController::audit('utiliti', 'kod objek', 'kemaskini');
+        AuditTrailController::audit('utiliti', 'kod objek', 'kemaskini', $objek->nama_Objek);
         alert()->success('Maklumat telah dikemaskini', 'Berjaya');
         return redirect('/utiliti/kursus/kod_objek');
     }
@@ -124,8 +124,9 @@ class ObjekController extends Controller
     public function destroy($objek)
     {
         $objek = Objek::find($objek);
+        $nama = $objek->nama_Objek;
         $objek->delete();
-        AuditTrailController::audit('utiliti','kod objek','hapus');
+        AuditTrailController::audit('utiliti','kod objek','hapus', $nama);
         alert()->success('Maklumat telah dihapuskan', 'Berjaya');
         return redirect('/utiliti/kursus/kod_objek');
     }

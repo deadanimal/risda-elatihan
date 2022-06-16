@@ -89,7 +89,7 @@ class KodKursusController extends Controller
         $kodKursus->status_Kod_Kursus = $status;
         // dd($kodKursus);
         $kodKursus->save();
-        AuditTrailController::audit('utiliti','kod kursus','cipta');
+        AuditTrailController::audit('utiliti','kod kursus','cipta', $kodKursus->tajuk_Kursus);
         alert()->success('Maklumat telah disimpan', 'Berjaya');
         return redirect('/utiliti/kursus/kod_kursus');
     }
@@ -141,7 +141,7 @@ class KodKursusController extends Controller
         $kodKursus->status_Kod_Kursus = $status;
         // dd($kodKursus);
         $kodKursus->save();
-        AuditTrailController::audit('utiliti','kod kursus','kemaskini');
+        AuditTrailController::audit('utiliti','kod kursus','kemaskini', $kodKursus->tajuk_Kursus);
         alert()->success('Maklumat telah dikemaskin', 'Berjaya');
         return redirect('/utiliti/kursus/kod_kursus');
     }
@@ -155,8 +155,9 @@ class KodKursusController extends Controller
     public function destroy($id)
     {
         $kodKursus = KodKursus::find($id);
+        $nama = $kodKursus->tajuk_Kursus;
         $kodKursus->delete();
-        AuditTrailController::audit('utiliti','kod kursus','hapus');
+        AuditTrailController::audit('utiliti','kod kursus','hapus', $nama);
         alert()->success('Maklumat telah dihapus','Berjaya');
         return redirect('/utiliti/kursus/kod_kursus');
     }

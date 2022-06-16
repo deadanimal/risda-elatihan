@@ -31,10 +31,7 @@ class SeksyenController extends Controller
         $muk2 = Mukim::all();
         $kampung = Kampung::all();
 
-        $seksyen = Negeri::join('daerahs', 'negeris.id', 'daerahs.U_Negeri_ID')
-            ->join('mukims', 'daerahs.id', 'mukims.U_Daerah_ID')
-            ->join('seksyens', 'mukims.id', 'seksyens.U_Mukim_ID')
-            ->get();
+        $seksyen = Seksyen::with(['kampung', 'negeri', 'daerah', 'mukim'])->get();
 
         $bil_seksyen = Seksyen::orderBy('id', 'desc')->first();
         if ($bil_seksyen != null) {
@@ -89,7 +86,7 @@ class SeksyenController extends Controller
         }
         $seksyen->status_seksyen = $status;
         $seksyen->save();
-        AuditTrailController::audit('utiliti', 'seksyen', 'cipta');
+        AuditTrailController::audit('utiliti', 'seksyen', 'cipta', $seksyen->Seksyen);
         alert()->success('Maklumat telah disimpan', 'Berjaya');
         return redirect('/utiliti/lokasi/seksyen');
     }
@@ -138,7 +135,7 @@ class SeksyenController extends Controller
         }
         $seksyen->status_seksyen = $status;
         $seksyen->save();
-        AuditTrailController::audit('utiliti', 'seksyen', 'kemaskini');
+        AuditTrailController::audit('utiliti', 'seksyen', 'kemaskini', $seksyen->Seksyen);
         alert()->success('Maklumat telah dikemaskini', 'Berjaya');
         return redirect('/utiliti/lokasi/seksyen');
     }
@@ -151,13 +148,14 @@ class SeksyenController extends Controller
      */
     public function destroy(Seksyen $seksyen)
     {
+        $nama = $seksyen->Seksyen;
         try {
             $seksyen->delete();
         } catch (\Throwable $th) {
             alert()->error('Maklumat berkait dengan rekod di bahagian lain, sila hapuskan rekod di bahagian tersebut dahulu.', 'Tidak Berjaya')->persistent('Tutup');
             return back();
         }
-        AuditTrailController::audit('utiliti', 'seksyen', 'hapus');
+        AuditTrailController::audit('utiliti', 'seksyen', 'hapus', $nama);
         alert()->success('Maklumat telah dihapuskan', 'Berjaya');
         return redirect('/utiliti/lokasi/seksyen');
     }

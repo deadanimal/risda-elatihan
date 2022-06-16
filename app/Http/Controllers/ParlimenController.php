@@ -70,7 +70,7 @@ class ParlimenController extends Controller
         }
         $parlimen->status_parlimen = $status;
         $parlimen->save();
-        AuditTrailController::audit('utiliti','parlimen','cipta');
+        AuditTrailController::audit('utiliti','parlimen','cipta', $parlimen->Parlimen);
         alert()->success('Maklumat telah disimpan','Berjaya');
         return redirect('/utiliti/lokasi/parlimen');
     }
@@ -117,7 +117,7 @@ class ParlimenController extends Controller
         }
         $parlimen->status_parlimen = $status;
         $parlimen->save();
-        AuditTrailController::audit('utiliti','parlimen','kemaskini');
+        AuditTrailController::audit('utiliti','parlimen','kemaskini', $parlimen->Parlimen);
         alert()->success('Maklumat telah dikemaskini', 'Berjaya');
         return redirect('/utiliti/lokasi/parlimen');
     }
@@ -131,13 +131,14 @@ class ParlimenController extends Controller
     public function destroy( $parlimen)
     {
         $parlimen = Parlimen::find($parlimen);
+        $nama = $parlimen->Parlimen;
         try {
             $parlimen->delete();
         } catch (\Throwable $th) {
             alert()->error('Maklumat berkait dengan rekod di bahagian lain, sila hapuskan rekod di bahagian tersebut dahulu.', 'Tidak Berjaya')->persistent('Tutup');
             return back();
         }
-        AuditTrailController::audit('utiliti','parlimen','hapus');
+        AuditTrailController::audit('utiliti','parlimen','hapus', $nama);
         alert()->success('Maklumat telah dihapuskan', 'Berjaya');
         return redirect('/utiliti/lokasi/parlimen');
     }

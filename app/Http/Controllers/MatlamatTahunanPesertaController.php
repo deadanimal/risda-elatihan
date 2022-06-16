@@ -452,12 +452,43 @@ class MatlamatTahunanPesertaController extends Controller
             '12' => 0,
         ];
 
+        $month = [
+            '',
+            'jan',
+            'feb',
+            'mac',
+            'apr',
+            'mei',
+            'jun',
+            'jul',
+            'ogos',
+            'sept',
+            'okt',
+            'nov',
+            'dis'
+        ];
+
         foreach ($carian as $key => $c) {
             if ($c->matlamat_peserta == null) {
-                $c['matlamat_peserta_cm'] = $bulan;
+                
                 if ($title == 'pusat_latihan') {
                     $status = 'update';
+                    $c['matlamat_peserta_cm'] = [
+                        '1' => $c->jan,
+                        '2' => $c->feb,
+                        '3' => $c->mac,
+                        '4' => $c->apr,
+                        '5' => $c->mei,
+                        '6' => $c->jun,
+                        '7' => $c->jul,
+                        '8' => $c->ogos,
+                        '9' => $c->sept,
+                        '10' => $c->okt,
+                        '11' => $c->nov,
+                        '12' => $c->dis,
+                    ];
                 } else {
+                    $c['matlamat_peserta_cm'] = $bulan;
                     $status = 'create';
                 }
             } else {
@@ -486,9 +517,7 @@ class MatlamatTahunanPesertaController extends Controller
         $jenis['val'] = $title;
         $jenis['sub'] = str_replace(' ', '_', $title);
         $title = strtoupper($title);
-
-        dd($carian);
-
+        
         return view('utiliti.matlamat_tahunan.peserta.edit', [
             'matlamat_tahunan' => $carian,
             'tahun' => $tahun,

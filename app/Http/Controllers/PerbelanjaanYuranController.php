@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePerbelanjaanYuranRequest;
 use App\Http\Requests\UpdatePerbelanjaanYuranRequest;
+use App\Models\PengajianLanjutan;
 use App\Models\PerbelanjaanYuran;
 
 class PerbelanjaanYuranController extends Controller
@@ -50,6 +51,8 @@ class PerbelanjaanYuranController extends Controller
      */
     public function show($id_pengajian_lanjutan)
     {
+        $try = PengajianLanjutan::find($id_pengajian_lanjutan);
+        dd($try->perbelanjaan_pengajian_lanjutan);
         return view('uls.urus_setia.pengajian_lanjutan.yuran', [
             'id_pengajian_lanjutan' => $id_pengajian_lanjutan,
             'perbelanjaan_yuran' => PerbelanjaanYuran::where('id_pengajian_lanjutan', $id_pengajian_lanjutan)->get(),

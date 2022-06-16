@@ -80,7 +80,7 @@ class MukimController extends Controller
         $mukim->status_mukim = $status;
         // dd($mukim);
         $mukim->save();
-        AuditTrailController::audit('utiliti','mukim','cipta');
+        AuditTrailController::audit('utiliti','mukim','cipta', $mukim->Mukim);
         alert()->success('Maklumat telah disimpan','Berjaya');
         return redirect('/utiliti/lokasi/mukim');
     }
@@ -129,7 +129,7 @@ class MukimController extends Controller
         }
         $mukim->status_mukim = $status;
         $mukim->save();
-        AuditTrailController::audit('utiliti','mukim','kemaskini');
+        AuditTrailController::audit('utiliti','mukim','kemaskini', $mukim->Mukim);
         alert()->success('Maklumat telah dikemaskini', 'Berjaya');
         return redirect('/utiliti/lokasi/mukim');
     }
@@ -142,13 +142,14 @@ class MukimController extends Controller
      */
     public function destroy(Mukim $mukim)
     {
+        $nama = $mukim->Mukim;
         try {
             $mukim->delete();
         } catch (\Throwable $th) {
             alert()->error('Maklumat berkait dengan rekod di bahagian lain, sila hapuskan rekod di bahagian tersebut dahulu.', 'Tidak Berjaya')->persistent('Tutup');
             return back();
         }
-        AuditTrailController::audit('utiliti','mukim','hapus');
+        AuditTrailController::audit('utiliti','mukim','hapus', $nama);
         alert()->success('Maklumat telah dihapus', 'Berjaya');
         return redirect('/utiliti/lokasi/mukim');
     }

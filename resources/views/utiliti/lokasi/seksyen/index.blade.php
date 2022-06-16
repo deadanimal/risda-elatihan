@@ -181,7 +181,7 @@
                                     <tr>
                                         <td>{{ $key + 1 }}.</td>
                                         <td>{{ $s->Seksyen_kod }}</td>
-                                        <td>{{ $s->Kampung }}</td>
+                                        <td>{{ $s->kampung->Kampung }}</td>
                                         <td>{{ $s->Seksyen }}</td>
                                         <td>
                                             @if ($s->status_seksyen == '1')
@@ -202,6 +202,8 @@
                                             </button>
                                         </td>
                                     </tr>
+                                    
+                                    {{-- Kemaskini section --}}
                                     <div class="modal fade" id="edit_seksyen_{{ $s->id }}" tabindex="-1"
                                         role="dialog" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document"
@@ -229,7 +231,7 @@
                                                                     id="ngri2">
                                                                     <option selected="" value="{{ $s->U_Negeri_ID }}"
                                                                         hidden>
-                                                                        {{ $s->Negeri }}</option>
+                                                                        {{ $s->negeri->Negeri }}</option>
                                                                     @foreach ($neg2 as $neg)
                                                                         @if ($neg['status_negeri'] == '1')
                                                                             <option value="{{ $neg->id }}">
@@ -244,7 +246,7 @@
                                                                     id="drah2">
                                                                     <option selected="" value="{{ $s->U_Daerah_ID }}"
                                                                         hidden>
-                                                                        {{ $s->Daerah }}</option>
+                                                                        {{ $s->daerah->Daerah }}</option>
                                                                     {{-- @foreach ($daerah as $d)
                                                                         @if ($s->status_daerah == '1')
                                                                             <option value="{{ $s->id }}">{{ $s->Daerah }}</option>
@@ -257,7 +259,7 @@
                                                                 <select class="form-select" name="U_Mukim_ID" id="mkm2">
                                                                     <option selected="" value="{{ $s->U_Mukim_ID }}"
                                                                         hidden>
-                                                                        {{ $s->Mukim }}</option>
+                                                                        {{ $s->mukim->Mukim }}</option>
                                                                     {{-- @foreach ($daerah as $d)
                                                                         @if ($s->status_daerah == '1')
                                                                             <option value="{{ $s->id }}">{{ $s->Daerah }}</option>
@@ -268,7 +270,7 @@
                                                             <div class="mb-3">
                                                                 <label class="col-form-label">KAMPUNG</label>
                                                                 <select class="form-select" name="Kampung">
-                                                                    <option value="{{ $s->Kampung }}" selected hidden>{{ $s->Kampung }}
+                                                                    <option value="{{ $s->Kampung }}" selected hidden>{{ $s->kampung->Kampung }}
                                                                     </option>
                                                                     {{-- @foreach ($kampung as $k)
                                                                         <option value="{{ $k->id }}">
@@ -313,6 +315,8 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    {{-- Hapus section --}}
                                     <div class="modal fade" id="delete_seksyen_{{ $s->id }}" tabindex="-1"
                                         role="dialog" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document"

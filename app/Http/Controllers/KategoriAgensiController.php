@@ -58,7 +58,7 @@ class KategoriAgensiController extends Controller
         }
         $kategori->status_kategori_agensi = $status;
         $kategori->save();
-        AuditTrailController::audit('utiliti','kategori agensi','cipta');
+        AuditTrailController::audit('utiliti','kategori agensi','cipta', $kategori->Kategori_Agensi);
         alert()->success('Maklumat telah disimpan', 'Berjaya');
         return redirect('/utiliti/kumpulan/kategori_agensi');
     }
@@ -104,7 +104,7 @@ class KategoriAgensiController extends Controller
         $kategoriAgensi->status_kategori_agensi = $status;
 
         $kategoriAgensi->save();
-        AuditTrailController::audit('utiliti','kategori agensi','kemaskini');
+        AuditTrailController::audit('utiliti','kategori agensi','kemaskini', $kategoriAgensi->Kategori_Agensi);
         alert()->success('Maklumat telah dikemaskini', 'Berjaya');
         return redirect('/utiliti/kumpulan/kategori_agensi');
     }
@@ -117,8 +117,9 @@ class KategoriAgensiController extends Controller
      */
     public function destroy(KategoriAgensi $kategoriAgensi)
     {
+        $nama = $kategoriAgensi->Kategori_Agensi;
         $kategoriAgensi->delete();
-        AuditTrailController::audit('utiliti','kategori agensi','hapus');
+        AuditTrailController::audit('utiliti','kategori agensi','hapus', $nama);
         alert()->success('Maklumat telah dihapus', 'Berjaya');
         return redirect('/utiliti/kumpulan/kategori_agensi');
     }

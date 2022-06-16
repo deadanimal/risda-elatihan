@@ -1,6 +1,5 @@
 @extends('layouts.risda-base')
 @section('content')
-
     <div class="container">
         <div class="row mt-3 mb-2">
             <div class="col-12 mb-2">
@@ -13,7 +12,7 @@
         <div class="row mb-4">
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
-                    MATLAMAT BILANGAN PESERTA MENGIKUT KATAGORI KURSUS
+                    MATLAMAT BILANGAN PESERTA MENGIKUT KATEGORI KURSUS
                 </p>
             </div>
         </div>
@@ -41,6 +40,7 @@
                                 <option value="kategori kursus">Kategori Kursus</option>
                                 <option value="tajuk kursus">Tajuk Kursus</option>
                                 <option value="pusat latihan">Pusat Latihan</option>
+                                <option value="negeri">Negeri</option>
                             </select>
                         </div>
                         <div class="col-lg-2 mb-lg-3 ps-lg-0 text-end">
@@ -85,7 +85,7 @@
                             <tbody>
                                 @foreach ($bidang_h as $b)
                                     <tr class="risda-bg-dg text-white">
-                                        <td>{{ $huruf[$loop->iteration-1] }}.</td>
+                                        <td>{{ $huruf[$loop->iteration - 1] }}.</td>
                                         @if ($b->matlamat_peserta == null)
                                             <td>{{ $b['nama_Bidang_Kursus'] }}</td>
                                             @for ($i = 0; $i < 12; $i++)
@@ -106,7 +106,7 @@
                                             <td>{{ $b->matlamat_peserta->okt }}</td>
                                             <td>{{ $b->matlamat_peserta->nov }}</td>
                                             <td>{{ $b->matlamat_peserta->dis }}</td>
-                                            <td>{{ $b->matlamat_peserta->jan +$b->matlamat_peserta->feb +$b->matlamat_peserta->mac +$b->matlamat_peserta->apr +$b->matlamat_peserta->jun +$b->matlamat_peserta->jul +$b->matlamat_peserta->ogos +$b->matlamat_peserta->sept +$b->matlamat_peserta->okt +$b->matlamat_peserta->nov +$b->matlamat_peserta->dis }}
+                                            <td>{{ $b->matlamat_peserta->jan + $b->matlamat_peserta->feb + $b->matlamat_peserta->mac + $b->matlamat_peserta->apr + $b->matlamat_peserta->mei + +$b->matlamat_peserta->jun + $b->matlamat_peserta->jul + $b->matlamat_peserta->ogos + $b->matlamat_peserta->sept + $b->matlamat_peserta->okt + $b->matlamat_peserta->nov + $b->matlamat_peserta->dis }}
                                             </td>
                                         @endif
                                     </tr>

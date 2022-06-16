@@ -224,7 +224,7 @@ class JadualKursusController extends Controller
         $jadualKursus->kursus_status = $status;
         $jadualKursus->save();
 
-        AuditTrailController::audit('jadual', 'kursus', 'cipta');
+        AuditTrailController::audit('jadual', 'kursus', 'cipta', $jadualKursus->kursus_nama);
         alert()->success('Maklumat telah disimipan', 'Berjaya Disimpan');
         return redirect('/pengurusan_kursus/peruntukan_peserta/' . $jadualKursus->id);
     }
@@ -284,7 +284,7 @@ class JadualKursusController extends Controller
         $input = $request->all();
         $jadualKursus->kursus_status = $status;
         $jadualKursus->fill($input)->save();
-        AuditTrailController::audit('jadual', 'kursus', 'kemaskini');
+        AuditTrailController::audit('jadual', 'kursus', 'kemaskini', $jadualKursus->kursus_nama);
         alert()->success('Maklumat telah disimipan', 'Berjaya Disimpan');
         return redirect('/pengurusan_kursus/peruntukan_peserta/' . $jadualKursus->id);
     }
@@ -325,8 +325,9 @@ class JadualKursusController extends Controller
         }
 
         $jadualKursus = JadualKursus::find($id);
+        $nama = $jadualKursus->kursus_nama;
         $jadualKursus->delete();
-        AuditTrailController::audit('jadual', 'kursus', 'hapus');
+        AuditTrailController::audit('jadual', 'kursus', 'hapus', $nama);
         alert()->success('Maklumat telah dihapus', 'Hapus');
         return redirect('/pengurusan_kursus/semak_jadual');
     }

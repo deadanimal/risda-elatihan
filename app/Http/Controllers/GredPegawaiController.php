@@ -56,7 +56,7 @@ class GredPegawaiController extends Controller
 
         $gredPegawai->save();
         alert()->success('Maklumat telah dicipta', 'Berjaya');
-        AuditTrailController::audit('utiliti', 'gred pegawai', 'cipta');
+        AuditTrailController::audit('utiliti', 'gred pegawai', 'cipta', $gredPegawai->nama_Gred);
         return redirect('/utiliti/kursus/gred_pegawai');
     }
 
@@ -103,7 +103,7 @@ class GredPegawaiController extends Controller
 
         $gredPegawai->save();
         alert()->success('Maklumat telah dikemaskini', 'Kemaskini');
-        AuditTrailController::audit('utiliti', 'gred pegawai', 'kemaskini');
+        AuditTrailController::audit('utiliti', 'gred pegawai', 'kemaskini', $gredPegawai->nama_Gred);
         return redirect('/utiliti/kursus/gred_pegawai');
     }
 
@@ -115,9 +115,10 @@ class GredPegawaiController extends Controller
      */
     public function destroy(GredPegawai $gredPegawai)
     {
+        $nama = $gredPegawai->nama_Gred;
         $gredPegawai->delete();
         alert()->success('Maklumat telah dihapuskan', 'Hapus');
-        AuditTrailController::audit('utiliti', 'gred pegawai', 'hapus');
+        AuditTrailController::audit('utiliti', 'gred pegawai', 'hapus', $nama);
         return redirect('/utiliti/kursus/gred_pegawai');
     }
 }
