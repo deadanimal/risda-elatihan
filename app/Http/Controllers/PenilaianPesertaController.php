@@ -11,6 +11,8 @@ use App\Models\Permohonan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class PenilaianPesertaController extends Controller
 {
@@ -253,19 +255,57 @@ class PenilaianPesertaController extends Controller
         //
     }
 
-    public function cetakQr()
-    {
-        $permohonan = Permohonan::where('status_permohonan', '1')->get();
+    // public function cetakQr()
+    // {
+    //     $permohonan = Permohonan::where('status_permohonan', '1')->get();
 
-        return view('penilaian.cetakQr', [
-            'permohonan' => $permohonan,
-        ]);
+
+    //     return view('penilaian.cetakQr', [
+    //         'permohonan' => $permohonan,
+    //     ]);
+    // }
+
+    public function cetakQr(JadualKursus $jadual_kursus)
+    {
+        if(Auth::user()->jenis_pengguna=="Urus Setia ULS"){
+            $kursus=JadualKursus::where('kursus_unit_latihan','Staf')->with(['tempat'])->get();
+            return view('penilaian.cetakQr', [
+                'kursus' => $kursus
+            ]);
+        }
+
+
+        else{
+            $kursus=JadualKursus::where('kursus_unit_latihan','Pekebun Kecil')->with(['tempat'])->get();
+            return view('penilaian.cetakQr', [
+            'kursus' => $kursus
+            ]);
+          }
     }
 
     public function cetakQr2(JadualKursus $jadual_kursus)
     {
+        // $jadual_kursus=JadualKursus::find($id)->with(['tempat']);
+
+        // dd($jadual_kursus);
+
         return view('penilaian.cetakQr2', [
             'jadual_kursus' => $jadual_kursus,
         ]);
     }
+
+
+
+    public function QrPenilaianPreTest(JadualKursus $kursus)
+    {
+        $pdf = PDF::loadView('pdf.QrPretest', [
+            'jadual_kursus' => $kursus,
+        ]);
+
+        return $pdf->stream('QRCode Penilaian Pre Test ' . $kursus->kursus_nama .'.pdf');
+
+    }
+
+
+
 }

@@ -54,26 +54,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($permohonan as $p)
+                            @foreach ($kursus as $kursus)
                                 <tr>
                                     <td>
                                         {{ $loop->iteration }}
                                     </td>
                                     <td>
-                                        {{ $p->jadualKursus->kursus_kod_nama_kursus }}
+                                        {{ $kursus->kursus_kod_nama_kursus }}
                                     </td>
                                     <td>
-                                        {{ $p->jadualKursus->kursus_nama }}
+                                        {{ $kursus->kursus_nama }}
                                     </td>
                                     <td>
-                                        {{ date('d-m-Y', strtotime($p->jadualKursus->tarikh_mula)) }}
+                                        {{ date('d-m-Y', strtotime($kursus->tarikh_mula)) }} <br>-<br>{{ date('d-m-Y', strtotime($kursus->tarikh_tamat)) }}
                                     </td>
                                     <td>
-                                        {{ $p->jadualKursus->kursus_tempat }}
+                                        {{ $kursus->tempat->nama_Agensi }}
                                     </td>
                                     <td>
                                         <a class="btn btn-primary btn-sm mb-2"
-                                            href="/penilaian/cetakQr2/{{ $p->jadualKursus->id }}">
+                                            href="/penilaian/cetakQr2/{{ $kursus->id }}">
                                             <p class="m-0"> Cetak Kod QR</p>
                                         </a>
 
