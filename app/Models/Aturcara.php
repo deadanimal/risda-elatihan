@@ -16,8 +16,13 @@ class Aturcara extends Model
         return $this->belongsTo(JadualKursus::class, 'ac_jadual_kursus', 'id');
     }
 
-    public function kehadiran()
+    // public function kehadiran()
+    // {
+    //     return $this->hasOne(Kehadiran::class, 'jadual_kursus_ref', 'id');
+    // }
+
+    public function keh()
     {
-        return $this->hasOne(Kehadiran::class, 'jadual_kursus_ref', 'id');
+        return $this->hasMany(Kehadiran::class, 'jadual_kursus_ref', 'id');
     }
 }

@@ -70,9 +70,9 @@ class PerbelanjaanPengajianLanjutanController extends Controller
         }
 
         $check = Auth::user()->jenis_pengguna;
-        if ($check == 'Urus Setia ULS') {
+        if (str_contains($check, 'ULS')) {
             $peserta = PengajianLanjutan::with('pengguna')->where('unit_latihan', 'Staf')->get();
-        } elseif ($check == 'Urus Setia ULPK') {
+        } elseif (str_contains($check, 'ULPK')) {
             $peserta = PengajianLanjutan::with('pengguna')->where('unit_latihan', 'Pekebun Kecil')->get();
         } else {
             $peserta = PengajianLanjutan::with('pengguna')->get();
@@ -141,9 +141,9 @@ class PerbelanjaanPengajianLanjutanController extends Controller
         }
 
         $check = Auth::user()->jenis_pengguna;
-        if ($check == 'Urus Setia ULS') {
+        if (str_contains($check, 'ULS')) {
             $peserta = PengajianLanjutan::with('pengguna')->where('unit_latihan', 'Staf')->get();
-        } elseif ($check == 'Urus Setia ULPK') {
+        } elseif (str_contains($check, 'ULPK')) {
             $peserta = PengajianLanjutan::with('pengguna')->where('unit_latihan', 'Pekebun Kecil')->get();
         } else {
             $peserta = PengajianLanjutan::with('pengguna')->get();
