@@ -44,10 +44,29 @@ class KehadiranController extends Controller
         }
 
         $kod_kursuss = JadualKursus::where('id', $kod_kursus)->firstorFail();
-        $kehadiran = Aturcara::with(['jadual', 'kehadiran'])->where('ac_jadual_kursus', $kod_kursus)
+        $aturcara = Aturcara::with(['jadual'])->where('ac_jadual_kursus', $kod_kursus)
             ->orderBy('ac_hari', 'ASC')
             ->orderBy('ac_sesi', 'ASC')
             ->get();
+
+        foreach ($aturcara as $key => $ac) {
+            $kehadiran = Kehadiran::where('kod_kursus', $kod_kursuss->kursus_kod_nama_kursus)
+            ->where('no_pekerja', Auth::id())
+            ->where('jadual_kursus_ref', $ac->id)
+            ->first();
+
+            if ($kehadiran == null) {
+                $ac['status_kehadiran'] = null;
+            }else {
+                $ac['status_kehadiran'] = $kehadiran;
+            }
+
+            if ($kehadiran->status_kehadiran_ke_kursus == null) {
+                $ac['status_ke_kursus'] = null;
+            } else {
+                $ac['status_ke_kursus'] = $kehadiran;
+            }
+        }
 
         $hari = ['Pertama', 'Kedua', 'Ketiga', 'Keempat', 'Kelima', 'Keenam'];
 
@@ -59,6 +78,7 @@ class KehadiranController extends Controller
             'hari' => $hari,
             'date' => $date,
             'id_jadual' => $kod_kursus,
+            'aturcara'=>$aturcara,
         ]);
     }
     public function indexULPK($kod_kursus)
@@ -90,6 +110,7 @@ class KehadiranController extends Controller
         }
 
         $aturcara = Aturcara::with('jadual')->find($id);
+        dd($aturcara);
         $jadual = JadualKursus::with('pemohon')->where('id', $aturcara->ac_jadual_kursus)->first();
         $date = tarikh($jadual->tarikh_mula, $jadual->tarikh_tamat);
         $permohonan = Permohonan::with('peserta')->where('kod_kursus', $aturcara->ac_jadual_kursus)->get();
@@ -438,9 +459,4 @@ class KehadiranController extends Controller
         return $pdf->stream('Sijil Kursus' . $jadual->kursus_nama .'.pdf');
 
     }
-
-
-
-
-
 }

@@ -36,7 +36,7 @@ class SemakPermohonanController extends Controller
         $kategori = KategoriAgensi::where('Kategori_Agensi', 'Tempat Kursus')->first()->id;
         $tempat = Agensi::with('kategori')->where('kategori_agensi', $kategori)->get();
 
-        if ($check == 'Urus Setia ULS') {
+        if (str_contains($check, 'ULS')) {
             foreach ($pemohon as $key => $p) {
                 if ($p->peserta == null) {
                     $p->delete();
@@ -51,7 +51,7 @@ class SemakPermohonanController extends Controller
                 'tempat' => $tempat
             ]);
         } 
-        elseif ($check == 'Urus Setia ULPK') {
+        elseif (str_contains($check, 'ULPK')) {
             $pekebun_kecil = [];
             foreach ($pemohon as $key => $p) {
                 if ($p->peserta == null) {

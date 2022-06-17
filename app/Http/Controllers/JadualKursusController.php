@@ -37,11 +37,12 @@ class JadualKursusController extends Controller
      */
     public function index()
     {
+
         $check_auth = Auth::user()->jenis_pengguna;
         $tempat_kursus = KategoriAgensi::where('Kategori_Agensi', 'Tempat Kursus')->first();
         $tempat = Agensi::where('kategori_agensi', $tempat_kursus->id)->get();
         $hari_ini = date('Y-m-d');
-        if ($check_auth == 'Urus Setia ULS') {
+        if (str_contains($check_auth, 'ULS')) {
             $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', 'Staf')->get();
             foreach ($jadualKursus as $key => $jk) {
                 $sum = 0;
@@ -59,7 +60,7 @@ class JadualKursusController extends Controller
                 'tempat' => $tempat,
                 'hari_ini' => $hari_ini
             ]);
-        } else if ($check_auth == 'Urus Setia ULPK') {
+        } else if (str_contains($check_auth, 'ULPK')) {
             $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', 'Pekebun Kecil')->get();
             foreach ($jadualKursus as $key => $jk) {
                 $sum = 0;
@@ -106,7 +107,7 @@ class JadualKursusController extends Controller
     public function create()
     {
         $check = Auth::user()->jenis_pengguna;
-        if ($check == 'Urus Setia ULS') {
+        if (str_contains($check, 'ULS')) {
             $kumpulan_sasaran = Staf::orderBy('Gred', 'ASC')->get()->groupBy('Gred');
             $hari_ini = date("Y-m-d");
             $tahun_ini = date("Y");
@@ -138,7 +139,7 @@ class JadualKursusController extends Controller
                 'staf_bertanggungjawab' => $staf_bertanggungjawab,
                 'kumpulan_sasaran' => $kumpulan_sasaran
             ]);
-        } elseif ($check == 'Urus Setia ULPK') {
+        } elseif (str_contains($check, 'ULPK')) {
             $hari_ini = date("Y-m-d");
             $tahun_ini = date("Y");
             $bidang = BidangKursus::where('UL_Bidang_Kursus', 'Pekebun Kecil')->get();
@@ -381,7 +382,7 @@ class JadualKursusController extends Controller
         $pengguna = Auth::user()->jenis_pengguna;
 
 
-        if ($pengguna == 'Urus Setia ULS') {
+        if (str_contains($pengguna, 'ULS')) {
             $kursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', 'Staf')->get();
              foreach ($kursus as $key => $jk) {
                 $sum = 0;
@@ -399,7 +400,7 @@ class JadualKursusController extends Controller
             return $pdf->download('Jadual_Kursus '.'Unit Latihan Staff'. $today .'.pdf');
         }
 
-        else if($pengguna == 'Urus Setia ULPK'){
+        else if(str_contains($pengguna, 'ULPK')){
             $kursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', 'Pekebun Kecil')->get();
 
             foreach ($kursus as $key => $jk) {
