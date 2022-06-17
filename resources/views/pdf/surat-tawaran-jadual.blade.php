@@ -5,9 +5,6 @@
 
 <style type="text/css">
 
-        body {
-            background: rgb(204,204,204);
-        }
 
         .page {
             background: white;
@@ -22,14 +19,13 @@
         @media print {
             body, page {
                 margin: 0;
-                box-shadow: 0;
             }
         }
 
 
     *{
             font: 12pt "Times New Roman";
-            line-height: 1.25;
+            line-height: 1.5;
             margin-left: 50px;
             margin-right: 50px;
             margin-top: 10px;
@@ -100,8 +96,8 @@
     }
 
     table, td, th {
-  border: 1px solid #ddd;
-  text-align: left;
+  border: 1px solid;
+  text-align: center;
 }
 
 table {
@@ -115,7 +111,7 @@ th, td {
 
     .footer {
         /* page-break-after: always; */
-        position: fixed;
+        position: absolute;
         bottom: 0;
         width: 100%;
         text-align: center;
@@ -139,11 +135,16 @@ th, td {
         <div class="column-side">
         </div>
     </div>
-
+<br><br>
     <h5 style="text-transform:uppercase;text-align:center">JADUAL KURSUS {{$jadual->kursus_nama}}.</h5>
 
 
     <table width="100%">
+        <tr>
+            <th>Hari</th>
+            <th>Masa</th>
+            <th>Aturcara</th>
+        </tr>
         @foreach ($aturcara as $ac)
         <tr>
             <td> {{$ac->ac_hari}}</td>
@@ -156,7 +157,7 @@ th, td {
 
     <br><br><br>
 
-    <footer><h5> Memacu masyarakat pekebun kecil makmur daripada sumber komoditidan hasil baharu berlandaskan revolusi perindustrian digital serta teknologi hijau</h5></footer>
+    <footer><h5> Memacu masyarakat pekebun kecil makmur daripada sumber komoditi dan hasil baharu berlandaskan revolusi perindustrian digital serta teknologi hijau</h5></footer>
 
 </p>
 

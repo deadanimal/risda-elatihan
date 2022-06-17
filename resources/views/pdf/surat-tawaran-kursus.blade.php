@@ -167,22 +167,11 @@
 
                 </tr>
                 <tr>
-                    <td>Masa</td>
-                    <td>:</td>
-                    <td></td>
-                </tr>
-                <tr>
                     <td style="align:top">Tempat Kursus & Penginapan</td>
                     <td>:</td>
                     <td>{{$agensi->nama_Agensi}}
-                        <br> {{$agensi->alamat_Agensi_baris1}}
-                        <br> {{$agensi->poskod}}  {{$agensi->daerah->Daerah}}
+                        <br> {{$agensi->alamat_Agensi_baris1}},{{$agensi->poskod}}  {{$agensi->daerah->Daerah}}
                         <br> {{$agensi->negeri->Negeri}}</td>
-                </tr>
-                <tr>
-                    <td>Peserta & Jadual</td>
-                    <td>:</td>
-                    <td> Lampiran 1 & 2</td>
                 </tr>
                 <tr>
                     <td> Kehadiran</td>
@@ -207,7 +196,7 @@
 
 
 
-        <footer> <hr> Memacu masyarakat pekebun kecil makmur daripada sumber komoditidan hasil baharu berlandaskan revolusi perindustrian digital serta teknologi hijau</footer>
+        <footer> <hr> Memacu masyarakat pekebun kecil makmur daripada sumber komoditi dan hasil baharu berlandaskan revolusi perindustrian digital serta teknologi hijau</footer>
 </p>
 </body>
 
