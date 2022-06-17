@@ -14,7 +14,7 @@ class PostTestController extends Controller
 {
     public function index($id)
     {
-        $jadual_kursus = JadualKursus::where('id', $id)->first();
+        $jadual_kursus = JadualKursus::where('id', $id)->with(['tempat'])->first();
 
         return view('penilaian.post.index', [
             'jadual_kursus' => $jadual_kursus,

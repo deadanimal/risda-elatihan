@@ -51,7 +51,7 @@
                             <h5>TARIKH KURSUS</h5>
                         </div>
                         <div class="col-8">
-                            <input type="text" class="form-control" value="{{ $jadual_kursus->tarikh_mula }}" readonly>
+                            <input type="text" class="form-control" value="{{date('d/m/Y', strtotime($jadual_kursus->tarikh_mula))}} - {{date('d/m/Y', strtotime($jadual_kursus->tarikh_tamat))}}" readonly>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -59,7 +59,7 @@
                             <h5>TEMPAT KURSUS</h5>
                         </div>
                         <div class="col-8">
-                            <input type="text" class="form-control" value="{{ $jadual_kursus->kursus_tempat }}"
+                            <input type="text" class="form-control" value="{{ $jadual_kursus->tempat->nama_Agensi }}"
                                 readonly>
                         </div>
                     </div>
