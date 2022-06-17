@@ -33,11 +33,14 @@ class PenilaianEjenPelaksanaController extends Controller
     // //    dd($kursus);
 
         $ejen=PenceramahKonsultan::with(['penilaianejen','agensi', 'jadual_kursus'])->get();
+        $hari_ini = date('Y-m-d');
+
             // $penilaian_ejen=PenilaianEjenPelaksana::where('jadual_kursus_id',$ejen->pc_jadual_kursus)->first();
 
 
         return view('penilaian.ejen-pelaksana.index',[
-            'ejen'=>$ejen
+            'ejen'=>$ejen,
+            'hari_ini'=>$hari_ini
             // 'penilaian'=>$penilaian
 
         ]);
@@ -58,6 +61,7 @@ class PenilaianEjenPelaksanaController extends Controller
         //     foreach ($agensi as $a) {
         //         $ejen = Agensi::where('id',$a->pc_id)->first();
         //     }
+
 
         // dd($ejen);
         return view('penilaian.ejen-pelaksana.soalan-ejen',[

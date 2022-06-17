@@ -99,21 +99,31 @@
                                     </td>
 
 
-
                                         @if($ejen->penilaianejen===null)
-                                     <td>
-                                        <a class="btn btn-primary btn-sm mb-2"
-                                        href="/penilaian/penilaian-ejen-pelaksana/{{$ejen->id}}">
-                                             Mula Penilaian
-                                        </a>
-                                     </td>
+                                            @if($hari_ini>=$ejen->jadual_kursus->tarikh_tamat)
 
+                                            <td>
+                                                <a class="btn btn-primary btn-sm mb-2"
+                                                href="/penilaian/penilaian-ejen-pelaksana/{{$ejen->id}}">
+                                                    Mula Penilaian
+                                                </a>
+                                            </td>
+
+                                            @else
+
+                                                <td>
+                                                    <button class="btn btn-secondary btn-sm mb-2" @disabled(true)>
+                                                        Mula Penilaian
+                                                    </button>
+                                                </td>
+
+                                            @endif
                                         @else
-                                        <td>
-                                            <a class="btn btn-primary btn-sm" href="/penilaian/ejen-pelaksana/{{$ejen->penilaianejen->id}}">
-                                                Papar Penilaian
-                                            </a>
-                                        </td>
+                                            <td>
+                                                <a class="btn btn-primary btn-sm" href="/penilaian/ejen-pelaksana/{{$ejen->penilaianejen->id}}">
+                                                    Papar Penilaian
+                                                </a>
+                                            </td>
                                             @endif
 
                                     </td>
