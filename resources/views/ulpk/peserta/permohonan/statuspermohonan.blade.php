@@ -85,7 +85,7 @@
                                                                         <td class="text-end" style="width:210px;">
                                                                             <div class="d-grid gap-2">
 
-                                                                                @if ($p->status_permohonan == 4)
+                                                                                @if (($p->status_permohonan == 4)||($p->status_permohonan == 6))
                                                                                     <a class="btn btn-primary btn-sm"
                                                                                         href="/uls/permohonan/kehadiran/{{ $p->kod_kursus }}">Kehadiran</a>
 
@@ -215,7 +215,7 @@
                                                                             <td class="text-end" style="width:210px;">
                                                                                 <div class="d-grid gap-2">
 
-                                                                                    @if ($p->status_permohonan == 4)
+                                                                                    @if (($p->status_permohonan == 4)||($p->status_permohonan == 6))
                                                                                         <a class="btn btn-primary btn-sm"
                                                                                             href="/uls/permohonan/kehadiran/{{ $p->kod_kursus }}">Kehadiran</a>
 
@@ -432,7 +432,7 @@
                                                                                     href="/cetak_sijilkursus/{{ $p->id }}">
                                                                                     Cetak Sijil Kursus
                                                                                 </a>
-                                                                        
+
 
                                                                             @endif
                                                                         </div>

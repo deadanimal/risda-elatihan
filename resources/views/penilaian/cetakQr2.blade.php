@@ -49,7 +49,7 @@
                         <p class="h6 p-0 m-0 risda-dg">TARIKH KURSUS</p>
                     </div>
                     <div class="col-9">
-                        <input type="text" class="form-control" value="{{ $jadual_kursus->tarikh_mula }}" readonly>
+                        <input type="text" class="form-control" value="{{date('d/m/Y', strtotime($jadual_kursus->tarikh_mula))}} - {{date('d/m/Y', strtotime($jadual_kursus->tarikh_tamat))}}" readonly>
                     </div>
                 </div>
 
