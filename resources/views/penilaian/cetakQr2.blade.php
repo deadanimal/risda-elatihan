@@ -87,7 +87,7 @@
                                 <td>
                                     <div class="qrcode" id="qr1"></div>
                                 </td>
-                                <td><a href="#" class="btn btn-primary"><i class="fas fa-print"></i></a></td>
+                                <td><a href="/cetak_QR_penilaian_kursus/{{$jadual_kursus->id}}" class="btn btn-primary"><i class="fas fa-print"></i></a></td>
                             </tr>
                             <tr>
                                 <td>
@@ -99,7 +99,7 @@
                                 <td>
                                     <div class="qrcode" id="qr2"></div>
                                 </td>
-                                <td><a href="#" class="btn btn-primary"><i class="fas fa-print"></i></a></td>
+                                <td><a href="/cetak_QR_pre_test/{{$jadual_kursus->id}}" class="btn btn-primary"><i class="fas fa-print"></i></a></td>
                             </tr>
                             <tr>
                                 <td>
@@ -109,7 +109,7 @@
                                     <p class="h5 risda-g">PENILAIAN POST TEST</p>
                                 </td>
                                 <td><div class="qrcode" id="qr3"></div></td>
-                                <td><a href="#" class="btn btn-primary"><i class="fas fa-print"></i></a></td>
+                                <td><a href="/cetak_QR_post_test/{{$jadual_kursus->id}}" class="btn btn-primary"><i class="fas fa-print"></i></a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -140,7 +140,7 @@
                 correctLevel: QRCode.CorrectLevel.H,
             });
 
-            var outUrl3 = APP_URL + "http://risda-elatihan.prototype.com.my/penilaian/jawab-pre-post-test";
+            var outUrl3 = APP_URL + "http://risda-elatihan.prototype.com.my/penilaian/jawab-post-test";
             new QRCode(document.getElementById('qr3'), {
                 text: outUrl3,
                 width: 90,

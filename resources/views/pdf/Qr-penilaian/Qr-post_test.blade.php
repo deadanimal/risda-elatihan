@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>QR Code Kursus</title>
+    <title>QR Code Penilaian Post Test</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -68,16 +68,16 @@
                         <h4> PIHAK BERKUASA KEMAJUAN PEKEBUN KECIL PERUSAHAAN GETAH (RISDA)</h4>
                         <br><br>
                         {{-- <img src="https://api.qrserver.com/v1/create-qr-code/?data=http://127.0.0.1:8000/uls/kehadiran/{{$id}}" alt="" title="" /> --}}
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?data=risda-elatihan.prototype.com.my/uls/kehadiran/{{$id}}" alt="" title="" />
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?data=risda-elatihan.prototype.com.my/penilaian/jawab-post-test"/>
 
                     </div>
                 <div class="b">
                     <div class="col" style="text-align: justify">
-                        <h4> Nama Kursus: {{$kursus->kursus_nama}}</h4>
-                        <h4> Masa: {{$aturcara->ac_masa_mula}}</h4>
-                        <h4> Hari: {{$aturcara->ac_hari}}</h4>
-                        <h4> Sesi: {{$aturcara->ac_sesi}}</h4>
-                        <h4> Aturcara: {{$aturcara->ac_aturcara}}</h4>
+                        <h3 style="text-transform:capitalize;text-align:center">PENILAIAN POST TEST</h3>
+                        <h4 style="text-transform:capitalize"> Nama Kursus: {{$kursus->kursus_nama}}</h4>
+                        <h4 style="text-transform:capitalize"> Tarikh Kursus: {{date('d-m-Y', strtotime($kursus->tarikh_mula))}} hingga {{date('d-m-Y', strtotime($kursus->tarikh_tamat))}}</h4>
+
+
                     </div>
                 </div>
 
