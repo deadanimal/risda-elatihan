@@ -148,6 +148,48 @@ class CetakKodQRController extends Controller
 
     }
 
+    public function cetakQrpost_test(JadualKursus $kursus)
+    {
+
+
+        $pdf = PDF::loadView('pdf.Qr-penilaian.Qr-post_test', [
+                'kursus'=>$kursus
+            ]);
+
+        return $pdf->stream('QRCode Penilaian Post Test ' . $kursus->kursus_nama .'.pdf');
+
+        // return $pdf->stream("dompdf_out.pdf", array("Attachment" => false));
+
+    }
+
+    public function cetakQrpre_test(JadualKursus $kursus)
+    {
+
+
+        $pdf = PDF::loadView('pdf.Qr-penilaian.Qr-pretest', [
+                'kursus'=>$kursus
+            ]);
+
+        return $pdf->stream('QRCode Penilaian Pre Test ' . $kursus->kursus_nama .'.pdf');
+
+        // return $pdf->stream("dompdf_out.pdf", array("Attachment" => false));
+
+    }
+
+    public function cetakQr_penilaian_kursus(JadualKursus $kursus)
+    {
+
+
+        $pdf = PDF::loadView('pdf.Qr-penilaian.Qr-penilaian-kursus', [
+                'kursus'=>$kursus
+            ]);
+
+        return $pdf->stream('QRCode Penilaian Kursus' . $kursus->kursus_nama .'.pdf');
+
+        // return $pdf->stream("dompdf_out.pdf", array("Attachment" => false));
+
+    }
+
 
 
 }

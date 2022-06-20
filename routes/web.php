@@ -179,6 +179,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/cetak_jadual',[JadualKursusController::class,'cetakjadualkursus']);
     Route::get('/cetak_surat_tawaran/{id}',[PermohonanController::class,'cetaksurattawaran']);
     Route::get('/cetak_sijilkursus/{id}',[KehadiranController::class,'cetaksijilkursus']);
+    Route::get('/cetak_QR_post_test/{kursus}',[CetakKodQRController::class,'cetakQrpost_test']);
+    Route::get('/cetak_QR_pre_test/{kursus}',[CetakKodQRController::class,'cetakQrpre_test']);
+    Route::get('/cetak_QR_penilaian_kursus/{kursus}',[CetakKodQRController::class,'cetakQr_penilaian_kursus']);
+
 
 
     // Route::resource('/pengurusan_pengguna/pengguna', PengurusanPenggunaController::class);
@@ -354,7 +358,7 @@ Route::middleware('auth')->group(function () {
 
             Route::get('/cetakQr', [PenilaianPesertaController::class, 'cetakQr']);
             Route::get('/cetakQr2/{jadual_kursus}', [PenilaianPesertaController::class, 'cetakQr2']);
-            Route::get('/cetakQrPenilaian/{jadual_kursus}', [PenilaianPesertaController::class, 'cetakQr2']);
+            Route::get('/cetakQrPenilaian/{kursus}', [PenilaianPesertaController::class, 'cetakQr2']);
         });
 
         Route::group(['middleware' => 'role:Peserta ULS|Peserta ULPK'], function () {
