@@ -31,7 +31,7 @@
                                         @csrf
                                         <div class="mb-3">
                                             <label class="col-form-label">KOD OBJEK</label>
-                                            <input class="form-control" type="number" name="kod_Objek"
+                                            <input class="form-control" type="text" name="kod_Objek"
                                                 value="{{ $bil }}" />
                                         </div>
                                         <div class="mb-3">
@@ -117,7 +117,7 @@
                                                             @csrf
                                                             <div class="mb-3">
                                                                 <label class="col-form-label">KOD OBJEK</label>
-                                                                <input class="form-control" type="number" name="kod_Objek"
+                                                                <input class="form-control" type="text" name="kod_Objek"
                                                                     value="{{ $ob->kod_Objek }}" />
                                                             </div>
                                                             <div class="mb-3">
