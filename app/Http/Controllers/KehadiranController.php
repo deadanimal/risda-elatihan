@@ -26,8 +26,9 @@ class KehadiranController extends Controller
         ]);
     }
 
-    public function indexULS($kod_kursus)
+    public function indexULS($id)
     {
+        $permohonan = Permohonan::find($id);
         function displayDates($date1, $date2, $format = 'Y-m-d')
         {
             $dates = array();
@@ -41,15 +42,15 @@ class KehadiranController extends Controller
             return $dates;
         }
 
-        $kod_kursuss = JadualKursus::where('id', $kod_kursus)->firstorFail();
-        $aturcara = Aturcara::with(['jadual'])->where('ac_jadual_kursus', $kod_kursus)
+        $kod_kursuss = JadualKursus::where('id', $permohonan->kod_kursus)->firstorFail();
+        $aturcara = Aturcara::with(['jadual'])->where('ac_jadual_kursus', $permohonan->kod_kursus)
             ->orderBy('ac_hari', 'ASC')
             ->orderBy('ac_sesi', 'ASC')
             ->get();
 
         foreach ($aturcara as $key => $ac) {
             $kehadiran = Kehadiran::where('kod_kursus', $kod_kursuss->kursus_kod_nama_kursus)
-            ->where('no_pekerja', Auth::id())
+            ->where('no_pekerja', $permohonan->no_pekerja)
             ->where('jadual_kursus_ref', $ac->id)
             ->first();
 
@@ -59,7 +60,7 @@ class KehadiranController extends Controller
                 $ac['status_kehadiran'] = $kehadiran;
             }
 
-            if ($kehadiran->status_kehadiran_ke_kursus == null) {
+            if ($kehadiran['status_kehadiran_ke_kursus'] == null) {
                 $ac['status_ke_kursus'] = null;
             } else {
                 $ac['status_ke_kursus'] = $kehadiran;
@@ -69,13 +70,13 @@ class KehadiranController extends Controller
         $hari = ['Pertama', 'Kedua', 'Ketiga', 'Keempat', 'Kelima', 'Keenam'];
 
         $date = displayDates($kod_kursuss->tarikh_mula, $kod_kursuss->tarikh_tamat);
-        // dd($kehadiran);
+        
         return view('uls.peserta.permohonan.kehadiran', [
             'kod_kursus' => $kod_kursuss,
             'kehadiran' => $kehadiran,
             'hari' => $hari,
             'date' => $date,
-            'id_jadual' => $kod_kursus,
+            'id_jadual' => $permohonan->kod_kursus,
             'aturcara'=>$aturcara,
         ]);
     }
