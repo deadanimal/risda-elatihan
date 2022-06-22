@@ -217,6 +217,7 @@ class JadualKursusController extends Controller
     public function store(StoreJadualKursusRequest $request)
     {
         $jadualKursus = new JadualKursus($request->all());
+        $jadualKursus->kursus_kumpulan_sasaran = serialize($request->kursus_kumpulan_sasaran);
         if ($request->status == 'on') {
             $status = 1;
         } else {
@@ -256,15 +257,44 @@ class JadualKursusController extends Controller
         $kategori = KategoriKursus::all();
         $kod_kursus = KodKursus::all();
         $status_pelaksanaan = StatusPelaksanaan::all();
-        return view('pengurusan_kursus.semak_jadual.edit', [
-            'jadual' => $jadualKursus,
-            'bidang' => $bidang,
-            'kategori' => $kategori,
-            'kod_kursus' => $kod_kursus,
-            'status_pelaksanaan' => $status_pelaksanaan,
-            'list_jadual' => $list_jadual,
-            'pengendali' => $pengendali,
-        ]);
+        
+
+        if ($jadualKursus->kursus_unit_latihan == 'Staf') {
+            $gred = unserialize($jadualKursus->kursus_kumpulan_sasaran);
+            $kumpulan_sasaran = Staf::orderBy('Gred', 'ASC')->get()->groupBy('Gred');
+
+            $kump_sasar = [];
+            foreach ($kumpulan_sasaran as $a => $ks) {
+                foreach ($gred as $b => $g) {
+                    if ($a != $g) {
+                        array_push($kump_sasar, $a);
+                        break;
+                    }
+                }
+            }
+
+            return view('pengurusan_kursus.semak_jadual.edit.uls', [
+                'jadual' => $jadualKursus,
+                'bidang' => $bidang,
+                'kategori' => $kategori,
+                'kod_kursus' => $kod_kursus,
+                'status_pelaksanaan' => $status_pelaksanaan,
+                'list_jadual' => $list_jadual,
+                'pengendali' => $pengendali,
+                'gred'=>$gred,
+                'kumpulan_sasaran'=>$kump_sasar
+            ]);
+        } else {
+            return view('pengurusan_kursus.semak_jadual.edit.ulpk', [
+                'jadual' => $jadualKursus,
+                'bidang' => $bidang,
+                'kategori' => $kategori,
+                'kod_kursus' => $kod_kursus,
+                'status_pelaksanaan' => $status_pelaksanaan,
+                'list_jadual' => $list_jadual,
+                'pengendali' => $pengendali,
+            ]);
+        }
     }
 
     /**

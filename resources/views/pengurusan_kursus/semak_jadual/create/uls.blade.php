@@ -192,10 +192,12 @@
                     <div class="row mb-3">
                         <div class="col">
                             <label class="col-form-label">KUMPULAN SASARAN</label>
-                            <select class="form-select form-control" name="kursus_kumpulan_sasaran">
-                                <option value="" selected hidden>Sila Pilih</option>
-                                @foreach ($kumpulan_sasaran as $ks=>$item)
-                                    <option value="{{$ks}}">{{$ks}}</option>
+                            <select class="form-select js-choice form-control" multiple="multiple" size="1"
+                                name="kursus_kumpulan_sasaran[]"
+                                data-options='{"removeItemButton":true,"placeholder":true}'>
+                                <option value="" hidden>Sila Pilih</option>
+                                @foreach ($kumpulan_sasaran as $ks => $item)
+                                    <option value="{{ $ks }}">{{ $ks }}</option>
                                 @endforeach
                             </select>
                         </div>

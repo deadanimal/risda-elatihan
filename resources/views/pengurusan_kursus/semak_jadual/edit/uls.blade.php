@@ -1,11 +1,12 @@
 @extends('layouts.risda-base')
-<style>
-    .choices .choices__list--dropdown .choices__item--selectable.is-highlighted {
-        background-color: #009640;
-        color: var(--falcon-choices-item-selectable-highlighted-bg);
-    }
-</style>
 @section('content')
+    @php
+    use App\Models\BidangKursus;
+    use App\Models\KategoriKursus;
+    use App\Models\KodKursus;
+    use App\Models\StatusPelaksanaan;
+    use App\Models\Agensi;
+    @endphp
     <div class="container">
         <div class="row">
             <div class="col">
@@ -13,39 +14,43 @@
                 <h5 class="risda-dg">SEMAK JADUAL KURSUS - <span class="risda-g">TAMBAH KURSUS</span></h5>
             </div>
         </div>
-
+    
         <hr class="risda-g">
-
+    
         <div class="row">
             <div class="col">
                 <h5 class="h3">MAKLUMAT KURSUS</h5>
             </div>
         </div>
-
+    
         <div class="row justify-content-lg-center mt-3">
             <div class="col-lg-10">
-                <form action="/pengurusan_kursus/semak_jadual" method="POST" id="form_add">
+                <form action="/pengurusan_kursus/semak_jadual/{{ $jadual->id }}" method="POST" id="form_add">
+                    @method('PUT')
                     @csrf
                     <div class="row mb-2">
                         <div class="col-lg-7">
                             <label class="col-form-label p-0">UNIT LATIHAN</label>
-                            <select class="form-select form-control" name="kursus_unit_latihan" id="unitlatihan" required
-                                oninvalid="this.setCustomValidity('Sila pilih unit latihan.')"
-                                oninput="setCustomValidity('')">
-
-                                <option value="" selected hidden>Sila Pilih</option>
+                            <select class="form-select form-control" name="kursus_unit_latihan" id="unitlatihan">
+                                <option selected="" hidden value="{{ $jadual->kursus_unit_latihan }}">
+                                    {{ $jadual->kursus_unit_latihan }}</option>
                                 <option value="Staf">Staf</option>
                                 <option value="Pekebun Kecil">Pekebun Kecil</option>
                             </select>
                         </div>
                         <div class="col-lg-3">
                             <label class="col-form-label">STATUS</label>
+                            @if ($jadual->kursus_status == '1')
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" name="status"
-                                    oninvalid="this.setCustomValidity('Sila pilih status.')"
-                                    oninput="setCustomValidity('')" />
+                                <input class="form-check-input" checked="" type="checkbox" name="status" />
                                 <label class="form-check-label">Aktif</label>
                             </div>
+                            @else
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" checked="" type="checkbox" name="status" />
+                                <label class="form-check-label">Aktif</label>
+                            </div>
+                            @endif
                         </div>
                     </div>
                     <div class="row">
@@ -53,24 +58,28 @@
                             <div class="mb-3">
                                 <label class="col-form-label">TAHUN</label>
                                 <input class="form-control tahun" type="text" name="tahun" id="tahun"
-                                    value="{{ $tahun_ini }}" readonly required />
+                                    value="{{ $jadual->tahun }}" readonly />
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="mb-3">
                                 <label class="col-form-label">TARIKH DAFTAR</label>
                                 <input class="form-control" type="date" name="kursus_tarikh_daftar"
-                                    value="{{ $hari_ini }}" readonly required />
+                                    value="{{ $jadual->kursus_tarikh_daftar }}" readonly />
                             </div>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col">
                             <label class="col-form-label">BIDANG KURSUS</label>
-                            <select class="form-select form-control" name="kursus_bidang" id="kursus_bidang" required
-                                oninvalid="this.setCustomValidity('Sila pilih bidang kursus.')"
-                                oninput="setCustomValidity('')">
-                                <option value="" selected hidden>Sila Pilih</option>
+                            <select class="form-select form-control" name="kursus_bidang" id="kursus_bidang">
+                                <option selected="" hidden value="{{ $jadual->kursus_bidang }}">
+                                    @php
+                                        $bidangKursus = BidangKursus::find($jadual->kursus_bidang);
+                                        $bidangKursus = $bidangKursus->nama_Bidang_Kursus;
+                                    @endphp
+                                    {{ $bidangKursus }}
+                                </option>
                                 @foreach ($bidang as $b)
                                     <option value="{{ $b->id }}">{{ $b->nama_Bidang_Kursus }}</option>
                                 @endforeach
@@ -80,34 +89,36 @@
                     <div class="row mb-3">
                         <div class="col">
                             <label class="col-form-label">KATEGORI KURSUS</label>
-                            <select class="form-select form-control" name="kod_kategori" id="kursus_kategori" required
-                                oninvalid="this.setCustomValidity('Sila pilih kategori kursus.')"
-                                oninput="setCustomValidity('')">
-                                <option value="" selected hidden>Sila Pilih</option>
-                                @foreach ($kategori as $k)
-                                    <option value="{{ $k->id }}">{{ $k->nama_Kategori_Kursus }}</option>
-                                @endforeach
+                            <select class="form-select form-control" name="kod_kategori" id="kursus_kategori">
+                                <option selected="" hidden value="{{ $jadual->kod_kategori }}">
+                                    @php
+                                        $kategoriKursus = KategoriKursus::find($jadual->kod_kategori);
+                                        $kategoriKursus = $kategoriKursus->nama_Kategori_Kursus;
+                                    @endphp
+                                    {{ $kategoriKursus }}
+                                </option>
                             </select>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col">
                             <label class="col-form-label">TAJUK KURSUS</label>
-                            <select class="form-select form-control" name="kod_kursus" id="tajuk" required
-                                oninvalid="this.setCustomValidity('Sila pilih tajuk kursus.')"
-                                oninput="setCustomValidity('')">
-                                <option value="" selected hidden>Sila Pilih</option>
-                                @foreach ($kod_kursus as $t)
-                                    <option value="{{ $t->id }}">{{ $t->tajuk_Kursus }}</option>
-                                @endforeach
+                            <select class="form-select form-control" name="kod_kursus" id="tajuk">
+                                <option selected="" hidden value="{{ $jadual->kod_kursus }}">
+                                    @php
+                                        $kodKursus = KodKursus::find($jadual->kod_kursus);
+                                        $kodKursus = $kodKursus->tajuk_Kursus;
+                                    @endphp
+                                    {{ $kodKursus }}
+                                </option>
                             </select>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col">
                             <label class="col-form-label">SIRI KURSUS</label>
-                            <input type="number" name="id_siri" id="siri" class="form-control" min="1"
-                                max="99" readonly>
+                            <input class="form-control" type="text" name="id_siri" id="siri" value="{{ $jadual->id_siri }}"
+                                readonly>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -115,16 +126,17 @@
                             <div class="mb-3">
                                 <label class="col-form-label">NAMA KURSUS</label>
                                 <input class="form-control" type="text" name="kursus_nama" id="nama_kursus"
-                                    value="" readonly />
+                                    value="{{ $jadual->kursus_nama }}" readonly />
                             </div>
                         </div>
                     </div>
+                    {{-- sini --}}
                     <div class="row mb-3">
                         <div class="col">
                             <div class="mb-3">
                                 <label class="col-form-label">KOD NAMA KURSUS</label>
                                 <input class="form-control" type="text" name="kursus_kod_nama_kursus"
-                                    id="kod_siri_kk" readonly />
+                                    value="{{ $jadual->kursus_kod_nama_kursus }}" readonly id="kod_siri_kk"/>
                             </div>
                         </div>
                     </div>
@@ -133,41 +145,38 @@
                             <div class="mb-3">
                                 <label class="col-form-label">TARIKH MULA KURSUS</label>
                                 <input class="form-control" type="date" name="tarikh_mula" id="tm"
-                                    min="<?php echo date('Y-m-d'); ?>" required
-                                    oninvalid="this.setCustomValidity('Sila pilih tarikh mula.')"
-                                    oninput="setCustomValidity('')" />
+                                    value="{{ $jadual->tarikh_mula }}" />
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="mb-3">
                                 <label class="col-form-label">TARIKH TAMAT KURSUS</label>
-                                <input class="form-control" type="date" name="tarikh_tamat" id="tt" required
-                                    oninvalid="this.setCustomValidity('Sila pilih tarikh tamat.')"
-                                    oninput="setCustomValidity('')" />
+                                <input class="form-control" type="date" name="tarikh_tamat" id="tt"
+                                    value="{{ $jadual->tarikh_tamat }}" />
                             </div>
                         </div>
                     </div>
                     <div class="row mb-0">
                         <div class="col-lg-6">
                             <div class="mb-3">
-                                <label class="col-form-label">TEMPOH KURSUS (HARI)</label>
+                                <label class="col-form-label">TEMPOH KURSUS</label>
                                 <input class="form-control" type="text" name="bilangan_hari" id="tk"
-                                    readonly />
+                                    value="{{ $jadual->bilangan_hari }}" />
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        {{-- <div class="col-lg-6">
                             <div class="mb-3">
-                                {{-- <label class="col-form-label">STATUS PERLAKSANAAN</label>
-                                <select class="form-select form-control" name="kursus_status_pelaksanaan" required
-                                    oninvalid="this.setCustomValidity('Sila pilih status pelaksanaan.')"
-                                    oninput="setCustomValidity('')">
-                                    <option value="" selected hidden>Sila Pilih</option>
+                                <label class="col-form-label">STATUS PERLAKSANAAN</label>
+                                <select class="form-select form-control" name="kursus_status_pelaksanaan">
+                                    <option selected="" hidden value="{{ $jadual->kursus_status_pelaksanaan }}">
+                                        {{ $jadual->status_pelaksanaan->Status_Pelaksanaan }}
+                                    </option>
                                     @foreach ($status_pelaksanaan as $sp)
                                         <option value="{{ $sp->id }}">{{ $sp->Status_Pelaksanaan }}</option>
                                     @endforeach
-                                </select> --}}
+                                </select>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="row mb-0">
                         <div class="col-lg-6">
@@ -175,20 +184,16 @@
                                 <label class="col-form-label">MASA PENDAFTARAN</label>
                                 {{-- <input class="form-control datetimepicker" name="kursus_masa_pendaftaran" id="timepicker1"
                                     type="text" placeholder="H:i"
-                                    data-options='{"enableTime":true,"noCalendar":true,"dateFormat":"H:i","disableMobile":true}' /> --}}
-                                <input class="form-control" name="kursus_masa_pendaftaran" type="time"
-                                    placeholder="H:i" required
-                                    oninvalid="this.setCustomValidity('Sila pilih masa pendaftaran.')"
-                                    oninput="setCustomValidity('')" />
+                                    data-options='{"enableTime":true,"noCalendar":true,"dateFormat":"H:i","disableMobile":true}'
+                                    value="{{ $jadual->kursus_masa_pendaftaran }}" /> --}}
+                                    <input class="form-control" name="kursus_masa_pendaftaran" type="time" value="{{$jadual->kursus_masa_pendaftaran}}"/>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="mb-3">
                                 <label class="col-form-label">TARIKH TUTUP TAWARAN</label>
                                 <input class="form-control" type="date" name="kursus_tarikh_tutup"
-                                    min="<?php echo date('Y-m-d'); ?>" required
-                                    oninvalid="this.setCustomValidity('Sila pilih tarikh tutup tawaran.')"
-                                    oninput="setCustomValidity('')" />
+                                    value="{{ $jadual->kursus_tarikh_tutup }}" />
                             </div>
                         </div>
                     </div>
@@ -196,48 +201,50 @@
                         <div class="col-lg-6">
                             <div class="mb-3">
                                 <label class="col-form-label">KOD HRMIS</label>
-                                <input class="form-control" type="text" name="kursus_hrmis" />
+                                <input class="form-control" type="text" name="kursus_hrmis"
+                                    value="{{ $jadual->kursus_hrmis }}" />
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <div class="mb-3" id="julat_umur">
+                            <div class="mb-3">
                                 <label class="col-form-label">JULAT UMUR</label>
                                 <div class="row m-0 p-0">
                                     <div class="col-lg-4 p-0 m-0">
-                                        <input class="form-control" type="text" name="kursus_julat_umur1" />
+                                        <input class="form-control" type="text" name="kursus_julat_umur1"
+                                            value="{{ $jadual->kursus_julat_umur1 }}" />
                                     </div>
                                     <div class="col-lg-4 p-0 m-0 text-center">
                                         <span class="risda-g">HINGGA</span>
                                     </div>
                                     <div class="col-lg-4 p-0 m-0">
-                                        <input class="form-control" type="text" name="kursus_julat_umur2" />
+                                        <input class="form-control" type="text" name="kursus_julat_umur2"
+                                            value="{{ $jadual->kursus_julat_umur2 }}" />
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="row mb-3" id="kump_sasaran">
-                        <div class="col">
-                            <label class="col-form-label">KUMPULAN SASARAN</label>
-                            <select class="form-select js-choice form-control" multiple="multiple" size="1"
-                                name="kursus_kumpulan_sasaran[]"
-                                data-options='{"removeItemButton":true,"placeholder":true}'>
-                                <option value="" hidden>Sila Pilih</option>
-                                @foreach ($kumpulan_sasaran as $lol => $ks)
-                                    <option value="{{ $ks }}">{{ $ks }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                    <div class="col">
+                        <label class="col-form-label">KUMPULAN SASARAN</label>
+                        <select class="form-select js-choice form-control" multiple="multiple" size="1"
+                            name="kursus_kumpulan_sasaran[]"
+                            data-options='{"removeItemButton":true,"placeholder":true}'>
+                            @foreach ($gred as $g)
+                                <option selected value="{{ $g }}">{{ $g }}</option>
+                            @endforeach
+                            @foreach ($kumpulan_sasaran as $lol => $ks)
+                                <option value="{{ $ks }}">{{ $ks }}</option>
+                            @endforeach
+                        </select>
                     </div>
-
+                    
                     <div class="row mb-3">
                         <div class="col">
                             <label class="col-form-label">PENGENDALI LATIHAN</label>
-                            <select class="form-select form-control" name="kursus_pengendali_latihan" required
-                                oninvalid="this.setCustomValidity('Sila pilih pengendali latihan.')"
-                                oninput="setCustomValidity('')">
-                                <option value="" selected hidden>Sila Pilih</option>
+                            <select class="form-select form-control" name="kursus_pengendali_latihan">
+                                <option selected="" hidden value="{{ $jadual->kursus_pengendali_latihan }}">{{ $jadual->pengendali->nama_Agensi }}
+                                </option>
                                 @foreach ($pengendali as $pl)
                                     @if ($pl->kategori->Kategori_Agensi != 'Tempat Kursus')
                                         <option value="{{ $pl->id }}">{{ $pl->nama_Agensi }}</option>
@@ -249,101 +256,75 @@
                     <div class="row mb-3">
                         <div class="col">
                             <label class="col-form-label">CATATAN</label>
-                            <input type="text" class="form-control" name="kursus_catatan">
+                            <input type="text" class="form-control" name="kursus_catatan"
+                                value="{{ $jadual->kursus_catatan }}">
                         </div>
                     </div>
-                    @if ($tempat == null)
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label class="col-form-label">TEMPAT KURSUS</label>
-                                <label class="col-form-label text-danger font-italic">KATEGORI "Tempat Kursus" TIADA
-                                    DIDALAM
-                                    SENARAI
-                                    AGENSI. SILA TAMBAH DI BAHAGIAN AGENSI (UTILITI->KOD KUMPULAN) UNTUK MENERUSKAN
-                                    PENAMBAHAN
-                                    JADUAL KURSUS</label>
-                            </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label class="col-form-label">TEMPAT KURSUS</label>
+                            <select class="form-select form-control" name="kursus_tempat">
+                                <option selected="" hidden value="{{ $jadual->kursus_tempat }}">
+                                    @php
+                                        $tempatKursus = Agensi::find($jadual->kursus_tempat);
+                                        $tempatKursus = $tempatKursus->nama_Agensi;
+                                    @endphp
+                                    {{ $tempatKursus }}
+                                </option>
+                                @foreach ($kod_kursus as $tk)
+                                    <option value="{{ $tk->id }}">{{ $tk->tempat_khusus }}</option>
+                                @endforeach
+                            </select>
                         </div>
-                    @else
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label class="col-form-label">TEMPAT KURSUS</label>
-                                <select class="form-select form-control" name="kursus_tempat" id="tempat" required
-                                    oninvalid="this.setCustomValidity('Sila pilih tempat kursus.')"
-                                    oninput="setCustomValidity('')">
-                                    <option value="" selected hidden>Sila Pilih</option>
-                                    @foreach ($tempat as $tk)
-                                        <option value="{{ $tk->id }}">{{ $tk->nama_Agensi }}</option>
-                                    @endforeach
-                                </select>
-
-                            </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label class="col-form-label">ALAMAT TEMPAT KURSUS</label>
+                            <textarea class="form-control" rows="3"
+                                name="kursus_alamat_tempat_kursus" readonly>{{ $jadual->tempat->alamat_Agensi_baris1 }}</textarea>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label class="col-form-label">ALAMAT TEMPAT KURSUS</label>
-                                <textarea class="form-control" rows="3" name="kursus_alamat_tempat_kursus" id="alamat"></textarea>
-                            </div>
-                        </div>
-                    @endif
-
+                    </div>
                     <div class="row mb-3">
                         <div class="col">
                             <label class="col-form-label">OBJEKTIF</label>
-                            <textarea class="form-control" rows="3" name="kursus_objektif" required
-                                oninvalid="this.setCustomValidity('Sila nyatakan objektif kursus.')" oninput="setCustomValidity('')"></textarea>
+                            <textarea class="form-control" rows="3"
+                                name="kursus_objektif">{{ $jadual->kursus_objektif }}</textarea>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col">
                             <label class="col-form-label">SILIBUS</label>
-                            <input type="text" class="form-control" name="kursus_silibus">
+                            <input type="text" class="form-control" name="kursus_silibus"
+                                value="{{ $jadual->kursus_silibus }}">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col">
                             <label class="col-form-label">METODOLOGI</label>
-                            <input type="text" class="form-control" name="kursus_metodologi">
+                            <input type="text" class="form-control" name="kursus_metodologi"
+                                value="{{ $jadual->kursus_metodologi }}">
                         </div>
                     </div>
-                    {{-- <div class="row mb-3">
-                        <div class="col">
-                            <label class="col-form-label">NOTA RUJUKAN</label>
-                            <input type="file" class="form-control" name="nota_rujukan">
-                        </div>
-                    </div> --}}
                     <div class="row mb-3">
                         <div class="col">
                             <label class="col-form-label">NO. FT</label>
-                            <input type="text" class="form-control" name="kursus_no_ft">
+                            <input type="text" class="form-control" name="kursus_no_ft"
+                                value="{{ $jadual->kursus_no_ft }}">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col">
                             <label class="col-form-label">STAF YANG BERTANGGUNGJAWAB</label>
-                            {{-- <input type="text" class="form-control" name="kursus_staf_yang_bertanggungjawab"> --}}
-                            <select name="kursus_staf_yang_bertanggungjawab" class="form-control">
-                                <option value="" selected hidden>Sila Pilih</option>
-                                @foreach ($staf_bertanggungjawab as $sb)
-                                    <option value="{{ $sb->pengguna->name }}">{{ $sb->pengguna->name }}</option>
-                                @endforeach
-                            </select>
+                            <input type="text" class="form-control" name="kursus_staf_yang_bertanggungjawab"
+                                value="{{ $jadual->kursus_staf_yang_bertanggungjawab }}">
                         </div>
                     </div>
-
-                    @if ($tempat == null)
-                        <div class="row mb-3">
-                            <div class="col text-end">
-                                <button type="submit" class="btn btn-secondary" disabled>Seterusnya</button>
-                            </div>
+    
+                    <div class="row mb-3">
+                        <div class="col text-end">
+                            <button type="submit" class="btn btn-primary">Seterusnya</button>
                         </div>
-                    @else
-                        <div class="row mb-3">
-                            <div class="col text-end">
-                                <button type="submit" class="btn btn-primary">Seterusnya</button>
-                            </div>
-                        </div>
-                    @endif
+                    </div>
                 </form>
             </div>
         </div>
@@ -357,18 +338,44 @@
                 minViewMode: "years",
                 autoclose: true
             });
+
+            // UL - Bidang
+            var id_ul = $('#unitlatihan option:selected').val();
+            $('#form_add select[name=kursus_bidang]').html("");
+            var bid = @json($bidang->toArray());
+            let option_new1 = "";
+            bid.forEach(element => {
+                if (id_ul === element.UL_Bidang_Kursus) {
+                    $('#form_add select[name=kursus_bidang]').append(
+                        `<option value=${element.id} class=${element.kod_Bidang_Kursus}>${element.nama_Bidang_Kursus}</option>`
+                    );
+                }
+            });
+
+            // Bidang - Kategori
+            var id_bidang = $('#kursus_bidang option:selected').val();
+            var kat_kur = @json($kategori->toArray());
+            kat_kur.forEach(element => {
+                console.log(id_bidang);
+                if (id_bidang == element.U_Bidang_Kursus) {
+                    $('#form_add select[name=kod_kategori]').append(
+                        `<option value=${element.id}>${element.nama_Kategori_Kursus}</option>`);
+                }
+            });
+
+            // Kategori - Tajuk
+            var id_kategori = $('#kursus_kategori option:selected').val();
+            var kod_kur = @json($kod_kursus->toArray());
+            kod_kur.forEach(element => {
+                if (id_kategori == element.U_Kategori_Kursus) {
+                    $('#form_add select[name=kod_kursus]').append(
+                        `<option value=${element.id} class=${element.kod_Kursus} >${element.tajuk_Kursus}</option>`
+                    );
+                }
+            });
         });
 
         $('#unitlatihan').change(function() {
-            var unit = $('#unitlatihan').val();
-            console.log(unit);
-            if (unit == 'Staf') {
-                $('#julat_umur').hide();
-                $('#kump_sasaran').show();
-            } else if (unit == 'Pekebun Kecil') {
-                $('#julat_umur').show();
-                $('#kump_sasaran').hide();
-            }
 
             $('#form_add select[name=kursus_bidang]').html("");
             var bid = @json($bidang->toArray());
@@ -425,6 +432,7 @@
 
             // cari available siri
             var list_siri = @json($list_jadual->toArray());
+            console.log('Siri: '+ list_siri);
             var siri = 1;
             list_siri.forEach(element => {
                 var tajuk_list = element.kod_kursus;
@@ -474,38 +482,6 @@
                 $('#tk').val(tempoh);
             }
 
-        });
-        // check balik bwh ni
-        $('#tempat').change(function() {
-            var tempatkursus = $('#tempat').val();
-            console.log(tempatkursus);
-            // var check = @json($tempat->toArray());
-            var list_tempat = @json($tempat->toArray());
-            var list_negeri = @json($negeri->toArray());
-            var list_daerah = @json($daerah->toArray());
-            var alamat = '';
-            list_tempat.forEach(element => {
-                if (tempatkursus == element.id) {
-                    alamat = element.alamat_Agensi_baris1;
-                    poskod = element.poskod;
-                    kod_daerah = element.U_Daerah_ID;
-                    kod_negeri = element.U_Negeri_ID;
-
-                    list_negeri.forEach(element2 => {
-                        if (kod_negeri == element2.id) {
-                            negeri = element2.Negeri;
-                        }
-                    });
-
-                    list_daerah.forEach(element3 => {
-                        if (kod_daerah == element3.id) {
-                            daerah = element3.Daerah;
-                        }
-                    });
-                }
-            });
-            console.log(alamat, poskod, negeri, daerah);
-            $('#alamat').val(alamat + ', ' + poskod + ' ' + daerah + ', ' + negeri);
         });
     </script>
 @endsection
