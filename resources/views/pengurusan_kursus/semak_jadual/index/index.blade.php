@@ -44,7 +44,7 @@
                             </div>
                             <div class="col-lg-8">
                                 <input class="form-control datetimepicker" id="search_TA" type="text"
-                                    placeholder="dd/mm/yyyy" data-options='{"disableMobile":true}'
+                                    placeholder="dd/mm/yyyy" data-options='{"disableMobile":true, "dateFormat":"d-m-Y"}'
                                     onchange="filter(this)" />
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                             </div>
                             <div class="col-lg-8">
                                 <input class="form-control datetimepicker" id="search_TL" type="text"
-                                    placeholder="dd/mm/yyyy" data-options='{"disableMobile":true}'
+                                    placeholder="dd/mm/yyyy" data-options='{"disableMobile":true, "dateFormat":"d-m-Y"}'
                                     onchange="filter(this)" />
                             </div>
                         </div>
@@ -344,6 +344,7 @@
                         } else if (tarikh_tamat >= hari_ini) {
                             status = 'SEDANG DILAKSANAKAN';
                         }
+
                         $("#t_normal").append(`
                           <tr>
                                         <td>` + iteration + `.</td>
@@ -357,6 +358,13 @@
                                         <td>
                                             ` + status + `
                                         </td>
+                                        <td>`
+                                            +
+                            (e.kursus_status == '1' ?
+                                '<span class="badge badge-soft-success">Aktif</span>' :
+                                '<span class="badge badge-soft-danger">Deraf</span>') +
+                                            `
+                                    </td>
                                         <td>
                                             <a href="/pengurusan_kursus/semak_jadual/` + e.id + `/edit"
                                                 class="btn btn-sm btn-primary">

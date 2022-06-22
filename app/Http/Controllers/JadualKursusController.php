@@ -476,9 +476,23 @@ class JadualKursusController extends Controller
 
     public function filter_jadual()
     {
+        // format date
+        if ($_GET['tarikh_awal'] != null) {
+            $f_awal = date('Y-m-d', strtotime($_GET['tarikh_awal']));
+        }else{
+            $f_awal = $_GET['tarikh_awal'];
+        }
+
+        if ($_GET['tarikh_akhir'] != null) {
+            $f_akhir = date('Y-m-d', strtotime($_GET['tarikh_akhir']));
+        }else{
+            $f_akhir = $_GET['tarikh_akhir'];
+        }
+        
+        
         $unit_latihan = $_GET['unit_latihan'];
-        $t_awal = $_GET['tarikh_awal'];
-        $t_akhir = $_GET['tarikh_akhir'];
+        $t_awal = $f_awal;
+        $t_akhir = $f_akhir;
         $tempat_kursus = $_GET['tempat_kursus'];
 
         if ($unit_latihan != null) {
@@ -489,11 +503,11 @@ class JadualKursusController extends Controller
                     //ADA TARIKH AKHIR
                     if ($tempat_kursus != null) {
                         //ADA TEMPAT KURSUS
-                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', $unit_latihan)->where('tarikh_mula', $t_awal)->where('tarikh_tamat', $t_akhir)->where('kursus_tempat', $tempat_kursus)->get(); //ABCD
+                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', $unit_latihan)->where('tarikh_mula', '>=', $t_awal)->where('tarikh_tamat', '<=', $t_akhir)->where('kursus_tempat', $tempat_kursus)->get(); //ABCD
 
                     } else {
                         //TIADA TEMPAT KURSUS
-                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', $unit_latihan)->where('tarikh_mula', $t_awal)->where('tarikh_tamat', $t_akhir)->get(); //ABC
+                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', $unit_latihan)->where('tarikh_mula', '>=', $t_awal)->where('tarikh_tamat', '<=', $t_akhir)->get(); //ABC
 
                     }
                     
@@ -501,11 +515,11 @@ class JadualKursusController extends Controller
                     //TIADA MUKIM
                     if ($tempat_kursus != null) {
                         //ADA TEMPAT KURSUS
-                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', $unit_latihan)->where('tarikh_mula', $t_awal)->where('kursus_tempat', $tempat_kursus)->get(); //ABD
+                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', $unit_latihan)->where('tarikh_mula', '>=', $t_awal)->where('kursus_tempat', $tempat_kursus)->get(); //ABD
 
                     } else {
                         // TIADA TEMPAT KURSUS
-                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', $unit_latihan)->where('tarikh_mula', $t_awal)->get(); //AB
+                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', $unit_latihan)->where('tarikh_mula', '>=', $t_awal)->get(); //AB
 
                     }
 
@@ -517,11 +531,11 @@ class JadualKursusController extends Controller
                     //ADA TARIKH AKHIR
                     if ($tempat_kursus != null) {
                         //ADA TEMPAT KURSUS
-                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', $unit_latihan)->where('tarikh_tamat', $t_akhir)->where('kursus_tempat', $tempat_kursus)->get(); //ACD
+                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', $unit_latihan)->where('tarikh_tamat', '<=', $t_akhir)->where('kursus_tempat', $tempat_kursus)->get(); //ACD
 
                     } else {
                         //TIADA TEMPAT KURSUS
-                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', $unit_latihan)->where('tarikh_tamat', $t_akhir)->get(); //AC
+                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', $unit_latihan)->where('tarikh_tamat', '<=', $t_akhir)->get(); //AC
 
                     }
                     
@@ -549,11 +563,11 @@ class JadualKursusController extends Controller
                     //ADA TARIKH AKHIR
                     if ($tempat_kursus != null) {
                         //ADA TEMPAT KURSUS
-                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('tarikh_mula', $t_awal)->where('tarikh_tamat', $t_akhir)->where('kursus_tempat', $tempat_kursus)->get(); //BCD
+                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('tarikh_mula', '>=', $t_awal)->where('tarikh_tamat', '<=', $t_akhir)->where('kursus_tempat', $tempat_kursus)->get(); //BCD
 
                     } else {
                         //TIADA TEMPAT KURSUS
-                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('tarikh_mula', $t_awal)->where('tarikh_tamat', $t_akhir)->get(); //BC
+                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('tarikh_mula', '>=', $t_awal)->where('tarikh_tamat', '<=', $t_akhir)->get(); //BC
 
                     }
                     
@@ -561,11 +575,11 @@ class JadualKursusController extends Controller
                     //TIADA MUKIM
                     if ($tempat_kursus != null) {
                         //ADA KAMPUNG
-                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('tarikh_mula', $t_awal)->where('kursus_tempat', $tempat_kursus)->get(); //BD
+                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('tarikh_mula', '>=', $t_awal)->where('kursus_tempat', $tempat_kursus)->get(); //BD
 
                     } else {
                         //TIADA KAMPUNG
-                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('tarikh_mula', $t_awal)->get(); //B
+                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('tarikh_mula', '>=', $t_awal)->get(); //B
 
                     }
 
@@ -577,11 +591,11 @@ class JadualKursusController extends Controller
                     //ADA TARIKH AKHIR
                     if ($tempat_kursus != null) {
                         //ADA TEMPAT KURSUS
-                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('tarikh_tamat', $t_akhir)->where('kursus_tempat', $tempat_kursus)->get(); //CD
+                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('tarikh_tamat', '<=', $t_akhir)->where('kursus_tempat', $tempat_kursus)->get(); //CD
 
                     } else {
                         //TIADA TEMPAT KURSUS
-                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('tarikh_tamat', $t_akhir)->get(); //C
+                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('tarikh_tamat', '<=', $t_akhir)->get(); //C
 
                     }
                     
@@ -603,7 +617,7 @@ class JadualKursusController extends Controller
 
         }
 
-        // $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('tarikh_mula', $t_awal)->where('tarikh_tamat', $t_akhir)->get();
+        // $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('tarikh_mula', '>=', $t_awal)->where('tarikh_tamat', '<=', $t_akhir)->get();
         foreach ($jadualKursus as $key => $jk) {
             $sum = 0;
             $bil = PeruntukanPeserta::where('pp_jadual_kursus', $jk->id)->get();
