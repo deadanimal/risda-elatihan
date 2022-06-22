@@ -28,7 +28,7 @@
                         <label class="col-form-label">UNIT LATIHAN:</label>
                     </div>
                     <div class="col-lg-10">
-                        <select class="form-select form-control" onchange="tarikh(this)" id="search_UL">
+                        <select class="form-select form-control" onchange="filter(this)" id="search_UL">
                             <option selected hidden disabled>Sila Pilih</option>
                             <option value="Staf">Staf</option>
                             <option value="Pekebun Kecil">Pekebun Kecil</option>
@@ -45,7 +45,7 @@
                             <div class="col-lg-8">
                                 <input class="form-control datetimepicker" id="search_TA" type="text"
                                     placeholder="dd/mm/yyyy" data-options='{"disableMobile":true}'
-                                    onchange="tarikh(this)" />
+                                    onchange="filter(this)" />
                             </div>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                             <div class="col-lg-8">
                                 <input class="form-control datetimepicker" id="search_TL" type="text"
                                     placeholder="dd/mm/yyyy" data-options='{"disableMobile":true}'
-                                    onchange="tarikh(this)" />
+                                    onchange="filter(this)" />
                             </div>
                         </div>
                     </div>
@@ -69,7 +69,7 @@
                     </div>
                     <div class="col-lg-10">
                         <select class="form-select form-control" name="search_TK" id="search_TK"
-                            onchange="tarikh(this)">
+                            onchange="filter(this)">
                             <option selected="" aria-placeholder="Sila Pilih" hidden></option>
                             @foreach ($tempat as $t)
                                 <option value="{{ $t->id }}">{{ $t->nama_Agensi }}</option>
@@ -310,7 +310,7 @@
             });
         }
 
-        function tarikh(ta) {
+        function filter(ta) {
             var tarikh_akhir = $('#search_TL').val();
             var tarikh_awal = $('#search_TA').val();
             var unit_latihan = $('#search_UL').val();
@@ -354,9 +354,6 @@
                                             ` + e.tempat.nama_Agensi + `
                                         </td>
                                         <td>` + e.bilangan + `</td>
-                                        <td>
-                                            ` + status + `
-                                        </td>
                                         <td>
                                             ` + status + `
                                         </td>
