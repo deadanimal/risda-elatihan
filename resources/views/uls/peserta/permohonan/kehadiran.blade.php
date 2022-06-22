@@ -316,7 +316,7 @@
                                                                     </div>
                                                                     <input type="hidden" name="jenis_input" value="1">
                                                                     <input type="hidden" name="id_keh"
-                                                                        value="{{ $k->status_kehadiran['id'] }}">
+                                                                        value="{{ $k['id'] }}">
 
                                                                 </div>
                                                                 <div class="col-8 d-inline-flex mt-5">
