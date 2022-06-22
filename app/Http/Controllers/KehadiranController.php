@@ -56,14 +56,14 @@ class KehadiranController extends Controller
 
             if ($kehadiran == null) {
                 $ac['status_kehadiran'] = null;
+                $ac['status_ke_kursus'] = null;
             }else {
                 $ac['status_kehadiran'] = $kehadiran;
-            }
-
-            if ($kehadiran['status_kehadiran_ke_kursus'] == null) {
-                $ac['status_ke_kursus'] = null;
-            } else {
-                $ac['status_ke_kursus'] = $kehadiran;
+                if ($kehadiran['status_kehadiran_ke_kursus'] == null) {
+                    $ac['status_ke_kursus'] = null;
+                } else {
+                    $ac['status_ke_kursus'] = $kehadiran;
+                }
             }
         }
 
