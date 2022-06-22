@@ -42,7 +42,7 @@
                             </div>
                             <div class="col-lg-8">
                                 <input class="form-control datetimepicker" id="search_TA" type="text"
-                                    placeholder="dd-mm-yyyy" data-options='{"disableMobile":true,}' onchange="filter(this)"/>
+                                    placeholder="dd-mm-yyyy" data-options='{"disableMobile":true, "dateFormat":"d-m-Y"}' onchange="filter(this)"/>
                             </div>
                         </div>
                     </div>
@@ -53,7 +53,7 @@
                             </div>
                             <div class="col-lg-8">
                                 <input class="form-control datetimepicker" id="search_TL" type="text"
-                                    placeholder="dd-mm-yyyy" data-options='{"disableMobile":true,}' onchange="filter(this)"/>
+                                    placeholder="dd-mm-yyyy" data-options='{"disableMobile":true, "dateFormat":"d-m-Y"}' onchange="filter(this)"/>
                             </div>
                         </div>
                     </div>
@@ -105,6 +105,7 @@
                                     <th class="sort">TEMPAT KURSUS</th>
                                     <th class="sort">BILANGAN PESERTA</th>
                                     <th class="sort">STATUS PELAKSANAAN</th>
+                                    <th class="sort">STATUS KURSUS</th>
                                     <th class="sort">TINDAKAN</th>
                                 </tr>
                             </thead>
@@ -133,6 +134,13 @@
                                         @elseif ($j->tarikh_tamat >= date('Y-m-d'))
                                             <td>SEDANG DILAKSANAKAN</td>
                                         @endif
+                                        <td>
+                                            @if ($j->kursus_status == 1)
+                                                <span class="badge badge-soft-success">Aktif</span>
+                                            @else
+                                                <span class="badge badge-soft-danger">Deraf</span>
+                                            @endif
+                                        </td>
                                         {{-- @else --}}
 
                                         {{-- @endif --}}
@@ -327,6 +335,14 @@
                                         <td>` + e.bilangan + `</td>
                                         <td>
                                             ` + status + `
+                                        </td>
+                                        <td>
+                                            `
+                                            +
+                            (e.kursus_status == '1' ?
+                                '<span class="badge badge-soft-success">Aktif</span>' :
+                                '<span class="badge badge-soft-danger">Deraf</span>') +
+                                            `
                                         </td>
                                         <td>
                                             <a href="/pengurusan_kursus/semak_jadual/` + e.id + `/edit"
