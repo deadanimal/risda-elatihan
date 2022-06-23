@@ -109,7 +109,7 @@ class KehadiranController extends Controller
         }
 
         $aturcara = Aturcara::with('jadual')->find($id);
-        dd($aturcara);
+        // dd($aturcara);
         $jadual = JadualKursus::with('pemohon')->where('id', $aturcara->ac_jadual_kursus)->first();
         $date = tarikh($jadual->tarikh_mula, $jadual->tarikh_tamat);
         $permohonan = Permohonan::with('peserta')->where('kod_kursus', $aturcara->ac_jadual_kursus)->get();
