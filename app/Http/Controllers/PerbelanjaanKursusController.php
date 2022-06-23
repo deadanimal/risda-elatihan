@@ -43,6 +43,8 @@ class PerbelanjaanKursusController extends Controller
             }
         }
 
+        dd($rafis_pt);
+
         return view('perbelanjaan.kursus.index', [
             'rafis' => $rafis_pt,
         ]);
