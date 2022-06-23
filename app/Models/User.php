@@ -68,6 +68,11 @@ class User extends Authenticatable
         return $this->hasMany(Permohonan::class,'no_pekerja','id');
     }
 
+    public function kehadiran_pl()
+    {
+        return $this->hasMany(KehadiranPusatLatihan::class);
+    }
+
             /**
          * Send the password reset notification.
          *

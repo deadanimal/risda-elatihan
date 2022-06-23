@@ -23,7 +23,7 @@
         <div class="row mt-3 mb-2">
             <div class="col-12 mb-2">
                 <p class="h1 mb-0 fw-bold" style="color: rgb(43,93,53);  ">KEHADIRAN</p>
-                <p class="h5" style="color: rgb(43,93,53); ">MEREKOD KEHADIRAN</p>
+                <p class="h5" style="color: rgb(43,93,53); ">REKOD KEHADIRAN </p>
             </div>
         </div>
         <hr style="color: rgba(81,179,90, 60%);height:2px;">
@@ -42,7 +42,7 @@
                     <p class="pt-2 fw-bold">PUSAT LATIHAN</p>
                 </div>
                 <div class="col-6">
-                    <input type="text" class="form-control mb-4 tahun" autocomplete="OFF" value="{{$kehadiran_pl->tempat_kursus->nama_Agensi}}">
+                    <input type="text" class="form-control mb-4 tahun" autocomplete="OFF" value="{{$agensi->nama_Agensi}}">
                 </div>
             </div>
             <div class="col-8 d-inline-flex">
@@ -56,6 +56,14 @@
 
         </div>
 
+        <div class="row mt-5">
+            <div class="col">
+                <a href="/kehadiran_ke_pl/create/{{$agensi->id}}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Tambah Kehadiran
+                </a>
+            </div>
+        </div>
+
 
         <div class="card my-5">
             <div class="table-responsive scrollbar p-5">
@@ -65,7 +73,6 @@
                             <th scope="col">BIL</th>
                             <th scope="col">NO KAD PENGENALAN</th>
                             <th scope="col">NAMA</th>
-                            <th scope="col">KOD KURSUS</th>
                             <th scope="col">NAMA KURSUS </th>
                             <th scope="col">TARIKH KEHADIRAN</th>
                             <th scope="col">PENGESAHAN</th>
@@ -73,18 +80,26 @@
                         </tr>
                     </thead>
                      <tbody>
-                    @foreach($agensi as $k)
+                        {{-- <form action="/kehadiran_pl/{{$kehadiran_pl->id}}" method="post"> --}}
+                            @csrf
+                            @method('PUT')
+                    @foreach($kehadiran_pl as $k)
                         <tr>
                             <td>{{$loop->iteration}}</td>
-                            <td>{{$k->staff->no_KP ?? ''}}</td>
-                            <td>{{$k->staff->name ?? ''}}</td>
-                            <td>{{$k->kod_kursus}}</td>
-                            <td >{{$k->kursus->kursus_nama}}</td>
-                            <td >{{date('d-m-Y', strtotime($k->created_at))}} <br> {{date('H:i:s', strtotime($k->created_at))}}</td>
-                            <td>
+                            <td>{{$k->peserta->no_KP}}</td>
+                            <td>{{$k->peserta->name}}</td>
+                            <td>{{$k->kursus->kursus_nama}}</td>
+                            <td>{{date('d-m-Y', strtotime($k->created_at))}} <br> {{date('H:i:s', strtotime($k->created_at))}}</td>
 
-                                    <input class="form-check-input pukal" type="checkbox" name="pemohon[]"
-                                        value="{{ $k->id }}" />
+                                @if($k->pengesahan_kehadiran_pl===null)
+                                <td><input class="form-check-input pukal" type="checkbox" name="pengesahan[]"
+                                        value="{{ $k->id }}" /></td>
+                                @else
+                                    <td class="risda-g fw-bold" style="text-transform:capitalize">
+                                        {{$k->pengesahan_kehadiran_pl}}
+                                     </td>
+
+                                @endif
 
                             </td>
 
@@ -127,6 +142,19 @@
         </div>
 
     </div>
+
+=
+        <script>
+        $(document).ready(function() {
+            $('#pukal').hide();
+        })
+
+        $(".pukal").change(function() {
+            if (this.checked) {
+                $('#pukal').show();
+            }
+        });
+    </script>
 
 
     <script>

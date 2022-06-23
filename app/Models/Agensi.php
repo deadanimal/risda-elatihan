@@ -34,6 +34,11 @@ class Agensi extends Model
         return $this->belongsTo(Daerah::class,'U_Daerah_ID','id');
     }
 
+    public function kehadiran_pl()
+    {
+        return $this->hasMany(KehadiranPusatLatihan::class);
+    }
+
 
 
 
