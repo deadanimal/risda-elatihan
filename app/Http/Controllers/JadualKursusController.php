@@ -269,10 +269,16 @@ class JadualKursusController extends Controller
 
             $kump_sasar = [];
             foreach ($kumpulan_sasaran as $a => $ks) {
-                foreach ($gred as $b => $g) {
-                    if ($a != $g) {
+                try {
+                    foreach ($gred as $b => $g) {
+                        if ($a != $g) {
+                            array_push($kump_sasar, $a);
+                            break;
+                        }
+                    }
+                } catch (\Throwable $th) {
+                    if ($a != $gred) {
                         array_push($kump_sasar, $a);
-                        break;
                     }
                 }
             }
