@@ -23,7 +23,7 @@
                     <div class="col-lg-9 mb-2">
                         @role('Urus Setia ULS')
                             <input type="text" name="" id="search_UL" class="form-control" value="Staf" disabled>
-                            @elserole('Urus Setia ULPK')
+                        @elserole('Urus Setia ULPK')
                             <input type="text" name="" id="search_UL" class="form-control" value="Pekebun Kecil" disabled >
                         @else
                             <select name="ul" id="search_UL" class="form-control" onchange="filter()">
@@ -252,7 +252,7 @@
                 url: '/pengurusan_peserta/permohonan/filter',
                 data: {
                     'tempat_kursus': tempat_kursus,
-                    'unit_latihan': unit latihan
+                    'unit_latihan': unit_latihan
                 },
                 success: function(result) {
                     console.log(result);
@@ -285,10 +285,26 @@
                             status = 'Dicalonkan';
                         }
 
+                        var myDate = new Date(e.created_at);
+
+                        let jam = myDate.getHours();
+                        if (jam < 10) jam = '0' + jam;
+
+                        let minit = myDate.getMinutes();
+                        if (minit < 10) minit = '0' + minit;
+
+                        let hari = myDate.getDate();
+                        if (hari < 10) hari = '0' + hari;
+
+                        let bulan = myDate.getMonth()+1;
+                        if (bulan < 10) bulan = '0' + bulan;
+
+                        var timeString = jam + ':' + minit + ':' + ' ' + hari + '-' + bulan + '-' + myDate.getFullYear();
+
                         $("#t_normal").append(`
                         <tr>
                             <td>`+iteration+`.</td>
-                            <td>{{ date('H:i, d-m-Y', strtotime(`+e.created_at+`)) }}</td>
+                            <td>`+timeString+`</td>
                             <td>`+e.peserta.no_KP+`</td>
                             <td>`+e.peserta.name+`</td>
                             <td>`+e.data_staf.NamaPT+`</td>
