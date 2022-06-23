@@ -71,4 +71,9 @@ class JadualKursus extends Model
         return $this->hasOne(PerbelanjaanKursus::class, 'jadualkursus_id', 'id');
     }
 
+    public function kehadiran_pl()
+    {
+        return $this->hasMany(KehadiranPusatLatihan::class,'jadual_kursus_id','id');
+    }
+
 }

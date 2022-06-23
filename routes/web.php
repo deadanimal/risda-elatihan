@@ -60,6 +60,7 @@ use App\Http\Controllers\StatusPelaksanaanController;
 use App\Http\Controllers\StesenController;
 use App\Http\Controllers\SumberController;
 use App\Http\Controllers\UtilitiController;
+use App\Http\Controllers\KehadiranPusatLatihanController;
 use App\Models\Agensi;
 use App\Models\JadualKursus;
 use Illuminate\Support\Facades\DB;
@@ -79,6 +80,9 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('dashboard');
 // })->middleware(['auth']);
+
+
+
 
 Route::get('/auth/facebook', [SocialController::class, 'facebookRedirect']);
 Route::get('/auth/facebook/callback', [SocialController::class, 'loginWithFacebook']);
@@ -124,6 +128,12 @@ Route::post('/daftar_pengguna', [SemakanController::class, 'daftar_pengguna']);
 Route::middleware('auth')->group(function () {
 
     Route::resource('/', DashboardController::class);
+    Route::resource('kehadiran_pl', KehadiranPusatLatihanController::class);
+    Route::get('/senarai-pl', [KehadiranPusatLatihanController::class, 'indexPl']);
+    // Route::get('/kehadiran_pl/{id}', [KehadiranPusatLatihanController::class, 'index_kehadiran']);
+// Route::get('/kehadiran-pl/{id}', [KehadiranController::class, 'kehadiran_pl']);
+    Route::get('/kehadiran_ke_pl/{id}',[KehadiranPusatLatihanController::class,'index_kehadiran']);
+    Route::get('/kehadiran_ke_pl/create/{id}',[KehadiranPusatLatihanController::class,'create']);
 
     Route::resources([
         // '/profil' => ProfilController::class,
@@ -256,6 +266,8 @@ Route::middleware('auth')->group(function () {
 
     });
 
+
+
     //Urus Setia ULS
     Route::group(['prefix' => 'us-uls'], function () {
 
@@ -265,24 +277,8 @@ Route::middleware('auth')->group(function () {
             //dari QR  - merekod kehadiran
             Route::resource('cetakkodQR', CetakKodQRController::class);
 
-            Route::get('/senarai-pl', function () {
-                $agensi = Agensi::where('Kategori_Agensi', '2')->get();
-                // $kategori = KategoriAgensi::where('Kategori_Agensi','Penceramah')->get();
-
-                return view('ulpk.urus_setia.kehadiran.kehadiran-pl.index', [
-                    'agensi' => $agensi,
-
-                ]);
-            });
-
-            Route::get('/kehadiran-pl', function () {
-                $agensi = Agensi::all();
-                return view('ulpk.urus_setia.kehadiran.kehadiran-pl.kehadiran-pl', [
-                    'agensi' => $agensi,
-                ]);
-            });
-            Route::get('/kehadiran-pl/{id}', [KehadiranController::class, 'kehadiran_pl']);
-            Route::get('/cetak-pl/{id}', [KehadiranController::class, 'cetak_qr_pl']);
+            Route::get('/senarai_qr_pl', [KehadiranPusatLatihanController::class, 'senarai_qr_pl']);
+            Route::get('/cetak-pl/{id}', [KehadiranPusatLatihanController::class, 'cetak_qr_pl']);
 
             Route::get('printQR/{id}', [CetakKodQRController::class, 'printQR'])->name('printQR');
 
