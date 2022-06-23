@@ -263,22 +263,17 @@ class JadualKursusController extends Controller
             try {
                 $gred = unserialize($jadualKursus->kursus_kumpulan_sasaran);
             } catch (\Throwable $th) {
-                $gred = $jadualKursus->kursus_kumpulan_sasaran;
+                $gred = [];
+                array_push($gred, $jadualKursus->kursus_kumpulan_sasaran);
             }
             $kumpulan_sasaran = Staf::orderBy('Gred', 'ASC')->get()->groupBy('Gred');
 
             $kump_sasar = [];
             foreach ($kumpulan_sasaran as $a => $ks) {
-                try {
-                    foreach ($gred as $b => $g) {
-                        if ($a != $g) {
-                            array_push($kump_sasar, $a);
-                            break;
-                        }
-                    }
-                } catch (\Throwable $th) {
-                    if ($a != $gred) {
+                foreach ($gred as $b => $g) {
+                    if ($a != $g) {
                         array_push($kump_sasar, $a);
+                        break;
                     }
                 }
             }
