@@ -15,7 +15,7 @@ class PengajianLanjutanController extends Controller
     {
         // dd(PengajianLanjutan::with(['pengguna','pusat_tanggungjawab', 'data_staf', 'perbelanjaan'])->get());
         return view('uls.urus_setia.pengajian_lanjutan.index', [
-            'pengajian_lanjutan' => PengajianLanjutan::with(['pengguna', 'data_pusat_tanggungjawab', 'data_staf'])->get(),
+            'pengajian_lanjutan' => PengajianLanjutan::with(['pengguna', 'data_pusat_tanggungjawab', 'data_staf', 'perbelanjaan'])->get(),
         ]);
     }
 
