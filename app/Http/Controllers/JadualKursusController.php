@@ -260,7 +260,11 @@ class JadualKursusController extends Controller
         
 
         if ($jadualKursus->kursus_unit_latihan == 'Staf') {
-            $gred = unserialize($jadualKursus->kursus_kumpulan_sasaran);
+            try {
+                $gred = unserialize($jadualKursus->kursus_kumpulan_sasaran);
+            } catch (\Throwable $th) {
+                $gred = $jadualKursus->kursus_kumpulan_sasaran;
+            }
             $kumpulan_sasaran = Staf::orderBy('Gred', 'ASC')->get()->groupBy('Gred');
 
             $kump_sasar = [];
