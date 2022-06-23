@@ -276,4 +276,52 @@ class SemakPermohonanController extends Controller
         alert()->success('Peserta telah diberi sokongan.', 'Berjaya');
         return redirect('/pengurusan_peserta/semakan_pemohon');
     }
+
+    public function filter()
+    {
+        $unitlatihan = $_GET['unit_latihan'];
+        $tempat = $_GET['tempat_kursus'];
+
+        $permohonan = Permohonan::with(['tempat', 'peserta', 'data_staf', 'data_pk', 'jadual'])->get();
+
+        $result = [];
+        if ($unitlatihan != null) {
+            // ada unit latihan
+            if ($tempat != null) {
+                // ada tempat
+                foreach ($permohonan as $key => $p) {
+                    if ($p->jadual->kursus_unit_latihan == $unitlatihan) {
+                       if ($p->tempat->id == $tempat) {
+                           array_push($result, $p);
+                       }
+                    }
+                }
+            } else {
+                // tiada tempat
+                foreach ($permohonan as $key => $p) {
+                    if ($p->jadual->kursus_unit_latihan == $unitlatihan) {
+                        array_push($result, $p);
+                    }
+                }
+            }
+            
+        } else {
+            // tiada unit latihan
+            if ($tempat != null) {
+                // ada tempat
+                foreach ($permohonan as $key => $p) {
+                    if ($p->tempat->id == $tempat) {
+                        array_push($result, $p);
+                    }
+                }
+            } else {
+                // tiada tempat
+                foreach ($permohonan as $key => $p) {
+                    array_push($result, $p);
+                }
+            }
+        }
+
+        return response()->json($result);
+    }
 }

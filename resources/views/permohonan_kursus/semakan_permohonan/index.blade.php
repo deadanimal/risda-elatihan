@@ -22,11 +22,11 @@
                     </div>
                     <div class="col-lg-9 mb-2">
                         @role('Urus Setia ULS')
-                            <input type="text" name="" id="" class="form-control" value="Staf" disabled>
+                            <input type="text" name="" id="search_UL" class="form-control" value="Staf" disabled>
                             @elserole('Urus Setia ULPK')
-                            <input type="text" name="" id="" class="form-control" value="Pekebun Kecil" disabled>
+                            <input type="text" name="" id="search_UL" class="form-control" value="Pekebun Kecil" disabled >
                         @else
-                            <select name="ul" id="unit_latihan" class="form-control">
+                            <select name="ul" id="search_UL" class="form-control" onchange="filter()">
                                 <option value="" selected hidden>Sila Pilih</option>
                                 <option value="Staf">Staf</option>
                                 <option value="Pekebun Kecil">Pekebun Kecil</option>
@@ -37,7 +37,7 @@
                         <label class="col-form-label">TEMPAT KURSUS:</label>
                     </div>
                     <div class="col-lg-9 mb-2">
-                        <select name="tempat" id="tempat" class="form-control">
+                        <select name="tempat" id="search_tempat" class="form-control" onchange="filter()">
                             <option value="" selected hidden>Sila Pilih</option>
                             @foreach ($tempat as $t)
                                 <option value="{{ $t->id }}">{{ $t->nama_Agensi }}</option>
@@ -171,11 +171,6 @@
                                                 <td>
                                                     <a href="/permohonan_kursus/semakan_permohonan/{{ $p->id }}"
                                                         class="btn btn-primary btn-sm">Butiran</a>
-                                                    {{-- <form action="/permohonan_kursus/semakan_permohonan/{{$p->id}}" method="POST">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button type="submit" class="btn btn-danger">buang</button>
-                                            </form> --}}
                                                 </td>
                                                 <td>
                                                     <div class="form-check">
@@ -188,9 +183,6 @@
                                     @endrole
 
                                 </tbody>
-
-                                <tbody class="bg-white" id="table_sort_ul"></tbody>
-                                <tbody class="bg-white" id="table_sort_tempat"></tbody>
                             </table>
                         </div>
 
@@ -241,118 +233,7 @@
 
     <script>
         $(document).ready(function() {
-            $('#table_sort_ul').hide();
-            $('#table_sort_tajuk').hide();
             $('#pukal').hide();
-        })
-
-        $('#unit_latihan').change(function() {
-            $('#table_sort_ul').html('');
-            $('#table_sort_ul').show();
-            $('#t_normal').hide();
-            $('#table_sort_tajuk').hide();
-
-            let unit = this.value;
-            let list_pemohon = @json($pemohon->toArray());
-            var i = 0;
-            let test = '';
-
-            console.log('test');
-            list_pemohon.forEach(a => {
-                let b = a.jadual_kursus.kursus_unit_latihan;
-                console.log(a);
-                if (b == unit) {
-                    if (a.status_permohonan == 0) {
-                        test = 'Belum Disemak'
-                    } else if (a.status_permohonan == 1) {
-                        test = 'Belum Disemak (Sokongan)'
-                    } else if (a.status_permohonan == 2) {
-                        test = 'Disokong'
-                    } else if (a.status_permohonan == 3) {
-                        test = 'Tidak Disokong'
-                    } else if (a.status_permohonan == 4) {
-                        test = 'Lulus'
-                    } else if (a.status_permohonan == 5) {
-                        test = 'Tidak Lulus'
-                    }
-
-                    if (a.pusat_tanggungjawab == undefined) {
-                        a.pusat_tanggungjawab = '-';
-                    }
-                    $('#table_sort_ul').append(
-                        `<tr>
-                            <td>` + (i = i + 1) + `.</td>
-                            <td>` + a.tarikh + `</td>
-                            <td>` + a.peserta.no_KP + `</td>
-                            <td>` + a.peserta.name + `</td>
-                            <td>` + a.gred + `</td>
-                            <td>` + a.pusat_tanggungjawab + `</td>
-                            <td>` + a.jadual_kursus.kursus_kod_nama_kursus + `</td>
-                            <td>` + a.jadual_kursus.kursus_nama + `</td>
-                            <td>` + test + `</td>
-                            <td>
-                                <a href="/permohonan_kursus/semakan_permohonan/` + a.id + `"
-                                    class="btn btn-primary btn-sm">Butiran</a>
-                            </td>
-                        </tr>
-                        `
-                    );
-                }
-            });
-        });
-
-        $('#tempat').change(function() {
-            $('#t_normal').hide();
-            $('#table_sort_ul').hide();
-            $('#table_sort_tempat').show();
-            $('#table_sort_tempat').html('');
-
-            let unit = this.value;
-            let list_pemohon = @json($pemohon->toArray());
-            var i = 0;
-            let test = '';
-
-            console.log(unit);
-            list_pemohon.forEach(a => {
-                let b = a.jadual_kursus.kursus_tempat;
-                console.log(a);
-                if (b == unit) {
-                    if (a.status_permohonan == 0) {
-                        test = 'Belum Disemak'
-                    } else if (a.status_permohonan == 1) {
-                        test = 'Belum Disemak (Sokongan)'
-                    } else if (a.status_permohonan == 2) {
-                        test = 'Disokong'
-                    } else if (a.status_permohonan == 3) {
-                        test = 'Tidak Disokong'
-                    } else if (a.status_permohonan == 4) {
-                        test = 'Lulus'
-                    } else if (a.status_permohonan == 5) {
-                        test = 'Tidak Lulus'
-                    }
-
-                    if (a.pusat_tanggungjawab == undefined) {
-                        a.pusat_tanggungjawab = '-';
-                    }
-                    $('#table_sort_tempat').append(
-                        `<tr>
-                            <td>` + (i = i + 1) + `.</td>
-                            <td>` + a.tarikh + `</td>
-                            <td>` + a.peserta.no_KP + `</td>
-                            <td>` + a.peserta.name + `</td>
-                            <td>` + a.pusat_tanggungjawab + `</td>
-                            <td>` + a.jadual_kursus.kursus_kod_nama_kursus + `</td>
-                            <td>` + a.jadual_kursus.kursus_nama + `</td>
-                            <td>` + test + `</td>
-                            <td>
-                                <a href="/permohonan_kursus/semakan_permohonan/` + a.id + `"
-                                    class="btn btn-primary btn-sm">Butiran</a>
-                            </td>
-                        </tr>
-                        `
-                    );
-                }
-            });
         })
 
         $(".pukal").change(function() {
@@ -360,5 +241,83 @@
                 $('#pukal').show();
             }
         });
+
+        // function filtering
+        function filter() {
+            var tempat_kursus = $('#search_tempat').val();
+            var unit_latihan = $('#search_UL').val();
+
+            $.ajax({
+                type: 'get',
+                url: '/pengurusan_peserta/permohonan/filter',
+                data: {
+                    'tempat_kursus': tempat_kursus,
+                    'unit_latihan': unit latihan
+                },
+                success: function(result) {
+                    console.log(result);
+                    $('.datatable').dataTable().fnClearTable();
+                    $('.datatable').dataTable().fnDestroy();
+                    $("#t_normal").html("");
+                    let iteration = 1;
+                    
+                    result.forEach(e => {
+                        var status = ''
+                        if (e.status_permohonan == 0) {
+                            status = 'Belum Disemak';
+                        }
+                        else if (e.status_permohonan == 1) {
+                            status = 'Belum Disemak (Sokongan)';
+                        }
+                        else if (e.status_permohonan == 2) {
+                            status = 'Disokong';
+                        }
+                        else if (e.status_permohonan == 3) {
+                            status = 'Tidak Disokong';
+                        }
+                        else if (e.status_permohonan == 4) {
+                            status = 'Lulus';
+                        }
+                        else if (e.status_permohonan == 5) {
+                            status = 'Tidak Lulus';
+                        }
+                        else if (e.status_permohonan == 6) {
+                            status = 'Dicalonkan';
+                        }
+
+                        $("#t_normal").append(`
+                        <tr>
+                            <td>`+iteration+`.</td>
+                            <td>{{ date('H:i, d-m-Y', strtotime(`+e.created_at+`)) }}</td>
+                            <td>`+e.peserta.no_KP+`</td>
+                            <td>`+e.peserta.name+`</td>
+                            <td>`+e.data_staf.NamaPT+`</td>
+                            <td>`+(e.jadual == null ? '<span class="text-danger">Jadual telah dihapuskan</span>' : e.jadual.kursus_kod_nama_kursus)+`</td>
+                            <td>`+(e.jadual == null ? '<span class="text-danger">Jadual telah dihapuskan</span>' : e.jadual.kursus_nama)+`</td>
+                            <td>`+status+`</td>
+                            <td>
+                                <a href="/permohonan_kursus/semakan_permohonan/`+e.id+`" class="btn btn-primary btn-sm">Butiran
+                                </a>
+                            </td>
+                            <td>
+                                <div class="form-check">
+                                    <input class="form-check-input pukal" type="checkbox" name="pemohon[]"
+                                        value="`+e.id+`" />
+                                </div>
+                            </td>
+                        </tr>
+                        `);
+
+                        iteration++;
+                    });
+                    $('.datatable').dataTable();
+                },
+                error: function() {
+                    console.log('error');
+                },
+            });
+        }
+
+
     </script>
 @endsection
