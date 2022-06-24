@@ -705,6 +705,7 @@
                             data-bs-toggle="collapse"
                             aria-expanded="{{ Request::is('us-uls/kehadiran/*') ? 'true' : 'false' }}"
                             aria-controls="kehadiran">
+
                                 <div class="d-flex align-items-center nav-link-side px-0">
                                     <span class="px-3"><span class="far fa-address-book"></span> KEHADIRAN</span>
                                 </div>
@@ -741,7 +742,7 @@
                                     </ul>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link py-0" href="/us-uls/kehadiran/kehadiran-pl">
+                                    <a class="nav-link py-0" "href="/senarai-pl"">
                                         <div class="d-flex align-items-center nav-link-side">
                                             <span class="px-0">KEHADIRAN KE PUSAT LATIHAN</span>
                                         </div>
@@ -756,7 +757,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link py-0" href="/us-uls/kehadiran/senarai-pl">
+                                    <a class="nav-link py-0" href="/us-uls/kehadiran/senarai_qr_pl>
                                         <div class="d-flex align-items-center nav-link-side">
                                             <span class="px-0">CETAK KOD QR PUSAT LATIHAN</span>
                                         </div>
@@ -803,7 +804,7 @@
                                     </ul>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link py-0" href="/us-uls/kehadiran/kehadiran-pl">
+                                    <a class="nav-link py-0" href="/senarai-pl">
                                         <div class="d-flex align-items-center nav-link-side">
                                             <span class="px-0">KEHADIRAN KE PUSAT LATIHAN</span>
                                         </div>
@@ -826,7 +827,7 @@
                                 </li>
                             </ul>
                         @endrole
-                        
+
                     @endcan
 
                     @can('pelajar praktikal')
@@ -1137,9 +1138,9 @@
 
                         </ul>
                     @endcan
-                    
 
-                    
+
+
 
                     @can('UlpkUrusSetia')
                         <a class="nav-link py-0 dropdown-indicator" href="#kehadiran" role="button"
