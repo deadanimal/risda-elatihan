@@ -54,4 +54,16 @@ class Permohonan extends Model
             'id'
         );
     }
+
+    public function tempat()
+    {
+        return $this->hasOneThrough(
+            Agensi::class,
+            JadualKursus::class,
+            'id',
+            'id',
+            'kod_kursus',
+            'kursus_tempat'
+        );
+    }
 }

@@ -36,11 +36,13 @@ class PerbelanjaanPengajianLanjutanController extends Controller
             ->getContents();
         $rafis = json_decode($rafis, true);
 
+        // dd($rafis, $request->all());
+
         $rafis_pt = [];
         foreach ($rafis as $key => $r) {
             if ($r['Kod_PT'] == $request->kod_pt) {
                 if ($r['Kod_PA'] == $request->Kod_PA) {
-                    if ($r['Kod_Objek'] == $request->Kod_Objek) {
+                    if ($r['Kod_Objek'] == $request->kod_objek) {
                         array_push($rafis_pt, $r);
                     }
                 }
@@ -70,9 +72,9 @@ class PerbelanjaanPengajianLanjutanController extends Controller
         }
 
         $check = Auth::user()->jenis_pengguna;
-        if ($check == 'Urus Setia ULS') {
+        if (str_contains($check, 'ULS')) {
             $peserta = PengajianLanjutan::with('pengguna')->where('unit_latihan', 'Staf')->get();
-        } elseif ($check == 'Urus Setia ULPK') {
+        } elseif (str_contains($check, 'ULPK')) {
             $peserta = PengajianLanjutan::with('pengguna')->where('unit_latihan', 'Pekebun Kecil')->get();
         } else {
             $peserta = PengajianLanjutan::with('pengguna')->get();
@@ -141,9 +143,9 @@ class PerbelanjaanPengajianLanjutanController extends Controller
         }
 
         $check = Auth::user()->jenis_pengguna;
-        if ($check == 'Urus Setia ULS') {
+        if (str_contains($check, 'ULS')) {
             $peserta = PengajianLanjutan::with('pengguna')->where('unit_latihan', 'Staf')->get();
-        } elseif ($check == 'Urus Setia ULPK') {
+        } elseif (str_contains($check, 'ULPK')) {
             $peserta = PengajianLanjutan::with('pengguna')->where('unit_latihan', 'Pekebun Kecil')->get();
         } else {
             $peserta = PengajianLanjutan::with('pengguna')->get();

@@ -477,6 +477,8 @@ Route::middleware('auth')->group(function () {
     // filetr route
     Route::get('/pengurusan_kursus/filter-daerah/{search}', [DaerahController::class, 'filter']);
     Route::get('/pengurusan_kursus/filter-stesen/{data}', [StesenController::class, 'filter']);
+    Route::get('/pengurusan_kursus/filter-jadual', [JadualKursusController::class, 'filter_jadual']);
+    Route::get('/pengurusan_peserta/permohonan/filter', [SemakPermohonanController::class, 'filter']);
 });
 
 require __DIR__ . '/auth.php';

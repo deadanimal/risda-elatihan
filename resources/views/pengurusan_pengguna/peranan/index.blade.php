@@ -35,7 +35,7 @@
                             <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
                                 <h4 class="mb-1" id="modalExampleDemoLabel">TAMBAH </h4>
                             </div>
-                            <form id="form1" action="/pengurusan_pengguna/peranan" method="POST">
+                            <form id="form1" action="/pengurusan_pengguna/peranan" method="POST" id="form_peranan">
                                 <div class="row justify-content-center">
                                     <div class="p-4 pb-0 col-lg-7 mb-3">
 
@@ -46,8 +46,29 @@
                                         </div>
                                         <div class="mb-3">
                                             <label class="col-form-label">KUMPULAN PENGGUNA</label>
-                                            <input type="text" class="form-control" name="name">
+                                            <input type="text" class="form-control" id="name_input">
+                                            <input type="hidden" name="name" id="real_name">
                                         </div>
+
+                                        <div class="mb-3">
+                                            <label class="col-form-label">UNIT LATIHAN</label>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio"
+                                                    name="jenis" value="" />
+                                                <label class="form-check-label">Am</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio"
+                                                    name="jenis" value="ULS" />
+                                                <label class="form-check-label">ULS</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio"
+                                                    name="jenis" value="ULPK"/>
+                                                <label class="form-check-label">ULPK</label>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -79,18 +100,17 @@
                                 <td>{{ $p->kod_kumpulan_pengguna }}</td>
                                 <td>{{ $p->name }}</td>
                                 <td>
-                                    <a href="/pengurusan_pengguna/peranan/{{ $p->id }}"
-                                        class="btn btn-primary"><i class="fas fa-pen"></i></a>
+                                    <a href="/pengurusan_pengguna/peranan/{{ $p->id }}" class="btn btn-primary"><i
+                                            class="fas fa-pen"></i></a>
                                     <button class="btn risda-bg-dg text-white" type="button" data-bs-toggle="modal"
                                         data-bs-target="#delete_{{ $p->id }}">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </td>
                             </tr>
-                            <div class="modal fade" id="delete_{{ $p->id }}" tabindex="-1"
-                                role="dialog" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document"
-                                    style="max-width: 500px">
+                            <div class="modal fade" id="delete_{{ $p->id }}" tabindex="-1" role="dialog"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
                                     <div class="modal-content position-relative">
                                         <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
                                             <button
@@ -109,7 +129,8 @@
                                             <div class="modal-footer">
                                                 <button class="btn btn-secondary" type="button"
                                                     data-bs-dismiss="modal">Batal</button>
-                                                <form method="POST" action="/pengurusan_pengguna/peranan/{{ $p->id }}">
+                                                <form method="POST"
+                                                    action="/pengurusan_pengguna/peranan/{{ $p->id }}">
                                                     @method('DELETE')
                                                     @csrf
                                                     <button class="btn btn-primary" type="submit">Hapus
@@ -129,4 +150,18 @@
         </div>
 
     </div>
+
+    <script>
+        $('#name_input').keyup(function () {
+            var name = $('#name_input').val();
+            var unit = $('input[name="jenis"]:checked').val();
+            $('#real_name').val(name+' '+unit);
+        })
+
+        $('input[name="jenis"]').click(function () {
+            var name = $('#name_input').val();
+            var unit = $('input[name="jenis"]:checked').val();
+            $('#real_name').val(name+' '+unit);
+        })
+    </script>
 @endsection

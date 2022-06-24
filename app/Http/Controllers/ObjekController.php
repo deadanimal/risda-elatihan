@@ -21,15 +21,15 @@ class ObjekController extends Controller
     {
         $objek = Objek::all();
         $bil_obj = Objek::orderBy('id', 'desc')->first();
-        if ($bil_obj != null) {
-            $bil = $bil_obj->kod_Objek;
-        } else {
-            $bil = 0;
-        }
-        $bil = $bil + 1;
-        $bil = sprintf("%02d", $bil);
+        // if ($bil_obj != null) {
+        //     $bil = $bil_obj->kod_Objek;
+        // } else {
+        //     $bil = 0;
+        // }
+        // $bil = $bil + 1;
+        // $bil = sprintf("%02d", $bil);
         return view('utiliti.kursus.objek.index', [
-            'bil' => $bil,
+            // 'bil' => $bil,
             'objek' => $objek
         ]);
     }

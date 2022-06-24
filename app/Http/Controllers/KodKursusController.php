@@ -23,11 +23,11 @@ class KodKursusController extends Controller
     public function index()
     {
         $check = Auth::user()->jenis_pengguna;
-        if ($check == 'Urus Setia ULS') {
+        if (str_contains($check, 'ULS')) {
             $kodKursus = KodKursus::with('jadual', 'kategori', 'bidang')->where('UL_Kod_Kursus', 'Staf')->get();
             $bidangKursus = BidangKursus::where('UL_Bidang_Kursus', 'Staf')->get();
         } 
-        elseif ($check == 'Urus Setia ULPK') {
+        elseif (str_contains($check, 'ULPK')) {
             $kodKursus = KodKursus::with('jadual', 'kategori', 'bidang')->where('UL_Kod_Kursus', 'Pekebun Kecil')->get();
             $bidangKursus = BidangKursus::where('UL_Bidang_Kursus', 'Pekebun Kecil')->get();
         }

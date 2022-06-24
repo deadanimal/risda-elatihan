@@ -30,7 +30,7 @@ class KursusPenilaianController extends Controller
                 'permohonan'=>$permohonan
                 // 'jadual_kursus'=>$jadual_kursus
             ]);
-        } elseif (auth::user()->jenis_pengguna=='Urus Setia ULPK') {
+        } elseif (auth::user()->jenis_pengguna=='Peserta ULPK') {
             $jadual_kursus = JadualKursus::where('kursus_unit_latihan', 'Pekebun Kecil')->get();
 
             return view('penilaian.kursus.index-ulpk', [
@@ -276,7 +276,7 @@ class KursusPenilaianController extends Controller
         $kursusPenilaian->status_soalan=$request->status_soalan;
 
         if ($request->kategori_jawapan == 'C') {
-            foreach ($KursusPenilaian->multiple as $jawapanM) {
+            foreach ($kursusPenilaian->multiple as $jawapanM) {
                 $jawapanM->update([
                     'yang_betul' => 'salah',
                 ]);
