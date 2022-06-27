@@ -225,7 +225,7 @@
                                 data-options='{"removeItemButton":true,"placeholder":true}'>
                                 <option value="" hidden>Sila Pilih</option>
                                 @foreach ($kumpulan_sasaran as $lol => $ks)
-                                    <option value="{{ $ks }}">{{ $ks }}</option>
+                                    <option value="{{ $lol }}">{{ $lol }}</option>
                                 @endforeach
                             </select>
                         </div>
