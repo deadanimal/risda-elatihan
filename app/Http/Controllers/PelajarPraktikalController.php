@@ -6,14 +6,11 @@ use App\Http\Requests\StorePelajarPraktikalRequest;
 use App\Http\Requests\UpdatePelajarPraktikalRequest;
 use Illuminate\Http\Request;
 use App\Models\PelajarPraktikal;
+use App\Models\Daerah;
 
 class PelajarPraktikalController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $pelajar=PelajarPraktikal::all();
@@ -23,24 +20,18 @@ class PelajarPraktikalController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
+        $daerah = Daerah::all();
 
-        return view('pelajar_praktikal.create');
+        return view('pelajar_praktikal.create',[
+            'daerah'=>$daerah
+        ]);
 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StorePelajarPraktikalRequest  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         $pelajar = new PelajarPraktikal;
@@ -48,8 +39,32 @@ class PelajarPraktikalController extends Controller
         $pelajar->nama = $request->nama;
         $pelajar->no_kp = $request->no_kp;
         $pelajar->tarikh_lahir = $request->tarikh_lahir;
+
+
+        $tahun = substr($pelajar->no_kp, 0, 2);
+                $tahun = (int)$tahun;
+                if ($tahun <= 30) {
+                    $tahun_lahir = '20'.$tahun;
+                }else{
+                    $tahun_lahir = '19'.$tahun;
+                }
+                // 1978-08-28
+        // $pelajar->tarikh_lahir= substr($pelajar->no_kp, 4, 2) . '/' . substr($pelajar->no_kp, 2, 2) . '/' . $tahun_lahir;
+        $pelajar->tarikh_lahir= $tahun_lahir . '-'.substr($pelajar->no_kp, 2, 2) . '-' .substr($pelajar->no_kp, 4, 2) ;
+
+        $jantina = substr($pelajar->no_kp,11);
+
+        if($jantina%2===0){
+            $pelajar->jantina = "P";
+
+        }
+        else{
+            $pelajar->jantina = "L";
+
+        }
+
         $pelajar->tempat_praktikal = $request->tempat_praktikal;
-        $pelajar->jantina = $request->jantina;
+        // $pelajar->jantina = $request->jantina;
         $pelajar->no_tel = $request->no_tel;
         $pelajar->email = $request->email;
         $pelajar->status = $request->status;
@@ -70,9 +85,11 @@ class PelajarPraktikalController extends Controller
         $pelajar->tahap_pengajian = $request->tahap_pengajian;
         $pelajar->bidang = $request->bidang;
 
-
+        // dd($pelajar->tarikh_lahir);
 
         $pelajar->save();
+
+
         alert()->success('Maklumat Pelajar Praktikal Berjaya Disimpan', 'Berjaya Disimpan');
         return redirect('/us-uls/PelajarPraktikal');
 
@@ -103,9 +120,11 @@ class PelajarPraktikalController extends Controller
     public function edit($id)
     {
         $pelajar = PelajarPraktikal::find($id);
+        $daerah = Daerah::all();
 
         return view('pelajar_praktikal.edit',[
-            'pelajar'=>$pelajar
+            'pelajar'=>$pelajar,
+            'daerah'=>$daerah
         ]);
 
     }

@@ -42,74 +42,75 @@
 
         <div class="row justify-content-center my-4">
             <div class="col-10 d-inline-flex">
-                <div class="col-4">
-                    <p class="pt-2 fw-bold">NAMA PERMOHON</p>
+                <div class="col-5">
+                    <p class="pt-2 fw-bold">NAMA PELAJAR</p>
                 </div>
-                <div class="col-6">
-                    <input type="text" class="form-control" name="nama" value="{{$pelajar->nama}}">
+                <div class="col-7">
+                    <input type="text" class="form-control" name="nama" value={{$pelajar->nama}} required>
                 </div>
             </div>
             <div class="col-10 d-inline-flex">
-                <div class="col-4">
+                <div class="col-5">
                     <p class="pt-2 fw-bold">NO KAD PENGENALAN</p>
                 </div>
-                <div class="col-6">
-                    <input type="text" class="form-control" name="no_kp" value="{{$pelajar->no_kp}}" required>
+                <div class="col-7">
+                    <input class="form-control" type="text" name="no_kp" maxlength="12" size="12"
+                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" value="{{$pelajar->no_kp}}" readonly>
                 </div>
             </div>
 
             <div class="col-10 d-inline-flex">
-                <div class="col-4">
+                <div class="col-5">
                     <p class="pt-2 fw-bold">TARIKH LAHIR</p>
                 </div>
-                <div class="col-6">
-                    <input type="date" class="form-control" name="tarikh_lahir" required value="{{$pelajar->tarikh_lahir}}">
+                <div class="col-7">
+                    <input type="date" class="form-control" name="tarikh_lahir" value="{{$pelajar->tarikh_lahir}}" readonly>
                 </div>
             </div>
 
             <div class="col-10 d-inline-flex">
-                <div class="col-4">
+                <div class="col-5">
                     <p class="pt-2 fw-bold">JANTINA</p>
                 </div>
-                <div class="col-6">
-                    <select class="form-select" name="jantina">
+                <div class="col-7">
+                    @if ($pelajar->jantina=="L")
+                        <input type="text" name="jantina" value="Lelaki" class="form-control" readonly>
 
-                        <option @if ($pelajar->jantina == 'L') selected @endif value='L'>Lelaki</option>
-                        <option @if ($pelajar->jantina == 'P') selected @endif value='P'>Perempuan</option>
-                    </select>
+                    @elseif ($pelajar->jantina=="P")
+                        <input type="text" name="jantina" value="Perempuan" class="form-control" readonly>
+                    @endif
+                    {{-- <select class="form-select" name="jantina">
+                        <option disabled hidden selected>Sila Pilih</option>
+                        <option value="L">Lelaki</option>
+                        <option value="P">Perempuan</option>
+                    </select> --}}
                 </div>
             </div>
 
             <div class="col-10 d-inline-flex">
-                <div class="col-4">
+                <div class="col-5">
                     <p class="pt-2 fw-bold">NO TELEFON</p>
                 </div>
-                <div class="col-6">
+                <div class="col-7">
                     <input type="text" class="form-control" name="no_tel" value="{{$pelajar->no_tel}}">
                 </div>
             </div>
 
             <div class="col-10 d-inline-flex">
-                <div class="col-4">
+                <div class="col-5">
                     <p class="pt-2 fw-bold">E-MEL</p>
                 </div>
-                <div class="col-6">
+                <div class="col-7">
                     <input type="email" class="form-control" name="email" value="{{$pelajar->email}}">
 
                 </div>
             </div>
 
             <div class="col-10 d-inline-flex">
-                <div class="col-4">
+                <div class="col-5">
                     <p class="pt-2 fw-bold">STATUS</p>
                 </div>
                 <div class="form-check form-switch">
-                    {{-- <input class="form-check-input" type="checkbox" name="status"
-                        oninvalid="this.setCustomValidity('Sila pilih status.')"
-                        oninput="setCustomValidity('')"  value="{{$pelajar->status}}"/>
-                    <label class="form-check-label">Aktif</label> --}}
-
-
                     @if ($pelajar->kursus_status == 'on')
                     <div class="form-check form-switch">
 
@@ -126,47 +127,53 @@
             </div>
 
             <div class="col-10 d-inline-flex">
-                <div class="col-4">
+                <div class="col-5">
                     <p class="pt-2 fw-bold">TEMPAT LATIHAN PRAKTIKAL</p>
                 </div>
-                <div class="col-6">
-                    <input type="text" class="form-control" name="tempat_praktikal" value="{{$pelajar->tempat_praktikal}}" required>
-
+                <div class="col-7">
+                    <input type="text" class="form-control" name="tempat_praktikal" value="{{$pelajar->tempat_praktikal}}">
                 </div>
             </div>
 
+
             <div class="col-10 d-inline-flex">
-                <div class="col-4">
+                <div class="col-5">
                     <p class="pt-2 fw-bold">ALAMAT RUMAH</p>
                 </div>
-                <div class="col-6">
-                    <textarea name="alamat" class="form-control" rows="3" cols="4" required>{{$pelajar->alamat}}</textarea>
+                <div class="col-7">
+                    <textarea rows="3" class="form-control mb-3" name="alamat">{{$pelajar->alamat}}</textarea>
                 </div>
             </div>
 
             <div class="col-10 d-inline-flex">
-                <div class="col-4">
+                <div class="col-5">
                     <p class="pt-2 fw-bold">POSKOD</p>
                 </div>
-                <div class="col-6">
-                    <input type="number" name="poskod" class="form-control" value="{{$pelajar->poskod}}">
+                <div class="col-7">
+                    <input class="form-control" type="text" name="poskod" maxlength="6" size="6"
+                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" value="{{$pelajar->poskod}}">
                 </div>
             </div>
 
             <div class="col-10 d-inline-flex">
-                <div class="col-4">
+                <div class="col-5">
                     <p class="pt-2 fw-bold">DAERAH</p>
                 </div>
-                <div class="col-6">
-                    <input type="text" name="daerah" class="form-control" value="{{$pelajar->daerah}}">
+                <div class="col-7">
+                    {{-- <input type="text" name="daerah" class="form-control"> --}}
+                    <select name="daerah" class="form-select">
+                        @foreach ($daerah as $daerah_rumah)
+                        <option @if ($pelajar->daerah == '{{$daerah_rumah->id}}') selected @endif value="{{$daerah_rumah->id}}">{{$daerah_rumah->Daerah}}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
 
             <div class="col-10 d-inline-flex">
-                <div class="col-4">
+                <div class="col-5">
                     <p class="pt-2 fw-bold">NEGERI</p>
                 </div>
-                <div class="col-6">
+                <div class="col-7">
                     <select name=negeri class="form-select">
                         <option @if ($pelajar->negeri == 'Johor') selected @endif value='Johor'>Johor</option>
                         <option @if ($pelajar->negeri == 'Kedah') selected @endif value='Kedah'>Kedah</option>
@@ -215,7 +222,6 @@
                 </div>
                 <div class="col-7">
                     <select class="form-select" name="tahap_pengajian">
-
                         <option @if ($pelajar->tahap_pengajian == '1') selected @endif value='1'>Sijil</option>
                         <option @if ($pelajar->tahap_pengajian == '2') selected @endif value='2'>Diploma</option>
                         <option @if ($pelajar->tahap_pengajian == '3') selected @endif value='3'>Ijazah</option>
@@ -279,7 +285,7 @@
                     <p class="pt-2 fw-bold">ALAMAT</p>
                 </div>
                 <div class="col-7">
-                    <textarea class="form-control" name="alamat_ipt">{{$pelajar->alamat_ipt}}</textarea>
+                    <textarea rows="3" class="form-control mb-3" name="alamat_ipt">{{$pelajar->alamat_ipt}}</textarea>
                 </div>
             </div>
 
@@ -288,7 +294,8 @@
                     <p class="pt-2 fw-bold">POSKOD</p>
                 </div>
                 <div class="col-3">
-                    <input type="number" class="form-control" name="poskod_ipt" value="{{$pelajar->poskod_ipt}}">
+                    <input class="form-control" type="text" name="poskod_ipt" maxlength="6" size="6"
+                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required value="{{$pelajar->poskod_ipt}}">
                 </div>
             </div>
 
@@ -297,7 +304,13 @@
                     <p class="pt-2 fw-bold">DAERAH</p>
                 </div>
                 <div class="col-3">
-                    <input type="text" class="form-control" name="daerah_ipt" value="{{$pelajar->daerah}}">
+                    <select name="daerah_ipt" class="form-select">
+                        @foreach ($daerah as $daerah_ipt)
+                        <option @if ($pelajar->daerah == '{{$daerah_ipt->id}}') selected @endif value="{{$daerah_ipt->id}}">{{$daerah_ipt->Daerah}}</option>
+                        @endforeach
+                    </select>
+                    {{-- <input type="text" class="form-control" name="daerah_ipt"> --}}
+
                 </div>
             </div>
 
@@ -336,22 +349,17 @@
                 </div>
                 <div class="col-7">
                     <div class="form-check form-switch">
-                        {{-- <input class="form-check-input" type="checkbox" name="kelayakan_elaun"
-                            oninvalid="this.setCustomValidity('Sila pilih kelayakan.')"
-                            oninput="setCustomValidity('')" value="{{$pelajar->kelayakan_elaun}}" />
-                        <label class="form-check-label">Ya</label> --}}
-
                         @if ($pelajar->kelayakan_elaun == 'on')
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" checked="" type="checkbox" name="kelayakan_elaun" />
-                                <label class="form-check-label">Ya</label>
-                            </div>
-                            @else
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" name="kelayakan_elaun" />
-                                <label class="form-check-label">Tidak</label>
-                            </div>
-                            @endif
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" checked="" type="checkbox" name="kelayakan_elaun" />
+                            <label class="form-check-label">Ya</label>
+                        </div>
+                        @else
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" name="kelayakan_elaun" />
+                            <label class="form-check-label">Tidak</label>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -360,7 +368,9 @@
                     <p class="pt-2 fw-bold">KELAYAKAN AWAL PEMBIAYAAN (RM)</p>
                 </div>
                 <div class="col-3">
-                    <input type="text" class="form-control" name="kelulusan_awal_pembiayaan" value="{{$pelajar->kelulusan_awal_pembiayaan}}">
+                    {{-- <input type="text" class="form-control" name="kelulusan_awal_pembiayaan" id="amaun-elaun"> --}}
+                    <input class="form-control" type="text" id="amaun-elaun" name="kelulusan_awal_pembiayaan" maxlength="10" size="10"
+                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required value="{{$pelajar->kelulusan_awal_pembiayaan}}">
                 </div>
             </div>
 
@@ -368,7 +378,6 @@
                 <a href="/us-uls/PelajarPraktikal" class="btn btn-primary" type="submit"> KEMBALI</a>
 
                 <button class="btn btn-primary" type="submit"> HANTAR</button>
-
             </div>
         </div>
 
@@ -376,5 +385,7 @@
     </div>
 
     </form>
+
+
 
 @endsection
