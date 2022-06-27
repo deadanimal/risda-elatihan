@@ -176,4 +176,18 @@ class DashboardController extends Controller
     {
         //
     }
+
+    public function jadual_tahunan()
+    {
+        return view('dashboard_item.jadual_tahunan', [
+            'jadual' => JadualKursus::with('tempat')->orderBy('tarikh_mula', 'desc')->get()
+        ]);
+    }
+
+    public function filter()
+    {
+        $tahun = $_GET['tahun'];
+        $tahun = JadualKursus::with('tempat')->whereYear('tarikh_mula', $tahun)->orderBy('tarikh_mula', 'desc')->get();
+        return response()->json($tahun);
+    }
 }
