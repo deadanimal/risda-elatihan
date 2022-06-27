@@ -63,6 +63,7 @@ use App\Http\Controllers\UtilitiController;
 use App\Http\Controllers\KehadiranPusatLatihanController;
 use App\Models\Agensi;
 use App\Models\JadualKursus;
+use App\Models\KehadiranPusatLatihan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
@@ -134,6 +135,8 @@ Route::middleware('auth')->group(function () {
 // Route::get('/kehadiran-pl/{id}', [KehadiranController::class, 'kehadiran_pl']);
     Route::get('/kehadiran_ke_pl/{id}',[KehadiranPusatLatihanController::class,'index_kehadiran']);
     Route::get('/kehadiran_ke_pl/create/{id}',[KehadiranPusatLatihanController::class,'create']);
+    Route::post('/kehadiran-pl/pengesahan', [KehadiranPusatLatihan::class, 'pengesahan_kehadiran']);
+
 
     Route::resources([
         // '/profil' => ProfilController::class,
