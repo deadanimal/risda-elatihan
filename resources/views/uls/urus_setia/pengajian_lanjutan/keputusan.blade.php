@@ -49,7 +49,7 @@
                         <p class="pt-2 fw-bold">TAHUN</p>
                     </div>
                     <div class="col-2">
-                        <input class="form-control datepicker" name="tahun" type="text" autocomplete="off" />
+                        <input class="form-select form-control datepicker" placeholder="yyyy" name="tahun" type="text" autocomplete="off" />
                     </div>
                 </div>
                 <div class="col-9 d-inline-flex">
