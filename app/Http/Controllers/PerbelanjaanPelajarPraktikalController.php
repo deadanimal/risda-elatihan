@@ -21,7 +21,7 @@ class PerbelanjaanPelajarPraktikalController extends Controller
     public function index()
     {
         $check = Auth::user()->jenis_pengguna;
-        if ($check == 'Urus Setia ULPK') {
+        if (str_contains($check, 'ULPK')) {
             alert()->info('Perbelanjaan Pelajar Praktikal hanya untuk unit latihan Staf sahaja.');
         } else {
             return view('perbelanjaan.pelajar_praktikal.main', [
@@ -45,7 +45,7 @@ class PerbelanjaanPelajarPraktikalController extends Controller
         foreach ($rafis as $key => $r) {
             if ($r['Kod_PT'] == $request->kod_pt) {
                 if ($r['Kod_PA'] == $request->Kod_PA) {
-                    if ($r['Kod_Objek'] == $request->Kod_Objek) {
+                    if ($r['Kod_Objek'] == $request->kod_objek) {
                         array_push($rafis_pt, $r);
                     }
                 }
@@ -75,7 +75,7 @@ class PerbelanjaanPelajarPraktikalController extends Controller
         }
 
         $check = Auth::user()->jenis_pengguna;
-        if ($check == 'Urus Setia ULPK') {
+        if (str_contains($check, 'ULPK')) {
             alert()->info('Perbelanjaan Pelajar Praktikal hanya untuk unit latihan Staf sahaja.');
         } else {
             $pelajar = PelajarPraktikal::all();
@@ -144,7 +144,7 @@ class PerbelanjaanPelajarPraktikalController extends Controller
         }
 
         $check = Auth::user()->jenis_pengguna;
-        if ($check == 'Urus Setia ULPK') {
+        if (str_contains($check, 'ULPK')) {
             alert()->info('Perbelanjaan Pelajar Praktikal hanya untuk unit latihan Staf sahaja.');
         } else {
             $pelajar = PelajarPraktikal::all();

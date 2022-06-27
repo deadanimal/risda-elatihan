@@ -37,11 +37,12 @@ class JadualKursusController extends Controller
      */
     public function index()
     {
+
         $check_auth = Auth::user()->jenis_pengguna;
         $tempat_kursus = KategoriAgensi::where('Kategori_Agensi', 'Tempat Kursus')->first();
         $tempat = Agensi::where('kategori_agensi', $tempat_kursus->id)->get();
         $hari_ini = date('Y-m-d');
-        if ($check_auth == 'Urus Setia ULS') {
+        if (str_contains($check_auth, 'ULS')) {
             $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', 'Staf')->get();
             foreach ($jadualKursus as $key => $jk) {
                 $sum = 0;
@@ -59,7 +60,7 @@ class JadualKursusController extends Controller
                 'tempat' => $tempat,
                 'hari_ini' => $hari_ini
             ]);
-        } else if ($check_auth == 'Urus Setia ULPK') {
+        } else if (str_contains($check_auth, 'ULPK')) {
             $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', 'Pekebun Kecil')->get();
             foreach ($jadualKursus as $key => $jk) {
                 $sum = 0;
@@ -106,7 +107,7 @@ class JadualKursusController extends Controller
     public function create()
     {
         $check = Auth::user()->jenis_pengguna;
-        if ($check == 'Urus Setia ULS') {
+        if (str_contains($check, 'ULS')) {
             $kumpulan_sasaran = Staf::orderBy('Gred', 'ASC')->get()->groupBy('Gred');
             $hari_ini = date("Y-m-d");
             $tahun_ini = date("Y");
@@ -138,7 +139,7 @@ class JadualKursusController extends Controller
                 'staf_bertanggungjawab' => $staf_bertanggungjawab,
                 'kumpulan_sasaran' => $kumpulan_sasaran
             ]);
-        } elseif ($check == 'Urus Setia ULPK') {
+        } elseif (str_contains($check, 'ULPK')) {
             $hari_ini = date("Y-m-d");
             $tahun_ini = date("Y");
             $bidang = BidangKursus::where('UL_Bidang_Kursus', 'Pekebun Kecil')->get();
@@ -216,6 +217,7 @@ class JadualKursusController extends Controller
     public function store(StoreJadualKursusRequest $request)
     {
         $jadualKursus = new JadualKursus($request->all());
+        $jadualKursus->kursus_kumpulan_sasaran = serialize($request->kursus_kumpulan_sasaran);
         if ($request->status == 'on') {
             $status = 1;
         } else {
@@ -255,15 +257,49 @@ class JadualKursusController extends Controller
         $kategori = KategoriKursus::all();
         $kod_kursus = KodKursus::all();
         $status_pelaksanaan = StatusPelaksanaan::all();
-        return view('pengurusan_kursus.semak_jadual.edit', [
-            'jadual' => $jadualKursus,
-            'bidang' => $bidang,
-            'kategori' => $kategori,
-            'kod_kursus' => $kod_kursus,
-            'status_pelaksanaan' => $status_pelaksanaan,
-            'list_jadual' => $list_jadual,
-            'pengendali' => $pengendali,
-        ]);
+        
+
+        if ($jadualKursus->kursus_unit_latihan == 'Staf') {
+            try {
+                $gred = unserialize($jadualKursus->kursus_kumpulan_sasaran);
+            } catch (\Throwable $th) {
+                $gred = [];
+                array_push($gred, $jadualKursus->kursus_kumpulan_sasaran);
+            }
+            $kumpulan_sasaran = Staf::orderBy('Gred', 'ASC')->get()->groupBy('Gred');
+
+            $kump_sasar = [];
+            foreach ($kumpulan_sasaran as $a => $ks) {
+                foreach ($gred as $b => $g) {
+                    if ($a != $g) {
+                        array_push($kump_sasar, $a);
+                        break;
+                    }
+                }
+            }
+
+            return view('pengurusan_kursus.semak_jadual.edit.uls', [
+                'jadual' => $jadualKursus,
+                'bidang' => $bidang,
+                'kategori' => $kategori,
+                'kod_kursus' => $kod_kursus,
+                'status_pelaksanaan' => $status_pelaksanaan,
+                'list_jadual' => $list_jadual,
+                'pengendali' => $pengendali,
+                'gred'=>$gred,
+                'kumpulan_sasaran'=>$kump_sasar
+            ]);
+        } else {
+            return view('pengurusan_kursus.semak_jadual.edit.ulpk', [
+                'jadual' => $jadualKursus,
+                'bidang' => $bidang,
+                'kategori' => $kategori,
+                'kod_kursus' => $kod_kursus,
+                'status_pelaksanaan' => $status_pelaksanaan,
+                'list_jadual' => $list_jadual,
+                'pengendali' => $pengendali,
+            ]);
+        }
     }
 
     /**
@@ -381,7 +417,7 @@ class JadualKursusController extends Controller
         $pengguna = Auth::user()->jenis_pengguna;
 
 
-        if ($pengguna == 'Urus Setia ULS') {
+        if (str_contains($pengguna, 'ULS')) {
             $kursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', 'Staf')->get();
              foreach ($kursus as $key => $jk) {
                 $sum = 0;
@@ -399,7 +435,7 @@ class JadualKursusController extends Controller
             return $pdf->download('Jadual_Kursus '.'Unit Latihan Staff'. $today .'.pdf');
         }
 
-        else if($pengguna == 'Urus Setia ULPK'){
+        else if(str_contains($pengguna, 'ULPK')){
             $kursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', 'Pekebun Kecil')->get();
 
             foreach ($kursus as $key => $jk) {
@@ -441,5 +477,162 @@ class JadualKursusController extends Controller
         // return $pdf->stream("dompdf_out.pdf", array("Attachment" => false));
 
 
+    }
+
+    public function filter_jadual()
+    {
+        // format date
+        if ($_GET['tarikh_awal'] != null) {
+            $f_awal = date('Y-m-d', strtotime($_GET['tarikh_awal']));
+        }else{
+            $f_awal = $_GET['tarikh_awal'];
+        }
+
+        if ($_GET['tarikh_akhir'] != null) {
+            $f_akhir = date('Y-m-d', strtotime($_GET['tarikh_akhir']));
+        }else{
+            $f_akhir = $_GET['tarikh_akhir'];
+        }
+        
+        
+        $unit_latihan = $_GET['unit_latihan'];
+        $t_awal = $f_awal;
+        $t_akhir = $f_akhir;
+        $tempat_kursus = $_GET['tempat_kursus'];
+
+        if ($unit_latihan != null) {
+            // ADA UL
+            if ($t_awal != null) {
+                //ADA TARIKH AWAL
+                if ($t_akhir != null) {
+                    //ADA TARIKH AKHIR
+                    if ($tempat_kursus != null) {
+                        //ADA TEMPAT KURSUS
+                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', $unit_latihan)->where('tarikh_mula', '>=', $t_awal)->where('tarikh_tamat', '<=', $t_akhir)->where('kursus_tempat', $tempat_kursus)->get(); //ABCD
+
+                    } else {
+                        //TIADA TEMPAT KURSUS
+                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', $unit_latihan)->where('tarikh_mula', '>=', $t_awal)->where('tarikh_tamat', '<=', $t_akhir)->get(); //ABC
+
+                    }
+                    
+                } else {
+                    //TIADA MUKIM
+                    if ($tempat_kursus != null) {
+                        //ADA TEMPAT KURSUS
+                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', $unit_latihan)->where('tarikh_mula', '>=', $t_awal)->where('kursus_tempat', $tempat_kursus)->get(); //ABD
+
+                    } else {
+                        // TIADA TEMPAT KURSUS
+                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', $unit_latihan)->where('tarikh_mula', '>=', $t_awal)->get(); //AB
+
+                    }
+
+                }
+                
+            } else {
+                //TIADA TARIKH AWAL
+                if ($t_akhir != null) {
+                    //ADA TARIKH AKHIR
+                    if ($tempat_kursus != null) {
+                        //ADA TEMPAT KURSUS
+                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', $unit_latihan)->where('tarikh_tamat', '<=', $t_akhir)->where('kursus_tempat', $tempat_kursus)->get(); //ACD
+
+                    } else {
+                        //TIADA TEMPAT KURSUS
+                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', $unit_latihan)->where('tarikh_tamat', '<=', $t_akhir)->get(); //AC
+
+                    }
+                    
+                } else {
+                    //TIADA TARIKH AKHIR
+                    if ($tempat_kursus != null) {
+                        //ADA KAMPUNG
+                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', $unit_latihan)->where('kursus_tempat', $tempat_kursus)->get(); //AD
+
+                    } else {
+                        //TIADA KAMPUNG
+                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', $unit_latihan)->get(); //A
+
+                    }
+
+                }
+
+            }
+            
+        } else {
+            //TIADA UL
+            if ($t_awal != null) {
+                //ADA TARIKH AWAL
+                if ($t_akhir != null) {
+                    //ADA TARIKH AKHIR
+                    if ($tempat_kursus != null) {
+                        //ADA TEMPAT KURSUS
+                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('tarikh_mula', '>=', $t_awal)->where('tarikh_tamat', '<=', $t_akhir)->where('kursus_tempat', $tempat_kursus)->get(); //BCD
+
+                    } else {
+                        //TIADA TEMPAT KURSUS
+                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('tarikh_mula', '>=', $t_awal)->where('tarikh_tamat', '<=', $t_akhir)->get(); //BC
+
+                    }
+                    
+                } else {
+                    //TIADA MUKIM
+                    if ($tempat_kursus != null) {
+                        //ADA KAMPUNG
+                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('tarikh_mula', '>=', $t_awal)->where('kursus_tempat', $tempat_kursus)->get(); //BD
+
+                    } else {
+                        //TIADA KAMPUNG
+                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('tarikh_mula', '>=', $t_awal)->get(); //B
+
+                    }
+
+                }
+                
+            } else {
+                //TIADA TARIKH AWAL
+                if ($t_akhir != null) {
+                    //ADA TARIKH AKHIR
+                    if ($tempat_kursus != null) {
+                        //ADA TEMPAT KURSUS
+                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('tarikh_tamat', '<=', $t_akhir)->where('kursus_tempat', $tempat_kursus)->get(); //CD
+
+                    } else {
+                        //TIADA TEMPAT KURSUS
+                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('tarikh_tamat', '<=', $t_akhir)->get(); //C
+
+                    }
+                    
+                } else {
+                    //TIADA TARIKH AKHIR
+                    if ($tempat_kursus != null) {
+                        //ADA TEMPAT KURSUS
+                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_tempat', $tempat_kursus)->get(); //D
+
+                    } else {
+                        //TIADA TEMPAT KURSUS
+                        $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->get(); //SEMUA
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        // $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('tarikh_mula', '>=', $t_awal)->where('tarikh_tamat', '<=', $t_akhir)->get();
+        foreach ($jadualKursus as $key => $jk) {
+            $sum = 0;
+            $bil = PeruntukanPeserta::where('pp_jadual_kursus', $jk->id)->get();
+
+            foreach ($bil as $k => $b) {
+                $sum = $sum + $b->pp_peruntukan_calon;
+            }
+            $jk['bilangan'] = $sum;
+        }
+
+        return response()->json($jadualKursus);
     }
 }

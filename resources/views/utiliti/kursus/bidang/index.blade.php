@@ -122,7 +122,7 @@
                                                         </h4>
                                                     </div>
                                                     <div class="p-4 pb-0">
-                                                        <form action="/utiliti/kursus/bidang_kategori/{{ $bk->id }}"
+                                                        <form action="/utiliti/kursus/bidang_kursus/{{ $bk->id }}"
                                                             method="POST">
                                                             @method('PUT')
                                                             @csrf

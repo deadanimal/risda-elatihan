@@ -86,7 +86,7 @@
 
                                                                                 @if (($p->status_permohonan == 4)||($p->status_permohonan == 6))
                                                                                     <a class="btn btn-primary btn-sm"
-                                                                                        href="/uls/permohonan/kehadiran/{{ $p->kod_kursus }}">Kehadiran</a>
+                                                                                        href="/uls/permohonan/kehadiran/{{ $p->id }}">Kehadiran</a>
 
                                                                                     <a class="btn btn-primary btn-sm"
                                                                                         href="/cetak_surat_tawaran/{{ $p->id }}">
@@ -94,7 +94,7 @@
                                                                                     </a>
                                                                                 @else
                                                                                     <button class="btn btn-secondary btn-sm"
-                                                                                        href="/uls/permohonan/kehadiran/{{ $p->kod_kursus }}"
+                                                                                        href="/uls/permohonan/kehadiran/{{ $p->id }}"
                                                                                         @disabled(true)>Kehadiran</button>
 
                                                                                     <button class="btn btn-secondary btn-sm"
@@ -185,7 +185,7 @@
                                                                                 Cetak Surat Tawaran
                                                                             </a>
                                                                             <a class="btn btn-primary btn-sm"
-                                                                                href="/uls/permohonan/kehadiran/{{ $p->kod_kursus }}">Kehadiran</a>
+                                                                                href="/uls/permohonan/kehadiran/{{ $p->id }}">Kehadiran</a>
                                                                         </div>
                                                                     </td>
                                                                 </tr>
@@ -224,7 +224,7 @@
                                                                                     @if (($p->status_permohonan == 4)||($p->status_permohonan == 6))
 
                                                                                         <a class="btn btn-primary btn-sm"
-                                                                                            href="/uls/permohonan/kehadiran/{{ $p->kod_kursus }}">Kehadiran</a>
+                                                                                            href="/uls/permohonan/kehadiran/{{ $p->id }}">Kehadiran</a>
 
                                                                                         <a class="btn btn-primary btn-sm"
                                                                                             href="/cetak_surat_tawaran/{{ $p->id }}">
@@ -232,7 +232,7 @@
                                                                                         </a>
                                                                                     @else
                                                                                         <button class="btn btn-secondary btn-sm"
-                                                                                            href="/uls/permohonan/kehadiran/{{ $p->kod_kursus }}"
+                                                                                            href="/uls/permohonan/kehadiran/{{ $p->id }}"
                                                                                             @disabled(true)>Kehadiran</button>
 
                                                                                         <button class="btn btn-secondary btn-sm"
@@ -277,7 +277,7 @@
                                                                                         Cetak Surat Tawaran
                                                                                     </a>
                                                                                     <a class="btn btn-primary btn-sm"
-                                                                                        href="/uls/permohonan/kehadiran/{{ $p->kod_kursus }}">Kehadiran</a>
+                                                                                        href="/uls/permohonan/kehadiran/{{ $p->id }}">Kehadiran</a>
                                                                                 </div>
                                                                             </td>
                                                                         </tr>
@@ -314,7 +314,7 @@
                                                                                     Cetak Surat Tawaran
                                                                                 </a>
                                                                                 <a class="btn btn-primary btn-sm"
-                                                                                    href="/uls/permohonan/kehadiran/{{ $p->kod_kursus }}">Kehadiran</a>
+                                                                                    href="/uls/permohonan/kehadiran/{{ $p->id }}">Kehadiran</a>
                                                                             </div>
                                                                         </td>
                                                                     </tr>

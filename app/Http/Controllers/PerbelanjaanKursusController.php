@@ -66,9 +66,9 @@ class PerbelanjaanKursusController extends Controller
         }
 
         $check = Auth::user()->jenis_pengguna;
-        if ($check == 'Urus Setia ULS') {
+        if (str_contains($check, 'ULS')) {
             $jadual = JadualKursus::doesntHave('perbelanjaan')->where('kursus_unit_latihan', 'Staf')->get();
-        } elseif ($check == 'Urus Setia ULPK') {
+        } elseif (str_contains($check, 'ULS')) {
             $jadual = JadualKursus::doesntHave('perbelanjaan')->where('kursus_unit_latihan', 'Pekebun Kecil')->get();
         } else{
             $jadual = JadualKursus::doesntHave('perbelanjaan')->get();
@@ -137,9 +137,9 @@ class PerbelanjaanKursusController extends Controller
         }
 
         $check = Auth::user()->jenis_pengguna;
-        if ($check == 'Urus Setia ULS') {
+        if (str_contains($check, 'ULS')) {
             $jadual = JadualKursus::where('kursus_unit_latihan', 'Staf')->get();
-        } elseif ($check == 'Urus Setia ULPK') {
+        } elseif (str_contains($check, 'ULPK')) {
             $jadual = JadualKursus::where('kursus_unit_latihan', 'Pekebun Kecil')->get();
         } else{
             $jadual = JadualKursus::all();

@@ -12,7 +12,6 @@
             border-color: rgb(0, 150, 64);
             vertical-align: middle;
         }
-
     </style>
 
     <div class="container">
@@ -71,7 +70,8 @@
                     <p class="pt-2 fw-bold">TARIKH KURSUS</p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control mb-3" value="{{ $kod_kursus->tarikh_mula }}" readonly>
+                    <input type="text" class="form-control mb-3"
+                        value="{{ date('d-m-Y', strtotime($kod_kursus->tarikh_mula)) }}" readonly>
                 </div>
             </div>
 
@@ -93,6 +93,7 @@
             </div>
         </div>
 
+        {{-- table kehadiran SEBELUM KE KURSUS --}}
         <div class="card mt-5">
             <div class="table-responsive scrollbar rounded" id="table-kehadiran-sebelum-kursus">
                 <table class="table table-bordered text-center">
@@ -107,34 +108,27 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($kehadiran as $k)
+                        @foreach ($aturcara as $k)
                             <tr>
                                 <td class="align-middle">{{ $date[$k->ac_hari - 1] }}</td>
                                 <td class="align-middle">{{ $hari[$k->ac_hari - 1] }}</td>
                                 <td>{{ $k->ac_sesi }}</td>
                                 <td>{{ $k->ac_masa_mula }} - {{ $k->ac_masa_tamat }}</td>
-                                @if ($k->kehadiran == null)
+                                @if ($k->status_kehadiran != null)
+                                    <td>
+                                        {{ $k->status_kehadiran->status_kehadiran }}
+                                    </td>
+                                    <td>
+                                        {{ $k->status_kehadiran['alasan_ketidakhadiran'] ?? '' }}
+                                    </td>
+                                @else
                                     <td>
                                         <button class="btn btn-primary mx-0" type="button" onclick="" data-bs-toggle="modal"
                                             data-bs-target="#pengesahan-kehadiran-sebelum{{ $k->id }}">Pengesahan
                                             Kehadiran</button>
                                     </td>
                                     <td>
-                                        {{ $k->kehadiran['alasan_ketidakhadiran'] ?? '' }}
-                                    </td>
-                                @else
-                                    <td>
-                                        @if ($k->kehadiran['status_kehadiran'] == null)
-                                            <button class="btn btn-primary mx-0" type="button" onclick=""
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#pengesahan-kehadiran-sebelum{{ $k->id }}">Pengesahan
-                                                Kehadiran</button>
-                                        @else
-                                            {{ $k->kehadiran['status_kehadiran'] }}
-                                        @endif
-                                    </td>
-                                    <td>
-                                        {{ $k->kehadiran['alasan_ketidakhadiran'] ?? '' }}
+                                        {{ $k->status_kehadiran['alasan_ketidakhadiran'] ?? '' }}
                                     </td>
                                 @endif
 
@@ -194,9 +188,9 @@
                                                                     <input type="hidden" name="jadual_kursus_ref"
                                                                         value="{{ $k->id }}">
                                                                     {{-- <input type="hidden" id="kehadiran-update-id"
-                                                                        name="id_kehadiran">
-                                                                    <input type="hidden" id="jenis_kehadiran"
-                                                                        name="jenis_kehadiran"> --}}
+                                                                    name="id_kehadiran">
+                                                                <input type="hidden" id="jenis_kehadiran"
+                                                                    name="jenis_kehadiran"> --}}
                                                                 </div>
                                                                 <div class="col-8 d-inline-flex mt-5">
                                                                     <div class="col-5 d-none"
@@ -227,6 +221,8 @@
                     </tbody>
                 </table>
             </div>
+
+            {{-- table kehadiran KE KURSUS --}}
             <div class="table-responsive scrollbar" id="table-kehadiran-ke-kursus">
                 <table class="table table-bordered text-center">
                     <thead>
@@ -240,38 +236,40 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($kehadiran as $k)
+                        @foreach ($aturcara as $k)
                             <tr>
                                 <td class="align-middle">{{ $date[$k->ac_hari - 1] }}</td>
                                 <td class="align-middle">{{ $hari[$k->ac_hari - 1] }}</td>
                                 <td>{{ $k->ac_sesi }}</td>
                                 <td>{{ $k->ac_masa_mula }} - {{ $k->ac_masa_tamat }}</td>
-                                @if ($k->kehadiran == null)
-                                    <td>
-                                        <button class="btn btn-primary mx-0" type="button" data-bs-toggle="modal"
-                                            data-bs-target="#pengesahan-kehadiran{{ $k->id }}">
-                                            Pengesahan Kehadiran
-                                        </button>
-                                    </td>
-                                    <td>
-                                        {{ $k->kehadiran['alasan_ketidakhadiran_ke_kursus'] ?? '' }}
-                                    </td>
-                                @else
-                                    <td>
-                                        @if ($k->kehadiran['status_kehadiran_ke_kursus'] == null)
-                                            <button class="btn btn-primary mx-0" type="button" data-bs-toggle="modal"
+                                <td>
+                                    @if (date('Y-m-d') >= $date[$k->ac_hari - 1])
+                                        @if ($k->status_ke_kursus['status_kehadiran_ke_kursus'] == null)
+                                            TIDAK HADIR
+                                        @elseif($k->status_ke_kursus['status_kehadiran_ke_kursus'] == 'TIDAK HADIR')
+                                            TIDAK HADIR
+                                        @else
+                                            {{ $k->status_ke_kursus['status_kehadiran_ke_kursus'] }}
+                                        @endif
+                                    @else
+                                    @endif
+
+                                </td>
+                                <td>
+                                    @if (date('Y-m-d') >= $date[$k->ac_hari - 1])
+                                        @if ($k->status_ke_kursus['status_kehadiran_ke_kursus'] == null)
+                                            <button class="btn btn-primary mx-0" type="button" onclick=""
+                                                data-bs-toggle="modal"
                                                 data-bs-target="#pengesahan-kehadiran{{ $k->id }}">
                                                 Pengesahan Kehadiran
                                             </button>
                                         @else
-                                            {{ $k->kehadiran['status_kehadiran_ke_kursus'] }}
+                                            {{ $k->status_ke_kursus['alasan_ketidakhadiran_ke_kursus'] ?? '' }}
                                         @endif
+                                    @else
+                                    @endif
 
-                                    </td>
-                                    <td>
-                                        {{ $k->kehadiran['alasan_ketidakhadiran_ke_kursus'] ?? '' }}
-                                    </td>
-                                @endif
+                                </td>
 
                             </tr>
 
@@ -289,10 +287,10 @@
                                             <div class="bg-light rounded-top-lg py-3 ps-4 pe-6">
                                                 <h4 class="mb-1 fw-bold" id="pengesahan-kehadiranLabel"
                                                     style="color: rgb(15,94,49)">PENGESAHAN
-                                                    KEHADIRAN</h4>
+                                                    KEHADIRAN KE KURSUS</h4>
                                             </div>
                                             <div class="container p-4">
-                                                <form method="post" action="/pengesahan_kehadiran">
+                                                <form method="post" action="/uls/pengesahan_kehadiran">
                                                     @csrf
                                                     <div class="card">
                                                         <div class="card body">
@@ -302,7 +300,10 @@
                                                                         <p class="h5 mt-1">Status Kehadiran</p>
                                                                     </div>
                                                                     <div class="col-7">
-                                                                        <select class="form-control"
+                                                                        <input type="text" name="status_kehadiran_ke_kursus"
+                                                                            id="" value="TIDAK HADIR" class="form-control"
+                                                                            readonly>
+                                                                        {{-- <select class="form-control"
                                                                             name="status_kehadiran_ke_kursus"
                                                                             onchange="kehadiranalasan(this,{{ $k->id }})">
                                                                             <option disabled hidden selected>Sila Pilih
@@ -311,23 +312,19 @@
                                                                             </option>
                                                                             <option value="TIDAK HADIR">
                                                                                 TIDAK HADIR</option>
-                                                                        </select>
+                                                                        </select> --}}
                                                                     </div>
                                                                     <input type="hidden" name="jenis_input" value="1">
-                                                                    @if ($k->kehadiran == null)
-                                                                        <input type="hidden" name="id_keh" value="">
-                                                                    @else
-                                                                        <input type="hidden" name="id_keh"
-                                                                            value="{{ $k->kehadiran['id'] }}">
-                                                                    @endif
+                                                                    <input type="hidden" name="id_keh"
+                                                                        value="{{ $k['id'] }}">
 
                                                                 </div>
                                                                 <div class="col-8 d-inline-flex mt-5">
-                                                                    <div class="col-5 d-none"
+                                                                    <div class="col-5"
                                                                         id="alasan-sec-{{ $k->id }}">
                                                                         <p class="h5 mt-1">Alasan</p>
                                                                     </div>
-                                                                    <div class="col-7 d-none"
+                                                                    <div class="col-7"
                                                                         id="alasan2-sec-{{ $k->id }}">
                                                                         <input type="text" class="form-control"
                                                                             name="alasan_ketidakhadiran_ke_kursus">
@@ -348,6 +345,7 @@
                                 </div>
                             </div>
                         @endforeach
+
                     </tbody>
                 </table>
             </div>

@@ -28,7 +28,7 @@
                         <label class="col-form-label">UNIT LATIHAN:</label>
                     </div>
                     <div class="col-lg-10">
-                        <select class="form-select form-control" disabled onchange="unitlatihan(this)">
+                        <select class="form-select form-control" disabled onchange="filter(this)" id="search_UL">
                             <option value="Staf" selected>Staf</option>
                         </select>
                     </div>
@@ -42,7 +42,7 @@
                             </div>
                             <div class="col-lg-8">
                                 <input class="form-control datetimepicker" id="search_TA" type="text"
-                                    placeholder="dd-mm-yyyy" data-options='{"disableMobile":true, "dateFormat":"d-m-Y"}' />
+                                    placeholder="dd-mm-yyyy" data-options='{"disableMobile":true, "dateFormat":"d-m-Y"}' onchange="filter(this)"/>
                             </div>
                         </div>
                     </div>
@@ -53,7 +53,7 @@
                             </div>
                             <div class="col-lg-8">
                                 <input class="form-control datetimepicker" id="search_TL" type="text"
-                                    placeholder="dd-mm-yyyy" data-options='{"disableMobile":true, "dateFormat":"d-m-Y"}' />
+                                    placeholder="dd-mm-yyyy" data-options='{"disableMobile":true, "dateFormat":"d-m-Y"}' onchange="filter(this)"/>
                             </div>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
                         <label class="col-form-label">TEMPAT KURSUS:</label>
                     </div>
                     <div class="col-lg-10">
-                        <select class="form-select form-control" name="search_TK" id="search_TK">
+                        <select class="form-select form-control" name="search_TK" id="search_TK" onchange="filter(this)">
                             <option selected="" value="" hidden>Sila Pilih</option>
                             @foreach ($tempat as $t)
                                 <option value="{{ $t->id }}">{{ $t->nama_Agensi }}</option>
@@ -105,6 +105,7 @@
                                     <th class="sort">TEMPAT KURSUS</th>
                                     <th class="sort">BILANGAN PESERTA</th>
                                     <th class="sort">STATUS PELAKSANAAN</th>
+                                    <th class="sort">STATUS KURSUS</th>
                                     <th class="sort">TINDAKAN</th>
                                 </tr>
                             </thead>
@@ -133,6 +134,13 @@
                                         @elseif ($j->tarikh_tamat >= date('Y-m-d'))
                                             <td>SEDANG DILAKSANAKAN</td>
                                         @endif
+                                        <td>
+                                            @if ($j->kursus_status == 1)
+                                                <span class="badge badge-soft-success">Aktif</span>
+                                            @else
+                                                <span class="badge badge-soft-danger">Deraf</span>
+                                            @endif
+                                        </td>
                                         {{-- @else --}}
 
                                         {{-- @endif --}}
@@ -194,9 +202,6 @@
 
 
     <script>
-        $('.datetimepicker').datepicker({
-            format: 'dd-mm-yyyy',
-        });
 
         function unitlatihan(el) {
             var id = el.value;
@@ -280,6 +285,120 @@
                 },
                 error: function() {
                     console.log('success');
+                },
+            });
+        }
+
+        function filter(ta) {
+            var tarikh_akhir = $('#search_TL').val();
+            var tarikh_awal = $('#search_TA').val();
+            var unit_latihan = $('#search_UL').val();
+            var tempat_kursus = $('#search_TK').val();
+
+            $.ajax({
+                type: 'get',
+                url: '/pengurusan_kursus/filter-jadual',
+                data: {
+                    'unit_latihan': unit_latihan,
+                    'tarikh_awal': tarikh_awal,
+                    'tarikh_akhir': tarikh_akhir,
+                    'tempat_kursus': tempat_kursus
+                },
+                success: function(jadual) {
+                    console.log(jadual);
+                    $('.datatable').dataTable().fnClearTable();
+                    $('.datatable').dataTable().fnDestroy();
+                    $("#t_normal").html("");
+                    let iteration = 1;
+                    jadual.forEach(e => {
+                        console.log(e);
+                        var tarikh_mula = e.tarikh_mula;
+                        var tarikh_tamat = e.tarikh_tamat;
+                        var hari_ini = @json($hari_ini);
+                        var status = ''
+                        if (tarikh_mula > hari_ini) {
+                            status = 'BELUM DILAKSANA';
+                        } else if (tarikh_tamat < hari_ini) {
+                            status = 'SELESAI';
+                        } else if (tarikh_tamat >= hari_ini) {
+                            status = 'SEDANG DILAKSANAKAN';
+                        }
+                        $("#t_normal").append(`
+                          <tr>
+                                        <td>` + iteration + `.</td>
+                                        <td>` + e.kursus_kod_nama_kursus + `</td>
+                                        <td>` + e.kursus_nama + `</td>
+                                        <td>` + e.tarikh_mula + `</td>
+                                        <td>
+                                            ` + e.tempat.nama_Agensi + `
+                                        </td>
+                                        <td>` + e.bilangan + `</td>
+                                        <td>
+                                            ` + status + `
+                                        </td>
+                                        <td>
+                                            `
+                                            +
+                            (e.kursus_status == '1' ?
+                                '<span class="badge badge-soft-success">Aktif</span>' :
+                                '<span class="badge badge-soft-danger">Deraf</span>') +
+                                            `
+                                        </td>
+                                        <td>
+                                            <a href="/pengurusan_kursus/semak_jadual/` + e.id + `/edit"
+                                                class="btn btn-sm btn-primary">
+                                                <i class="fas fa-pen"></i>
+                                            </a>
+                                            <button class="btn btn-sm risda-bg-dg text-white" type="button"
+                                                data-bs-toggle="modal" data-bs-target="#delete_BK_` + e.id + `">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+                            </tr>
+                                    <div class="modal fade" id="delete_BK_` + e.id + `" tabindex="-1"
+                                        role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document"
+                                            style="max-width: 500px">
+                                            <div class="modal-content position-relative">
+                                                <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
+                                                    <button
+                                                        class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
+                                                        data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body p-0">
+                                                    <div class="row">
+                                                        <div class="col text-center m-3">
+                                                            <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
+                                                            <br>
+                                                            Anda pasti untuk menghapus ` + e.kursus_nama + `?
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-secondary" type="button"
+                                                            data-bs-dismiss="modal">Batal</button>
+                                                        <form method="POST"
+                                                            action="/pengurusan_kursus/semak_jadual/` + e.id + `">
+                                                            @method('DELETE')
+                                                            @csrf
+                                                            <button class="btn btn-primary" type="submit">Hapus
+                                                            </button>
+                                                        </form>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                        `);
+
+                        iteration++;
+                    });
+                    $('.datatable').dataTable();
+                },
+                error: function() {
+                    console.log('error');
                 },
             });
         }

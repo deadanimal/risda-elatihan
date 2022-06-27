@@ -36,7 +36,7 @@ class SemakPermohonanController extends Controller
         $kategori = KategoriAgensi::where('Kategori_Agensi', 'Tempat Kursus')->first()->id;
         $tempat = Agensi::with('kategori')->where('kategori_agensi', $kategori)->get();
 
-        if ($check == 'Urus Setia ULS') {
+        if (str_contains($check, 'ULS')) {
             foreach ($pemohon as $key => $p) {
                 if ($p->peserta == null) {
                     $p->delete();
@@ -51,7 +51,7 @@ class SemakPermohonanController extends Controller
                 'tempat' => $tempat
             ]);
         } 
-        elseif ($check == 'Urus Setia ULPK') {
+        elseif (str_contains($check, 'ULPK')) {
             $pekebun_kecil = [];
             foreach ($pemohon as $key => $p) {
                 if ($p->peserta == null) {
@@ -275,5 +275,53 @@ class SemakPermohonanController extends Controller
 
         alert()->success('Peserta telah diberi sokongan.', 'Berjaya');
         return redirect('/pengurusan_peserta/semakan_pemohon');
+    }
+
+    public function filter()
+    {
+        $unitlatihan = $_GET['unit_latihan'];
+        $tempat = $_GET['tempat_kursus'];
+
+        $permohonan = Permohonan::with(['tempat', 'peserta', 'data_staf', 'data_pk', 'jadual'])->get();
+
+        $result = [];
+        if ($unitlatihan != null) {
+            // ada unit latihan
+            if ($tempat != null) {
+                // ada tempat
+                foreach ($permohonan as $key => $p) {
+                    if ($p->jadual->kursus_unit_latihan == $unitlatihan) {
+                       if ($p->tempat->id == $tempat) {
+                           array_push($result, $p);
+                       }
+                    }
+                }
+            } else {
+                // tiada tempat
+                foreach ($permohonan as $key => $p) {
+                    if ($p->jadual->kursus_unit_latihan == $unitlatihan) {
+                        array_push($result, $p);
+                    }
+                }
+            }
+            
+        } else {
+            // tiada unit latihan
+            if ($tempat != null) {
+                // ada tempat
+                foreach ($permohonan as $key => $p) {
+                    if ($p->tempat->id == $tempat) {
+                        array_push($result, $p);
+                    }
+                }
+            } else {
+                // tiada tempat
+                foreach ($permohonan as $key => $p) {
+                    array_push($result, $p);
+                }
+            }
+        }
+
+        return response()->json($result);
     }
 }

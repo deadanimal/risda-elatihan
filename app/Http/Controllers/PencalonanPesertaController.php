@@ -35,10 +35,11 @@ class PencalonanPesertaController extends Controller
         // return view('pengurusan_peserta.pencalonan.index', [
         //     'jadual' => $jadual,
         // ]);
-
-        if (Auth::user()->jenis_pengguna == 'Urus Setia ULS') {
+        
+        $jenis_pengguna_check = Auth::user()->jenis_pengguna;
+        if (str_contains($jenis_pengguna_check, 'ULS')) {
             $jadual = JadualKursus::with(['tempat', 'status_pelaksanaan'])->get();
-        } elseif (Auth::user()->jenis_pengguna == 'Urus Setia ULPK') {
+        } elseif (str_contains($jenis_pengguna_check, 'ULPK')) {
             $jadual = JadualKursus::with(['tempat', 'status_pelaksanaan'])->get();
         } else {
             $jadual = JadualKursus::with(['tempat', 'status_pelaksanaan'])->get();

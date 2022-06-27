@@ -48,5 +48,10 @@ class Kehadiran extends Model
         return $this->belongsTo(JadualKursus::class,'jadual_kursus_id','id');
     }
 
+    public function jadual()
+    {
+        return $this->belongsTo(JadualKursus::class, 'kod_kursus', 'kursus_kod_nama_kursus');
+    }
+
 
 }

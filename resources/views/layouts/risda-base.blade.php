@@ -34,6 +34,8 @@
     <script type="text/javascript" src="/assets/js/datatables.js"></script>
     <script src="/assets/js/flatpickr.js"></script>
     <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script src="/vendors/choices/choices.min.js"></script>
+    <link href="/vendors/choices/choices.min.css" rel="stylesheet" />
 
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css"
@@ -416,6 +418,11 @@
         .flatpickr-day.selected {
             background-color: #009640;
             border-color: #009640;
+        }
+
+        .choices .choices__list--dropdown .choices__item--selectable.is-highlighted {
+            background-color: #009640;
+            color: var(--falcon-choices-item-selectable-highlighted-bg);
         }
     </style>
     <?php

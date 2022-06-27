@@ -113,8 +113,9 @@ class BidangKursusController extends Controller
      * @param  \App\Models\BidangKursus  $bidangKursus
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateBidangKursusRequest $request, BidangKursus $bidangKursus)
+    public function update(UpdateBidangKursusRequest $request, $id)
     {
+        $bidangKursus = BidangKursus::find($id);
         $bidangKursus->UL_Bidang_Kursus = $request->UL_Bidang_Kursus;
         $bidangKursus->kod_Bidang_Kursus = $request->kod_Bidang_Kursus;
         $bidangKursus->nama_Bidang_Kursus = $request->nama_Bidang_Kursus;
