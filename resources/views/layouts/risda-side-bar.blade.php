@@ -236,7 +236,7 @@
                             aria-expanded="{{ Request::is('pengurusan_kursus/*') ? 'true' : 'false' }}"
                             aria-controls="pengurusan_kursus">
                             <div class="d-flex align-items-center nav-link-side px-0">
-                                <span class=" px-3"><span class="fas fa-clone"></span> PENGURUSAN KURSUS</span>
+                                <span class=" px-3"><span class="fas fa-book"></span> PENGURUSAN KURSUS</span>
                             </div>
                         </a>
                         <ul class="nav-item collapse {{ Request::is('pengurusan_kursus/*') ? 'show' : 'false' }} my-1"
@@ -258,7 +258,7 @@
                             aria-expanded="{{ Request::is('pengurusan_peserta/*') ? 'true' : 'false' }}"
                             aria-controls="pengurusan_peserta">
                             <div class="d-flex align-items-center nav-link-side px-0">
-                                <span class=" px-3"><span class="fas fa-clone"></span> PENGURUSAN
+                                <span class=" px-3"><span class="fas fa-user-graduate"></span> PENGURUSAN
                                     PESERTA</span>
                             </div>
                         </a>
@@ -292,7 +292,7 @@
                         <a class="nav-link py-0 dropdown-indicator" href="#utiliti" role="button" data-bs-toggle="collapse"
                             aria-expanded="{{ Request::is('utiliti/*') ? 'true' : 'false' }}" aria-controls="utiliti">
                             <div class="d-flex align-items-center nav-link-side px-0">
-                                <span class=" px-3"><span class="fas fa-clone"></span> UTILITI</span>
+                                <span class=" px-3"><span class="fas fa-cogs"></span> UTILITI</span>
                             </div>
                         </a>
                         <ul class="nav-item collapse {{ Request::is('utiliti/*') ? 'show' : 'false' }} my-1"
@@ -707,7 +707,7 @@
                             aria-controls="kehadiran">
 
                                 <div class="d-flex align-items-center nav-link-side px-0">
-                                    <span class="px-3"><span class="far fa-address-book"></span> KEHADIRAN</span>
+                                    <span class="px-3"><span class="fas fa-running"></span> KEHADIRAN</span>
                                 </div>
                             </a>
                             <ul class="nav-item collapse {{ Request::is('us-uls/kehadiran/*') ? 'show' : 'false' }} my-1"
@@ -770,7 +770,7 @@
                             aria-expanded="{{ Request::is('us-uls/kehadiran/*') ? 'true' : 'false' }}"
                             aria-controls="kehadiran">
                                 <div class="d-flex align-items-center nav-link-side px-0">
-                                    <span class="px-3"><span class="far fa-address-book"></span> KEHADIRAN</span>
+                                    <span class="px-3"><span class="fas fa-running"></span> KEHADIRAN</span>
                                 </div>
                             </a>
                             <ul class="nav-item collapse {{ Request::is('us-uls/kehadiran/*') ? 'show' : 'false' }} my-1" id="kehadiran">
@@ -833,7 +833,7 @@
                     @can('pelajar praktikal')
                         <a class="nav-link py-0 {{ Request::is('us-uls/PelajarPraktikal') ? 'active' : '' }}" href="/us-uls/PelajarPraktikal" role="button">
                             <div class="d-flex align-items-center nav-link-side px-0">
-                                    <span class="px-3"><span class="far fa-address-book"></span> PELAJAR PRAKTIKAL</span>
+                                    <span class="px-3"><span class="fas fa-user-tie"></span> PELAJAR PRAKTIKAL</span>
                             </div>
                         </a>
                     @endcan
@@ -842,8 +842,7 @@
                         <a class="nav-link py-0 {{ Request::is('us-uls/pengajian-lanjutan') ? 'active' : '' }}"
                             href="/us-uls/pengajian-lanjutan" role="button">
                             <div class="d-flex align-items-center nav-link-side px-0">
-                                <span class="px-3"><span class="far fa-address-book"></span> PENGAJIAN
-                                    LANJUTAN</span>
+                                <span class="px-3"><span class="fas fa-graduation-cap"></span> PENGAJIAN LANJUTAN</span>
                             </div>
                         </a>
                     @endcan
