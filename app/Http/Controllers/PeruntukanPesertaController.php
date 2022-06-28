@@ -60,15 +60,15 @@ class PeruntukanPesertaController extends Controller
             'hari_ini' => date("d m Y")
         ]);
 
-        $peruntukanpeserta=PeruntukanPeserta::where('pp_jadual_kursus',$jadual->id)->get();
-        $receiver=$peruntukanpeserta->email;
+        // $peruntukanpeserta=PeruntukanPeserta::where('pp_jadual_kursus',$jadual->id)->get();
+        // $receiver=$peruntukanpeserta->email;
 
-        // Mail::to($receiver)->send(new PanggilanKeKursus());
+        // // Mail::to($receiver)->send(new PanggilanKeKursus());
 
-        Mail::send('emails.panggilan-ke-kursus', function ($message) use ($receiver, $pdf) {
-            $message->to($receiver)
-                ->attachData($pdf->output(), 'Surat_Panggilan.pdf');
-        });
+        // Mail::send('emails.panggilan-ke-kursus', function ($message) use ($receiver, $pdf) {
+        //     $message->to($receiver)
+        //         ->attachData($pdf->output(), 'Surat_Panggilan.pdf');
+        // });
 
         return redirect('/pengurusan_kursus/peruntukan_peserta/'.$request->pp_jadual_kursus);
     }
