@@ -76,4 +76,8 @@ class JadualKursus extends Model
         return $this->hasMany(KehadiranPusatLatihan::class,'jadual_kursus_id','id');
     }
 
+    public function peruntukan(){
+        return $this->hasMany(PeruntukanPeserta::class,'id','pp_jadual_kursus');
+    }
+
 }
