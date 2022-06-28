@@ -159,15 +159,15 @@
                 <tr>
                     <td>Tempat Kursus</td>
                     <td>:</td>
-                    <td style="text-transform: capitalize">{{$agensi->nama_Agensi}}<br>{{$agensi->alamat_Agensi_baris1}} {{$agensi->alamat_Agensi_baris2}}
-                        <br> {{$agensi->poskod}}  {{$agensi->daerah->Daerah}}
-                        <br> {{$agensi->negeri->Negeri}}
+                    <td style="text-transform: capitalize">{{$jadual->tempat->nama_Agensi}}<br>{{$jadual->tempat->alamat_Agensi_baris1}} {{$jadual->tempat->alamat_Agensi_baris2}}
+                        <br> {{$jadual->tempat->poskod}}
+                        {{-- <br> {{$agensi->negeri->Negeri}} --}}
                     </td>
                 </tr>
                 <tr>
                     <td>Tarikh /Masa Pendaftaran</td>
                     <td>:</td>
-                    <td style="text-transform: capitalize">{{date('d-m-Y', strtotime($jadual->tarikh_mula))}}<br>{{$aturcara->ac_masa}}</td>
+                    <td style="text-transform: capitalize">{{date('d-m-Y', strtotime($jadual->tarikh_mula))}}</td>
                 </tr>
                 <tr>
                     <td>Kriteria Peserta</td>
@@ -219,9 +219,9 @@
 
         <h3 style="text-transform: uppercase">PADA {{date('d-m-Y', strtotime($jadual->tarikh_mula))}} hingga {{date('d-m-Y', strtotime($jadual->tarikh_tamat))}}</h3>
 
-        <h3 style="text-transform: uppercase">TEMPAT: {{$agensi->nama_Agensi}}</h3>
+        <h3 style="text-transform: uppercase">TEMPAT: {{$jadual->tempat->nama_Agensi}}</h3>
 
-        <table>
+        {{-- <table>
             <tr>
                 <td> NEGERI</td>
                 <td>PT @ PRJ </td>
@@ -237,7 +237,7 @@
             </tr>
 
                 @endforeach
-        </table>
+        </table> --}}
 
         <hr>
         <footer>MEMACU MASYARAKAT PEKEBUN KECIL MAKMUR DARIPADA SUMBER KOMODITI DAN HASIL BAHARU BERLANDASKAN REVOLUSI PERINDUSTRIAN DIGITAL SERTA TEKNOLOGI HIJAU. </footer>
