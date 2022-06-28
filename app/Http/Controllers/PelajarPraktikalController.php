@@ -41,30 +41,31 @@ class PelajarPraktikalController extends Controller
         $pelajar->tarikh_lahir = $request->tarikh_lahir;
 
 
-        $tahun = substr($pelajar->no_kp, 0, 2);
-                $tahun = (int)$tahun;
-                if ($tahun <= 30) {
-                    $tahun_lahir = '20'.$tahun;
-                }else{
-                    $tahun_lahir = '19'.$tahun;
-                }
-                // 1978-08-28
-        // $pelajar->tarikh_lahir= substr($pelajar->no_kp, 4, 2) . '/' . substr($pelajar->no_kp, 2, 2) . '/' . $tahun_lahir;
-        $pelajar->tarikh_lahir= $tahun_lahir . '-'.substr($pelajar->no_kp, 2, 2) . '-' .substr($pelajar->no_kp, 4, 2) ;
+        // $tahun = substr($pelajar->no_kp, 0, 2);
+        //         $tahun = (int)$tahun;
+        //         if ($tahun <= 30) {
+        //             $tahun_lahir = '20'.$tahun;
+        //         }else{
+        //             $tahun_lahir = '19'.$tahun;
+        //         }
+        //         // 1978-08-28
+        // // $pelajar->tarikh_lahir= substr($pelajar->no_kp, 4, 2) . '/' . substr($pelajar->no_kp, 2, 2) . '/' . $tahun_lahir;
+        // $pelajar->tarikh_lahir= $tahun_lahir . '-'.substr($pelajar->no_kp, 2, 2) . '-' .substr($pelajar->no_kp, 4, 2) ;
 
-        $jantina = substr($pelajar->no_kp,11);
+        // $jantina = substr($pelajar->no_kp,11);
 
-        if($jantina%2===0){
-            $pelajar->jantina = "P";
+        // if($jantina%2===0){
+        //     $pelajar->jantina = "P";
 
-        }
-        else{
-            $pelajar->jantina = "L";
+        // }
+        // else{
+        //     $pelajar->jantina = "L";
 
-        }
+        // }
 
+        $pelajar->tarikh_lahir = $request->tarikh_lahir;
+        $pelajar->jantina = $request->jantina;
         $pelajar->tempat_praktikal = $request->tempat_praktikal;
-        // $pelajar->jantina = $request->jantina;
         $pelajar->no_tel = $request->no_tel;
         $pelajar->email = $request->email;
         $pelajar->status = $request->status;
