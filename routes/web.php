@@ -487,6 +487,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard/filter_tahun', [DashboardController::class, 'filter']);
     Route::get('/utiliti/parlimen/filter', [ParlimenController::class, 'filter']);
     Route::get('/utiliti/dun/filter', [DunController::class, 'filter']);
+    Route::get('/utiliti/kampung/filter', [KampungController::class, 'filter']);
+    Route::get('/utiliti/seksyen/filter', [SeksyenController::class, 'filter']);
 });
 
 require __DIR__ . '/auth.php';
