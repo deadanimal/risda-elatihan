@@ -482,6 +482,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/pengurusan_kursus/filter-jadual', [JadualKursusController::class, 'filter_jadual']);
     Route::get('/pengurusan_peserta/permohonan/filter', [SemakPermohonanController::class, 'filter']);
     Route::get('/dashboard/filter_tahun', [DashboardController::class, 'filter']);
+    Route::get('/utiliti/parlimen/filter', [ParlimenController::class, 'filter']);
 });
 
 require __DIR__ . '/auth.php';

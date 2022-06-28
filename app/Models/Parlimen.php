@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Parlimen extends Model
 {
     use HasFactory;
+
+    public function negeri()
+    {
+        return $this->belongsTo(Negeri::class, 'U_Negeri_ID', 'id');
+    }
 }
