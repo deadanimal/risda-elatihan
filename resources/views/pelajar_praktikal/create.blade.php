@@ -18,6 +18,11 @@
             border-color: rgb(0, 150, 64);
         }
 
+        .choices .choices__list--dropdown .choices__item--selectable.is-highlighted {
+            background-color: #009640;
+            color: var(--falcon-choices-item-selectable-highlighted-bg);
+        }
+
     </style>
     <div class="container pb-5">
         <div class="row mt-3 mb-2">
@@ -53,39 +58,42 @@
                     <p class="pt-2 fw-bold">NO KAD PENGENALAN</p>
                 </div>
                 <div class="col-7">
-                    <input class="form-control" type="text" name="no_kp" maxlength="12" size="12"
+                    <input class="form-control" type="text" name="no_kp" maxlength="12" size="12" id="nric"
                     oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required>
                 </div>
             </div>
 
-            {{-- <div class="col-10 d-inline-flex">
+            <div class="col-10 d-inline-flex">
                 <div class="col-5">
                     <p class="pt-2 fw-bold">TARIKH LAHIR</p>
                 </div>
                 <div class="col-7">
-                    <input type="date" class="form-control" name="tarikh_lahir" required>
+                    <input type="text" class="form-control" id="bdate" required readonly>
+                    <input type="hidden" class="form-control" name="tarikh_lahir" id="tarikh_lahir" required readonly>
                 </div>
-            </div> --}}
+            </div>
 
-            {{-- <div class="col-10 d-inline-flex">
+            <div class="col-10 d-inline-flex">
                 <div class="col-5">
                     <p class="pt-2 fw-bold">JANTINA</p>
                 </div>
                 <div class="col-7">
-                    <select class="form-select" name="jantina">
+                    <input type="text" id="gender" class="form-control" readonly>
+                    <input type="hidden" name="jantina" id="jantina" class="form-control" readonly>
+                    {{-- <select class="form-select" name="jantina">
                         <option disabled hidden selected>Sila Pilih</option>
                         <option value="L">Lelaki</option>
                         <option value="P">Perempuan</option>
-                    </select>
+                    </select> --}}
                 </div>
-            </div> --}}
+            </div>
 
             <div class="col-10 d-inline-flex">
                 <div class="col-5">
                     <p class="pt-2 fw-bold">NO TELEFON</p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control" name="no_tel">
+                    <input type="text" class="form-control" name="no_tel" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                 </div>
             </div>
 
@@ -127,7 +135,24 @@
                     <p class="pt-2 fw-bold">ALAMAT RUMAH</p>
                 </div>
                 <div class="col-7">
-                    <textarea rows="3" class="form-control mb-3" name="alamat"></textarea>
+                    <input type="text" name="" id="" class="form-control mb-2" placeholder="Baris 1">
+                    {{-- <textarea rows="3" class="form-control mb-3" name="alamat"></textarea> --}}
+                </div>
+            </div>
+            <div class="col-10 d-inline-flex">
+                <div class="col-5">
+                    <p class="pt-2 fw-bold"></p>
+                </div>
+                <div class="col-7">
+                    <input type="text" name="" id="" class="form-control mb-2" placeholder="Baris 2">
+                </div>
+            </div>
+            <div class="col-10 d-inline-flex">
+                <div class="col-5">
+                    <p class="pt-2 fw-bold"></p>
+                </div>
+                <div class="col-7">
+                    <input type="text" name="" id="" class="form-control mb-2" placeholder="Baris 3">
                 </div>
             </div>
 
@@ -147,7 +172,7 @@
                 </div>
                 <div class="col-7">
                     {{-- <input type="text" name="daerah" class="form-control"> --}}
-                    <select name="daerah" class="form-select">
+                    <select name="daerah" class="form-select form-control">
                         <option hidden>Sila Pilih</option>
                         @foreach ($daerah as $daerah_rumah)
                         <option value="{{$daerah_rumah->id}}">{{$daerah_rumah->Daerah}}</option>
@@ -161,7 +186,7 @@
                     <p class="pt-2 fw-bold">NEGERI</p>
                 </div>
                 <div class="col-7">
-                    <select name=negeri class="form-select">
+                    <select name=negeri class="form-select form-control">
                         <option hidden value="">Sila Pilih</option>
                         <option value="Johor">Johor</option>
                         <option value="Kedah">Kedah</option>
@@ -208,7 +233,7 @@
                     <p class="pt-2 fw-bold">PERINGKAT PENGAJIAN</p>
                 </div>
                 <div class="col-7">
-                    <select class="form-select" name="tahap_pengajian">
+                    <select class="form-select form-control" name="tahap_pengajian">
                         <option hidden>SILA PILIH</option>
                         <option value="1">Sijil</option>
                         <option value="2">Diploma</option>
@@ -249,7 +274,7 @@
                     <p class="pt-2 fw-bold">STATUS PRAKTIKAL</p>
                 </div>
                 <div class="col-7">
-                    <select name="status_praktikal" class="form-select">
+                    <select name="status_praktikal" class="form-select form-control">
                         <option hidden>SILA PILIH</option>
                         <option value="1">Sedang Praktikal</option>
                         <option value="2">Telah Tamat Praktikal</option>
@@ -271,7 +296,26 @@
                     <p class="pt-2 fw-bold">ALAMAT</p>
                 </div>
                 <div class="col-7">
-                    <textarea rows="3" class="form-control mb-3" name="alamat_ipt"></textarea>
+                    <input type="text" class="form-control mb-2" placeholder="Baris 1">
+                    {{-- <textarea rows="3" class="form-control mb-3" name="alamat_ipt"></textarea> --}}
+                </div>
+            </div>
+
+            <div class="col-10 d-inline-flex">
+                <div class="col-5">
+                    <p class="pt-2 fw-bold"></p>
+                </div>
+                <div class="col-7">
+                    <input type="text" class="form-control mb-2" placeholder="Baris 2">
+                </div>
+            </div>
+
+            <div class="col-10 d-inline-flex">
+                <div class="col-5">
+                    <p class="pt-2 fw-bold"></p>
+                </div>
+                <div class="col-7">
+                    <input type="text" class="form-control mb-2" placeholder="Baris 3">
                 </div>
             </div>
 
@@ -290,7 +334,7 @@
                     <p class="pt-2 fw-bold">DAERAH</p>
                 </div>
                 <div class="col-3">
-                    <select name="daerah_ipt" class="form-select">
+                    <select name="daerah_ipt" class="form-select form-control">
                         <option hidden>Sila Pilih</option>
                         @foreach ($daerah as $daerah_ipt)
                         <option value="{{$daerah_ipt->id}}">{{$daerah_ipt->Daerah}}</option>
@@ -306,7 +350,7 @@
                     <p class="pt-2 fw-bold">NEGERI</p>
                 </div>
                 <div class="col-7">
-                    <select name=negeri_ipt class="form-select">
+                    <select name=negeri_ipt class="form-select form-control">
                         <option hidden value="">Sila Pilih</option>
                         <option value="Johor">Johor</option>
                         <option value="Kedah">Kedah</option>
@@ -375,6 +419,31 @@
 
                 }
             });
+        });
+
+        $('#nric').change(function () {
+            var bday = $('#nric').val();
+            var tahun = bday.substr(0,2);
+            var bulan = bday.substr(2,2);
+            var hari = bday.substr(4,2);
+
+            if (tahun <= 30) {
+                $('#bdate').val(hari+'-'+bulan+'-20'+tahun);
+            } else {
+                $('#bdate').val(hari+'-'+bulan+'-19'+tahun);
+            }
+            $('#tarikh_lahir').val('19'+tahun+'-'+bulan+'-'+hari);
+
+            let last_number = bday.substr(11,1);
+            let remainder = last_number%2;
+            console.log(remainder);
+            if (remainder == 0) {
+                $('#gender').val('Perempuan');
+                $('#jantina').val('P');
+            } else {
+                $('#gender').val('Lelaki');
+                $('#jantina').val('L');
+            }
         });
     </script>
 
