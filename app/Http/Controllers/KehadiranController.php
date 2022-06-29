@@ -70,7 +70,7 @@ class KehadiranController extends Controller
         $hari = ['Pertama', 'Kedua', 'Ketiga', 'Keempat', 'Kelima', 'Keenam'];
 
         $date = displayDates($kod_kursuss->tarikh_mula, $kod_kursuss->tarikh_tamat);
-        
+
         return view('uls.peserta.permohonan.kehadiran', [
             'kod_kursus' => $kod_kursuss,
             'kehadiran' => $kehadiran,
@@ -299,6 +299,7 @@ class KehadiranController extends Controller
                 'noKP_pengganti' => $request->kad_pengenalan_pengganti,
             ]);
         }
+        alert()->success('Maklumat telah dikemaskini', 'Berjaya');
         return back();
     }
     public function update_kehadiran_peserta_UsUls2(Request $request, Kehadiran $kehadiran)
@@ -312,6 +313,7 @@ class KehadiranController extends Controller
                 'alasan_ketidakhadiran_ke_kursus' => $request->alasan,
             ]);
         }
+        alert()->success('Maklumat telah dikemaskini', 'Berjaya');
         return back();
     }
 

@@ -253,11 +253,10 @@
                                         @endif
                                     @else
                                     @endif
-
                                 </td>
                                 <td>
                                     @if (date('Y-m-d') >= $date[$k->ac_hari - 1])
-                                        @if ($k->status_ke_kursus['status_kehadiran_ke_kursus'] == null)
+                                        @if ($k->status_ke_kursus['alasan_ketidakhadiran_ke_kursus'] == null)
                                             <button class="btn btn-primary mx-0" type="button" onclick=""
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#pengesahan-kehadiran{{ $k->id }}">
@@ -316,7 +315,7 @@
                                                                     </div>
                                                                     <input type="hidden" name="jenis_input" value="1">
                                                                     <input type="hidden" name="id_keh"
-                                                                        value="{{ $k['id'] }}">
+                                                                        value="{{ $k->status_ke_kursus['id'] }}">
 
                                                                 </div>
                                                                 <div class="col-8 d-inline-flex mt-5">
