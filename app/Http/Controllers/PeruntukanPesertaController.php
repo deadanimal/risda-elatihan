@@ -81,7 +81,7 @@ class PeruntukanPesertaController extends Controller
             'tarikh' => $jadual->tarikh_mula,
         ];
 
-
+        $receiver = ['najhan.mnajib@gmail.com'];
         Mail::send('emails.panggilan-ke-kursus', $data_email, function ($message) use ($receiver, $pdf) {
             $message->to($receiver)
                 ->subject("Surat Panggilan Ke Kursus")
