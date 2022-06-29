@@ -164,25 +164,37 @@ class KehadiranController extends Controller
     public function storeQR(Request $request, $id)
     {
         $check = Kehadiran::where('jadual_kursus_id', $request->jadual_kursus_id)->where('jadual_kursus_ref', $id)->where('no_pekerja', $request->nama_peserta)->first();
-        if ($check != null) {
-            if ($check->tarikh_imbasQR != null) {
-                alert()->error('PESERTA TELAH MENGEMASKINI KEHADIRAN. ANDA TIDAK DIBENARKAN MENGEMASKINI KEHADIRAN LEBIH DARI SATU KALI', 'GAGAL');
-                return back();
+        // dd($check);
+        if ($request->status != "PENGGANTI") {
+            if ($check != null) {
+                if ($check->tarikh_imbasQR != null) {
+                    alert()->error('PESERTA TELAH MENGEMASKINI KEHADIRAN. ANDA TIDAK DIBENARKAN MENGEMASKINI KEHADIRAN LEBIH DARI SATU KALI', 'GAGAL');
+                    return back();
+                }
+            }else {
+                $permohonan = Permohonan::where('kod_kursus', $request->jadual_kursus_id)->where('no_pekerja', Auth::id())->first();
+                if ($permohonan == null) {
+                    alert()->error('ANDA TIDAK MENDAFTAR KURSUS INI', 'GAGAL');
+                    return back();
+                } 
             }
         }
+        $kehadiran = Kehadiran::where('kod_kursus', $request->jadual_kursus)->where('jadual_kursus_ref', $id)->where('no_pekerja', $request->nama_peserta)->first();
 
-        $kehadiran = Kehadiran::where('kod_kursus', $request->jadual_kursus)->where('jadual_kursus_ref', $id)->first();
-        // dd($kehadiran);
         if ($kehadiran == null) {
-            $kehadiran = new Kehadiran;
+            if ($request->status == "PENGGANTI") {
+                $kehadiran = Kehadiran::where('kod_kursus', $request->jadual_kursus)->where('jadual_kursus_ref', $id)->where('no_pekerja', $request->nama_diganti)->first();
+                $kehadiran->no_pekerja = $request->nama_diganti;
+                $kehadiran->nama_pengganti = $request->nama_peserta;
+                $kehadiran->status_kehadiran_ke_kursus = 'TIDAK HADIR';
+            }else{
+                $kehadiran = new Kehadiran;
+                $kehadiran->no_pekerja = $request->nama_peserta;
+                $kehadiran->status_kehadiran_ke_kursus = 'HADIR';
+            }
         }
-
-        if ($request->status == "PENGGANTI") {
-            $kehadiran->no_pekerja = $request->nama_diganti;
-            $kehadiran->nama_pengganti = $request->nama_peserta;
-        }else{
-            $kehadiran->no_pekerja = $request->nama_peserta;
-        }
+        // dd($kehadiran);
+        
         $kehadiran->kod_kursus = $request->jadual_kursus;
         $kehadiran->tarikh_imbasQR = now()->toDateString();
         $kehadiran->masa_imbasQR = now()->toTimeString();
@@ -190,27 +202,11 @@ class KehadiranController extends Controller
         $kehadiran->sesi = $request->sesi;
         $kehadiran->jadual_kursus_id = $request->jadual_kursus_id;
         $kehadiran->jadual_kursus_ref = $id;
-        $kehadiran->status_kehadiran_ke_kursus = 'HADIR';
+        
 
         $kehadiran->save();
         alert()->success('Maklumat telah direkodkan', 'Berjaya');
         return redirect('/');
-
-
-        // if ($request->status == "CALON ASAL") {
-        //     $kehadiran->update([
-        //         'tarikh_imbasQR' => now()->toDateString(),
-        //         'masa_imbasQR' => now()->toTimeString(),
-        //     ]);
-        // } elseif ($request->status == "PENGGANTI") {
-        //     $kehadiran->update([
-        //         'tarikh_imbasQR' => now()->toDateString(),
-        //         'masa_imbasQR' => now()->toTimeString(),
-        //         'nama_pengganti' => $request->nama_peserta,
-        //         'noKP_pengganti' => $request->no_kp_peserta,
-        //     ]);
-        // }
-        // return back();
     }
 
     /**
