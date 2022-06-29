@@ -29,7 +29,7 @@
         <div class="row mt-3 mb-2">
             <div class="col-12 mb-2">
                 <p class="h1 mb-0 fw-bold" style="color: rgb(43,93,53);  ">KEHADIRAN</p>
-                <p class="h5" style="color: rgb(43,93,53); ">MEREKOD KEHADIRAN</p>
+                <p class="h5" style="color: rgb(43,93,53); ">MEREKOD KEHADIRAN </p>
             </div>
         </div>
         <hr style="color: rgba(81,179,90, 60%);height:2px;">
@@ -187,8 +187,6 @@
 
     </div>
 
-
-
     @foreach ($list as $l)
         <div class="modal fade" id="modal-rekod-kehadiran_{{ $l->id }}" data-bs-keyboard="false"
             data-bs-backdrop="static" tabindex="-1" aria-labelledby="modal-rekod-kehadiranLabel" aria-hidden="true">
@@ -198,7 +196,7 @@
                         <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
                             data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form method="post" id="form_kehadiran_update">
+                    <form class="upd" method="post" id="form_kehadiran_update">
                         @csrf
                         @method('put')
                         <div class="modal-body p-0">
@@ -214,7 +212,7 @@
                                             <span class="">STATUS STAF</span>
                                         </div>
                                         <div class="col-6 d-inline-flex">
-                                            <select class="form-select" id="status-staff" name="status_staff">
+                                            <select class="form-select cubatry" id="status-staff" name="status_staff">
                                                 @if ($l->nama_pengganti == null)
                                                     <option value="Calon Asal" selected hidden>Calon Asal</option>
                                                 @else
@@ -293,14 +291,14 @@
                         <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
                             data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form id="form_kehadiran_update2" method="post">
+                    <form class="upd2" id="form_kehadiran_update2" method="post">
                         @csrf
                         @method('put')
                         <div class="modal-body p-0">
                             <div class="bg-light rounded-top-lg py-3 ps-4 pe-6">
                                 <p class="mb-1 h4 fw-bold" style="color: rgb(15, 94, 49);"
                                     id="modal-rekod-ketidakhadiranLabel">
-                                    Alasan Ketidakhadiran</p>
+                                    Alasan Ketidakhadirann</p>
                             </div>
                             <div class="p-4">
                                 <div class="row justify-content-center">
@@ -321,7 +319,7 @@
                                             <span class="">ALASAN</span>
                                         </div>
                                         <div class="col-6 d-inline-flex">
-                                            <textarea type="text" class="form-control" rows="3" name="alasan"></textarea>
+                                            <textarea type="text" class="form-control" rows="3" name="alasan">{{$l->alasan_ketidakhadiran_ke_kursus}}</textarea>
                                         </div>
                                     </div>
 
@@ -340,22 +338,23 @@
         </div>
     @endforeach
 
-
-
     <script>
         $(document).ready(function() {
             $(".pengganti").hide();
+        });
 
-            $("#status-staff").change(function() {
-                if (this.value == "Pengganti") {
-                    $(".pengganti").show();
-                } else {
-                    $(".pengganti").hide();
-                }
-            });
+        $(".cubatry").change(function() {
+            console.log('b '+this.value);
+            if (this.value == "Pengganti") {
+                $(".pengganti").show();
+            } else {
+                $(".pengganti").hide();
+            }
         });
 
         $("#select-hari").change(function() {
+            $('.datatable').dataTable().fnClearTable();
+            $('.datatable').dataTable().fnDestroy();
             $("#table-body").html("");
             var aturcara = @json($list->toArray());
             var sesi = $("#select-sesi").val();
@@ -405,11 +404,13 @@
                     iteration++;
                 }
             });
-
+            $('.datatable').dataTable();
         });
 
 
         $("#select-sesi").change(function() {
+            $('.datatable').dataTable().fnClearTable();
+            $('.datatable').dataTable().fnDestroy();
             $("#table-body").html("");
 
             var aturcara = @json($list->toArray());
@@ -417,6 +418,7 @@
             var iteration = 1;
 
             aturcara.forEach(e => {
+                
                 let status = 'CALON ASAL';
                 let nama_pengganti = '-';
                 let ic_pengganti = '-';
@@ -457,17 +459,18 @@
                     iteration++;
                 }
             });
-
+            $('.datatable').dataTable();
+            
         });
 
 
         function kemaskini(data) {
-            $("#form_kehadiran_update").attr('action', '/us-uls/kehadiran/ke-kursus/update-rekod-kehadiran-peserta/' +
+            $(".upd").attr('action', '/us-uls/kehadiran/ke-kursus/update-rekod-kehadiran-peserta/' +
                 data);
         }
 
         function kemaskini2(data) {
-            $("#form_kehadiran_update2").attr('action', '/us-uls/kehadiran/ke-kursus/update-rekod-kehadiran-peserta2/' +
+            $(".upd2").attr('action', '/us-uls/kehadiran/ke-kursus/update-rekod-kehadiran-peserta2/' +
                 data);
         }
     </script>
