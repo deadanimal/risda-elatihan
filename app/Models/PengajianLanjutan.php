@@ -34,4 +34,9 @@ class PengajianLanjutan extends Model
     {
         return $this->hasOne(PerbelanjaanPengajianLanjutan::class, 'pengguna_id', 'id');
     }
+
+    public function ipt()
+    {
+        return $this->hasOne(Agensi::class, 'id', 'anjuran');
+    }
 }

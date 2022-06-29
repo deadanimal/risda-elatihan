@@ -18,8 +18,8 @@
                             <label class="col-form-label">NEGERI:</label>
                         </div>
                         <div class="col-lg-9 mb-3">
-                            <select class="form-select" name="negeri_search" id="negeri_search">
-                                <option selected hidden>Sila Pilih</option>
+                            <select class="form-select" name="negeri_search" id="negeri_search" onchange="filter()">
+                                <option value="" selected hidden>Sila Pilih</option>
                                 @foreach ($negeri as $n)
                                     @if ($n->status_negeri == '1')
                                         <option value="{{ $n->id }}">{{ $n->Negeri }}</option>
@@ -31,11 +31,11 @@
                             <label class="col-form-label">PARLIMEN:</label>
                         </div>
                         <div class="col-lg-9 mb-3">
-                            <select class="form-select" id="parlimen_search" name="parlimen_search">
-                                <option selected hidden>Sila Pilih</option>
+                            <select class="form-select" id="parlimen_search" name="parlimen_search" onchange="filter()">
+                                <option value="" selected hidden>Sila Pilih</option>
                                 @foreach ($parlimen as $p)
-                                    @if ($p->status_daerah == '1')
-                                        <option value="{{ $p->id }}">{{ $p->Daerah }}</option>
+                                    @if ($p->status_parlimen == '1')
+                                        <option value="{{ $p->id }}">{{ $p->Parlimen }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -120,7 +120,7 @@
             <div class="col">
                 <div class="card">
                     <div class="table-responsive scrollbar m-3">
-                        <table id="table_dun" class="table table-striped" style="width:100%">
+                        <table class="table table-striped datatable" style="width:100%">
                             <thead class="bg-200">
                                 <tr>
                                     <th class="sort">BIL.</th>
@@ -130,128 +130,6 @@
                                     <th class="sort">TINDAKAN</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white" id="t_dun_negeri">
-    
-                            </tbody>
-    
-                            <tbody class="bg-white" id="t_dun_parlimen">
-    
-                            </tbody>
-                            @foreach ($dun as $d)
-                                <div class="modal fade" id="edit_dun_{{ $d->id }}" tabindex="-1" role="dialog"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
-                                        <div class="modal-content position-relative">
-                                            <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
-                                                <button
-                                                    class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
-                                                    data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body p-0">
-                                                <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
-                                                    <h4 class="mb-1" id="modalExampleDemoLabel">KEMASKINI
-                                                    </h4>
-                                                </div>
-                                                <div class="p-4 pb-0">
-                                                    <form id="form2" action="/utiliti/lokasi/dun/{{ $d->id }}" method="POST">
-                                                        @method('PUT')
-                                                        @csrf
-                                                        <div class="mb-3">
-                                                            <label class="col-form-label">NEGERI</label>
-                                                            <select class="form-select" name="U_Negeri_ID" id="ngri">
-                                                                <option selected="" value="{{ $d->U_Negeri_ID }}" hidden>
-                                                                    {{ $d->Negeri }}</option>
-                                                                @foreach ($neg2 as $neg)
-                                                                    @if ($neg['status_negeri'] == '1')
-                                                                        <option value="{{ $neg->id }}">
-                                                                            {{ $neg->Negeri }}</option>
-                                                                    @endif
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label class="col-form-label">PARLIMEN</label>
-                                                            <select class="form-select" name="U_Parlimen_ID">
-                                                                <option selected="" value="{{ $d->U_Parlimen_ID }}" hidden>
-                                                                    {{ $d->Parlimen }}</option>
-                                                                {{-- @foreach ($daerah as $d)
-                                                                @if ($d->status_daerah == '1')
-                                                                    <option value="{{ $d->id }}">{{ $d->Daerah }}</option>
-                                                                @endif
-                                                            @endforeach --}}
-                                                            </select>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label class="col-form-label">KOD DUN</label>
-                                                            <input class="form-control" type="text" name="Dun_kod"
-                                                                value="{{ $d->Dun_kod }}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label class="col-form-label">Dun</label>
-                                                            <input class="form-control" type="text" name="Dun"
-                                                                value="{{ $d->Dun }}" />
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label class="col-form-label">STATUS</label>
-                                                            <div class="form-check form-switch">
-                                                                @if ($d->status_dun == '1')
-                                                                    <input class="form-check-input" type="checkbox"
-                                                                        name="status" checked="" />
-                                                                    <label class="form-check-label">Aktif</label>
-                                                                @else
-                                                                    <input class="form-check-input" type="checkbox"
-                                                                        name="status" />
-                                                                    <label class="form-check-label">Aktif</label>
-                                                                @endif
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button class="btn btn-secondary" type="button"
-                                                                data-bs-dismiss="modal">Batal</button>
-                                                            <button class="btn btn-primary" type="submit">Simpan
-                                                            </button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal fade" id="delete_dun_{{ $d->id }}" tabindex="-1" role="dialog"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
-                                        <div class="modal-content position-relative">
-                                            <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
-                                                <button
-                                                    class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
-                                                    data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body p-0">
-                                                <div class="row">
-                                                    <div class="col text-center m-3">
-                                                        <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
-                                                        <br>
-                                                        Anda pasti untuk menghapus {{ $d->Dun }}?
-    
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button class="btn btn-secondary" type="button"
-                                                        data-bs-dismiss="modal">Batal</button>
-                                                    <form method="POST" action="/utiliti/lokasi/dun/{{ $d->id }}">
-                                                        @method('DELETE')
-                                                        @csrf
-                                                        <button class="btn btn-primary" type="submit">Hapus
-                                                        </button>
-                                                    </form>
-    
-                                                </div>
-                                            </div>
-    
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
                             <tbody class="bg-white" id="t_normal">
                                 @foreach ($dun as $key => $d)
                                     <tr>
@@ -277,122 +155,6 @@
                                             </button>
                                         </td>
                                     </tr>
-                                    <div class="modal fade" id="edit_dun_{{ $d->id }}" tabindex="-1" role="dialog"
-                                        aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document"
-                                            style="max-width: 500px">
-                                            <div class="modal-content position-relative">
-                                                <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
-                                                    <button
-                                                        class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
-                                                        data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body p-0">
-                                                    <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
-                                                        <h4 class="mb-1" id="modalExampleDemoLabel">KEMASKINI
-                                                        </h4>
-                                                    </div>
-                                                    <div class="p-4 pb-0">
-                                                        <form id="form2" action="/utiliti/lokasi/dun/{{ $d->id }}"
-                                                            method="POST">
-                                                            @method('PUT')
-                                                            @csrf
-                                                            <div class="mb-3">
-                                                                <label class="col-form-label">NEGERI</label>
-                                                                <select class="form-select" name="U_Negeri_ID" id="ngri">
-                                                                    <option selected="" value="{{ $d->U_Negeri_ID }}" hidden>
-                                                                        {{ $d->Negeri }}</option>
-                                                                    @foreach ($neg2 as $neg)
-                                                                        @if ($neg['status_negeri'] == '1')
-                                                                            <option value="{{ $neg->id }}">
-                                                                                {{ $neg->Negeri }}</option>
-                                                                        @endif
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label class="col-form-label">PARLIMEN</label>
-                                                                <select class="form-select" name="U_Parlimen_ID">
-                                                                    <option selected="" value="{{ $d->U_Parlimen_ID }}"
-                                                                        hidden>{{ $d->Parlimen }}</option>
-                                                                    {{-- @foreach ($daerah as $d)
-                                                                        @if ($d->status_daerah == '1')
-                                                                            <option value="{{ $d->id }}">{{ $d->Daerah }}</option>
-                                                                        @endif
-                                                                    @endforeach --}}
-                                                                </select>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label class="col-form-label">KOD DUN</label>
-                                                                <input class="form-control" type="number" name="Dun_kod"
-                                                                    value="{{ $d->Dun_kod }}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label class="col-form-label">Dun</label>
-                                                                <input class="form-control" type="text" name="Dun"
-                                                                    value="{{ $d->Dun }}" />
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label class="col-form-label">STATUS</label>
-                                                                <div class="form-check form-switch">
-                                                                    @if ($d->status_dun == '1')
-                                                                        <input class="form-check-input" type="checkbox"
-                                                                            name="status" checked="" />
-                                                                        <label class="form-check-label">Aktif</label>
-                                                                    @else
-                                                                        <input class="form-check-input" type="checkbox"
-                                                                            name="status" />
-                                                                        <label class="form-check-label">Aktif</label>
-                                                                    @endif
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button class="btn btn-secondary" type="button"
-                                                                    data-bs-dismiss="modal">Batal</button>
-                                                                <button class="btn btn-primary" type="submit">Simpan
-                                                                </button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal fade" id="delete_dun_{{ $d->id }}" tabindex="-1"
-                                        role="dialog" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document"
-                                            style="max-width: 500px">
-                                            <div class="modal-content position-relative">
-                                                <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
-                                                    <button
-                                                        class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
-                                                        data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body p-0">
-                                                    <div class="row">
-                                                        <div class="col text-center m-3">
-                                                            <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
-                                                            <br>
-                                                            Anda pasti untuk menghapus {{ $d->Dun }}?
-    
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button class="btn btn-secondary" type="button"
-                                                            data-bs-dismiss="modal">Batal</button>
-                                                        <form method="POST" action="/utiliti/lokasi/dun/{{ $d->id }}">
-                                                            @method('DELETE')
-                                                            @csrf
-                                                            <button class="btn btn-primary" type="submit">Hapus
-                                                            </button>
-                                                        </form>
-    
-                                                    </div>
-                                                </div>
-    
-                                            </div>
-                                        </div>
-                                    </div>
                                 @endforeach
                             </tbody>
                         </table>
@@ -402,14 +164,121 @@
         </div>
     </div>
 
-    <script>
-        $(document).ready(function() {
-            $('#table_dun').DataTable();
-            $('#t_dun_negeri').hide();
-            $('#t_dun_parlimen').hide();
-            $('#t_normal').show();
-        });
-    </script>
+    @foreach ($dun as $d)
+        <div class="modal fade" id="edit_dun_{{ $d->id }}" tabindex="-1" role="dialog"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+                <div class="modal-content position-relative">
+                    <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
+                        <button
+                            class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-0">
+                        <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
+                            <h4 class="mb-1" id="modalExampleDemoLabel">KEMASKINI
+                            </h4>
+                        </div>
+                        <div class="p-4 pb-0">
+                            <form id="form2" action="/utiliti/lokasi/dun/{{ $d->id }}" method="POST">
+                                @method('PUT')
+                                @csrf
+                                <div class="mb-3">
+                                    <label class="col-form-label">NEGERI</label>
+                                    <select class="form-select" name="U_Negeri_ID" id="ngri">
+                                        <option selected="" value="{{ $d->U_Negeri_ID }}" hidden>
+                                            {{ $d->Negeri }}</option>
+                                        @foreach ($neg2 as $neg)
+                                            @if ($neg['status_negeri'] == '1')
+                                                <option value="{{ $neg->id }}">
+                                                    {{ $neg->Negeri }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="col-form-label">PARLIMEN</label>
+                                    <select class="form-select" name="U_Parlimen_ID">
+                                        <option selected="" value="{{ $d->U_Parlimen_ID }}" hidden>
+                                            {{ $d->Parlimen }}</option>
+                                        {{-- @foreach ($daerah as $d)
+                                        @if ($d->status_daerah == '1')
+                                            <option value="{{ $d->id }}">{{ $d->Daerah }}</option>
+                                        @endif
+                                    @endforeach --}}
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="col-form-label">KOD DUN</label>
+                                    <input class="form-control" type="text" name="Dun_kod"
+                                        value="{{ $d->Dun_kod }}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="col-form-label">Dun</label>
+                                    <input class="form-control" type="text" name="Dun"
+                                        value="{{ $d->Dun }}" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="col-form-label">STATUS</label>
+                                    <div class="form-check form-switch">
+                                        @if ($d->status_dun == '1')
+                                            <input class="form-check-input" type="checkbox"
+                                                name="status" checked="" />
+                                            <label class="form-check-label">Aktif</label>
+                                        @else
+                                            <input class="form-check-input" type="checkbox"
+                                                name="status" />
+                                            <label class="form-check-label">Aktif</label>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary" type="button"
+                                        data-bs-dismiss="modal">Batal</button>
+                                    <button class="btn btn-primary" type="submit">Simpan
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="delete_dun_{{ $d->id }}" tabindex="-1" role="dialog"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+                <div class="modal-content position-relative">
+                    <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
+                        <button
+                            class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-0">
+                        <div class="row">
+                            <div class="col text-center m-3">
+                                <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
+                                <br>
+                                Anda pasti untuk menghapus {{ $d->Dun }}?
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button"
+                                data-bs-dismiss="modal">Batal</button>
+                            <form method="POST" action="/utiliti/lokasi/dun/{{ $d->id }}">
+                                @method('DELETE')
+                                @csrf
+                                <button class="btn btn-primary" type="submit">Hapus
+                                </button>
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    @endforeach
 
     <script>
         $('#negeri_search').change(function() {
@@ -462,87 +331,58 @@
             });
         });
 
-        $('#negeri_search').change(function() {
-            $('#t_normal').hide();
-            $('#t_dun_parlimen').hide();
-            $('#t_dun_negeri').show();
+                                
+        function filter() {
+            var id_negeri = $('#negeri_search').val();
+            var id_parlimen = $('#parlimen_search').val();
 
-            $('#t_dun_negeri').html("");
-            var dun_tb = @json($dun->toArray());
-            console.log(dun_tb);
-
-            let option_new = "";
-            var i = 0;
-            dun_tb.forEach(element => {
-
-                if (this.value == element.U_Negeri_ID) {
-                    $('#t_dun_negeri').append(
-                        `
-                                <tr>
-                                    <td>` + (i = i + 1) + `.</td>
-                                    <td>${ element.Dun_kod }</td>
-                                    <td>${ element.Dun }</td>
-                                    <td>` +
-                        (element.status_dun == '1' ?
-                            '<span class="badge badge-soft-success">Aktif</span>' :
-                            '<span class="badge badge-soft-danger">Tidak Aktif</span>') +
-                        `</td>
-                                    <td>
-                                        <button class="btn btn-primary" type="button" data-bs-toggle="modal"
-                                            data-bs-target="#edit_dun_${ element.id }">
-                                            <i class="fas fa-pen"></i>
-                                        </button>
-
-                                        <button class="btn risda-bg-dg text-white" type="button" data-bs-toggle="modal"
-                                            data-bs-target="#delete_dun_${ element.id }">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>`);
-                }
-            });
-        });
-
-        $('#parlimen_search').change(function() {
-            $('#t_normal').hide();
-            $('#t_dun_parlimen').show();
-            $('#t_dun_negeri').hide();
-
-            $('#t_dun_parlimen').html("");
-            var dun_tb2 = @json($dun->toArray());
-            console.log(dun_tb2);
-
-            let option_new = "";
-            var i = 0;
-            dun_tb2.forEach(element => {
-
-                if (this.value == element.U_Parlimen_ID) {
-                    console.log('check');
-                    $('#t_dun_parlimen').append(
-                        `
+            $.ajax({
+                type: 'get',
+                url: '/utiliti/dun/filter',
+                data: {
+                    'negeri': id_negeri,
+                    'parlimen': id_parlimen
+                },
+                success: function(result) {
+                    console.log(result);
+                    $('.datatable').dataTable().fnClearTable();
+                    $('.datatable').dataTable().fnDestroy();
+                    $("#t_normal").html("");
+                    let iteration = 1;
+                    result.forEach(e => {
+                        $("#t_normal").append(`
                         <tr>
-                                    <td>` + (i = i + 1) + `.</td>
-                                    <td>${ element.Dun_kod }</td>
-                                    <td>${ element.Dun }</td>
+                                    <td>` + iteration + `.</td>
+                                    <td>${ e.Dun_kod }</td>
+                                    <td>${ e.Dun }</td>
                                     <td>` +
-                        (element.status_dun == '1' ?
+                        (e.status_dun == '1' ?
                             '<span class="badge badge-soft-success">Aktif</span>' :
                             '<span class="badge badge-soft-danger">Tidak Aktif</span>') +
                         `</td>
                                     <td>
                                         <button class="btn btn-primary" type="button" data-bs-toggle="modal"
-                                            data-bs-target="#edit_dun_${ element.id }">
+                                            data-bs-target="#edit_dun_${ e.id }">
                                             <i class="fas fa-pen"></i>
                                         </button>
 
                                         <button class="btn risda-bg-dg text-white" type="button" data-bs-toggle="modal"
-                                            data-bs-target="#delete_dun_${ element.id }">
+                                            data-bs-target="#delete_dun_${ e.id }">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </td>
-                                </tr>`);
-                }
+                                </tr>
+                        `);
+
+                        iteration++;
+                    });
+                    // console.log(result);
+                    $('.datatable').dataTable();
+                },
+                error: function() {
+                    console.log('error');
+                },
             });
-        });
+        }
     </script>
 @endsection

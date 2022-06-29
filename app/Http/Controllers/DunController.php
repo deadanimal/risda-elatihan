@@ -30,22 +30,13 @@ class DunController extends Controller
         $dun = Negeri::join('parlimens', 'negeris.id', 'parlimens.U_Negeri_ID')
         ->join('duns', 'parlimens.id', 'duns.U_Parlimen_ID')
         ->get();
-        
-        $bil_muk = Dun::orderBy('id', 'desc')->first();
-        if ($bil_muk != null) {
-            $bil = $bil_muk->Dun_kod;
-        }else{
-            $bil = 0;
-        }
-        $bil = $bil + 1;
-        $bil = sprintf("%02d", $bil);
+
         return view('utiliti.lokasi.dun.index', [
             'negeri' => $negeri,
             'neg2' => $neg2,
             'parlimen' => $parlimen,
             'par2' => $par2,
             'dun' => $dun,
-            'bil' => $bil
         ]);
     }
 
@@ -150,5 +141,29 @@ class DunController extends Controller
         alert()->success('Maklumat telah dihapus', 'Berjaya');
         AuditTrailController::audit('utiliti', 'dun', 'hapus', $nama);
         return redirect('/utiliti/lokasi/dun');
+    }
+
+    public function filter()
+    {
+        $negeri = $_GET['negeri'];
+        $parlimen = $_GET['parlimen'];
+
+        if ($negeri != null) {
+            if ($parlimen != null) {
+                $dun = Dun::where('U_Negeri_ID', $negeri)->where('U_Parlimen_ID', $parlimen)->get();
+            } else {
+                $dun = Dun::where('U_Negeri_ID', $negeri)->get();
+            }
+            
+        } else {
+            if ($parlimen != null) {
+                $dun = Dun::where('U_Parlimen_ID', $parlimen)->get();
+            } else {
+                $dun = Dun::all();
+            }
+        }
+        
+
+        return response()->json($dun);
     }
 }
