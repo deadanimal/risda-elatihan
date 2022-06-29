@@ -28,7 +28,8 @@
             line-height: 1.5;
             margin-left: 50px;
             margin-right: 50px;
-            margin-top: 10px;
+            margin-top: 20px;
+
 
 
      }
@@ -96,30 +97,48 @@
     }
 
     table, td, th {
-  border: 1px solid;
-  text-align: center;
-}
+    border: 1px solid;
+    /* text-align: center; */
+    padding: 8px;
+    border-collapse: collapse;
 
-table {
-  border-collapse: collapse;
+    }
 
-}
 
-th, td {
-  padding: 5px;
-}
-
-    .footer {
+    footer {
         /* page-break-after: always; */
-        position: absolute;
+         position: absolute;
+        position: fixed;
+        height: 2em;
         bottom: 0;
-        width: 100%;
-        text-align: center;
-        margin-left: 20px;
-        margin-right: 20px;
+        text-align: justify;
         text-transform: uppercase;
         font-weight: bold;
+        font-size: 9pt;
+        margin-left: 20px;
+        margin-right: 20px;
     }
+
+    hr{
+    position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+
+    /* footer {
+        clear: both;
+        width: 90%;
+        height: 100px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+    } */
+
 
 
 </style>
@@ -139,7 +158,7 @@ th, td {
     <h5 style="text-transform:uppercase;text-align:center">JADUAL KURSUS {{$jadual->kursus_nama}}.</h5>
 
 
-    <table width="100%">
+    <table width="100%" style="text-transformation:capitalize">
         <tr>
             <th>Hari</th>
             <th>Masa</th>
@@ -148,7 +167,7 @@ th, td {
         @foreach ($aturcara as $ac)
         <tr>
             <td> {{$ac->ac_hari}}</td>
-            <td> {{$ac->ac_masa}}</td>
+            <td> {{$ac->ac_masa_mula}} - {{$ac->ac_masa_tamat}}</td>
             <td>{{$ac->ac_aturcara}}</td>
         </tr>
         @endforeach
@@ -157,7 +176,8 @@ th, td {
 
     <br><br><br>
 
-    <footer><h5> Memacu masyarakat pekebun kecil makmur daripada sumber komoditi dan hasil baharu berlandaskan revolusi perindustrian digital serta teknologi hijau</h5></footer>
+
+    <footer>Memacu masyarakat pekebun kecil makmur daripada sumber komoditi dan hasil baharu berlandaskan revolusi perindustrian digital serta teknologi hijau</footer>
 
 </p>
 
