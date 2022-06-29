@@ -50,7 +50,7 @@ class PeruntukanPesertaController extends Controller
         // foreach($peruntukanPeserta as $peruntukanPeserta){
 
             $ptj=PusatTanggungjawab::where('id',$peruntukanPeserta->pp_pusat_tanggungjawab)->get()->first();
-            $receiver=$ptj->email;
+            // $receiver=$ptj->email;
             $jadual=JadualKursus::where('id',$peruntukanPeserta->pp_jadual_kursus)->with(['tempat'])->first();
             $agensi = Agensi::with(['negeri']);
 
@@ -72,6 +72,8 @@ class PeruntukanPesertaController extends Controller
             'hari_ini' => date("d m Y")
         ]);
 
+
+
         $peruntukanpeserta=PeruntukanPeserta::where('pp_jadual_kursus',$jadual->id)->get();
 
         $data_email = [
@@ -81,6 +83,7 @@ class PeruntukanPesertaController extends Controller
             'tarikh' => $jadual->tarikh_mula,
         ];
 
+        $receiver = "nurul.ain@pipeline.com.my";
 
         Mail::send('emails.panggilan-ke-kursus', $data_email, function ($message) use ($receiver, $pdf) {
             $message->to($receiver)
@@ -88,7 +91,6 @@ class PeruntukanPesertaController extends Controller
                 ->attachData($pdf->output(), 'Surat Panggilan Ke Kursus.pdf');
         });
 
-        dd('jap');
 
 
         // Mail::to($receiver)->send(new PanggilanKeKursus());
