@@ -197,13 +197,10 @@
                                             <a href="/us-uls/pengajian-lanjutan/{{ $pl->id }}/perbelanjaan" class="btn btn-sm btn-primary">
                                                 <i class="fas fa-file-invoice-dollar"></i>
                                             </a>
-                                            <a href="/us-uls/pengajian-lanjutan/{{ $pl->id }}/perbelanjaan" class="btn btn-sm btn-primary">
-                                                <i class="fas fa-file-invoice-dollar"></i>
-                                            </a>
-                                            <form action="/pengajian-lanjutan/{{ $pl->id }}" method="post">
+                                            <form action="/us-uls/pengajian-lanjutan/{{ $pl->id }}" method="post">
                                                 @method('DELETE')
                                                 @csrf
-                                                <button type="submit" class="btn btn-primary"><i class="far fa-trash-alt"></i></button>
+                                                <button type="submit" class="btn btn-sm btn-primary"><i class="far fa-trash-alt"></i></button>
                                             </form>
                                         </td>
                                     </tr>
