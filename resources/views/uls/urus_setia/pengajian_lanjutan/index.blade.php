@@ -24,21 +24,18 @@
                         <label class="col-form-label">UNIT LATIHAN:</label>
                     </div>
                     <div class="col-lg-8 mb-3">
-                        <select class="form-select form-control" onchange="unitlatihan(this)">
-                            <option selected hidden disabled>Sila Pilih</option>
-                            <option value="Staf">Staf</option>
-                            <option value="Pekebun Kecil">Pekebun Kecil</option>
-                        </select>
+                        <input type="text" name="" id="" class="form-control" value="Staf" readonly>
                     </div>
 
                     <div class="col-lg-4 p-lg-0 mb-3">
                         <label class="col-form-label">PUSAT TANGGUNGJAWAB:</label>
                     </div>
                     <div class="col-lg-8 mb-3">
-                        <select class="form-select form-control" onchange="unitlatihan(this)">
+                        <select class="form-select form-control" onchange="filter()">
                             <option selected hidden disabled>Sila Pilih</option>
-                            <option value="Staf">Staf</option>
-                            <option value="Pekebun Kecil">Pekebun Kecil</option>
+                            @foreach ($pusat_tanggungjawab as $pt)
+                                <option value="{{$pt->id}}">{{$pt->nama_PT}}</option>
+                            @endforeach
                         </select>
                     </div>
 
@@ -46,10 +43,11 @@
                         <label class="col-form-label">GRED:</label>
                     </div>
                     <div class="col-lg-8 mb-3">
-                        <select class="form-select form-control" onchange="unitlatihan(this)">
+                        <select class="form-select form-control" onchange="filter()">
                             <option selected hidden disabled>Sila Pilih</option>
-                            <option value="Staf">Staf</option>
-                            <option value="Pekebun Kecil">Pekebun Kecil</option>
+                            @foreach ($gred as $lol => $ks)
+                                <option value="{{ $lol }}">{{ $lol }}</option>
+                            @endforeach
                         </select>
                     </div>
 
@@ -59,14 +57,14 @@
                     <div class="col-lg-8 mb-3">
                         <input type="text" class="form-control" name="nric" placeholder="000000000000" maxlength="12"
                             size="12"
-                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
+                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" onchange="filter()">
                     </div>
 
                     <div class="col-lg-4 p-lg-0 mb-3">
                         <label class="col-form-label">NAMA:</label>
                     </div>
                     <div class="col-lg-8 mb-3">
-                        <input type="text" name="" id="" class="form-control">
+                        <input type="text" name="" id="" class="form-control" onchange="filter()">
                     </div>
 
                     <div class="col-lg-4 p-lg-0 mb-3">
@@ -74,17 +72,19 @@
                     </div>
                     <div class="col-lg-8 mb-3">
                         <input class="form-control tahun " type="text" name="tahun" id="tahun" autocomplete="off"
-                            placeholder="YYYY" />
+                            placeholder="YYYY" onchange="filter()"/>
                     </div>
 
                     <div class="col-lg-4 p-lg-0 mb-3">
                         <label class="col-form-label">STATUS PENGAJIAN:</label>
                     </div>
                     <div class="col-lg-8 mb-3">
-                        <select class="form-select form-control" onchange="unitlatihan(this)">
-                            <option selected hidden disabled>Sila Pilih</option>
-                            <option value="Staf">Staf</option>
-                            <option value="Pekebun Kecil">Pekebun Kecil</option>
+                        <select class="form-select form-control" name="status_pengajian_lanjutan" onchange="filter()">
+                            <option disabled hidden selected>Sila Pilih</option>
+                            <option value="">Masih di dalam pengajian</option>
+                            <option value="">Tamat pengajian dengan jaya</option>
+                            <option value="">Tidak berjaya tamatkan pengajian</option>
+                            <option value="">Berhenti/Tarik Diri</option>
                         </select>
                     </div>
 
@@ -92,10 +92,17 @@
                         <label class="col-form-label">KATEGORI:</label>
                     </div>
                     <div class="col-lg-8 mb-3">
-                        <select class="form-select form-control" onchange="unitlatihan(this)">
-                            <option selected hidden disabled>Sila Pilih</option>
-                            <option value="Staf">Staf</option>
-                            <option value="Pekebun Kecil">Pekebun Kecil</option>
+                        <select class="form-select form-control" name="kategori_pengajian_lanjutan" id="select-kategori-pengajian-lanjutan" onchange="filter()">
+                            <option disabled hidden selected>Sila Pilih</option>
+                            <option value="1">Cuti Belajar - Kursus Jangka Sederhana</option>
+                            <option value="1">Cuti Belajar - Diploma</option>
+                            <option value="1">Cuti Belajar - Ijazah</option>
+                            <option value="1">Cuti Belajar - Sarjana</option>
+                            <option value="1">Cuti Belajar - Phd</option>
+                            <option value="2">Sambilan - Diploma</option>
+                            <option value="2">Sambilan - Ijazah</option>
+                            <option value="2">Sambilan - Sarjana</option>
+                            <option value="2">Sambilan - Program Keahlian Badan professional</option>
                         </select>
                     </div>
 
@@ -143,7 +150,7 @@
                                         <td>{{ $pl->pengguna->name }}</td>
                                         <td>{{ $pl->data_staf->Jawatan }}</td>
                                         <td>{{ $pl->data_staf->Gred }}</td>
-                                        <td>TANYA SA</td>
+                                        <td>{{ $pl->ipt['nama_Agensi']}}</td>
                                         <td>{{ $pl->bidang_pengajian }}</td>
                                         <td>{{ date('d-m-Y', strtotime($pl->tarikh_mula_pengajian)) }}</td>
                                         <td>{{ date('d-m-Y', strtotime($pl->tarikh_tamat_pengajian)) }}</td>
@@ -168,15 +175,10 @@
                                                 Sambilan - Program Keahlian Badan professional
                                             @endif
                                         </td>
-                                        <td>TANYA SA</td>
-                                        <td>{{ $pl->anjuran }}</td>
-                                        <td>TANYA SA</td>
-                                        <td>
-                                            @foreach ($pl->perbelanjaan as $s)
-                                                RM {{ $s->jumlah }} (Tahun: {{ $s->tahun }}, Semester:
-                                                {{ $s->semester }}) <br>
-                                            @endforeach
-                                        </td>
+                                        <td>{{ ($pl->perbelanjaan_pl->Perihal ?? '-') }}</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>{{ ($pl->perbelanjaan_pl->Amaun ?? '-') }}</td>
                                         <td>
                                             @if ($pl->status_pengajian_lanjutan == 1)
                                                 Masih di dalam pengajian

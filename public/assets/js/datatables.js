@@ -11700,7 +11700,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfoFiltered": "(filtered from _MAX_ total entries)",
+			"sInfoFiltered": "(ditapis daripada _MAX_ jumlah entri)",
 	
 	
 			/**
@@ -11956,7 +11956,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sZeroRecords": "No matching records found"
+			"sZeroRecords": "Tiada maklumat dijumpai"
 		},
 	
 	

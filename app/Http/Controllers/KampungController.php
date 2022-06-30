@@ -153,4 +153,43 @@ class KampungController extends Controller
         alert()->success('Maklumat telah dihapus', 'Berjaya');
         return redirect('/utiliti/lokasi/kampung');
     }
+
+    public function filter()
+    {
+        $negeri = $_GET['negeri'];
+        $daerah = $_GET['daerah'];
+        $mukim = $_GET['mukim'];
+
+        if ($negeri != null) {
+            if ($daerah != null) {
+                if ($mukim != null) {
+                    $kampung = Kampung::where('U_Negeri_ID', $negeri)->where('U_Daerah_ID', $daerah)->where('U_Mukim_ID', $mukim)->get();
+                } else {
+                    $kampung = Kampung::where('U_Negeri_ID', $negeri)->where('U_Daerah_ID', $daerah)->get();
+                }
+            } else {
+                if ($mukim != null) {
+                    $kampung = Kampung::where('U_Negeri_ID', $negeri)->where('U_Mukim_ID', $mukim)->get();
+                } else {
+                    $kampung = Kampung::where('U_Negeri_ID', $negeri)->get();
+                }
+            }
+        } else {
+            if ($daerah != null) {
+                if ($mukim != null) {
+                    $kampung = Kampung::where('U_Daerah_ID', $daerah)->where('U_Mukim_ID', $mukim)->get();
+                } else {
+                    $kampung = Kampung::where('U_Daerah_ID', $daerah)->get();
+                }
+            } else {
+                if ($mukim != null) {
+                    $kampung = Kampung::where('U_Mukim_ID', $mukim)->get();
+                } else {
+                    $kampung = Kampung::all();
+                }
+            }
+        }
+
+        return response()->json($kampung);
+    }
 }

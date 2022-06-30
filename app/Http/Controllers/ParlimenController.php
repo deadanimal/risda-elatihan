@@ -22,22 +22,12 @@ class ParlimenController extends Controller
     {
         $negeri = Negeri::all();
         $neg2 = Negeri::all();
-        $parlimen = Negeri::join('parlimens', 'negeris.id', 'parlimens.U_Negeri_ID')
-        ->select('*')->get();
-        $bil_par = Parlimen::orderBy('id', 'desc')->first();
-        if ($bil_par != null) {
-            $bil = $bil_par->Daerah_Rkod;
-        }else{
-            $bil = 0;
-        }
-        $bil = $bil + 1;
-        $bil = sprintf("%02d", $bil);
+        $parlimen = Parlimen::with('negeri')->get();
 
         return view('utiliti.lokasi.parlimen.index', [
             'negeri' => $negeri,
             'neg2' => $neg2,
             'parlimen' => $parlimen,
-            'bil' => $bil
         ]);
     }
 
@@ -141,5 +131,13 @@ class ParlimenController extends Controller
         AuditTrailController::audit('utiliti','parlimen','hapus', $nama);
         alert()->success('Maklumat telah dihapuskan', 'Berjaya');
         return redirect('/utiliti/lokasi/parlimen');
+    }
+
+    public function filter()
+    {
+        $negeri = $_GET['negeri'];
+        $parlimen = Parlimen::where('U_Negeri_ID', $negeri)->get();
+
+        return response()->json($parlimen);
     }
 }

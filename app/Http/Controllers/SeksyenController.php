@@ -33,14 +33,6 @@ class SeksyenController extends Controller
 
         $seksyen = Seksyen::with(['kampung', 'negeri', 'daerah', 'mukim'])->get();
 
-        $bil_seksyen = Seksyen::orderBy('id', 'desc')->first();
-        if ($bil_seksyen != null) {
-            $bil = $bil_seksyen->Seksyen_kod;
-        } else {
-            $bil = 0;
-        }
-        $bil = $bil + 1;
-        $bil = sprintf("%02d", $bil);
         return view('utiliti.lokasi.seksyen.index', [
             'negeri' => $negeri,
             'neg2' => $neg2,
@@ -49,7 +41,6 @@ class SeksyenController extends Controller
             'mukim' => $mukim,
             'muk2' => $muk2,
             'seksyen' => $seksyen,
-            'bil' => $bil,
             'kampung' => $kampung
         ]);
     }
@@ -158,5 +149,44 @@ class SeksyenController extends Controller
         AuditTrailController::audit('utiliti', 'seksyen', 'hapus', $nama);
         alert()->success('Maklumat telah dihapuskan', 'Berjaya');
         return redirect('/utiliti/lokasi/seksyen');
+    }
+
+    public function filter()
+    {
+        $negeri = $_GET['negeri'];
+        $daerah = $_GET['daerah'];
+        $mukim = $_GET['mukim'];
+
+        if ($negeri != null) {
+            if ($daerah != null) {
+                if ($mukim != null) {
+                    $seksyen = Seksyen::with(['kampung', 'negeri', 'daerah', 'mukim'])->where('U_Negeri_ID', $negeri)->where('U_Daerah_ID', $daerah)->where('U_Mukim_ID', $mukim)->get();
+                } else {
+                    $seksyen = Seksyen::with(['kampung', 'negeri', 'daerah', 'mukim'])->where('U_Negeri_ID', $negeri)->where('U_Daerah_ID', $daerah)->get();
+                }
+            } else {
+                if ($mukim != null) {
+                    $seksyen = Seksyen::with(['kampung', 'negeri', 'daerah', 'mukim'])->where('U_Negeri_ID', $negeri)->where('U_Mukim_ID', $mukim)->get();
+                } else {
+                    $seksyen = Seksyen::with(['kampung', 'negeri', 'daerah', 'mukim'])->where('U_Negeri_ID', $negeri)->get();
+                }
+            }
+        } else {
+            if ($daerah != null) {
+                if ($mukim != null) {
+                    $seksyen = Seksyen::with(['kampung', 'negeri', 'daerah', 'mukim'])->where('U_Daerah_ID', $daerah)->where('U_Mukim_ID', $mukim)->get();
+                } else {
+                    $seksyen = Seksyen::with(['kampung', 'negeri', 'daerah', 'mukim'])->where('U_Daerah_ID', $daerah)->get();
+                }
+            } else {
+                if ($mukim != null) {
+                    $seksyen = Seksyen::with(['kampung', 'negeri', 'daerah', 'mukim'])->where('U_Mukim_ID', $mukim)->get();
+                } else {
+                    $seksyen = Seksyen::with(['kampung', 'negeri', 'daerah', 'mukim'])->get();
+                }
+            }
+        }
+
+        return response()->json($seksyen);
     }
 }

@@ -477,11 +477,18 @@ Route::middleware('auth')->group(function () {
         Route::get('pelajar-praktikal/butiran/{tahun}/{kod_pa}/{kod_objek}/{no_dbil}', [PerbelanjaanPelajarPraktikalController::class, 'butiran_rekod']);
     });
 
+    Route::get('/jadual_tahunan', [DashboardController::class, 'jadual_tahunan']);
+
     // filetr route
     Route::get('/pengurusan_kursus/filter-daerah/{search}', [DaerahController::class, 'filter']);
     Route::get('/pengurusan_kursus/filter-stesen/{data}', [StesenController::class, 'filter']);
     Route::get('/pengurusan_kursus/filter-jadual', [JadualKursusController::class, 'filter_jadual']);
     Route::get('/pengurusan_peserta/permohonan/filter', [SemakPermohonanController::class, 'filter']);
+    Route::get('/dashboard/filter_tahun', [DashboardController::class, 'filter']);
+    Route::get('/utiliti/parlimen/filter', [ParlimenController::class, 'filter']);
+    Route::get('/utiliti/dun/filter', [DunController::class, 'filter']);
+    Route::get('/utiliti/kampung/filter', [KampungController::class, 'filter']);
+    Route::get('/utiliti/seksyen/filter', [SeksyenController::class, 'filter']);
 });
 
 require __DIR__ . '/auth.php';

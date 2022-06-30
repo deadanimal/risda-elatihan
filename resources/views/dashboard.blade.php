@@ -103,12 +103,14 @@
         @endif
 
         <div class="row mt-3 justify-content-center">
-            <div class="col-lg-10">
-                <p>
+            <div class="col-lg-10 text-center">
+                {{-- <p>
                 <div class="d-grid gap-2">
                     <button class="btn btn-primary ms-sm-2 mt-2" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#jadual" aria-expanded="false" aria-controls="jadual">Jadual Tahunan
-                        Ini</span></button>
+                        data-bs-target="#jadual" aria-expanded="false" aria-controls="jadual">
+                        Jadual Tahunan Ini
+                    </button>
+
                 </div>
                 </p>
                 <div class="collapse" id="jadual">
@@ -202,8 +204,9 @@
 
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
+                <a href="/jadual_tahunan" class="btn btn-primary">Jadual Tahunan &nbsp;<i class="far fa-calendar-alt"></i></a>
 
             </div>
 
