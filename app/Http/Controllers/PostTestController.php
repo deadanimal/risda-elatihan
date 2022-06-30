@@ -7,6 +7,7 @@ use App\Models\JawapanMultiplePost;
 use App\Models\JawapanPenilaian;
 use App\Models\Permohonan;
 use App\Models\PostTest;
+use App\Models\Aturcara;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -172,13 +173,23 @@ class PostTestController extends Controller
         $permohonan = Permohonan::with('jadual')->where('no_pekerja', auth()->user()->id)
             ->where('status_permohonan', 4)
             ->where('dinilai_post', null)->get()->first();
-        // dd($permohonan);
+
+        $aturcara_first = Aturcara::where('ac_jadual_kursus',$permohonan->kod_kursus)->first();
+        $aturcara_last = Aturcara::where('ac_jadual_kursus',$permohonan->kod_kursus)->get()->last();
+
+       $hari_ini = date('Y-m-d H:i');
+        // dd($aturcara);
         if ($permohonan == null) {
             alert()->error('Anda tidak membuat sebarang permohonan lagi.', 'Tiada permohonan');
             return back();
         } else {
+
             return view('penilaian.post.answer', [
                 'permohonan' => $permohonan,
+                'hari_ini'=>$hari_ini,
+                'aturcara_first'=>$aturcara_first,
+                'aturcara_last'=>$aturcara_last
+
             ]);
         }
     }
