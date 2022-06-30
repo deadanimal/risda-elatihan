@@ -70,8 +70,8 @@ class KehadiranPusatLatihanController extends Controller
 
         $kursus=JadualKursus::with('tempat')
             ->where('kursus_tempat',$agensi->id)
-            // ->where('tarikh_mula','>=',$hari_ini)
-            // ->where('tarikh_tamat','<',$hari_ini)
+            ->where('tarikh_mula','>=',$hari_ini)
+            ->where('tarikh_tamat','<',$hari_ini)
             ->get();
 
 
@@ -155,7 +155,7 @@ class KehadiranPusatLatihanController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    public function update(Request $request, KehadiranPusatLatihan $kehadiran_pl)
     {
         // $kehadiran_pl->pengesahan_kehadiran_pl = $request->pengesahan_kehadiran_pl;
 
@@ -169,7 +169,7 @@ class KehadiranPusatLatihanController extends Controller
         }
 
         alert()->success('Peserta telah disahkan', 'Berjaya');
-        return redirect('/pengurusan_peserta/semakan_pemohon');
+        return redirect()->back();
 
     }
 
@@ -204,5 +204,18 @@ class KehadiranPusatLatihanController extends Controller
         ]);
 
         return $pdf->stream('QRCode Pusat Latihan ' . $agensi->nama_Agensi .'.pdf');
+    }
+
+
+    public function pengesahan_kehadiran(Request $request)
+    {
+        foreach ($request->kehadiran_pl as $key => $p) {
+            $kehadiran_pl = KehadiranPusatLatihan::find($p);
+            $kehadiran_pl->pengesahan_kehadiran_pl = "Disahkan";
+            $kehadiran_pl->save();
+        }
+
+        alert()->success('Peserta telah diberi sokongan.', 'Berjaya');
+        return redirect('/');
     }
 }

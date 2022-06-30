@@ -13,4 +13,9 @@ class Staf extends Model
     {
         return $this->belongsTo(User::class, 'id_Pengguna', 'id');
     }
+
+    public function pt()
+    {
+        return $this->belongsTo(PusatTanggungjawab::class, 'Kod_PT', 'kod_PT');
+    }
 }

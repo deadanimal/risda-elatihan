@@ -67,6 +67,9 @@
 
         <div class="card my-5">
             <div class="table-responsive scrollbar p-5">
+                <form action="/kehadiran-pl/pengesahan" method="post">
+                    @csrf
+                    {{-- @method('PUT') --}}
                 <table class="table datatable">
                     <thead>
                         <tr>
@@ -80,9 +83,7 @@
                         </tr>
                     </thead>
                      <tbody>
-                        {{-- <form action="/kehadiran_pl/{{$kehadiran_pl->id}}" method="post"> --}}
-                            @csrf
-                            @method('PUT')
+
                     @foreach($kehadiran_pl as $k)
                         <tr>
                             <td>{{$loop->iteration}}</td>
@@ -92,8 +93,12 @@
                             <td>{{date('d-m-Y', strtotime($k->created_at))}} <br> {{date('H:i:s', strtotime($k->created_at))}}</td>
 
                                 @if($k->pengesahan_kehadiran_pl===null)
-                                <td><input class="form-check-input pukal" type="checkbox" name="pengesahan[]"
-                                        value="{{ $k->id }}" /></td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input pukal" type="checkbox" name="pengesahan[]"
+                                            value="{{ $k->id }}" />
+                                    </div>
+                                </td>
                                 @else
                                     <td class="risda-g fw-bold" style="text-transform:capitalize">
                                         {{$k->pengesahan_kehadiran_pl}}
@@ -106,44 +111,21 @@
                         </tr>
                         @endforeach
 
-                        {{-- <tr>
-                            @foreach($kursus->kehadiran as $k)
-                                <td> {{$k->staff->no_KP}}</td>
-                                <td> {{$k->staff->name}}</td>
-                                <td> {{$k->staff}}</td>
-                                <td> {{$k->staff->no_KP}}</td>
-                                @endforeach
-                        </tr> --}}
-
-
-
-                        {{-- <tr>
-                            <td>1</td>
-                            <td>Kod1</td>
-                            <td>Kursus1</td>
-                            <td>1/1/11</td>
-                            <td class="risda-g fw-bold">SEDANG <br> DILAKSANAKAN</td>
-                            <td class=" text-end"><a href="/kehadiran/ke-kursus/rekod-kehadiran-peserta"
-                                    class="btn btn-primary btn-sm">REKOD KEHADIRAN</a></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Kod2</td>
-                            <td>Kursus2</td>
-                            <td>2/2/22</td>
-                            <td class="risda-g fw-bold">SEDANG <br> DILAKSANAKAN</td>
-                            <td class="text-end"><a href="" class="btn btn-primary btn-sm">REKOD KEHADIRAN</a></td>
-
-                        </tr> --}}
-
                     </tbody>
                 </table>
             </div>
+
+            <div class="row m-3" id="pukal">
+                <div class="col text-end">
+                    <button type="submit" class="btn btn-primary">Pengesahan</button>
+                </div>
+            </div>
+        </form>
         </div>
 
     </div>
 
-=
+
         <script>
         $(document).ready(function() {
             $('#pukal').hide();
