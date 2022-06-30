@@ -107,9 +107,8 @@ class PengajianLanjutanController extends Controller
 
     public function destroyUls(PengajianLanjutan $staf_pl)
     {
-        $nama = $staf_pl->pengguna->name;
         $staf_pl->delete();
-        AuditTrailController::audit('kehadiran', 'pengajian lanjutan', 'hapus', $nama);
+        AuditTrailController::audit('kehadiran', 'pengajian lanjutan', 'hapus',' ');
         alert()->success('Maklumat telah dihapuskan', 'Berjaya');
         return redirect('/us-uls/pengajian-lanjutan');
     }
