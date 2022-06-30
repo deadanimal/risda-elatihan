@@ -95,12 +95,15 @@
                             <p class="pt-2 fw-bold">NAMA KURSUS</p>
                         </div>
                         <div class="col-8">
-                            <select name="jadual_kursus_id" class="form-select mb-3" required>
-                                <option hidden>Sila Pilih</option>
-                                @foreach($kursus as $k)
-                                <option style="text-transform:capitalize" value="{{$k->id}}">{{$k->kursus_nama}}</option>
-                                @endforeach
-                            </select>
+                                    <select name="jadual_kursus_id" class="form-select mb-3" required>
+                                        <option hidden>Sila Pilih</option>
+
+                            @foreach($kursus as $k)
+                                        <option style="text-transform:capitalize" value="{{$k->id}}">{{$k->kursus_nama}}</option>
+                            @endforeach
+
+                                    </select>
+
                         </div>
                     </div>
                     <div class="row mt-4">
