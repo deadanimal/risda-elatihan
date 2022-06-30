@@ -146,10 +146,10 @@
                                 @foreach ($pengajian_lanjutan as $pl)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $pl->pengguna->no_KP }}</td>
-                                        <td>{{ $pl->pengguna->name }}</td>
-                                        <td>{{ $pl->data_staf->Jawatan }}</td>
-                                        <td>{{ $pl->data_staf->Gred }}</td>
+                                        <td>{{ ($pl->pengguna->no_KP ?? '') }}</td>
+                                        <td>{{ ($pl->pengguna->name ?? '') }}</td>
+                                        <td>{{ ($pl->data_staf->Jawatan ?? '') }}</td>
+                                        <td>{{ ($pl->data_staf->Gred ?? '') }}</td>
                                         <td>{{ ($pl->ipt['nama_Agensi'] ?? '') }}</td>
                                         <td>{{ $pl->bidang_pengajian }}</td>
                                         <td>{{ date('d-m-Y', strtotime($pl->tarikh_mula_pengajian)) }}</td>
