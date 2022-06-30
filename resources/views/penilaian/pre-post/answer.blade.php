@@ -42,16 +42,28 @@
                         <h6 class="risda-dg fw-bold">TARIKH KURSUS</h6>
                     </div>
                     <div class="col-8">
-                        <input type="text" class="form-control" value="{{ date('d-m-Y', strtotime($permohonan->jadual->tarikh_mula)) }} hingga {{ date('d-m-Y', strtotime($permohonan->jadual->tarikh_tamat)) }}" readonly>
+                        <input type="text" class="form-control" value="{{ date('d-m-Y', strtotime($permohonan->jadual->tarikh_mula)) }} Hingga {{ date('d-m-Y', strtotime($permohonan->jadual->tarikh_tamat)) }}" readonly>
                     </div>
                 </div>
             </div>
+
+            @if($permohonan->jadual->kursus_masa_mula_pre_post_test!=null)
 
             <div class="row mt-5">
                 <div class="col-12 text-center">
                     <a href="/penilaian/mula-penilaian-pre-test/{{ $permohonan->jadual->id }}" class="btn btn-primary" id="btn-submit">Mula Penilaian</a>
                 </div>
             </div>
+
+            @else
+
+            <div class="row mt-5">
+                <div class="col-12 text-center">
+                    <a href="#" class="btn btn-secondary" id="btn-submit">Mula Penilaian</a>
+                </div>
+            </div>
+
+            @endif
 
         </div>
     </div>
