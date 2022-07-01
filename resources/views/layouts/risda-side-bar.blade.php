@@ -26,6 +26,14 @@
         z-index: 20000 !important
     }
 
+    .navbar-vertical .navbar-nav .nav-item .nav-link.dropdown-indicator:after {
+    border-color: white;
+    }
+
+    .navbar-vertical .navbar-nav .nav-item .nav-link:hover.dropdown-indicator:after, .navbar-vertical .navbar-nav .nav-item .nav-link:focus.dropdown-indicator:after {
+    border-color: white;
+    }
+
     /* .nav-link-text {
         color: white;
     }
@@ -155,15 +163,15 @@
                 </div>
                 <li class="nav-item mx-3 mx-md-0">
                     <!-- label-->
-                    <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+                    {{-- <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
                         <div class="col-auto navbar-vertical-label text-white">
                             Menu
                         </div>
                         <div class="col ps-0">
                             <hr class="mb-0 navbar-vertical-divider" />
                         </div>
-                    </div>
-                    <a class="nav-link py-0" href="/" role="button">
+                    </div> --}}
+                    <a class="nav-link py-0 mt-5" href="/" role="button">
                         <div class="d-flex align-items-center nav-link-side px-0">
                             <span class="px-3"><span class="fas fa-home"></span> DASHBOARD</span>
                         </div>
@@ -227,6 +235,7 @@
                                     </li>
                                 </ul>
                             </li>
+                            <hr class="navbar-vertical-divider mx-3">
                         </ul>
                     @endcan
 
@@ -249,6 +258,7 @@
                                     </div>
                                 </a>
                             </li>
+                            <hr class="navbar-vertical-divider mx-3">
                         </ul>
                     @endcan
 
@@ -284,7 +294,7 @@
                                     </a>
                                 </li>
                             @endcan
-
+                            <hr class="navbar-vertical-divider mx-3">
                         </ul>
                     @endif
 
@@ -390,11 +400,12 @@
                                         </a>
 
                                     </li>
+                                    <hr class="navbar-vertical-divider mx-3">
                                 </ul>
 
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link py-0" href="#kumpulan" role="button" data-bs-toggle="collapse"
+                                <a class="nav-link py-0 dropdown-indicator" href="#kumpulan" role="button" data-bs-toggle="collapse"
                                     aria-expanded="{{ Request::is('utiliti/kumpulan/*') ? 'true' : 'false' }}"
                                     aria-controls="kumpulan">
                                     <div class="d-flex align-items-center nav-link-side">
@@ -422,10 +433,11 @@
                                         </a>
 
                                     </li>
+                                    <hr class="navbar-vertical-divider mx-3">
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link py-0" href="#julat" role="button" data-bs-toggle="collapse"
+                                <a class="nav-link py-0 dropdown-indicator" href="#julat" role="button" data-bs-toggle="collapse"
                                     aria-expanded="{{ Request::is('utiliti/julat/*') ? 'true' : 'false' }}"
                                     aria-controls="julat">
                                     <div class="d-flex align-items-center nav-link-side">
@@ -443,10 +455,11 @@
                                         </a>
 
                                     </li>
+                                    <hr class="navbar-vertical-divider mx-3">
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link py-0" href="#status" role="button" data-bs-toggle="collapse"
+                                <a class="nav-link py-0 dropdown-indicator" href="#status" role="button" data-bs-toggle="collapse"
                                     aria-expanded="{{ Request::is('utiliti/status/*') ? 'true' : 'false' }}"
                                     aria-controls="status">
                                     <div class="d-flex align-items-center nav-link-side">
@@ -464,10 +477,11 @@
                                         </a>
 
                                     </li>
+                                    <hr class="navbar-vertical-divider mx-3">
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link py-0" href="#generik" role="button" data-bs-toggle="collapse"
+                                <a class="nav-link py-0 dropdown-indicator" href="#generik" role="button" data-bs-toggle="collapse"
                                     aria-expanded="{{ Request::is('utiliti/generik/*') ? 'true' : 'false' }}"
                                     aria-controls="generik">
                                     <div class="d-flex align-items-center nav-link-side">
@@ -504,10 +518,11 @@
                                         </a>
 
                                     </li>
+                                    <hr class="navbar-vertical-divider mx-3">
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link py-0" href="#kursus" role="button" data-bs-toggle="collapse"
+                                <a class="nav-link py-0 dropdown-indicator" href="#kursus" role="button" data-bs-toggle="collapse"
                                     aria-expanded="{{ Request::is('utiliti/kursus/*') ? 'true' : 'false' }}"
                                     aria-controls="kursus">
                                     <div class="d-flex align-items-center nav-link-side">
@@ -571,10 +586,11 @@
                                         </a>
 
                                     </li>
+                                    <hr class="navbar-vertical-divider mx-3">
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link py-0" href="#matlamat" role="button" data-bs-toggle="collapse"
+                                <a class="nav-link py-0 dropdown-indicator" href="#matlamat" role="button" data-bs-toggle="collapse"
                                     aria-expanded="{{ Request::is('utiliti/matlamat_tahunan/*') ? 'true' : 'false' }}"
                                     aria-controls="matlamat">
                                     <div class="d-flex align-items-center nav-link-side">
@@ -619,6 +635,7 @@
                                         </a>
 
                                     </li>
+                                    <hr class="navbar-vertical-divider mx-3">
                                 </ul>
                             </li>
                         </ul>
@@ -659,6 +676,7 @@
                                         </a>
                                     </li>
                                 @endcan
+                                <hr class="navbar-vertical-divider mx-3">
                             </ul>
                         @endrole
 
@@ -695,6 +713,7 @@
                                         </a>
                                     </li>
                                 @endcan
+                                <hr class="navbar-vertical-divider mx-3">
                             </ul>
                         @endrole
                     @endif
@@ -736,6 +755,7 @@
                                             </div>
                                         </a>
                                     </li>
+                                    <hr class="navbar-vertical-divider mx-3">
                                 </ul>
                             </li>
                             <li class="nav-item">
@@ -760,6 +780,7 @@
                                     </div>
                                 </a>
                             </li>
+                            <hr class="navbar-vertical-divider mx-3">
                         </ul>
 
                     @endcan
@@ -782,7 +803,7 @@
                     @endcan
 
 
-                    @can('penilaian')
+                    @if (auth()->user()->can('jawab penilaian') || auth()->user()->can('cipta penilaian'))
                         <a class="nav-link py-0 dropdown-indicator" href="#penilaian" role="button"
                             data-bs-toggle="collapse" aria-expanded="{{ Request::is('penilaian/*') ? 'true' : 'false' }}"
                             aria-controls="penilaian">
@@ -863,9 +884,9 @@
                                 </li>
                             @endcan
 
-
+                            <hr class="navbar-vertical-divider mx-3">
                         </ul>
-                    @endcan
+                    @endif
 
                     @can('laporan')
                         <a class="nav-link py-0 dropdown-indicator" href="#laporan" role="button" data-bs-toggle="collapse"
@@ -1016,7 +1037,7 @@
                                             </div>
                                         </a>
                                     </li>
-
+                                    <hr class="navbar-vertical-divider mx-3">
                                 </ul>
                             </li>
 
@@ -1068,7 +1089,7 @@
                                     </div>
                                 </a>
                             </li>
-
+                            <hr class="navbar-vertical-divider mx-3">
                         </ul>
                     @endcan
 
