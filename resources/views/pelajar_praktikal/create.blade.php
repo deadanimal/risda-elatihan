@@ -135,7 +135,7 @@
                     <p class="pt-2 fw-bold">ALAMAT RUMAH</p>
                 </div>
                 <div class="col-7">
-                    <input type="text" name="" id="" class="form-control mb-2" placeholder="Baris 1">
+                    <input type="text" name="alamat" id="" class="form-control mb-2" placeholder="Baris 1">
                     {{-- <textarea rows="3" class="form-control mb-3" name="alamat"></textarea> --}}
                 </div>
             </div>
@@ -144,7 +144,7 @@
                     <p class="pt-2 fw-bold"></p>
                 </div>
                 <div class="col-7">
-                    <input type="text" name="" id="" class="form-control mb-2" placeholder="Baris 2">
+                    <input type="text" name="alamat2" id="" class="form-control mb-2" placeholder="Baris 2">
                 </div>
             </div>
             <div class="col-10 d-inline-flex">
@@ -152,7 +152,7 @@
                     <p class="pt-2 fw-bold"></p>
                 </div>
                 <div class="col-7">
-                    <input type="text" name="" id="" class="form-control mb-2" placeholder="Baris 3">
+                    <input type="text" name="alamat3" id="" class="form-control mb-2" placeholder="Baris 3">
                 </div>
             </div>
 
@@ -256,7 +256,7 @@
                     <p class="pt-2 fw-bold">TARIKH MULA PRAKTIKAL</p>
                 </div>
                 <div class="col-7">
-                    <input type="date" name="tarikh_mula" class="form-control">
+                    <input type="date" name="tarikh_mula" class="form-control" id="tm_p">
                 </div>
             </div>
 
@@ -265,7 +265,7 @@
                     <p class="pt-2 fw-bold">TARIKH AKHIR PRAKTIKAL</p>
                 </div>
                 <div class="col-7">
-                    <input type="date" name="tarikh_akhir" class="form-control">
+                    <input type="date" name="tarikh_akhir" class="form-control" id="ta_p">
                 </div>
             </div>
 
@@ -273,7 +273,7 @@
                 <div class="col-5">
                     <p class="pt-2 fw-bold">STATUS PRAKTIKAL</p>
                 </div>
-                <div class="col-7">
+                <div class="col-7" id="status_praktikal">
                     <select name="status_praktikal" class="form-select form-control">
                         <option hidden>SILA PILIH</option>
                         <option value="1">Sedang Praktikal</option>
@@ -296,7 +296,7 @@
                     <p class="pt-2 fw-bold">ALAMAT</p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control mb-2" placeholder="Baris 1">
+                    <input type="text" class="form-control mb-2" placeholder="Baris 1" name="alamat_ipt">
                     {{-- <textarea rows="3" class="form-control mb-3" name="alamat_ipt"></textarea> --}}
                 </div>
             </div>
@@ -306,7 +306,7 @@
                     <p class="pt-2 fw-bold"></p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control mb-2" placeholder="Baris 2">
+                    <input type="text" class="form-control mb-2" placeholder="Baris 2" name="alamat_ipt2">
                 </div>
             </div>
 
@@ -315,7 +315,7 @@
                     <p class="pt-2 fw-bold"></p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control mb-2" placeholder="Baris 3">
+                    <input type="text" class="form-control mb-2" placeholder="Baris 3" name="alamat_ipt3">
                 </div>
             </div>
 
@@ -445,6 +445,38 @@
                 $('#jantina').val('L');
             }
         });
+
+        $('#ta_p').change(function () {
+            var date_mula = $('#tm_p').val();
+            var date_akhir = $('#ta_p').val();
+            var d_m = new Date(date_mula);
+            var d_a = new Date(date_akhir);
+            var d_t = new Date();
+
+            if (d_t < d_a) {
+                console.log('sedang praktikal');
+                $('#status_praktikal').html('');
+                $('#status_praktikal').append(`
+                    <select name="status_praktikal" class="form-select form-control">
+                        <option value="1" selected>Sedang Praktikal</option>
+                        <option value="2">Telah Tamat Praktikal</option>
+                        <option value="3">Berhenti Separuh Jalan</option>
+                    </select>
+                `);
+            }else{
+                console.log('telah tamat praktikal');
+                $('#status_praktikal').html('');
+                $('#status_praktikal').append(`
+                    <select name="status_praktikal" class="form-select form-control">
+                        <option value="1">Sedang Praktikal</option>
+                        <option value="2" selected>Telah Tamat Praktikal</option>
+                        <option value="3">Berhenti Separuh Jalan</option>
+                    </select>
+                `);
+            }
+            
+        });
+        
     </script>
 
 @endsection

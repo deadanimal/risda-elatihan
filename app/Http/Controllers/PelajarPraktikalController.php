@@ -78,6 +78,8 @@ class PelajarPraktikalController extends Controller
         $pelajar->status_praktikal = $request->status_praktikal;
         $pelajar->nama_ipt = $request->nama_ipt;
         $pelajar->alamat_ipt = $request->alamat_ipt;
+        $pelajar->alamat_ipt2 = $request->alamat_ipt2;
+        $pelajar->alamat_ipt3 = $request->alamat_ipt3;
         $pelajar->poskod_ipt = $request->poskod_ipt;
         $pelajar->daerah_ipt = $request->daerah_ipt;
         $pelajar->negeri_ipt = $request->negeri_ipt;
