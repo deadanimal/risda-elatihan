@@ -26,7 +26,8 @@
 
         <div class="row justify-content-center mt-5">
             <div class="col-8">
-                <form method="POST" action="/penilaian/penilaian-kursus/ulpk/{{ $jadual_kursus->id }}/save">
+                <form method="POST" action="/penilaian/penilaian-kursus/{{ $jadual_kursus->id }}/save">
+
                     {{-- @method('POST') --}}
                     @csrf
 
@@ -68,14 +69,14 @@
                         <div class="col-4 mt-2">
                             <h5>MASA MULA</h5>
                         </div>
-                        @if ($jadual_kursus->kursus_masa_mula_pre_post_test != null)
+                        @if ($jadual_kursus->masa_mula_penilaian_kursus != null)
                             <div class="col-4">
-                                <input type="time" class="form-control" name="kursus_masa_mula_pre_post_test"
-                                    value="{{ $jadual_kursus->kursus_masa_mula_pre_post_test }}">
+                                <input type="time" class="form-control" name="masa_mula_penilaian_kursus"
+                                    value="{{ $jadual_kursus->masa_mula_penilaian_kursus }}">
                             </div>
                         @else
                             <div class="col-4">
-                                <input type="time" class="form-control" name="kursus_masa_mula_pre_post_test">
+                                <input type="time" class="form-control" name="masa_mula_penilaian_kursus">
                             </div>
                         @endif
                     </div>
@@ -83,14 +84,14 @@
                         <div class="col-4 mt-2">
                             <h5>MASA TAMAT</h5>
                         </div>
-                        @if ($jadual_kursus->kursus_masa_mula_pre_post_test != null)
+                        @if ($jadual_kursus->masa_tamat_penilaian_kursus != null)
                             <div class="col-4">
-                                <input type="time" class="form-control" name="kursus_masa_tamat_pre_post_test"
-                                    value="{{ $jadual_kursus->kursus_masa_tamat_pre_post_test }}">
+                                <input type="time" class="form-control" name="masa_tamat_penilaian_kursus"
+                                    value="{{ $jadual_kursus->masa_tamat_penilaian_kursus }}">
                             </div>
                         @else
                             <div class="col-4">
-                                <input type="time" class="form-control" name="kursus_masa_tamat_pre_post_test">
+                                <input type="time" class="form-control" name="masa_tamat_penilaian_kursus">
                             </div>
                         @endif
                     </div>

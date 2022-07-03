@@ -8,6 +8,7 @@ use App\Models\JadualKursus;
 use App\Models\Aturcara;
 use App\Models\Agensi;
 use App\Models\Permohonan;
+use App\Models\JawapanMultiplePost;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -30,8 +31,8 @@ class KursusPenilaianController extends Controller
                 'permohonan'=>$permohonan
                 // 'jadual_kursus'=>$jadual_kursus
             ]);
-        } elseif (auth::user()->jenis_pengguna=='Peserta ULPK') {
-            $jadual_kursus = JadualKursus::where('kursus_unit_latihan', 'Pekebun Kecil')->get();
+        } elseif (auth::user()->jenis_pengguna=='Urus Setia ULPK') {
+            $jadual_kursus = JadualKursus::with('tempat')->where('kursus_unit_latihan', 'Pekebun Kecil')->get();
 
             return view('penilaian.kursus.index-ulpk', [
                 'jadual_kursus'=>$jadual_kursus
