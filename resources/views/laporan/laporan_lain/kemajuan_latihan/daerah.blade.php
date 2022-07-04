@@ -1,18 +1,23 @@
 @extends('layouts.risda-base')
+<style>
+    th{
+        vertical-align: middle;
+    }
+</style>
 @section('content')
     <div class="container">
         <div class="row mt-3 mb-2">
             <div class="col-12 mb-2">
                 <p class="h1 mb-0 fw-bold" style="color: rgb(43,93,53);">LAPORAN</p>
-                <p class="h5" style="color: rgb(43,93,53); ">LAPORAN LAIN</p>
+                <p class="h5" style="color: rgb(43,93,53); ">LAPORAN KEMAJUAN LATIHAN</p>
             </div>
         </div>
-        <hr style="color: rgba(81,179,90, 60%);height:2px;">
+        <hr class="risda-g">
 
         <div class="row">
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
-                    LAPORAN RINGKASAN PENCERAMAH KURSUS
+                    LAPORAN KEMAJUAN LATIHAN MENGIKUT DAERAH
                 </p>
             </div>
         </div>
@@ -20,21 +25,22 @@
         <div class="row justify-content-center my-5">
             <div class="col-8">
                 <div class="row mt-3">
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                         <p class="risda-dg h5 mt-2">TARIKH MULA</p>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <input type="date" class="form-control">
                     </div>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                         <p class="risda-dg h5 mt-2">TARIKH AKHIR</p>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <input type="date" class="form-control">
                     </div>
                 </div>
+
                 <div class="row mt-4">
                     <div class="col-lg-10 text-end">
                         <a href="#" class="btn btn-sm btn-primary"> <span class="fas fa-search"></span> Carian</a>
@@ -43,7 +49,7 @@
             </div>
         </div>
 
-        <hr style="color: rgba(81,179,90, 60%);height:2px;">
+        <hr class="risda-g">
 
         <div class="card mt-5 ">
             <div class="card-header">
@@ -57,29 +63,39 @@
                     </div>
                 </div>
             </div>
-
+    
             <div class="card-body">
                 <div class="table-responsive scrollbar ">
-                    @include('laporan.laporan_lain.excel.laporan_ringkasan_penceramah_kursus')
+                    <table class="table text-center table-bordered datatable"
+                        style="vertical-align: middle;border-color: #00B64E;">
+                        <thead class="risda-bg-g">
+                            <tr>
+                                <th>BIL.</th>
+                                <th>NEGERI</th>
+                                <th>BIL.</th>
+                                <th>PUSAT TANGGUNGJAWAB</th>
+                                <th>BIL. PEKEBUN KECIL</th>
+                                <th>BIL.</th>
+                                <th>KATEGORI KURSUS</th>
+                                <th>BIL.</th>
+                                <th>TARIKH KURSUS</th>
+                                <th>BILANGAN</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
+    
             </div>
         </div>
     </div>
 
-    <a id="downloadpdf" download="LaporanPrestasiKehadiranPeserta.pdf" style="display: none" href="#"></a>
 
-    <a id="downloadexcel" style="display: none" href="{{ route('rp') }}"></a>
+
+    
 
     <script>
-        function download(el) {
-            let val = el.value;
-            if (val == "Pdf") {
-                document.getElementById('downloadpdf').click();
-            }
-            if (val == "Excel") {
-                document.getElementById('downloadexcel').click();
-            }
-        }
         $(document).ready(function() {
             $("th").addClass('fw-bold text-white');
         });

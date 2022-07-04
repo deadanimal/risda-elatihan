@@ -1,4 +1,4 @@
-<table class="table text-center table-bordered datatable" border-color: #00B64E;">
+<table class="table text-center table-bordered datatable" style="vertical-align: middle;border-color: #00B64E;">
     <thead class="risda-bg-g" style="vertical-align: middle">
         <tr>
             <th rowspan="2">BIL.</th>
