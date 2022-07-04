@@ -257,7 +257,7 @@ class JadualKursusController extends Controller
         $kategori = KategoriKursus::all();
         $kod_kursus = KodKursus::all();
         $status_pelaksanaan = StatusPelaksanaan::all();
-        
+
 
         if ($jadualKursus->kursus_unit_latihan == 'Staf') {
             try {
@@ -407,9 +407,25 @@ class JadualKursusController extends Controller
 
         $jadualKursus->save();
 
-        alert()->success('Maklumat telah disimipan', 'Berjaya Disimpan');
+        alert()->success('Maklumat telah disimpan', 'Berjaya Disimpan');
         return redirect('/penilaian/post-test/' . $id);
     }
+
+    public function tambah_masa_mula_tamat_penilaian_kursus(Request $request, $id)
+    {
+
+        $jadualKursus = JadualKursus::where('id', $id)->first();
+
+        $jadualKursus->masa_mula_penilaian_kursus = $request->masa_mula_penilaian_kursus;
+        $jadualKursus->masa_tamat_penilaian_kursus = $request->masa_tamat_penilaian_kursus;
+
+        $jadualKursus->save();
+
+        alert()->success('Maklumat telah disimpan', 'Berjaya Disimpan');
+        return redirect('/penilaian/penilaian-kursus/ulpk/'. $id);
+    }
+
+
 
     public function cetakjadualkursus()
     {
@@ -493,8 +509,8 @@ class JadualKursusController extends Controller
         }else{
             $f_akhir = $_GET['tarikh_akhir'];
         }
-        
-        
+
+
         $unit_latihan = $_GET['unit_latihan'];
         $t_awal = $f_awal;
         $t_akhir = $f_akhir;
@@ -515,7 +531,7 @@ class JadualKursusController extends Controller
                         $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', $unit_latihan)->where('tarikh_mula', '>=', $t_awal)->where('tarikh_tamat', '<=', $t_akhir)->get(); //ABC
 
                     }
-                    
+
                 } else {
                     //TIADA MUKIM
                     if ($tempat_kursus != null) {
@@ -529,7 +545,7 @@ class JadualKursusController extends Controller
                     }
 
                 }
-                
+
             } else {
                 //TIADA TARIKH AWAL
                 if ($t_akhir != null) {
@@ -543,7 +559,7 @@ class JadualKursusController extends Controller
                         $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('kursus_unit_latihan', $unit_latihan)->where('tarikh_tamat', '<=', $t_akhir)->get(); //AC
 
                     }
-                    
+
                 } else {
                     //TIADA TARIKH AKHIR
                     if ($tempat_kursus != null) {
@@ -559,7 +575,7 @@ class JadualKursusController extends Controller
                 }
 
             }
-            
+
         } else {
             //TIADA UL
             if ($t_awal != null) {
@@ -575,7 +591,7 @@ class JadualKursusController extends Controller
                         $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('tarikh_mula', '>=', $t_awal)->where('tarikh_tamat', '<=', $t_akhir)->get(); //BC
 
                     }
-                    
+
                 } else {
                     //TIADA MUKIM
                     if ($tempat_kursus != null) {
@@ -589,7 +605,7 @@ class JadualKursusController extends Controller
                     }
 
                 }
-                
+
             } else {
                 //TIADA TARIKH AWAL
                 if ($t_akhir != null) {
@@ -603,7 +619,7 @@ class JadualKursusController extends Controller
                         $jadualKursus = JadualKursus::with(['tempat', 'status_pelaksanaan'])->where('tarikh_tamat', '<=', $t_akhir)->get(); //C
 
                     }
-                    
+
                 } else {
                     //TIADA TARIKH AKHIR
                     if ($tempat_kursus != null) {
