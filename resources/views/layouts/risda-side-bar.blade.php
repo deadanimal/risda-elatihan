@@ -897,6 +897,7 @@
                         </a>
                         <ul class="nav-item collapse {{ Request::is('laporan/*') ? 'show' : 'false' }} my-1"
                             id="laporan">
+
                             <li class="nav-item">
                                 <a class="nav-link py-0 dropdown-indicator" href="#laporan-am" role="button"
                                     data-bs-toggle="collapse"
@@ -907,6 +908,7 @@
                                     </div>
                                 </a>
                             </li>
+
                             <li class="nav-item">
                                 <a class="nav-link py-0 dropdown-indicator" href="#laporan-lain" role="button"
                                     data-bs-toggle="collapse"
@@ -1041,6 +1043,159 @@
                                 </ul>
                             </li>
 
+                            <li class="nav-item">
+                                <a class="nav-link py-0 dropdown-indicator" href="#laporan-kemajuan-latihan" role="button"
+                                    data-bs-toggle="collapse"
+                                    aria-expanded="{{ Request::is('laporan/ulpk/laporan-kemajuan-latihan/*') ? 'true' : 'false' }}"
+                                    aria-controls="laporan-kemajuan-latihan">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">Laporan Kemajuan Latihan</span>
+                                    </div>
+                                </a>
+                                <ul class="nav-item collapse {{ Request::is('laporan/ulpk/laporan-kemajuan-latihan/*') ? 'show' : 'false' }} my-1"
+                                    id="laporan-kemajuan-latihan">
+
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('laporan/ulpk/laporan-kemajuan-latihan/mengikut-bidang') ? 'active' : '' }} py-0"
+                                            href="/laporan/ulpk/laporan-kemajuan-latihan/mengikut-bidang">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">Mengikut Bidang</span>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('laporan/ulpk/laporan-kemajuan-latihan/mengikut-kategori') ? 'active' : '' }} py-0"
+                                            href="/laporan/ulpk/laporan-kemajuan-latihan/mengikut-kategori">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">Mengikut Kategori</span>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('laporan/ulpk/laporan-kemajuan-latihan/mengikut-pusat-latihan') ? 'active' : '' }} py-0"
+                                            href="/laporan/ulpk/laporan-kemajuan-latihan/mengikut-pusat-latihan">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">Mengikut Pusat Latihan</span>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('laporan/ulpk/laporan-kemajuan-latihan/mengikut-negeri') ? 'active' : '' }} py-0"
+                                            href="/laporan/ulpk/laporan-kemajuan-latihan/mengikut-negeri">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">Mengikut Negeri</span>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('laporan/ulpk/laporan-kemajuan-latihan/mengikut-daerah') ? 'active' : '' }} py-0"
+                                            href="/laporan/ulpk/laporan-kemajuan-latihan/mengikut-daerah">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">Mengikut Daerah</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <hr class="navbar-vertical-divider mx-3">
+                                </ul>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link py-0 dropdown-indicator" href="#laporan-kehadiran" role="button"
+                                    data-bs-toggle="collapse"
+                                    aria-expanded="{{ Request::is('laporan/ulpk/laporan-kehadiran/*') ? 'true' : 'false' }}"
+                                    aria-controls="laporan-kehadiran">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">Laporan Kehadiran</span>
+                                    </div>
+                                </a>
+                                <ul class="nav-item collapse {{ Request::is('laporan/ulpk/laporan-kehadiran/*') ? 'show' : 'false' }} my-1"
+                                    id="laporan-kehadiran">
+
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('laporan/ulpk/laporan-kehadiran/mengikut-umur-jantina') ? 'active' : '' }} py-0"
+                                            href="/laporan/ulpk/laporan-kehadiran/mengikut-umur-jantina">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">Mengikut Umur dan Jantina</span>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('laporan/ulpk/laporan-kehadiran/mengikut-pusat-latihan-pusat-tanggungjawab') ? 'active' : '' }} py-0"
+                                            href="/laporan/ulpk/laporan-kehadiran/mengikut-pusat-latihan-pusat-tanggungjawab">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">Mengikut Pusat Latihan dan Pusat Tanggungjawab</span>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('laporan/ulpk/laporan-kehadiran/mengikut-negeri-parlimen-dun') ? 'active' : '' }} py-0"
+                                            href="/laporan/ulpk/laporan-kehadiran/mengikut-negeri-parlimen-dun">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">Mengikut Negeri, Parlimen, dan Dun</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <hr class="navbar-vertical-divider mx-3">
+                                </ul>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link py-0 dropdown-indicator" href="#laporan-perbelanjaan" role="button"
+                                    data-bs-toggle="collapse"
+                                    aria-expanded="{{ Request::is('laporan/ulpk/laporan-perbelanjaan/*') ? 'true' : 'false' }}"
+                                    aria-controls="laporan-perbelanjaan">
+                                    <div class="d-flex align-items-center nav-link-side">
+                                        <span class="px-0">Laporan Perbelanjaan</span>
+                                    </div>
+                                </a>
+                                <ul class="nav-item collapse {{ Request::is('laporan/ulpk/laporan-perbelanjaan/*') ? 'show' : 'false' }} my-1"
+                                    id="laporan-perbelanjaan">
+
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('laporan/ulpk/laporan-perbelanjaan/mengikut-bidang') ? 'active' : '' }} py-0"
+                                            href="/laporan/ulpk/laporan-perbelanjaan/mengikut-bidang">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">Mengikut Bidang</span>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('laporan/ulpk/laporan-perbelanjaan/mengikut-kategori') ? 'active' : '' }} py-0"
+                                            href="/laporan/ulpk/laporan-perbelanjaan/mengikut-kategori">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">Mengikut Kategori</span>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('laporan/ulpk/laporan-perbelanjaan/mengikut-kursus') ? 'active' : '' }} py-0"
+                                            href="/laporan/ulpk/laporan-perbelanjaan/mengikut-kursus">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">Mengikut Kursus</span>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('laporan/ulpk/laporan-perbelanjaan/mengikut-pusat-latihan') ? 'active' : '' }} py-0"
+                                            href="/laporan/ulpk/laporan-perbelanjaan/mengikut-pusat-latihan">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">Mengikut Pusat Latihan (ULPK)</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <hr class="navbar-vertical-divider mx-3">
+                                </ul>
+                            </li>
+                            <hr class="navbar-vertical-divider mx-3">
                         </ul>
                     @endcan
 
