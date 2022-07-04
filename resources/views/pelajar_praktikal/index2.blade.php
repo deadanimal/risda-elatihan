@@ -32,26 +32,36 @@
                                 <p class="h5">Status</p>
                             </div>
                             <div class="col-lg-6">
-                                <input type="text" class="form-control form-control-sm mb-2">
+                                <select class="form-select form-control mb-2" onchange="filter()" id="status_s" >
+                                    <option value="" hidden selected>Sila Pilih</option>
+                                    <option value="1">Sedang Praktikal</option>
+                                    <option value="2">Telah Tamat Praktikal</option>
+                                    <option value="3">Berhenti Separuh Jalan</option>
+                                </select>
                             </div>
                             <div class="col-lg-6">
                                 <p class="h5">Tempat Latihan Praktikal</p>
                             </div>
                             <div class="col-lg-6">
-                                <input type="text" class="form-control form-control-sm mb-2">
+                                <input type="text" class="form-control form-control-sm mb-2" onchange="filter()" id="tempat_latihan_s">
                             </div>
                             <div class="col-lg-6">
                                 <p class="h5">Tahap Pengajian</p>
                             </div>
                             <div class="col-lg-6">
-                                <input type="text" class="form-control form-control-sm mb-2">
+                                <select class="form-select form-control mb-2" name="tahap_pengajian" onchange="filter()" id="tahap_pengajian_s">
+                                    <option value="" hidden selected>Sila Pilih</option>
+                                    <option value="1">Sijil</option>
+                                    <option value="2">Diploma</option>
+                                    <option value="3">Ijazah Sarjana Muda</option>
+                                </select>
                             </div>
 
                             <div class="col-lg-6">
                                 <p class="h5">Nama</p>
                             </div>
                             <div class="col-lg-6">
-                                <input type="text" class="form-control form-control-sm mb-2">
+                                <input type="text" class="form-control form-control-sm mb-2" onchange="filter()" id="nama_s">
                             </div>
                         </div>
                     </div>
@@ -130,6 +140,66 @@
                 </table>
             </div>
         </div>
-
+        <script>
+            function filter() {
+                var status = $('#status_s').val();
+                var tempat_latihan = $('#tempat_latihan_s').val();
+                var tahap_pengajian = $('#tahap_pengajian_s').val();
+                var nama = $('#nama_s').val();
+    
+                console.log(status, tempat_latihan, tahap_pengajian, nama);
+                $.ajax({
+                    type: 'get',
+                    url: '/us-uls/PelajarPraktikal/filter',
+                    data: {
+                        'status': status_s,
+                        'tempat_latihan': tempat_latihan_s,
+                        'tahap_pengajian': tahap_pengajian_s,
+                        'nama': nama_s
+                    },
+                    success: function(result) {
+                        console.log(result);
+                        $('.datatable').dataTable().fnClearTable();
+                        $('.datatable').dataTable().fnDestroy();
+                        $("#t_normal").html("");
+                        let iteration = 1;
+                        result.forEach(e => {
+                            $("#t_normal").append(`
+                            <tr>
+                                        <td>` + iteration + `.</td>
+                                        <td>${ e.Dun_kod }</td>
+                                        <td>${ e.Dun }</td>
+                                        <td>` +
+                            (e.status_dun == '1' ?
+                                '<span class="badge badge-soft-success">Aktif</span>' :
+                                '<span class="badge badge-soft-danger">Tidak Aktif</span>') +
+                            `</td>
+                                        <td>
+                                            <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                                                data-bs-target="#edit_dun_${ e.id }">
+                                                <i class="fas fa-pen"></i>
+                                            </button>
+    
+                                            <button class="btn risda-bg-dg text-white" type="button" data-bs-toggle="modal"
+                                                data-bs-target="#delete_dun_${ e.id }">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                            `);
+    
+                            iteration++;
+                        });
+                        // console.log(result);
+                        $('.datatable').dataTable();
+                    },
+                    error: function() {
+                        console.log('error');
+                    },
+                });
+            }
+        </script>
     </div>
+
+    
 @endsection

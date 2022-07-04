@@ -211,4 +211,16 @@ class PelajarPraktikalController extends Controller
     {
         //
     }
+
+    public function filter()
+    {
+        $status = $_GET['status'];
+        $tempat_latihan = $_GET['tempat_latihan'];
+        $tahap_pengajian = $_GET['tahap_pengajian'];
+        $nama = $_GET['nama'];
+
+        $result = [$status, $tempat_latihan, $tahap_pengajian, $nama];
+
+        return response()->json($result);
+    }
 }
