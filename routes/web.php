@@ -275,6 +275,7 @@ Route::middleware('auth')->group(function () {
     Route::group(['prefix' => 'us-uls'], function () {
 
         Route::resource('PelajarPraktikal', PelajarPraktikalController::class);
+        Route::get('PelajarPraktikal/filter', [PelajarPraktikalController::class, 'filter']);
 
         Route::group(['prefix' => 'kehadiran', 'middleware' => 'can:kehadiran'], function () {
             //dari QR  - merekod kehadiran
