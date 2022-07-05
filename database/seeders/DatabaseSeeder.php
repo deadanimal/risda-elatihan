@@ -9,6 +9,7 @@ use Database\Seeders\KehadiranSeeder;
 use Database\Seeders\KodKursusSeeder;
 use Database\Seeders\PermohonanSeeder;
 use Database\Seeders\SqlStafSeeder;
+use Database\Seeders\RolesAndPermissionsSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -29,6 +30,7 @@ class DatabaseSeeder extends Seeder
             // PermohonanSeeder::class,
             // PermissionSeeder::class,
             SqlStafSeeder::class,
+            RolesAndPermissionsSeeder::class,
         ]);
 
         // \App\Models\User::factory(10)->create();

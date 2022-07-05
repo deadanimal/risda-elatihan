@@ -268,8 +268,7 @@
                             aria-expanded="{{ Request::is('pengurusan_peserta/*') ? 'true' : 'false' }}"
                             aria-controls="pengurusan_peserta">
                             <div class="d-flex align-items-center nav-link-side px-0">
-                                <span class=" px-3"><span class="fas fa-user-graduate"></span> PENGURUSAN
-                                    PESERTA</span>
+                                <span class=" px-3"><span class="fas fa-user-graduate"></span> PENGURUSAN PESERTA</span>
                             </div>
                         </a>
                         <ul class="nav-item collapse {{ Request::is('pengurusan_peserta/*') ? 'show' : 'false' }} my-1"
@@ -841,6 +840,13 @@
                                         </div>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link py-0" href="/penilaian/keberkesanan-kursus">
+                                        <div class="d-flex align-items-center nav-link-side">
+                                            <span class="px-0">PENILAIAN KEBERKESANAN KURSUS</span>
+                                        </div>
+                                    </a>
+                                </li>
                             @endcan
 
                             @can('cipta penilaian')
@@ -861,13 +867,6 @@
                                     </a>
                                 </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link py-0" href="/penilaian/keberkesanan-kursus">
-                                        <div class="d-flex align-items-center nav-link-side">
-                                            <span class="px-0">PENILAIAN KEBERKESANAN KURSUS</span>
-                                        </div>
-                                    </a>
-                                </li>
                                 <li class="nav-item">
                                     <a class="nav-link py-0" href="/penilaian/ejen-pelaksana">
                                         <div class="d-flex align-items-center nav-link-side">
