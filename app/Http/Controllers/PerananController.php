@@ -69,7 +69,10 @@ class PerananController extends Controller
      */
     public function edit($id)
     {
-        //
+        $role = Role::find($id);
+        return view('pengurusan_pengguna.peranan.edit', [
+            'role'=>$role
+        ]);
     }
 
     /**
@@ -119,5 +122,14 @@ class PerananController extends Controller
     {
         Permission::create(['name' => $request->name]);
         return redirect('/pengurusan_pengguna/peranan');
+    }
+
+    public function tukar_nama(Request $request, $id)
+    {
+        $peranan = Role::find($id);
+        $peranan->name = $request->name;
+        $peranan->save();
+
+        return redirect('/');
     }
 }

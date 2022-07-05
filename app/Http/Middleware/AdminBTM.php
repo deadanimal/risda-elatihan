@@ -16,7 +16,7 @@ class AdminBtm
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!auth()->check() || auth()->user()->jenis_pengguna != "Admin BTM") {
+        if (!auth()->check() || auth()->user()->jenis_pengguna != "Superadmin BTM") {
             abort(403);
         }
         return $next($request);
