@@ -252,9 +252,9 @@ class LaporanLainController extends Controller
 
     public function laporan_pencapaian_latihan_mengikut_kategori()
     {
-
         return view('laporan.laporan_lain.laporan-pencapaian_latihan-kategori');
-        
+    }
+
     // kemajuan
     public function laporan_kemajuan_latihan_bidang()
     {
