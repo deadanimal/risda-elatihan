@@ -560,7 +560,7 @@ INSERT INTO `stafs` (`id`, `created_at`, `updated_at`, `id_Pengguna`, `nopekerja
 (503, '2022-04-12 13:33:40', '2022-04-12 13:33:40', 13698, '106105', '19003N06', 'N19', 'PEMBANTU TADBIR (P/O), GRED  N19/N22 (TBK 13 TAHUN)', '440399', '40', '', '', '', '', 'PEJABAT PRB - SIBU');
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `jenis_pengguna`, `no_KP`, `status_akaun`, `gambar_profil`, `no_telefon`) VALUES
-(1189, 'Najhan Najib', '50posen50@gmail.com', NULL, '$2y$10$AD8FqTfeb6dS8kv58Ea9meoYZL6cx9REmGNBOMoH7z/9900kVjumm', NULL, '2022-04-04 09:49:43', '2022-04-04 09:49:43', 'Admin BTM', '980410025195', '1', NULL, NULL),
+(1189, 'Najhan Najib', '50posen50@gmail.com', NULL, '$2y$10$AD8FqTfeb6dS8kv58Ea9meoYZL6cx9REmGNBOMoH7z/9900kVjumm', NULL, '2022-04-04 09:49:43', '2022-04-04 09:49:43', 'Superadmin BTM', '980410025195', '1', NULL, NULL),
 (1190, 'KAMSIAH BINTI MD SALLEH', NULL, NULL, '$2y$10$aKcazhgEuzWniSmzNCrrFeL6.GIH6zWOU1Kr7vwLMgAYvlc54O4xG', NULL, '2022-04-05 15:05:03', '2022-04-05 15:05:03', 'Peserta ULPK', '660421015422', '1', NULL, NULL),
 (13199, 'ASMUNI BIN MOHD ARSHAD', 'asmuni@risda.gov.my', NULL, '$2y$10$4EIbrRKxslpA7Hb5ASfequEO3aUztaV3y0IYTVsn4Zzb0y6FvzUgG', NULL, '2022-04-12 13:32:56', '2022-04-12 13:32:56', 'Peserta ULS', '630120107651', '1', NULL, ''),
 (13200, 'ZAINUDDIN B ABDUL LATIF', 'zainuddinlatif@risda.gov.my', NULL, '$2y$10$mDuKPfsyYGTeGCy/3ReTt.CXbda0ruDOsGyM1COl/JvM3Sm5u.H.6', NULL, '2022-04-12 13:32:56', '2022-04-12 13:32:56', 'Peserta ULS', '671020086647', '1', NULL, ''),

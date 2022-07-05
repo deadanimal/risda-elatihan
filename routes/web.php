@@ -336,7 +336,7 @@ Route::middleware('auth')->group(function () {
     //penilaian
     Route::group(['prefix' => 'penilaian', 'middleware' => 'can:penilaian'], function () {
 
-        Route::middleware(['role:Admin BTM|Urus Setia ULS|Urus Setia ULPK'])->group(function () {
+        Route::middleware(['role:Superadmin BTM|Urus Setia ULS|Urus Setia ULPK'])->group(function () {
             Route::resource('/pre-post-test', PrePostTestController::class);
             Route::get('/pre-post-test/create/{jadual_kursus}', [PrePostTestController::class, 'createPrePost'])->name('createPrePost');
             Route::post('/pre-post-test/{jadual_kursus}/save', [JadualKursusController::class, 'tambah_masa_mula_tamat_pre_post_test']);
@@ -519,6 +519,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::get('/jadual_tahunan', [DashboardController::class, 'jadual_tahunan']);
+    Route::post('/pengurusan_pengguna/peranan/tukar_nama/{id}', [PerananController::class, 'tukar_nama']);
 
     // filetr route
     Route::get('/pengurusan_kursus/filter-daerah/{search}', [DaerahController::class, 'filter']);
