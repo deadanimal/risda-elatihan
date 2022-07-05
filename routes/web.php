@@ -132,9 +132,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('kehadiran_pl', KehadiranPusatLatihanController::class);
     Route::get('/senarai-pl', [KehadiranPusatLatihanController::class, 'indexPl']);
     // Route::get('/kehadiran_pl/{id}', [KehadiranPusatLatihanController::class, 'index_kehadiran']);
-// Route::get('/kehadiran-pl/{id}', [KehadiranController::class, 'kehadiran_pl']);
-    Route::get('/kehadiran_ke_pl/{id}',[KehadiranPusatLatihanController::class,'index_kehadiran']);
-    Route::get('/kehadiran_ke_pl/create/{id}',[KehadiranPusatLatihanController::class,'create']);
+    // Route::get('/kehadiran-pl/{id}', [KehadiranController::class, 'kehadiran_pl']);
+    Route::get('/kehadiran_ke_pl/{id}', [KehadiranPusatLatihanController::class, 'index_kehadiran']);
+    Route::get('/kehadiran_ke_pl/create/{id}', [KehadiranPusatLatihanController::class, 'create']);
     Route::post('/kehadiran-pl/pengesahan', [KehadiranPusatLatihan::class, 'pengesahan_kehadiran']);
 
 
@@ -189,12 +189,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/pengurusan_kursus/filter-jadual-kursus/{search}', [JadualKursusController::class, 'filter']);
 
-    Route::get('/cetak_jadual',[JadualKursusController::class,'cetakjadualkursus']);
-    Route::get('/cetak_surat_tawaran/{id}',[PermohonanController::class,'cetaksurattawaran']);
-    Route::get('/cetak_sijilkursus/{id}',[KehadiranController::class,'cetaksijilkursus']);
-    Route::get('/cetak_QR_post_test/{kursus}',[CetakKodQRController::class,'cetakQrpost_test']);
-    Route::get('/cetak_QR_pre_test/{kursus}',[CetakKodQRController::class,'cetakQrpre_test']);
-    Route::get('/cetak_QR_penilaian_kursus/{kursus}',[CetakKodQRController::class,'cetakQr_penilaian_kursus']);
+    Route::get('/cetak_jadual', [JadualKursusController::class, 'cetakjadualkursus']);
+    Route::get('/cetak_surat_tawaran/{id}', [PermohonanController::class, 'cetaksurattawaran']);
+    Route::get('/cetak_sijilkursus/{id}', [KehadiranController::class, 'cetaksijilkursus']);
+    Route::get('/cetak_QR_post_test/{kursus}', [CetakKodQRController::class, 'cetakQrpost_test']);
+    Route::get('/cetak_QR_pre_test/{kursus}', [CetakKodQRController::class, 'cetakQrpre_test']);
+    Route::get('/cetak_QR_penilaian_kursus/{kursus}', [CetakKodQRController::class, 'cetakQr_penilaian_kursus']);
 
 
 
@@ -275,6 +275,7 @@ Route::middleware('auth')->group(function () {
     Route::group(['prefix' => 'us-uls'], function () {
 
         Route::resource('PelajarPraktikal', PelajarPraktikalController::class);
+        Route::get('PelajarPraktikal/filter', [PelajarPraktikalController::class, 'filter']);
 
         Route::group(['prefix' => 'kehadiran', 'middleware' => 'can:kehadiran'], function () {
             //dari QR  - merekod kehadiran
@@ -414,6 +415,33 @@ Route::middleware('auth')->group(function () {
             Route::get('/pml', [LaporanLainController::class, 'pml'])->name('pml');
             Route::get('/pkp', [LaporanLainController::class, 'pkp'])->name('pkp');
             Route::get('/rp', [LaporanLainController::class, 'rp'])->name('rp');
+        });
+
+        Route::prefix('ulpk')->group(function () {
+
+            // kemajuan_latihan
+            Route::prefix('laporan-kemajuan-latihan')->group(function () {
+                Route::get('mengikut-bidang', [LaporanLainController::class, 'laporan_kemajuan_latihan_bidang']);
+                Route::get('mengikut-kategori', [LaporanLainController::class, 'laporan_kemajuan_latihan_kategori']);
+                Route::get('mengikut-pusat-latihan', [LaporanLainController::class, 'laporan_kemajuan_latihan_pusatlatihan']);
+                Route::get('mengikut-negeri', [LaporanLainController::class, 'laporan_kemajuan_latihan_negeri']);
+                Route::get('mengikut-daerah', [LaporanLainController::class, 'laporan_kemajuan_latihan_daerah']);
+            });
+
+            // perbelanjaan
+            Route::prefix('laporan-kehadiran')->group(function () {
+                Route::get('mengikut-umur-jantina', [LaporanLainController::class, 'laporan_kehadiran_umur_jantina']);
+                Route::get('mengikut-pusat-latihan-pusat-tanggungjawab', [LaporanLainController::class, 'laporan_kehadiran_pusat_latihan']);
+                Route::get('mengikut-negeri-parlimen-dun', [LaporanLainController::class, 'laporan_kehadiran_negeri']);
+            });
+
+            // perbelanjaan
+            Route::prefix('laporan-perbelanjaan')->group(function () {
+                Route::get('mengikut-bidang', [LaporanLainController::class, 'laporan_perbelanjaan_bidang']);
+                Route::get('mengikut-kategori', [LaporanLainController::class, 'laporan_perbelanjaan_kategori']);
+                Route::get('mengikut-kursus', [LaporanLainController::class, 'laporan_perbelanjaan_kursus']);
+                Route::get('mengikut-pusat-latihan', [LaporanLainController::class, 'laporan_perbelanjaan_pusatlatihan']);
+            });
         });
     });
 

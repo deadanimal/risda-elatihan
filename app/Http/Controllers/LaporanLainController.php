@@ -177,7 +177,7 @@ class LaporanLainController extends Controller
     }
     public function laporan_kehadiran_peserta()
     {
-        $kehadiran = Kehadiran::all();
+        $kehadiran = Kehadiran::with('staff')->get();
 
         foreach ($kehadiran as $k) {
             $k['user'] = User::find($k->no_pekerja);
@@ -254,5 +254,59 @@ class LaporanLainController extends Controller
     {
 
         return view('laporan.laporan_lain.laporan-pencapaian_latihan-kategori');
+        
+    // kemajuan
+    public function laporan_kemajuan_latihan_bidang()
+    {
+        return view('laporan.laporan_lain.kemajuan_latihan.bidang');
+    }
+    public function laporan_kemajuan_latihan_kategori()
+    {
+        return view('laporan.laporan_lain.kemajuan_latihan.kategori');
+    }
+    public function laporan_kemajuan_latihan_pusatlatihan()
+    {
+        return view('laporan.laporan_lain.kemajuan_latihan.pusat_latihan');
+    }
+    public function laporan_kemajuan_latihan_negeri()
+    {
+        return view('laporan.laporan_lain.kemajuan_latihan.negeri');
+    }
+    public function laporan_kemajuan_latihan_daerah()
+    {
+        return view('laporan.laporan_lain.kemajuan_latihan.daerah');
+    }
+
+    // kehadiran
+    public function laporan_kehadiran_umur_jantina()
+    {
+        return view('laporan.laporan_lain.kehadiran.umur_jantina');
+    }
+    public function laporan_kehadiran_pusat_latihan()
+    {
+        return view('laporan.laporan_lain.kehadiran.pusat_latihan');
+    }
+    public function laporan_kehadiran_negeri()
+    {
+        return view('laporan.laporan_lain.kehadiran.negeri');
+    }
+
+    // perbelanjaan
+    public function laporan_perbelanjaan_bidang()
+    {
+        return view('laporan.laporan_lain.perbelanjaan.bidang');
+    }
+    public function laporan_perbelanjaan_kategori()
+    {
+        return view('laporan.laporan_lain.perbelanjaan.kategori');
+    }
+    public function laporan_perbelanjaan_kursus()
+    {
+        return view('laporan.laporan_lain.perbelanjaan.kursus');
+    }
+    public function laporan_perbelanjaan_pusatlatihan()
+    {
+        return view('laporan.laporan_lain.perbelanjaan.pusat_latihan');
+
     }
 }
