@@ -284,7 +284,7 @@ class PermohonanController extends Controller
 
     public function cetaksurattawaran($id){
         $permohonan = Permohonan::find($id);
-        $jadual=JadualKursus::where('id', $permohonan->kod_kursus)->with(['tempat'])->first();
+        $jadual=JadualKursus::with(['tempat','peruntukan'])->where('id', $permohonan->kod_kursus)->first();
         $agensi = Agensi::where('id', $jadual->kursus_tempat)->with(['daerah','negeri'])->first();
         $aturcara = Aturcara::where('ac_jadual_kursus', $jadual->id)->get();
 
