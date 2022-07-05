@@ -213,6 +213,48 @@ class LaporanLainController extends Controller
         return view('laporan.laporan_lain.penilaian_peserta');
     }
 
+    public function laporan_penilaian_ejen()
+    {
+
+        return view('laporan.laporan_lain.laporan-penilaian-ejen');
+    }
+
+
+    public function laporan_penilaian_kursus_uls()
+    {
+
+        return view('laporan.laporan_lain.laporan-penilaian-kursus-uls');
+    }
+
+    public function laporan_penilaian_prepost_show()
+    {
+
+        return view('laporan.laporan_lain.laporan-penilaian-prepost-show');
+    }
+
+    public function laporan_penilaian_prepost_ulpk_show()
+    {
+
+        return view('laporan.laporan_lain.laporan-penilaian-prepost-show_ulpk');
+    }
+
+    public function laporan_penilaian_penyelia()
+    {
+
+        return view('laporan.laporan_lain.laporan-penilaian-penyelia');
+    }
+
+    public function laporan_prestasi_kehadiran()
+    {
+
+        return view('laporan.laporan_lain.laporan-prestasi-kehadiran');
+    }
+
+    public function laporan_pencapaian_latihan_mengikut_kategori()
+    {
+
+        return view('laporan.laporan_lain.laporan-pencapaian_latihan-kategori');
+        
     // kemajuan
     public function laporan_kemajuan_latihan_bidang()
     {
@@ -265,5 +307,6 @@ class LaporanLainController extends Controller
     public function laporan_perbelanjaan_pusatlatihan()
     {
         return view('laporan.laporan_lain.perbelanjaan.pusat_latihan');
+
     }
 }

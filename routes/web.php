@@ -399,7 +399,15 @@ Route::middleware('auth')->group(function () {
             Route::get('laporan-kewangan-terperinci', [LaporanLainController::class, 'laporan_kewangan_terperinci']);
             Route::get('laporan-ringkasan-jenis-kursus', [LaporanLainController::class, 'laporan_ringkasan_jenis_kursus']);
             Route::get('laporan-ringkasan-bidang-kursus', [LaporanLainController::class, 'laporan_ringkasan_bidang_kursus']);
+            Route::get('laporan-ringkasan-bidang-kursus', [LaporanLainController::class, 'laporan_ringkasan_bidang_kursus']);
+            Route::get('laporan-penilaian-ejen-pelaksana', [LaporanLainController::class, 'laporan_penilaian_ejen']);
+            Route::get('laporan-penilaian-kursus/uls', [LaporanLainController::class, 'laporan_penilaian_kursus_uls']);
+            Route::get('laporan-penilaian-prepost', [LaporanLainController::class, 'laporan_penilaian_prepost_show']);
             Route::get('laporan-penilaian-peserta', [LaporanLainController::class, 'laporan_penilaian_peserta']);
+            Route::get('laporan-penilaian-prepost-ulpk', [LaporanLainController::class, 'laporan_penilaian_prepost_ulpk_show']);
+            Route::get('laporan-penilaian-penyelia', [LaporanLainController::class, 'laporan_penilaian_penyelia']);
+            Route::get('laporan-prestasi-kehadiran', [LaporanLainController::class, 'laporan_prestasi_kehadiran']);
+            Route::get('laporan-pencapaian-latihan-kategori', [LaporanLainController::class, 'laporan_pencapaian_latihan_mengikut_kategori']);
 
             //download excel
             Route::get('/pmk', [LaporanLainController::class, 'pmk'])->name('pmk');
