@@ -406,6 +406,7 @@ Route::middleware('auth')->group(function () {
             Route::get('laporan-penilaian-prepost-ulpk', [LaporanLainController::class, 'laporan_penilaian_prepost_ulpk_show']);
             Route::get('laporan-penilaian-penyelia', [LaporanLainController::class, 'laporan_penilaian_penyelia']);
             Route::get('laporan-prestasi-kehadiran', [LaporanLainController::class, 'laporan_prestasi_kehadiran']);
+            Route::get('laporan-pencapaian-latihan-kategori', [LaporanLainController::class, 'laporan_pencapaian_latihan_mengikut_kategori']);
 
             //download excel
             Route::get('/pmk', [LaporanLainController::class, 'pmk'])->name('pmk');

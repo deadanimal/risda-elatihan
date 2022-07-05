@@ -235,7 +235,7 @@ class LaporanLainController extends Controller
     public function laporan_penilaian_prepost_ulpk_show()
     {
 
-        return view('laporan.laporan_lain.laporan-penilaian-prepost-ulpk_show');
+        return view('laporan.laporan_lain.laporan-penilaian-prepost-show_ulpk');
     }
 
     public function laporan_penilaian_penyelia()
@@ -248,5 +248,11 @@ class LaporanLainController extends Controller
     {
 
         return view('laporan.laporan_lain.laporan-prestasi-kehadiran');
+    }
+
+    public function laporan_pencapaian_latihan_mengikut_kategori()
+    {
+
+        return view('laporan.laporan_lain.laporan-pencapaian_latihan-kategori');
     }
 }
