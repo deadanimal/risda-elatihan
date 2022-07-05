@@ -1,5 +1,5 @@
 <head>
-    <title>Surat Tawaran Kursus {{$jadual->kursus_nama}}</title>
+    <title>Surat Panggilan Ke Kursus {{$jadual->kursus_nama}}</title>
 </head>
 
 <style type="text/css">
@@ -12,19 +12,23 @@
       margin: 10px;
     }
 
+    .page_break {
+        page-break-before: always;
+        margin-top: 30px;
+    }
+
 
 
     *{
             font: 12pt "Times New Roman";
-            line-height: 1.25;
-            margin-left: 20px;
+            line-height: 1.5;
             margin-right: 20px;
             margin-top: 10px;
 
 
      }
 
-     .justify{
+    th{
         text-align: justify;
      }
 
@@ -88,22 +92,43 @@
 
 
 
-    .footer {
-        page-break-after: always;
+    footer {
+        /* page-break-after: always; */
         position: fixed;
+        height: 5em;
         bottom: 0;
-        width: 100%;
-        color: white;
-        text-align: center;
-        margin-left: 20px;
-        margin-right: 20px;
+        text-align: justify;
         text-transform: uppercase;
         font-weight: bold;
+        font-size: 9pt;
+        margin-left: 20px;
+        margin-right: 20px;
     }
+
+    hr{
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    tr {
+        padding-bottom: 1em;
+        }
+
 
     sup{
             vertical-align: super;
             font-size: smaller;
+        }
+
+        p,h5,h3,h4{
+            margin-left: 20px;
+        text-align: justify;
+
+        }
+
+        li{
+            margin-left: 40px;
         }
 
 
@@ -139,85 +164,91 @@
             <br>
         <br><br>
 
-        <b>Seperti Senarai Edaran</b>
+        <p><b>Seperti Senarai Edaran</b></p>
 
         <p>Tuan/Puan,</p>
 
         <h5 style="text-transform:uppercase">KURSUS {{$jadual->kursus_nama}}. </h5>
 
-        Dengan hormatnya merujuk kepada perkara di atas.
+        <p>Dengan hormatnya merujuk kepada perkara di atas.</p>
 
-        <p>2. Sukacita dimaklumkan bahawa, Bahagian Latihan akan menjalankan satu kursus seperti di atas bagi pekebun kecil seperti ketetapan berikut:-
+        <p>2. &nbsp; &nbsp;  Sukacita dimaklumkan bahawa, Bahagian Latihan akan menjalankan satu kursus seperti di atas bagi {{$jadual->kursus_unit_latihan}} seperti ketetapan berikut:-
 
             <br>
-            <table >
+            <table width=100% class="table-clear" style="cellpadding:10px;margin-left:40px;">
                 <tr>
-                    <td> Tarikh</td>
-                    <td>:</td>
+                    <th> Tarikh</th>
+                    <th>:</th>
                     <td style="text-transform: capitalize">{{$jadual->tarikh_mula}} hingga {{$jadual->tarikh_tamat}}</td>
                 </tr>
                 <tr>
-                    <td>Tempat Kursus</td>
-                    <td>:</td>
+                    <th>Tempat Kursus</th>
+                    <th>:</th>
                     <td style="text-transform: capitalize">{{$jadual->tempat->nama_Agensi}}<br>{{$jadual->tempat->alamat_Agensi_baris1}} {{$jadual->tempat->alamat_Agensi_baris2}}
                         <br> {{$jadual->tempat->poskod}}
                         {{-- <br> {{$agensi->negeri->Negeri}} --}}
                     </td>
                 </tr>
                 <tr>
-                    <td>Tarikh /Masa Pendaftaran</td>
-                    <td>:</td>
+                    <th>Tarikh/Masa Pendaftaran</th>
+                    <th>:</th>
                     <td style="text-transform: capitalize">{{date('d-m-Y', strtotime($jadual->tarikh_mula))}}</td>
                 </tr>
                 <tr>
-                    <td>Kriteria Peserta</td>
-                    <td>:</td>
+                    <th>Kriteria Peserta</th>
+                    <th>:</th>
                     <td> Terbuka kepada semua KIR/AIR</td>
                 </tr>
                 <tr>
-                    <td>Lain-lain</td>
-                    <td>:</td>
-                    <td>
-                        <ol>
-                            <li> Kenderaan diselaras diperingkat Pusat Tanggungjawab yang terlibat</li>
-                            <li>Penginapan dan makan / minum disediakan. </li>
-                            <li>Peserta perlu mematuhi Prosedur Operasi (SOP) sepanjang berada di Pusat Latihan</li>
-                        </ol>
-                    </td>
+                    <th rowspan="4">Lain-lain</th>
+                    <th rowspan="4">:</th>
                 </tr>
+                <tr>
+                            <td>Kenderaan diselaras diperingkat Pusat Tanggungjawab yang terlibat. </td>
+                </tr>
+                <tr>
+                            <td>Penginapan dan makan / minum disediakan. </td>
+                </tr>
+                <tr>
+                            <td>Peserta perlu mematuhi Prosedur Operasi (SOP) sepanjang berada di Pusat Latihan.</td>
+                </tr>
+
             </table>
         </p>
-    <p>3. Selaras dengan Langkah Pencegahan Covid-19, beberapa perkara perlu dititikberatkan oleh Pusat Tanggungjawab terhadap pemilihan dan kehadiran peserta ke Pusat Latihan. Antara perkara tersebut adalah:
-        <ol>
+
+        <footer>
+            <hr>
+           MEMACU MASYARAKAT PEKEBUN KECIL MAKMUR DARIPADA SUMBER KOMODITI DAN HASIL BAHARU BERLANDASKAN REVOLUSI PERINDUSTRIAN DIGITAL SERTA TEKNOLOGI HIJAU. </footer>
+    <div class="page_break"></div>
+
+    <p>3.&nbsp; &nbsp; Selaras dengan Langkah Pencegahan Covid-19, beberapa perkara perlu dititikberatkan oleh Pusat Tanggungjawab terhadap pemilihan dan kehadiran peserta ke Pusat Latihan. Antara perkara tersebut adalah:
+        <ol type="i">
             <li>Peserta hendaklah lengkap menerima vaksin mengikut dos yang telah ditetapkan.</li>
-            <li> Suhu badan tidak melebihi 37.5<sup>o</sup>C</li>
-            <li> Sihat tubuh badan dan bebas dari segala jangkitan iaitu demam, batuk dan sukar bernafas </li>
+            <li> Suhu badan tidak melebihi 37.5 darjah selsius</li>
+            <li> Sihat tubuh badan dan bebas dari segala jangkitan iaitu demam, batuk dan sukar bernafas. </li>
             <li>Tahap kesihatan yang baik dan tidak mempunyai penyakit imuniti rendah dan penyakit kronik.</li>
             <li> Sentiasa memakai penutup muka (face mask), membasuh tangan serta menjaga penjarakan sosial 1 meter. </li>
-            <li> Peserta wajib mendaftra pada tempohyang ditetapkan sahaja. </li>
+            <li> Peserta wajib mendaftar pada tempoh yang ditetapkan sahaja. </li>
         </ol>
 
-        <p><sup>*</sup>Pusat Tanggungjawab perlu memastikan segala kriteria ini dipenuhi sebelum menghantar ke Pusat Latihan</p>
-
-        <hr>
-        <footer>MEMACU MASYARAKAT PEKEBUN KECIL MAKMUR DARIPADA SUMBER KOMODITI DAN HASIL BAHARU BERLANDASKAN REVOLUSI PERINDUSTRIAN DIGITAL SERTA TEKNOLOGI HIJAU. </footer>
+        <h5><sup>*</sup>Pusat Tanggungjawab perlu memastikan segala kriteria ini dipenuhi sebelum menghantar ke Pusat Latihan</h5>
 
 
-        <p>4. Pihak tuan/puan juga dipohon untuk mendaftarkan peserta daripada Pusat Tanggungjawab masing-masing ke dalam e-Latihan selewat-lewatnya 3 hari sebelum tarikh perlaksanaan kursus dan seterusnya menyediakan surat panggilan kursus kepada peserta bagi memnudahkan urusan pendaftaran dan perlindungan insuran di mana mereka dikehendaki membawa surat berkenaan dan kad pengenalan semasa pendaftaran kursus.</p>
+        <p>4. Pihak tuan/puan juga diminta untuk mendaftarkan peserta daripada Pusat Tanggungjawab masing-masing ke dalam e-Latihan selewat-lewatnya 3 hari sebelum tarikh perlaksanaan kursus dan seterusnya menyediakan surat panggilan kursus kepada peserta bagi memudahkan urusan pendaftaran dan perlindungan insuran di mana mereka dikehendaki membawa surat berkenaan dan kad pengenalan semasa pendaftaran kursus.</p>
 
         <p>5. Kerjasama pihak tuan dalam menjayakan program ini amatlah dihargai dan didahului dengan ucapan terima kasih. </p>
 
         <p>Sekian</p>
-
         <h4>"WAWASAN KEMAKMURAN BERSAMA 2030"</h4>
         <h4>"BERKHIDMAT UNTUK NEGARA"</h4>
 
-        <hr>
-        <footer>MEMACU MASYARAKAT PEKEBUN KECIL MAKMUR DARIPADA SUMBER KOMODITI DAN HASIL BAHARU BERLANDASKAN REVOLUSI PERINDUSTRIAN DIGITAL SERTA TEKNOLOGI HIJAU. </footer>
+    </p>
+        <div class="page_break"></div>
 
-        <h3 style="text-transform: uppercase">KUOTA PESERTA KURSUS {{$jadual->kursus_nama}}</h3>
 
-        <h3 style="text-transform: uppercase">PADA {{date('d-m-Y', strtotime($jadual->tarikh_mula))}} hingga {{date('d-m-Y', strtotime($jadual->tarikh_tamat))}}</h3>
+        <h3 style="text-transform: uppercase">KUOTA PESERTA KURSUS {{$jadual->kursus_nama}}:</h3>
+
+        <h3 style="text-transform: uppercase">PADA {{date('d-m-Y', strtotime($jadual->tarikh_mula))}} hingga  {{date('d-m-Y', strtotime($jadual->tarikh_tamat))}}</h3>
 
         <h3 style="text-transform: uppercase">TEMPAT: {{$jadual->tempat->nama_Agensi}}</h3>
 
@@ -238,10 +269,10 @@
 
                 @endforeach
         </table> --}}
-
+        <footer>
         <hr>
-        <footer>MEMACU MASYARAKAT PEKEBUN KECIL MAKMUR DARIPADA SUMBER KOMODITI DAN HASIL BAHARU BERLANDASKAN REVOLUSI PERINDUSTRIAN DIGITAL SERTA TEKNOLOGI HIJAU. </footer>
-
+       MEMACU MASYARAKAT PEKEBUN KECIL MAKMUR DARIPADA SUMBER KOMODITI DAN HASIL BAHARU BERLANDASKAN REVOLUSI PERINDUSTRIAN DIGITAL SERTA TEKNOLOGI HIJAU. </footer>
+        </body>
 
 
 

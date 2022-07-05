@@ -9,8 +9,6 @@
         .page {
             background: white;
             display: block;
-            margin: 0 auto;
-            margin-bottom: 0.5cm;
             /* box-shadow: 0 0 0.5cm rgb(255, 255, 255); */
         }
     /* define a few different page types we can refer to from CSS classes */
@@ -107,9 +105,8 @@
 
     footer {
         /* page-break-after: always; */
-         position: absolute;
         position: fixed;
-        height: 2em;
+        height: 5em;
         bottom: 0;
         text-align: justify;
         text-transform: uppercase;
@@ -145,7 +142,7 @@
 <p class="page" size="A4" layout="landscape">
 
 
-    <div class="row" style="text-align: center">
+    <div class="row" style="text-align: center" >
         <div class="column-side">
             Ruj. Kami: RISDA.500-5/1/2Jld.40({{$permohonan->kod_kursus}})
         </div>
@@ -177,7 +174,9 @@
     <br><br><br>
 
 
-    <footer>Memacu masyarakat pekebun kecil makmur daripada sumber komoditi dan hasil baharu berlandaskan revolusi perindustrian digital serta teknologi hijau</footer>
+    <footer>
+
+        Memacu masyarakat pekebun kecil makmur daripada sumber komoditi dan hasil baharu berlandaskan revolusi perindustrian digital serta teknologi hijau</footer>
 
 </p>
 

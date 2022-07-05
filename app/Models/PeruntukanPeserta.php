@@ -9,4 +9,10 @@ class PeruntukanPeserta extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+
+
+    public function kursus(){
+        return $this->belongsTo(JadualKursus::class,'pp_jadual_kursus','id');
+    }
 }
+
