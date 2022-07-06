@@ -78,13 +78,15 @@
                                         <div class="row g-2 mt-2">
                                             <div class="col-sm-6">
                                                 <a class="btn btn-outline-google-plus btn-sm d-block w-100"
-                                                    href="#"><span class="fab fa-google-plus-g me-2"
-                                                        data-fa-transform="grow-8"></span> google</a>
+                                                        href="{{ url('auth/google') }}"><span
+                                                            class="fab fa-google-plus-g me-2"
+                                                            data-fa-transform="grow-8"></span> google</a>
                                             </div>
                                             <div class="col-sm-6">
-                                                <a class="btn btn-outline-facebook btn-sm d-block w-100" href="#"><span
-                                                        class="fab fa-facebook-square me-2"
-                                                        data-fa-transform="grow-8"></span> facebook</a>
+                                                <a class="btn btn-outline-facebook btn-sm d-block w-100"
+                                                        href="{{ url('auth/facebook') }}"><span
+                                                            class="fab fa-facebook-square me-2"
+                                                            data-fa-transform="grow-8"></span> facebook</a>
                                             </div>
                                         </div>
                                     </div>

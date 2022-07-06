@@ -1,6 +1,9 @@
 @extends('layouts.risda-base')
 @section('content')
-<a href="/delete_staf" class="btn btn-danger">Remove All Peserta ULS </a> <a href="/add_staf" class="btn btn-warning">add</a> <a href="/change_role_uls" class="btn btn-info">Change</a>
+<div class="container">
+<a href="/delete_staf" class="btn btn-danger">Remove All Peserta ULS </a> <a href="/add_staf" class="btn btn-warning">add</a> <br><a href="/change_role_uls" class="btn btn-info">Change Peserta ULS</a> <a href="/change_role_sabtm" class="btn btn-info">Change Superadmin BTM</a>
+
+</div>
     {{-- @foreach ($user as $key => $u)
         {{ $u->id }}. {{ $u->no_KP }} ({{ $u->jenis_pengguna }})
         <br>
@@ -32,7 +35,7 @@
         <button type="submit" class="btn btn-warning">Tekan ni</button>
     </form> --}}
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-12">
             <div class="row">
                 <div class="col-12">
@@ -227,12 +230,12 @@
                                                         </form>
                                                     @endif
 
-                                                    {{-- <label class="form-check-label" id="aktif">Aktif</label> --}}
+                                                    <label class="form-check-label" id="aktif">Aktif</label>
                                                 </div>
-                                                {{-- <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                                                <button class="btn btn-primary" type="button" data-bs-toggle="modal"
                                                     data-bs-target="#edit_pengguna_{{ $u->pengguna->id }}">
                                                     <i class="fas fa-pen"></i>
-                                                </button> --}}
+                                                </button>
                                             </td>
                                             <td>
                                                 @if ($u->pengguna != null)
@@ -248,13 +251,13 @@
                                                     </button>
                                                 @endif
                                             </td>
-                                            {{-- <td>
+                                            <td>
                                                 <form method="POST" action="/pengurusan_pengguna/pengguna/staf/{{$u->pengguna->id}}">
                                                     @method('DELETE')
                                                     @csrf
                                                     <button class="btn p-0 ms-2" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="Padam"><span class="text-500 fas fa-trash-alt"></span></button>
                                                 </form>
-                                            </td> --}}
+                                            </td>
                                         </tr>
 
                                         @if ($u->pengguna != null)
@@ -355,7 +358,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     
 @endsection
