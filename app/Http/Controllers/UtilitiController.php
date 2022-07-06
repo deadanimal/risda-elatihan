@@ -220,4 +220,17 @@ class UtilitiController extends Controller
         alert()->success('Habis');
         return redirect('/testing');
     }
+
+    public function change_role_sabtm()
+    {
+        ini_set('max_execution_time', 1800);
+        $user = User::where('jenis_pengguna', 'Superadmin BTM')->get();
+
+        foreach ($user as $key => $u) {
+            $u->syncRoles('Superadmin BTM');
+        }
+
+        alert()->success('Habis');
+        return redirect('/testing');
+    }
 }
