@@ -116,8 +116,8 @@
                             <th scope="col">BIL.</th>
                             <th scope="col">NO. KAD <br> PENGENALAN</th>
                             <th scope="col">NAMA</th>
-                            <th scope="col">PUSAT <br> TANGGUNGJAWAB</th>
-                            <th scope="col">GRED</th>
+                            {{-- <th scope="col">PUSAT <br> TANGGUNGJAWAB</th>
+                            <th scope="col">GRED</th> --}}
                             <th scope="col">STATUS KEHADIRAN <br> SEBELUM KURSUS</th>
                             <th scope="col">STATUS KEHADIRAN</th>
                             <th scope="col">STATUS STAFF</th>
@@ -150,30 +150,37 @@
         });
 
         $("#select-hari").change(function() {
+            $('.datatable').dataTable().fnClearTable();
+            $('.datatable').dataTable().fnDestroy();
             $("#table-body").html("");
-            var aturcara = @json($aturcara->toArray());
+            var aturcara = @json($list->toArray());
             var sesi = $("#select-sesi").val();
             var iteration = 1;
 
             aturcara.forEach(element => {
-                if (element.ac_hari == this.value && element.ac_sesi == sesi && element.kehadiran !==
-                    null) {
+                let status = 'CALON ASAL';
+                let nama_pengganti = '-';
+                let ic_pengganti = '-';
+                if (element.aturcara.ac_hari == this.value && element.aturcara.ac_sesi == sesi) {
+                    if (element.nama_pengganti != null) {
+                        status = 'PENGGANTI';
+                        nama_pengganti = element.pengganti.name;
+                        ic_pengganti = element.pengganti.no_KP;
+                    }
                     $("#table-body").append(`
                             <tr>
                                 <td>` + iteration + `</td>
-                                <td>` + element.kehadiran.staff.no_KP + `</td>
-                                <td>` + element.kehadiran.staff.name + `</td>
-                                <td></td>
-                                <td></td>
-                                <td>` + element.kehadiran.status_kehadiran + `</td>
-                                <td>` + (element.kehadiran.status_kehadiran_ke_kursus ?? '') + `</td>
-                                <td></td>
-                                <td>` + (element.kehadiran.noKP_pengganti ?? '') + `</td>
-                                <td>` + (element.kehadiran.nama_pengganti ?? '') + `</td>
+                                <td>` + element.staff.no_KP + `</td>
+                                <td>` + element.staff.name + `</td>
+                                <td>` + (element.status_kehadiran ?? '-') + `</td>
+                                <td>` + (element.status_kehadiran_ke_kursus ?? '-') + `</td>
+                                <td>` + status + `</td>
+                                <td>` + ic_pengganti + `</td>
+                                <td>` + nama_pengganti + `</td>
                                 <td>
-                                    ` + (element.kehadiran.pengesahan == "BELUM DISAHKAN" ||
-                        element.kehadiran.pengesahan == null ?
-                        `<input class="form-check-input" name="pengesahan[` + element.kehadiran.id +
+                                    ` + (element.pengesahan == "BELUM DISAHKAN" ||
+                        element.pengesahan == null ?
+                        `<input class="form-check-input" name="pengesahan[` + element.id +
                         `]" type="checkbox" />` : 'DISAHKAN') + `
                                 </td>
                             </tr>
@@ -182,7 +189,7 @@
                 }
 
             });
-
+            $('.datatable').dataTable();
         });
     </script>
 @endsection

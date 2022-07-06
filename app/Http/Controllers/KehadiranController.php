@@ -350,11 +350,14 @@ class KehadiranController extends Controller
             $temp = $h->ac_hari;
         }
 
+        $list_peserta = Kehadiran::with(['aturcara', 'staff', 'pengganti'])->where('jadual_kursus_id', $jadual_kursus->id)->get();
+
         return view('uls.urus_setia.kehadiran.kehadiran-ke-kursus.rekod-pengesahan-peserta', [
             'jadual_kursus' => $jadual_kursus,
             'kehadiran' => $kehadiran,
             'pesertaUls' => $pesertaUls,
             'aturcara' => $jadual_kursus->aturcara,
+            'list'=>$list_peserta
         ]);
     }
 
