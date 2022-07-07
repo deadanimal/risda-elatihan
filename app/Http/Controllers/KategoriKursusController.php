@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateKategoriKursusRequest;
 use App\Models\KategoriKursus;
 use App\Models\BidangKursus;
 use App\Models\KodKursus;
+use Illuminate\Support\Facades\Auth;
 
 class KategoriKursusController extends Controller
 {
@@ -21,11 +22,18 @@ class KategoriKursusController extends Controller
      */
     public function index()
     {
-        $bidangKursus = BidangKursus::all();
-        $kategoriKursus = BidangKursus::join('kategori_kursuses', 'bidang_kursuses.id', 'kategori_kursuses.U_Bidang_Kursus')
-        ->select('*')->get();
-        // dd($kategoriKursus);
-
+        $check = Auth::user()->jenis_pengguna;
+        if (str_contains($check, 'ULS')) {
+            $kategoriKursus = KategoriKursus::with('bidang')->where('UL_Kategori_Kursus', 'Staf')->get();
+            $bidangKursus = BidangKursus::where('UL_Bidang_kursus', 'Staf')->get();
+        } elseif(str_contains($check, 'ULPK')) {
+            $kategoriKursus = KategoriKursus::with('bidang')->where('UL_Kategori_Kursus', 'Pekebun Kecil')->get();
+            $bidangKursus = BidangKursus::where('UL_Bidang_kursus', 'Pekebun Kecil')->get();
+        } else {
+            $kategoriKursus = KategoriKursus::with('bidang')->get();
+            $bidangKursus = BidangKursus::all();
+        }
+        
         $bil_ds = KategoriKursus::where('UL_Kategori_Kursus', 'Staf')->where('jenis_Kategori_Kursus', 'Dalaman')->get();
         $bil_ls = KategoriKursus::where('UL_Kategori_Kursus', 'Staf')->where('jenis_Kategori_Kursus', 'Luaran')->get();
         $bil_pk = KategoriKursus::where('UL_Kategori_Kursus', 'Pekebun Kecil')->get();
@@ -36,6 +44,7 @@ class KategoriKursusController extends Controller
             'bil_ds' => $bil_ds,
             'bil_ls' => $bil_ls,
             'bil_pk' => $bil_pk,
+            'check' => $check
         ]);
     }
 
