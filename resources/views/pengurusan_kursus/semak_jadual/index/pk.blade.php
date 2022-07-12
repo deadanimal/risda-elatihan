@@ -68,8 +68,8 @@
                     <div class="col-lg-10">
                         <select class="form-select form-control" name="search_TK" id="search_TK" onchange="filter(this)">
                             <option selected="" aria-placeholder="Sila Pilih" hidden></option>
-                            @foreach ($jadual as $t)
-                                <option value="{{ $t->kursus_tempat }}">{{ $t->kursus_tempat }}</option>
+                            @foreach ($tempat as $t)
+                                <option value="{{ $t->id }}">{{ $t->nama_Agensi }}</option>
                             @endforeach
                         </select>
                     </div>
