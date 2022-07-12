@@ -19,10 +19,10 @@
 
         <div class="row mt-3">
             <div class="col text-end">
-                {{-- <a href="/pengurusan_pengguna/peranan/create" class="btn btn-primary">Tambah Kumpulan Pengguna</a> --}}
-                <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#tambah-kp">
+                <a href="/pengurusan_pengguna/peranan/create" class="btn btn-primary">Tambah Kumpulan Pengguna</a>
+                {{-- <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#tambah-kp">
                     Tambah Kumpulan Pengguna
-                </button>
+                </button> --}}
             </div>
             <div class="modal fade" id="tambah-kp" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">

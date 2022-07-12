@@ -27,7 +27,9 @@ class PerananController extends Controller
      */
     public function create()
     {
-        return view('pengurusan_pengguna.peranan.create');
+        return view('pengurusan_pengguna.peranan.create',[
+            'kebenaran' => Permission::all(),
+        ]);
     }
 
     /**
@@ -38,9 +40,20 @@ class PerananController extends Controller
      */
     public function store(Request $request)
     {
-        // Role::create(['name' => $request->name]);
-        $peranan = new Role($request->all());
-        $peranan->save();
+        Role::create(['name' => $request->name]);
+        $peranan = Role::where('name', $request->name)->first();
+
+        $nama_role = Role::where('id', $peranan->id)->first();
+        $nama_role = $nama_role->name;
+        $role = Role::findByName($nama_role);
+        $kebenaran = Permission::get();
+
+        foreach ($kebenaran as $kebenaran) {
+            $nama = str_replace(" ", "_", $kebenaran->name);
+            if ($request->$nama == "1") {
+                $role->givePermissionTo($kebenaran->name);
+            }
+        }
         AuditTrailController::audit('pengurusan pengguna', 'peranan', 'cipta', $peranan->name);
         alert()->success('Peranan telah ditambah', 'Berjaya');
         return redirect('/pengurusan_pengguna/peranan');
