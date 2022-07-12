@@ -29,8 +29,9 @@ class DatabaseSeeder extends Seeder
             // KehadiranSeeder::class,
             // PermohonanSeeder::class,
             // PermissionSeeder::class,
-            SqlStafSeeder::class,
-            RolesAndPermissionsSeeder::class,
+            // NegeriSeeder::class,
+            // SqlStafSeeder::class,
+            // RolesAndPermissionsSeeder::class,
         ]);
 
         // \App\Models\User::factory(10)->create();
