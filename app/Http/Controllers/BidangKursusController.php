@@ -17,7 +17,15 @@ class BidangKursusController extends Controller
   
     public function index()
     {
-        $bidangKursus = BidangKursus::all();
+        $check = Auth::user()->jenis_pengguna;
+
+        if (str_contains($check, 'ULS')) {
+            $bidangKursus = BidangKursus::where('UL_Bidang_Kursus','Staf')->get();
+        } elseif(str_contains($check, 'ULPK')) {
+            $bidangKursus = BidangKursus::where('UL_Bidang_Kursus','Pekebun Kecil')->get();
+        } else {
+            $bidangKursus = BidangKursus::all();
+        }
 
         $bidang_staf = BidangKursus::orderBy('id', 'desc')->where('UL_Bidang_Kursus', 'Staf')->first();
         if ($bidang_staf != null) {
