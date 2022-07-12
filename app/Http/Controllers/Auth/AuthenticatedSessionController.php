@@ -44,8 +44,7 @@ class AuthenticatedSessionController extends Controller
             if ($check_staf == 'Peserta ULPK') {
                 alert()->error('Sila log masuk menggunakan tab log masuk yang betul', 'Gagal');
                 return back();
-            }
-            elseif ($check_staf == 'Ejen Pelaksana') {
+            } elseif ($check_staf == 'Ejen Pelaksana') {
                 alert()->error('Sila log masuk menggunakan tab log masuk yang betul', 'Gagal');
                 return back();
             }
@@ -55,9 +54,14 @@ class AuthenticatedSessionController extends Controller
         if ($request->pengguna == 'pk') {
             if ($kp != null) {
                 $check_ic = User::where('no_KP', $kp)->first();
-                $login_type = $check_ic->login_type;
             } else {
                 $check_ic = User::where('email', $email)->first();
+            }
+            
+            if ($check_ic == null) {
+                alert()->error('Butiran yang anda masukkan tiada dalam rekod kami');
+                return back();
+            }else {
                 $login_type = $check_ic->login_type;
             }
 
