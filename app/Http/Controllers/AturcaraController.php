@@ -102,7 +102,8 @@ class AturcaraController extends Controller
      */
     public function update(UpdateAturcaraRequest $request, Aturcara $aturcara)
     {
-        $aturcara->ac_masa = $request->ac_masa;
+        $aturcara->ac_masa_mula = $request->ac_masa_mula;
+        $aturcara->ac_masa_tamat = $request->ac_masa_tamat;
         $aturcara->ac_aturcara = $request->ac_aturcara;
 
         $aturcara->save();
