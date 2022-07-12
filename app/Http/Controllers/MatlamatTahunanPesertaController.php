@@ -358,6 +358,7 @@ class MatlamatTahunanPesertaController extends Controller
 
     public function kemaskini($title, $year)
     {
+        $status = 'update';
         if ($title == 'bidang_kursus') {
             $carian = BidangKursus::with('matlamat_peserta')->whereYear('created_at', $year)->get();
         } elseif ($title == 'kategori_kursus') {
