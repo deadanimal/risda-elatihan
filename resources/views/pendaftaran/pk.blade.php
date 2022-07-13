@@ -27,31 +27,9 @@
                                             <option value="sso">GMAIL/FACEBOOK</option>
                                         </select>
                                     </div>
+                                    
                                     <div id="info">
-                                        <div id="ic">
-                                            <div class="mb-3">
-                                                <label class="form-label">No. Kad Pengenalan</label>
-                                                <input class="form-control" name="no_KP" type="text"
-                                                    value="{{ $data['No_KP'] }}" readonly />
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label">E-mel</label>
-                                                <input class="form-control" type="email" name="email"
-                                                    placeholder="@gmail.com" />
-                                            </div>
-                                        </div>
-                                        <div id="em">
-                                            <div class="mb-3">
-                                                <label class="form-label">E-mel</label>
-                                                <input class="form-control" type="email" name="email"
-                                                    placeholder="@gmail.com" />
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label">No. Kad Pengenalan</label>
-                                                <input class="form-control" name="no_KP" type="text"
-                                                    value="{{ $data['No_KP'] }}" readonly />
-                                            </div>
-                                        </div>
+                                        <div id="details"></div>
 
                                         <div class="mb-3">
                                             <label class="form-label">Nama</label>
@@ -110,28 +88,47 @@
     <script>
         $(document).ready(function() {
             $('#info').hide();
-            $('#ic').hide();
-            $('#em').hide();
             $('#sso').hide();
         });
 
         $('#id_jenis').change(function() {
             let jenis = this.value;
+            var data = @json($data);
             
             if (jenis == 'nric') {
                 $('#info').show();
-                $('#ic').show();
-                $('#em').hide();
                 $('#sso').hide();
+                $('#details').html('');
+                $('#details').append(`
+                    <div class="mb-3">
+                        <label class="form-label">No. Kad Pengenalan</label>
+                        <input class="form-control" name="no_KP" type="text"
+                            value=" ${ data.No_KP } " readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">E-mel</label>
+                        <input class="form-control" type="email" name="email"
+                            placeholder="@gmail.com" />
+                    </div>
+                `);
             } else if(jenis == 'emel') {
                 $('#info').show();
-                $('#ic').hide();
-                $('#em').show();
                 $('#sso').hide();
+                $('#details').html('');
+                $('#details').append(`
+                    <div class="mb-3">
+                        <label class="form-label">E-mel</label>
+                        <input class="form-control" type="email" name="email"
+                            placeholder="@gmail.com" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">No. Kad Pengenalan</label>
+                        <input class="form-control" name="no_KP" type="text"
+                            value="${ data.No_KP }" readonly />
+                    </div>
+                `);
             }else{
                 $('#info').hide();
-                $('#ic').hide();
-                $('#em').hide();
                 $('#sso').show();
             }
         });

@@ -59,7 +59,7 @@ class AuthenticatedSessionController extends Controller
             }
             
             if ($check_ic == null) {
-                alert()->error('Butiran yang anda masukkan tiada dalam rekod kami');
+                alert()->error('Butiran yang anda masukkan tiada dalam rekod kami. Sila lakukan pendaftaran.');
                 return back();
             }else {
                 $login_type = $check_ic->login_type;

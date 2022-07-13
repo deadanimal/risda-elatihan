@@ -62,7 +62,7 @@
                                 </thead>
                                 <tbody class="bg-white" id="t_normal">
                                     @foreach ($pemohon as $c => $pk)
-                                        @if ($s->peserta->jenis_pengguna == 'Peserta ULS')
+                                        @if ($pk->peserta->jenis_pengguna == 'Peserta ULS')
                                             <tr>
                                                 <td>{{ $c + 1 }}.</td>
                                                 <td>{{ date('H:i, d-m-Y', strtotime($pk->created_at)) }}</td>

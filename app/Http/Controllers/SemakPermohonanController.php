@@ -53,6 +53,7 @@ class SemakPermohonanController extends Controller
         } 
         elseif (str_contains($check, 'ULPK')) {
             $pekebun_kecil = [];
+            dd($pemohon);
             foreach ($pemohon as $key => $p) {
                 if ($p->peserta == null) {
                     $p->delete();
