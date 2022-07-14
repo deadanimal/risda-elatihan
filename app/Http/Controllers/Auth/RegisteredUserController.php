@@ -93,7 +93,7 @@ class RegisteredUserController extends Controller
 
         $tanahs = $pk['Tanah'];
         foreach ($tanahs as $tanah) {
-            dd($tanah['No_Geran']);
+            // dd($tanah['No_Geran']);
 
             $d_tanah = PekebunKecil::create([
                 'id_pekebun_kecil' => $pk['id'],

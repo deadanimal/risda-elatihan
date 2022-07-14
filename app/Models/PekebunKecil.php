@@ -11,6 +11,6 @@ class PekebunKecil extends Model
 
     public function tanah()
     {
-        return $this->hasOne(Tanah::class);
+        return $this->hasOne(Tanah::class, 'id_pekebun_kecil', 'id');
     }
 }

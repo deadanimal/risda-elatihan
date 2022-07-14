@@ -8,9 +8,11 @@ use App\Mail\PermohonanLulus;
 use App\Models\Agensi;
 use App\Models\JadualKursus;
 use App\Models\KategoriAgensi;
+use App\Models\PekebunKecil;
 use App\Models\Permohonan;
 use App\Models\SemakPermohonan;
 use App\Models\Staf;
+use App\Models\Tanah;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -40,8 +42,8 @@ class SemakPermohonanController extends Controller
             foreach ($pemohon as $key => $p) {
                 if ($p->peserta == null) {
                     $p->delete();
-                } 
-                if($p->data_staf == null){
+                }
+                if ($p->data_staf == null) {
                     $p->delete();
                 }
             }
@@ -50,24 +52,22 @@ class SemakPermohonanController extends Controller
                 'pemohon' => $pemohon,
                 'tempat' => $tempat
             ]);
-        } 
-        elseif (str_contains($check, 'ULPK')) {
+        } elseif (str_contains($check, 'ULPK')) {
             $pekebun_kecil = [];
-            dd($pemohon);
             foreach ($pemohon as $key => $p) {
                 if ($p->peserta == null) {
                     $p->delete();
-                } 
-                if($p->data_pk == null){
-                    $p->delete();
+                }
+                if ($p->data_pk != null) {
+                    array_push($pekebun_kecil, $p);
                 }
             }
+            // dd($pekebun_kecil);
             return view('permohonan_kursus.semakan_permohonan.ulpk.index', [
-                'pemohon' => $pemohon,
+                'pemohon' => $pekebun_kecil,
                 'tempat' => $tempat
             ]);
-        } 
-        else {
+        } else {
 
             $staf = [];
             $pekebun_kecil = [];
@@ -82,7 +82,7 @@ class SemakPermohonanController extends Controller
                     } elseif ($p->peserta['jenis_pengguna'] == 'Peserta ULPK') {
                         $p->jenis_peserta = 'Peserta ULPK';
                     }
-    
+
                     if ($p->jenis_peserta == 'Peserta ULS') {
                         $p->gred = null;
                         $p->pusat_tanggungjawab = null;
@@ -90,7 +90,7 @@ class SemakPermohonanController extends Controller
                             ->get('https://www4.risda.gov.my/fire/getallstaff/')
                             ->getBody()
                             ->getContents();
-    
+
                         $data_staf = json_decode($data_staf, true);
                         foreach ($data_staf as $key => $s) {
                             if ($s['nokp'] == $p->peserta->no_KP) {
@@ -98,16 +98,16 @@ class SemakPermohonanController extends Controller
                                 $p->pusat_tanggungjawab = $s['NamaPT'];
                             }
                         }
-    
+
                         array_push($staf, $p);
                     } elseif ($p->jenis_peserta == 'Peserta ULPK') {
                         $data_pk = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', '1cc11a9fec81dc1f99f353f403d6f5bac620aa8f')
                             ->get('https://www4.risda.gov.my/espek/portalpkprofiltanah/?nokp=' . $p->peserta->no_KP)
                             ->getBody()
                             ->getContents();
-    
+
                         $data_pk = json_decode($data_pk, true);
-    
+
                         // check if not pk
                         if (!empty($data_pk['message'])) {
                             // alert()->error('No. Kad Pengenalan tiada dalam pangkalan data HRIP');
@@ -117,10 +117,9 @@ class SemakPermohonanController extends Controller
                             array_push($pekebun_kecil, $p);
                         }
                     }
-    
+
                     $p['tarikh'] = date('H:i, d/m/Y', strtotime($p->created_at));
                 }
-                
             }
 
             if (Auth::user()->jenis_pengguna == 'Penyokong') {
@@ -177,32 +176,21 @@ class SemakPermohonanController extends Controller
                 'user' => $peserta,
             ]);
         } elseif ($peserta->peserta->jenis_pengguna == 'Peserta ULPK') {
-            $data_pk = Http::withBasicAuth('99891c082ecccfe91d99a59845095f9c47c4d14e', '1cc11a9fec81dc1f99f353f403d6f5bac620aa8f')
-                ->get('https://www4.risda.gov.my/espek/portalpkprofiltanah/?nokp=' . $peserta->peserta->no_KP)
-                ->getBody()
-                ->getContents();
-
-            $data_pk = json_decode($data_pk, true);
-
-            // check if not pk
-            if (!empty($data_pk['message'])) {
-                alert()->info('No. Kad Pengenalan anda tiada dalam sistem HRIP.')->persistent('Tutup');
-                return back();
+            $data_user = User::with('data_pk')->where('id', $peserta->no_pekerja)->first();
+            $data_tanah = Tanah::with('tanaman')->where('id_pekebun_kecil', $data_user->data_pk->id)->get();
+            $tahun = substr($data_user->no_KP, 0, 2);
+            $tahun = (int)$tahun;
+            if ($tahun <= 30) {
+                $tahun_lahir = '20' . $tahun;
             } else {
-                $pk = $data_pk[0];
-                $tahun = substr($pk['No_KP'], 0, 2);
-                $tahun = (int)$tahun;
-                if ($tahun <= 30) {
-                    $tahun_lahir = '20'.$tahun;
-                }else{
-                    $tahun_lahir = '19'.$tahun;
-                }
-                $pk['tarikh_lahir'] = substr($pk['No_KP'], 4, 2) . '/' . substr($pk['No_KP'], 2, 2) . '/' . $tahun_lahir;
+                $tahun_lahir = '19' . $tahun;
             }
+            $data_user['tarikh_lahir'] = substr($data_user->no_KP, 4, 2) . '/' . substr($data_user->no_KP, 2, 2) . '/' . $tahun_lahir;
 
             return view('permohonan_kursus.semakan_permohonan.ulpk.show', [
-                'pk' => $pk,
-                'user' => $peserta,
+                'pengguna' => $data_user,
+                'tanah' => $data_tanah,
+                'user' => $peserta
             ]);
         }
 
@@ -292,9 +280,9 @@ class SemakPermohonanController extends Controller
                 // ada tempat
                 foreach ($permohonan as $key => $p) {
                     if ($p->jadual->kursus_unit_latihan == $unitlatihan) {
-                       if ($p->tempat->id == $tempat) {
-                           array_push($result, $p);
-                       }
+                        if ($p->tempat->id == $tempat) {
+                            array_push($result, $p);
+                        }
                     }
                 }
             } else {
@@ -305,7 +293,6 @@ class SemakPermohonanController extends Controller
                     }
                 }
             }
-            
         } else {
             // tiada unit latihan
             if ($tempat != null) {
