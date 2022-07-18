@@ -135,7 +135,8 @@ Route::middleware('auth')->group(function () {
     // Route::get('/kehadiran-pl/{id}', [KehadiranController::class, 'kehadiran_pl']);
     Route::get('/kehadiran_ke_pl/{id}', [KehadiranPusatLatihanController::class, 'index_kehadiran']);
     Route::get('/kehadiran_ke_pl/create/{id}', [KehadiranPusatLatihanController::class, 'create']);
-    Route::post('/kehadiran-pl/pengesahan', [KehadiranPusatLatihan::class, 'pengesahan_kehadiran']);
+    // Route::post('/kehadiran-pl/pengesahan', [KehadiranPusatLatihan::class, 'pengesahan_kehadiran']);
+
 
 
     Route::resources([
@@ -372,7 +373,7 @@ Route::middleware('auth')->group(function () {
 
             Route::resource('/penilaian-kursus', PenilaianPesertaController::class);
             Route::get('/penilaian-kursus-ulpk', [PenilaianPesertaController::class, 'show_jawab_penilaian_ulpk']);
-            Route::get('/penilaian-kursus-ulpk/{permohonanjadualid}', [PenilaianPesertaController::class, 'jawab_penilaian_ulpk']);
+            Route::get('/penilaian-kursus-ulpk/permohonanjadual{id}', [PenilaianPesertaController::class, 'jawab_penilaian_ulpk']);
 
             Route::get('/jawab-pre-post-test', [PrePostTestController::class, 'jawabPrePost'])->name('jawabPrePost');
             Route::get('/mula-penilaian-pre-test/{jadual_kursus}', [PrePostTestController::class, 'mulaPenilaian']);
