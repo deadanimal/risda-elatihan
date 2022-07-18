@@ -151,7 +151,7 @@ class PerbelanjaanPengajianLanjutanController extends Controller
             $peserta = PengajianLanjutan::with('pengguna')->get();
         }
 
-        dd($peserta);
+        // dd($peserta);
         return view('perbelanjaan.pengajian_lanjutan.edit', [
             'rafis' => $rafis_butiran,
             'rafis_risda' => $rafis_check,

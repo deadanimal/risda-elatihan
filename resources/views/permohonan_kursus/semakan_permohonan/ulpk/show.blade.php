@@ -30,14 +30,14 @@
                         <div class="mb-3">
                             <label class="form-label risda-g">NO. KAD
                                 PENGENALAN</label>
-                            <input class="form-control" type="text" value="{{ $pk['No_KP'] }}" readonly />
+                            <input class="form-control" type="text" value="{{ $pengguna->no_KP }}" readonly />
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="mb-3">
                             <label class="form-label risda-g">NO. KAD PENGENALAN
                                 KIR</label>
-                            <input class="form-control" type="text" value="{{ $pk['U_PIR_ID'] }}" readonly />
+                            <input class="form-control" type="text" value="{{ $pengguna->data_pk->U_PIR_ID }}" readonly />
                         </div>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                     <div class="col">
                         <div class="mb-3">
                             <label class="form-label risda-g">NAMA</label>
-                            <input class="form-control" type="text" value="{{ $pk['Nama_PK'] }}" readonly />
+                            <input class="form-control" type="text" value="{{ $pengguna->name }}" readonly />
                         </div>
                     </div>
                 </div>
@@ -53,13 +53,13 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label class="form-label risda-g">TARIKH LAHIR</label>
-                            <input class="form-control" type="text" value="{{ $pk['tarikh_lahir'] }}" readonly />
+                            <input class="form-control" type="text" value="{{ $pengguna->tarikh_lahir }}" readonly />
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label class="form-label risda-g">JANTINA</label>
-                            <input class="form-control" type="text" value="{{ $pk['Jantina'] }}" readonly />
+                            <input class="form-control" type="text" value="{{ $pengguna->data_pk->Jantina }}" readonly />
                         </div>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label class="form-label risda-g">KETURUNAN</label>
-                            <input class="form-control" type="text" value="{{ $pk['Bangsa'] }}" readonly />
+                            <input class="form-control" type="text" value="{{ $pengguna->data_pk->Bangsa }}" readonly />
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -114,7 +114,7 @@
                         <div class="mb-3">
                             <label class="form-label risda-g">PUSAT
                                 TANGGUNGJAWAB</label>
-                            <input class="form-control" type="text" value="" readonly />
+                            <input class="form-control" type="text" value="{{$pengguna->data_pk->Pusat_Tanggungjawab_Lokaliti}}" readonly />
                         </div>
                     </div>
                 </div>
@@ -123,7 +123,7 @@
                         <div class="mb-3">
                             <label class="form-label risda-g">ALAMAT RUMAH
                                 1</label>
-                            <input class="form-control" type="text" value="{{ $pk['Nombor'] }}" readonly />
+                            <input class="form-control" type="text" value="{{ $pengguna->data_pk->Nombor }}" readonly />
                         </div>
                     </div>
                 </div>
@@ -132,7 +132,7 @@
                         <div class="mb-3">
                             <label class="form-label risda-g">ALAMAT RUMAH
                                 2</label>
-                            <input class="form-control" type="text" value="{{ $pk['Jalan'] }}" readonly />
+                            <input class="form-control" type="text" value="{{ $pengguna->data_pk->Jalan }}" readonly />
                         </div>
                     </div>
                 </div>
@@ -141,7 +141,7 @@
                         <div class="mb-3">
                             <label class="form-label risda-g">ALAMAT RUMAH
                                 3</label>
-                            <input class="form-control" type="text" value="{{ $pk['Nama_Kampung'] }}" readonly />
+                            <input class="form-control" type="text" value="{{ $pengguna->data_pk->Nama_Kampung }}" readonly />
                         </div>
                     </div>
                 </div>
@@ -150,7 +150,7 @@
                         <div class="mb-3">
                             <label class="form-label risda-g">ALAMAT RUMAH
                                 4</label>
-                            <input class="form-control" type="text" value="{{ $pk['Bandar'] }}" readonly />
+                            <input class="form-control" type="text" value="{{ $pengguna->data_pk->Bandar }}" readonly />
                         </div>
                     </div>
                 </div>
@@ -158,13 +158,13 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label class="form-label risda-g">POSKOD</label>
-                            <input class="form-control" type="text" value="{{ $pk['Poskod'] }}" readonly />
+                            <input class="form-control" type="text" value="{{ $pengguna->data_pk->Poskod }}" readonly />
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label class="form-label risda-g">NEGERI</label>
-                            <input class="form-control" type="text" value="{{ $pk['Negeri'] }}" readonly />
+                            <input class="form-control" type="text" value="{{ $pengguna->data_pk->Negeri }}" readonly />
                         </div>
                     </div>
                 </div>
@@ -172,13 +172,13 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label class="form-label risda-g">DAERAH</label>
-                            <input class="form-control" type="text" value="{{ $pk['Daerah'] }}" readonly />
+                            <input class="form-control" type="text" value="{{ $pengguna->data_pk->Daerah }}" readonly />
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label class="form-label risda-g">MUKIM</label>
-                            <input class="form-control" type="text" value="{{ $pk['Mukim'] }}" readonly />
+                            <input class="form-control" type="text" value="{{ $pengguna->data_pk->Mukim }}" readonly />
                         </div>
                     </div>
                 </div>
@@ -186,13 +186,13 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label class="form-label risda-g">PARLIMEN</label>
-                            <input class="form-control" type="text" value="" readonly />
+                            <input class="form-control" type="text" value="{{$pengguna->data_pk->Parlimen}}" readonly />
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label class="form-label risda-g">DUN</label>
-                            <input class="form-control" type="text" value="" readonly />
+                            <input class="form-control" type="text" value="{{$pengguna->data_pk->Dun}}" readonly />
                         </div>
                     </div>
                 </div>
@@ -200,19 +200,19 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label class="form-label risda-g">KAMPUNG</label>
-                            <input class="form-control" type="text" value="{{ $pk['Kampung'] }}" readonly />
+                            <input class="form-control" type="text" value="{{ $pengguna->data_pk->Kampung }}" readonly />
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label class="form-label risda-g">SEKSYEN</label>
-                            <input class="form-control" type="text" value="{{ $pk['Seksyen'] }}" readonly />
+                            <input class="form-control" type="text" value="{{ $pengguna->data_pk->Seksyen }}" readonly />
                         </div>
                     </div>
                 </div>
             </div>
 
-            @foreach ($pk['Tanah'] as $key => $t)
+            @foreach ($tanah as $key => $t)
             <div class="row col-lg-10 mt-3">
                 <div class="card risda-bg-g mb-3">
                     <h5 class="text-white my-2 mx-3">MAKLUMAT KEBUN {{$key+1}}</h5>
@@ -333,7 +333,7 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label class="form-label risda-g">JENIS TANAMAN</label>
-                            @foreach ($t['Tanaman'] as $tanaman)
+                            @foreach ($t->tanaman as $tanaman)
                             <input class="form-control" type="text"
                             value="{{ $tanaman['Jenis_Tanaman'] }}" readonly />
                             @endforeach

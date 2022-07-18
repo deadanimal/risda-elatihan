@@ -52,7 +52,7 @@ class PerbelanjaanYuranController extends Controller
     public function show($id_pengajian_lanjutan)
     {
         $try = PengajianLanjutan::find($id_pengajian_lanjutan);
-        dd($try->perbelanjaan_pengajian_lanjutan);
+        // dd($try->perbelanjaan_pengajian_lanjutan);
         return view('uls.urus_setia.pengajian_lanjutan.yuran', [
             'id_pengajian_lanjutan' => $id_pengajian_lanjutan,
             'perbelanjaan_yuran' => PerbelanjaanYuran::where('id_pengajian_lanjutan', $id_pengajian_lanjutan)->get(),
