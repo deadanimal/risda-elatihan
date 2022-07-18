@@ -22,23 +22,19 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            // BidangKursusSeeder::class,
-            // KategoriKursusSeeder::class,
-            // KodKursusSeeder::class,
-            // JadualKursusSeeder::class,
-            // KehadiranSeeder::class,
-            // PermohonanSeeder::class,
-            // PermissionSeeder::class,
-            // NegeriSeeder::class,
-            // SqlStafSeeder::class,
-            // RolesAndPermissionsSeeder::class,
+            AgamaSeeder::class,
+            BangsaSeeder::class,
+            DaerahSeeder::class,
+            DunSeeder::class,
+            KampungSeeder::class,
+            MukimSeeder::class,
+            NegeriSeeder::class,
+            ParlimenSeeder::class,
+            PusatTanggungjawabSeeder::class,
+            SeksyenSeeder::class,
+            StesenSeeder::class,
+            RolesAndPermissionsSeeder::class,
+            SqlStafSeeder::class,
         ]);
-
-        // \App\Models\User::factory(10)->create();
-
-// KategoriKursus
-
-//         KodKursus
-
     }
 }

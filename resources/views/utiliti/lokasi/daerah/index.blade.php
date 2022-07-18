@@ -112,7 +112,7 @@
                                 @foreach ($daerah as $key => $d)
                                     <tr>
                                         <td>{{ $key + 1 }}.</td>
-                                        <td>{{ $d->Daerah_Rkod }}</td>
+                                        <td>{{ $d->U_Daerah_ID }}</td>
                                         <td>{{ $d->Daerah }}</td>
                                         <td>
                                             @if ($d->status_daerah == '1')
@@ -158,7 +158,7 @@
                                                             <label class="col-form-label">NEGERI</label>
                                                             <select class="form-select" name="U_Negeri_ID">
                                                                 <option selected="" value="{{ $d->U_Negeri_ID }}" hidden>
-                                                                    {{ $d->Negeri }}</option>
+                                                                    {{ $d->negeri->Negeri }}</option>
                                                                 @foreach ($neg2 as $neg)
                                                                     @if ($neg['status_negeri'] == '1')
                                                                         <option value="{{ $neg->id }}">

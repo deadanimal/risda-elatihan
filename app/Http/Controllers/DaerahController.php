@@ -20,25 +20,14 @@ class DaerahController extends Controller
      */
     public function index()
     {
+        $daerah = Daerah::with('negeri')->get();
         $negeri = Negeri::all();
         $neg2 = Negeri::all();
-        $daerah = Negeri::join('daerahs', 'negeris.id', 'daerahs.U_Negeri_ID')
-        ->select('*')->get();
-        // dd($daerah);
-        $bil_dae = Daerah::orderBy('id', 'desc')->first();
-        if ($bil_dae != null) {
-            $bil = $bil_dae->Daerah_Rkod;
-        }else{
-            $bil = 0;
-        }
-        $bil = $bil + 1;
-        $bil = sprintf("%02d", $bil);
 
         return view('utiliti.lokasi.daerah.index', [
             'negeri' => $negeri,
             'neg2' => $neg2,
             'daerah' => $daerah,
-            'bil' => $bil
         ]);
     }
 

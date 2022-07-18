@@ -77,7 +77,7 @@
                                 @foreach ($negeri as $key => $negeri)
                                     <tr>
                                         <td>{{ $key + 1 }}.</td>
-                                        <td>{{ $negeri->Negeri_Rkod }}</td>
+                                        <td>{{ $negeri->U_Negeri_ID }}</td>
                                         <td>{{ $negeri->Negeri }}</td>
                                         <td>
                                             @if ($negeri->status_negeri == '1')
