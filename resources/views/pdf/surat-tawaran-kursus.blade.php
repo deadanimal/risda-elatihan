@@ -204,7 +204,14 @@
                 <tr>
                     <td> Tarikh</td>
                     <td>:</td>
+                    
+                    @if($jadual->bilangan_hari=="1")
+                    <td>{{date('d-m-Y', strtotime($jadual->tarikh_mula))}}</td>
+                    @else
                     <td>{{date('d-m-Y', strtotime($jadual->tarikh_mula))}} hingga {{date('d-m-Y', strtotime($jadual->tarikh_tamat))}}</td>
+
+                    @endif
+
 
                 </tr>
                 <tr></tr>

@@ -68,10 +68,11 @@ class KehadiranPusatLatihanController extends Controller
         $agensi = Agensi::find($id);
         $hari_ini = date('Y-m-d');
 
+
         $kursus=JadualKursus::with('tempat')
             ->where('kursus_tempat',$agensi->id)
             ->where('tarikh_mula','>=',$hari_ini)
-            ->where('tarikh_tamat','<',$hari_ini)
+            ->where('tarikh_tamat','<=',$hari_ini)
             ->get();
 
 
@@ -96,9 +97,6 @@ class KehadiranPusatLatihanController extends Controller
                 'hari_ini'=>$hari_ini
             ]);
         }
-
-
-
 
 
     }
@@ -137,9 +135,19 @@ class KehadiranPusatLatihanController extends Controller
 
         $kehadiran_pl->save();
 
-        alert()->success('Maklumat telah disimpan', 'Berjaya');
-        return redirect('/');
 
+
+        alert()->success('Maklumat telah disimpan', 'Berjaya');
+
+
+
+        if ((Auth::user()->jenis_pengguna==="Urus Setia ULS")|| (Auth::user()->jenis_pengguna==="Urus Setia ULPK")) {
+            return redirect()->back();
+        }
+
+        else{
+            return redirect('/');
+        }
 
     }
 
@@ -155,18 +163,20 @@ class KehadiranPusatLatihanController extends Controller
         ]);
     }
 
-    public function update(Request $request, KehadiranPusatLatihan $kehadiran_pl)
+    public function update(Request $request, $id)
     {
-        // $kehadiran_pl->pengesahan_kehadiran_pl = $request->pengesahan_kehadiran_pl;
+        $kehadiran_pl=KehadiranPusatLatihan::find($id);
 
-        // $kehadiran_pl->save();
+        $kehadiran_pl->pengesahan_kehadiran_pl = "Disahkan";
 
-        foreach ($request->kehadiran_pl as $key => $p) {
-            $kehadiran_pl = KehadiranPusatLatihan::find($p);
-            $kehadiran_pl->pengesahan_kehadiran_pl = "Disahkan";
+        $kehadiran_pl->save();
 
-            $kehadiran_pl->save();
-        }
+        // foreach ($request->kehadiran_pl as $key => $p) {
+        //     $kehadiran_pl = KehadiranPusatLatihan::find($p);
+        //     $kehadiran_pl->pengesahan_kehadiran_pl = "Disahkan";
+
+        //     $kehadiran_pl->save();
+        // }
 
         alert()->success('Peserta telah disahkan', 'Berjaya');
         return redirect()->back();
@@ -212,10 +222,13 @@ class KehadiranPusatLatihanController extends Controller
         foreach ($request->kehadiran_pl as $key => $p) {
             $kehadiran_pl = KehadiranPusatLatihan::find($p);
             $kehadiran_pl->pengesahan_kehadiran_pl = "Disahkan";
+            $agensi = Agensi::where('id', $p->agensi_id)->first();
+
             $kehadiran_pl->save();
         }
 
-        alert()->success('Peserta telah diberi sokongan.', 'Berjaya');
-        return redirect('/');
+        alert()->success('Peserta telah disahkan.', 'Berjaya');
+        return redirect()->back();
     }
+
 }
