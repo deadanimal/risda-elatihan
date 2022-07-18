@@ -31,7 +31,7 @@
                                         @csrf
                                         <div class="mb-3">
                                             <label class="col-form-label">KOD NEGERI</label>
-                                            <input class="form-control" type="text" name="Negeri_Rkod"
+                                            <input class="form-control" type="text" name="U_Negeri_ID"
                                                 value="" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
                                         </div>
                                         <div class="mb-3">
@@ -122,7 +122,7 @@
                                                             <div class="mb-3">
                                                                 <label class="col-form-label">KOD NEGERI</label>
                                                                 <input class="form-control" type="text" name="Negeri_Rkod"
-                                                                    value="{{ $negeri->Negeri_Rkod }}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
+                                                                    value="{{ $negeri->U_Negeri_ID }}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label class="col-form-label">NEGERI</label>
