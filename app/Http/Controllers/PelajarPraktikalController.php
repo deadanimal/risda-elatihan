@@ -7,6 +7,7 @@ use App\Http\Requests\UpdatePelajarPraktikalRequest;
 use Illuminate\Http\Request;
 use App\Models\PelajarPraktikal;
 use App\Models\Daerah;
+use App\Models\PusatTanggungjawab;
 
 class PelajarPraktikalController extends Controller
 {
@@ -24,9 +25,11 @@ class PelajarPraktikalController extends Controller
     public function create()
     {
         $daerah = Daerah::all();
+        $ptj = PusatTanggungjawab::all();
 
         return view('pelajar_praktikal.create',[
-            'daerah'=>$daerah
+            'daerah'=>$daerah,
+            'ptj'=>$ptj
         ]);
 
     }

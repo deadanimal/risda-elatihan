@@ -161,6 +161,9 @@
                         </div>
                     </div>
                 </div>
+                @can('contoh tunjuk')
+                        <h5 class="text-white">Contoh</h5>
+                    @endcan
                 <li class="nav-item mx-3 mx-md-0">
                     <!-- label-->
                     {{-- <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
@@ -176,6 +179,8 @@
                             <span class="px-3"><span class="fas fa-home"></span> DASHBOARD</span>
                         </div>
                     </a>
+
+
 
                     @can('pengurusan pengguna')
                         <a class="nav-link py-0 dropdown-indicator" href="#pengurusan_pengguna" role="button"

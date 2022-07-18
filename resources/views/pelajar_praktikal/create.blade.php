@@ -23,6 +23,10 @@
             color: var(--falcon-choices-item-selectable-highlighted-bg);
         }
 
+        select{
+            text-transform: uppercase;
+        }
+
     </style>
     <div class="container pb-5">
         <div class="row mt-3 mb-2">
@@ -124,8 +128,13 @@
                     <p class="pt-2 fw-bold">TEMPAT LATIHAN PRAKTIKAL</p>
                 </div>
                 <div class="col-7">
-                    <input type="text" class="form-control" name="tempat_praktikal" required>
-
+                    {{-- <input type="text" class="form-control" name="tempat_praktikal" > --}}
+                    <select name="tempat_praktikal" class="form-select form-control" required >
+                        <option hidden>Sila Pilih</option>
+                        @foreach ($ptj as $ptj)
+                        <option value="{{$ptj->id}}">{{$ptj->nama_PT}}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
 
@@ -172,7 +181,7 @@
                 </div>
                 <div class="col-7">
                     {{-- <input type="text" name="daerah" class="form-control"> --}}
-                    <select name="daerah" class="form-select form-control">
+                    <select name="daerah" class="form-select form-control" required>
                         <option hidden>Sila Pilih</option>
                         @foreach ($daerah as $daerah_rumah)
                         <option value="{{$daerah_rumah->id}}">{{$daerah_rumah->Daerah}}</option>
@@ -186,7 +195,7 @@
                     <p class="pt-2 fw-bold">NEGERI</p>
                 </div>
                 <div class="col-7">
-                    <select name=negeri class="form-select form-control">
+                    <select name=negeri class="form-select form-control" >
                         <option hidden value="">Sila Pilih</option>
                         <option value="Johor">Johor</option>
                         <option value="Kedah">Kedah</option>
@@ -474,9 +483,9 @@
                     </select>
                 `);
             }
-            
+
         });
-        
+
     </script>
 
 @endsection
