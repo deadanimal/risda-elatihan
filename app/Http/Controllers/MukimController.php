@@ -27,25 +27,14 @@ class MukimController extends Controller
         $daerah = Daerah::all();
         $dae2 = Daerah::all();
 
-        $mukim = Negeri::join('daerahs', 'negeris.id', 'daerahs.U_Negeri_ID')
-        ->join('mukims', 'daerahs.id', 'mukims.U_Daerah_ID')
-        ->get();
-        
-        $bil_muk = Mukim::orderBy('id', 'desc')->first();
-        if ($bil_muk != null) {
-            $bil = $bil_muk->Mukim_Rkod;
-        }else{
-            $bil = 0;
-        }
-        $bil = $bil + 1;
-        $bil = sprintf("%02d", $bil);
+        $mukim = Mukim::with(['negeri', 'daerah'])->get();
+
         return view('utiliti.lokasi.mukim.index', [
             'negeri' => $negeri,
             'neg2' => $neg2,
             'daerah' => $daerah,
             'dae2' => $dae2,
             'mukim' => $mukim,
-            'bil' => $bil
         ]);
     }
 
@@ -152,5 +141,29 @@ class MukimController extends Controller
         AuditTrailController::audit('utiliti','mukim','hapus', $nama);
         alert()->success('Maklumat telah dihapus', 'Berjaya');
         return redirect('/utiliti/lokasi/mukim');
+    }
+
+    public function filter()
+    {
+        $negeri = $_GET['negeri'];
+        $daerah = $_GET['daerah'];
+
+        if ($negeri != null) {
+            if ($daerah != null) {
+                $dun = Mukim::where('U_Negeri_ID', $negeri)->where('U_Daerah_ID', $daerah)->get();
+            } else {
+                $dun = Mukim::where('U_Negeri_ID', $negeri)->get();
+            }
+            
+        } else {
+            if ($daerah != null) {
+                $dun = Mukim::where('U_Daerah_ID', $daerah)->get();
+            } else {
+                $dun = Mukim::all();
+            }
+        }
+        
+
+        return response()->json($dun);
     }
 }

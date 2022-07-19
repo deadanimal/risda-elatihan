@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Mukim extends Model
 {
     use HasFactory;
+
+    public function negeri()
+    {
+        return $this->hasOne(Negeri::class, 'U_Negeri_ID', 'U_Negeri_ID');
+    }
+
+    public function daerah()
+    {
+        return $this->hasOne(Daerah::class, 'U_Daerah_ID', 'U_Daerah_ID');
+    }
 }
