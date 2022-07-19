@@ -18,11 +18,11 @@
                             <label class="col-form-label">NEGERI:</label>
                         </div>
                         <div class="col-lg-9 mb-3">
-                            <select class="form-select" name="U_Negeri_ID" id="fil_neg" onchange="filter()">
+                            <select class="form-select form-control" name="U_Negeri_ID" id="fil_neg" onchange="filter()">
                                 <option selected hidden>Sila Pilih</option>
                                 @foreach ($negeri as $n)
                                     @if ($n->status_negeri == '1')
-                                        <option value="{{ $n->id }}">{{ $n->Negeri }}</option>
+                                        <option value="{{ $n->U_Negeri_ID }}">{{ $n->Negeri }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -53,11 +53,11 @@
                                         @csrf
                                         <div class="mb-3">
                                             <label class="col-form-label">NEGERI</label>
-                                            <select class="form-select" name="U_Negeri_ID">
+                                            <select class="form-select form-control" name="U_Negeri_ID">
                                                 <option selected="" hidden>Sila Pilih</option>
                                                 @foreach ($negeri as $negeri)
                                                     @if ($negeri->status_negeri == '1')
-                                                        <option value="{{ $negeri->id }}">{{ $negeri->Negeri }}</option>
+                                                        <option value="{{ $negeri->U_Negeri_ID }}">{{ $negeri->Negeri }}</option>
                                                     @endif
                                                 @endforeach
                                             </select>
@@ -109,7 +109,7 @@
                                 @foreach ($parlimen as $key => $p)
                                     <tr>
                                         <td>{{ $key + 1 }}.</td>
-                                        <td>{{ $p->Parlimen_kod }}</td>
+                                        <td>{{ $p->U_Parlimen_ID }}</td>
                                         <td>{{ $p->Parlimen }}</td>
                                         <td>
                                             @if ($p->status_parlimen == '1')
@@ -162,12 +162,12 @@
                                 @csrf
                                 <div class="mb-3">
                                     <label class="col-form-label">NEGERI</label>
-                                    <select class="form-select" name="U_Negeri_ID">
+                                    <select class="form-select form-control" name="U_Negeri_ID" id="{{$p->id}}" onchange="negeri(this)">
                                         <option selected="" value="{{ $p->U_Negeri_ID }}"
                                             hidden>{{ $p->negeri->Negeri }}</option>
                                         @foreach ($neg2 as $neg)
                                             @if ($neg['status_negeri'] == '1')
-                                                <option value="{{ $neg->id }}">
+                                                <option value="{{ $neg->U_Negeri_ID }}">
                                                     {{ $neg->Negeri }}</option>
                                             @endif
                                         @endforeach
@@ -176,7 +176,7 @@
                                 <div class="mb-3">
                                     <label class="col-form-label">KOD PARLIMEN</label>
                                     <input class="form-control" type="text"
-                                        name="Parlimen_kod" value="{{ $p->Parlimen_kod }}" />
+                                        name="Parlimen_kod" value="{{ $p->U_Parlimen_ID }}" id="parlimen_{{$p->id}}" />
                                 </div>
                                 <div class="mb-3">
                                     <label class="col-form-label">PARLIMEN</label>
@@ -250,6 +250,15 @@
 
     <script>
 
+        function negeri(e) {
+            var id = e.id;
+            var negeri_id = e.value;
+            
+            // $('#parlimen_'+id).val(negeri_id);
+            $('#parlimen_'+id).val('');
+
+        }
+
         function filter() {
             var id_negeri = $('#fil_neg').val();
 
@@ -268,7 +277,7 @@
                         $("#t_normal").append(`
                         <tr>
                             <td>`+iteration+`.</td>
-                            <td>`+e.Parlimen_kod+`</td>
+                            <td>`+e.U_Parlimen_ID+`</td>
                             <td>`+e.Parlimen+`</td>
                             <td>`+(e.status_parlimen == '1' ? '<span class="badge badge-soft-success">Aktif</span>' : '<span class="badge badge-soft-danger">Tidak Aktif</span>')+`</td>
                             <td>

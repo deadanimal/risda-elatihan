@@ -11,6 +11,6 @@ class Parlimen extends Model
 
     public function negeri()
     {
-        return $this->belongsTo(Negeri::class, 'U_Negeri_ID', 'id');
+        return $this->belongsTo(Negeri::class, 'U_Negeri_ID', 'U_Negeri_ID');
     }
 }
