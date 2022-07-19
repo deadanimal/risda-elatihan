@@ -14,6 +14,7 @@ class DunSeeder extends Seeder
      */
     public function run()
     {
+        Dun::truncate();
         $csvFile = fopen(public_path("lokaliti/Dun.csv"), "r");
   
         $firstline = true;
@@ -26,7 +27,8 @@ class DunSeeder extends Seeder
                     'Kod_Dun' => $data['3'],
                     'Kod_Parlimen' => $data['4'],
                     'Kod_Negeri' => $data['5'],
-                    'Kod_Dun2' => $data['6']
+                    'Kod_Dun2' => $data['6'],
+                    'status_dun' => '1'
                 ]);    
             }
             $firstline = false;

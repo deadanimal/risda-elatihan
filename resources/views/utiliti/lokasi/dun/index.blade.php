@@ -18,11 +18,11 @@
                             <label class="col-form-label">NEGERI:</label>
                         </div>
                         <div class="col-lg-9 mb-3">
-                            <select class="form-select" name="negeri_search" id="negeri_search" onchange="filter()">
+                            <select class="form-select form-control" name="negeri_search" id="negeri_search" onchange="filter()">
                                 <option value="" selected hidden>Sila Pilih</option>
                                 @foreach ($negeri as $n)
                                     @if ($n->status_negeri == '1')
-                                        <option value="{{ $n->id }}">{{ $n->Negeri }}</option>
+                                        <option value="{{ $n->U_Negeri_ID }}">{{ $n->Negeri }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -31,11 +31,11 @@
                             <label class="col-form-label">PARLIMEN:</label>
                         </div>
                         <div class="col-lg-9 mb-3">
-                            <select class="form-select" id="parlimen_search" name="parlimen_search" onchange="filter()">
+                            <select class="form-select form-control" id="parlimen_search" name="parlimen_search" onchange="filter()">
                                 <option value="" selected hidden>Sila Pilih</option>
                                 @foreach ($parlimen as $p)
                                     @if ($p->status_parlimen == '1')
-                                        <option value="{{ $p->id }}">{{ $p->Parlimen }}</option>
+                                        <option value="{{ $p->U_Parlimen_ID }}">{{ $p->Parlimen }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -66,11 +66,11 @@
                                         @csrf
                                         <div class="mb-3">
                                             <label class="col-form-label">NEGERI</label>
-                                            <select class="form-select" name="U_Negeri_ID" id="ngri">
+                                            <select class="form-select" name="Kod_Negeri" id="ngri">
                                                 <option selected="" hidden>Sila Pilih</option>
                                                 @foreach ($negeri as $negeri)
                                                     @if ($negeri->status_negeri == '1')
-                                                        <option value="{{ $negeri->id }}">{{ $negeri->Negeri }}</option>
+                                                        <option value="{{ $negeri->U_Negeri_ID }}">{{ $negeri->Negeri }}</option>
                                                     @endif
                                                 @endforeach
                                             </select>
@@ -88,7 +88,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label class="col-form-label">KOD DUN</label>
-                                            <input class="form-control" type="text" name="Dun_kod"
+                                            <input class="form-control" type="text" name="U_Dun_ID"
                                                 value="" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
                                         </div>
                                         <div class="mb-3">
@@ -134,7 +134,7 @@
                                 @foreach ($dun as $key => $d)
                                     <tr>
                                         <td>{{ $key + 1 }}.</td>
-                                        <td>{{ $d->Dun_kod }}</td>
+                                        <td>{{ $d->U_Dun_ID }}</td>
                                         <td>{{ $d->Dun }}</td>
                                         <td>
                                             @if ($d->status_dun == '1')
@@ -180,17 +180,17 @@
                             </h4>
                         </div>
                         <div class="p-4 pb-0">
-                            <form id="form2" action="/utiliti/lokasi/dun/{{ $d->id }}" method="POST">
+                            <form action="/utiliti/lokasi/dun/{{ $d->id }}" method="POST">
                                 @method('PUT')
                                 @csrf
                                 <div class="mb-3">
                                     <label class="col-form-label">NEGERI</label>
-                                    <select class="form-select" name="U_Negeri_ID" id="ngri">
+                                    <select class="form-select form-control" name="U_Negeri_ID" id="{{$d->id}}" onchange="negeri(this)">
                                         <option selected="" value="{{ $d->U_Negeri_ID }}" hidden>
-                                            {{ $d->Negeri }}</option>
+                                            {{ $d->Negeri->Negeri }}</option>
                                         @foreach ($neg2 as $neg)
                                             @if ($neg['status_negeri'] == '1')
-                                                <option value="{{ $neg->id }}">
+                                                <option value="{{ $neg->U_Negeri_ID }}">
                                                     {{ $neg->Negeri }}</option>
                                             @endif
                                         @endforeach
@@ -198,9 +198,9 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="col-form-label">PARLIMEN</label>
-                                    <select class="form-select" name="U_Parlimen_ID">
+                                    <select class="form-select form-control" name="U_Parlimen_ID" id="parlimen_{{$d->id}}">
                                         <option selected="" value="{{ $d->U_Parlimen_ID }}" hidden>
-                                            {{ $d->Parlimen }}</option>
+                                            {{ $d->Parlimen->Parlimen }}</option>
                                         {{-- @foreach ($daerah as $d)
                                         @if ($d->status_daerah == '1')
                                             <option value="{{ $d->id }}">{{ $d->Daerah }}</option>
@@ -210,8 +210,8 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="col-form-label">KOD DUN</label>
-                                    <input class="form-control" type="text" name="Dun_kod"
-                                        value="{{ $d->Dun_kod }}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
+                                    <input class="form-control" type="text" name="U_Dun_ID"
+                                        value="{{ $d->U_Dun_ID }}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
                                 </div>
                                 <div class="mb-3">
                                     <label class="col-form-label">Dun</label>
@@ -293,7 +293,7 @@
             prl_sc.forEach(element => {
                 if (this.value == element.U_Negeri_ID) {
                     $('#form_search select[name=parlimen_search]').append(
-                        `<option value=${element.id}>${element.Parlimen}</option>`);
+                        `<option value=${element.U_Parlimen_ID}>${element.Parlimen}</option>`);
                 }
             });
         });
@@ -309,32 +309,30 @@
             plm.forEach(element => {
                 if (this.value == element.U_Negeri_ID) {
                     $('#form1 select[name=U_Parlimen_ID]').append(
-                        `<option value=${element.id}>${element.Parlimen}</option>`);
+                        `<option value=${element.U_Parlimen_ID}>${element.Parlimen}</option>`);
                 }
             });
         });
 
-        $('#ngri2').change(function() {
-
-            $('#form2 select[name=U_Parlimen_ID]').html("");
-            var plm2 = @json($parlimen->toArray());
-            console.log(plm2);
-
+        function negeri(e) {
+            var id = e.id;
+            var negeri = e.value;
+            var parlimen = @json($parlimen->toArray());
             let option_new = "";
-            $('#form2 select[name=U_Parlimen_ID]').append(
-                `<option selected hidden>Sila Pilih</option>`);
-            plm2.forEach(element => {
-                if (this.value == element.U_Negeri_ID) {
-                    $('#form2 select[name=U_Parlimen_ID]').append(
-                        `<option value=${element.id}>${element.Parlimen}</option>`);
+            $('#parlimen_'+id).append(
+                `<option value="" selected hidden>Sila Pilih</option>`);
+            parlimen.forEach(element => {
+                if (negeri == element.U_Negeri_ID) {
+                    $('#parlimen_'+id).append(
+                        `<option value=${element.U_Parlimen_ID}>${element.Parlimen}</option>`);
                 }
             });
-        });
-
+        }
                                 
         function filter() {
             var id_negeri = $('#negeri_search').val();
             var id_parlimen = $('#parlimen_search').val();
+            console.log(id_parlimen);
 
             $.ajax({
                 type: 'get',
@@ -353,7 +351,7 @@
                         $("#t_normal").append(`
                         <tr>
                                     <td>` + iteration + `.</td>
-                                    <td>${ e.Dun_kod }</td>
+                                    <td>${ e.U_Dun_ID }</td>
                                     <td>${ e.Dun }</td>
                                     <td>` +
                         (e.status_dun == '1' ?
