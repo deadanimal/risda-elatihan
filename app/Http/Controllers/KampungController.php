@@ -19,34 +19,32 @@ class KampungController extends Controller
     public function index()
     {
         $negeri = Negeri::all();
-        $neg2 = Negeri::all();
         $daerah = Daerah::all();
-        $dae2 = Daerah::all();
         $mukim = Mukim::all();
-        $muk2 = Mukim::all();
-
-        $kampung = Negeri::join('daerahs', 'negeris.id', 'daerahs.U_Negeri_ID')
-        ->join('mukims', 'daerahs.id', 'mukims.U_Daerah_ID')
-        ->join('kampungs', 'mukims.id', 'kampungs.U_Mukim_ID')
-        ->get();
+        $kampung = Kampung::with(['negeri','daerah', 'mukim'])->first();
         
-        $bil_kam = Kampung::orderBy('id', 'desc')->first();
-        if ($bil_kam != null) {
-            $bil = $bil_kam->Kampung_kod;
-        }else{
-            $bil = 0;
-        }
-        $bil = $bil + 1;
-        $bil = sprintf("%02d", $bil);
+        // dd($negeri, $daerah, $mukim, $kampung);
         return view('utiliti.lokasi.kampung.index', [
             'negeri' => $negeri,
-            'neg2' => $neg2,
             'daerah' => $daerah,
-            'dae2' => $dae2,
             'mukim' => $mukim,
-            'muk2' => $muk2,
             'kampung' => $kampung,
-            'bil' => $bil
+        ]);
+    }
+
+    public function main()
+    {
+        $negeri = Negeri::all();
+        $daerah = Daerah::all();
+        $mukim = Mukim::all();
+        $kampung = Kampung::with(['negeri','daerah', 'mukim'])->first();
+        
+        dd($negeri, $daerah, $mukim, $kampung);
+        return view('utiliti.lokasi.kampung.index', [
+            'negeri' => $negeri,
+            'daerah' => $daerah,
+            'mukim' => $mukim,
+            'kampung' => $kampung,
         ]);
     }
 
@@ -163,29 +161,29 @@ class KampungController extends Controller
         if ($negeri != null) {
             if ($daerah != null) {
                 if ($mukim != null) {
-                    $kampung = Kampung::where('U_Negeri_ID', $negeri)->where('U_Daerah_ID', $daerah)->where('U_Mukim_ID', $mukim)->get();
+                    $kampung = Kampung::with(['negeri','daerah', 'mukim'])->where('U_Negeri_ID', $negeri)->where('U_Daerah_ID', $daerah)->where('U_Mukim_ID', $mukim)->get();
                 } else {
-                    $kampung = Kampung::where('U_Negeri_ID', $negeri)->where('U_Daerah_ID', $daerah)->get();
+                    $kampung = Kampung::with(['negeri','daerah', 'mukim'])->where('U_Negeri_ID', $negeri)->where('U_Daerah_ID', $daerah)->get();
                 }
             } else {
                 if ($mukim != null) {
-                    $kampung = Kampung::where('U_Negeri_ID', $negeri)->where('U_Mukim_ID', $mukim)->get();
+                    $kampung = Kampung::with(['negeri','daerah', 'mukim'])->where('U_Negeri_ID', $negeri)->where('U_Mukim_ID', $mukim)->get();
                 } else {
-                    $kampung = Kampung::where('U_Negeri_ID', $negeri)->get();
+                    $kampung = Kampung::with(['negeri','daerah', 'mukim'])->where('U_Negeri_ID', $negeri)->get();
                 }
             }
         } else {
             if ($daerah != null) {
                 if ($mukim != null) {
-                    $kampung = Kampung::where('U_Daerah_ID', $daerah)->where('U_Mukim_ID', $mukim)->get();
+                    $kampung = Kampung::with(['negeri','daerah', 'mukim'])->where('U_Daerah_ID', $daerah)->where('U_Mukim_ID', $mukim)->get();
                 } else {
-                    $kampung = Kampung::where('U_Daerah_ID', $daerah)->get();
+                    $kampung = Kampung::with(['negeri','daerah', 'mukim'])->where('U_Daerah_ID', $daerah)->get();
                 }
             } else {
                 if ($mukim != null) {
-                    $kampung = Kampung::where('U_Mukim_ID', $mukim)->get();
+                    $kampung = Kampung::with(['negeri','daerah', 'mukim'])->where('U_Mukim_ID', $mukim)->get();
                 } else {
-                    $kampung = Kampung::all();
+                    $kampung = Kampung::with(['negeri','daerah', 'mukim'])->get();
                 }
             }
         }

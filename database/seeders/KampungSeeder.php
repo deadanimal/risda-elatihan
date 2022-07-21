@@ -14,6 +14,7 @@ class KampungSeeder extends Seeder
      */
     public function run()
     {
+        Kampung::truncate();
         $csvFile = fopen(public_path("lokaliti/Kampung.csv"), "r");
   
         $firstline = true;
@@ -24,11 +25,11 @@ class KampungSeeder extends Seeder
                     'Kampung' => $data['1'],
                     'Kod_Kampung' => $data['2'],
                     'U_Negeri_ID' => $data['3'],
-                    'Kod_Negeri' => $data['3'],
-                    'U_Daerah_ID' => $data['3'],
-                    'Kod_Daerah' => $data['3'],
-                    'U_Mukim_ID' => $data['3'],
-                    'Kod_Mukim' => $data['3'],
+                    'Kod_Negeri' => $data['4'],
+                    'U_Daerah_ID' => $data['5'],
+                    'Kod_Daerah' => $data['6'],
+                    'U_Mukim_ID' => $data['7'],
+                    'Kod_Mukim' => $data['8'],
                     'status_kampung' => '1'
                 ]);    
             }
