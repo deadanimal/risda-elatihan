@@ -9,23 +9,18 @@ class Seksyen extends Model
 {
     use HasFactory;
 
-    public function kampung()
-    {
-        return $this->belongsTo(Kampung::class, 'Kampung', 'id');
-    }
-
     public function negeri()
     {
-        return $this->belongsTo(Negeri::class, 'U_Negeri_ID', 'id');
+        return $this->belongsTo(Negeri::class, 'U_Negeri_ID', 'U_Negeri_ID');
     }
 
     public function daerah()
     {
-        return $this->belongsTo(Daerah::class, 'U_Daerah_ID', 'id');
+        return $this->belongsTo(Daerah::class, 'U_Daerah_ID', 'U_Daerah_ID');
     }
 
     public function mukim()
     {
-        return $this->belongsTo(Mukim::class, 'U_Mukim_ID', 'id');
+        return $this->belongsTo(Mukim::class, 'U_Mukim_ID', 'U_Mukim_ID');
     }
 }

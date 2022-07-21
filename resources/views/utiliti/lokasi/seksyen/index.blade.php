@@ -18,11 +18,11 @@
                             <label class="col-form-label">NEGERI:</label>
                         </div>
                         <div class="col-lg-9 mb-3">
-                            <select class="form-select" name="negeri_search" id="negeri_search" onchange="filter()">
+                            <select class="form-select form-control" name="negeri_search" id="negeri_search" onchange="filter()">
                                 <option value="" selected hidden>Sila Pilih</option>
                                 @foreach ($negeri as $n)
                                     @if ($n->status_negeri == '1')
-                                        <option value="{{ $n->id }}">{{ $n->Negeri }}</option>
+                                        <option value="{{ $n->U_Negeri_ID }}">{{ $n->Negeri }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -32,11 +32,11 @@
                             <label class="col-form-label">DAERAH:</label>
                         </div>
                         <div class="col-lg-9 mb-3">
-                            <select class="form-select" id="daerah_search" name="daerah_search" onchange="filter()">
+                            <select class="form-select form-control" id="daerah_search" name="daerah_search" onchange="filter()">
                                 <option value="" selected hidden>Sila Pilih</option>
                                 @foreach ($daerah as $d)
                                     @if ($d->status_daerah == '1')
-                                        <option value="{{ $d->id }}">{{ $d->Daerah }}</option>
+                                        <option value="{{ $d->U_Daerah_ID }}">{{ $d->Daerah }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -46,11 +46,11 @@
                             <label class="col-form-label">MUKIM:</label>
                         </div>
                         <div class="col-lg-9 mb-3">
-                            <select class="form-select" id="mukim_search" name="mukim_search" onchange="filter()">
+                            <select class="form-select form-control" id="mukim_search" name="mukim_search" onchange="filter()">
                                 <option value="" selected hidden>Sila Pilih</option>
                                 @foreach ($mukim as $m)
                                     @if ($m->status_mukim == '1')
-                                        <option value="{{ $m->id }}">{{ $m->Mukim }}</option>
+                                        <option value="{{ $m->U_Mukim_ID }}">{{ $m->Mukim }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -81,19 +81,19 @@
                                         @csrf
                                         <div class="mb-3">
                                             <label class="col-form-label">NEGERI</label>
-                                            <select class="form-select" name="U_Negeri_ID" id="ngri">
-                                                <option selected="" hidden>Sila Pilih</option>
+                                            <select class="form-select form-control" name="U_Negeri_ID" id="ngri">
+                                                <option selected value="" hidden>Sila Pilih</option>
                                                 @foreach ($negeri as $negeri)
                                                     @if ($negeri->status_negeri == '1')
-                                                        <option value="{{ $negeri->id }}">{{ $negeri->Negeri }}</option>
+                                                        <option value="{{ $negeri->U_Negeri_ID }}">{{ $negeri->Negeri }}</option>
                                                     @endif
                                                 @endforeach
                                             </select>
                                         </div>
                                         <div class="mb-3">
                                             <label class="col-form-label">DAERAH</label>
-                                            <select class="form-select" name="U_Daerah_ID" id="drah">
-                                                <option selected="" hidden>Sila Pilih</option>
+                                            <select class="form-select form-control" name="U_Daerah_ID" id="drah">
+                                                <option selected value="" hidden>Sila Pilih</option>
                                                 {{-- @foreach ($daerah as $d)
                                                     @if ($s->status_daerah == '1')
                                                         <option value="{{ $s->id }}">{{ $s->Daerah }}</option>
@@ -103,8 +103,8 @@
                                         </div>
                                         <div class="mb-3">
                                             <label class="col-form-label">MUKIM</label>
-                                            <select class="form-select" name="U_Mukim_ID" id="mkm">
-                                                <option selected="" hidden>Sila Pilih</option>
+                                            <select class="form-select form-control" name="U_Mukim_ID" id="mkm">
+                                                <option selected value="" hidden>Sila Pilih</option>
                                                 {{-- @foreach ($daerah as $d)
                                                     @if ($s->status_daerah == '1')
                                                         <option value="{{ $k->id }}">{{ $k->Daerah }}</option>
@@ -112,19 +112,19 @@
                                                 @endforeach --}}
                                             </select>
                                         </div>
-                                        <div class="mb-3">
+                                        {{-- <div class="mb-3">
                                             <label class="col-form-label">KAMPUNG</label>
-                                            <select class="form-select" name="Kampung">
+                                            <select class="form-select form-control" name="Kampung">
                                                 <option value="" selected hidden>Sila Pilih</option>
-                                                {{-- @foreach ($kampung as $k)
+                                                @foreach ($kampung as $k)
                                                     <option value="{{ $k->id }}">
                                                         {{ $k->Kampung }}</option>
-                                                @endforeach --}}
+                                                @endforeach
                                             </select>
-                                        </div>
+                                        </div> --}}
                                         <div class="mb-3">
                                             <label class="col-form-label">KOD SEKSYEN</label>
-                                            <input class="form-control" type="text" name="Seksyen_kod" value=""
+                                            <input class="form-control" type="text" name="U_Seksyen_ID" value=""
                                                 oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
                                         </div>
                                         <div class="mb-3">
@@ -161,8 +161,9 @@
                                 <tr>
                                     <th class="sort">BIL.</th>
                                     <th class="sort">KOD SEKSYEN</th>
-                                    <th class="sort">KAMPUNG</th>
+                                    {{-- <th class="sort">KAMPUNG</th> --}}
                                     <th class="sort">SEKSYEN</th>
+                                    <th class="sort">MUKIM</th>
                                     <th class="sort">STATUS</th>
                                     <th class="sort">TINDAKAN</th>
                                 </tr>
@@ -171,9 +172,10 @@
                                 @foreach ($seksyen as $key => $s)
                                     <tr>
                                         <td>{{ $key + 1 }}.</td>
-                                        <td>{{ $s->Seksyen_kod }}</td>
-                                        <td>{{ $s->kampung->Kampung }}</td>
+                                        <td>{{ $s->U_Seksyen_ID }}</td>
+                                        {{-- <td>{{ $s->kampung->Kampung }}</td> --}}
                                         <td>{{ $s->Seksyen }}</td>
+                                        <td>{{ $s->mukim->Mukim }}</td>
                                         <td>
                                             @if ($s->status_seksyen == '1')
                                                 <span class="badge badge-soft-success">Aktif</span>
@@ -227,7 +229,7 @@
                                 @csrf
                                 <div class="mb-3">
                                     <label class="col-form-label">NEGERI</label>
-                                    <select class="form-select" name="U_Negeri_ID"
+                                    <select class="form-select form-control" name="U_Negeri_ID"
                                         id="ngri2">
                                         <option selected="" value="{{ $s->U_Negeri_ID }}"
                                             hidden>
@@ -242,7 +244,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="col-form-label">DAERAH</label>
-                                    <select class="form-select" name="U_Daerah_ID"
+                                    <select class="form-select form-control" name="U_Daerah_ID"
                                         id="drah2">
                                         <option selected="" value="{{ $s->U_Daerah_ID }}"
                                             hidden>
@@ -256,7 +258,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="col-form-label">MUKIM</label>
-                                    <select class="form-select" name="U_Mukim_ID" id="mkm2">
+                                    <select class="form-select form-control" name="U_Mukim_ID" id="mkm2">
                                         <option selected="" value="{{ $s->U_Mukim_ID }}"
                                             hidden>
                                             {{ $s->mukim->Mukim }}</option>
@@ -267,21 +269,21 @@
                                         @endforeach --}}
                                     </select>
                                 </div>
-                                <div class="mb-3">
+                                {{-- <div class="mb-3">
                                     <label class="col-form-label">KAMPUNG</label>
-                                    <select class="form-select" name="Kampung">
+                                    <select class="form-select form-control" name="Kampung">
                                         <option value="{{ $s->Kampung }}" selected hidden>{{ $s->kampung->Kampung }}
                                         </option>
-                                        {{-- @foreach ($kampung as $k)
+                                        @foreach ($kampung as $k)
                                             <option value="{{ $k->id }}">
                                                 {{ $k->Kampung }}</option>
-                                        @endforeach --}}
+                                        @endforeach
                                     </select>
-                                </div>
+                                </div> --}}
                                 <div class="mb-3">
                                     <label class="col-form-label">KOD SEKSYEN</label>
                                     <input class="form-control" type="text"
-                                        name="Seksyen_kod" value="{{ $s->Seksyen_kod }}"
+                                        name="U_Seksyen_ID" value="{{ $s->U_Seksyen_ID }}"
                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
                                 </div>
                                 <div class="mb-3">
@@ -369,7 +371,7 @@
             drh_sc.forEach(element => {
                 if (this.value == element.U_Negeri_ID) {
                     $('#form_search select[name=daerah_search]').append(
-                        `<option value=${element.id}>${element.Daerah}</option>`);
+                        `<option value=${element.U_Daerah_ID}>${element.Daerah}</option>`);
                 }
             });
         });
@@ -386,7 +388,7 @@
             mukim_sc.forEach(element => {
                 if (this.value == element.U_Daerah_ID) {
                     $('#form_search select[name=mukim_search]').append(
-                        `<option value=${element.id}>${element.Mukim}</option>`);
+                        `<option value=${element.U_Mukim_ID}>${element.Mukim}</option>`);
                 }
             });
         });
@@ -403,7 +405,7 @@
             drh.forEach(element => {
                 if (this.value == element.U_Negeri_ID) {
                     $('#form1 select[name=U_Daerah_ID]').append(
-                        `<option value=${element.id}>${element.Daerah}</option>`);
+                        `<option value=${element.U_Daerah_ID}>${element.Daerah}</option>`);
                 }
             });
         });
@@ -420,7 +422,7 @@
             mkm.forEach(element => {
                 if (this.value == element.U_Daerah_ID) {
                     $('#form1 select[name=U_Mukim_ID]').append(
-                        `<option value=${element.id}>${element.Mukim}</option>`);
+                        `<option value=${element.U_Mukim_ID}>${element.Mukim}</option>`);
                 }
             });
         });
@@ -437,7 +439,7 @@
             up_dae.forEach(element => {
                 if (this.value == element.U_Negeri_ID) {
                     $('#form2 select[name=U_Daerah_ID]').append(
-                        `<option value=${element.id}>${element.Daerah}</option>`);
+                        `<option value=${element.U_Daerah_ID}>${element.Daerah}</option>`);
                 }
             });
         });
@@ -454,44 +456,44 @@
             mkm2.forEach(element => {
                 if (this.value == element.U_Daerah_ID) {
                     $('#form2 select[name=U_Mukim_ID]').append(
-                        `<option value=${element.id}>${element.Mukim}</option>`);
+                        `<option value=${element.U_Mukim_ID}>${element.Mukim}</option>`);
                 }
             });
         });
 
-        $('#mkm').change(function() {
+        // $('#mkm').change(function() {
 
-            $('#form1 select[name=Kampung]').html("");
-            var kg = @json($kampung->toArray());
-            console.log(kg);
+        //     $('#form1 select[name=Kampung]').html("");
+        //     var kg = @json($kampung->toArray());
+        //     console.log(kg);
 
-            let option_new = "";
-            $('#form1 select[name=Kampung]').append(
-                `<option value='' hidden>Sila Pilih</option>`);
-            kg.forEach(element => {
-                if (this.value == element.U_Mukim_ID) {
-                    $('#form1 select[name=Kampung]').append(
-                        `<option value=${element.id}>${element.Kampung}</option>`);
-                }
-            });
-        });
+        //     let option_new = "";
+        //     $('#form1 select[name=Kampung]').append(
+        //         `<option value='' hidden>Sila Pilih</option>`);
+        //     kg.forEach(element => {
+        //         if (this.value == element.U_Mukim_ID) {
+        //             $('#form1 select[name=Kampung]').append(
+        //                 `<option value=${element.id}>${element.Kampung}</option>`);
+        //         }
+        //     });
+        // });
 
-        $('#mkm2').change(function() {
+        // $('#mkm2').change(function() {
 
-            $('#form2 select[name=Kampung]').html("");
-            var kg = @json($kampung->toArray());
-            console.log(kg);
+        //     $('#form2 select[name=Kampung]').html("");
+        //     var kg = @json($kampung->toArray());
+        //     console.log(kg);
 
-            let option_new = "";
-            $('#form2 select[name=Kampung]').append(
-                `<option value='' hidden>Sila Pilih</option>`);
-            kg.forEach(element => {
-                if (this.value == element.U_Mukim_ID) {
-                    $('#form2 select[name=Kampung]').append(
-                        `<option value=${element.id}>${element.Kampung}</option>`);
-                }
-            });
-        });
+        //     let option_new = "";
+        //     $('#form2 select[name=Kampung]').append(
+        //         `<option value='' hidden>Sila Pilih</option>`);
+        //     kg.forEach(element => {
+        //         if (this.value == element.U_Mukim_ID) {
+        //             $('#form2 select[name=Kampung]').append(
+        //                 `<option value=${element.id}>${element.Kampung}</option>`);
+        //         }
+        //     });
+        // });
 
         function filter() {
             var id_negeri = $('#negeri_search').val();
@@ -517,7 +519,6 @@
                         <tr>
                                     <td>` + iteration + `.</td>
                                     <td>`+ e.Seksyen_kod +`</td>
-                                    <td>`+ e.kampung.Kampung +`</td>
                                     <td>`+ e.Seksyen +`</td>
                                     <td>` + (e.status_seksyen == '1' ? '<span class="badge badge-soft-success">Aktif</span>' : '<span class="badge badge-soft-danger">Tidak Aktif</span>') + `</td>
                                     <td>

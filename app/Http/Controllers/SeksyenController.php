@@ -31,7 +31,7 @@ class SeksyenController extends Controller
         $muk2 = Mukim::all();
         $kampung = Kampung::all();
 
-        $seksyen = Seksyen::with(['kampung', 'negeri', 'daerah', 'mukim'])->get();
+        $seksyen = Seksyen::with(['negeri', 'daerah', 'mukim'])->get();
 
         return view('utiliti.lokasi.seksyen.index', [
             'negeri' => $negeri,

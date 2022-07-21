@@ -14,6 +14,7 @@ class SeksyenSeeder extends Seeder
      */
     public function run()
     {
+        Seksyen::truncate();
         $csvFile = fopen(public_path("lokaliti/Seksyen.csv"), "r");
   
         $firstline = true;
@@ -23,11 +24,13 @@ class SeksyenSeeder extends Seeder
                     'U_Seksyen_ID' => $data['0'],
                     'Seksyen' => $data['1'],
                     'kod_seksyen' => $data['2'],
-                    'U_Negeri_ID' => $data['4'],
-                    'kod_negeri' => $data['5'],
-                    'U_Mukim_ID' => $data['6'],
-                    'kod_mukim' => $data['7'],
-                    'status_seksyen' => '1'
+                    'U_Negeri_ID' => $data['3'],
+                    'kod_negeri' => $data['4'],
+                    'U_Daerah_ID' => $data['5'],
+                    'kod_daerah' => $data['6'],
+                    'U_Mukim_ID' => $data['7'],
+                    'kod_mukim' => $data['8'],
+                    'status_seksyen' => $data['9']
                 ]);    
             }
             $firstline = false;
