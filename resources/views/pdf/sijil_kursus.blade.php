@@ -10,7 +10,7 @@
             font-style: oblique;
             line-height: 1.5;
         }
-        
+
 
         .parent {
             /* inline-block hack */
@@ -70,7 +70,12 @@
                                 <br><br>
                                  Pada
                                 <br><br>
-                                <b>{{date('d-m-Y', strtotime($jadual->tarikh_mula))}} hingga {{date('d-m-Y', strtotime($jadual->tarikh_tamat))}}</b>
+                                
+                                @if ($jadual->bilangan_hari=="1")
+                                    <b>{{date('d-m-Y', strtotime($jadual->tarikh_mula))}}
+                                @else
+                                    <b>{{date('d-m-Y', strtotime($jadual->tarikh_mula))}} hingga {{date('d-m-Y', strtotime($jadual->tarikh_tamat))}}</b>
+                                @endif
 
                                 </p>
                             </div>

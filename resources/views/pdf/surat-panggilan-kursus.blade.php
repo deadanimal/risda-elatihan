@@ -179,7 +179,13 @@
                 <tr>
                     <th> Tarikh</th>
                     <th>:</th>
+                    @if ($jadual->bilangan_hari=="1")
+                    <td style="text-transform: capitalize">{{$jadual->tarikh_mula}}
+
+                     @else
                     <td style="text-transform: capitalize">{{$jadual->tarikh_mula}} hingga {{$jadual->tarikh_tamat}}</td>
+
+                    @endif
                 </tr>
                 <tr>
                     <th>Tempat Kursus</th>
@@ -248,7 +254,12 @@
 
         <h3 style="text-transform: uppercase">KUOTA PESERTA KURSUS {{$jadual->kursus_nama}}:</h3>
 
-        <h3 style="text-transform: uppercase">PADA {{date('d-m-Y', strtotime($jadual->tarikh_mula))}} hingga  {{date('d-m-Y', strtotime($jadual->tarikh_tamat))}}</h3>
+        @if ($jadual->bilangan_hari=="1")
+            <h3 style="text-transform: uppercase">PADA {{date('d-m-Y', strtotime($jadual->tarikh_mula))}}</h3>
+         @else
+            <h3 style="text-transform: uppercase">PADA {{date('d-m-Y', strtotime($jadual->tarikh_mula))}} hingga  {{date('d-m-Y', strtotime($jadual->tarikh_tamat))}}</h3>
+        @endif
+
 
         <h3 style="text-transform: uppercase">TEMPAT: {{$jadual->tempat->nama_Agensi}}</h3>
 
