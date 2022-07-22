@@ -10,6 +10,6 @@ class Tanah extends Model
     use HasFactory;
     public function tanaman()
     {
-        return $this->hasMany(Tanaman::class);
+        return $this->hasMany(Tanaman::class, 'id_tanah', 'id');
     }
 }
