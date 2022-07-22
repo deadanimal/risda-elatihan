@@ -43,7 +43,7 @@
 @if (! empty($salutation))
 {{ $salutation }}
 @else
-@lang('Regards'),<br>
+@lang('Bahagian Latihan RISDA')<br>
 {{ config('Sistem Maklumat Latihan Risda (e-Latihan)') }}
 @endif
 
