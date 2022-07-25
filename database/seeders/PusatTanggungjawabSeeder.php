@@ -14,6 +14,7 @@ class PusatTanggungjawabSeeder extends Seeder
      */
     public function run()
     {
+        PusatTanggungjawab::truncate();
         $csvFile = fopen(public_path("lokaliti/Pusat_Tanggungjawab.csv"), "r");
   
         $firstline = true;
@@ -23,15 +24,16 @@ class PusatTanggungjawabSeeder extends Seeder
                     'kod_PT' => $data['0'],
                     'bahagian' => $data['1'],
                     'kod_Negeri_PT' => $data['2'],
-                    'alamat_PT_baris1' => $data['3'],
-                    'alamat_PT_baris2' => $data['4'],
-                    'alamat_PT_baris3' => $data['5'],
-                    'alamat_PT_baris4' => $data['6'],
-                    'no_Telefon_PT' => $data['7'],
-                    'no_Faks_PT' => $data['8'],
-                    'email' => $data['9'],
-                    'keterangan_PT' => $data['10'],
-                    'status_PT' => $data['11']
+                    'nama_PT' => $data['3'],
+                    'alamat_PT_baris1' => $data['4'],
+                    'alamat_PT_baris2' => $data['5'],
+                    'alamat_PT_baris3' => $data['6'],
+                    'alamat_PT_baris4' => $data['7'],
+                    'no_Telefon_PT' => $data['8'],
+                    'no_Faks_PT' => $data['9'],
+                    'email' => $data['10'],
+                    'keterangan_PT' => $data['11'],
+                    'status_PT' => $data['12']
                 ]);    
             }
             $firstline = false;

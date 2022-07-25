@@ -14,6 +14,7 @@ class StesenSeeder extends Seeder
      */
     public function run()
     {
+        Stesen::truncate();
         $csvFile = fopen(public_path("lokaliti/Stesen.csv"), "r");
   
         $firstline = true;
@@ -22,7 +23,7 @@ class StesenSeeder extends Seeder
                 Stesen::create([
                     'Stesen_kod' => $data['0'],
                     'U_Negeri_ID' => $data['1'],
-                    'keterangan' => $data['2'],
+                    'Stesen' => $data['2'],
                     'Kod_PT' => $data['3'],
                     'status_stesen' => $data['4']
                 ]);    

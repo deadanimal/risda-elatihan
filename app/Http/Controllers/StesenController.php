@@ -9,6 +9,7 @@ use App\Models\Kampung;
 use App\Models\Mukim;
 use App\Models\Daerah;
 use App\Models\Negeri;
+use App\Models\PusatTanggungjawab;
 
 class StesenController extends Controller
 {
@@ -24,39 +25,13 @@ class StesenController extends Controller
     public function index()
     {
         $negeri = Negeri::all();
-        $neg2 = Negeri::all();
-        $daerah = Daerah::all();
-        $dae2 = Daerah::all();
-        $mukim = Mukim::all();
-        $muk2 = Mukim::all();
-        $kampung = Kampung::all();
-        $kam2 = Kampung::all();
+        $pusat_tanggungjawab = PusatTanggungjawab::all();
+        $stesen = Stesen::with(['negeri', 'pusat_tanggungjawab'])->get();
 
-        $stesen = Negeri::join('daerahs', 'negeris.id', 'daerahs.U_Negeri_ID')
-            ->join('mukims', 'daerahs.id', 'mukims.U_Daerah_ID')
-            ->join('kampungs', 'mukims.id', 'kampungs.U_Mukim_ID')
-            ->join('stesens', 'kampungs.id', 'stesens.U_Kampung_ID')
-            ->get();
-        // dd($stesen);
-        $bil_Stesen = Stesen::orderBy('id', 'desc')->first();
-        if ($bil_Stesen != null) {
-            $bil = $bil_Stesen->Stesen_kod;
-        } else {
-            $bil = 0;
-        }
-        $bil = $bil + 1;
-        $bil = sprintf("%02d", $bil);
         return view('utiliti.lokasi.stesen.index', [
             'negeri' => $negeri,
-            'neg2' => $neg2,
-            'daerah' => $daerah,
-            'dae2' => $dae2,
-            'mukim' => $mukim,
-            'muk2' => $muk2,
-            'kampung' => $kampung,
-            'kam2' => $kam2,
+            'pusat_tanggungjawab' => $pusat_tanggungjawab,
             'stesen' => $stesen,
-            'bil' => $bil
         ]);
     }
 
@@ -168,128 +143,32 @@ class StesenController extends Controller
         return redirect('/utiliti/lokasi/stesen');
     }
 
-    public function filter($data)
+    public function filter()
     {
-        $data = explode('_', $data);
-        $negeri = $data[0]; $daerah = $data[1]; $mukim = $data[2]; $kampung = $data[3];
+        $negeri = $_GET['negeri'];
+        $pusat_tanggungjawab = $_GET['pusat_tanggungjawab'];
 
         if ($negeri != null) {
-            // ADA NEGERI
-            if ($daerah != null) {
-                //ADA DAERAH
-                if ($mukim != null) {
-                    //ADA MUKIM
-                    if ($kampung != null) {
-                        //ADA KAMPUNG
-                        $stesen = Stesen::where('U_Negeri_ID', $negeri)->where('U_Daerah_ID', $daerah)->where('U_Mukim_ID', $mukim)->where('U_Kampung_ID', $kampung)->get(); //ABCD
+            //ADA negeri
+            if ($pusat_tanggungjawab != null) {
+                //ADA pt
+                $stesen = Stesen::with(['negeri', 'pusat_tanggungjawab'])->where('U_Negeri_ID', $negeri)->where('Kod_PT', $pusat_tanggungjawab)->get();
 
-                    } else {
-                        //TIADA KAMPUNG
-                        $stesen = Stesen::where('U_Negeri_ID', $negeri)->where('U_Daerah_ID', $daerah)->where('U_Mukim_ID', $mukim)->get(); //ABC
-
-                    }
-                    
-                } else {
-                    //TIADA MUKIM
-                    if ($kampung != null) {
-                        //ADA KAMPUNG
-                        $stesen = Stesen::where('U_Negeri_ID', $negeri)->where('U_Daerah_ID', $daerah)->where('U_Kampung_ID', $kampung)->get(); //ABD
-
-                    } else {
-                        // TIADA KAMPUNG
-                        $stesen = Stesen::where('U_Negeri_ID', $negeri)->where('U_Daerah_ID', $daerah)->get(); //AB
-
-                    }
-
-                }
-                
             } else {
-                //TIADA DAERAH
-                if ($mukim != null) {
-                    //ADA MUKIM
-                    if ($kampung != null) {
-                        //ADA KAMPUNG
-                        $stesen = Stesen::where('U_Negeri_ID', $negeri)->where('U_Mukim_ID', $mukim)->where('U_Kampung_ID', $kampung)->get(); //ACD
-
-                    } else {
-                        //TIADA KAMPUNG
-                        $stesen = Stesen::where('U_Negeri_ID', $negeri)->where('U_Mukim_ID', $mukim)->get(); //AC
-
-                    }
-                    
-                } else {
-                    //TIADA MUKIM
-                    if ($kampung != null) {
-                        //ADA KAMPUNG
-                        $stesen = Stesen::where('U_Negeri_ID', $negeri)->where('U_Kampung_ID', $kampung)->get(); //AD
-
-                    } else {
-                        //TIADA KAMPUNG
-                        $stesen = Stesen::where('U_Negeri_ID', $negeri)->get(); //A
-
-                    }
-
-                }
+                //TIADA pt
+                $stesen = Stesen::with(['negeri', 'pusat_tanggungjawab'])->where('U_Negeri_ID', $negeri)->get(); //ABC
 
             }
             
         } else {
-            //TIADA NEGERI
-            if ($daerah != null) {
-                //ADA DAERAH
-                if ($mukim != null) {
-                    //ADA MUKIM
-                    if ($kampung != null) {
-                        //ADA KAMPUNG
-                        $stesen = Stesen::where('U_Daerah_ID', $daerah)->where('U_Mukim_ID', $mukim)->where('U_Kampung_ID', $kampung)->get(); //BCD
+            //TIADA negeri
+            if ($pusat_tanggungjawab != null) {
+                //ADA pt
+                $stesen = Stesen::with(['negeri', 'pusat_tanggungjawab'])->where('Kod_PT', $pusat_tanggungjawab)->get(); //ABD
 
-                    } else {
-                        //TIADA KAMPUNG
-                        $stesen = Stesen::where('U_Daerah_ID', $daerah)->where('U_Mukim_ID', $mukim)->get(); //BC
-
-                    }
-                    
-                } else {
-                    //TIADA MUKIM
-                    if ($kampung != null) {
-                        //ADA KAMPUNG
-                        $stesen = Stesen::where('U_Daerah_ID', $daerah)->where('U_Kampung_ID', $kampung)->get(); //BD
-
-                    } else {
-                        //TIADA KAMPUNG
-                        $stesen = Stesen::where('U_Daerah_ID', $daerah)->get(); //B
-
-                    }
-
-                }
-                
             } else {
-                //TIADA DAERAH
-                if ($mukim != null) {
-                    //ADA MUKIM
-                    if ($kampung != null) {
-                        //ADA KAMPUNG
-                        $stesen = Stesen::where('U_Mukim_ID', $mukim)->where('U_Kampung_ID', $kampung)->get(); //CD
-
-                    } else {
-                        //TIADA KAMPUNG
-                        $stesen = Stesen::where('U_Mukim_ID', $mukim)->get(); //C
-
-                    }
-                    
-                } else {
-                    //TIADA MUKIM
-                    if ($kampung != null) {
-                        //ADA KAMPUNG
-                        $stesen = Stesen::where('U_Kampung_ID', $kampung)->get(); //D
-
-                    } else {
-                        //TIADA KAMPUNG
-                        $stesen = Stesen::all(); //SEMUA
-
-                    }
-
-                }
+                // TIADA pt
+                $stesen = Stesen::with(['negeri', 'pusat_tanggungjawab'])->where('Kod_PT', $pusat_tanggungjawab)->get(); //AB
 
             }
 
