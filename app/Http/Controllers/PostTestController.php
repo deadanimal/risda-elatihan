@@ -170,19 +170,28 @@ class PostTestController extends Controller
 
     public function jawabPost()
     {
+
         $permohonan = Permohonan::with('jadual')->where('no_pekerja', auth()->user()->id)
             ->where('status_permohonan', 4)
             ->where('dinilai_post', null)->get()->first();
+
+        // dd($permohonan);
+
+        if ($permohonan == null) {
+            alert()->error('Anda tidak membuat sebarang permohonan lagi.', 'Tiada permohonan');
+            return back();
+        }
+
+
+        else {
 
         $aturcara_first = Aturcara::where('ac_jadual_kursus',$permohonan->kod_kursus)->first();
         $aturcara_last = Aturcara::where('ac_jadual_kursus',$permohonan->kod_kursus)->get()->last();
 
        $hari_ini = date('Y-m-d H:i');
-        // dd($aturcara);
-        if ($permohonan == null) {
-            alert()->error('Anda tidak membuat sebarang permohonan lagi.', 'Tiada permohonan');
-            return back();
-        } else {
+
+
+
 
             return view('penilaian.post.answer', [
                 'permohonan' => $permohonan,
@@ -279,3 +288,4 @@ class PostTestController extends Controller
         return redirect('/');
     }
 }
+

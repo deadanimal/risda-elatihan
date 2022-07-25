@@ -17,7 +17,7 @@
             </div>
         </div>
 
-        <form action="/penilaian/penilaian-kursus/ulpk/{{$penilaiankursus->id}}" method="POST">
+        <form action="/penilaian/penilaian-kursus-us/{{$penilaiankursus->id}}" method="POST">
             @method('PUT')
             @csrf
             <div class="row justify-content-center">

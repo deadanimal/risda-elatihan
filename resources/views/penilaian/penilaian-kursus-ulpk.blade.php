@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
-                    PENILAIAN KURSUS (PESERTA ULPK)
+                    PENILAIAN KURSUS
                 </p>
             </div>
         </div>
@@ -55,14 +55,19 @@
         <br><br>
         <div class="row">
             <div class="col-12 text-center">
-                @if ($permohonan->dinilai == "Ya")
-                    <button class="btn btn-secondary" disabled>Mula Penilaian</button>
+                @if($hari_ini>=$permohonan->jadual->tarikh_mula)
+                    @if ($permohonan->dinilai == "Ya")
+                        <button class="btn btn-secondary" disabled>Mula Penilaian</button>
+                    @else
+
+                    <a class="btn btn-primary" href="/penilaian/penilaian-kursus/{{ $permohonan->jadual->id }}"
+                        id="btn_start">Mula Penilaian</a>
+
+                    @endif
                 @else
-
-                <a class="btn btn-primary" href="/penilaian/penilaian-kursus/{{ $permohonan->jadual->id }}"
-                    id="btn_start">Mula Penilaian</a>
-
+                    <button class="btn btn-secondary" disabled>Penilaian Hanya Dibuat Selepas Kursus Bermula</button>
                 @endif
+
             </div>
         </div>
 

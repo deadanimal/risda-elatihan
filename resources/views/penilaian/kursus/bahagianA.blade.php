@@ -149,9 +149,9 @@
                                         {{ $penilaianKursus->status_soalan }}
                                     </td>
                                     <td>
-                                        <a href="/penilaian/penilaian-kursus/ulpk/{{$penilaianKursus->id}}/edit"
+                                        <a href="/penilaian/penilaian-kursus-us/{{$penilaianKursus->id}}/edit"
                                             class="btn btn-sm btn-primary">Kemaskini</a>
-                                        <form action="/penilaian/penilaian-kursus/ulpk/{{$penilaianKursus->id}}" method="post"
+                                        <form action="/penilaian/penilaian-kursus-us/{{$penilaianKursus->id}}" method="post"
                                             class="d-inline-flex">
                                             @csrf
                                             @method('delete')

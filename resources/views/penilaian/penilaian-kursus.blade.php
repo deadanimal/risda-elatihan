@@ -59,12 +59,18 @@
                 {{-- <a class="btn btn-primary" href="/penilaian/penilaian-kursus/{{ $permohonan->jadual->id }}"
                     id="btn_start">Mula Penilaian</a> --}}
 
-                    @if ($permohonan->dinilai === "Ya")
-                    <button class="btn btn-secondary" @disabled(true)>Mula Penilaian</button>
-                @else
-                    <a class="btn btn-primary" href="/penilaian/penilaian-kursus/{{ $permohonan->jadual->id }}"
-                        id="btn_start">Mula Penilaian</a>
-                @endif
+                    @if($permohonan->jadual->tarikh_mula>=$hari_ini)
+
+                        @if ($permohonan->dinilai === "Ya")
+                            <button class="btn btn-secondary" @disabled(true)>Mula Penilaian</button>
+                        @else
+                            <a class="btn btn-primary" href="/penilaian/penilaian-kursus/{{ $permohonan->jadual->id }}"
+                            id="btn_start">Mula Penilaian</a>
+                        @endif
+                    @else
+                        <button class="btn btn-secondary" @disabled(true)>Mula Penilaian</button>
+                    @endif
+
             </div>
         </div>
 

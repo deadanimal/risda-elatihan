@@ -22,17 +22,18 @@ class KursusPenilaianController extends Controller
      */
     public function index()
     {
-        if (auth::user()->jenis_pengguna=='Peserta ULPK') {
-            $permohonan = Permohonan::with('jadual')->where('no_pekerja', auth()->user()->id)
-            ->where('status_permohonan', 4)
-            ->get()->first();
+        // dd(auth::user()->jenis_pengguna);
+        if (auth::user()->jenis_pengguna=='Urus Setia ULS') {
 
-            return view('penilaian.penilaian-kursus-ulpk', [
-                'permohonan'=>$permohonan
-                // 'jadual_kursus'=>$jadual_kursus
+            $jadual_kursus = JadualKursus::with('tempat')->where('kursus_unit_latihan', 'Staf')->get();
+
+            return view('penilaian.kursus.index-uls', [
+                'jadual_kursus'=>$jadual_kursus
             ]);
+
         } elseif (auth::user()->jenis_pengguna=='Urus Setia ULPK') {
             $jadual_kursus = JadualKursus::with('tempat')->where('kursus_unit_latihan', 'Pekebun Kecil')->get();
+
 
             return view('penilaian.kursus.index-ulpk', [
                 'jadual_kursus'=>$jadual_kursus
@@ -106,7 +107,7 @@ class KursusPenilaianController extends Controller
 
 
         alert()->success('Soalan Telah Ditambah', 'Berjaya');
-        return redirect('/penilaian/penilaian-kursus/ulpk/'.$kursusPenilaian->jadual_kursus_id);
+        return redirect('/penilaian/penilaian-kursus-us/'.$kursusPenilaian->jadual_kursus_id);
 
         // switch ($request->jenis) {
         //     case 'A':
@@ -294,7 +295,7 @@ class KursusPenilaianController extends Controller
 
         $kursusPenilaian->save();
         alert()->success('Soalan Telah Dikemaskini', 'Berjaya');
-        return redirect('/penilaian/penilaian-kursus/ulpk/'.$kursusPenilaian->jadual_kursus_id);
+        return redirect('/penilaian/penilaian-kursus-us/'.$kursusPenilaian->jadual_kursus_id);
     }
 
     /**
@@ -319,3 +320,4 @@ class KursusPenilaianController extends Controller
     //     return view ()
     // }
 }
+
