@@ -23,26 +23,32 @@ class PenilaianPesertaController extends Controller
      */
     public function index()
     {
+        $hari_ini = date('Y-m-d');
 
-        $permohonan = Permohonan::with('jadual')->where('no_pekerja', auth()->user()->id)
+
+        $permohonan = Permohonan::with(['jadual'])->where('no_pekerja', auth()->user()->id)
             ->where('status_permohonan', 4)
             ->get()->first();
         // dd($permohonan);
 
-        // if ($permohonan == null) {
-        //     alert()->error('Anda tidak membuat sebarang permohonan lagi.', 'Tiada permohonan');
-        //     return back();
-        // } else {
+        if ($permohonan == null) {
+            alert()->error('Anda tidak membuat sebarang permohonan lagi.', 'Tiada permohonan');
+            return back();
+
+        } else {
         if (auth()->user()->jenis_pengguna == 'Peserta ULS') {
             return view('penilaian.penilaian-kursus', [
                 'permohonan' => $permohonan,
+                'hari_ini'=>$hari_ini,
             ]);
         } elseif (auth()->user()->jenis_pengguna == 'Peserta ULPK') {
             return view('penilaian.penilaian-kursus-ulpk', [
                 'permohonan' => $permohonan,
+                'hari_ini'=>$hari_ini,
+
             ]);
         }
-        // }
+        }
     }
 
     /**

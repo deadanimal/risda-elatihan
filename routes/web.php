@@ -349,7 +349,7 @@ Route::middleware('auth')->group(function () {
             Route::post('/post-test/{jadual_kursus}/save', [JadualKursusController::class, 'tambah_masa_mula_tamat_post_test']);
 
             //penilaian-kursus
-            Route::resource('/penilaian-kursus/ulpk', KursusPenilaianController::class);
+            Route::resource('//penilaian-kursus-us', KursusPenilaianController::class);
             Route::get('/penilaian-kursus/bahagianA/create/{id}', [KursusPenilaianController::class, 'create']);
             Route::get('/penilaian-kursus/bahagianB/{id}', [KursusPenilaianController::class, 'bahagianB']);
             Route::get('/penilaian-kursus/bahagianC/{id}', [KursusPenilaianController::class, 'bahagianC']);

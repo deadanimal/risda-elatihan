@@ -1,3 +1,7 @@
+PenilaianKursus-Create
+
+
+
 @extends('layouts.risda-base')
 @section('content')
     <div class="container">
@@ -17,7 +21,7 @@
             </div>
         </div>
 
-        <form action="/penilaian/penilaian-kursus/ulpk" method="post">
+        <form action="/penilaian/penilaian-kursus-us" method="post">
             @csrf
             <input type="hidden" name="jadual_kursus_id" value="{{$jadual_kursus->id}}">
 
@@ -52,6 +56,7 @@
                         <option value="D">TRUE OR FALSE</option>
                     </select>
                 </div>
+
                 <div class="col-1"></div>
                 <div class="col-3 mt-2">
                     <p class="h5 risda-dg">SOALAN</p>
@@ -245,3 +250,4 @@
         }
     </script>
 @endsection
+

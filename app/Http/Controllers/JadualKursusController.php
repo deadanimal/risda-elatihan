@@ -422,7 +422,7 @@ class JadualKursusController extends Controller
         $jadualKursus->save();
 
         alert()->success('Maklumat telah disimpan', 'Berjaya Disimpan');
-        return redirect('/penilaian/penilaian-kursus/ulpk/'. $id);
+        return redirect('/penilaian/penilaian-kursus-us/'. $id);
     }
 
 
