@@ -14,4 +14,9 @@ class PusatTanggungjawab extends Model
         return $this->hasMany(Staf::class, 'kod_PT', 'Kod_PT');
     }
 
+    public function negeri()
+    {
+        return $this->hasOne(Negeri::class, 'Negeri_Rkod', 'kod_Negeri_PT');
+    }
+
 }

@@ -20,9 +20,9 @@ class PusatTanggungjawabController extends Controller
      */
     public function index()
     {
-        $pt_data = PusatTanggungjawab::all();
+        $pt_data = PusatTanggungjawab::with('negeri')->get();
         $negeri = Negeri::all();
-        $bil_pt = PusatTanggungjawab::orderBy('id', 'desc')->first();
+        $bil_pt = PusatTanggungjawab::with('negeri')->orderBy('id', 'desc')->first();
         if ($bil_pt != null) {
             $bil = $bil_pt->kod_PT;
         } else {
