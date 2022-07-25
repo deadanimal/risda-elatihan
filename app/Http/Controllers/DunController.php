@@ -27,9 +27,7 @@ class DunController extends Controller
         $parlimen = Parlimen::all();
         $par2 = Parlimen::all();
 
-        $dun = Negeri::join('parlimens', 'negeris.id', 'parlimens.U_Negeri_ID')
-        ->join('duns', 'parlimens.id', 'duns.U_Parlimen_ID')
-        ->get();
+        $dun = Dun::with(['Negeri', 'Parlimen'])->get();
 
         return view('utiliti.lokasi.dun.index', [
             'negeri' => $negeri,
@@ -150,9 +148,9 @@ class DunController extends Controller
 
         if ($negeri != null) {
             if ($parlimen != null) {
-                $dun = Dun::where('U_Negeri_ID', $negeri)->where('U_Parlimen_ID', $parlimen)->get();
+                $dun = Dun::where('Kod_Negeri', $negeri)->where('U_Parlimen_ID', $parlimen)->get();
             } else {
-                $dun = Dun::where('U_Negeri_ID', $negeri)->get();
+                $dun = Dun::where('Kod_Negeri', $negeri)->get();
             }
             
         } else {

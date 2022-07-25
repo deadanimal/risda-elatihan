@@ -18,11 +18,11 @@
                             <label class="col-form-label">NEGERI:</label>
                         </div>
                         <div class="col-lg-9 mb-3">
-                            <select class="form-select" onchange="daerah_fil(this)">
+                            <select class="form-select form-control" onchange="daerah_fil(this)">
                                 <option value="" selected hidden>Sila Pilih</option>
                                 @foreach ($negeri as $n)
                                     @if ($n->status_negeri == '1')
-                                        <option value="{{ $n->id }}">{{ $n->Negeri }}</option>
+                                        <option value="{{ $n->U_Negeri_ID }}">{{ $n->Negeri }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -54,7 +54,7 @@
                                         @csrf
                                         <div class="mb-3">
                                             <label class="col-form-label">NEGERI</label>
-                                            <select class="form-select" name="U_Negeri_ID">
+                                            <select class="form-select form-control" name="U_Negeri_ID">
                                                 <option selected="" hidden>Sila Pilih</option>
                                                 @foreach ($negeri as $n)
                                                     @if ($n->status_negeri == '1')
@@ -65,7 +65,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label class="col-form-label">KOD DAERAH</label>
-                                            <input class="form-control" type="text" name="Daerah_Rkod"
+                                            <input class="form-control" type="text" name="U_Daerah_ID"
                                                 value="" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
                                         </div>
                                         <div class="mb-3">
@@ -112,7 +112,7 @@
                                 @foreach ($daerah as $key => $d)
                                     <tr>
                                         <td>{{ $key + 1 }}.</td>
-                                        <td>{{ $d->Daerah_Rkod }}</td>
+                                        <td>{{ $d->U_Daerah_ID }}</td>
                                         <td>{{ $d->Daerah }}</td>
                                         <td>
                                             @if ($d->status_daerah == '1')
@@ -156,9 +156,9 @@
                                                         @csrf
                                                         <div class="mb-3">
                                                             <label class="col-form-label">NEGERI</label>
-                                                            <select class="form-select" name="U_Negeri_ID">
+                                                            <select class="form-select form-control" name="U_Negeri_ID">
                                                                 <option selected="" value="{{ $d->U_Negeri_ID }}" hidden>
-                                                                    {{ $d->Negeri }}</option>
+                                                                    {{ $d->negeri->Negeri }}</option>
                                                                 @foreach ($neg2 as $neg)
                                                                     @if ($neg['status_negeri'] == '1')
                                                                         <option value="{{ $neg->id }}">
@@ -169,8 +169,8 @@
                                                         </div>
                                                         <div class="mb-3">
                                                             <label class="col-form-label">KOD DAERAH</label>
-                                                            <input class="form-control" type="number" name="Daerah_Rkod"
-                                                                value="{{ $d->Daerah_Rkod }}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
+                                                            <input class="form-control" type="number" name="U_Daerah_ID"
+                                                                value="{{ $d->U_Daerah_ID }}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label class="col-form-label">DAERAH</label>
@@ -260,13 +260,16 @@
                     'id': id
                 },
                 success: function(daerah) {
+                    $('#table_daerah').dataTable().fnClearTable();
+                    $('#table_daerah').dataTable().fnDestroy();
+
                     $("#t_normal").html("");
                     let iteration = 1;
                     daerah.forEach(element => {
                         $("#t_normal").append(`
                         <tr>
                                     <td>` + iteration + `.</td>
-                                    <td>${ element.Daerah_Rkod }</td>
+                                    <td>${ element.U_Daerah_ID }</td>
                                     <td>${ element.Daerah }</td>
                                     <td>` +
                         (element.status_daerah == '1' ?
@@ -290,6 +293,7 @@
                         iteration++;
                     });
                     // console.log(daerah);
+                    $('#table_daerah').dataTable();
                 },
                 error: function() {
                     console.log('success');
