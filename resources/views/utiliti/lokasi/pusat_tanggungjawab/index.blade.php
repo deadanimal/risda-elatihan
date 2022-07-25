@@ -1,8 +1,5 @@
 @extends('layouts.risda-base')
 @section('content')
-@php
-    use App\Models\Negeri;
-@endphp
     <div class="container">
         <div class="row">
             <div class="col">
@@ -53,7 +50,7 @@
                                                 <option selected="" hidden>Sila Pilih</option>
                                                 @foreach ($negeri as $n)
                                                     @if ($n->status_negeri == '1')
-                                                        <option value="{{ $n->id }}">{{ $n->Negeri }}</option>
+                                                        <option value="{{ $n->Negeri_Rkod }}">{{ $n->Negeri }}</option>
                                                     @endif
                                                 @endforeach
                                             </select>
@@ -95,7 +92,7 @@
             <div class="col">
                 <div class="card">
                     <div class="table-responsive scrollbar m-3">
-                        <table id="table_negeri" class="table table-striped" style="width:100%">
+                        <table class="table datatable table-striped" style="width:100%">
                             <thead class="bg-200">
                                 <tr>
                                     <th class="sort">BIL.</th>
@@ -130,8 +127,7 @@
                                     </tr>
                                     <div class="modal fade" id="edit_PT_{{ $PT->id }}" tabindex="-1" role="dialog"
                                         aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document"
-                                            style="max-width: 500px">
+                                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                             <div class="modal-content position-relative">
                                                 <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
                                                     <button
@@ -170,16 +166,13 @@
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label class="col-form-label">NEGERI</label>
-                                                                <select class="form-select" name="kod_Negeri_PT">
+                                                                <select class="form-select form-control" name="kod_Negeri_PT">
                                                                     <option selected="" hidden value="{{$PT->kod_Negeri_PT}}">
-                                                                        @php
-                                                                            $nn = Negeri::find($PT->kod_Negeri_PT);
-                                                                        @endphp
-                                                                        {{$nn->Negeri}}
+                                                                        {{$PT->negeri->Negeri}}
                                                                     </option>
                                                                     @foreach ($negeri as $n2)
                                                                         @if ($n->status_negeri == '1')
-                                                                            <option value="{{ $n2->id }}">
+                                                                            <option value="{{ $n2->Negeri_Rkod }}">
                                                                                 {{ $n2->Negeri }}</option>
                                                                         @endif
                                                                     @endforeach
@@ -238,7 +231,7 @@
                                                         <div class="col text-center m-3">
                                                             <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
                                                             <br>
-                                                            Anda pasti untuk menghapus {{ $PT->Negeri }}?
+                                                            Anda pasti untuk menghapus {{ $PT->nama_PT }}?
     
                                                         </div>
                                                     </div>
