@@ -186,15 +186,18 @@ class KehadiranController extends Controller
                 $kehadiran = Kehadiran::where('kod_kursus', $request->jadual_kursus)->where('jadual_kursus_ref', $id)->where('no_pekerja', $request->nama_diganti)->first();
                 $kehadiran->no_pekerja = $request->nama_diganti;
                 $kehadiran->nama_pengganti = $request->nama_peserta;
-                $kehadiran->status_kehadiran_ke_kursus = 'TIDAK HADIR';
             }else{
                 $kehadiran = new Kehadiran;
                 $kehadiran->no_pekerja = $request->nama_peserta;
-                $kehadiran->status_kehadiran_ke_kursus = 'HADIR';
             }
         }
         // dd($kehadiran);
-        
+        if ($request->status == "PENGGANTI") {
+            $kehadiran->status_kehadiran_ke_kursus = 'TIDAK HADIR';
+        }
+        else{
+            $kehadiran->status_kehadiran_ke_kursus = 'HADIR';
+        }
         $kehadiran->kod_kursus = $request->jadual_kursus;
         $kehadiran->tarikh_imbasQR = now()->toDateString();
         $kehadiran->masa_imbasQR = now()->toTimeString();
@@ -202,7 +205,6 @@ class KehadiranController extends Controller
         $kehadiran->sesi = $request->sesi;
         $kehadiran->jadual_kursus_id = $request->jadual_kursus_id;
         $kehadiran->jadual_kursus_ref = $id;
-        
 
         $kehadiran->save();
         alert()->success('Maklumat telah direkodkan', 'Berjaya');

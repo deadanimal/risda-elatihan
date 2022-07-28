@@ -26,12 +26,12 @@ class Agensi extends Model
 
     public function negeri()
     {
-        return $this->belongsTo(Negeri::class,'U_Negeri_ID','id');
+        return $this->belongsTo(Negeri::class,'U_Negeri_ID','U_Negeri_ID');
     }
 
     public function daerah()
     {
-        return $this->belongsTo(Daerah::class,'U_Daerah_ID','id');
+        return $this->belongsTo(Daerah::class,'U_Daerah_ID','U_Daerah_ID');
     }
 
     public function kehadiran_pl()

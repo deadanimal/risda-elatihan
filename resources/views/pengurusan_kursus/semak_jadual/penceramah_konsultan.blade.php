@@ -16,45 +16,53 @@
             </div>
         </div>
 
-        <form action="/pengurusan_kursus/penceramah_konsultan" method="POST" enctype="multipart/form-data">
-            @csrf
-            <input type="hidden" name="pc_jadual_kursus" value="{{ $id }}">
-            <div class="row justify-content-lg-center mt-3">
-                <div class="col-lg-10 ">
-
-                    <div class="row">
-                        <div class="col-lg-3 p-0">
-                            <label class="col-form-label">NAMA PENCERAMAH / KONSULTAN</label>
-                        </div>
-                        <div class="col-lg-9 p-0">
-                            @if ($list_pk == null)
-                                <label class="col-form-label text-danger">KATEGORI "Penceramah" TIADA DIDALAM
-                                    SENARAI
-                                    AGENSI. SILA TAMBAH DI BAHAGIAN AGENSI (UTILITI->KOD KUMPULAN) UNTUK MENERUSKAN
-                                    PENAMBAHAN
-                                    JADUAL KURSUS</label>
-                            @else
-                                <select class="form-select  form-control" name="pc_id" id="">
-                                    <option selected="" value="" hidden>Sila Pilih</option>
-                                    @foreach ($list_pk as $lpk)
-                                        <option value="{{ $lpk->id }}">{{ $lpk->nama_Agensi }}</option>
-                                    @endforeach
-                                </select>
-                            @endif
+        <div class="card">
+            <div class="card-header">
+                <h5 class="h5">Tambah Penceramah</h5>
+                <hr>
+            </div>
+            <div class="card-body">
+                <form action="/pengurusan_kursus/penceramah_konsultan" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="pc_jadual_kursus" value="{{ $id }}">
+                    <div class="row justify-content-lg-center">
+                        <div class="col-lg-10 ">
+        
+                            <div class="row">
+                                <div class="col-lg-3 p-0">
+                                    <label class="col-form-label">NAMA PENCERAMAH / KONSULTAN</label>
+                                </div>
+                                <div class="col-lg-9 p-0">
+                                    @if ($list_pk == null)
+                                        <label class="col-form-label text-danger">KATEGORI "Penceramah" TIADA DIDALAM
+                                            SENARAI
+                                            AGENSI. SILA TAMBAH DI BAHAGIAN AGENSI (UTILITI->KOD KUMPULAN) UNTUK MENERUSKAN
+                                            PENAMBAHAN
+                                            JADUAL KURSUS</label>
+                                    @else
+                                        <select class="form-select  form-control" name="pc_id" id="">
+                                            <option selected="" value="" hidden>Sila Pilih</option>
+                                            @foreach ($list_pk as $lpk)
+                                                <option value="{{ $lpk->id }}">{{ $lpk->nama_Agensi }}</option>
+                                            @endforeach
+                                        </select>
+                                    @endif
+                                </div>
+                            </div>
+        
                         </div>
                     </div>
-
-                </div>
+        
+                    <div class="row mt-4">
+                        <div class="col text-end">
+                            <button class="btn btn-sm btn-primary" type="submit">
+                                <i class="fas fa-plus"></i> TAMBAH
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
-
-            <div class="row mt-4">
-                <div class="col">
-                    <button class="btn btn-sm btn-primary" type="submit">
-                        <i class="fas fa-plus"></i> TAMBAH
-                    </button>
-                </div>
-            </div>
-        </form>
+        </div>
 
         <div class="row mt-4">
             <div class="col">

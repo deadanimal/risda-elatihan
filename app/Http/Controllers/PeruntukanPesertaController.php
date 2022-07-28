@@ -45,23 +45,18 @@ class PeruntukanPesertaController extends Controller
     public function store(StorePeruntukanPesertaRequest $request)
     {
         $peruntukanPeserta = new PeruntukanPeserta($request->all());
-        $peruntukanPeserta->save();
 
-        // foreach($peruntukanPeserta as $peruntukanPeserta){
-
-            $ptj=PusatTanggungjawab::where('id',$peruntukanPeserta->pp_pusat_tanggungjawab)->get()->first();
-            // $receiver=$ptj->email;
-            $jadual=JadualKursus::where('id',$peruntukanPeserta->pp_jadual_kursus)->with(['tempat'])->first();
-            $agensi = Agensi::with(['negeri']);
-
-        // }
+        $ptj=PusatTanggungjawab::where('kod_PT',$peruntukanPeserta->pp_pusat_tanggungjawab)->first();
+        // $receiver=$ptj->email; uncomment for real
+        $jadual=JadualKursus::with(['tempat'])->where('id',$peruntukanPeserta->pp_jadual_kursus)->first();
+        $agensi = Agensi::with(['negeri']);
 
 
         // dd($receiver);
         // dd($ptj,$jadual);
 
         alert()->success('Maklumat telah disimpan', 'Berjaya Disimpan');
-
+        $peruntukanPeserta->save();
 
 
         $pdf = Pdf::loadView('pdf.surat-panggilan-kursus',[
@@ -71,10 +66,6 @@ class PeruntukanPesertaController extends Controller
             'peruntukanPeserta'=>$peruntukanPeserta,
             'hari_ini' => date("d m Y")
         ]);
-
-
-
-        $peruntukanpeserta=PeruntukanPeserta::where('pp_jadual_kursus',$jadual->id)->get();
 
         $data_email = [
             'nama_pt' => $ptj->nama_PT,
@@ -90,8 +81,6 @@ class PeruntukanPesertaController extends Controller
                 ->subject("Surat Panggilan Ke Kursus")
                 ->attachData($pdf->output(), 'Surat Panggilan Ke Kursus.pdf');
         });
-
-
 
         // Mail::to($receiver)->send(new PanggilanKeKursus());
 
@@ -114,7 +103,7 @@ class PeruntukanPesertaController extends Controller
         $jadualKursus = JadualKursus::where('id', $id)->firstorFail();
         $negeri = Negeri::all();
         $pusat_tanggungjawab = PusatTanggungjawab::all();
-        $peruntukan_peserta = PeruntukanPeserta::where('pp_jadual_kursus', $jadualKursus->id)->get();
+        $peruntukan_peserta = PeruntukanPeserta::with(['negeri', 'pusat_tanggungjawab'])->where('pp_jadual_kursus', $jadualKursus->id)->get();
         $total_calon = PeruntukanPeserta::where('pp_jadual_kursus', $jadualKursus->id)->sum('pp_peruntukan_calon');
 
         return view('pengurusan_kursus.semak_jadual.peruntukan_peserta',[

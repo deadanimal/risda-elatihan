@@ -38,11 +38,11 @@
                                             </select>
                                             @elserole('Urus Setia UlPK')
                                             <input type="hidden" name="UL_Kod_Kursus" value="Pekebun Kecil">
-                                            <select class="form-select" readonly id="unitlatihan">
+                                            <select class="form-select form-control" readonly id="unitlatihan">
                                                 <option value="Pekebun Kecil" selected>Pekebun Kecil</option>
                                             </select>
                                             @else
-                                            <select class="form-select" name="UL_Kod_Kursus" id="unitlatihan">
+                                            <select class="form-select form-control" name="UL_Kod_Kursus" id="unitlatihan">
                                                 <option selected="" hidden>Sila Pilih</option>
                                                 <option value="Staf">Staf</option>
                                                 <option value="Pekebun Kecil">Pekebun Kecil</option>
@@ -220,7 +220,7 @@
                                                             @csrf
                                                             <div class="mb-3">
                                                                 <label class="col-form-label">UNIT LATIHAN</label>
-                                                                <select class="form-select" name="UL_Kod_Kursus">
+                                                                <select class="form-select form-control" name="UL_Kod_Kursus">
                                                                     <option selected="" hidden
                                                                         value="{{ $KK->UL_Kod_Kursus }}">
                                                                         {{ $KK->UL_Kod_Kursus }}</option>
@@ -245,7 +245,7 @@
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label class="col-form-label">BIDANG KURSUS</label>
-                                                                <select class="form-select" name="U_Bidang_Kursus">
+                                                                <select class="form-select form-control" name="U_Bidang_Kursus">
                                                                     <option selected="" hidden
                                                                         value="{{ $KK->U_Bidang_Kursus }}">
                                                                         {{ $KK->bidang->nama_Bidang_Kursus }}</option>
@@ -257,7 +257,7 @@
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label class="col-form-label">KATEGORI KURSUS</label>
-                                                                <select class="form-select" name="U_Kategori_Kursus">
+                                                                <select class="form-select form-control" name="U_Kategori_Kursus">
                                                                     <option selected="" hidden
                                                                         value="{{ $KK->U_Kategori_Kursus }}">
                                                                         {{ $KK->kategori->nama_Kategori_Kursus }}

@@ -80,11 +80,11 @@
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-dg">DAERAH</label>
-                                        <select class="form-select form-control" name="U_Daerah_ID">
+                                        <select class="form-select form-control" name="U_Daerah_ID" id="daerah_form">
                                             <option selected="" hidden>Sila Pilih</option>
                                             @foreach ($daerah as $dae)
                                                 @if ($dae->status_daerah == '1')
-                                                    <option value="{{ $dae->id }}">{{ $dae->Daerah }}</option>
+                                                    <option value="{{ $dae->U_Daerah_ID }}">{{ $dae->Daerah }}</option>
                                                 @endif
                                             @endforeach
                                         </select>
@@ -95,11 +95,11 @@
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-dg">NEGERI</label>
-                                        <select class="form-select form-control" name="U_Negeri_ID">
-                                            <option selected="" hidden>Sila Pilih</option>
+                                        <select class="form-select form-control" name="U_Negeri_ID" id="negeri_form">
+                                            <option selected value="" hidden>Sila Pilih</option>
                                             @foreach ($negeri as $neg)
                                                 @if ($neg->status_negeri == '1')
-                                                    <option value="{{ $neg->id }}">{{ $neg->Negeri }}</option>
+                                                    <option value="{{ $neg->U_Negeri_ID }}">{{ $neg->Negeri }}</option>
                                                 @endif
                                             @endforeach
                                         </select>
@@ -139,4 +139,45 @@
             </div>
         </div>
     </div>
+    
+    <script>
+        $('#negeri_form').change(function() {
+            var id_negeri = this.value;
+            var list_daerah = @json($daerah->toArray());
+
+            $('#daerah_form').html('');
+            $('#daerah_form').append(`
+                <option value="" selected hidden>Sila Pilih</option>
+            `);
+            list_daerah.forEach(e => {
+                if (e.U_Negeri_ID == id_negeri) {
+                    if (e.status_daerah == '1') {
+                        $('#daerah_form').append(`
+                            <option value="${e.U_Daerah_ID}">${e.Daerah}</option>
+                        `);
+                    }
+                }
+            });
+        });
+
+        $('#daerah_form').change(function() {
+            var id_daerah = this.value;
+            var id_negeri = id_daerah.substring(0,2);
+            var list_negeri = @json($negeri->toArray());
+
+            $('#negeri_form').html('');
+            $('#negeri_form').append(`
+                <option value="" selected hidden>Sila Pilih</option>
+            `);
+            list_negeri.forEach(e => {
+                if (e.U_Negeri_ID == id_negeri) {
+                    if (e.status_negeri == '1') {
+                        $('#negeri_form').append(`
+                            <option value="${e.U_Negeri_ID}" selected>${e.Negeri}</option>
+                        `);
+                    }
+                }
+            });
+        });
+    </script>
 @endsection
