@@ -320,6 +320,10 @@ class JadualKursusController extends Controller
         $input = $request->all();
         $jadualKursus->kursus_status = $status;
         $jadualKursus->fill($input)->save();
+
+        $jadualKursus->kursus_kumpulan_sasaran = serialize($request->kursus_kumpulan_sasaran);
+        $jadualKursus->save();
+
         AuditTrailController::audit('jadual', 'kursus', 'kemaskini', $jadualKursus->kursus_nama);
         alert()->success('Maklumat telah disimipan', 'Berjaya Disimpan');
         return redirect('/pengurusan_kursus/peruntukan_peserta/' . $jadualKursus->id);

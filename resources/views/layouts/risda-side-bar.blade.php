@@ -644,7 +644,7 @@
 
                     {{-- Peserta ULS --}}
 
-                    @if (auth()->user()->can('katelog kursus') || auth()->user()->can('status permohonan'))
+                    @if (auth()->user()->can('katalog kursus') || auth()->user()->can('status permohonan'))
                         @role('Peserta ULS')
                             <a class="nav-link py-0 dropdown-indicator" href="#permohonan" role="button"
                                 data-bs-toggle="collapse"
@@ -657,7 +657,7 @@
                             </a>
                             <ul class="nav-item collapse {{ Request::is('uls/permohonan/*') ? 'show' : 'false' }} my-1"
                                 id="permohonan">
-                                @can('katelog kursus')
+                                @can('katalog kursus')
                                     <li class="nav-item">
                                         <a class="nav-link {{ Request::is('uls/permohonan/katelog-kursus') ? 'active' : '' }} py-0"
                                             href="/uls/permohonan/katelog-kursus">
@@ -694,7 +694,7 @@
                             </a>
                             <ul class="nav-item collapse {{ Request::is('ulpk/permohonan/*') ? 'show' : 'false' }} my-1"
                                 id="permohonan">
-                                @can('katelog kursus')
+                                @can('katalog kursus')
                                     <li class="nav-item">
                                         <a class="nav-link {{ Request::is('ulpk/permohonan/katelog-kursus') ? 'active' : '' }} py-0"
                                             href="/ulpk/permohonan/katelog-kursus">

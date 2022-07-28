@@ -39,6 +39,9 @@ class SemakPermohonanController extends Controller
         $tempat = Agensi::with('kategori')->where('kategori_agensi', $kategori)->get();
 
         if (str_contains($check, 'ULS')) {
+            if (str_contains($check, 'Penyokong')) {
+                $pemohon = Permohonan::with(['jadual', 'peserta', 'data_staf', 'data_pk'])->where('status_permohonan', '!=', '0')->get();
+            }
             foreach ($pemohon as $key => $p) {
                 if ($p->peserta == null) {
                     $p->delete();
