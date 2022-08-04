@@ -11,10 +11,14 @@ use App\Models\Agensi;
 use App\Models\BidangKursus;
 use App\Models\KategoriAgensi;
 use App\Models\Kehadiran;
+use App\Models\PenceramahKonsultan;
+use App\Models\PenilaianEjenPelaksana;
 use App\Models\PusatTanggungjawab;
 use App\Models\User;
 use function PHPUnit\Framework\isEmpty;
 use Illuminate\Support\Facades\Http;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class LaporanLainController extends Controller
 {
@@ -131,6 +135,18 @@ class LaporanLainController extends Controller
         ]);
     }
 
+    public function pdf_prestasi_kehadiran()
+    {
+        $bidang_kursus = BidangKursus::with('kodkursus')->get();
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf.laporan_prestasi_kehadiran_peserta',[
+            'bidang_kursus' => $bidang_kursus
+        ])->setPaper('a4', 'landscape');
+
+
+        return $pdf->stream('Laporan Prestasi Kehadiran Peserta.'.'pdf');
+
+    }
+
     public function pkp()
     {
         return (new PrestasiKehadiranExport)->download('PerbelanjaanMengikutLokaliti.xlsx');
@@ -215,8 +231,17 @@ class LaporanLainController extends Controller
 
     public function laporan_penilaian_ejen()
     {
+        // $ejen=PenilaianEjenPelaksana::all();
 
-        return view('laporan.laporan_lain.laporan-penilaian-ejen');
+        // $penceramah=PenceramahKonsultan::with('agensi')->where('id',$ejen->penceramah_konsultan_id)->first();
+
+        // dd($penceramah);
+
+        return view('laporan.laporan_lain.laporan-penilaian-ejen'
+        //     'ejen'=>$ejen,
+        //     'penceramah'=>$penceramah
+        // ]
+    );
     }
 
 
@@ -249,6 +274,8 @@ class LaporanLainController extends Controller
 
         return view('laporan.laporan_lain.laporan-prestasi-kehadiran');
     }
+
+
 
     public function laporan_pencapaian_latihan_mengikut_kategori()
     {

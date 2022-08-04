@@ -58,8 +58,8 @@
     </div>
     </div>
 
-    <a id="downloadpdf" download="LaporanPrestasiKehadiranPeserta.pdf" style="display: none" href="#"></a>
-
+    {{-- <a id="downloadpdf" download="LaporanPrestasiKehadiranPeserta.pdf" style="display: none" href="#"></a> --}}
+    <a id="downloadpdf"  style="display: none" href="pdf-laporan-prestasi-kehadiran-peserta"></a>
     <a id="downloadexcel" style="display: none" href="{{ route('pkp') }}"></a>
 
 
