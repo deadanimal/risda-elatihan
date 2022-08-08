@@ -21,7 +21,7 @@
             <div class="col-8">
                 <div class="row mt-3">
                     <div class="col-lg-4">
-                        <p class="risda-dg h5 mt-2">TARIKH MULA</p>
+                        <p class="risda-dg h5 mt-2">JENIS LAPORAN</p>
                     </div>
                     <div class="col-lg-6">
                         <input type="date" class="form-control">
@@ -29,18 +29,18 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-lg-4">
-                        <p class="risda-dg h5 mt-2">TARIKH AKHIR</p>
+                        <p class="risda-dg h5 mt-2">SETAKAT TAHUNAN</p>
                     </div>
                     <div class="col-lg-6">
                         <input type="date" class="form-control">
                     </div>
                 </div>
 
-                <div class="row mt-4">
+                {{-- <div class="row mt-4">
                     <div class="col-lg-10 text-end">
                         <a href="#" class="btn btn-sm btn-primary"> <span class="fas fa-search"></span> Carian</a>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
@@ -68,15 +68,30 @@
                         <tr>
                             <th>BIL.</th>
                             <th>NAMA EJEN PELAKSANA</th>
+                            <th>BILANGAN PERKHIDMATAN / BEKALAN
                             <th>TAJUK PERKHIDMATAN/BEKALAN</th>
                             <th>JUMLAH HARGA (RM)</th>
                             <th>NILAI PRESTASI (%)</th>
                             <th>STATUS</th>
                         </tr>
                     </thead>
+
+
+
                     <tbody>
+                        {{-- @foreach ($ejen as $e)
+                            @foreach ($penceramah as )
+
+                            @endforeach
+                            <td>{{$agensi->nama_Agensi}}
+                        @endforeach
+                        </td>
+
+
+                        @endforeach --}}
 
                     </tbody>
+
                 </table>
             </div>
 

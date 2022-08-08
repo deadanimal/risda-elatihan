@@ -14,5 +14,9 @@ class PeruntukanPeserta extends Model
     public function kursus(){
         return $this->belongsTo(JadualKursus::class,'pp_jadual_kursus','id');
     }
+
+    public function pt(){
+        return $this->belongsTo(PusatTanggungjawab::class,'pp_pusat_tanggungjawab','id');
+    }
 }
 

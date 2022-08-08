@@ -45,6 +45,12 @@
         </div>
     </div>
 
+    <a id="downloadpdf" style="display: none" download="kehadiran-peserta"
+            href="pdf-laporan-kehadiran-peserta">Download</a>
+    <a id="downloadexcel" style="display: none" href="excel-kehadiran-peserta" download="kehadiran-peserta">Download</a>
+
+
+
     <hr style="color: rgba(81,179,90, 60%);height:2px;">
 
     <div class="card mt-5 ">
@@ -70,8 +76,15 @@
     </div>
 
     <script>
-        $(document).ready(function() {
-            $("th").addClass('fw-bold text-white');
-        });
+        function download(el) {
+            let val = el.value;
+            if (val == "Pdf") {
+                document.getElementById('downloadpdf').click();
+            }
+            if (val == "Excel") {
+                document.getElementById('downloadexcel').click();
+            }
+        }
     </script>
+
 @endsection

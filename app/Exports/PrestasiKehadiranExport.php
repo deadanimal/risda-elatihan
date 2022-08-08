@@ -10,7 +10,6 @@ use Maatwebsite\Excel\Concerns\FromView;
 
 class PrestasiKehadiranExport implements FromView
 {
-
     use Exportable;
 
     public function view(): View
@@ -39,7 +38,6 @@ class PrestasiKehadiranExport implements FromView
                     }
 
                     $jk['peratusan'] = ($hadir / ($hadir + $tidak_hadir) * 100);
-
                 } else {
                     $jk['peratusan'] = 0;
                 }
@@ -48,10 +46,10 @@ class PrestasiKehadiranExport implements FromView
                 $jk['bil_pengganti'] = $bil_pengganti;
             }
         }
-// dd($bidang_kursus);
+        // dd($bidang_kursus);
         return view('laporan.laporan_lain.excel.laporan_prestasi_kehadiran_peserta', [
             'bidang_kursus' => $bidang_kursus,
         ]);
-
     }
+
 }

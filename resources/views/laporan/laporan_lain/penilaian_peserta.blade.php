@@ -44,6 +44,10 @@
             </div>
         </div>
 
+        <a id="downloadpdf" style="display: none" download="PenilaianPeserta"
+        href="pdf-penilaian-peserta">Download</a>
+        <a id="downloadexcel" style="display: none" href="excel-penilaian-peserta" download="PenilaianPeserta">Download</a>
+
         <hr style="color: rgba(81,179,90, 60%);height:2px;">
 
         <div class="card mt-5 ">
@@ -59,7 +63,19 @@
                 </div>
             </div>
 
-            <div class="card-body">
+         <div class="card-body">
+                @include(
+                    'laporan.laporan_lain.excel.laporan_penilaian_peserta' )
+
+            </div>
+        </div>
+
+
+
+
+
+
+            {{-- <div class="card-body">
                 <div class="table-responsive scrollbar ">
                     <table class="table text-center table-bordered datatable "
                         style="vertical-align: middle;border-color: #00B64E;">
@@ -68,7 +84,6 @@
                             <tr>
                                 <th>BIL.</th>
                                 <th>BIDANG KURSUS</th>
-                                <th>BIL.</th>
                                 <th>NAMA KURSUS</th>
                                 <th>KOD NAMA KURSUS</th>
                                 <th>TARIKH KURSUS</th>
@@ -83,13 +98,46 @@
                         </thead>
                         <tbody>
 
+                            @foreach ($penilaian as $p)
+                            <tr>
+
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ ($p->kursus->bidang->nama_Bidang_Kursus ?? '-') }}</td>
+                                    <td>{{ ($p->kursus->kategori_kursus->nama_Kategori_Kursus ?? '-') }}</td>
+                                    <td>{{$p->kursus->kursus_nama}}</td>
+                                    <td>{{ ($p->kursus->kod_kursus ?? '-') }}</td>
+                                    <td>{{date('d/m/Y', strtotime($p->kursus->tarikh_mula))}}
+                                    <br>-<br>{{date('d/m/Y', strtotime($p->kursus->tarikh_tamat))}}</td>
+                                    <td>{{($p->kursus->tempat->nama_Agensi?? '-') }} </td>
+                                    <td>{{($p->kursus->pengendali->nama_Agensi?? '-') }} </td>
+                                    <td>{{$p->kursus->kursus_no_ft}}
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
+
                 </div>
 
-            </div>
+            </div>--}}
         </div>
     </div>
+
+
+    <script>
+        function download(el) {
+            let val = el.value;
+            if (val == "Pdf") {
+                document.getElementById('downloadpdf').click();
+            }
+            if (val == "Excel") {
+                document.getElementById('downloadexcel').click();
+            }
+        }
+    </script>
+
 
     <script>
         $(document).ready(function() {

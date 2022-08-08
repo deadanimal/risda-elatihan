@@ -21,7 +21,7 @@ class PenceramahKonsultan extends Model
 
     public function penilaianejen()
     {
-        return $this->hasOne(PenilaianEjenPelaksana::class);
+        return $this->belongs(PenilaianEjenPelaksana::class);
     }
 
 

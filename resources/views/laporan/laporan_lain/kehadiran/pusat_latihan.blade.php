@@ -1,6 +1,6 @@
 @extends('layouts.risda-base')
 <style>
-    th{
+    th {
         vertical-align: middle;
     }
 </style>
@@ -63,7 +63,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="card-body">
                 <div class="table-responsive scrollbar ">
                     <table class="table text-center table-bordered datatable"
@@ -82,17 +82,30 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($pl as $p)
+                                @foreach ($p as $kpl)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}
+                                        <td>{{ $kpl->tempat_kursus->nama_Agensi ?? '-' }}</td>
+                                        <td>{{ $tot_kursus ?? '-' }}</td>
+                                        <td></td>
+                                        <td></td>
+
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
-    
+
             </div>
         </div>
     </div>
 
 
 
-    
+
 
     <script>
         $(document).ready(function() {

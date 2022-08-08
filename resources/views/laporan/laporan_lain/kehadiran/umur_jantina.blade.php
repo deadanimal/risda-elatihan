@@ -63,7 +63,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="card-body">
                 <div class="table-responsive scrollbar ">
                     <table class="table text-center table-bordered datatable"
@@ -98,17 +98,40 @@
                             </tr>
                         </thead>
                         <tbody>
+                           @foreach($kehadiran_pl as $pl)
+                            <tr>
+                                <td>{{$loop->iteration}}
+                                <td>{{($pl->tempat_kursus->nama_Agensi ?? '-') }}</td>
+                                <td>{{($tot_kursus ?? '-') }}</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            @endforeach
+
+
                         </tbody>
                     </table>
                 </div>
-    
+
             </div>
         </div>
     </div>
 
 
 
-    
+
 
     <script>
         $(document).ready(function() {

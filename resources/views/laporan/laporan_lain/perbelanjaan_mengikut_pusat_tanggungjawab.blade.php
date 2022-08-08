@@ -94,8 +94,8 @@
         </div>
     </div>
 
-    <a id="downloadpdf" download="LaporanPencapaianMatlamatKehadiran.pdf" style="display: none"
-        href="{{ $url }}"></a>
+    <a id="downloadpdf" download="" style="display: none"
+        href="pdf-laporan-perbelanjaan-mengikut-pusat-tanggungjawab"></a>
 
     <a id="downloadexcel" style="display: none" href="{{ route('pmpt') }}"></a>
 

@@ -144,7 +144,7 @@
                                         @if ($j->kursus_status == 1)
                                             <span class="badge badge-soft-success">Aktif</span>
                                         @else
-                                            <span class="badge badge-soft-danger">Deraf</span>
+                                            <span class="badge badge-soft-danger">Draf</span>
                                         @endif
                                     </td>
                                     <td>
@@ -219,7 +219,7 @@
                     $('.datatable').dataTable().fnClearTable();
                     $('.datatable').dataTable().fnDestroy();
                     $("#t_normal").html("");
-                    
+
                     let iteration = 1;
                     jadual_kursus.forEach(e => {
                         console.log(e);
@@ -362,7 +362,7 @@
                                             +
                             (e.kursus_status == '1' ?
                                 '<span class="badge badge-soft-success">Aktif</span>' :
-                                '<span class="badge badge-soft-danger">Deraf</span>') +
+                                '<span class="badge badge-soft-danger">Draf</span>') +
                                             `
                                     </td>
                                         <td>
