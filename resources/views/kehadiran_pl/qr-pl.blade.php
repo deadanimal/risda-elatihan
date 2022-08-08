@@ -115,7 +115,7 @@
                     <div class="col" style="text-align: center">
                         <h4  style="text-transform: uppercase">{{$agensi->nama_Agensi}}</h4>
                         <h4> {{$agensi->alamat_Agensi_baris1}} <br> {{$agensi->alamat_Agensi_baris2}} <br> {{$agensi->alamat_Agensi_baris3}}
-                        {{$agensi->poskod}} {{$agensi->daerah->Daerah}}, {{$agensi->negeri->Negeri}} <br>  </h4>
+                        {{$agensi->poskod}} {{$agensi->daerah->Daerah}}, {{($agensi->negeri->Negeri?? '-') }} <br>  </h4>
                     </div>
                 </div>
 

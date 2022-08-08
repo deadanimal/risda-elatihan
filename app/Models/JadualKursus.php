@@ -80,4 +80,24 @@ class JadualKursus extends Model
         return $this->hasMany(PeruntukanPeserta::class,'id','pp_jadual_kursus');
     }
 
+    public function bidang()
+    {
+        return $this->belongsTo(BidangKursus::class, 'kursus_bidang','id' );
+    }
+
+    public function kategori_kursus()
+    {
+        return $this->belongsTo(KategoriKursus::class, 'kod_kategori','id' );
+    }
+
+    public function penilaianpeserta()
+    {
+        return $this->hasMany(PenilaianPeserta::class, 'id','kod_kursus' );
+    }
+
+
+
+
+
+
 }

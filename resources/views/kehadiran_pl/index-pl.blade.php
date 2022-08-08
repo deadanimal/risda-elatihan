@@ -74,7 +74,7 @@
                             <td>{{$loop->iteration}}</td>
                             <td>{{$agensi->nama_Agensi}}</td>
                             <td>{{$agensi->alamat_Agensi_baris1}} {{$agensi->alamat_Agensi_baris2}} {{$agensi->alamat_Agensi_baris3}}
-                                <br>{{$agensi->poskod}} {{$agensi->daerah->Daerah}}, {{$agensi->negeri->Negeri}}</td>
+                                <br>{{$agensi->poskod}} {{$agensi->daerah->Daerah}}, {{($agensi->negeri->Negeri?? '-') }}</td>
                             <td class=" text-end"><a href="/kehadiran_ke_pl/{{$agensi->id}}"
                                     class="btn btn-primary btn-sm">REKOD KEHADIRAN</a></td>
                         </tr>

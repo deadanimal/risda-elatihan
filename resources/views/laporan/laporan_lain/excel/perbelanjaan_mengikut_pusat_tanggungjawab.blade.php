@@ -12,54 +12,21 @@
                  </tr>
              </thead>
              <tbody>
-                 <tr>
-                     <td>1</td>
-                     <td>BAHAGIAN LATIHAN</td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                 </tr>
-                 <tr>
-                     <td>2</td>
-                     <td>RISTEC</td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                 </tr>
-                 <tr>
-                     <td>3</td>
-                     <td>IKPK PERAK</td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                 </tr>
-                 <tr>
-                     <td>4</td>
-                     <td>IKPK KELANTAN</td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                 </tr>
-                 <tr>
-                     <td>5</td>
-                     <td>VIREMEN PT (LI)</td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                 </tr>
-                 <tr>
-                     <td>6</td>
-                     <td>VIREMEN WEBINAR (BPU)</td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                 </tr>
+
+                @foreach ($perbelanjaan as $p)
+                <tr>
+                    <td></td>
+                    <td>{{$p->pt->nama_PT}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                @endforeach
+
+                 {{-- @endforeach --}}
+
              </tbody>
          </table>
      </div>

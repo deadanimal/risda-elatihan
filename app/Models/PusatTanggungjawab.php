@@ -19,4 +19,19 @@ class PusatTanggungjawab extends Model
         return $this->hasOne(Negeri::class, 'Negeri_Rkod', 'kod_Negeri_PT');
     }
 
+    public function peruntukan(){
+        return $this->hasMany(PeruntukanPeserta::class,'id','pp_jadual_kursus');
+    }
+
+    public function perbelanjaankursus(){
+        return $this->hasOne(PerbelanjaanKursus::class,'kod_PT','Kod_PT');
+    }
+
+    public function peruntukanpeserta(){
+        return $this->hasMany(PeruntukanPeserta::class,'id','pp_pusat_tanggungjawab');
+    }
+
+
+
+
 }

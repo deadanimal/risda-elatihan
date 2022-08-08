@@ -195,10 +195,12 @@ class PermohonanController extends Controller
 
         if ($permohonan->status_permohonan == '4') {
 
-            Mail::to('najhan.mnajib@gmail.com')->send(new PermohonanLulus($permohonan, $agensi));
+
+            Mail::to('azyfays@gmail.com')->send(new PermohonanLulus($permohonan, $agensi));
         } elseif ($permohonan->status_permohonan == '5') {
 
-            Mail::to('najhan.mnajib@gmail.com')->send(new PermohonanGagal($permohonan));
+            Mail::to('azyfays@gmail.com')->send(new PermohonanGagal($permohonan));
+
         }
         alert()->success('Status permohonan telah dikemaskini', 'Berjaya');
         return redirect('/permohonan_kursus/semakan_permohonan');

@@ -12,6 +12,11 @@ class PerbelanjaanKursus extends Model
 
     public function jadual_kursus()
     {
-        return $this->hasOne(JadualKursus::class, 'id', 'jadualkursus_id');
+        return $this->belongsTo(JadualKursus::class, 'id', 'jadualkursus_id');
+    }
+
+    public function pt()
+    {
+        return $this->belongsTo(PusatTanggungjawab::class, 'Kod_PT', 'kod_PT');
     }
 }

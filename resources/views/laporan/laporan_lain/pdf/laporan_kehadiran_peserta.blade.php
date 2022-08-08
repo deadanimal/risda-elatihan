@@ -1,6 +1,33 @@
+<head>
+    <title>Laporan Kehadiran Peserta</title>
+
+    <style type="text/css">
+@page {
+  size: A4 landscape;
+  margin: 30px;
+}
+
+
+
+    table,th,td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        font-size: 10px;
+        padding: 5px;
+        text-transform: capitalize;
+    }
+    td{
+        text-align: center;
+    }
+
+</style>
+</head>
+
+<body>
  <div class="table-responsive scrollbar ">
-     <table class="table text-center table-bordered datatable " style="vertical-align: middle;border-color: #00B64E;">
-         <thead class="risda-bg-g" style="vertical-align: middle">
+     {{-- <table class="table text-center table-bordered datatable " style="vertical-align: middle;border-color: #00B64E;"> --}}
+        <table width="100%">
+         <thead>
 
              <tr>
                  <th>BIL</th>
@@ -11,10 +38,10 @@
                  <th>TARIKH KURSUS</th>
                  <th>TEMPAT KURSUS</th>
                  <th>ANJURAN</th>
-                 <th>NO KAD PENGENALAN</th>
+                 <th>NO KP</th>
                  <th>NAMA PEMOHON</th>
                  <th>GRED</th>
-                 <th>PUSAT TANGGUNGJAWAB</th>
+                 <th>PUSAT TANGGUNG-<br>JAWAB</th>
                  <th>STATUS KEHADIRAN</th>
                  <th>CATATAN</th>
              </tr>
@@ -42,3 +69,4 @@
          </tbody>
      </table>
  </div>
+</body>

@@ -33,4 +33,9 @@ class KategoriKursus extends Model
     {
         return $this->hasOne(MatlamatTahunanPanggilanPeserta::class, 'kategori_ref', 'id');
     }
+
+    public function kursus()
+    {
+        return $this->hasMany(JadualKursus::class, 'kod_kategori', 'id');
+    }
 }

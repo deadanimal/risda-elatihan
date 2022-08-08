@@ -66,7 +66,7 @@
         </div>
     </div>
 
-    <a id="downloadpdf" download="LaporanPrestasiKehadiranPeserta.pdf" style="display: none" href="#"></a>
+    <a id="downloadpdf" style="display: none" href="pdf-ringkasan-penceramah-kursus"></a>
 
     <a id="downloadexcel" style="display: none" href="{{ route('rp') }}"></a>
 
