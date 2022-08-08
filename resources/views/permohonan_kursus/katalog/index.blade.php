@@ -4,7 +4,6 @@
         background-color: red;
         border-radius: 10px;
     }
-
 </style>
 @section('content')
     @php
@@ -61,66 +60,69 @@
 
         <div class="row mt-5" id="katalog_normal">
             @foreach ($jadual as $j)
-                <div class="col-lg-4 mb-5">
-                    <div class="card risda-bg-g">
-                        <div class="card-img-top">
-                            <img class="img-fluid" src="/img/katelog-card-bg.png"
-                                style="width:100%; max-height: 165; opacity: 50%; filter: brightness(50%);">
-                        </div>
-                        <div class="card-img-overlay pt-0">
-                            @if ($j->kursus_tarikh_tutup > date('Y-m-d'))
-                                <div class="row justify-content-end">
-                                    <div class="col-4"
-                                        style="background-color: #EDC500; border-bottom-left-radius: 10px; height: 3em;">
-                                        <p class="fw-bold text-end text-white my-2">DIBUKA</p>
-                                    </div>
-                                </div>
-                            @else
-                                @if ($j->tarikh_tamat < date('Y-m-d'))
+                @if (str_contains($j->kursus_kumpulan_sasaran, $gred))
+                    <div class="col-lg-4 mb-5">
+                        <div class="card risda-bg-g">
+                            <div class="card-img-top">
+                                <img class="img-fluid" src="/img/katelog-card-bg.png"
+                                    style="width:100%; max-height: 165; opacity: 50%; filter: brightness(50%);">
+                            </div>
+                            <div class="card-img-overlay pt-0">
+                                @if ($j->kursus_tarikh_tutup > date('Y-m-d'))
                                     <div class="row justify-content-end">
                                         <div class="col-4"
-                                            style="background-color: gray; border-bottom-left-radius: 10px; height: 3em;">
-                                            <p class="fw-bold text-end text-white my-2">SELESAI</p>
+                                            style="background-color: #EDC500; border-bottom-left-radius: 10px; height: 3em;">
+                                            <p class="fw-bold text-end text-white my-2">DIBUKA</p>
                                         </div>
                                     </div>
                                 @else
-                                    <div class="row justify-content-end">
-                                        <div class="col-4"
-                                            style="background-color: red; border-bottom-left-radius: 10px; height: 3em;">
-                                            <p class="fw-bold text-end text-white my-2">DITUTUP</p>
+                                    @if ($j->tarikh_tamat < date('Y-m-d'))
+                                        <div class="row justify-content-end">
+                                            <div class="col-4"
+                                                style="background-color: gray; border-bottom-left-radius: 10px; height: 3em;">
+                                                <p class="fw-bold text-end text-white my-2">SELESAI</p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    @else
+                                        <div class="row justify-content-end">
+                                            <div class="col-4"
+                                                style="background-color: red; border-bottom-left-radius: 10px; height: 3em;">
+                                                <p class="fw-bold text-end text-white my-2">DITUTUP</p>
+                                            </div>
+                                        </div>
+                                    @endif
                                 @endif
-                            @endif
 
-                            <p class="fw-bold text-center text-white mt-3 mb-0">NAMA KURSUS</p>
-                            <p class="h4 fw-bold text-center text-white">{{ $j->kursus_nama }}</p>
+                                <p class="fw-bold text-center text-white mt-3 mb-0">NAMA KURSUS</p>
+                                <p class="h4 fw-bold text-center text-white">{{ $j->kursus_nama }}</p>
+                            </div>
+                            <div class="card-body my-2 py-0">
+                                <p class="card-text my-0 p-0 text-white">KOD KURSUS</p>
+                                <h5 class="card-title my-0 p-0 text-white">{{ $j->kursus_kod_nama_kursus }}</h5>
+                            </div>
+                            <div class="card-body my-2 mt-0 py-0">
+                                <p class="card-text my-0 p-0 text-white">TARIKH KURSUS</p>
+                                <h5 class="card-title my-0 p-0 text-white">{{ date('d-m-Y', strtotime($j->tarikh_mula)) }}
+                                    -
+                                    {{ date('d-m-Y', strtotime($j->tarikh_tamat)) }}</h5>
+                            </div>
+                            <div class="card-body my-2 mt-0 py-0 mb-3">
+                                <p class="card-text my-0 p-0 text-white">TEMPAT KURSUS</p>
+                                <h5 class="card-title my-0 p-0 text-white">
+                                    @php
+                                        $tempat = Agensi::find($j->kursus_tempat);
+                                        $tempat_kursus = $tempat->nama_Agensi;
+                                    @endphp
+                                    {{ $tempat_kursus }}
+                                </h5>
+                            </div>
                         </div>
-                        <div class="card-body my-2 py-0">
-                            <p class="card-text my-0 p-0 text-white">KOD KURSUS</p>
-                            <h5 class="card-title my-0 p-0 text-white">{{ $j->kursus_kod_nama_kursus }}</h5>
-                        </div>
-                        <div class="card-body my-2 mt-0 py-0">
-                            <p class="card-text my-0 p-0 text-white">TARIKH KURSUS</p>
-                            <h5 class="card-title my-0 p-0 text-white">{{ date('d-m-Y', strtotime($j->tarikh_mula)) }} -
-                                {{ date('d-m-Y', strtotime($j->tarikh_tamat)) }}</h5>
-                        </div>
-                        <div class="card-body my-2 mt-0 py-0 mb-3">
-                            <p class="card-text my-0 p-0 text-white">TEMPAT KURSUS</p>
-                            <h5 class="card-title my-0 p-0 text-white">
-                                @php
-                                    $tempat = Agensi::find($j->kursus_tempat);
-                                    $tempat_kursus = $tempat->nama_Agensi;
-                                @endphp
-                                {{ $tempat_kursus }}
-                            </h5>
+                        <div class="text-center mt-3">
+                            <a class="btn btn-primary btn-sm"
+                                href="/permohonan_kursus/katalog_kursus/{{ $j->id }}">Maklumat Lanjut</a>
                         </div>
                     </div>
-                    <div class="text-center mt-3">
-                        <a class="btn btn-primary btn-sm"
-                            href="/permohonan_kursus/katalog_kursus/{{ $j->id }}">Maklumat Lanjut</a>
-                    </div>
-                </div>
+                @endif
             @endforeach
         </div>
 
@@ -210,7 +212,7 @@
             });
         });
 
-        $('#tajuk_kursus').change(function(){
+        $('#tajuk_kursus').change(function() {
             $('#katalog_normal').hide();
             $('#katalog_tajuk').show();
             $('#katalog_katkur').hide();

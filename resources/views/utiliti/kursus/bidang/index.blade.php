@@ -31,7 +31,7 @@
                                         @csrf
                                         <div class="mb-3">
                                             <label class="col-form-label">UNIT LATIHAN</label>
-                                            <select class="form-select" name="UL_Bidang_Kursus" id="unitlatihan">
+                                            <select class="form-select form-control" name="UL_Bidang_Kursus" id="unitlatihan">
                                                 <option selected="" hidden>Sila Pilih</option>
                                                 <option value="Staf">Staf</option>
                                                 <option value="Pekebun Kecil">Pekebun Kecil</option>
@@ -128,7 +128,7 @@
                                                             @csrf
                                                             <div class="mb-3">
                                                                 <label class="col-form-label">UNIT LATIHAN</label>
-                                                                <select class="form-select" name="UL_Bidang_Kursus">
+                                                                <select class="form-select form-control" name="UL_Bidang_Kursus">
                                                                     <option selected="" hidden
                                                                         value="{{ $bk->UL_Bidang_Kursus }}">
                                                                         {{ $bk->UL_Bidang_Kursus }}</option>

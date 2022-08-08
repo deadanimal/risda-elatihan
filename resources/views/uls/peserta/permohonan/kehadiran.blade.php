@@ -92,9 +92,9 @@
                 </div>
             </div>
         </div>
-
-        {{-- table kehadiran SEBELUM KE KURSUS --}}
+        
         <div class="card mt-5">
+            {{-- table kehadiran SEBELUM KE KURSUS --}}
             <div class="table-responsive scrollbar rounded" id="table-kehadiran-sebelum-kursus">
                 <table class="table table-bordered text-center">
                     <thead>
@@ -246,10 +246,12 @@
                                     @if (date('Y-m-d') >= $date[$k->ac_hari - 1])
                                         @if ($k->status_ke_kursus['status_kehadiran_ke_kursus'] == null)
                                             TIDAK HADIR
-                                        @elseif($k->status_ke_kursus['status_kehadiran_ke_kursus'] == 'TIDAK HADIR')
-                                            TIDAK HADIR
                                         @else
-                                            {{ $k->status_ke_kursus['status_kehadiran_ke_kursus'] }}
+                                            @if($k->status_ke_kursus['status_kehadiran_ke_kursus'] == 'TIDAK HADIR')
+                                                TIDAK HADIR
+                                            @else
+                                                {{ $k->status_ke_kursus['status_kehadiran_ke_kursus'] }}
+                                            @endif
                                         @endif
                                     @else
                                     @endif
@@ -257,11 +259,24 @@
                                 <td>
                                     @if (date('Y-m-d') >= $date[$k->ac_hari - 1])
                                         @if ($k->status_ke_kursus['alasan_ketidakhadiran_ke_kursus'] == null)
-                                            <button class="btn btn-primary mx-0" type="button" onclick=""
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#pengesahan-kehadiran{{ $k->id }}">
-                                                Pengesahan Kehadiran
-                                            </button>
+                                            @if ($k->status_ke_kursus['status_kehadiran_ke_kursus'] == null)
+                                                <button class="btn btn-primary mx-0" type="button" onclick=""
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#pengesahan-kehadiran{{ $k->id }}">
+                                                    Pengesahan Kehadiran
+                                                </button> 
+                                            @else
+                                                @if($k->status_ke_kursus['status_kehadiran_ke_kursus'] == 'TIDAK HADIR')
+                                                    <button class="btn btn-primary mx-0" type="button" onclick=""
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#pengesahan-kehadiran{{ $k->id }}">
+                                                        Pengesahan Kehadiran
+                                                    </button>
+                                                @else
+                                                    -
+                                                @endif
+                                            @endif
+                                            
                                         @else
                                             {{ $k->status_ke_kursus['alasan_ketidakhadiran_ke_kursus'] ?? '' }}
                                         @endif

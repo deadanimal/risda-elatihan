@@ -16,44 +16,52 @@
             </div>
         </div>
 
-        <form action="/pengurusan_kursus/nota_rujukan" method="POST" enctype="multipart/form-data">
-            @csrf
-            <input type="hidden" name="nr_jadual_kursus" value="{{ $id }}">
-            <div class="row justify-content-lg-center mt-3">
-                <div class="col-lg-10 ">
-
-                    <div class="row">
-                        <div class="col-lg-3 p-0">
-                            <label class="col-form-label">NOTA RUJUKAN</label>
-                        </div>
-                        <div class="col-lg-9">
-                            <input type="text" name="nr_nota_rujukan" class="form-control">
-                            {{-- <select class="form-select  form-control" name="nr_nota_rujukan" id="nr_nota_rujukan">
-                                <option selected="" aria-placeholder="Sila Pilih" hidden></option>
-                            </select> --}}
+        <div class="card">
+            <div class="card-header">
+                <h5 class="h5">Tambah Nota Rujukan</h5>
+                <hr class="mt-0">
+            </div>
+            <div class="card-body">
+                <form action="/pengurusan_kursus/nota_rujukan" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="nr_jadual_kursus" value="{{ $id }}">
+                    <div class="row justify-content-lg-center">
+                        <div class="col-lg-10 ">
+        
+                            <div class="row">
+                                <div class="col-lg-3 p-0">
+                                    <label class="col-form-label">NOTA RUJUKAN</label>
+                                </div>
+                                <div class="col-lg-9">
+                                    <input type="text" name="nr_nota_rujukan" class="form-control">
+                                    {{-- <select class="form-select  form-control" name="nr_nota_rujukan" id="nr_nota_rujukan">
+                                        <option selected="" aria-placeholder="Sila Pilih" hidden></option>
+                                    </select> --}}
+                                </div>
+                            </div>
+        
+                            <div class="row mt-2">
+                                <div class="col-lg-3 p-0">
+                                    <label class="col-form-label">MUAT NAIK DOKUMEN</label>
+                                </div>
+                                <div class="col-lg-9">
+                                    <input type="file" class="form-control" name="nr_dokumen">
+                                </div>
+                            </div>
+        
                         </div>
                     </div>
-
-                    <div class="row mt-2">
-                        <div class="col-lg-3 p-0">
-                            <label class="col-form-label">MUAT NAIK DOKUMEN</label>
-                        </div>
-                        <div class="col-lg-9">
-                            <input type="file" class="form-control" name="nr_dokumen">
+        
+                    <div class="row mt-4">
+                        <div class="col text-end">
+                            <button class="btn btn-sm btn-primary" type="submit">
+                                <i class="fas fa-plus"></i> TAMBAH
+                            </button>
                         </div>
                     </div>
-
-                </div>
+                </form>
             </div>
-
-            <div class="row mt-4">
-                <div class="col">
-                    <button class="btn btn-sm btn-primary" type="submit">
-                        <i class="fas fa-plus"></i> TAMBAH
-                    </button>
-                </div>
-            </div>
-        </form>
+        </div>
 
         <div class="row mt-4">
             <div class="col">

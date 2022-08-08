@@ -262,7 +262,7 @@
                                 <div class="modal-body p-0">
                                     <div class="row">
                                         <div class="col text-center m-3">
-                                            <i class="far fa-exclamation-square risda-g fa-7x"></i>
+                                            <i class="far fa-question-circle risda-g fa-7x"></i>
                                             <br><br>
                                             Adakan anda pasti untuk memohon kursus
                                             {{ $jadual->kursus_kod_nama_kursus }} {{ $jadual->kursus_nama }}?

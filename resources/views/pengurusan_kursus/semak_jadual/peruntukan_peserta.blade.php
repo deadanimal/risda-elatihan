@@ -20,62 +20,70 @@
             </div>
         </div>
 
-        <form action="/pengurusan_kursus/peruntukan_peserta" method="post" id="form1">
-            @csrf
-            <input type="hidden" name="pp_jadual_kursus" value="{{ $jadualKursus->id }}">
-            <div class="row justify-content-lg-center mt-3">
-                <div class="col-lg-10 ">
-
-                    <div class="row">
-                        <div class="col-lg-3 p-lg-0">
-                            <label class="col-form-label">NEGERI</label>
-                        </div>
-                        <div class="col-lg-9">
-                            <select class="form-select  form-control" name="pp_negeri" id="pp_negeri">
-                                <option selected="" value="" hidden>Sila Pilih</option>
-                                @foreach ($negeri as $n)
-                                    @if ($n->status_negeri == '1')
-                                        <option value="{{ $n->id }}">{{ $n->Negeri }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row mt-2">
-                        <div class="col-lg-3 p-lg-0">
-                            <label class="col-form-label">PUSAT TANGGUNGJAWAB</label>
-                        </div>
-                        <div class="col-lg-9">
-                            <select class="form-select form-control" name="pp_pusat_tanggungjawab"
-                                id="pp_pusat_tanggungjawab">
-                                <option selected="" value="" hidden>Sila Pilih</option>
-                                @foreach ($pusat_tanggungjawab as $pt)
-                                    <option value="{{ $pt->id }}">{{ $pt->nama_PT }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row mt-2">
-                        <div class="col-lg-3 p-lg-0">
-                            <label class="col-form-label">PERUNTUKAN CALON</label>
-                        </div>
-                        <div class="col-lg-9">
-                            <input type="number" class="form-control" name="pp_peruntukan_calon">
-                        </div>
-                    </div>
-
-                    <div class="row mt-3">
-                        <div class="col text-end">
-                            <button class="btn btn-sm btn-primary" type="submit">
-                                <i class="fas fa-plus"></i> TAMBAH
-                            </button>
-                        </div>
-                    </div>
-                </div>
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="h5">Tambah Peruntukan</h5>
+                <hr class="mt-0 pt-0">
             </div>
-        </form>
+            <div class="card-body">
+                <form action="/pengurusan_kursus/peruntukan_peserta" method="post" id="form1">
+                    @csrf
+                    <input type="hidden" name="pp_jadual_kursus" value="{{ $jadualKursus->id }}">
+                    <div class="row justify-content-lg-center">
+                        <div class="col-lg-10 ">
+        
+                            <div class="row">
+                                <div class="col-lg-3 p-lg-0">
+                                    <label class="col-form-label">NEGERI</label>
+                                </div>
+                                <div class="col-lg-9">
+                                    <select class="form-select  form-control" name="pp_negeri" id="pp_negeri">
+                                        <option selected value="" hidden>Sila Pilih</option>
+                                        @foreach ($negeri as $n)
+                                            @if ($n->status_negeri == '1')
+                                                <option rkod="{{$n->Negeri_Rkod}}" value="{{ $n->U_Negeri_ID }}">{{ $n->Negeri }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+        
+                            <div class="row mt-2">
+                                <div class="col-lg-3 p-lg-0">
+                                    <label class="col-form-label">PUSAT TANGGUNGJAWAB</label>
+                                </div>
+                                <div class="col-lg-9">
+                                    <select class="form-select form-control" name="pp_pusat_tanggungjawab"
+                                        id="pp_pusat_tanggungjawab">
+                                        <option selected value="" hidden>Sila Pilih</option>
+                                        @foreach ($pusat_tanggungjawab as $pt)
+                                            <option value="{{ $pt->kod_PT }}">{{ $pt->nama_PT }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+        
+                            <div class="row mt-2">
+                                <div class="col-lg-3 p-lg-0">
+                                    <label class="col-form-label">PERUNTUKAN CALON</label>
+                                </div>
+                                <div class="col-lg-9">
+                                    <input type="number" class="form-control" name="pp_peruntukan_calon">
+                                </div>
+                            </div>
+        
+                            <div class="row mt-3">
+                                <div class="col text-end">
+                                    <button class="btn btn-sm btn-primary" type="submit">
+                                        <i class="fas fa-plus"></i> TAMBAH
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
 
         <div class="row mt-4">
             <div class="col">
@@ -95,20 +103,8 @@
                                 @foreach ($peruntukan_peserta as $key => $pp)
                                     <tr>
                                         <td>{{ $key + 1 }}.</td>
-                                        <td>
-                                            @php
-                                                $negeriPP = Negeri::find($pp->pp_negeri);
-                                                $negeriPP = $negeriPP->Negeri;
-                                            @endphp
-                                            {{ $negeriPP }}
-                                        </td>
-                                        <td>
-                                            @php
-                                                $ptPP = PusatTanggungjawab::find($pp->pp_pusat_tanggungjawab);
-                                                $ptPP = $ptPP->nama_PT;
-                                            @endphp
-                                            {{ $ptPP }}
-                                        </td>
+                                        <td>{{$pp->negeri->Negeri}}</td>
+                                        <td>{{$pp->pusat_tanggungjawab->nama_PT}}</td>
                                         <td>{{ $pp->pp_peruntukan_calon }}</td>
                                         <td>
                                             <button class="btn risda-bg-dg text-white" type="button" data-bs-toggle="modal"
@@ -188,6 +184,7 @@
 
     <script>
         $('#pp_negeri').change(function() {
+            var negeri_rkod = $('#pp_negeri').children(":selected").attr("rkod");
 
             $('#form1 select[name=pp_pusat_tanggungjawab]').html("");
             var pt = @json($pusat_tanggungjawab->toArray());
@@ -195,11 +192,11 @@
 
             let option_new = "";
             $('#form1 select[name=pp_pusat_tanggungjawab]').append(
-                `<option value='' selected='' hidden>Sila Pilih</option>`);
+                `<option value='' selected hidden>Sila Pilih</option>`);
             pt.forEach(element => {
-                if (this.value == element.kod_Negeri_PT) {
+                if (negeri_rkod == element.kod_Negeri_PT) {
                     $('#form1 select[name=pp_pusat_tanggungjawab]').append(
-                        `<option value=${element.id}>${element.nama_PT}</option>`);
+                        `<option value=${element.kod_PT}>${element.nama_PT}</option>`);
                 }
             });
         });

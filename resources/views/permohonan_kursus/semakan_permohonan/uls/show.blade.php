@@ -140,7 +140,7 @@
     
                             <select name="status_permohonan" class="form-control" required oninvalid="this.setCustomValidity('Sila isi bahagian ini')" oninput="setCustomValidity('')">
                                 @if ($user->status_permohonan == '1')
-                                    @role('Penyokong')
+                                    @role('Penyokong ULS')
                                         <option hidden value="" selected disabled>Sila Pilih</option>
                                         <option value="2">Sokong</option>
                                         <option value="3">Tidak Sokong</option>
@@ -149,7 +149,7 @@
                                     @endrole
                                 @else
                                     <option value=""  hidden selected>Sila Pilih</option>
-                                    @role('Penyokong')
+                                    @role('Penyokong ULS')
                                         <option value="" hidden selected disabled>Belum disemak</option>
                                     @else
                                         @if ($user->status_permohonan == '0')
@@ -166,13 +166,13 @@
                     <div class="row mt-3">
                         <div class="col-lg-9 text-end">
                             @if ($user->status_permohonan == '1')
-                                @role('Penyokong')
+                                @role('Penyokong ULS')
                                     <button type="submit" class="btn btn-primary text-white btn-sm">Hantar</button>
                                 @else
                                     <button type="submit" disabled class="btn btn-secondary text-white btn-sm">Hantar</button>
                                 @endrole
                             @else
-                                @role('Penyokong')
+                                @role('Penyokong ULS')
                                     <button type="submit" disabled class="btn btn-secondary text-white btn-sm">Hantar</button>
                                 @else
                                     <button type="submit" class="btn btn-primary text-white btn-sm">Hantar</button>
