@@ -95,6 +95,11 @@ class JadualKursus extends Model
         return $this->hasMany(PenilaianPeserta::class, 'id','kod_kursus' );
     }
 
+    public function pretest()
+    {
+        return $this->hasMany(PrePostTest::class, 'id');
+    }
+
 
 
 

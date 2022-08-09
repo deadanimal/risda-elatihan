@@ -21,15 +21,15 @@
                 </p>
             </div>
         </div>
-
-        <div class="row justify-content-center my-5">
+        {{-- <input type="hidden" value={{$pretest->kursus->id}}> --}}
+            <div class="row justify-content-center my-5">
             <div class="col-8">
                 <div class="row mt-3">
                     <div class="col-lg-4">
                         <p class="risda-dg h5 mt-2">NAMA KURSUS</p>
                     </div>
                     <div class="col-lg-6">
-                        <input type="date" class="form-control">
+                        <input type="text" class="form-control" value="{{$pretest->kursus->kursus_nama}}">
                     </div>
                 </div>
 
@@ -47,7 +47,12 @@
                         <p class="risda-dg h5 mt-2">TARIKH KURSUS</p>
                     </div>
                     <div class="col-lg-6">
-                        <input type="date" class="form-control">
+                        @if($kursus->bilangan_hari==1)
+                           <input type="text" class="form-control"value="{{date('d/m/Y', strtotime($kursus->tarikh_mula))}}">
+                        @else
+                            <input type="text" class="form-control" value="{{date('d/m/Y', strtotime($kursus->tarikh_mula))}} - {{date('d/m/Y', strtotime($kursus->tarikh_tamat))}}">
+                        @endif
+
                     </div>
                 </div>
 
@@ -88,6 +93,12 @@
         </div>
     </div>
 
+    <a id="downloadpdf" style="display: none" download="kehadiran-peserta"
+    href="penilaian-prepost-pdf">Download</a>
+<a id="downloadexcel" style="display: none" href="penilaian-prepost-excel" download="kehadiran-peserta">Download</a>
+
+
+
     <hr style="color: rgba(81,179,90, 60%);height:2px;">
 
     <div class="card mt-5 ">
@@ -127,7 +138,11 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($collection as $item)
+
+                        @endforeach
                         <tr>
+
                             <td></td>
                             <td></td>
                             <td></td>

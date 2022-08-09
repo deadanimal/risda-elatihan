@@ -15,4 +15,9 @@ class PrePostTest extends Model
     {
         return $this->hasMany(JawapanMultiple::class, 'soalan_id', 'id');
     }
+
+    public function kursus()
+    {
+        return $this->belongsTo(JadualKursus::class, 'id', 'jadual_kursus_id');
+    }
 }

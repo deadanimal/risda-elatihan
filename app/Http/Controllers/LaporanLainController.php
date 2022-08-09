@@ -24,6 +24,9 @@ use App\Models\PeruntukanPeserta;
 use App\Models\PenilaianPeserta;
 use App\Models\Staf;
 use App\Models\User;
+use App\Models\PrePostTest;
+use App\Policies\PreTestPolicy;
+
 use function PHPUnit\Framework\isEmpty;
 use Illuminate\Support\Facades\Http;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -409,10 +412,36 @@ class LaporanLainController extends Controller
         return view('laporan.laporan_lain.laporan-penilaian-kursus-uls');
     }
 
-    public function laporan_penilaian_prepost_show()
+    public function senarai_kursus()
     {
 
-        return view('laporan.laporan_lain.laporan-penilaian-prepost-show');
+        $kursus = JadualKursus::with(['bidang','tempat','kategori_kursus','pengendali'])->get();
+
+        return view('laporan.laporan_lain.penilaian.senarai_kursus',[
+            'kursus'=>$kursus
+        ]);
+    }
+
+    public function laporan_penilaian_prepost_show()
+    {
+        $pretest=PrePostTest::with('kursus');
+
+        return view('laporan.laporan_lain.laporan-penilaian-prepost-show',[
+            'pretest'=>$pretest
+        ]);
+    }
+    public function excel_penilaian_prepost_show()
+    {
+ 
+    }
+
+    public function pdf_penilaian_prepost_show()
+    {
+        $pretest=PrePostTest::with('kursus');
+
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-penilaian-prepost-show',[
+            'pretest'=>$pretest
+        ]);
     }
 
     public function laporan_penilaian_prepost_ulpk_show()

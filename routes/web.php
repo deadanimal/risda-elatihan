@@ -422,7 +422,12 @@ Route::middleware('auth')->group(function () {
             Route::get('pdf-penilaian-ejen-pelaksana', [LaporanLainController::class, 'excel_laporan_penilaian_ejen']);
 
             Route::get('laporan-penilaian-kursus/uls', [LaporanLainController::class, 'laporan_penilaian_kursus_uls']);
+
+            Route::get('laporan-senarai-kursus', [LaporanLainController::class, 'senarai_kursus']);
             Route::get('laporan-penilaian-prepost', [LaporanLainController::class, 'laporan_penilaian_prepost_show']);
+            Route::get('penilaian-prepost-excel', [LaporanLainController::class, 'laporan_penilaian_prepost_show']);
+            Route::get('penilaian-prepost-pdf', [LaporanLainController::class, 'laporan_penilaian_prepost_show']);
+            Route::get('laporan-penilaian-prepost/{id}', [LaporanLainController::class, 'laporan_penilaian_prepost_show']);
 
             Route::get('laporan-penilaian-peserta', [LaporanLainController::class, 'laporan_penilaian_peserta']);
             Route::get('pdf-penilaian-peserta', [LaporanLainController::class, 'pdf_laporan_penilaian_peserta']);
