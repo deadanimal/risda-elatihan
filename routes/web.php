@@ -126,6 +126,10 @@ Route::get('/test', function () {
 Route::post('/semak_nric', [SemakanController::class, 'check_espek']);
 Route::post('/daftar_pengguna', [SemakanController::class, 'daftar_pengguna']);
 
+Route::get('/selamat-datang', function () {
+    return view('welcome');
+});
+
 Route::middleware('auth')->group(function () {
 
     Route::resource('/', DashboardController::class);
@@ -236,7 +240,7 @@ Route::middleware('auth')->group(function () {
     //Peserta ULS
     Route::group(['prefix' => '/uls', 'middleware' => ['can:permohonan kursus']], function () {
         //Permohonan Peserta
-        Route::group(['prefix' => '/permohonan', 'middleware' => 'can:katelog kursus'], function () {
+        Route::group(['prefix' => '/permohonan', 'middleware' => 'can:katalog kursus'], function () {
             Route::get('statuspermohonan', [PermohonanController::class, 'indexULS']);
             Route::get('katelog-kursus', [PermohonanController::class, 'katalog_uls']);
             Route::get('kehadiran/{kod_kursus}', [KehadiranController::class, 'indexULS']);
@@ -256,7 +260,7 @@ Route::middleware('auth')->group(function () {
     //Peserta ULPK
     Route::prefix('/ulpk')->group(function () {
         //Permohonan Peserta
-        Route::group(['prefix' => '/permohonan', 'middleware' => 'can:katelog kursus'], function () {
+        Route::group(['prefix' => '/permohonan', 'middleware' => 'can:katalog kursus'], function () {
             Route::get('statuspermohonan', [PermohonanController::class, 'indexULPK']);
             Route::get('statuspermohonan/nota_rujukan/{id}', [PermohonanController::class, 'nota_rujukan']);
             Route::get('katelog-kursus', [PermohonanController::class, 'katalog_ulpk']);
@@ -335,8 +339,8 @@ Route::middleware('auth')->group(function () {
     });
 
     //penilaian
-    Route::group(['prefix' => 'penilaian', 'middleware' => 'can:penilaian'], function () {
-
+    Route::group(['prefix' => 'penilaian'], function () {
+        // 'middleware' => 'can:jawab penilaian'
         Route::middleware(['role:Superadmin BTM|Urus Setia ULS|Urus Setia ULPK'])->group(function () {
             Route::resource('/pre-post-test', PrePostTestController::class);
             Route::get('/pre-post-test/create/{jadual_kursus}', [PrePostTestController::class, 'createPrePost'])->name('createPrePost');

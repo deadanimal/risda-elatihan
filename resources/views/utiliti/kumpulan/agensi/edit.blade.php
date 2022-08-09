@@ -1,10 +1,5 @@
 @extends('layouts.risda-base')
 @section('content')
-@php
-    use App\Models\KategoriAgensi;
-    use App\Models\Negeri;
-    use App\Models\Daerah;
-@endphp
 <div class="container">
     <div class="row">
         <div class="col">
@@ -31,12 +26,9 @@
                             <div class="col">
                                 <div class="mb-3">
                                     <label class="form-label risda-dg">KATEGORI AGENSI</label>
-                                    <select class="form-select" name="kategori_agensi">
+                                    <select class="form-select form-control" name="kategori_agensi">
                                         <option selected="" hidden value="{{$agensi->kategori_agensi}}">
-                                            @php
-                                                $kk = KategoriAgensi::find($agensi->kategori_agensi);
-                                            @endphp
-                                            {{$kk->Kategori_Agensi}}
+                                            {{$agensi->kategori->Kategori_Agensi}}
                                         </option>
                                         @foreach ($kategori as $kat)
                                             @if ($kat->status_kategori_agensi == '1')
@@ -89,16 +81,13 @@
                             <div class="col-6">
                                 <div class="mb-3">
                                     <label class="form-label risda-dg">DAERAH</label>
-                                    <select class="form-select" name="U_Daerah_ID">
+                                    <select class="form-select form-control" name="U_Daerah_ID" id="daerah_form">
                                         <option selected="" hidden value="{{$agensi->U_Daerah_ID}}">
-                                            @php
-                                                $dd = Daerah::find($agensi->U_Daerah_ID);
-                                            @endphp
-                                            {{$dd->Daerah}}
+                                            {{$agensi->daerah->Daerah}}
                                         </option>
                                         @foreach ($daerah as $dae)
                                             @if ($dae->status_daerah == '1')
-                                                <option value="{{ $dae->id }}">{{ $dae->Daerah }}</option>
+                                                <option value="{{ $dae->U_Daerah_ID }}">{{ $dae->Daerah }}</option>
                                             @endif
                                         @endforeach
                                     </select>
@@ -109,12 +98,9 @@
                             <div class="col-6">
                                 <div class="mb-3">
                                     <label class="form-label risda-dg">NEGERI</label>
-                                    <select class="form-select" name="U_Negeri_ID">
+                                    <select class="form-select form-control" name="U_Negeri_ID" id="negeri_form">
                                         <option selected="" hidden value="{{$agensi->U_Negeri_ID}}">
-                                            @php
-                                                $nn = Negeri::find($agensi->U_Negeri_ID);
-                                            @endphp
-                                            {{$nn->Negeri}}
+                                            {{$agensi->negeri->Negeri}}
                                         </option>
                                         @foreach ($negeri as $neg)
                                             @if ($neg->status_negeri == '1')
@@ -158,6 +144,47 @@
         </div>
     </div>
 </div>
+
+<script>
+    $('#negeri_form').change(function() {
+        var id_negeri = this.value;
+        var list_daerah = @json($daerah->toArray());
+
+        $('#daerah_form').html('');
+        $('#daerah_form').append(`
+            <option value="" selected hidden>Sila Pilih</option>
+        `);
+        list_daerah.forEach(e => {
+            if (e.U_Negeri_ID == id_negeri) {
+                if (e.status_daerah == '1') {
+                    $('#daerah_form').append(`
+                        <option value="${e.U_Daerah_ID}">${e.Daerah}</option>
+                    `);
+                }
+            }
+        });
+    });
+
+    $('#daerah_form').change(function() {
+        var id_daerah = this.value;
+        var id_negeri = id_daerah.substring(0,2);
+        var list_negeri = @json($negeri->toArray());
+
+        $('#negeri_form').html('');
+        $('#negeri_form').append(`
+            <option value="" selected hidden>Sila Pilih</option>
+        `);
+        list_negeri.forEach(e => {
+            if (e.U_Negeri_ID == id_negeri) {
+                if (e.status_negeri == '1') {
+                    $('#negeri_form').append(`
+                        <option value="${e.U_Negeri_ID}" selected>${e.Negeri}</option>
+                    `);
+                }
+            }
+        });
+    });
+</script>
     
 
 @stop

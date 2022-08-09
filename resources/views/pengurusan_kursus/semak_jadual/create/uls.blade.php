@@ -456,13 +456,13 @@
                     kod_negeri = element.U_Negeri_ID;
 
                     list_negeri.forEach(element2 => {
-                        if (kod_negeri == element2.id) {
+                        if (kod_negeri == element2.U_Negeri_ID) {
                             negeri = element2.Negeri;
                         }
                     });
 
                     list_daerah.forEach(element3 => {
-                        if (kod_daerah == element3.id) {
+                        if (kod_daerah == element3.U_Daerah_ID) {
                             daerah = element3.Daerah;
                         }
                     });

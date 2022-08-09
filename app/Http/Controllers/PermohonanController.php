@@ -81,6 +81,7 @@ class PermohonanController extends Controller
 
     public function katalog_uls()
     {
+        $gred = Staf::where('id_Pengguna', Auth::id())->first()->Gred;
         $kategori = KategoriKursus::where('UL_Kategori_Kursus', 'Staf')->get();
         $tajuk = JadualKursus::where('kursus_unit_latihan', 'Staf')->get();
         // dd($tajuk);
@@ -91,7 +92,8 @@ class PermohonanController extends Controller
             'jadual' => $jadual,
             'kategori' => $kategori,
             'tajuk' => $tajuk,
-            'lokasi' => $lokasi
+            'lokasi' => $lokasi,
+            'gred' => $gred
         ]);
     }
 
@@ -159,6 +161,7 @@ class PermohonanController extends Controller
     {
         $jadual = JadualKursus::find($id);
         $pengendali = Agensi::where('id', $jadual->kursus_pengendali_latihan)->first();
+        $jadual->kursus_kumpulan_sasaran = unserialize($jadual->kursus_kumpulan_sasaran);
         return view('permohonan_kursus.katalog.show', [
             'jadual' => $jadual,
             'pengendali' => $pengendali
@@ -192,10 +195,12 @@ class PermohonanController extends Controller
 
         if ($permohonan->status_permohonan == '4') {
 
+
             Mail::to('azyfays@gmail.com')->send(new PermohonanLulus($permohonan, $agensi));
         } elseif ($permohonan->status_permohonan == '5') {
 
             Mail::to('azyfays@gmail.com')->send(new PermohonanGagal($permohonan));
+
         }
         alert()->success('Status permohonan telah dikemaskini', 'Berjaya');
         return redirect('/permohonan_kursus/semakan_permohonan');

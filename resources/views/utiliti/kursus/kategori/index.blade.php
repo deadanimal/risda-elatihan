@@ -32,15 +32,15 @@
                                         <div class="mb-3">
                                             <label class="col-form-label">UNIT LATIHAN</label>
                                             @if (str_contains($check, 'ULS'))
-                                                <select class="form-select" name="UL_Kategori_Kursus" id="unitlatihan">
+                                                <select class="form-select form-control" name="UL_Kategori_Kursus" id="unitlatihan">
                                                     <option value="Staf" selected hidden>Staf</option>
                                                 </select>
                                             @elseif(str_contains($check, 'ULPK'))
-                                                <select class="form-select" name="UL_Kategori_Kursus" id="unitlatihan">
+                                                <select class="form-select form-control" name="UL_Kategori_Kursus" id="unitlatihan">
                                                     <option value="Pekebun Kecil" selected hidden>Pekebun Kecil</option>
                                                 </select>
                                             @else
-                                                <select class="form-select" name="UL_Kategori_Kursus" id="unitlatihan">
+                                                <select class="form-select form-control" name="UL_Kategori_Kursus" id="unitlatihan">
                                                     <option selected value="" hidden>Sila Pilih</option>
                                                     <option value="Staf">Staf</option>
                                                     <option value="Pekebun Kecil">Pekebun Kecil</option>
@@ -51,7 +51,7 @@
                                         <div class="mb-3">
                                             <label class="col-form-label">BIDANG KURSUS</label>
                                             @if (str_contains($check, 'ULS'))
-                                                <select class="form-select" name="U_Bidang_Kursus" id="kod_bidang">
+                                                <select class="form-select form-control" name="U_Bidang_Kursus" id="kod_bidang">
                                                     <option selected="" hidden>Sila Pilih</option>
                                                     @foreach ($bidangKursus as $BK)
                                                         <option value="{{ $BK->id }}">{{ $BK->nama_Bidang_Kursus }}
@@ -59,7 +59,7 @@
                                                     @endforeach
                                                 </select>
                                             @elseif(str_contains($check, 'ULPK'))
-                                                <select class="form-select" name="U_Bidang_Kursus" id="kod_bidang">
+                                                <select class="form-select form-control" name="U_Bidang_Kursus" id="kod_bidang">
                                                     <option selected="" hidden>Sila Pilih</option>
                                                     @foreach ($bidangKursus as $BK)
                                                         <option value="{{ $BK->id }}">{{ $BK->nama_Bidang_Kursus }}
@@ -67,7 +67,7 @@
                                                     @endforeach
                                                 </select>
                                             @else
-                                                <select class="form-select" name="U_Bidang_Kursus" id="kod_bidang">
+                                                <select class="form-select form-control" name="U_Bidang_Kursus" id="kod_bidang">
                                                     <option selected="" hidden>Sila Pilih</option>
                                                     {{-- @foreach ($bidangKursus as $BK)
                                                         <option value="{{ $BK->id }}">{{ $BK->nama_Bidang_Kursus }}</option>
@@ -78,7 +78,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label class="col-form-label">JENIS LATIHAN</label>
-                                            <select class="form-select" name="jenis_Kategori_Kursus" id="jenis_kategori">
+                                            <select class="form-select form-control" name="jenis_Kategori_Kursus" id="jenis_kategori">
                                                 <option selected="" hidden>Sila Pilih</option>
                                                 <option value="Dalaman">Dalaman</option>
                                                 <option value="Luaran">Luaran</option>

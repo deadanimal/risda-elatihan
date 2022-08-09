@@ -15,8 +15,18 @@ class PeruntukanPeserta extends Model
         return $this->belongsTo(JadualKursus::class,'pp_jadual_kursus','id');
     }
 
+
     public function pt(){
         return $this->belongsTo(PusatTanggungjawab::class,'pp_pusat_tanggungjawab','id');
+
+    public function negeri()
+    {
+        return $this->hasOne(Negeri::class, 'U_Negeri_ID', 'pp_negeri');
+    }
+
+    public function pusat_tanggungjawab()
+    {
+        return $this->hasOne(PusatTanggungjawab::class, 'kod_PT', 'pp_pusat_tanggungjawab');
     }
 }
 

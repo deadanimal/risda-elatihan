@@ -1,8 +1,5 @@
 @extends('layouts.risda-base')
 @section('content')
-    @php
-    use App\Models\Agensi;
-    @endphp
     <div class="container">
         <div class="row mt-3 mb-2">
             <div class="col-12 mb-2">
@@ -56,11 +53,7 @@
                     <div class="card-body risda-bg-g text-white text-center">
                         <p class="card-text my-0 p-0">TEMPAT KURSUS</p>
                         <h5 class="card-title text-white my-0 p-0">
-                            @php
-                                $tempat = Agensi::find($jadual->kursus_tempat);
-                                $tempat_kursus = $tempat->nama_Agensi;
-                            @endphp
-                            {{ $tempat_kursus }}
+                            {{ $jadual->tempat->nama_Agensi }}
                         </h5>
                     </div>
                 </div>
@@ -69,7 +62,7 @@
                 <div class="card h-100">
                     <div class="card-body risda-bg-g text-white text-center">
                         <p class="card-text my-0 p-0">MASA PENDAFTARAN</p>
-                        <h5 class="card-title text-white my-0 p-0">{{ $jadual->kursus_masa_pendaftaran }}</h5>
+                        <h5 class="card-title text-white my-0 p-0">{{ date('h:i A', strtotime($jadual->kursus_masa_pendaftaran)) }}</h5>
                     </div>
                 </div>
             </div>
@@ -98,7 +91,11 @@
                 <div class="card h-100">
                     <div class="card-body risda-bg-g text-white text-center">
                         <p class="card-text my-0 p-0">KUMPULAN SASARAN</p>
-                        <h5 class="card-title text-white my-0 p-0">{{ $jadual->kursus_kumpulan_sasaran }}</h5>
+                        <h5 class="card-title text-white my-0 p-0 text-start mx-3">
+                            @foreach ($jadual->kursus_kumpulan_sasaran as $gred)
+                                - {{$gred}} <br>
+                            @endforeach
+                        </h5>
                     </div>
                 </div>
             </div>
