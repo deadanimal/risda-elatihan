@@ -17,7 +17,8 @@ class PeruntukanPeserta extends Model
 
 
     public function pt(){
-        return $this->belongsTo(PusatTanggungjawab::class,'pp_pusat_tanggungjawab','id');
+    return $this->belongsTo(PusatTanggungjawab::class, 'pp_pusat_tanggungjawab', 'id');
+}
 
     public function negeri()
     {

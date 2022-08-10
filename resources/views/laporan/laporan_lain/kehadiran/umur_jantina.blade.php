@@ -49,93 +49,51 @@
             </div>
         </div>
 
-        <hr class="risda-g">
 
-        <div class="card mt-5 ">
-            <div class="card-header">
-                <div class="row justify-content-end">
-                    <div class="col-xl-2">
-                        <select class="form-select risda-bg-g text-white" onchange="download(this)">
-                            <option selected disabled hidden>Cetak</option>
-                            <option value="Excel">Excel</option>
-                            <option value="Pdf">PDF</option>
-                        </select>
-                    </div>
-                </div>
+        <a id="downloadpdf" style="display: none" download=""
+        href="laporan/ulpk/laporan-kehadiran/mengikut-umur-jantina-pdf">Download</a>
+        <a id="downloadexcel" style="display: none" href="mengikut-umur-jantina-excel" download="kehadiran-mengikut-umur-jantina">Download</a>
+
+<hr style="color: rgba(81,179,90, 60%);height:2px;">
+
+<div class="card mt-5 ">
+    <div class="card-header">
+        <div class="row justify-content-end">
+            <div class="col-xl-2">
+                <select class="form-select risda-bg-g text-white" onchange="download(this)">
+                    <option selected disabled hidden>Cetak</option>
+                    <option value="Excel">Excel</option>
+                    <option value="Pdf">PDF</option>
+                </select>
             </div>
-
+        </div>
+    </div>
             <div class="card-body">
-                <div class="table-responsive scrollbar ">
-                    <table class="table text-center table-bordered datatable"
-                        style="vertical-align: middle;border-color: #00B64E;">
-                        <thead class="risda-bg-g">
-                            <tr>
-                                <th rowspan="3">BIL.</th>
-                                <th rowspan="3">PUSAT LATIHAN / PUSAT TANGGUNGJAWAB</th>
-                                <th colspan="15">BILANGAN KURSUS</th>
-                            </tr>
-                            <tr>
-                                <th colspan="5">LELAKI</th>
-                                <th colspan="5">PEREMPUAN</th>
-                                <th colspan="5">JUMLAH KESELURUHAN</th>
-                            </tr>
-                            <tr>
-                                <th>19-40 TAHUN</th>
-                                <th>41-65 TAHUN</th>
-                                <th>66-70 TAHUN</th>
-                                <th>71 TAHUN DAN KEATAS</th>
-                                <th>JUMLAH</th>
-                                <th>19-40 TAHUN</th>
-                                <th>41-65 TAHUN</th>
-                                <th>66-70 TAHUN</th>
-                                <th>71 TAHUN DAN KEATAS</th>
-                                <th>JUMLAH</th>
-                                <th>19-40 TAHUN</th>
-                                <th>41-65 TAHUN</th>
-                                <th>66-70 TAHUN</th>
-                                <th>71 TAHUN DAN KEATAS</th>
-                                <th>JUMLAH</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                           @foreach($kehadiran_pl as $pl)
-                            <tr>
-                                <td>{{$loop->iteration}}
-                                <td>{{($pl->tempat_kursus->nama_Agensi ?? '-') }}</td>
-                                <td>{{($tot_kursus ?? '-') }}</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            @endforeach
+                @include(
+                    'laporan.laporan_lain.excel.laporan_kehadiran_umur_jantina'
+                )
 
 
-                        </tbody>
-                    </table>
-                </div>
 
             </div>
         </div>
     </div>
-
-
-
-
 
     <script>
         $(document).ready(function() {
             $("th").addClass('fw-bold text-white');
         });
     </script>
+
+<script>
+    function download(el) {
+        let val = el.value;
+        if (val == "Pdf") {
+            document.getElementById('downloadpdf').click();
+        }
+        if (val == "Excel") {
+            document.getElementById('downloadexcel').click();
+        }
+    }
+</script>
 @endsection
