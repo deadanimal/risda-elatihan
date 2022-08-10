@@ -89,7 +89,7 @@
                         <a href="#" class="btn btn-sm btn-primary"> <span class="fas fa-search"></span> Carian</a>
                     </div>
                 </div>
-            </div>
+            <-/div>
         </div>
     </div>
 

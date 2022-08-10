@@ -45,6 +45,11 @@
         </div>
     </div>
 
+    <a id="downloadpdf" style="display: none" download="kehadiran-peserta"
+            href="pdf-laporan-kehadiran-peserta">Download</a>
+    <a id="downloadexcel" style="display: none" href="excel-kehadiran-peserta" download="kehadiran-peserta">Download</a>
+
+
     <hr style="color: rgba(81,179,90, 60%);height:2px;">
 
     <div class="card mt-5 ">
@@ -61,7 +66,11 @@
         </div>
 
         <div class="card-body">
-            <div class="table-responsive scrollbar ">
+
+            @include(
+                'laporan.laporan_lain.excel.laporan_penilaian_ejen'
+            )
+            {{-- <div class="table-responsive scrollbar ">
                 <table class="table text-center table-bordered datatable " border-color: #00B64E;">
                     <thead class="risda-bg-g" style="vertical-align: middle">
 
@@ -88,12 +97,12 @@
                         </td>
 
 
-                        @endforeach --}}
+                        @endforeach 
 
                     </tbody>
 
                 </table>
-            </div>
+            </div> --}}
 
         </div>
     </div>

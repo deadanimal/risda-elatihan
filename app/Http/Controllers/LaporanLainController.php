@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\KehadiranNegeriExport;
 use App\Exports\PenilaianEjenPelaksanaExport;
 use App\Exports\PenilaianPesertaExport;
 use App\Exports\KehadiranPesertaExport;
+use App\Exports\KehadiranPlExport;
+use App\Exports\KehadiranUmurJantinaExport;
 use App\Exports\PencapaianMatlamatExport;
 use App\Exports\PerbelanjaanMengikutLExport;
 use App\Exports\PerbelanjaanMengikutPTExport;
@@ -432,7 +435,7 @@ class LaporanLainController extends Controller
     }
     public function excel_penilaian_prepost_show()
     {
- 
+//
     }
 
     public function pdf_penilaian_prepost_show()
@@ -558,13 +561,28 @@ class LaporanLainController extends Controller
 
     public function excel_laporan_kehadiran_umur_jantina()
     {
-        return view('laporan.laporan_lain.kehadiran.umur_jantina');
+        return (new KehadiranUmurJantinaExport())->download('KehadiranMengikutJantinaUmur.xlsx');
     }
+
 
     public function pdf_laporan_kehadiran_umur_jantina()
     {
-        return view('laporan.laporan_lain.kehadiran.umur_jantina');
+
+        $kehadiran_pl = KehadiranPusatLatihan::with(['peserta', 'kursus', 'tempat_kursus'])->get();
+
+        $tahun_ini = date('Y');
+
+        $pdf = PDF::loadView('laporan.laporan_lain.excel.laporan_kehadiran_umur_jantina', [
+            'kehadiran_pl' => $kehadiran_pl,
+            'tahun_ini' => $tahun_ini,
+            // 'umur_peserta'=>$umur_peserta
+        ])->setPaper('a4', 'landscape');
+
+
+        return $pdf->stream('Laporan Kehadiran Mengikut Umur dan Jantina.' . 'pdf');
+
     }
+
 
     public function laporan_kehadiran_pusat_latihan()
     {
@@ -576,26 +594,27 @@ class LaporanLainController extends Controller
             }
         }
 
-        $tahun = substr($pl->peserta->no_KP, 0, 2);
-        $tahun = (int)$tahun;
-            if ($tahun <= 30) {
-                $tahun_lahir = '20'.$tahun;
-            }else{
-                $tahun_lahir = '19'.$tahun;
-            }
-        $tahun_ini = date('Y');
+        // $tahun = substr($pl->peserta->no_KP, 0, 2);
+        // $tahun = (int)$tahun;
+        //     if ($tahun <= 30) {
+        //         $tahun_lahir = '20'.$tahun;
+        //     }else{
+        //         $tahun_lahir = '19'.$tahun;
+        //     }
+        // $tahun_ini = date('Y');
 
 
-        $umur_peserta = $tahun_ini - $tahun_lahir;
+        // $umur_peserta = $tahun_ini - $tahun_lahir;
         return view('laporan.laporan_lain.kehadiran.pusat_latihan', [
             'pl' => $pl,
-            'umur_peserta'=>$umur_peserta
+            // 'umur_peserta'=>$umur_peserta
         ]);
     }
 
-    public function excel_laporan_kehadiran_pusat_latihan()
+    public function excel_kehadiran_pusat_latihan()
     {
-        return view('laporan.laporan_lain.excel.kehadiran_pusat_latihan');
+        // return view('laporan.laporan_lain.excel.kehadiran_pusat_latihan');
+        return (new KehadiranPlExport())->download('Kehadiran Mengikut Pusat Latihan.xlsx');
 
     }
 
@@ -624,11 +643,28 @@ class LaporanLainController extends Controller
             'pl' => $pl,
             'umur_peserta'=>$umur_peserta
         ]);
+        return $pdf->stream('Laporan Kehadiran Pusat Latihan.' . 'pdf');
     }
 
     public function laporan_kehadiran_negeri()
     {
         return view('laporan.laporan_lain.kehadiran.negeri');
+    }
+
+    public function pdf_kehadiran_negeri()
+    {
+        // return view('laporan.laporan_lain.kehadiran.negeri');
+
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf.laporan_kehadiran_negeri')
+        ->setPaper('a4', 'landscape');
+
+        return $pdf->stream('LAPORAN KEHADIRAN MENGIKUT NEGERI, PARLIMEN DAN DUN.' . 'pdf');
+    }
+
+    public function excel_kehadiran_negeri()
+
+    {   return (new KehadiranNegeriExport())->download('KehadiranMengikutNegeriDun.xlsx');
+        // return view('laporan.laporan_lain.kehadiran.negeri');
     }
 
     // perbelanjaan

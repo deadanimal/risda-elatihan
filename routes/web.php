@@ -446,6 +446,8 @@ Route::middleware('auth')->group(function () {
             Route::get('laporan-prestasi-kehadiran', [LaporanLainController::class, 'laporan_prestasi_kehadiran']);
             Route::get('laporan-pencapaian-latihan-kategori', [LaporanLainController::class, 'laporan_pencapaian_latihan_mengikut_kategori']);
 
+
+
             //download excel
             Route::get('/pmk', [LaporanLainController::class, 'pmk'])->name('pmk');
             Route::get('/pmpt', [LaporanLainController::class, 'pmpt'])->name('pmpt');
@@ -468,12 +470,17 @@ Route::middleware('auth')->group(function () {
             // perbelanjaan
             Route::prefix('laporan-kehadiran')->group(function () {
                 Route::get('mengikut-umur-jantina', [LaporanLainController::class, 'laporan_kehadiran_umur_jantina']);
+                Route::get('mengikut-umur-jantina-pdf', [LaporanLainController::class, 'pdf_laporan_kehadiran_umur_jantina']);
+                Route::get('mengikut-umur-jantina-excel', [LaporanLainController::class, 'excel_laporan_kehadiran_umur_jantina']);
+
 
                 Route::get('mengikut-pusat-latihan-pusat-tanggungjawab', [LaporanLainController::class, 'laporan_kehadiran_pusat_latihan']);
                 Route::get('mengikut-pusat-latihan-pusat-tanggungjawab-pdf', [LaporanLainController::class, 'pdf_kehadiran_pusat_latihan']);
                 Route::get('mengikut-pusat-latihan-pusat-tanggungjawab-excel', [LaporanLainController::class, 'excel_kehadiran_pusat_latihan']);
 
                 Route::get('mengikut-negeri-parlimen-dun', [LaporanLainController::class, 'laporan_kehadiran_negeri']);
+                Route::get('mengikut-negeri-parlimen-dun-pdf', [LaporanLainController::class, 'pdf_kehadiran_negeri']);
+                Route::get('mengikut-negeri-parlimen-dun-excel', [LaporanLainController::class, 'excel_kehadiran_negeri']);
             });
 
             // perbelanjaan

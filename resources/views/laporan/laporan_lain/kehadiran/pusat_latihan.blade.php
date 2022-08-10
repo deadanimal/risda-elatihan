@@ -49,6 +49,12 @@
             </div>
         </div>
 
+        <a id="downloadpdf" style="display: none" download=""
+        href="laporan/ulpk/laporan-kehadiran/mengikut-pusat-latihan-pusat-tanggungjawab">Download</a>
+        <a id="downloadexcel" style="display: none" href="mengikut-pusat-latihan-pusat-tanggungjawab-excel" download="">Download</a>
+
+
+
         <hr class="risda-g">
 
         <div class="card mt-5 ">
@@ -65,7 +71,10 @@
             </div>
 
             <div class="card-body">
-                <div class="table-responsive scrollbar ">
+                @include(
+                    'laporan.laporan_lain.excel.laporan_kehadiran_pl'
+                )
+                {{-- <div class="table-responsive scrollbar ">
                     <table class="table text-center table-bordered datatable"
                         style="vertical-align: middle;border-color: #00B64E;">
                         <thead class="risda-bg-g">
@@ -91,13 +100,13 @@
                                         <td></td>
                                         <td></td>
 
-                                        </td>
+                                        <td></td>
                                     </tr>
                                 @endforeach
                             @endforeach
                         </tbody>
                     </table>
-                </div>
+                </div> --}}
 
             </div>
         </div>
@@ -112,4 +121,16 @@
             $("th").addClass('fw-bold text-white');
         });
     </script>
+
+<script>
+    function download(el) {
+        let val = el.value;
+        if (val == "Pdf") {
+            document.getElementById('downloadpdf').click();
+        }
+        if (val == "Excel") {
+            document.getElementById('downloadexcel').click();
+        }
+    }
+</script>
 @endsection

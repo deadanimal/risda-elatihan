@@ -35,7 +35,7 @@ class KehadiranPlExport implements FromView
 
     $umur_peserta = $tahun_ini - $tahun_lahir;
 
-    return view('laporan.laporan_lain.excel.kehadiran_pusat_latihan', [
+    return view('laporan.laporan_lain.excel.kehadiran_pl', [
     'pl' => $pl,
     'umur_peserta'=>$umur_peserta
     ]);

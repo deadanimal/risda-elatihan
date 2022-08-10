@@ -49,7 +49,11 @@
             </div>
         </div>
 
-        <hr class="risda-g">
+        <a id="downloadpdf" style="display: none" download=""
+        href="laporan/ulpk/laporan-kehadiran/mengikut-negeri-parlimen-dun-pdf">Download</a>
+    <a id="downloadexcel" style="display: none" href="mengikut-negeri-parlimen-dun-excel" download="">Download</a>
+
+<hr style="color: rgba(81,179,90, 60%);height:2px;">
 
         <div class="card mt-5 ">
             <div class="card-header">
@@ -63,9 +67,13 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="card-body">
-                <div class="table-responsive scrollbar ">
+                @include(
+                    'laporan.laporan_lain.excel.laporan_kehadiran_negeri'
+                )
+
+                {{-- <div class="table-responsive scrollbar ">
                     <table class="table text-center table-bordered datatable"
                         style="vertical-align: middle;border-color: #00B64E;">
                         <thead class="risda-bg-g">
@@ -92,19 +100,31 @@
                         <tbody>
                         </tbody>
                     </table>
-                </div>
-    
+                </div> --}}
+
             </div>
         </div>
     </div>
 
 
 
-    
+
 
     <script>
         $(document).ready(function() {
             $("th").addClass('fw-bold text-white');
         });
     </script>
+
+<script>
+    function download(el) {
+        let val = el.value;
+        if (val == "Pdf") {
+            document.getElementById('downloadpdf').click();
+        }
+        if (val == "Excel") {
+            document.getElementById('downloadexcel').click();
+        }
+    }
+</script>
 @endsection
