@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Exports\KehadiranNegeriExport;
+use App\Exports\RingkasanJenisKursusExport;
+use App\Exports\RingkasanBidangKursusExport;
 use App\Exports\PenilaianEjenPelaksanaExport;
 use App\Exports\PenilaianPesertaExport;
 use App\Exports\KehadiranPesertaExport;
@@ -217,7 +219,7 @@ class LaporanLainController extends Controller
         foreach ($penceramah as $p) {
             foreach ($p->penceramahKonsultan as $pk) {
                 $pk['tahun'] = date('Y', strtotime($pk->jadual_kursus->tarikh_mula));
-                $pk['mula'] = date('d/mY', strtotime($pk->jadual_kursus->tarikh_mula));
+                $pk['mula'] = date('d/m/Y', strtotime($pk->jadual_kursus->tarikh_mula));
                 $pk['tamat'] = date('d/m/Y', strtotime($pk->jadual_kursus->tarikh_mula));
                 $pk['tempat'] = Agensi::find($pk->jadual_kursus->kursus_tempat)->nama_Agensi;
             }
@@ -321,23 +323,99 @@ class LaporanLainController extends Controller
 
     public function laporan_ringkasan_jenis_kursus()
     {
-        return view('laporan.laporan_lain.ringkasan_jenis_kursus');
+        $bilangan_peserta=0;
+
+        $kursus = JadualKursus::with(['kategori_kursus','bidang','kodkursus','kehadiran'])->get();
+        foreach ($kursus as $k) {
+
+            $bilangan_peserta += count($k->kehadiran);
+        }
+
+        // $bilangan_peserta=$kursus['kehadiran'];
+        // $kehadiran =Kehadiran::where('status_kehadiran','HADIR')->where('jadual_kursus_id',$kursus->id)->get();
+
+
+
+        // dd($kursus);
+        return view('laporan.laporan_lain.ringkasan_jenis_kursus',[
+            'kursus'=>$kursus,
+            'bilangan_peserta'=>$bilangan_peserta
+        ]);
+    }
+
+    public function pdf_laporan_ringkasan_jenis_kursus()
+    {
+        $bilangan_peserta=0;
+
+        $kursus = JadualKursus::with(['kategori_kursus','bidang','kodkursus','kehadiran'])->get();
+        foreach ($kursus as $k) {
+
+            $bilangan_peserta += count($k->kehadiran);
+        }
+
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf.laporan_ringkasan_jenis_kursus', [
+            'kursus' => $kursus,
+            'bilangan_peserta'=>$bilangan_peserta
+        ])->setPaper('a4', 'landscape');
+
+        return $pdf->stream('Laporan Ringkasan Jenis Kursus.' . 'pdf');
+        // return view('laporan.laporan_lain.ringkasan_jenis_kursus');
+    }
+
+    public function excel_laporan_ringkasan_jenis_kursus()
+    {
+        return (new RingkasanJenisKursusExport())->download('RingkasanJenisKursus.xlsx');
     }
 
     public function laporan_ringkasan_bidang_kursus()
     {
-        return view('laporan.laporan_lain.ringkasan_bidang_kursus');
+        $bilangan_peserta=0;
+
+        $kursus = JadualKursus::with(['kategori_kursus','bidang','kodkursus','kehadiran'])->get();
+        foreach ($kursus as $k) {
+
+            $bilangan_peserta += count($k->kehadiran);
+        }
+
+        // $bilangan_peserta=$kursus['kehadiran'];
+        // $kehadiran =Kehadiran::where('status_kehadiran','HADIR')->where('jadual_kursus_id',$kursus->id)->get();
+
+
+
+        // dd($kursus);
+        return view('laporan.laporan_lain.ringkasan_bidang_kursus',[
+            'kursus'=>$kursus,
+            'bilangan_peserta'=>$bilangan_peserta
+        ]);
+    }
+
+    public function pdf_laporan_ringkasan_bidang_kursus()
+    {
+        $bilangan_peserta=0;
+
+        $kursus = JadualKursus::with(['kategori_kursus','bidang','kodkursus','kehadiran'])->get();
+        foreach ($kursus as $k) {
+
+            $bilangan_peserta += count($k->kehadiran);
+        }
+
+
+        // dd($kursus);
+        return view('laporan.laporan_lain.pdf.laporan_ringkasan_bidang_kursus',[
+            'kursus'=>$kursus,
+            'bilangan_peserta'=>$bilangan_peserta
+        ]);
+    }
+
+
+    public function excel_laporan_ringkasan_bidang_kursus()
+    {
+        return (new RingkasanBidangKursusExport())->download('LaporanRingkasanBidangKursus.xlsx');
     }
 
     public function laporan_penilaian_peserta()
     {
-        //     $kursus=JadualKursus::with(['tempat','pengendali','penceramah','bidang','kategori_kursus']);
 
-        // foreach ($kursus as $k) {
-        //     $kehadiran = Kehadiran::where('jadual_kursus_id', $k->id)->first();
-
-        //     $penilaian = PenilaianPeserta::where('id_jadual', $k->id)->get();
-        // }
 
         $penilaian = PenilaianPeserta::with('kursus');
 
