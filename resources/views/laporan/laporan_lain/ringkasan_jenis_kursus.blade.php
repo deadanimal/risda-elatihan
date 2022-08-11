@@ -1,3 +1,4 @@
+
 @extends('layouts.risda-base')
 @section('content')
     <div class="container">
@@ -44,6 +45,12 @@
             </div>
         </div>
 
+        <a id="downloadpdf" style="display: none" href="{{ route('pdf_ringkasan_jk') }}"></a>
+
+        <a id="downloadexcel" style="display: none" href="{{ route('excel_ringkasan_jk') }}"></a>
+
+
+
         <hr style="color: rgba(81,179,90, 60%);height:2px;">
 
         <div class="card mt-5 ">
@@ -60,7 +67,8 @@
             </div>
 
             <div class="card-body">
-                <div class="table-responsive scrollbar ">
+                @include('laporan.laporan_lain.excel.laporan_ringkasan_jenis_kursus')
+                {{-- <div class="table-responsive scrollbar ">
                     <table class="table text-center table-bordered datatable "
                         style="vertical-align: middle;border-color: #00B64E;">
                         <thead class="risda-bg-g" style="vertical-align: middle">
@@ -79,16 +87,40 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($kursus as $k)
+                            <tr>
+                                <td>{{$k->kategori_kursus->jenis_Kategori_Kursus}}</td>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$k->bidang->nama_Bidang_Kursus}}</td>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$k->kursus_nama}}</td>
+                                <td>{{$k->kategori_kursus->nama_Kategori_Kursus}}</td>
+                                <td>{{$bilangan_peserta}}</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            @endforeach
+                            </tr>
 
                         </tbody>
                     </table>
-                </div>
+                </div> --}}
 
             </div>
         </div>
     </div>
 
     <script>
+        function download(el) {
+            let val = el.value;
+            if (val == "Pdf") {
+                document.getElementById('downloadpdf').click();
+            }
+            if (val == "Excel") {
+                document.getElementById('downloadexcel').click();
+            }
+        }
         $(document).ready(function() {
             $("th").addClass('fw-bold text-white');
         });

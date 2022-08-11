@@ -22,6 +22,7 @@
          <tbody>
              @foreach ($kehadiran as $k)
                  <tr>
+    
                      <td>{{ $loop->iteration }}</td>
                      <td>{{ ($k->kursus->bidang->nama_Bidang_Kursus ?? '-') }}</td>
                      <td>{{ ($k->kursus->kategori_kursus->nama_Kategori_Kursus ?? '-') }}</td>
