@@ -61,7 +61,10 @@
         </div>
 
         <div class="card-body">
-            <div class="table-responsive scrollbar ">
+            @include(
+                'laporan.laporan_lain.excel.pelaksanaan_latihan_staf'
+            )
+            {{-- <div class="table-responsive scrollbar ">
                 <table class="table text-center table-bordered datatable " style="vertical-align: middle;border-color: #00B64E;">
                     <thead class="risda-bg-g" style="vertical-align: middle">
 
@@ -108,7 +111,7 @@
 
                     </tbody>
                 </table>
-            </div>
+            </div> --}}
 
         </div>
     </div>
