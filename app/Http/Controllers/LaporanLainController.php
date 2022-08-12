@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Exports\KehadiranNegeriExport;
+use App\Exports\PerlaksanaanLatihanStafExport;
+use App\Exports\KewanganTerperinciExport;
 use App\Exports\RingkasanJenisKursusExport;
 use App\Exports\RingkasanBidangKursusExport;
 use App\Exports\PenilaianEjenPelaksanaExport;
@@ -316,10 +318,41 @@ class LaporanLainController extends Controller
         return view('laporan.laporan_lain.pelaksanaan_latihan_staf');
     }
 
+    public function pdf_laporan_pelaksanaan_latihan_staf()
+    {
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf.pelaksanaan_latihan_staf')
+        ->setPaper('a4', 'landscape');
+
+        return $pdf->stream('Laporan Pelaksanaan Latihan Staf.' . 'pdf');
+    }
+
+
+    public function excel_laporan_pelaksanaan_latihan_staf()
+    {
+        return (new PerlaksanaanLatihanStafExport())->download('KewanganTerperinci.xlsx');
+
+    }
+
+
     public function laporan_kewangan_terperinci()
     {
         return view('laporan.laporan_lain.laporan_kewangan_terperinci');
     }
+
+    public function pdf_laporan_kewangan_terperinci()
+    {
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf.laporan_kewangan_terperinci')
+        ->setPaper('a4', 'landscape');
+
+        return $pdf->stream('Laporan Kewangan Terperinci.' . 'pdf');
+    }
+
+    public function excel_laporan_kewangan_terperinci()
+    {
+
+        return (new KewanganTerperinciExport())->download('KewanganTerperinci.xlsx');
+    }
+
 
     public function laporan_ringkasan_jenis_kursus()
     {
