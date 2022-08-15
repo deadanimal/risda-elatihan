@@ -3,16 +3,19 @@
 namespace App\Exports;
 
 use App\Models\JadualKursus;
-// use Maatwebsite\Excel\Concerns\FromCollection;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\FromCollection;
 
-class KewanganTerperinciExport implements FromView
+class KemajuanLatihanKategoriExport implements FromView
 {
     use Exportable;
+    private $headers = [
+        'Content-Type' => 'text/csv',
+    ];
     public function view(): View
     {
-        return view('laporan.laporan_lain.excel.laporan_kewangan_terperinci');
+        return view('laporan.laporan_lain.excel.kemajuan.kategori');
     }
 }

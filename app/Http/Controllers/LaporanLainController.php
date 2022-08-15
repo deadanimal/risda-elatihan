@@ -1,8 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
+// use App\Exports\PencapaianLatihanKategoriExport;
+use App\Exports\PencapaianLatihanNegeriExport;
 use App\Exports\KehadiranNegeriExport;
+use App\Exports\KemajuanLatihanBidangExport;
+use App\Exports\KemajuanLatihanKategoriExport;
+use App\Exports\Kehadiran7HariSetahunExport;
 use App\Exports\PerlaksanaanLatihanStafExport;
 use App\Exports\KewanganTerperinciExport;
 use App\Exports\RingkasanJenisKursusExport;
@@ -132,15 +136,27 @@ class LaporanLainController extends Controller
 
     public function perbelanjaan_mengikut_lokaliti()
     {
-        $pt = new PusatTanggungjawab();
+        $pt = PusatTanggungjawab::all();
         $response = Http::post('https://libreoffice.prototype.com.my/cetak/LaporanPML', [$pt]);
         $res = $response->getBody()->getContents();
         $url = "data:application/pdf;base64," . $res;
 
         return view('laporan.laporan_lain.perbelanjaan_mengikut_lokaliti', [
-            'url' => $url,
+            'pt' => $pt,
         ]);
     }
+
+    public function pdf_perbelanjaan_mengikut_lokaliti()
+    {
+        $pt = PusatTanggungjawab::all();
+
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf.laporan_perbelanjaan_mengikut_lokaliti', [
+            'pt' => $pt,
+        ]);
+
+        return $pdf->stream('Pembelanjaan Mengikut Lokaliti.' . 'pdf');
+    }
+
     public function pml()
     {
         return (new PerbelanjaanMengikutLExport())->download('PerbelanjaanMengikutLokaliti.xlsx');
@@ -173,7 +189,7 @@ class LaporanLainController extends Controller
 
                     $jk['peratusan'] = ($hadir / ($hadir + $tidak_hadir) * 100);
                 } else {
-                    $jk['peratusan'] = 0;
+                    $jk['peratusan'] = 5;
                 }
                 $jk['bil_hadir'] = $hadir;
                 $jk['bil_tidak_hadir'] = $tidak_hadir;
@@ -210,6 +226,25 @@ class LaporanLainController extends Controller
     public function laporan_kehadiran_7_hari_setahun()
     {
         return view('laporan.laporan_lain.laporan_kehadiran_7_hari_setahun');
+    }
+
+    public function pdf_laporan_kehadiran_7_hari_setahun()
+    {
+        // return view('laporan.laporan_lain.laporan_kehadiran_7_hari_setahun');
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf.laporan_kehadiran_7_hari_setahun')
+        ->setPaper('a4', 'landscape');
+
+
+        return $pdf->stream('Laporan Prestasi Kehadiran 7 Hari Setahun.' . 'pdf');
+    }
+
+    public function excel_laporan_kehadiran_7_hari_setahun()
+    {
+        // return view('laporan.laporan_lain.laporan_kehadiran_7_hari_setahun');
+        return (new Kehadiran7HariSetahunExport())->download('LaporanKehadiran7HariSetahun.xlsx');
+        // return (new Kehadiran7HariSetahunExport)->download('Kehadiran7.xls', \Maatwebsite\Excel\Excel::XLS);
+
+
     }
 
     public function laporan_ringkasan_penceramah_kursus()
@@ -267,6 +302,29 @@ class LaporanLainController extends Controller
             'pusat_tanggungjawab' => $pusat_tanggungjawab,
         ]);
     }
+
+    public function pdf_laporan_pencapaian_latihan_mengikut_negeri()
+    {
+        $pusat_tanggungjawab = PusatTanggungjawab::all();
+
+        // dd($pusat_tanggungjawab);
+
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf.pencapaian_latihan_mengikut_negeri', [
+            'pusat_tanggungjawab' => $pusat_tanggungjawab,
+        ])->setPaper('a4', 'landscape');
+
+        return $pdf->download('Laporan Pencapaian Latihan Mengikut Negeri.' . 'pdf');
+
+    }
+
+    public function excel_laporan_pencapaian_latihan_mengikut_negeri()
+    {
+
+        return (new PencapaianLatihanNegeriExport())->download('Pencapaian Latihan Mengikut Negeri.xlsx');
+
+
+    }
+
     public function laporan_kehadiran_peserta()
     {
         $kehadiran = Kehadiran::with(['staff', 'kursus'])->get();
@@ -349,7 +407,6 @@ class LaporanLainController extends Controller
 
     public function excel_laporan_kewangan_terperinci()
     {
-
         return (new KewanganTerperinciExport())->download('KewanganTerperinci.xlsx');
     }
 
@@ -600,10 +657,45 @@ class LaporanLainController extends Controller
     {
         return view('laporan.laporan_lain.kemajuan_latihan.bidang');
     }
+
+    public function pdf_laporan_kemajuan_latihan_bidang()
+    {
+
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf.kemajuan.bidang')
+        ->setPaper('a4', 'landscape');
+
+        return $pdf->stream('Laporan Kemajuan Latihan Mengikut Bidang.' . 'pdf');
+    }
+
+    public function excel_laporan_kemajuan_latihan_bidang()
+    {
+        // return view('laporan.laporan_lain.kemajuan_latihan.bidang');
+        return (new KemajuanLatihanBidangExport())->download('Laporan Kemajuan Latihan Bidang.xlsx');
+
+    }
+
+
     public function laporan_kemajuan_latihan_kategori()
     {
         return view('laporan.laporan_lain.kemajuan_latihan.kategori');
     }
+
+    public function pdf_laporan_kemajuan_latihan_kategori()
+    {
+        // return view('laporan.laporan_lain.kemajuan_latihan.kategori');
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf.kemajuan.kategori')
+        ->setPaper('a4', 'landscape');
+
+        return $pdf->stream('Laporan Kemajuan Latihan Mengikut Kategori.' . 'pdf');
+
+    }
+
+    public function excel_laporan_kemajuan_latihan_kategori()
+    {
+        return (new KemajuanLatihanKategoriExport())->download('Laporan Kemajuan Latihan Mengikut Kategori.xlsx');
+    }
+
+
     public function laporan_kemajuan_latihan_pusatlatihan()
     {
         return view('laporan.laporan_lain.kemajuan_latihan.pusat_latihan');
