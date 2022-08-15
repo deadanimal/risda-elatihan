@@ -94,10 +94,10 @@
 
         </div>
     </div>
-    <a id="downloadpdf" download="LaporanPencapaianMatlamatKehadiran.pdf" style="display: none"
-        href="{{ $url }}"></a>
+    <a id="downloadpdf" download="LaporanPerbelanjaanMengikutLokaliti.pdf" style="display: none"
+        href="{{route('pdf_perbelanjaan_lokaliti') }}"></a>
 
-    <a id="downloadexcel" style="display: none" href="{{ route('pmpt') }}"></a>
+    <a id="downloadexcel" style="display: none" href="{{ route('pml') }}"></a>
 
     <script>
         function download(el) {
