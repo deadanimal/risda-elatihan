@@ -485,8 +485,17 @@ Route::middleware('auth')->group(function () {
                 Route::get('mengikut-kategori-excel', [LaporanLainController::class, 'excel_laporan_kemajuan_latihan_kategori'])->name('excel-kl-kategori');
 
                 Route::get('mengikut-pusat-latihan', [LaporanLainController::class, 'laporan_kemajuan_latihan_pusatlatihan']);
+                Route::get('mengikut-pusat-latihan-pdf', [LaporanLainController::class, 'pdf_laporan_kemajuan_latihan_pusatlatihan'])->name('pdf-kl-pl');
+                Route::get('mengikut-pusat-latihan-excel', [LaporanLainController::class, 'excel_laporan_kemajuan_latihan_pusatlatihan'])->name('excel-kl-pl');
+
                 Route::get('mengikut-negeri', [LaporanLainController::class, 'laporan_kemajuan_latihan_negeri']);
+                Route::get('mengikut-negeri-pdf', [LaporanLainController::class, 'pdf_laporan_kemajuan_latihan_negeri'])->name('pdf-kl-negeri');
+                Route::get('mengikut-negeri-excel', [LaporanLainController::class, 'excel_laporan_kemajuan_latihan_negeri'])->name('excel-kl-negeri');
+
+
                 Route::get('mengikut-daerah', [LaporanLainController::class, 'laporan_kemajuan_latihan_daerah']);
+                Route::get('mengikut-daerah-pdf', [LaporanLainController::class, 'pdf_laporan_kemajuan_latihan_daerah'])->name('pdf-kl-daerah');
+                Route::get('mengikut-daerah-excel', [LaporanLainController::class, 'excel_laporan_kemajuan_latihan_daerah'])->name('excel-kl-daerah');
             });
 
             // perbelanjaan
@@ -508,6 +517,9 @@ Route::middleware('auth')->group(function () {
             // perbelanjaan
             Route::prefix('laporan-perbelanjaan')->group(function () {
                 Route::get('mengikut-bidang', [LaporanLainController::class, 'laporan_perbelanjaan_bidang']);
+                Route::get('mengikut-bidang-pdf', [LaporanLainController::class, 'pdf_laporan_perbelanjaan_bidang'])->name('pdf-perbelanjaan-bidang');
+                Route::get('mengikut-bidang-excel', [LaporanLainController::class, 'excel_laporan_perbelanjaan_bidang'])->name('excel-perbelanjaan-bidang');
+
                 Route::get('mengikut-kategori', [LaporanLainController::class, 'laporan_perbelanjaan_kategori']);
                 Route::get('mengikut-kursus', [LaporanLainController::class, 'laporan_perbelanjaan_kursus']);
                 Route::get('mengikut-pusat-latihan', [LaporanLainController::class, 'laporan_perbelanjaan_pusatlatihan']);

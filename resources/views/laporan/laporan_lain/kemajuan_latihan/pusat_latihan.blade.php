@@ -51,6 +51,11 @@
 
         <hr class="risda-g">
 
+        <a id="downloadpdf" download="LaporanKemajuanLatihan-PusatLatihan" style="display: none"
+        href="{{ route('pdf-kl-pl') }}">Download</a>
+
+        <a id="downloadexcel" style="display: none" href="{{ route('excel-kl-pl') }}">Download</a>
+
         <div class="card mt-5 ">
             <div class="card-header">
                 <div class="row justify-content-end">
@@ -63,9 +68,12 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="card-body">
-                <div class="table-responsive scrollbar ">
+                @include(
+                    'laporan.laporan_lain.excel.kemajuan.pusat_latihan'
+                )
+                {{-- <div class="table-responsive scrollbar ">
                     <table class="table text-center table-bordered datatable"
                         style="vertical-align: middle;border-color: #00B64E;">
                         <thead class="risda-bg-g">
@@ -96,15 +104,26 @@
                         <tbody>
                         </tbody>
                     </table>
-                </div>
-    
+                </div> --}}
+
             </div>
         </div>
     </div>
 
 
 
-    
+    <script>
+        function download(el) {
+            let val = el.value;
+            if (val == "Pdf") {
+                document.getElementById('downloadpdf').click();
+            }
+            if (val == "Excel") {
+                document.getElementById('downloadexcel').click();
+            }
+        }
+    </script>
+
 
     <script>
         $(document).ready(function() {
