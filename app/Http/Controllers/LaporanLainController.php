@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-// use App\Exports\PencapaianLatihanKategoriExport;
+use App\Exports\KemajuanLatihanNegeriExport;
 use App\Exports\PencapaianLatihanNegeriExport;
 use App\Exports\KehadiranNegeriExport;
 use App\Exports\KemajuanLatihanBidangExport;
@@ -16,6 +16,8 @@ use App\Exports\PenilaianPesertaExport;
 use App\Exports\KehadiranPesertaExport;
 use App\Exports\KehadiranPlExport;
 use App\Exports\KehadiranUmurJantinaExport;
+use App\Exports\KemajuanLatihanDaerahExport;
+use App\Exports\KemajuanLatihanPlExport;
 use App\Exports\PencapaianMatlamatExport;
 use App\Exports\PerbelanjaanMengikutLExport;
 use App\Exports\PerbelanjaanMengikutPTExport;
@@ -700,13 +702,57 @@ class LaporanLainController extends Controller
     {
         return view('laporan.laporan_lain.kemajuan_latihan.pusat_latihan');
     }
+
+    public function pdf_laporan_kemajuan_latihan_pusatlatihan()
+    {
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf.kemajuan.pusat_latihan')
+        ->setPaper('a4', 'landscape');
+
+        return $pdf->stream('Laporan Kemajuan Latihan Mengikut Pusat Latihan.' . 'pdf');
+    }
+
+    public function excel_laporan_kemajuan_latihan_pusatlatihan()
+    {
+        return (new KemajuanLatihanPlExport())->download('Laporan Kemajuan Latihan Mengikut Pusat Latihan.xlsx');
+    }
+
+
     public function laporan_kemajuan_latihan_negeri()
     {
         return view('laporan.laporan_lain.kemajuan_latihan.negeri');
     }
+
+    public function pdf_laporan_kemajuan_latihan_negeri()
+    {
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf.kemajuan.negeri')
+        ->setPaper('a4', 'landscape');
+
+        return $pdf->stream('Laporan Kemajuan Latihan Mengikut Negeri.' . 'pdf');
+    }
+
+    public function excel_laporan_kemajuan_latihan_negeri()
+    {
+        return (new KemajuanLatihanNegeriExport())->download('Laporan Kemajuan Latihan Mengikut Negeri.xlsx');
+    }
+
+
     public function laporan_kemajuan_latihan_daerah()
     {
         return view('laporan.laporan_lain.kemajuan_latihan.daerah');
+    }
+
+    public function pdf_laporan_kemajuan_latihan_daerah()
+    {
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf.kemajuan.daerah')
+        ->setPaper('a4', 'landscape');
+
+        return $pdf->stream('Laporan Kemajuan Latihan Mengikut Daerah.' . 'pdf');
+    }
+
+    public function excel_laporan_kemajuan_latihan_daerah()
+    {
+        return (new KemajuanLatihanDaerahExport())->download('Laporan Kemajuan Latihan Mengikut Daerah.xlsx');
+
     }
 
     // kehadiran
@@ -875,6 +921,21 @@ class LaporanLainController extends Controller
     {
         return view('laporan.laporan_lain.perbelanjaan.bidang');
     }
+
+    public function pdf_laporan_perbelanjaan_bidang()
+    {
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf.perbelanjaan.bidang')
+        ->setPaper('a4', 'landscape');
+
+        return $pdf->stream('Laporan Perbelanjaan Mengikut Bidang.' . 'pdf');;
+    }
+
+    public function excel_laporan_perbelanjaan_bidang()
+    {
+        return view('laporan.laporan_lain.perbelanjaan.bidang');
+    }
+
+
     public function laporan_perbelanjaan_kategori()
     {
         return view('laporan.laporan_lain.perbelanjaan.kategori');
