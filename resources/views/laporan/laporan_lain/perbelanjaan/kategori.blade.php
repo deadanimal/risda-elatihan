@@ -51,6 +51,11 @@
 
         <hr class="risda-g">
 
+        <a id="downloadpdf" download="LaporanKemajuanLatihan-PusatLatihan" style="display: none"
+        href="{{ route('pdf-perbelanjaan-kategori') }}">Download</a>
+
+        <a id="downloadexcel" style="display: none" href="{{ route('excel-perbelanjaan-kategori') }}">Download</a>
+
         <div class="card mt-5 ">
             <div class="card-header">
                 <div class="row justify-content-end">
@@ -63,7 +68,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="card-body">
                 <div class="table-responsive scrollbar ">
                     <table class="table text-center table-bordered datatable"
@@ -103,14 +108,23 @@
                         </tbody>
                     </table>
                 </div>
-    
+
             </div>
         </div>
     </div>
 
+    <script>
+        function download(el) {
+            let val = el.value;
+            if (val == "Pdf") {
+                document.getElementById('downloadpdf').click();
+            }
+            if (val == "Excel") {
+                document.getElementById('downloadexcel').click();
+            }
+        }
+    </script>
 
-
-    
 
     <script>
         $(document).ready(function() {
