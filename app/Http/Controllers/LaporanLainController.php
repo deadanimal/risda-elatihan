@@ -19,6 +19,7 @@ use App\Exports\KehadiranUmurJantinaExport;
 use App\Exports\KemajuanLatihanDaerahExport;
 use App\Exports\KemajuanLatihanPlExport;
 use App\Exports\PencapaianMatlamatExport;
+use App\Exports\PerbelanjaanKategoriExport;
 use App\Exports\PerbelanjaanMengikutLExport;
 use App\Exports\PerbelanjaanMengikutPTExport;
 use App\Exports\PrestasiKehadiranExport;
@@ -323,7 +324,6 @@ class LaporanLainController extends Controller
     {
 
         return (new PencapaianLatihanNegeriExport())->download('Pencapaian Latihan Mengikut Negeri.xlsx');
-
 
     }
 
@@ -927,7 +927,7 @@ class LaporanLainController extends Controller
         $pdf = PDF::loadView('laporan.laporan_lain.pdf.perbelanjaan.bidang')
         ->setPaper('a4', 'landscape');
 
-        return $pdf->stream('Laporan Perbelanjaan Mengikut Bidang.' . 'pdf');;
+        return $pdf->stream('Laporan Perbelanjaan Mengikut Bidang.' . 'pdf');
     }
 
     public function excel_laporan_perbelanjaan_bidang()
@@ -940,11 +940,58 @@ class LaporanLainController extends Controller
     {
         return view('laporan.laporan_lain.perbelanjaan.kategori');
     }
+
+    public function pdf_laporan_perbelanjaan_kategori()
+    {
+        // return view('laporan.laporan_lain.perbelanjaan.kategori');
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf.perbelanjaan.kategori')
+        ->setPaper('a4', 'landscape');
+
+        return $pdf->stream('Laporan Perbelanjaan Mengikut Kategori.' . 'pdf');
+    }
+
+    public function excel_laporan_perbelanjaan_kategori()
+    {
+         return (new PerbelanjaanKategoriExport())->download('Perbelanjaan Mengikut Kategori.xlsx');
+
+    }
+
     public function laporan_perbelanjaan_kursus()
     {
         return view('laporan.laporan_lain.perbelanjaan.kursus');
     }
+
+    public function pdf_laporan_perbelanjaan_kursus()
+    {
+        // dd('2');
+        // return view('laporan.laporan_lain.perbelanjaan.kursus');
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf.perbelanjaan.kursus')
+        ->setPaper('a4', 'landscape');
+
+        return $pdf->stream('Laporan Perbelanjaan Mengikut Kursus.' . 'pdf');
+    }
+
+    public function excel_laporan_perbelanjaan_kursus()
+    {
+        return view('laporan.laporan_lain.perbelanjaan.kursus');
+    }
+
+
     public function laporan_perbelanjaan_pusatlatihan()
+    {
+        return view('laporan.laporan_lain.perbelanjaan.pusat_latihan');
+    }
+
+    public function pdf_laporan_perbelanjaan_pusatlatihan()
+    {
+        // return view('laporan.laporan_lain.perbelanjaan.pusat_latihan');
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf.perbelanjaan.pusat')
+        ->setPaper('a4', 'landscape');
+
+        return $pdf->stream('Laporan Perbelanjaan Mengikut Pusat Latihan.' . 'pdf');
+    }
+
+    public function excel_laporan_perbelanjaan_pusatlatihan()
     {
         return view('laporan.laporan_lain.perbelanjaan.pusat_latihan');
     }

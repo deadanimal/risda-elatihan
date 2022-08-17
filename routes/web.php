@@ -521,8 +521,17 @@ Route::middleware('auth')->group(function () {
                 Route::get('mengikut-bidang-excel', [LaporanLainController::class, 'excel_laporan_perbelanjaan_bidang'])->name('excel-perbelanjaan-bidang');
 
                 Route::get('mengikut-kategori', [LaporanLainController::class, 'laporan_perbelanjaan_kategori']);
+                Route::get('mengikut-kategori-pdf', [LaporanLainController::class, 'pdf_laporan_perbelanjaan_kategori'])->name('pdf-perbelanjaan-kategori');
+                Route::get('mengikut-kategori-excel', [LaporanLainController::class, 'excel_laporan_perbelanjaan_kategori'])->name('excel-perbelanjaan-kategori');
+
                 Route::get('mengikut-kursus', [LaporanLainController::class, 'laporan_perbelanjaan_kursus']);
+                Route::get('mengikut-kursus-pdf', [LaporanLainController::class, 'pdf_laporan_perbelanjaan_kursus'])->name('pdf-perbelanjaan-kursus');
+                Route::get('mengikut-kursus-excel', [LaporanLainController::class, 'excel_laporan_perbelanjaan_kursus'])->name('excel-perbelanjaan-kursus');
+
+
                 Route::get('mengikut-pusat-latihan', [LaporanLainController::class, 'laporan_perbelanjaan_pusatlatihan']);
+                Route::get('mengikut-pusat-latihan', [LaporanLainController::class, 'laporan_perbelanjaan_pusatlatihan'])->name('pdf-perbelanjaan-pl');
+                Route::get('mengikut-pusat-latihan', [LaporanLainController::class, 'laporan_perbelanjaan_pusatlatihan'])->name('excel-perbelanjaan-pl');
             });
         });
     });
