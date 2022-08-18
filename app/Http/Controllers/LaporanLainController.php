@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Exports\KemajuanLatihanNegeriExport;
+use App\Exports\PerbelanjaanPlExport;
 use App\Exports\PencapaianLatihanNegeriExport;
 use App\Exports\KehadiranNegeriExport;
 use App\Exports\KemajuanLatihanBidangExport;
@@ -979,13 +980,14 @@ class LaporanLainController extends Controller
 
     public function laporan_perbelanjaan_pusatlatihan()
     {
+        // dd('2');
         return view('laporan.laporan_lain.perbelanjaan.pusat_latihan');
     }
 
     public function pdf_laporan_perbelanjaan_pusatlatihan()
     {
         // return view('laporan.laporan_lain.perbelanjaan.pusat_latihan');
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf.perbelanjaan.pusat')
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf.perbelanjaan.pusat_latihan')
         ->setPaper('a4', 'landscape');
 
         return $pdf->stream('Laporan Perbelanjaan Mengikut Pusat Latihan.' . 'pdf');
@@ -993,6 +995,7 @@ class LaporanLainController extends Controller
 
     public function excel_laporan_perbelanjaan_pusatlatihan()
     {
-        return view('laporan.laporan_lain.perbelanjaan.pusat_latihan');
+        return (new PerbelanjaanPlExport())->download('Perbelanjaan Mengikut Pusat Latihan.xlsx');
+
     }
 }
