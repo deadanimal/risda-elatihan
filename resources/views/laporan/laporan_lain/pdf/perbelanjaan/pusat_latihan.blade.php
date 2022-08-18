@@ -1,18 +1,4 @@
- <div class="card mt-5 ">
-            <div class="card-header">
-                <div class="row justify-content-end">
-                    <div class="col-xl-2">
-                        <select class="form-select risda-bg-g text-white" onchange="download(this)">
-                            <option selected disabled hidden>Cetak</option>
-                            <option value="Excel">Excel</option>
-                            <option value="Pdf">PDF</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card-body">
-                <div class="table-responsive scrollbar ">
+<div class="table-responsive scrollbar ">
                     <table class="table text-center table-bordered datatable"
                         style="vertical-align: middle;border-color: #00B64E;">
                         <thead class="risda-bg-g">
@@ -37,18 +23,3 @@
                         </tbody>
                     </table>
                 </div>
-
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-    <script>
-        $(document).ready(function() {
-            $("th").addClass('fw-bold text-white');
-        });
-    </script>
-@endsection

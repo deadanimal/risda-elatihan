@@ -530,8 +530,9 @@ Route::middleware('auth')->group(function () {
 
 
                 Route::get('mengikut-pusat-latihan', [LaporanLainController::class, 'laporan_perbelanjaan_pusatlatihan']);
-                Route::get('mengikut-pusat-latihan', [LaporanLainController::class, 'laporan_perbelanjaan_pusatlatihan'])->name('pdf-perbelanjaan-pl');
-                Route::get('mengikut-pusat-latihan', [LaporanLainController::class, 'laporan_perbelanjaan_pusatlatihan'])->name('excel-perbelanjaan-pl');
+                // Route::get('mengikut-pl', [LaporanLainController::class, 'laporan_perbelanjaan_pusatlatihan']);
+                Route::get('mengikut-pusat-latihan-pdf', [LaporanLainController::class, 'pdf_laporan_perbelanjaan_pusatlatihan'])->name('pdf-perbelanjaan-pl');
+                Route::get('mengikut-pusat-latihan-excel', [LaporanLainController::class, 'excel_laporan_perbelanjaan_pusatlatihan'])->name('excel-perbelanjaan-pl');
             });
         });
     });
