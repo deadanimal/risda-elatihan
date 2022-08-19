@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
-                    LAPORAN PENCAPAIAN MATLAMAT KEHADIRAN
+                    LAPORAN PERBELANJAAN MENGIKUT PUSAT TANGGUNGJAWAB
                 </p>
             </div>
         </div>

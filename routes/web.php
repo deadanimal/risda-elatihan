@@ -353,7 +353,7 @@ Route::middleware('auth')->group(function () {
             Route::post('/post-test/{jadual_kursus}/save', [JadualKursusController::class, 'tambah_masa_mula_tamat_post_test']);
 
             //penilaian-kursus
-            Route::resource('//penilaian-kursus-us', KursusPenilaianController::class);
+            Route::resource('/penilaian-kursus-us', KursusPenilaianController::class);
             Route::get('/penilaian-kursus/bahagianA/create/{id}', [KursusPenilaianController::class, 'create']);
             Route::get('/penilaian-kursus/bahagianB/{id}', [KursusPenilaianController::class, 'bahagianB']);
             Route::get('/penilaian-kursus/bahagianC/{id}', [KursusPenilaianController::class, 'bahagianC']);
@@ -422,8 +422,8 @@ Route::middleware('auth')->group(function () {
             Route::get('excel-kehadiran-peserta', [LaporanLainController::class, 'excel_kehadiran_peserta']);
 
             Route::get('laporan-pelaksanaan-latihan-staf', [LaporanLainController::class, 'laporan_pelaksanaan_latihan_staf']);
-            Route::get('laporan-pelaksanaan-latihan-staf-excel', [LaporanLainController::class, 'excel_laporan_pelaksanaan_latihan_staf']);
-            Route::get('laporan-pelaksanaan-latihan-staf-pdf', [LaporanLainController::class, 'pdf_laporan_pelaksanaan_latihan_staf']);
+            Route::get('laporan-pelaksanaan-latihan-staf-excel', [LaporanLainController::class, 'excel_laporan_pelaksanaan_latihan_staf'])->name('excel_pl_staf');
+            Route::get('laporan-pelaksanaan-latihan-staf-pdf', [LaporanLainController::class, 'pdf_laporan_pelaksanaan_latihan_staf'])->name('pdf_pl_staf');
 
             Route::get('laporan-kewangan-terperinci', [LaporanLainController::class, 'laporan_kewangan_terperinci']);
             Route::get('laporan-kewangan-terperinci-pdf', [LaporanLainController::class, 'pdf_laporan_kewangan_terperinci'])->name('pdf_kewangan_terperinci');
@@ -438,20 +438,22 @@ Route::middleware('auth')->group(function () {
             Route::get('laporan-ringkasan-bidang-kursus-excel', [LaporanLainController::class, 'pdf_laporan_ringkasan_bidang_kursus'])->name('excel_ringkasan_bk');
 
             Route::get('laporan-penilaian-ejen-pelaksana', [LaporanLainController::class, 'laporan_penilaian_ejen']);
-            Route::get('excel-penilaian-ejen-pelaksana', [LaporanLainController::class, 'excel_laporan_penilaian_ejen']);
-            Route::get('pdf-penilaian-ejen-pelaksana', [LaporanLainController::class, 'excel_laporan_penilaian_ejen']);
+            Route::get('excel-penilaian-ejen-pelaksana', [LaporanLainController::class, 'excel_laporan_penilaian_ejen'])->name('excel_penilaian_ejen');
+            Route::get('pdf-penilaian-ejen-pelaksana', [LaporanLainController::class, 'pdf_laporan_penilaian_ejen'])->name('pdf_penilaian_ejen');
 
             Route::get('laporan-penilaian-kursus/uls', [LaporanLainController::class, 'laporan_penilaian_kursus_uls']);
 
             Route::get('laporan-senarai-kursus', [LaporanLainController::class, 'senarai_kursus']);
+
             Route::get('laporan-penilaian-prepost', [LaporanLainController::class, 'laporan_penilaian_prepost_show']);
             Route::get('penilaian-prepost-excel', [LaporanLainController::class, 'laporan_penilaian_prepost_show']);
             Route::get('penilaian-prepost-pdf', [LaporanLainController::class, 'laporan_penilaian_prepost_show']);
+
             Route::get('laporan-penilaian-prepost/{id}', [LaporanLainController::class, 'laporan_penilaian_prepost_show']);
 
             Route::get('laporan-penilaian-peserta', [LaporanLainController::class, 'laporan_penilaian_peserta']);
-            Route::get('pdf-penilaian-peserta', [LaporanLainController::class, 'pdf_laporan_penilaian_peserta']);
-            Route::get('excel-penilaian-peserta', [LaporanLainController::class, 'excel_laporan_penilaian_peserta']);
+            Route::get('penilaian-peserta-pdf', [LaporanLainController::class, 'pdf_laporan_penilaian_peserta']);
+            Route::get('penilaian-peserta-exc', [LaporanLainController::class, 'excel_laporan_penilaian_peserta']);
 
             Route::get('laporan-penilaian-prepost-ulpk', [LaporanLainController::class, 'laporan_penilaian_prepost_ulpk_show']);
 

@@ -178,23 +178,23 @@ class LaporanLainController extends Controller
                 $jk['tarikh'] = date('d/m/Y', strtotime($jk->tarikh_mula));
                 $kehadiran = Kehadiran::where('jadual_kursus_id', $jk->id)->get();
                 $jk['kehadiran'] = $kehadiran;
-                if (!$kehadiran->isEmpty()) {
-                    foreach ($kehadiran as $k) {
-                        if ($k->status_kehadiran_ke_kursus == "HADIR" && $k->pengesahan == "DISAHKAN") {
-                            $hadir++;
-                        }
-                        if ($k->status_kehadiran_ke_kursus == "TIDAK HADIR" && $k->pengesahan == "DISAHKAN") {
-                            $tidak_hadir++;
-                        }
-                        if ($k->nama_pengganti != null) {
-                            $bil_pengganti++;
-                        }
-                    }
+                // if (!$kehadiran->isEmpty()) {
+                //     foreach ($kehadiran as $k) {
+                //         if ($k->status_kehadiran_ke_kursus == "HADIR" && $k->pengesahan == "DISAHKAN") {
+                //             $hadir++;
+                //         }
+                //         if ($k->status_kehadiran_ke_kursus == "TIDAK HADIR" && $k->pengesahan == "DISAHKAN") {
+                //             $tidak_hadir++;
+                //         }
+                //         if ($k->nama_pengganti != null) {
+                //             $bil_pengganti++;
+                //         }
+                //     }
 
-                    $jk['peratusan'] = ($hadir / ($hadir + $tidak_hadir) * 100);
-                } else {
-                    $jk['peratusan'] = 5;
-                }
+                //     $jk['peratusan'] = ($hadir / ($hadir + $tidak_hadir) * 100);
+                // } else {
+                //     $jk['peratusan'] = 0;
+                // }
                 $jk['bil_hadir'] = $hadir;
                 $jk['bil_tidak_hadir'] = $tidak_hadir;
                 $jk['bil_pengganti'] = $bil_pengganti;
@@ -224,7 +224,7 @@ class LaporanLainController extends Controller
 
     public function pkp()
     {
-        return (new PrestasiKehadiranExport())->download('PerbelanjaanMengikutLokaliti.xlsx');
+        return (new PrestasiKehadiranExport())->download('Laporan Prestasi Kehadiran Peserta.xlsx');
     }
 
     public function laporan_kehadiran_7_hari_setahun()
@@ -257,14 +257,14 @@ class LaporanLainController extends Controller
 
         $penceramah = Agensi::where('kategori_agensi', $id_penceramah)->with('penceramahKonsultan')->get();
 
-        foreach ($penceramah as $p) {
-            foreach ($p->penceramahKonsultan as $pk) {
-                $pk['tahun'] = date('Y', strtotime($pk->jadual_kursus->tarikh_mula));
-                $pk['mula'] = date('d/m/Y', strtotime($pk->jadual_kursus->tarikh_mula));
-                $pk['tamat'] = date('d/m/Y', strtotime($pk->jadual_kursus->tarikh_mula));
-                $pk['tempat'] = Agensi::find($pk->jadual_kursus->kursus_tempat)->nama_Agensi;
-            }
-        }
+        // foreach ($penceramah as $p) {
+        //     foreach ($p->penceramahKonsultan as $pk) {
+        //         $pk['tahun'] = date('Y', strtotime($pk->jadual_kursus->tarikh_mula));
+        //         $pk['mula'] = date('d/m/Y', strtotime($pk->jadual_kursus->tarikh_mula));
+        //         $pk['tamat'] = date('d/m/Y', strtotime($pk->jadual_kursus->tarikh_mula));
+        //         $pk['tempat'] = Agensi::find($pk->jadual_kursus->kursus_tempat)->nama_Agensi;
+        //     }
+        // }
         return view('laporan.laporan_lain.laporan_ringkasan_penceramah_kursus', [
             'penceramah' => $penceramah,
         ]);
@@ -284,7 +284,7 @@ class LaporanLainController extends Controller
         foreach ($penceramah as $p) {
             foreach ($p->penceramahKonsultan as $pk) {
                 $pk['tahun'] = date('Y', strtotime($pk->jadual_kursus->tarikh_mula));
-                $pk['mula'] = date('d/mY', strtotime($pk->jadual_kursus->tarikh_mula));
+                $pk['mula'] = date('d/m/Y', strtotime($pk->jadual_kursus->tarikh_mula));
                 $pk['tamat'] = date('d/m/Y', strtotime($pk->jadual_kursus->tarikh_mula));
                 $pk['tempat'] = Agensi::find($pk->jadual_kursus->kursus_tempat)->nama_Agensi;
             }
@@ -335,7 +335,7 @@ class LaporanLainController extends Controller
 
         foreach ($kehadiran as $k) {
             $k['user'] = User::find($k->no_pekerja);
-            // $k['tempat'] = JadualKursus::with('tempat');
+            $k['tempat'] = JadualKursus::with('tempat');
         }
 
         return view('laporan.laporan_lain.laporan_kehadiran_peserta', [
@@ -391,7 +391,6 @@ class LaporanLainController extends Controller
     public function excel_laporan_pelaksanaan_latihan_staf()
     {
         return (new PerlaksanaanLatihanStafExport())->download('KewanganTerperinci.xlsx');
-
     }
 
 
@@ -996,6 +995,5 @@ class LaporanLainController extends Controller
     public function excel_laporan_perbelanjaan_pusatlatihan()
     {
         return (new PerbelanjaanPlExport())->download('Perbelanjaan Mengikut Pusat Latihan.xlsx');
-
     }
 }

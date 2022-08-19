@@ -22,14 +22,15 @@
          <tbody>
              @foreach ($kehadiran as $k)
                  <tr>
-    
-                     <td>{{ $loop->iteration }}</td>
+
+                     <td>{{ $loop->iteration }}.</td>
                      <td>{{ ($k->kursus->bidang->nama_Bidang_Kursus ?? '-') }}</td>
                      <td>{{ ($k->kursus->kategori_kursus->nama_Kategori_Kursus ?? '-') }}</td>
                      <td>{{ ($k->kod_kursus ?? '-') }}</td>
-                     <td>{{$k->kursus->kursus_nama}}</td>
-                     <td>{{date('d/m/Y', strtotime($k->kursus->tarikh_mula))}}
-                     <br>-<br>{{date('d/m/Y', strtotime($k->kursus->tarikh_tamat))}}</td>
+                     <td>{{($k->kursus->kursus_nama  ?? '-') }}</td>
+                     <td>{{($k->kursus->tarikh_mula ?? '-') }}</td>
+                     {{-- <td>{{  ( date('d/m/Y', strtotime($k->kursus->tarikh_mula))  ?? '-')}}
+                     <br>-<br>{{( date('d/m/Y', strtotime($k->kursus->tarikh_tamat))  ?? '-')}}</td> --}}
                      <td>{{($k->kursus->tempat->nama_Agensi?? '-') }} </td>
                      <td>{{($k->kursus->pengendali->nama_Agensi?? '-') }} </td>
                      <td>{{ ($k->staff->no_KP ?? '-') }}</td>

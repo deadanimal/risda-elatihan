@@ -45,7 +45,12 @@
         </div>
     </div>
 
-    <hr style="color: rgba(81,179,90, 60%);height:2px;">
+    <hr class="risda-g">
+
+    <a id="downloadpdf" download="LaporanKemajuanLatihan-PusatLatihan" style="display: none"
+    href="{{ route('pdf_pl_staf') }}">Download</a>
+
+    <a id="downloadexcel" style="display: none" href="{{ route('excel_pl_staf') }}">Download</a>
 
     <div class="card mt-5 ">
         <div class="card-header">
@@ -116,6 +121,21 @@
         </div>
     </div>
     </div>
+
+
+
+    <script>
+        function download(el) {
+            let val = el.value;
+            if (val == "Pdf") {
+                document.getElementById('downloadpdf').click();
+            }
+            if (val == "Excel") {
+                document.getElementById('downloadexcel').click();
+            }
+        }
+    </script>
+
 
     <script>
         $(document).ready(function() {
