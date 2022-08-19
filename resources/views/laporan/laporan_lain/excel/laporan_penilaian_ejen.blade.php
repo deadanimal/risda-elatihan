@@ -20,7 +20,6 @@
                        @foreach ($ejen as $e)
                             @foreach ($e as $p )
                             <tr>
-
                             <td>{{$p->agensi->nama_Agensi}}</td>
                             @endforeach
                         @endforeach

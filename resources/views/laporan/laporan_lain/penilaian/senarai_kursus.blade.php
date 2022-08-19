@@ -58,7 +58,6 @@
                                 <th class="fw-bold text-dark" scope="col">NAMA KURSUS</th>
                                 <th class="fw-bold text-dark" scope="col">TARIKH KURSUS</th>
                                 <th class="fw-bold text-dark" scope="col">TEMPAT KURSUS</th>
-                                <th class="fw-bold text-dark" scope="col">STATUS PELAKSANAAN</th>
                                 <th class="fw-bold text-dark" scope="col">TINDAKAN</th>
                             </tr>
                         </thead>
@@ -74,7 +73,6 @@
                                 @endif
                                 <td>{{ ($k->tempat->nama_Agensi ?? '-') }}</td>
                                 <td><a href="laporan-penilaian-prepost/{{$k->id}}">Laporan Penilaian</a></td>
-                                <td></td>
                             </tr>
                         @endforeach
 

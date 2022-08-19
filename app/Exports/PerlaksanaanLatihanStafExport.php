@@ -15,6 +15,6 @@ class PerlaksanaanLatihanStafExport implements FromView
     public function view(): View
     {
 
-        return view('laporan.laporan_lain.excel.laporan_');
+        return view('laporan.laporan_lain.excel.pelaksanaan_latihan_staf');
     }
 }

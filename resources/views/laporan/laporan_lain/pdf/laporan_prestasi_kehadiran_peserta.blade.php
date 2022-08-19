@@ -149,15 +149,14 @@
         (KEMENTERIAN PEMBANGUNAN LUAR BANDAR)</b>
         <br><small> Bangunan RISDA, KM 7, Jalan Ampang, Karung Berkunci 11067, 50990 Kuala Lumpur</small></div>
         <br> --}}
-        <small class="right"> Tel : 03-4256 4022</small>
-        <br><small class="right"> Laman Web : http://wwww.risda.gov.my </small>
+        <small style="text-align: center"> LAPORAN PRESTASI KEHADIRAN PESERTA</small>
         <br>
 
         <hr>
 <div class="card-body">
     <div class="table-responsive scrollbar ">
         {{-- <table class="table text-center table-bordered datatable" style="vertical-align: middle;border-color: #00B64E;"> --}}
-            <table width="100%" style="text-transformation:capitalize" border="">
+            <table width="100%" style="text-transformation:capitalize">
             <thead class="risda-bg-g">
                 <tr>
                     <th>BIL.</th>

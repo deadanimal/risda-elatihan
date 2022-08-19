@@ -45,9 +45,10 @@
         </div>
     </div>
 
-    <a id="downloadpdf" style="display: none" download="kehadiran-peserta"
-            href="pdf-laporan-kehadiran-peserta">Download</a>
-    <a id="downloadexcel" style="display: none" href="excel-kehadiran-peserta" download="kehadiran-peserta">Download</a>
+    <a id="downloadpdf" download="" style="display: none"
+    href="{{ route('pdf_penilaian_ejen') }}"></a>
+
+    <a id="downloadexcel" style="display: none" href="{{ route('excel_penilaian_ejen') }}"></a>
 
 
     <hr style="color: rgba(81,179,90, 60%);height:2px;">
@@ -97,7 +98,7 @@
                         </td>
 
 
-                        @endforeach 
+                        @endforeach
 
                     </tbody>
 
