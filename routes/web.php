@@ -500,7 +500,7 @@ Route::middleware('auth')->group(function () {
                 Route::get('mengikut-daerah-excel', [LaporanLainController::class, 'excel_laporan_kemajuan_latihan_daerah'])->name('excel-kl-daerah');
             });
 
-            // perbelanjaan
+            //kehadiran
             Route::prefix('laporan-kehadiran')->group(function () {
                 Route::get('mengikut-umur-jantina', [LaporanLainController::class, 'laporan_kehadiran_umur_jantina']);
                 Route::get('mengikut-umur-jantina-pdf', [LaporanLainController::class, 'pdf_laporan_kehadiran_umur_jantina']);
@@ -508,8 +508,8 @@ Route::middleware('auth')->group(function () {
 
 
                 Route::get('mengikut-pusat-latihan-pusat-tanggungjawab', [LaporanLainController::class, 'laporan_kehadiran_pusat_latihan']);
-                Route::get('mengikut-pusat-latihan-pusat-tanggungjawab-pdf', [LaporanLainController::class, 'pdf_kehadiran_pusat_latihan']);
-                Route::get('mengikut-pusat-latihan-pusat-tanggungjawab-excel', [LaporanLainController::class, 'excel_kehadiran_pusat_latihan']);
+                Route::get('mengikut-pusat-latihan-pusat-tanggungjawab-pdf', [LaporanLainController::class, 'pdf_kehadiran_pusat_latihan'])->name('pdf-kehadiran-pl');
+                Route::get('mengikut-pusat-latihan-pusat-tanggungjawab-excel', [LaporanLainController::class, 'excel_kehadiran_pusat_latihan'])->name('excel-kehadiran-pl');
 
                 Route::get('mengikut-negeri-parlimen-dun', [LaporanLainController::class, 'laporan_kehadiran_negeri']);
                 Route::get('mengikut-negeri-parlimen-dun-pdf', [LaporanLainController::class, 'pdf_kehadiran_negeri']);

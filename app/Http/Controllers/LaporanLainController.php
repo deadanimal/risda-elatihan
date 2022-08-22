@@ -835,13 +835,23 @@ class LaporanLainController extends Controller
 
     public function laporan_kehadiran_pusat_latihan()
     {
-        $pl = KehadiranPusatLatihan::with(['peserta', 'kursus', 'tempat_kursus'])->get()->groupBy('agensi_id');
-        // dd($pl);
-        foreach ($pl as $k) {
-            foreach ($k as $l) {
-                $kursus = JadualKursus::where('id', $l->jadual_kursus_id)->first();
-            }
-        }
+        // $pl = KehadiranPusatLatihan::groupBy('agensi_id');
+
+        $pl = KehadiranPusatLatihan::with(['tempat_kursus'=> function($query){
+            $query->groupBy('nama_Agensi');
+        }])->get();
+
+
+        // // dd($pl);
+        // foreach ($pl as $k) {
+        //     foreach ($k as $l) {
+        //         $kursus = JadualKursus::where('id', $l->jadual_kursus_id)->first();
+        //         $bilangan_kursus=count('')
+        //         $l['bil_kursus'] = count($l->kodkursus);
+
+        //     }
+        // }
+
 
         // $tahun = substr($pl->peserta->no_KP, 0, 2);
         // $tahun = (int)$tahun;
@@ -856,6 +866,7 @@ class LaporanLainController extends Controller
         // $umur_peserta = $tahun_ini - $tahun_lahir;
         return view('laporan.laporan_lain.kehadiran.pusat_latihan', [
             'pl' => $pl,
+
             // 'umur_peserta'=>$umur_peserta
         ]);
     }
@@ -869,7 +880,7 @@ class LaporanLainController extends Controller
 
     public function pdf_kehadiran_pusat_latihan()
     {
-        $pl = KehadiranPusatLatihan::with(['peserta', 'kursus', 'tempat_kursus'])->get()->groupBy('agensi_id');
+        $pl = PusatTang::with(['peserta', 'kursus', 'tempat_kursus'])->get()->groupBy('agensi_id');
         // dd($pl);
         foreach ($pl as $k) {
             foreach ($k as $l) {
@@ -877,21 +888,23 @@ class LaporanLainController extends Controller
             }
         }
 
-        $tahun = substr($pl->user->no_kp, 0, 2);
-        $tahun = (int)$tahun;
-            if ($tahun <= 30) {
-                $tahun_lahir = '20'.$tahun;
-            }else{
-                $tahun_lahir = '19'.$tahun;
-            }
-        $tahun_ini = date('Y');
+        // $tahun = substr($pl->user->no_kp, 0, 2);
+        // $tahun = (int)$tahun;
+        //     if ($tahun <= 30) {
+        //         $tahun_lahir = '20'.$tahun;
+        //     }else{
+        //         $tahun_lahir = '19'.$tahun;
+        //     }
+        // $tahun_ini = date('Y');
 
 
-        $umur_peserta = $tahun_ini - $tahun_lahir;
-        $pdf = PDF::loadView('laporan.laporan_lain.kehadiran.pusat_latihan', [
+        // $umur_peserta = $tahun_ini - $tahun_lahir;
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf.kehadiran.pusat_latihan', [
             'pl' => $pl,
-            'umur_peserta'=>$umur_peserta
-        ]);
+            // 'umur_peserta'=>$umur_peserta
+        ])->setPaper('a4', 'landscape');
+
+
         return $pdf->stream('Laporan Kehadiran Pusat Latihan.' . 'pdf');
     }
 
@@ -904,7 +917,7 @@ class LaporanLainController extends Controller
     {
         // return view('laporan.laporan_lain.kehadiran.negeri');
 
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf.laporan_kehadiran_negeri')
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf.kehadiran.laporan_kehadiran_negeri')
         ->setPaper('a4', 'landscape');
 
         return $pdf->stream('LAPORAN KEHADIRAN MENGIKUT NEGERI, PARLIMEN DAN DUN.' . 'pdf');

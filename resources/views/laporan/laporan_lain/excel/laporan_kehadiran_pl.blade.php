@@ -3,29 +3,29 @@
         <thead class="risda-bg-g" style="vertical-align: middle">
 
             <tr>
-                <th>BIL.</th>
-                <th>NAMA EJEN PELAKSANA</th>
-                <th>BILANGAN PERKHIDMATAN / BEKALAN
-                <th>TAJUK PERKHIDMATAN/BEKALAN</th>
-                <th>JUMLAH HARGA (RM)</th>
-                <th>NILAI PRESTASI (%)</th>
-                <th>STATUS</th>
+                <th rowspan="2">PUSAT LATIHAN/ PUSAT TANGGUNGJAWAB</th>
+                <th rowspan="2">BILANGAN KURSUS</th>
+                <th colspan="3" >BILANGAN PESERTA</th>
+            </tr>
+
+            <tr>
+                <th>LELAKI</th>
+                <th>PEREMPUAN</th>
+                <th>JUMLAH</th>
             </tr>
         </thead>
-
-
-
         <tbody>
-            {{-- @foreach ($ejen as $e)
-                @foreach ($penceramah as )
-
-                @endforeach
-                <td>{{$agensi->nama_Agensi}}
+            @foreach ($pl as $k)
+                {{-- @foreach ($k  as $l ) --}}
+                <td>{{$k->tempat_kursus->nama_Agensi}}</td>
+                {{-- <td>{{$k->kursus->nama_kursus}}</td> --}}
+                <td></td>
+                <td></td>
+                <td></td>
+                {{-- @endforeach --}}
+            <tr>
             @endforeach
-            </td>
 
-
-            @endforeach --}}
 
         </tbody>
 
