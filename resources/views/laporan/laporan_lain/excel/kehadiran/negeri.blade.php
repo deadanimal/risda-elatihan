@@ -1,6 +1,6 @@
 @extends('layouts.risda-base')
 <style>
-    th {
+    th{
         vertical-align: middle;
     }
 </style>
@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
-                    LAPORAN KEHADIRAN MENGIKUT PUSAT LATIHAN DAN PUSAT TANGGUNGJAWAB
+                    LAPORAN KEHADIRAN MENGIKUT NEGERI, PARLIMEN, DAN DUN
                 </p>
             </div>
         </div>
@@ -49,13 +49,11 @@
             </div>
         </div>
 
-        <a id="downloadpdf" style="display: none" download="Laporan Kehadiran Mengikut Pusat Latihan dan Pusat Tanggungjawab"
-        href="{{route('pdf-kehadiran-pl')}}">Download</a>
-        <a id="downloadexcel" style="display: none" href="{{route('excel-kehadiran-pl')}}" download="Laporan Kehadiran Mengikut Pusat Latihan dan Pusat Tanggungjawab">Download</a>
+        <a id="downloadpdf" style="display: none" download=""
+        href="laporan/ulpk/laporan-kehadiran/mengikut-negeri-parlimen-dun-pdf">Download</a>
+    <a id="downloadexcel" style="display: none" href="mengikut-negeri-parlimen-dun-excel" download="">Download</a>
 
-
-
-        <hr class="risda-g">
+<hr style="color: rgba(81,179,90, 60%);height:2px;">
 
         <div class="card mt-5 ">
             <div class="card-header">
@@ -72,38 +70,34 @@
 
             <div class="card-body">
                 @include(
-                    'laporan.laporan_lain.excel.laporan_kehadiran_pl'
+                    'laporan.laporan_lain.excel.laporan_kehadiran_negeri'
                 )
+
                 {{-- <div class="table-responsive scrollbar ">
                     <table class="table text-center table-bordered datatable"
                         style="vertical-align: middle;border-color: #00B64E;">
                         <thead class="risda-bg-g">
                             <tr>
-                                <th rowspan="2">BIL.</th>
-                                <th rowspan="2">PUSAT LATIHAN / PUSAT TANGGUNGJAWAB</th>
-                                <th rowspan="2">BILANGAN KURSUS</th>
-                                <th colspan="3">BILANGAN PESERTA</th>
+                                <th rowspan="3">PAKEJ</th>
+                                <th rowspan="2" colspan="5">MAKLUMAT LOKASI</th>
+                                <th colspan="3">MAKLUMAT FIZIKAL</th>
+                                <th rowspan="3">CATATAN</th>
                             </tr>
                             <tr>
+                                <th colspan="2">BIL PESERTA</th>
+                                <th rowspan="2">BIL PESERTA</th>
+                            </tr>
+                            <tr>
+                                <th>NEGERI</th>
+                                <th>BIL</th>
+                                <th>PARLIMEN</th>
+                                <th>BIL</th>
+                                <th>DUN</th>
                                 <th>LELAKI</th>
                                 <th>PEREMPUAN</th>
-                                <th>JUMLAH</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($pl as $p)
-                                @foreach ($p as $kpl)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}
-                                        <td>{{ $kpl->tempat_kursus->nama_Agensi ?? '-' }}</td>
-                                        <td>{{ $tot_kursus ?? '-' }}</td>
-                                        <td></td>
-                                        <td></td>
-
-                                        <td></td>
-                                    </tr>
-                                @endforeach
-                            @endforeach
                         </tbody>
                     </table>
                 </div> --}}
@@ -111,6 +105,9 @@
             </div>
         </div>
     </div>
+
+
+
 
 
     <script>

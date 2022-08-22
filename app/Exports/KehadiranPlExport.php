@@ -23,21 +23,21 @@ class KehadiranPlExport implements FromView
         }
     }
 
-    $tahun = substr($pl->user->no_kp, 0, 2);
-    $tahun = (int)$tahun;
-    if ($tahun <= 30) {
-        $tahun_lahir = '20'.$tahun;
-    } else {
-        $tahun_lahir = '19'.$tahun;
-    }
-    $tahun_ini = date('Y');
+    // $tahun = substr($pl->user->no_kp, 0, 2);
+    // $tahun = (int)$tahun;
+    // if ($tahun <= 30) {
+    //     $tahun_lahir = '20'.$tahun;
+    // } else {
+    //     $tahun_lahir = '19'.$tahun;
+    // }
+    // $tahun_ini = date('Y');
 
 
-    $umur_peserta = $tahun_ini - $tahun_lahir;
+    // $umur_peserta = $tahun_ini - $tahun_lahir;
 
-    return view('laporan.laporan_lain.excel.kehadiran_pl', [
+    return view('laporan.laporan_lain.excel.laporan_kehadiran_pl', [
     'pl' => $pl,
-    'umur_peserta'=>$umur_peserta
+    // 'umur_peserta'=>$umur_peserta
     ]);
 }
 

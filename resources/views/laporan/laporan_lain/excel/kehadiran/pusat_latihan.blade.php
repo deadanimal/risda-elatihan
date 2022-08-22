@@ -51,7 +51,7 @@
 
         <a id="downloadpdf" style="display: none" download="Laporan Kehadiran Mengikut Pusat Latihan dan Pusat Tanggungjawab"
         href="{{route('pdf-kehadiran-pl')}}">Download</a>
-        <a id="downloadexcel" style="display: none" href="{{route('excel-kehadiran-pl')}}" download="Laporan Kehadiran Mengikut Pusat Latihan dan Pusat Tanggungjawab">Download</a>
+        <a id="downloadexcel" style="display: none" href="mengikut-pusat-latihan-pusat-tanggungjawab-excel" download="">Download</a>
 
 
 
@@ -111,6 +111,9 @@
             </div>
         </div>
     </div>
+
+
+
 
 
     <script>
