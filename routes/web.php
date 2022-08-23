@@ -390,7 +390,27 @@ Route::middleware('auth')->group(function () {
     });
 
     //laporan
+
+
     Route::group(['prefix' => 'laporan', 'middleware' => 'can:laporan'], function () {
+
+    });
+
+
+    Route::group(['prefix' => 'laporan', 'middleware' => 'can:laporan'], function () {
+
+        Route::prefix('uls')->group(function () {
+            Route::prefix('laporan-lain')->group(function () {
+
+                Route::get('laporan-pencapaian-matlamat-kehadiran', [LaporanLainController::class, 'pencapaian_matlamat_kehadiran']);
+                Route::get('pdf-laporan-pencapaian-matlamat-kehadiran', [LaporanLainController::class, 'pdf_pencapaian_matlamat_kehadiran']);
+                Route::get('/pmk', [LaporanLainController::class, 'pmk'])->name('pmk');
+
+                Route::get('laporan-perbelanjaan-mengikut-pusat-tanggungjawab', [LaporanLainController::class, 'perbelanjaan_mengikut_pusat_tanggungjawab']);
+                Route::get('pdf-laporan-perbelanjaan-mengikut-pusat-tanggungjawab', [LaporanLainController::class, 'pdf_perbelanjaan_mengikut_pusat_tanggungjawab']);
+            });
+        });
+
         Route::prefix('laporan-lain')->group(function () {
 
             Route::get('laporan-pencapaian-matlamat-kehadiran', [LaporanLainController::class, 'pencapaian_matlamat_kehadiran']);
@@ -455,6 +475,11 @@ Route::middleware('auth')->group(function () {
             Route::get('penilaian-peserta-pdf', [LaporanLainController::class, 'pdf_laporan_penilaian_peserta']);
             Route::get('penilaian-peserta-exc', [LaporanLainController::class, 'excel_laporan_penilaian_peserta']);
 
+            Route::get('laporan-penilaian-keberkesanan/{id}', [LaporanLainController::class, 'laporan_penilaian_keberkesanan']);
+            Route::get('laporan-penilaian-keberkesanan-pdf', [LaporanLainController::class, 'pdf_laporan_penilaian_keberkesanan'])->name('pdf-pk');
+            Route::get('laporan-penilaian-keberkesanan-excel', [LaporanLainController::class, 'excel_laporan_penilaian_keberkesanan'])->name('excel-pk');
+
+
             Route::get('laporan-penilaian-prepost-ulpk', [LaporanLainController::class, 'laporan_penilaian_prepost_ulpk_show']);
 
             Route::get('laporan-penilaian-penyelia', [LaporanLainController::class, 'laporan_penilaian_penyelia']);
@@ -467,7 +492,7 @@ Route::middleware('auth')->group(function () {
 
 
             //download excel
-            Route::get('/pmk', [LaporanLainController::class, 'pmk'])->name('pmk');
+            // Route::get('/pmk', [LaporanLainController::class, 'pmk'])->name('pmk');
             Route::get('/pmpt', [LaporanLainController::class, 'pmpt'])->name('pmpt');
             Route::get('/pml', [LaporanLainController::class, 'pml'])->name('pml');
             Route::get('/pkp', [LaporanLainController::class, 'pkp'])->name('pkp');

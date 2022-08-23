@@ -20,6 +20,7 @@ use App\Exports\KehadiranUmurJantinaExport;
 use App\Exports\KemajuanLatihanDaerahExport;
 use App\Exports\KemajuanLatihanPlExport;
 use App\Exports\PencapaianMatlamatExport;
+use App\Exports\PenilaianKeberkesananExport;
 use App\Exports\PerbelanjaanKategoriExport;
 use App\Exports\PerbelanjaanMengikutLExport;
 use App\Exports\PerbelanjaanMengikutPTExport;
@@ -33,10 +34,12 @@ use App\Models\JadualKursus;
 use App\Models\KehadiranPusatLatihan;
 use App\Models\PenceramahKonsultan;
 use App\Models\PenilaianEjenPelaksana;
+use App\Models\PenilaianKeberkesanan;
 use App\Models\PusatTanggungjawab;
 use App\Models\PerbelanjaanKursus;
 use App\Models\PeruntukanPeserta;
 use App\Models\PenilaianPeserta;
+use App\Models\PostTest;
 use App\Models\Staf;
 use App\Models\User;
 use App\Models\PrePostTest;
@@ -62,16 +65,16 @@ class LaporanLainController extends Controller
         $bidang['j_pencapaian'] = $j_pencapaian;
         $bidang['data'] = $bidang_kursus;
 
-        $response = Http::post('https://libreoffice.prototype.com.my/cetak/LaporanPMK', [$bidang]);
+        // $response = Http::post('https://libreoffice.prototype.com.my/cetak/LaporanPMK', [$bidang]);
 
-        $res = $response->getBody()->getContents();
+        // $res = $response->getBody()->getContents();
 
-        $url = "data:application/pdf;base64," . $res;
+        // $url = "data:application/pdf;base64," . $res;
 
         return view('laporan.laporan_lain.laporan_pencapaian_matlamat_kehadiran', [
             'bidang_kursus' => $bidang_kursus,
             'j_pencapaian' => $j_pencapaian,
-            'url' => $url,
+            // 'url' => $url,
         ]);
     }
     public function pmk()
@@ -598,8 +601,9 @@ class LaporanLainController extends Controller
     public function laporan_penilaian_prepost_show()
     {
         $pretest=PrePostTest::with('kursus');
+        // $post_test =PostTest::with
 
-        return view('laporan.laporan_lain.laporan-penilaian-prepost-show',[
+        return view('laporan.laporan_lain.penilaian-prepost-show',[
             'pretest'=>$pretest
         ]);
     }
@@ -622,6 +626,58 @@ class LaporanLainController extends Controller
 
         return view('laporan.laporan_lain.laporan-penilaian-prepost-show_ulpk');
     }
+
+
+
+    public function laporan_penilaian_keberkesanan($id){
+        // $pk=Kehadiran::with(['staf','kursus','penilaiankeberkesanan'])
+        // ->where('status_kehadiran', 'Hadir')->get();
+
+        // return view('laporan.laporan_lain.penilaian.laporan-penilaian-keberkesanan', [
+        // 'pk'=>$pk
+        // ]);
+
+        $kursus = JadualKursus::find($id);
+        // $kehadiran = Kehadiran::with(['kursus','staff','penilaiankeberkesanan'])->where('jadual_kursus_id',$kursus->id)->get();
+        $pk = PenilaianKeberkesanan::with('kehadiran');
+
+
+        // dd($id);
+        $pdf = PDF::loadView('laporan.laporan_lain.penilaian.laporan-penilaian-keberkesanan', [
+        'pk'=>$pk,
+        'kursus'=>$kursus
+        ]);
+
+    }
+
+    public function excel_laporan_penilaian_keberkesanan(){
+
+        return (new PenilaianKeberkesananExport())->download('PenilaianKeberkesananKursus.xlsx');
+
+    }
+
+    public function pdf_laporan_penilaian_keberkesanan($id){
+        // $pk=Kehadiran::with(['staf','kursus','penilaiankeberkesanan'])
+        // ->where('status_kehadiran', 'Hadir')->get();
+
+        // return view('laporan.laporan_lain.penilaian.laporan-penilaian-keberkesanan', [
+        // 'pk'=>$pk
+        // ]);
+
+        $kursus = JadualKursus::find($id);
+        // $kehadiran = Kehadiran::with(['kursus','staff','penilaiankeberkesanan'])->where('jadual_kursus_id',$kursus->id)->get();
+        $pk = PenilaianKeberkesanan::with('kehadiran');
+
+
+        // dd($id);
+        return view('laporan.laporan_lain.penilaian.laporan-penilaian-keberkesanan', [
+        'pk'=>$pk,
+        'kursus'=>$kursus
+        ]);
+
+    }
+
+
 
     public function laporan_penilaian_penyelia()
     {
@@ -880,7 +936,8 @@ class LaporanLainController extends Controller
 
     public function pdf_kehadiran_pusat_latihan()
     {
-        $pl = PusatTang::with(['peserta', 'kursus', 'tempat_kursus'])->get()->groupBy('agensi_id');
+        // $pl = PusatTanggungjawab::with(['peserta', 'kursus', 'tempat_kursus'])->get()->groupBy('agensi_id');
+        $pl = PusatTanggungjawab::with(['negeri','staff'])->get()->groupBy('Kod_PT');
         // dd($pl);
         foreach ($pl as $k) {
             foreach ($k as $l) {
