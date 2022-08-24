@@ -32,7 +32,7 @@ class PenilaianEjenPelaksanaController extends Controller
 
     // //    dd($kursus);
 
-        $ejen=PenceramahKonsultan::with(['penilaianejen','agensi', 'jadual_kursus'])->get();
+        $ejen=PenceramahKonsultan::with(['penilaianejen','agensi', 'jadual_kursus']);
         $hari_ini = date('Y-m-d');
 
             // $penilaian_ejen=PenilaianEjenPelaksana::where('jadual_kursus_id',$ejen->pc_jadual_kursus)->first();

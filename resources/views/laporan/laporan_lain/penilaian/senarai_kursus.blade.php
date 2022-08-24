@@ -72,7 +72,7 @@
                                 <td>{{date('d/m/Y', strtotime($k->tarikh_mula))}} - {{date('d/m/Y', strtotime($k->tarikh_tamat))}}</td>
                                 @endif
                                 <td>{{ ($k->tempat->nama_Agensi ?? '-') }}</td>
-                                <td><a href="laporan-penilaian-prepost/{{$k->id}}">Laporan Penilaian</a></td>
+                                <td><a href="laporan-penilaian-prepost/{{$k->id}}">Laporan Penilaian PreTest</a></td>
                             </tr>
                         @endforeach
 
