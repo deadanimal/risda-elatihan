@@ -7,9 +7,9 @@
                 <h5 class="risda-dg">DAERAH</h5>
             </div>
         </div>
-    
+
         <hr class="risda-g">
-    
+
         <form action="#">
             <div class="row mt-4 justify-content-center">
                 <div class="col-lg-8">
@@ -32,7 +32,7 @@
                 </div>
             </div>
         </form>
-    
+
         <div class="row mt-5">
             <div class="col">
                 <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#tambah-negeri">
@@ -92,7 +92,7 @@
                 </div>
             </div>
         </div>
-    
+
         <div class="row mt-3">
             <div class="col">
                 <div class="card">
@@ -107,7 +107,7 @@
                                     <th class="sort">TINDAKAN</th>
                                 </tr>
                             </thead>
-                            
+
                             <tbody class="bg-white" id="t_normal">
                                 @foreach ($daerah as $key => $d)
                                     <tr>
@@ -126,7 +126,7 @@
                                                 data-bs-target="#edit_daerah_{{ $d->id }}">
                                                 <i class="fas fa-pen"></i>
                                             </button>
-    
+
                                             <button class="btn risda-bg-dg text-white" type="button" data-bs-toggle="modal"
                                                 data-bs-target="#delete_daerah_{{ $d->id }}">
                                                 <i class="fas fa-trash"></i>
@@ -218,7 +218,7 @@
                                                         <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
                                                         <br>
                                                         Anda pasti untuk menghapus {{ $d->Daerah }}?
-    
+
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
@@ -383,7 +383,7 @@
         //                                                 <div class="mb-3">
         //                                                     <label class="col-form-label">STATUS</label>
         //                                                     <div class="form-check form-switch">
-                                                                
+
         //                                                     </div>
         //                                                 </div>
         //                                                 <div class="modal-footer">

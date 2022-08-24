@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Exports\KemajuanLatihanNegeriExport;
 use App\Exports\PerbelanjaanPlExport;
+use App\Exports\PerbelanjaanKursusExport;
 use App\Exports\PencapaianLatihanNegeriExport;
 use App\Exports\KehadiranNegeriExport;
 use App\Exports\KemajuanLatihanBidangExport;
@@ -92,7 +93,7 @@ class LaporanLainController extends Controller
             $j_pencapaian += count($bk->kodkursus);
         }
 
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf.laporan_pencapaian_matlamat_kehadiran', [
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_pencapaian_matlamat_kehadiran', [
             'bidang_kursus' => $bidang_kursus,
             'j_pencapaian' => $j_pencapaian,
         ])->setPaper('a4', 'landscape');
@@ -157,7 +158,7 @@ class LaporanLainController extends Controller
     {
         $pt = PusatTanggungjawab::all();
 
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf.laporan_perbelanjaan_mengikut_lokaliti', [
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_perbelanjaan_mengikut_lokaliti', [
             'pt' => $pt,
         ]);
 
@@ -217,7 +218,7 @@ class LaporanLainController extends Controller
     public function pdf_prestasi_kehadiran()
     {
         $bidang_kursus = BidangKursus::with('kodkursus')->get();
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf.laporan_prestasi_kehadiran_peserta', [
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_prestasi_kehadiran_peserta', [
             'bidang_kursus' => $bidang_kursus
         ])->setPaper('a4', 'landscape');
 
@@ -238,7 +239,7 @@ class LaporanLainController extends Controller
     public function pdf_laporan_kehadiran_7_hari_setahun()
     {
         // return view('laporan.laporan_lain.laporan_kehadiran_7_hari_setahun');
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf.laporan_kehadiran_7_hari_setahun')
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_kehadiran_7_hari_setahun')
         ->setPaper('a4', 'landscape');
 
 
@@ -247,8 +248,8 @@ class LaporanLainController extends Controller
 
     public function excel_laporan_kehadiran_7_hari_setahun()
     {
-        // return view('laporan.laporan_lain.laporan_kehadiran_7_hari_setahun');
-        return (new Kehadiran7HariSetahunExport())->download('LaporanKehadiran7HariSetahun.xlsx');
+        // dd('2');
+        return (new Kehadiran7HariSetahunExport())->download('Laporan Kehadiran 7 Hari Setahun.xlsx');
         // return (new Kehadiran7HariSetahunExport)->download('Kehadiran7.xls', \Maatwebsite\Excel\Excel::XLS);
 
 
@@ -316,7 +317,7 @@ class LaporanLainController extends Controller
 
         // dd($pusat_tanggungjawab);
 
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf.pencapaian_latihan_mengikut_negeri', [
+        $pdf = PDF::loadView('laporan.laporan_lain.excel.pencapaian_latihan_mengikut_negeri', [
             'pusat_tanggungjawab' => $pusat_tanggungjawab,
         ])->setPaper('a4', 'landscape');
 
@@ -370,7 +371,7 @@ class LaporanLainController extends Controller
         // $jadual = JadualKursus::where('id',$kehadiran->jadual_kursus_id)->first();
         // $tempat = Agensi::where('id',$jadual->kursus_tempat)->first();
 
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf.laporan_kehadiran_peserta', [
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_kehadiran_peserta', [
             'kehadiran' => $kehadiran,
         ])->setPaper('a4', 'landscape');
 
@@ -384,7 +385,7 @@ class LaporanLainController extends Controller
 
     public function pdf_laporan_pelaksanaan_latihan_staf()
     {
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf.pelaksanaan_latihan_staf')
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.pelaksanaan_latihan_staf')
         ->setPaper('a4', 'landscape');
 
         return $pdf->stream('Laporan Pelaksanaan Latihan Staf.' . 'pdf');
@@ -393,7 +394,7 @@ class LaporanLainController extends Controller
 
     public function excel_laporan_pelaksanaan_latihan_staf()
     {
-        return (new PerlaksanaanLatihanStafExport())->download('KewanganTerperinci.xlsx');
+        return (new PerlaksanaanLatihanStafExport())->download('Laporan Perlaksanaan Latihan Staf.xlsx');
     }
 
 
@@ -404,7 +405,7 @@ class LaporanLainController extends Controller
 
     public function pdf_laporan_kewangan_terperinci()
     {
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf.laporan_kewangan_terperinci')
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_kewangan_terperinci')
         ->setPaper('a4', 'landscape');
 
         return $pdf->stream('Laporan Kewangan Terperinci.' . 'pdf');
@@ -448,7 +449,7 @@ class LaporanLainController extends Controller
             $bilangan_peserta += count($k->kehadiran);
         }
 
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf.laporan_ringkasan_jenis_kursus', [
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_ringkasan_jenis_kursus', [
             'kursus' => $kursus,
             'bilangan_peserta'=>$bilangan_peserta
         ])->setPaper('a4', 'landscape');
@@ -496,7 +497,7 @@ class LaporanLainController extends Controller
 
 
         // dd($kursus);
-        return view('laporan.laporan_lain.pdf.laporan_ringkasan_bidang_kursus',[
+        return view('laporan.laporan_lain.pdf-laporan.laporan_ringkasan_bidang_kursus',[
             'kursus'=>$kursus,
             'bilangan_peserta'=>$bilangan_peserta
         ]);
@@ -538,7 +539,7 @@ class LaporanLainController extends Controller
         $penilaian = PenilaianPeserta::with(['kursus'])->get();
 
 
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf.laporan_penilaian_peserta', [
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_penilaian_peserta', [
             'penilaian' => $penilaian
         ])->setPaper('a4', 'landscape');
 
@@ -573,7 +574,7 @@ class LaporanLainController extends Controller
         $ejen = PenilaianEjenPelaksana::with('penceramahKonsultan');
 
 
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf.laporan_penilaian_ejen', [
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_penilaian_ejen', [
             'ejen' => $ejen
         ])->setPaper('a4', 'landscape');
 
@@ -719,7 +720,7 @@ class LaporanLainController extends Controller
     public function pdf_laporan_kemajuan_latihan_bidang()
     {
 
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf.kemajuan.bidang')
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.kemajuan.bidang')
         ->setPaper('a4', 'landscape');
 
         return $pdf->stream('Laporan Kemajuan Latihan Mengikut Bidang.' . 'pdf');
@@ -741,7 +742,7 @@ class LaporanLainController extends Controller
     public function pdf_laporan_kemajuan_latihan_kategori()
     {
         // return view('laporan.laporan_lain.kemajuan_latihan.kategori');
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf.kemajuan.kategori')
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.kemajuan.kategori')
         ->setPaper('a4', 'landscape');
 
         return $pdf->stream('Laporan Kemajuan Latihan Mengikut Kategori.' . 'pdf');
@@ -761,7 +762,7 @@ class LaporanLainController extends Controller
 
     public function pdf_laporan_kemajuan_latihan_pusatlatihan()
     {
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf.kemajuan.pusat_latihan')
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.kemajuan.pusat_latihan')
         ->setPaper('a4', 'landscape');
 
         return $pdf->stream('Laporan Kemajuan Latihan Mengikut Pusat Latihan.' . 'pdf');
@@ -780,7 +781,7 @@ class LaporanLainController extends Controller
 
     public function pdf_laporan_kemajuan_latihan_negeri()
     {
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf.kemajuan.negeri')
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.kemajuan.negeri')
         ->setPaper('a4', 'landscape');
 
         return $pdf->stream('Laporan Kemajuan Latihan Mengikut Negeri.' . 'pdf');
@@ -799,7 +800,7 @@ class LaporanLainController extends Controller
 
     public function pdf_laporan_kemajuan_latihan_daerah()
     {
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf.kemajuan.daerah')
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.kemajuan.daerah')
         ->setPaper('a4', 'landscape');
 
         return $pdf->stream('Laporan Kemajuan Latihan Mengikut Daerah.' . 'pdf');
@@ -891,11 +892,11 @@ class LaporanLainController extends Controller
 
     public function laporan_kehadiran_pusat_latihan()
     {
-        // $pl = KehadiranPusatLatihan::groupBy('agensi_id');
+        $pl = KehadiranPusatLatihan::groupBy('agensi_id');
 
-        $pl = KehadiranPusatLatihan::with(['tempat_kursus'=> function($query){
-            $query->groupBy('nama_Agensi');
-        }])->get();
+        // $pl = KehadiranPusatLatihan::with(['tempat_kursus'=> function($query){
+        //     $query->groupBy('nama_Agensi');
+        // }])->get();
 
 
         // // dd($pl);
@@ -920,16 +921,16 @@ class LaporanLainController extends Controller
 
 
         // $umur_peserta = $tahun_ini - $tahun_lahir;
-        return view('laporan.laporan_lain.kehadiran.pusat_latihan', [
-            'pl' => $pl,
+        return view('laporan.laporan_lain.kehadiran.pusat_latihan',[
+            'pl' => $pl
 
-            // 'umur_peserta'=>$umur_peserta
         ]);
+
+
     }
 
     public function excel_kehadiran_pusat_latihan()
     {
-        // return view('laporan.laporan_lain.excel.kehadiran_pusat_latihan');
         return (new KehadiranPlExport())->download('Kehadiran Mengikut Pusat Latihan.xlsx');
 
     }
@@ -956,7 +957,7 @@ class LaporanLainController extends Controller
 
 
         // $umur_peserta = $tahun_ini - $tahun_lahir;
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf.kehadiran.pusat_latihan', [
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.kehadiran.pusat_latihan', [
             'pl' => $pl,
             // 'umur_peserta'=>$umur_peserta
         ])->setPaper('a4', 'landscape');
@@ -974,7 +975,7 @@ class LaporanLainController extends Controller
     {
         // return view('laporan.laporan_lain.kehadiran.negeri');
 
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf.kehadiran.laporan_kehadiran_negeri')
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.kehadiran.laporan_kehadiran_negeri')
         ->setPaper('a4', 'landscape');
 
         return $pdf->stream('LAPORAN KEHADIRAN MENGIKUT NEGERI, PARLIMEN DAN DUN.' . 'pdf');
@@ -994,7 +995,7 @@ class LaporanLainController extends Controller
 
     public function pdf_laporan_perbelanjaan_bidang()
     {
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf.perbelanjaan.bidang')
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.perbelanjaan.bidang')
         ->setPaper('a4', 'landscape');
 
         return $pdf->stream('Laporan Perbelanjaan Mengikut Bidang.' . 'pdf');
@@ -1014,7 +1015,7 @@ class LaporanLainController extends Controller
     public function pdf_laporan_perbelanjaan_kategori()
     {
         // return view('laporan.laporan_lain.perbelanjaan.kategori');
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf.perbelanjaan.kategori')
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.perbelanjaan.kategori')
         ->setPaper('a4', 'landscape');
 
         return $pdf->stream('Laporan Perbelanjaan Mengikut Kategori.' . 'pdf');
@@ -1035,7 +1036,7 @@ class LaporanLainController extends Controller
     {
         // dd('2');
         // return view('laporan.laporan_lain.perbelanjaan.kursus');
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf.perbelanjaan.kursus')
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.perbelanjaan.kursus')
         ->setPaper('a4', 'landscape');
 
         return $pdf->stream('Laporan Perbelanjaan Mengikut Kursus.' . 'pdf');
@@ -1043,7 +1044,9 @@ class LaporanLainController extends Controller
 
     public function excel_laporan_perbelanjaan_kursus()
     {
-        return view('laporan.laporan_lain.perbelanjaan.kursus');
+        // return view('laporan.laporan_lain.perbelanjaan.kursus');
+        return (new PerbelanjaanKursusExport())->download('Perbelanjaan Mengikut Kategori.xlsx');
+
     }
 
 
@@ -1056,7 +1059,7 @@ class LaporanLainController extends Controller
     public function pdf_laporan_perbelanjaan_pusatlatihan()
     {
         // return view('laporan.laporan_lain.perbelanjaan.pusat_latihan');
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf.perbelanjaan.pusat_latihan')
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.perbelanjaan.pusat_latihan')
         ->setPaper('a4', 'landscape');
 
         return $pdf->stream('Laporan Perbelanjaan Mengikut Pusat Latihan.' . 'pdf');

@@ -3,11 +3,8 @@
                         style="vertical-align: middle;border-color: #00B64E;">
                         <thead class="risda-bg-g">
                             <tr>
-                                <th rowspan="2">NEGERI</th>
                                 <th rowspan="2">BIL.</th>
-                                <th rowspan="2">BIDANG KURSUS</th>
-                                <th rowspan="2">BIL.</th>
-                                <th rowspan="2">TAJUK</th>
+                                <th rowspan="2">PUSAT LATIHAN</th>
                                 <th colspan="3">BILANGAN KURSUS</th>
                                 <th colspan="7">KEHADIRAN</th>
                                 <th colspan="4">PERBELANJAAN</th>
@@ -33,9 +30,10 @@
                         </tbody>
                     </table>
                 </div>
+
+
     <script>
         $(document).ready(function() {
             $("th").addClass('fw-bold text-white');
         });
     </script>
-

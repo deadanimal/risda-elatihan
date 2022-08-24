@@ -16,7 +16,7 @@ class PencapaianLatihanNegeriExport implements FromView
 
         $pusat_tanggungjawab = PusatTanggungjawab::all();
 
-        return view('laporan.laporan_lain.pencapaian_latihan_mengikut_negeri', [
+        return view('laporan.laporan_lain.excel.pencapaian_latihan_mengikut_negeri', [
             'pusat_tanggungjawab' => $pusat_tanggungjawab,
         ]);
 
