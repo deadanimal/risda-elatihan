@@ -54,7 +54,7 @@
         <a id="downloadpdf" download="LaporanKemajuanLatihanMengikutKategori.pdf" style="display: none"
         href="{{ route('pdf-kl-kategori') }}">Download</a>
 
-        <a id="downloadexcel" style="display: none" href="{{ route('excel-kl-bidang') }}" download="LaporanKemajuanLatihanMengikutBidang" >Download</a>
+        <a id="downloadexcel" style="display: none" href="{{ route('excel-kl-kategori') }}" download="LaporanKemajuanLatihanMengikutKategori" >Download</a>
 
 
         <div class="card mt-5 ">

@@ -1,3 +1,4 @@
+
 @extends('layouts.risda-base')
 @section('content')
     <div class="container">
@@ -12,7 +13,7 @@
         <div class="row">
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
-                    LAPORAN KEHADIRAN 7 HARI SETAHUN
+                    LAPORAN RINGKASAN JENIS KURSUS
                 </p>
             </div>
         </div>
@@ -20,21 +21,22 @@
         <div class="row justify-content-center my-5">
             <div class="col-8">
                 <div class="row mt-3">
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                         <p class="risda-dg h5 mt-2">TARIKH MULA</p>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <input type="date" class="form-control">
                     </div>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                         <p class="risda-dg h5 mt-2">TARIKH AKHIR</p>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <input type="date" class="form-control">
                     </div>
                 </div>
+
                 <div class="row mt-4">
                     <div class="col-lg-10 text-end">
                         <a href="#" class="btn btn-sm btn-primary"> <span class="fas fa-search"></span> Carian</a>
@@ -43,9 +45,9 @@
             </div>
         </div>
 
-        <a id="downloadpdf" style="display: none" download="Laporan Kehadiran 7 Hari Setahun"
-            href="{{ route('pdf_kehadiran_7_setahun') }}">Download</a>
-    <a id="downloadexcel" style="display: none" href="{{ route('excel_kehadiran_7_setahun') }}" download="Laporan Kehadiran 7 Hari Setahun">Download</a>
+        <a id="downloadpdf" style="display: none" href="{{ route('pdf_ringkasan_bk') }}"></a>
+
+        <a id="downloadexcel" style="display: none" href="{{ route('excel_ringkasan_bk') }}"></a>
 
 
 
@@ -65,28 +67,42 @@
             </div>
 
             <div class="card-body">
-                @include(
-                    'laporan.laporan_lain.excel.laporan_kehadiran_7_hari_setahun'
-                )
+                @include('laporan.laporan_lain.excel.laporan_ringkasan_bidang_kursus')
                 {{-- <div class="table-responsive scrollbar ">
-                    <table class="table text-center table-bordered datatable"
+                    <table class="table text-center table-bordered datatable "
                         style="vertical-align: middle;border-color: #00B64E;">
-                        <thead class="risda-bg-g">
+                        <thead class="risda-bg-g" style="vertical-align: middle">
+
                             <tr>
-                                <th rowspan="2">BIL.</th>
-                                <th rowspan="2">KUMPULAN</th>
-                                <th rowspan="2">BILANGAN ANGGOTA</th>
-                                <th colspan="3">BILANGAN KEHADIRAN ANGGOTA KURSUS PENDEK</th>
-                                <th>BILANGAN KEHADIRAN ANGGOTA KURSUS PANJANG</th>
-                            </tr>
-                            <tr>
-                                <th>LEBIH 7 HARI SETAHUN</th>
-                                <th>KURANG 7 HARI SETAHUN</th>
-                                <th>TIDAK BERKURSUS</th>
-                                <th>LEBIH 3 BULAN</th>
+                                <th>JENIS KURSUS</th>
+                                <th>BIL.</th>
+                                <th>BIDANG KURSUS</th>
+                                <th>BIL.</th>
+                                <th>KATEGORI KURSUS</th>
+                                <th>BILANGAN PESERTA</th>
+                                <th>PERUNTUKAN</th>
+                                <th>PERBELANJAAN</th>
+                                <th>TANGGUNGAN</th>
+                                <th>BAKI</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($kursus as $k)
+                            <tr>
+                                <td>{{$k->kategori_kursus->jenis_Kategori_Kursus}}</td>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$k->bidang->nama_Bidang_Kursus}}</td>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$k->kursus_nama}}</td>
+                                <td>{{$k->kategori_kursus->nama_Kategori_Kursus}}</td>
+                                <td>{{$bilangan_peserta}}</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            @endforeach
+                            </tr>
+
                         </tbody>
                     </table>
                 </div> --}}

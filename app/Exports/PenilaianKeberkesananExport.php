@@ -3,11 +3,11 @@
 namespace App\Exports;
 
 use App\Models\PenilaianKeberkesanan;
+use App\Models\JadualKursus;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromView;
-use Maatwebsite\Excel\Concerns\FromCollection;
 
 class PenilaianKeberkesananExport implements FromView
 {
@@ -15,18 +15,17 @@ class PenilaianKeberkesananExport implements FromView
 
     public function view(): View
     {
-    $ejen = PenilaianEjenPelaksana::with(['kursus'])->get();
+        // $ejen = PenilaianKeberkesanan::with(['kursus'])->get();
 
 
-    $kursus = JadualKursus::find($id);
-    // $kehadiran = Kehadiran::with(['kursus','staff','penilaiankeberkesanan'])->where('jadual_kursus_id',$kursus->id)->get();
-    $pk = PenilaianKeberkesanan::with('kehadiran');
+        // $kehadiran = Kehadiran::with(['kursus','staff','penilaiankeberkesanan'])->where('jadual_kursus_id',$kursus->id)->get();
+        $pk = PenilaianKeberkesanan::with('kehadiran');
 
 
-    // dd($id);
-    return view('laporan.laporan_lain.penilaian.laporan-penilaian-keberkesanan', [
+        // dd($id);
+        return view('laporan.laporan_lain.penilaian.laporan-penilaian-keberkesanan', [
     'pk'=>$pk,
-    'kursus'=>$kursus
+    // 'kursus'=>$kursus
     ]);
-
+    }
 }

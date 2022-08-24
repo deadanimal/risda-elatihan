@@ -1,5 +1,4 @@
-
-            <div class="table-responsive scrollbar ">
+<div class="table-responsive scrollbar ">
                 <table class="table text-center table-bordered datatable " style="vertical-align: middle;border-color: #00B64E;">
                     <thead class="risda-bg-g" style="vertical-align: middle">
 
@@ -47,3 +46,6 @@
                     </tbody>
                 </table>
             </div>
+
+
+

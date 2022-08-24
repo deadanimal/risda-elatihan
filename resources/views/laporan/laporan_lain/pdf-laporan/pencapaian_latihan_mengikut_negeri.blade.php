@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
-                    LAPORAN KEHADIRAN 7 HARI SETAHUN
+                    LAPORAN PENCAPAIAN LATIHAN MENGIKUT NEGERI
                 </p>
             </div>
         </div>
@@ -35,19 +35,22 @@
                         <input type="date" class="form-control">
                     </div>
                 </div>
+
+                <div class="row mt-3">
+                    <div class="col-lg-3">
+                        <p class="risda-dg h5 mt-2">KATEGORI</p>
+                    </div>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
                 <div class="row mt-4">
-                    <div class="col-lg-10 text-end">
+                    <div class="col-lg-11 text-end">
                         <a href="#" class="btn btn-sm btn-primary"> <span class="fas fa-search"></span> Carian</a>
                     </div>
                 </div>
             </div>
         </div>
-
-        <a id="downloadpdf" style="display: none" download="Laporan Kehadiran 7 Hari Setahun"
-            href="{{ route('pdf_kehadiran_7_setahun') }}">Download</a>
-    <a id="downloadexcel" style="display: none" href="{{ route('excel_kehadiran_7_setahun') }}" download="Laporan Kehadiran 7 Hari Setahun">Download</a>
-
-
 
         <hr style="color: rgba(81,179,90, 60%);height:2px;">
 
@@ -65,35 +68,16 @@
             </div>
 
             <div class="card-body">
-                @include(
-                    'laporan.laporan_lain.excel.laporan_kehadiran_7_hari_setahun'
-                )
-                {{-- <div class="table-responsive scrollbar ">
-                    <table class="table text-center table-bordered datatable"
-                        style="vertical-align: middle;border-color: #00B64E;">
-                        <thead class="risda-bg-g">
-                            <tr>
-                                <th rowspan="2">BIL.</th>
-                                <th rowspan="2">KUMPULAN</th>
-                                <th rowspan="2">BILANGAN ANGGOTA</th>
-                                <th colspan="3">BILANGAN KEHADIRAN ANGGOTA KURSUS PENDEK</th>
-                                <th>BILANGAN KEHADIRAN ANGGOTA KURSUS PANJANG</th>
-                            </tr>
-                            <tr>
-                                <th>LEBIH 7 HARI SETAHUN</th>
-                                <th>KURANG 7 HARI SETAHUN</th>
-                                <th>TIDAK BERKURSUS</th>
-                                <th>LEBIH 3 BULAN</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div> --}}
+                <div class="table-responsive scrollbar ">
+                    @include('laporan.laporan_lain.excel.pencapaian_latihan_mengikut_negeri')
+
+                </div>
 
             </div>
         </div>
     </div>
+
+
 
     <script>
         function download(el) {

@@ -504,8 +504,8 @@ Route::middleware('auth')->group(function () {
             // kemajuan_latihan
             Route::prefix('laporan-kemajuan-latihan')->group(function () {
                 Route::get('mengikut-bidang', [LaporanLainController::class, 'laporan_kemajuan_latihan_bidang']);
-                Route::get('mengikut-bidang-pdf', [LaporanLainController::class, 'laporan_kemajuan_latihan_bidang'])->name('pdf-kl-bidang');
-                Route::get('mengikut-bidang-excel', [LaporanLainController::class, 'laporan_kemajuan_latihan_bidang'])->name('excel-kl-bidang');
+                Route::get('mengikut-bidang-pdf', [LaporanLainController::class, 'pdf_laporan_kemajuan_latihan_bidang'])->name('pdf-kl-bidang');
+                Route::get('mengikut-bidang-excel', [LaporanLainController::class, 'excel_laporan_kemajuan_latihan_bidang'])->name('excel-kl-bidang');
 
                 Route::get('mengikut-kategori', [LaporanLainController::class, 'laporan_kemajuan_latihan_kategori']);
                 Route::get('mengikut-kategori-pdf', [LaporanLainController::class, 'pdf_laporan_kemajuan_latihan_kategori'])->name('pdf-kl-kategori');

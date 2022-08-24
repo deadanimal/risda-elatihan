@@ -33,9 +33,8 @@
                         </tbody>
                     </table>
                 </div>
-    <script>
-        $(document).ready(function() {
-            $("th").addClass('fw-bold text-white');
-        });
-    </script>
+
+            </div>
+        </div>
+    </div>
 
