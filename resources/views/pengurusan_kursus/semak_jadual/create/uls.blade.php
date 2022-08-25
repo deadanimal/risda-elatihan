@@ -22,31 +22,31 @@
                     @csrf
                     <div class="row mb-2">
                         <div class="col-lg-7">
-                            <label class="col-form-label p-0">UNIT LATIHAN</label>
+                            <label class="col-form-label p-0">UNIT LATIHAN<span class="text-danger">*</span></label>
                             <input type="text" name="kursus_unit_latihan" id="unitlatihan" class="form-select form-control"
                                 value="Staf" readonly>
                         </div>
                         <div class="col-lg-3">
-                            <label class="col-form-label">STATUS</label>
+                            <label class="col-form-label">STATUS<span class="text-danger">*</span></label>
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" name="status"
                                     oninvalid="this.setCustomValidity('Sila pilih status.')"
                                     oninput="setCustomValidity('')" />
-                                <label class="form-check-label">Aktif</label>
+                                <label class="form-check-label">Aktif<span class="text-danger">*</span></label>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="mb-3">
-                                <label class="col-form-label">TAHUN</label>
+                                <label class="col-form-label">TAHUN<span class="text-danger">*</span></label>
                                 <input class="form-control tahun" type="text" name="tahun" id="tahun"
                                     value="{{ $tahun_ini }}" readonly required />
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="mb-3">
-                                <label class="col-form-label">TARIKH DAFTAR</label>
+                                <label class="col-form-label">TARIKH DAFTAR<span class="text-danger">*</span></label>
                                 <input class="form-control" type="date" name="kursus_tarikh_daftar"
                                     value="{{ $hari_ini }}" readonly required />
                             </div>
@@ -54,7 +54,7 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col">
-                            <label class="col-form-label">BIDANG KURSUS</label>
+                            <label class="col-form-label">BIDANG KURSUS<span class="text-danger">*</span></label>
                             <select class="form-select form-control" name="kursus_bidang" id="kursus_bidang" required
                                 oninvalid="this.setCustomValidity('Sila pilih bidang kursus.')"
                                 oninput="setCustomValidity('')">
@@ -67,7 +67,7 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col">
-                            <label class="col-form-label">KATEGORI KURSUS</label>
+                            <label class="col-form-label">KATEGORI KURSUS<span class="text-danger">*</span></label>
                             <select class="form-select form-control" name="kod_kategori" id="kursus_kategori" required
                                 oninvalid="this.setCustomValidity('Sila pilih kategori kursus.')"
                                 oninput="setCustomValidity('')">
@@ -80,7 +80,7 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col">
-                            <label class="col-form-label">TAJUK KURSUS</label>
+                            <label class="col-form-label">TAJUK KURSUS<span class="text-danger">*</span></label>
                             <select class="form-select form-control" name="kod_kursus" id="tajuk" required
                                 oninvalid="this.setCustomValidity('Sila pilih tajuk kursus.')"
                                 oninput="setCustomValidity('')">
@@ -93,14 +93,14 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col">
-                            <label class="col-form-label">SIRI KURSUS</label>
+                            <label class="col-form-label">SIRI KURSUS<span class="text-danger">*</span></label>
                             <input type="number" name="id_siri" id="siri" class="form-control" min="1" max="99" readonly>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col">
                             <div class="mb-3">
-                                <label class="col-form-label">NAMA KURSUS</label>
+                                <label class="col-form-label">NAMA KURSUS<span class="text-danger">*</span></label>
                                 <input class="form-control" type="text" name="kursus_nama" id="nama_kursus" value=""
                                     readonly />
                             </div>
@@ -109,7 +109,7 @@
                     <div class="row mb-3">
                         <div class="col">
                             <div class="mb-3">
-                                <label class="col-form-label">KOD NAMA KURSUS</label>
+                                <label class="col-form-label">KOD NAMA KURSUS<span class="text-danger">*</span></label>
                                 <input class="form-control" type="text" name="kursus_kod_nama_kursus" id="kod_siri_kk"
                                     readonly />
                             </div>
@@ -118,7 +118,7 @@
                     <div class="row mb-0">
                         <div class="col-lg-6">
                             <div class="mb-3">
-                                <label class="col-form-label">TARIKH MULA KURSUS</label>
+                                <label class="col-form-label">TARIKH MULA KURSUS<span class="text-danger">*</span></label>
                                 <input class="form-control" type="date" name="tarikh_mula" id="tm"
                                     min="<?php echo date('Y-m-d'); ?>" required
                                     oninvalid="this.setCustomValidity('Sila pilih tarikh mula.')"
@@ -127,7 +127,7 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="mb-3">
-                                <label class="col-form-label">TARIKH TAMAT KURSUS</label>
+                                <label class="col-form-label">TARIKH TAMAT KURSUS<span class="text-danger">*</span></label>
                                 <input class="form-control" type="date" name="tarikh_tamat" id="tt" required
                                     oninvalid="this.setCustomValidity('Sila pilih tarikh tamat.')"
                                     oninput="setCustomValidity('')" />
@@ -137,13 +137,13 @@
                     <div class="row mb-0">
                         <div class="col-lg-6">
                             <div class="mb-3">
-                                <label class="col-form-label">TEMPOH KURSUS (HARI)</label>
+                                <label class="col-form-label">TEMPOH KURSUS (HARI)<span class="text-danger">*</span></label>
                                 <input class="form-control" type="text" name="bilangan_hari" id="tk" readonly />
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="mb-3">
-                                {{-- <label class="col-form-label">STATUS PERLAKSANAAN</label>
+                                {{-- <label class="col-form-label">STATUS PERLAKSANAAN<span class="text-danger">*</span></label>
                                 <select class="form-select form-control" name="kursus_status_pelaksanaan" required
                                     oninvalid="this.setCustomValidity('Sila pilih status pelaksanaan.')"
                                     oninput="setCustomValidity('')">
@@ -158,7 +158,7 @@
                     <div class="row mb-0">
                         <div class="col-lg-6">
                             <div class="mb-3">
-                                <label class="col-form-label">MASA PENDAFTARAN</label>
+                                <label class="col-form-label">MASA PENDAFTARAN<span class="text-danger">*</span></label>
                                 {{-- <input class="form-control datetimepicker" name="kursus_masa_pendaftaran" id="timepicker1"
                                     type="text" placeholder="H:i"
                                     data-options='{"enableTime":true,"noCalendar":true,"dateFormat":"H:i","disableMobile":true}' /> --}}
@@ -169,7 +169,7 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="mb-3">
-                                <label class="col-form-label">TARIKH TUTUP TAWARAN</label>
+                                <label class="col-form-label">TARIKH TUTUP TAWARAN<span class="text-danger">*</span></label>
                                 <input class="form-control" type="date" name="kursus_tarikh_tutup"
                                     min="<?php echo date('Y-m-d'); ?>" required
                                     oninvalid="this.setCustomValidity('Sila pilih tarikh tutup tawaran.')"
@@ -180,7 +180,7 @@
                     <div class="row mb-0">
                         <div class="col-lg-6">
                             <div class="mb-3">
-                                <label class="col-form-label">KOD HRMIS</label>
+                                <label class="col-form-label">KOD HRMIS<span class="text-danger">*</span></label>
                                 <input class="form-control" type="text" name="kursus_hrmis" />
                             </div>
                         </div>
@@ -191,7 +191,7 @@
 
                     <div class="row mb-3">
                         <div class="col">
-                            <label class="col-form-label">KUMPULAN SASARAN</label>
+                            <label class="col-form-label">KUMPULAN SASARAN<span class="text-danger">*</span></label>
                             <select class="form-select js-choice form-control" multiple="multiple" size="1"
                                 name="kursus_kumpulan_sasaran[]"
                                 data-options='{"removeItemButton":true,"placeholder":true}'>
@@ -205,7 +205,7 @@
 
                     <div class="row mb-3">
                         <div class="col">
-                            <label class="col-form-label">PENGENDALI LATIHAN</label>
+                            <label class="col-form-label">PENGENDALI LATIHAN<span class="text-danger">*</span></label>
                             <select class="form-select form-control" name="kursus_pengendali_latihan" required
                                 oninvalid="this.setCustomValidity('Sila pilih pengendali latihan.')"
                                 oninput="setCustomValidity('')">
@@ -220,26 +220,26 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col">
-                            <label class="col-form-label">CATATAN</label>
+                            <label class="col-form-label">CATATAN<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="kursus_catatan">
                         </div>
                     </div>
                     @if ($tempat == null)
                         <div class="row mb-3">
                             <div class="col">
-                                <label class="col-form-label">TEMPAT KURSUS</label>
+                                <label class="col-form-label">TEMPAT KURSUS<span class="text-danger">*</span></label>
                                 <label class="col-form-label text-danger font-italic">KATEGORI "Tempat Kursus" TIADA
                                     DIDALAM
                                     SENARAI
                                     AGENSI. SILA TAMBAH DI BAHAGIAN AGENSI (UTILITI->KOD KUMPULAN) UNTUK MENERUSKAN
                                     PENAMBAHAN
-                                    JADUAL KURSUS</label>
+                                    JADUAL KURSUS<span class="text-danger">*</span></label>
                             </div>
                         </div>
                     @else
                         <div class="row mb-3">
                             <div class="col">
-                                <label class="col-form-label">TEMPAT KURSUS</label>
+                                <label class="col-form-label">TEMPAT KURSUS<span class="text-danger">*</span></label>
                                 <select class="form-select form-control" name="kursus_tempat" id="tempat" required
                                     oninvalid="this.setCustomValidity('Sila pilih tempat kursus.')"
                                     oninput="setCustomValidity('')">
@@ -253,7 +253,7 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <label class="col-form-label">ALAMAT TEMPAT KURSUS</label>
+                                <label class="col-form-label">ALAMAT TEMPAT KURSUS<span class="text-danger">*</span></label>
                                 <textarea class="form-control" rows="3" name="kursus_alamat_tempat_kursus" id="alamat"></textarea>
                             </div>
                         </div>
@@ -275,25 +275,25 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col">
-                            <label class="col-form-label">METODOLOGI</label>
+                            <label class="col-form-label">METODOLOGI<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="kursus_metodologi">
                         </div>
                     </div>
                     {{-- <div class="row mb-3">
                         <div class="col">
-                            <label class="col-form-label">NOTA RUJUKAN</label>
+                            <label class="col-form-label">NOTA RUJUKAN<span class="text-danger">*</span></label>
                             <input type="file" class="form-control" name="nota_rujukan">
                         </div>
                     </div> --}}
                     <div class="row mb-3">
                         <div class="col">
-                            <label class="col-form-label">NO. FT</label>
+                            <label class="col-form-label">NO. FT<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="kursus_no_ft">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col">
-                            <label class="col-form-label">STAF YANG BERTANGGUNGJAWAB</label>
+                            <label class="col-form-label">STAF YANG BERTANGGUNGJAWAB<span class="text-danger">*</span></label>
                             {{-- <input type="text" class="form-control" name="kursus_staf_yang_bertanggungjawab"> --}}
                             <select name="kursus_staf_yang_bertanggungjawab" class="form-control">
                                 <option value="" selected hidden>Sila Pilih</option>

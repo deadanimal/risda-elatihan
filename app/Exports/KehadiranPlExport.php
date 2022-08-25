@@ -14,7 +14,7 @@ class KehadiranPlExport implements FromView
     use Exportable;
     public function view(): View{
 
-    $pl = KehadiranPusatLatihan::with(['peserta', 'kursus', 'tempat_kursus'])->get()->groupBy('agensi_id');
+    // $pl = KehadiranPusatLatihan::with(['peserta', 'kursus', 'tempat_kursus'])->get()->groupBy('agensi_id');
     // dd($pl);
     // foreach ($pl as $k) {
     //         // foreach ($k as $l) {
@@ -35,7 +35,7 @@ class KehadiranPlExport implements FromView
     // $umur_peserta = $tahun_ini - $tahun_lahir;
 
     return view('laporan.laporan_lain.excel.laporan_kehadiran_pl',[
-        'pl' => $pl,
+        // 'pl' => $pl,
     ]);
     // 'umur_peserta'=>$umur_peserta
 }
