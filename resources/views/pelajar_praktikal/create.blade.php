@@ -31,8 +31,8 @@
     <div class="container pb-5">
         <div class="row mt-3 mb-2">
             <div class="col-12 mb-2">
-                <p class="h1 mb-0 fw-bold" style="color: rgb(43,93,53);  ">PELAJAR PRAKTIKAL</p>
-                <p class="h5" style="color: rgb(43,93,53); ">TAMBAH PELAJAR PRAKTIKAL</p>
+                <p class="h1 mb-0 fw-bold" style="color: rgb(43,93,53);  ">PELAJAR PRAKTIKAL<span class="text-danger">*</span></p>
+                <p class="h5" style="color: rgb(43,93,53); ">TAMBAH PELAJAR PRAKTIKAL<span class="text-danger">*</span></p>
             </div>
         </div>
         <hr style="color: rgba(81,179,90, 60%);height:2px;">
@@ -41,7 +41,7 @@
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
                     MAKLUMAT PERIBADI
-                </p>
+                <span class="text-danger">*</span></p>
             </div>
         </div>
 
@@ -51,7 +51,7 @@
         <div class="row justify-content-center my-4">
             <div class="col-10 d-inline-flex">
                 <div class="col-5">
-                    <p class="pt-2 fw-bold">NAMA PELAJAR</p>
+                    <p class="pt-2 fw-bold">NAMA PELAJAR<span class="text-danger">*</span></p>
                 </div>
                 <div class="col-7">
                     <input type="text" class="form-control" name="nama" required>
@@ -59,7 +59,7 @@
             </div>
             <div class="col-10 d-inline-flex">
                 <div class="col-5">
-                    <p class="pt-2 fw-bold">NO KAD PENGENALAN</p>
+                    <p class="pt-2 fw-bold">NO KAD PENGENALAN<span class="text-danger">*</span></p>
                 </div>
                 <div class="col-7">
                     <input class="form-control" type="text" name="no_kp" maxlength="12" size="12" id="nric"
@@ -69,7 +69,7 @@
 
             <div class="col-10 d-inline-flex">
                 <div class="col-5">
-                    <p class="pt-2 fw-bold">TARIKH LAHIR</p>
+                    <p class="pt-2 fw-bold">TARIKH LAHIR<span class="text-danger">*</span></p>
                 </div>
                 <div class="col-7">
                     <input type="text" class="form-control" id="bdate" required readonly>
@@ -79,7 +79,7 @@
 
             <div class="col-10 d-inline-flex">
                 <div class="col-5">
-                    <p class="pt-2 fw-bold">JANTINA</p>
+                    <p class="pt-2 fw-bold">JANTINA<span class="text-danger">*</span></p>
                 </div>
                 <div class="col-7">
                     <input type="text" id="gender" class="form-control" readonly>
@@ -94,7 +94,7 @@
 
             <div class="col-10 d-inline-flex">
                 <div class="col-5">
-                    <p class="pt-2 fw-bold">NO TELEFON</p>
+                    <p class="pt-2 fw-bold">NO TELEFON<span class="text-danger">*</span></p>
                 </div>
                 <div class="col-7">
                     <input type="text" class="form-control" name="no_tel" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
@@ -103,7 +103,7 @@
 
             <div class="col-10 d-inline-flex">
                 <div class="col-5">
-                    <p class="pt-2 fw-bold">E-MEL</p>
+                    <p class="pt-2 fw-bold">E-MEL<span class="text-danger">*</span></p>
                 </div>
                 <div class="col-7">
                     <input type="email" class="form-control" name="email">
@@ -113,7 +113,7 @@
 
             <div class="col-10 d-inline-flex">
                 <div class="col-5">
-                    <p class="pt-2 fw-bold">STATUS</p>
+                    <p class="pt-2 fw-bold">STATUS<span class="text-danger">*</span></p>
                 </div>
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" name="status"
@@ -125,7 +125,7 @@
 
             <div class="col-10 d-inline-flex">
                 <div class="col-5">
-                    <p class="pt-2 fw-bold">TEMPAT LATIHAN PRAKTIKAL</p>
+                    <p class="pt-2 fw-bold">TEMPAT LATIHAN PRAKTIKAL<span class="text-danger">*</span></p>
                 </div>
                 <div class="col-7">
                     {{-- <input type="text" class="form-control" name="tempat_praktikal" > --}}
@@ -141,7 +141,7 @@
 
             <div class="col-10 d-inline-flex">
                 <div class="col-5">
-                    <p class="pt-2 fw-bold">ALAMAT RUMAH</p>
+                    <p class="pt-2 fw-bold">ALAMAT RUMAH<span class="text-danger">*</span></p>
                 </div>
                 <div class="col-7">
                     <input type="text" name="alamat" id="" class="form-control mb-2" placeholder="Baris 1">
@@ -150,7 +150,7 @@
             </div>
             <div class="col-10 d-inline-flex">
                 <div class="col-5">
-                    <p class="pt-2 fw-bold"></p>
+                    <p class="pt-2 fw-bold"><span class="text-danger">*</span></p>
                 </div>
                 <div class="col-7">
                     <input type="text" name="alamat2" id="" class="form-control mb-2" placeholder="Baris 2">
@@ -158,7 +158,7 @@
             </div>
             <div class="col-10 d-inline-flex">
                 <div class="col-5">
-                    <p class="pt-2 fw-bold"></p>
+                    <p class="pt-2 fw-bold"><span class="text-danger">*</span></p>
                 </div>
                 <div class="col-7">
                     <input type="text" name="alamat3" id="" class="form-control mb-2" placeholder="Baris 3">
@@ -167,7 +167,7 @@
 
             <div class="col-10 d-inline-flex">
                 <div class="col-5">
-                    <p class="pt-2 fw-bold">POSKOD</p>
+                    <p class="pt-2 fw-bold">POSKOD<span class="text-danger">*</span></p>
                 </div>
                 <div class="col-7">
                     <input class="form-control" type="text" name="poskod" maxlength="6" size="6"
@@ -177,7 +177,7 @@
 
             <div class="col-10 d-inline-flex">
                 <div class="col-5">
-                    <p class="pt-2 fw-bold">DAERAH</p>
+                    <p class="pt-2 fw-bold">DAERAH<span class="text-danger">*</span></p>
                 </div>
                 <div class="col-7">
                     {{-- <input type="text" name="daerah" class="form-control"> --}}
@@ -192,7 +192,7 @@
 
             <div class="col-10 d-inline-flex">
                 <div class="col-5">
-                    <p class="pt-2 fw-bold">NEGERI</p>
+                    <p class="pt-2 fw-bold">NEGERI<span class="text-danger">*</span></p>
                 </div>
                 <div class="col-7">
                     <select name=negeri class="form-select form-control" >
@@ -231,7 +231,7 @@
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
                     MAKLUMAT PRAKTIKAL
-                </p>
+                <span class="text-danger">*</span></p>
             </div>
         </div>
 
@@ -239,7 +239,7 @@
 
             <div class="col-10 d-inline-flex">
                 <div class="col-5">
-                    <p class="pt-2 fw-bold">PERINGKAT PENGAJIAN</p>
+                    <p class="pt-2 fw-bold">PERINGKAT PENGAJIAN<span class="text-danger">*</span></p>
                 </div>
                 <div class="col-7">
                     <select class="form-select form-control" name="tahap_pengajian">
@@ -253,7 +253,7 @@
 
             <div class="col-10 d-inline-flex">
                 <div class="col-5">
-                    <p class="pt-2 fw-bold">BIDANG</p>
+                    <p class="pt-2 fw-bold">BIDANG<span class="text-danger">*</span></p>
                 </div>
                 <div class="col-7">
                     <input type="text" name="bidang" class="form-control">
@@ -262,7 +262,7 @@
 
             <div class="col-10 d-inline-flex">
                 <div class="col-5">
-                    <p class="pt-2 fw-bold">TARIKH MULA PRAKTIKAL</p>
+                    <p class="pt-2 fw-bold">TARIKH MULA PRAKTIKAL<span class="text-danger">*</span></p>
                 </div>
                 <div class="col-7">
                     <input type="date" name="tarikh_mula" class="form-control" id="tm_p">
@@ -271,7 +271,7 @@
 
             <div class="col-10 d-inline-flex">
                 <div class="col-5">
-                    <p class="pt-2 fw-bold">TARIKH AKHIR PRAKTIKAL</p>
+                    <p class="pt-2 fw-bold">TARIKH AKHIR PRAKTIKAL<span class="text-danger">*</span></p>
                 </div>
                 <div class="col-7">
                     <input type="date" name="tarikh_akhir" class="form-control" id="ta_p">
@@ -280,7 +280,7 @@
 
             <div class="col-10 d-inline-flex">
                 <div class="col-5">
-                    <p class="pt-2 fw-bold">STATUS PRAKTIKAL</p>
+                    <p class="pt-2 fw-bold">STATUS PRAKTIKAL<span class="text-danger">*</span></p>
                 </div>
                 <div class="col-7" id="status_praktikal">
                     <select name="status_praktikal" class="form-select form-control">
@@ -293,7 +293,7 @@
             </div>
             <div class="col-10 d-inline-flex">
                 <div class="col-5">
-                    <p class="pt-2 fw-bold">NAMA PUSAT PENGAJIAN</p>
+                    <p class="pt-2 fw-bold">NAMA PUSAT PENGAJIAN<span class="text-danger">*</span></p>
                 </div>
                 <div class="col-7">
                     <input type="text" class="form-control" name="nama_ipt">
@@ -302,7 +302,7 @@
 
             <div class="col-10 d-inline-flex">
                 <div class="col-5">
-                    <p class="pt-2 fw-bold">ALAMAT</p>
+                    <p class="pt-2 fw-bold">ALAMAT<span class="text-danger">*</span></p>
                 </div>
                 <div class="col-7">
                     <input type="text" class="form-control mb-2" placeholder="Baris 1" name="alamat_ipt">
@@ -312,7 +312,7 @@
 
             <div class="col-10 d-inline-flex">
                 <div class="col-5">
-                    <p class="pt-2 fw-bold"></p>
+                    <p class="pt-2 fw-bold"><span class="text-danger">*</span></p>
                 </div>
                 <div class="col-7">
                     <input type="text" class="form-control mb-2" placeholder="Baris 2" name="alamat_ipt2">
@@ -321,7 +321,7 @@
 
             <div class="col-10 d-inline-flex">
                 <div class="col-5">
-                    <p class="pt-2 fw-bold"></p>
+                    <p class="pt-2 fw-bold"><span class="text-danger">*</span></p>
                 </div>
                 <div class="col-7">
                     <input type="text" class="form-control mb-2" placeholder="Baris 3" name="alamat_ipt3">
@@ -330,7 +330,7 @@
 
             <div class="col-10 d-inline-flex">
                 <div class="col-5">
-                    <p class="pt-2 fw-bold">POSKOD</p>
+                    <p class="pt-2 fw-bold">POSKOD<span class="text-danger">*</span></p>
                 </div>
                 <div class="col-3">
                     <input class="form-control" type="text" name="poskod_ipt" maxlength="6" size="6"
@@ -340,7 +340,7 @@
 
             <div class="col-10 d-inline-flex">
                 <div class="col-5">
-                    <p class="pt-2 fw-bold">DAERAH</p>
+                    <p class="pt-2 fw-bold">DAERAH<span class="text-danger">*</span></p>
                 </div>
                 <div class="col-3">
                     <select name="daerah_ipt" class="form-select form-control">
@@ -356,7 +356,7 @@
 
             <div class="col-10 d-inline-flex">
                 <div class="col-5">
-                    <p class="pt-2 fw-bold">NEGERI</p>
+                    <p class="pt-2 fw-bold">NEGERI<span class="text-danger">*</span></p>
                 </div>
                 <div class="col-7">
                     <select name=negeri_ipt class="form-select form-control">
@@ -384,7 +384,7 @@
 
             <div class="col-10 d-inline-flex">
                 <div class="col-5">
-                    <p class="pt-2 fw-bold">KELAYAKAN ELAUN PELAJAR PRAKTIKAL</p>
+                    <p class="pt-2 fw-bold">KELAYAKAN ELAUN PELAJAR PRAKTIKAL<span class="text-danger">*</span></p>
                 </div>
                 <div class="col-7">
                     <div class="form-check form-switch">
@@ -396,7 +396,7 @@
             </div>
             <div class="col-10 d-inline-flex">
                 <div class="col-5">
-                    <p class="pt-2 fw-bold">KELAYAKAN AWAL PEMBIAYAAN (RM)</p>
+                    <p class="pt-2 fw-bold">KELAYAKAN AWAL PEMBIAYAAN (RM)<span class="text-danger">*</span></p>
                 </div>
                 <div class="col-3">
                     {{-- <input type="text" class="form-control" name="kelulusan_awal_pembiayaan" id="amaun-elaun"> --}}

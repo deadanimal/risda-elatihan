@@ -3,8 +3,8 @@
     <div class="container">
         <div class="row mt-3 mb-2">
             <div class="col-12 mb-2">
-                <p class="h1 mb-0 fw-bold" style="color: rgb(43,93,53);  ">PELAJAR PRAKTIKAL</p>
-                {{-- <p class="h5" style="color: rgb(43,93,53); ">PENCALONAN</p> --}}
+                <p class="h1 mb-0 fw-bold" style="color: rgb(43,93,53);  ">PELAJAR PRAKTIKAL<span class="text-danger">*</span></p>
+                {{-- <p class="h5" style="color: rgb(43,93,53); ">PENCALONAN<span class="text-danger">*</span></p> --}}
             </div>
         </div>
         <hr style="color: rgba(81,179,90, 60%);height:2px;">
@@ -13,7 +13,7 @@
             <div class="col-12">
                 <p class="h5 fw-bold mt-3">
                     SENARAI PELAJAR PRAKTIKAL
-                </p>
+                <span class="text-danger">*</span></p>
             </div>
         </div>
 
@@ -23,13 +23,13 @@
                     <div class="card-body mx-lg-5">
                         <div class="row p-3">
                             <div class="col-lg-6">
-                                <p class="h5">Tahun</p>
+                                <p class="h5">Tahun<span class="text-danger">*</span></p>
                             </div>
                             <div class="col-lg-6">
                                 <input type="text" class="form-control form-control-sm mb-2" disabled value="2021">
                             </div>
                             <div class="col-lg-6">
-                                <p class="h5">Status</p>
+                                <p class="h5">Status<span class="text-danger">*</span></p>
                             </div>
                             <div class="col-lg-6">
                                 <select class="form-select form-control mb-2" onchange="filter()" id="status_s" >
@@ -40,13 +40,13 @@
                                 </select>
                             </div>
                             <div class="col-lg-6">
-                                <p class="h5">Tempat Latihan Praktikal</p>
+                                <p class="h5">Tempat Latihan Praktikal<span class="text-danger">*</span></p>
                             </div>
                             <div class="col-lg-6">
                                 <input type="text" class="form-control form-control-sm mb-2" onchange="filter()" id="tempat_latihan_s">
                             </div>
                             <div class="col-lg-6">
-                                <p class="h5">Tahap Pengajian</p>
+                                <p class="h5">Tahap Pengajian<span class="text-danger">*</span></p>
                             </div>
                             <div class="col-lg-6">
                                 <select class="form-select form-control mb-2" name="tahap_pengajian" onchange="filter()" id="tahap_pengajian_s">
@@ -58,7 +58,7 @@
                             </div>
 
                             <div class="col-lg-6">
-                                <p class="h5">Nama</p>
+                                <p class="h5">Nama<span class="text-danger">*</span></p>
                             </div>
                             <div class="col-lg-6">
                                 <input type="text" class="form-control form-control-sm mb-2" onchange="filter()" id="nama_s">
@@ -146,7 +146,7 @@
                 var tempat_latihan = $('#tempat_latihan_s').val();
                 var tahap_pengajian = $('#tahap_pengajian_s').val();
                 var nama = $('#nama_s').val();
-    
+
                 console.log(status, tempat_latihan, tahap_pengajian, nama);
                 $.ajax({
                     type: 'get',
@@ -179,7 +179,7 @@
                                                 data-bs-target="#edit_dun_${ e.id }">
                                                 <i class="fas fa-pen"></i>
                                             </button>
-    
+
                                             <button class="btn risda-bg-dg text-white" type="button" data-bs-toggle="modal"
                                                 data-bs-target="#delete_dun_${ e.id }">
                                                 <i class="fas fa-trash"></i>
@@ -187,7 +187,7 @@
                                         </td>
                                     </tr>
                             `);
-    
+
                             iteration++;
                         });
                         // console.log(result);
@@ -201,5 +201,5 @@
         </script>
     </div>
 
-    
+
 @endsection
