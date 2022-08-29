@@ -86,6 +86,7 @@
                                                 @if ($dae->status_daerah == '1')
                                                     <option value="{{ $dae->U_Daerah_ID }}">{{ $dae->Daerah }}</option>
                                                 @endif
+                                                
                                             @endforeach
                                         </select>
                                     </div>
@@ -139,7 +140,7 @@
             </div>
         </div>
     </div>
-    
+
     <script>
         $('#negeri_form').change(function() {
             var id_negeri = this.value;

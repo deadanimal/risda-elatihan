@@ -248,7 +248,7 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col">
-                            <label class="col-form-label">CATATAN<span class="text-danger">*</span></label>
+                            <label class="col-form-label">CATATAN</label>
                             <input type="text" class="form-control" name="kursus_catatan">
                         </div>
                     </div>
@@ -261,7 +261,7 @@
                                     SENARAI
                                     AGENSI. SILA TAMBAH DI BAHAGIAN AGENSI (UTILITI->KOD KUMPULAN) UNTUK MENERUSKAN
                                     PENAMBAHAN
-                                    JADUAL KURSUS<span class="text-danger">*</span></label>
+                                    JADUAL KURSUS</label>
                             </div>
                         </div>
                     @else

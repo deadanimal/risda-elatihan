@@ -59,7 +59,9 @@ class MukimController extends Controller
         $mukim = new Mukim;
         $mukim->U_Negeri_ID = $request->U_Negeri_ID;
         $mukim->U_Daerah_ID = $request->U_Daerah_ID;
-        $mukim->Mukim_Rkod = $request->Mukim_Rkod;
+        $mukim->Kod_Mukim = $request->Kod_Mukim;
+        $mukim->U_Mukim_ID = $mukim->U_Negeri_ID.$mukim->U_Daerah_ID.$mukim->Kod_Mukim;
+
         $mukim->Mukim = $request->Mukim;
         if ($request->status == 'on') {
             $status = 1;
@@ -154,7 +156,7 @@ class MukimController extends Controller
             } else {
                 $dun = Mukim::where('U_Negeri_ID', $negeri)->get();
             }
-            
+
         } else {
             if ($daerah != null) {
                 $dun = Mukim::where('U_Daerah_ID', $daerah)->get();
@@ -162,7 +164,7 @@ class MukimController extends Controller
                 $dun = Mukim::all();
             }
         }
-        
+
 
         return response()->json($dun);
     }

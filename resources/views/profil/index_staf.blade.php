@@ -236,7 +236,7 @@
                                     <div class="col">
                                         <div class="mb-3">
                                             <label class="form-label risda-g">NAMA PENYELIA</label>
-                                            <input class="form-control" type="text" value="{{ $staf['NamaPA'] }}"readonly />
+                                            <input class="form-control" type="text" readonly />
                                         </div>
                                     </div>
                                 </div>
@@ -244,13 +244,13 @@
                                     <div class="col-6">
                                         <div class="mb-3">
                                             <label class="form-label risda-g">JAWATAN</label>
-                                            <input class="form-control" type="text" value="{{ $staf['Jawatan'] }}" readonly />
+                                            <input class="form-control" type="text"  readonly />
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="mb-3">
                                             <label class="form-label risda-g">GRED</label>
-                                            <input class="form-control" type="text" value="{{ $staf['Gred'] }}"readonly />
+                                            <input class="form-control" type="text" readonly />
                                         </div>
                                     </div>
                                 </div>
@@ -258,7 +258,7 @@
                                     <div class="col-6">
                                         <div class="mb-3">
                                             <label class="form-label risda-g">E-MEL</label>
-                                            <input class="form-control" type="text" value="{{ $staf['email'] }}"readonly />
+                                            <input class="form-control" type="text" readonly />
                                         </div>
                                     </div>
                                 </div>

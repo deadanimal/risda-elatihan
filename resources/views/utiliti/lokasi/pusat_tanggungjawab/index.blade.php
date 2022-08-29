@@ -7,9 +7,9 @@
                 <h5 class="risda-dg">PUSAT TANGGUNGJAWAB</h5>
             </div>
         </div>
-    
+
         <hr class="risda-g">
-    
+
         <div class="row mt-5">
             <div class="col">
                 <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#tambah-negeri">
@@ -87,7 +87,7 @@
                 </div>
             </div>
         </div>
-    
+
         <div class="row mt-3">
             <div class="col">
                 <div class="card">
@@ -167,7 +167,7 @@
                                                             <div class="mb-3">
                                                                 <label class="col-form-label">NEGERI</label>
                                                                 <select class="form-select form-control" name="kod_Negeri_PT">
-                                                                    <option selected="" hidden value="{{$PT->kod_Negeri_PT}}">
+                                                                    {{-- <option selected="" hidden value="{{$PT->kod_Negeri_PT}}">
                                                                         {{$PT->negeri->Negeri}}
                                                                     </option>
                                                                     @foreach ($negeri as $n2)
@@ -175,7 +175,10 @@
                                                                             <option value="{{ $n2->Negeri_Rkod }}">
                                                                                 {{ $n2->Negeri }}</option>
                                                                         @endif
-                                                                    @endforeach
+                                                                    @endforeach --}}
+                                                                    {{-- @foreach($negeri as $n) --}}
+                                                                    <option @if ($PT->kod_Negeri_PT == '{{$PT->negeri->Negeri_Rkod}}') selected @endif value="{{$PT->negeri->Negeri_Rkod}}">{{$PT->negeri->Negeri}}</option>
+                                                                    {{-- @endforeach --}}
                                                                 </select>
                                                             </div>
                                                             <div class="mb-3">
@@ -232,7 +235,7 @@
                                                             <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
                                                             <br>
                                                             Anda pasti untuk menghapus {{ $PT->nama_PT }}?
-    
+
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
@@ -244,10 +247,10 @@
                                                             <button class="btn btn-primary" type="submit">Hapus
                                                             </button>
                                                         </form>
-    
+
                                                     </div>
                                                 </div>
-    
+
                                             </div>
                                         </div>
                                     </div>

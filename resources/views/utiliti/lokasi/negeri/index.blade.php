@@ -7,9 +7,9 @@
                 <h5 class="risda-dg">NEGERI</h5>
             </div>
         </div>
-    
+
         <hr class="risda-g">
-    
+
         <div class="row mt-5">
             <div class="col">
                 <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#tambah-negeri">
@@ -58,7 +58,7 @@
                 </div>
             </div>
         </div>
-    
+
         <div class="row mt-3">
             <div class="col">
                 <div class="card">
@@ -121,7 +121,7 @@
                                                             @csrf
                                                             <div class="mb-3">
                                                                 <label class="col-form-label">KOD NEGERI</label>
-                                                                <input class="form-control" type="text" name="Negeri_Rkod"
+                                                                <input class="form-control" type="text" name="U_Negeri_ID"
                                                                     value="{{ $negeri->U_Negeri_ID }}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
                                                             </div>
                                                             <div class="mb-3">
@@ -171,7 +171,7 @@
                                                             <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
                                                             <br>
                                                             Anda pasti untuk menghapus {{ $negeri->Negeri }}?
-    
+
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
@@ -183,10 +183,10 @@
                                                             <button class="btn btn-primary" type="submit">Hapus
                                                             </button>
                                                         </form>
-    
+
                                                     </div>
                                                 </div>
-    
+
                                             </div>
                                         </div>
                                     </div>

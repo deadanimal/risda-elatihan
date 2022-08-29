@@ -1,5 +1,6 @@
 @extends('layouts.risda-base')
 @section('content')
+
     <div class="container">
         <div class="row">
             <div class="col">
@@ -18,7 +19,7 @@
                             <label class="col-form-label">NEGERI:</label>
                         </div>
                         <div class="col-lg-9 mb-3">
-                            <select class="form-select form-control" onchange="daerah_fil(this)">
+                            <select class="form-select form-control" onchange="daerah_fil(this)" required>
                                 <option value="" selected hidden>Sila Pilih</option>
                                 @foreach ($negeri as $n)
                                     @if ($n->status_negeri == '1')
@@ -57,15 +58,15 @@
                                             <select class="form-select form-control" name="U_Negeri_ID">
                                                 <option selected="" hidden>Sila Pilih</option>
                                                 @foreach ($negeri as $n)
-                                                    @if ($n->status_negeri == '1')
-                                                        <option value="{{ $n->id }}">{{ $n->Negeri }}</option>
-                                                    @endif
+                                                        @if ($n->status_negeri == '1')
+                                                            <option value="{{ $n->U_Negeri_ID}}">{{ $n->Negeri }}</option>
+                                                        @endif
                                                 @endforeach
                                             </select>
                                         </div>
                                         <div class="mb-3">
                                             <label class="col-form-label">KOD DAERAH</label>
-                                            <input class="form-control" type="text" name="U_Daerah_ID"
+                                            <input class="form-control" type="text" name="Kod_Daerah"
                                                 value="" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
                                         </div>
                                         <div class="mb-3">
@@ -101,7 +102,7 @@
                             <thead class="bg-200">
                                 <tr>
                                     <th class="sort">BIL.</th>
-                                    <th class="sort">KOD DAERAH</th>
+                                    <th class="sort">KOD NEGERI</th>
                                     <th class="sort">DAERAH</th>
                                     <th class="sort">STATUS</th>
                                     <th class="sort">TINDAKAN</th>
@@ -112,7 +113,7 @@
                                 @foreach ($daerah as $key => $d)
                                     <tr>
                                         <td>{{ $key + 1 }}.</td>
-                                        <td>{{ $d->U_Daerah_ID }}</td>
+                                        <td>{{ $d->U_Negeri_ID }}</td>
                                         <td>{{ $d->Daerah }}</td>
                                         <td>
                                             @if ($d->status_daerah == '1')
@@ -157,11 +158,10 @@
                                                         <div class="mb-3">
                                                             <label class="col-form-label">NEGERI</label>
                                                             <select class="form-select form-control" name="U_Negeri_ID">
-                                                                <option selected="" value="{{ $d->U_Negeri_ID }}" hidden>
-                                                                    {{ $d->negeri->Negeri }}</option>
-                                                                @foreach ($neg2 as $neg)
+                                                                <option hidden>Sila Pilih</option>
+                                                                @foreach ($negeri as $neg)
                                                                     @if ($neg['status_negeri'] == '1')
-                                                                        <option value="{{ $neg->id }}">
+                                                                        <option value="{{ $neg->U_Negeri_ID }}">
                                                                             {{ $neg->Negeri }}</option>
                                                                     @endif
                                                                 @endforeach
@@ -362,7 +362,7 @@
         //                                                     <select class="form-select" name="U_Negeri_ID">
         //                                                         <option selected="" value="${ element.U_Negeri_ID }"
         //                                                             hidden>${ element.Negeri }</option>
-        //                                                         @foreach ($neg2 as $neg)
+        //                                                         @foreach ($negeri as $neg)
         //                                                             @if ($neg['status_negeri'] == '1')
         //                                                                 <option value="{{ $neg->id }}">
         //                                                                     {{ $neg->Negeri }}</option>
