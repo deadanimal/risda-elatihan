@@ -88,13 +88,21 @@ class PermohonanController extends Controller
         $kat_tempat = KategoriAgensi::where('Kategori_Agensi', 'Tempat Kursus')->first()->id;
         $lokasi = Agensi::where('kategori_agensi', $kat_tempat)->get();
         $jadual = JadualKursus::where('kursus_unit_latihan', 'Staf')->get();
-        return view('permohonan_kursus.katalog.index', [
-            'jadual' => $jadual,
-            'kategori' => $kategori,
-            'tajuk' => $tajuk,
-            'lokasi' => $lokasi,
-            'gred' => $gred
-        ]);
+
+        if ($gred == null) {
+            alert()->error('Tiada kursus yang ditawarkan', 'Tiada kursus');
+            return back();
+        }
+        else{
+            return view('permohonan_kursus.katalog.index', [
+                'jadual' => $jadual,
+                'kategori' => $kategori,
+                'tajuk' => $tajuk,
+                'lokasi' => $lokasi,
+                'gred' => $gred
+
+            ]);
+        }
     }
 
     public function katalog_ulpk()

@@ -28,7 +28,7 @@
                                 @endforeach
                             </select>
                         </div>
-        
+
                         <div class="col-lg-3">
                             <label class="col-form-label">DAERAH:</label>
                         </div>
@@ -91,7 +91,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label class="col-form-label">KOD MUKIM</label>
-                                            <input class="form-control" type="text" name="Mukim_Rkod"
+                                            <input class="form-control" type="text" name="Kod_Mukim"
                                                 value="" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
                                         </div>
                                         <div class="mb-3">
@@ -133,7 +133,7 @@
                                     <th class="sort">TINDAKAN</th>
                                 </tr>
                             </thead>
-                            
+
                             <tbody class="bg-white" id="t_normal">
                                 @foreach ($mukim as $key => $m)
                                     <tr>
@@ -330,7 +330,7 @@
                 }
             });
         });
-        
+
         function negeri(e) {
             var id = e.id;
             var negeri_id = e.value;

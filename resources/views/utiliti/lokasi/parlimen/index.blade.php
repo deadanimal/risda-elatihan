@@ -253,7 +253,7 @@
         function negeri(e) {
             var id = e.id;
             var negeri_id = e.value;
-            
+
             // $('#parlimen_'+id).val(negeri_id);
             $('#parlimen_'+id).val('');
 

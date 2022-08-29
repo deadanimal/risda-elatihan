@@ -565,7 +565,7 @@ Route::middleware('auth')->group(function () {
     });
 
     //Urus Setia ULPK
-    Route::group(['prefix' => 'us-ulpk', 'middleware' => ['UlpkUrusSetia', 'AdminBTM']], function () {
+    Route::group(['prefix' => 'us-ulpk', 'middleware' => ['UlpkUrusSetia', 'Superadmin BTM']], function () {
 
         Route::prefix('kehadiran')->group(function () {
             //dari QR  - merekod kehadiran

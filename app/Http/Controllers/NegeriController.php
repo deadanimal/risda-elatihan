@@ -54,6 +54,7 @@ class NegeriController extends Controller
     {
         $negeri = new Negeri;
         $negeri->Negeri_Rkod = $request->Negeri_Rkod;
+        $negeri->U_Negeri_ID = $request->U_Negeri_ID;
         $negeri->Negeri = $request->Negeri;
         if ($request->status == 'on') {
             $status = 1;
@@ -68,12 +69,7 @@ class NegeriController extends Controller
         return redirect('/utiliti/lokasi/negeri');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Negeri  $negeri
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Negeri $negeri)
     {
         //
@@ -102,6 +98,7 @@ class NegeriController extends Controller
     public function update(UpdateNegeriRequest $request, Negeri $negeri)
     {
         $negeri->Negeri_Rkod = $request->Negeri_Rkod;
+        $negeri->U_Negeri_ID = $request->U_Negeri_ID;
         $negeri->Negeri = $request->Negeri;
         if ($request->status == 'on') {
             $status = 1;

@@ -52,6 +52,7 @@ class ParlimenController extends Controller
         $parlimen = new Parlimen;
         $parlimen->U_Negeri_ID = $request->U_Negeri_ID;
         $parlimen->Parlimen_kod = $request->Parlimen_kod;
+        $parlimen->U_Parlimen_ID = $parlimen->U_Negeri_ID.$parlimen->Parlimen_kod;
         $parlimen->Parlimen = $request->Parlimen;
         if ($request->status == 'on') {
             $status = 1;

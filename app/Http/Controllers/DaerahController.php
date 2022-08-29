@@ -22,11 +22,14 @@ class DaerahController extends Controller
     {
         $daerah = Daerah::with('negeri')->get();
         $negeri = Negeri::all();
-        $neg2 = Negeri::all();
-
+        // $neg2 = Negeri::all();
+        // foreach($daerah as $d){
+        //     echo "<br>".$d->negeri->Negeri;
+        // }
+        // exit();
         return view('utiliti.lokasi.daerah.index', [
             'negeri' => $negeri,
-            'neg2' => $neg2,
+            // 'neg2' => $neg2,
             'daerah' => $daerah,
         ]);
     }
@@ -51,8 +54,12 @@ class DaerahController extends Controller
     {
 
         $daerah = new Daerah;
+        // $daerah = Daerah::find($daerah);
         $daerah->U_Negeri_ID = $request->U_Negeri_ID;
-        $daerah->Daerah_Rkod = $request->Daerah_Rkod;
+        $daerah->Kod_Daerah = $request->Kod_Daerah;
+        $daerah->Daerah = $request->Daerah;
+        $daerah->U_Daerah_ID = $daerah->U_Negeri_ID. $daerah->Kod_Daerah;
+
         $daerah->Daerah = $request->Daerah;
         if ($request->status == 'on') {
             $status = 1;
@@ -61,6 +68,7 @@ class DaerahController extends Controller
         }
         $daerah->status_daerah = $status;
         $daerah->save();
+
         alert()->success('Maklumat telah dicipta', 'Berjaya');
         AuditTrailController::audit('utiliti', 'daerah', 'cipta', $daerah->Daerah);
         return redirect('/utiliti/lokasi/daerah');
@@ -99,8 +107,13 @@ class DaerahController extends Controller
     {
         $daerah = Daerah::find($daerah);
         $daerah->U_Negeri_ID = $request->U_Negeri_ID;
-        $daerah->Daerah_Rkod = $request->Daerah_Rkod;
+        $daerah->Kod_Daerah = $request->Kod_Daerah;
         $daerah->Daerah = $request->Daerah;
+        $daerah->U_Daerah_ID = $daerah->U_Negeri_ID. $daerah->U_Daerah_ID;
+
+
+        // $daerah->Daerah_Rkod = $request->Daerah_Rkod;
+
         if ($request->status == 'on') {
             $status = 1;
         } else {
@@ -130,12 +143,12 @@ class DaerahController extends Controller
             alert()->error('Maklumat berkait dengan rekod di bahagian lain, sila hapuskan rekod di bahagian tersebut dahulu.', 'Tidak Berjaya')->persistent('Tutup');
             return back();
         }
-        
+
         alert()->success('Maklumat telah dihapus', 'Berjaya');
         AuditTrailController::audit('utiliti', 'daerah', 'hapus', $nama);
         return redirect('/utiliti/lokasi/daerah');
     }
-    
+
     public function filter($search)
     {
         $daerah = Daerah::where('U_Negeri_ID', $search)->get();
