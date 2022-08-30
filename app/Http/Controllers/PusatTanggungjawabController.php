@@ -22,6 +22,10 @@ class PusatTanggungjawabController extends Controller
     {
         $pt_data = PusatTanggungjawab::with('negeri')->get();
         $negeri = Negeri::all();
+        $negeri_edit= Negeri::where('Negeri_Rkod',$pt_data->kod_Negeri_PT)->first();
+
+        // $negeri_edit = Negeri::where('');
+
         $bil_pt = PusatTanggungjawab::with('negeri')->orderBy('id', 'desc')->first();
         if ($bil_pt != null) {
             $bil = $bil_pt->kod_PT;
@@ -33,7 +37,8 @@ class PusatTanggungjawabController extends Controller
         return view('utiliti.lokasi.pusat_tanggungjawab.index', [
             'pt_data' => $pt_data,
             'negeri' => $negeri,
-            'bil' => $bil
+            'bil' => $bil,
+            'negeri_edit'=>$negeri_edit
         ]);
     }
 
@@ -56,7 +61,6 @@ class PusatTanggungjawabController extends Controller
     public function store(StorePusatTanggungjawabRequest $request)
     {
         $pusatTanggungjawab = new PusatTanggungjawab;
-        $pusatTanggungjawab->kod_PT = $request->kod_PT;
         $pusatTanggungjawab->nama_PT = $request->nama_PT;
         $pusatTanggungjawab->alamat_PT_baris1 = $request->alamat_PT_baris1;
         $pusatTanggungjawab->alamat_PT_baris2 = $request->alamat_PT_baris2;
@@ -66,6 +70,8 @@ class PusatTanggungjawabController extends Controller
         $pusatTanggungjawab->no_Faks_PT = $request->no_Faks_PT;
         $pusatTanggungjawab->kod_Negeri_PT = $request->kod_Negeri_PT;
         $pusatTanggungjawab->keterangan_PT = $request->keterangan_PT;
+        $pusatTanggungjawab->kod_PT = $pusatTanggungjawab->bahagian.$pusatTanggungjawab->$pusatTanggungjawab->kod_Negeri_PT.$request->kod_PT.'99';
+
         if ($request->status == 'on') {
             $status = 1;
         } else {

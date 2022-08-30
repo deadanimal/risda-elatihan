@@ -39,4 +39,10 @@ class Negeri extends Model
         return $this->hasMany(Agensi::class);
     }
 
+    public function ptj()
+    {
+        return $this->hasMany(PusatTanggungjawab::class,'Negeri_Rkod','kod_Negeri_PT' );
+
+    }
+
 }
