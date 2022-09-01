@@ -167,19 +167,16 @@
                                                             <div class="mb-3">
                                                                 <label class="col-form-label">NEGERI</label>
                                                                 <select class="form-select form-control" name="kod_Negeri_PT">
-                                                                    {{-- <option selected="" hidden value="{{$PT->kod_Negeri_PT}}">
-                                                                        {{$PT->negeri->Negeri}}
+                                                                    <option selected="" hidden value="{{($PT->kod_Negeri_PT?? '-') }}">
+                                                                        {{($PT->negeri->Negeri?? '-') }}
                                                                     </option>
-                                                                    @foreach ($negeri as $n2)
-                                                                        @if ($n->status_negeri == '1')
-                                                                            <option value="{{ $n2->Negeri_Rkod }}">
-                                                                                {{ $n2->Negeri }}</option>
+                                                                    @foreach ($negeri as $neg)
+                                                                        @if ($neg->status_negeri == '1')
+                                                                            <option value="{{( $neg->Negeri_Rkod?? '-') }}">{{ ($neg->Negeri?? '-') }}</option>
                                                                         @endif
-                                                                    @endforeach --}}
-                                                                    {{-- @foreach($negeri as $n) --}}
-                                                                    <option @if ($PT->kod_Negeri_PT == '{{$PT->negeri->Negeri_Rkod}}') selected @endif value="{{$PT->negeri->Negeri_Rkod}}">{{$PT->negeri->Negeri}}</option>
-                                                                    {{-- @endforeach --}}
+                                                                    @endforeach
                                                                 </select>
+
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label class="col-form-label">NO. TELEFON</label>

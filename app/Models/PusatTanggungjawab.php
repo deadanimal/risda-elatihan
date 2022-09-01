@@ -16,7 +16,7 @@ class PusatTanggungjawab extends Model
 
     public function negeri()
     {
-        return $this->hasOne(Negeri::class, 'Negeri_Rkod', 'kod_Negeri_PT');
+        return $this->hasOne(Negeri::class,'Negeri_Rkod','kod_Negeri_PT');
     }
 
     public function peruntukan(){
@@ -30,8 +30,6 @@ class PusatTanggungjawab extends Model
     public function peruntukanpeserta(){
         return $this->hasMany(PeruntukanPeserta::class,'id','pp_pusat_tanggungjawab');
     }
-
-
 
 
 }

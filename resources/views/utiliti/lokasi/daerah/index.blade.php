@@ -157,12 +157,23 @@
                                                         @csrf
                                                         <div class="mb-3">
                                                             <label class="col-form-label">NEGERI</label>
-                                                            <select class="form-select form-control" name="U_Negeri_ID">
+                                                            {{-- <select class="form-select form-control" name="U_Negeri_ID">
                                                                 <option hidden>Sila Pilih</option>
                                                                 @foreach ($negeri as $neg)
                                                                     @if ($neg['status_negeri'] == '1')
                                                                         <option value="{{ $neg->U_Negeri_ID }}">
                                                                             {{ $neg->Negeri }}</option>
+                                                                    @endif
+                                                                @endforeach
+                                                            </select> --}}
+
+                                                            <select class="form-select form-control" name="U_Negeri_ID">
+                                                                <option selected="" hidden value="{{($d->U_Negeri_ID?? '-') }}">
+                                                                    {{($d->negeri->Negeri?? '-') }}
+                                                                </option>
+                                                                @foreach ($negeri as $neg)
+                                                                    @if ($neg->status_negeri == '1')
+                                                                        <option value="{{( $neg->U_Negeri_ID?? '-') }}">{{ ($neg->Negeri?? '-') }}</option>
                                                                     @endif
                                                                 @endforeach
                                                             </select>
