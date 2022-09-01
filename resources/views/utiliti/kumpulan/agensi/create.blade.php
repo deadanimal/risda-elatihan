@@ -80,13 +80,13 @@
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label risda-dg">DAERAH</label>
-                                        <select class="form-select form-control" name="U_Daerah_ID" id="daerah_form">
+                                        <select class="form-select form-control js-choice" name="U_Daerah_ID" id="daerah_form" >
                                             <option selected="" hidden>Sila Pilih</option>
                                             @foreach ($daerah as $dae)
                                                 @if ($dae->status_daerah == '1')
                                                     <option value="{{ $dae->U_Daerah_ID }}">{{ $dae->Daerah }}</option>
                                                 @endif
-                                                
+
                                             @endforeach
                                         </select>
                                     </div>

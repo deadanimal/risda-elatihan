@@ -16,7 +16,7 @@ class PusatTanggungjawab extends Model
 
     public function negeri()
     {
-        return $this->belongsTo(Negeri::class, 'kod_Negeri_PT', 'Negeri_Rkod');
+        return $this->hasOne(Negeri::class,'Negeri_Rkod','kod_Negeri_PT');
     }
 
     public function peruntukan(){

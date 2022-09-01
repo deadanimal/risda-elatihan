@@ -97,7 +97,7 @@ class AgensiController extends Controller
      */
     public function edit(Agensi $agensi)
     {
-        $daerah = Daerah::all();
+        $daerah = Daerah::with('negeri')->get();
         $negeri = Negeri::all();
         $kategori = KategoriAgensi::all();
         return view('utiliti.kumpulan.agensi.edit',[

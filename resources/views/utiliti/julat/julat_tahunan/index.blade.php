@@ -1,5 +1,7 @@
 @extends('layouts.risda-base')
 @section('content')
+<div class="container">
+
     <div class="row">
         <div class="col">
             <h1 class="mb-0 risda-dg"><strong>UTILITI</strong></h1>
@@ -213,6 +215,7 @@
             </div>
         </div>
     </div>
+</div>
 
     <script>
         $(document).ready(function() {

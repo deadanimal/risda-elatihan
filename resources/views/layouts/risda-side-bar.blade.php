@@ -560,7 +560,7 @@
                                         </a>
 
                                     </li>
-                                    <li class="nav-item">
+                                    {{-- <li class="nav-item">
                                         <a class="nav-link {{ Request::is('utiliti/kursus/gred_pegawai') ? 'active' : '' }} py-0"
                                             href="/utiliti/kursus/gred_pegawai">
                                             <div class="d-flex align-items-center nav-link-side">
@@ -568,8 +568,8 @@
                                             </div>
                                         </a>
 
-                                    </li>
-                                    <li class="nav-item">
+                                    </li> --}}
+                                    {{-- <li class="nav-item">
                                         <a class="nav-link {{ Request::is('utiliti/kursus/elaun_cuti_kursus') ? 'active' : '' }} py-0"
                                             href="/utiliti/kursus/elaun_cuti_kursus">
                                             <div class="d-flex align-items-center nav-link-side">
@@ -577,7 +577,7 @@
                                             </div>
                                         </a>
 
-                                    </li>
+                                    </li> --}}
                                     <li class="nav-item">
                                         <a class="nav-link {{ Request::is('utiliti/kursus/kod_objek') ? 'active' : '' }} py-0"
                                             href="/utiliti/kursus/kod_objek">

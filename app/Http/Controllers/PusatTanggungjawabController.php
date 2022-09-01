@@ -22,9 +22,8 @@ class PusatTanggungjawabController extends Controller
     {
         $pt_data = PusatTanggungjawab::with('negeri')->get();
         $negeri = Negeri::all();
-        $negeri_edit= Negeri::where('Negeri_Rkod',$pt_data->kod_Negeri_PT)->first();
+        // $negeri_edit= Negeri::where('Negeri_Rkod',$pt_data->kod_Negeri_PT)->get();
 
-        // $negeri_edit = Negeri::where('');
 
         $bil_pt = PusatTanggungjawab::with('negeri')->orderBy('id', 'desc')->first();
         if ($bil_pt != null) {
@@ -34,11 +33,13 @@ class PusatTanggungjawabController extends Controller
         }
         $bil = $bil + 1;
         $bil = sprintf("%02d", $bil);
+
+
         return view('utiliti.lokasi.pusat_tanggungjawab.index', [
             'pt_data' => $pt_data,
             'negeri' => $negeri,
             'bil' => $bil,
-            'negeri_edit'=>$negeri_edit
+            // 'negeri_edit'=>$negeri_edit
         ]);
     }
 
@@ -139,12 +140,7 @@ class PusatTanggungjawabController extends Controller
         return redirect('/utiliti/lokasi/pusat_tanggungjawab');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\PusatTanggungjawab  $pusatTanggungjawab
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(PusatTanggungjawab $pusatTanggungjawab)
     {
         $nama = $pusatTanggungjawab->nama_PT;

@@ -166,31 +166,16 @@
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label class="col-form-label">NEGERI</label>
-                                                                <select name=kod_Negeri_PT class="form-select">
-                                                                    @foreach ($PT->negeri as $n)
-                                                                    <option @if ($fizaItemInfo->katalog_id=='{{$fizaItemInfo->katalog_id}}') selected @endif value="{{$fizaItemInfo->katalog_id}}">{{$katalog->katalog_kumpulan}}</option>
-                                                                    <option @if ($PT->kod_Negeri_PT=='{{$PT->kod_Negeri_PT}}') selected @endif value="{{$PT->kod_Negeri_PT}}">{{$n->Negeri}}</option>
+                                                                <select class="form-select form-control" name="kod_Negeri_PT">
+                                                                    <option selected="" hidden value="{{($PT->kod_Negeri_PT?? '-') }}">
+                                                                        {{($PT->negeri->Negeri?? '-') }}
+                                                                    </option>
+                                                                    @foreach ($negeri as $neg)
+                                                                        @if ($neg->status_negeri == '1')
+                                                                            <option value="{{( $neg->Negeri_Rkod?? '-') }}">{{ ($neg->Negeri?? '-') }}</option>
+                                                                        @endif
                                                                     @endforeach
                                                                 </select>
-                                                                    {{-- <option selected="" hidden value="{{$PT->kod_Negeri_PT}}">
-                                                                        {{$PT->negeri->Negeri}}
-                                                                    </option>
-                                                                    @foreach ($negeri as $n2)
-                                                                        @if ($n->status_negeri == '1')
-                                                                            <option value="{{ $n2->Negeri_Rkod }}">
-                                                                                {{ $n2->Negeri }}</option>
-                                                                        @endif
-                                                                    @endforeach --}}
-                                                                    {{-- @foreach($negeri as $n) --}}
-                                                                    {{-- <option @if ($PT->kod_Negeri_PT == '{{$negeri->id}}') selected @endif value="{{$negeri->id}}">{{$negeri->Negeri}}</option> --}}
-                                                                    {{-- @endforeach --}}
-                                                                    {{-- <input type="text" name="kod_Negeri_PT" value="{{$negeri_edit->Negeri}}" class="form-control"> --}}
-                                                                {{-- {{-- <select class="form-select form-control" name="kod_Negeri_PT"> --}}
-
-                                                                {{-- @foreach($PT->negeri as $n)
-                                                                <option @if ($PT->kod_Negeri_PT=='{{$negeri->kod_Negeri_PT}}') selected @endif value="{{$PT->kod_Negeri_PT}}">{{$n->Negeri}}</option>
-                                                                @endforeach
-                                                                </select> --}}
 
                                                             </div>
                                                             <div class="mb-3">

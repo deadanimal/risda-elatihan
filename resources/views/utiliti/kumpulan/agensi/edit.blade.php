@@ -82,12 +82,12 @@
                                 <div class="mb-3">
                                     <label class="form-label risda-dg">DAERAH</label>
                                     <select class="form-select form-control" name="U_Daerah_ID" id="daerah_form">
-                                        <option selected="" hidden value="{{$agensi->U_Daerah_ID}}">
-                                            {{$agensi->daerah->Daerah}}
+                                        <option selected="" hidden value="{{($agensi->U_Daerah_ID?? '-') }}">
+                                            {{($agensi->daerah->Daerah?? '-') }}
                                         </option>
                                         @foreach ($daerah as $dae)
                                             @if ($dae->status_daerah == '1')
-                                                <option value="{{ $dae->U_Daerah_ID }}">{{ $dae->Daerah }}</option>
+                                                <option value="{{ ($dae->U_Daerah_ID?? '-') }}">{{ ($dae->Daerah ?? '-') }}</option>
                                             @endif
                                         @endforeach
                                     </select>
@@ -131,7 +131,7 @@
                                 </div>
                             </div>
                         </div>
-    
+
                         <div class="row">
                             <div class="col text-end">
                                 <button type="submit" class="btn risda-bg-dg text-white">Seterusnya</button>
@@ -140,7 +140,7 @@
                     </div>
                 </div>
             </form>
-            
+
         </div>
     </div>
 </div>
@@ -185,6 +185,6 @@
         });
     });
 </script>
-    
+
 
 @stop
