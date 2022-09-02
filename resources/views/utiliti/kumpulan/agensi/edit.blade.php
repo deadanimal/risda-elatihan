@@ -81,7 +81,7 @@
                             <div class="col-6">
                                 <div class="mb-3">
                                     <label class="form-label risda-dg">DAERAH</label>
-                                    <select class="form-select form-control" name="U_Daerah_ID" id="daerah_form">
+                                    <select class="form-select js-choice form-control" name="U_Daerah_ID" id="daerah_form">
                                         <option selected="" hidden value="{{($agensi->U_Daerah_ID?? '-') }}">
                                             {{($agensi->daerah->Daerah?? '-') }}
                                         </option>
