@@ -46,6 +46,9 @@
     </div>
 
     <hr style="color: rgba(81,179,90, 60%);height:2px;">
+    <a id="downloadpdf" style="display: none" href="{{ route('pdf_pl_kategori') }}"></a>
+
+    <a id="downloadexcel" style="display: none" href="{{ route('excel_pl_kategori') }}"></a>
 
     <div class="card mt-5 ">
         <div class="card-header">
@@ -61,8 +64,11 @@
         </div>
 
         <div class="card-body">
-            <div class="table-responsive scrollbar ">
-                <table class="table text-center table-bordered datatable " border-color: #00B64E;">
+            @include('laporan.laporan_lain.excel.laporan_prestasi_kategori')
+
+
+            {{-- <div class="table-responsive scrollbar ">
+                <table class="table text-center table-bordered datatable " style="border-color: #00B64E;">
                     <thead class="risda-bg-g" style="vertical-align: middle">
 
                         <tr>
@@ -82,7 +88,7 @@
                             {{-- <th></th>
                             <th></th>
                             <th></th>
-                            <th></th> --}}
+                            <th></th>
                             <th>LELAKI</th>
                             <th>PEREMPUAN</th>
                             <th>JUMLAH</th>
@@ -100,22 +106,32 @@
                             <th>INSURANS</th>
                             {{-- <th></th>
                             <th></th>
-                            <th></th> --}}
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
 
                     </tbody>
                 </table>
-            </div>
+            </div> --}}
 
         </div>
     </div>
     </div>
 
     <script>
+        function download(el) {
+            let val = el.value;
+            if (val == "Pdf") {
+                document.getElementById('downloadpdf').click();
+            }
+            if (val == "Excel") {
+                document.getElementById('downloadexcel').click();
+            }
+        }
         $(document).ready(function() {
             $("th").addClass('fw-bold text-white');
         });
     </script>
 @endsection
+
