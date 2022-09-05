@@ -20,6 +20,7 @@ use App\Exports\KehadiranPlExport;
 use App\Exports\KehadiranUmurJantinaExport;
 use App\Exports\KemajuanLatihanDaerahExport;
 use App\Exports\KemajuanLatihanPlExport;
+use App\Exports\PencapaianLatihanKategoriExport;
 use App\Exports\PencapaianMatlamatExport;
 use App\Exports\PenilaianKeberkesananExport;
 use App\Exports\PerbelanjaanKategoriExport;
@@ -32,6 +33,7 @@ use App\Models\BidangKursus;
 use App\Models\KategoriAgensi;
 use App\Models\Kehadiran;
 use App\Models\JadualKursus;
+use App\Models\JawapanPenilaian;
 use App\Models\KehadiranPusatLatihan;
 use App\Models\PenceramahKonsultan;
 use App\Models\PenilaianEjenPelaksana;
@@ -579,7 +581,7 @@ class LaporanLainController extends Controller
         ])->setPaper('a4', 'landscape');
 
 
-        return $pdf->stream('Laporan Penilaian Ejen Pelaksana.' . 'pdf');
+        return $pdf->stream('Laporan Penilaian Ejen Pelaksana.'.'pdf');
     }
 
 
@@ -599,30 +601,51 @@ class LaporanLainController extends Controller
         ]);
     }
 
-    public function laporan_penilaian_prepost_show()
+    public function laporan_penilaian_prepost_show($id)
     {
-        $pretest=PrePostTest::with('kursus');
+        $kursus = JadualKursus::find($id);
+        $pretest = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->get();
         // $post_test =PostTest::with
 
-        return view('laporan.laporan_lain.penilaian-prepost-show',[
+        // dd($pretest);
+              return view('laporan.laporan_lain.penilaian.laporan-penilaian-prepost-show',[
+            'kursus'=>$kursus,
             'pretest'=>$pretest
         ]);
     }
-    public function excel_penilaian_prepost_show()
+    public function excel_laporan_penilaian_prepost_show()
     {
-//
+        //
     }
 
-    public function pdf_penilaian_prepost_show()
+    public function pdf_laporan_penilaian_prepost_show($id)
     {
-        $pretest=PrePostTest::with('kursus');
+        $kursus = JadualKursus::find($id);
+        $pretest = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->get();
 
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf-penilaian-prepost-show',[
+        $pdf = PDF::loadView('laporan.laporan_lain.excel.laporan-penilaian-prepost',[
+            'kursus'=>$kursus,
             'pretest'=>$pretest
         ]);
+
+        return $pdf->stream('Laporan Penilaian Kursus.'.'pdf');
+
+
     }
 
     public function laporan_penilaian_prepost_ulpk_show()
+    {
+
+        return view('laporan.laporan_lain.laporan-penilaian-prepost-show_ulpk');
+    }
+
+    public function pdf_laporan_penilaian_prepost_ulpk_show()
+    {
+
+        return view('laporan.laporan_lain.laporan-penilaian-prepost-show_ulpk');
+    }
+
+    public function excel_laporan_penilaian_prepost_ulpk_show()
     {
 
         return view('laporan.laporan_lain.laporan-penilaian-prepost-show_ulpk');
@@ -704,11 +727,22 @@ class LaporanLainController extends Controller
         return view('laporan.laporan_lain.laporan-prestasi-kehadiran');
     }
 
-
-
     public function laporan_pencapaian_latihan_mengikut_kategori()
     {
         return view('laporan.laporan_lain.laporan-pencapaian_latihan-kategori');
+    }
+
+    public function pdf_laporan_pencapaian_latihan_mengikut_kategori()
+    {
+
+        $pdf = PDF::loadView('laporan.laporan_lain.excel.laporan_prestasi_kategori');
+
+        return $pdf->stream('Laporan Pencapaian Latihan Mengikut Kategori.'.'pdf');
+    }
+
+    public function excel_laporan_pencapaian_latihan_mengikut_kategori()
+    {
+        return (new PencapaianLatihanKategoriExport())->download('Laporan Pencapaian Latihan Mengikut Kategori.xlsx');
     }
 
     // kemajuan

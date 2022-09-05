@@ -9,4 +9,11 @@ class JawapanPenilaian extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+
+
+    public function peserta()
+    {
+        return $this->belongsTo(User::class,'user_id','id');
+    }
+
 }

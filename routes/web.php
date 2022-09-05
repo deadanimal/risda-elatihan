@@ -463,13 +463,17 @@ Route::middleware('auth')->group(function () {
 
             Route::get('laporan-penilaian-kursus/uls', [LaporanLainController::class, 'laporan_penilaian_kursus_uls']);
 
-            Route::get('laporan-senarai-kursus', [LaporanLainController::class, 'senarai_kursus']);
-
-            Route::get('laporan-penilaian-prepost', [LaporanLainController::class, 'laporan_penilaian_prepost_show']);
-            Route::get('penilaian-prepost-excel', [LaporanLainController::class, 'laporan_penilaian_prepost_show']);
-            Route::get('penilaian-prepost-pdf', [LaporanLainController::class, 'laporan_penilaian_prepost_show']);
-
+            Route::get('senarai-kursus', [LaporanLainController::class, 'senarai_kursus']);
             Route::get('laporan-penilaian-prepost/{id}', [LaporanLainController::class, 'laporan_penilaian_prepost_show']);
+            Route::get('laporan-penilaian-prepost-pdf/{id}', [LaporanLainController::class, 'pdf_laporan_penilaian_prepost_show'])->name('pdf_pretest');
+            Route::get('laporan-penilaian-prepost-excel/{id}', [LaporanLainController::class, 'excel_laporan_penilaian_prepost_show'])->name('excel_pretest');
+
+
+            // Route::get('laporan-penilaian-prepost', [LaporanLainController::class, 'laporan_penilaian_prepost_show']);
+            // Route::get('penilaian-prepost-excel', [LaporanLainController::class, 'laporan_penilaian_prepost_show']);
+            // Route::get('penilaian-prepost-pdf', [LaporanLainController::class, 'laporan_penilaian_prepost_show']);
+
+            // Route::get('laporan-penilaian-prepost/{id}', [LaporanLainController::class, 'laporan_penilaian_prepost_show']);
 
             Route::get('laporan-penilaian-peserta', [LaporanLainController::class, 'laporan_penilaian_peserta']);
             Route::get('penilaian-peserta-pdf', [LaporanLainController::class, 'pdf_laporan_penilaian_peserta']);
@@ -487,7 +491,10 @@ Route::middleware('auth')->group(function () {
             Route::get('pdf-penilaian-penyelia', [LaporanLainController::class, 'pdf_laporan_penilaian_penyelia']);
 
             Route::get('laporan-prestasi-kehadiran', [LaporanLainController::class, 'laporan_prestasi_kehadiran']);
+
             Route::get('laporan-pencapaian-latihan-kategori', [LaporanLainController::class, 'laporan_pencapaian_latihan_mengikut_kategori']);
+            Route::get('laporan-pencapaian-latihan-kategori-pdf', [LaporanLainController::class, 'pdf_laporan_pencapaian_latihan_mengikut_kategori'])->name('pdf_pl_kategori');
+            Route::get('laporan-pencapaian-latihan-kategori-excel', [LaporanLainController::class, 'excel_laporan_pencapaian_latihan_mengikut_kategori'])->name('excel_pl_kategori');
 
 
 
