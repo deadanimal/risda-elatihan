@@ -21,11 +21,11 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $bk->nama_Bidang_Kursus }}</td>
                             <td>{{ $jk->kursus_nama }}</td>
-                            @if ($jk->bilangan_hari>1)
-                            <td>{{date('d/m/Y', strtotime($jk->tarikh_mula))}} - {{date('d/m/Y', strtotime($jk->tarikh_tamat))}} </td>
-                            @else
-                            <td>{{date('d/m/Y', strtotime($jk->tarikh_mula))}}</td>
-                            @endif
+                                @if ($jk->bilangan_hari>1)
+                                    <td>{{date('d/m/Y', strtotime($jk->tarikh_mula))}} - {{date('d/m/Y', strtotime($jk->tarikh_tamat))}} </td>
+                                @else
+                                    <td>{{date('d/m/Y', strtotime($jk->tarikh_mula))}}</td>
+                                @endif
                             <td></td>
                             <td>{{ $jk->bil_hadir }}</td>
                             <td>{{ $jk->bil_tidak_hadir }}</td>

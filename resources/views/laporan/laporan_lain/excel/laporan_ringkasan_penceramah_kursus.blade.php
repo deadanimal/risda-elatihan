@@ -24,8 +24,8 @@
                      <td>{{ ($pk->jadual_kursus->kursus_kod_nama_kursus ?? '-')  }}</td>
                      <td>{{ ($pk->jadual_kursus->kursus_nama ?? '-') }}</td>
                      {{-- <td>{{ $pk->mula }}</td> --}}
-                     <td>{{date('d/m/Y', strtotime($p->jadual_kursus->tarikh_mula))}}</td>
-                     <td>{{date('d/m/Y', strtotime($p->jadual_kursus->tarikh_tamat))}}</td>
+                     {{-- <td>{{(date('d/m/Y', strtotime($p->jadual_kursus->tarikh_mula)?? '-') }}</td>
+                     <td>{{(date('d/m/Y', strtotime($p->jadual_kursus->tarikh_tamat)?? '-') }}</td> --}}
                      {{-- <td>{{ $pk->tamat }}</td> --}}
                      <td>{{ $pk->tempat }}</td>
                      <td></td>

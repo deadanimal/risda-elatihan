@@ -212,6 +212,7 @@ class LaporanLainController extends Controller
     public function laporan_prestasi_kehadiran_peserta()
     {
         $bidang_kursus = $this->bk();
+
         return view('laporan.laporan_lain.laporan_prestasi_kehadiran_peserta', [
             'bidang_kursus' => $bidang_kursus,
         ]);
@@ -220,6 +221,7 @@ class LaporanLainController extends Controller
     public function pdf_prestasi_kehadiran()
     {
         $bidang_kursus = BidangKursus::with('kodkursus')->get();
+        // $peruntukan_peserta = PeruntukanPeserta::where('')
         $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_prestasi_kehadiran_peserta', [
             'bidang_kursus' => $bidang_kursus
         ])->setPaper('a4', 'landscape');
@@ -336,7 +338,7 @@ class LaporanLainController extends Controller
 
     public function laporan_kehadiran_peserta()
     {
-        $kehadiran = Kehadiran::with(['staff', 'kursus'])->get();
+        $kehadiran = Kehadiran::with(['staff', 'kursus'])->orderBy('jadual_kursus_id')->get();
         // $kursus = JadualKursus::with('tempat');
 
         foreach ($kehadiran as $k) {
@@ -735,7 +737,8 @@ class LaporanLainController extends Controller
     public function pdf_laporan_pencapaian_latihan_mengikut_kategori()
     {
 
-        $pdf = PDF::loadView('laporan.laporan_lain.excel.laporan_prestasi_kategori');
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_prestasi_kategori')
+        ->setPaper('a4', 'landscape');
 
         return $pdf->stream('Laporan Pencapaian Latihan Mengikut Kategori.'.'pdf');
     }
