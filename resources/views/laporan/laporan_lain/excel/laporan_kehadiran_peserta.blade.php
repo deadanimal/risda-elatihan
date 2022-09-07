@@ -30,7 +30,6 @@
 
                      {{-- <td>{{ $loop->iteration }}.</td> --}}
                      <td rowspan="$totA">{{$index+1}}</td>
-
                      {{-- <td>{{ ($k->kursus->bidang->nama_Bidang_Kursus ?? '-') }}</td> --}}
                      <td rowspan="$k->kursus->bidang->nama_Bidang_Kursus->count()">{{ $k->kursus->bidang->nama_Bidang_Kursus}}</td>
                      <td>{{ ($k->kursus->kategori_kursus->nama_Kategori_Kursus ?? '-') }}</td>

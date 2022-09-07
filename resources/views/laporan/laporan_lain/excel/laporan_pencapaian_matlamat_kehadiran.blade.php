@@ -30,7 +30,7 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $bk->nama_Bidang_Kursus }}</td>
-                    <td></td>
+                    <td>{{$bk->j_matlamat_kursus}}</td>
                     <td>{{ $bk->pencapaian }}</td>
                     <td></td>
                     <td></td>

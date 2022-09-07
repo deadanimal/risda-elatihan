@@ -60,7 +60,7 @@
                                                     @if ($status == 'update')
                                                     <input type="hidden" name="id_mt[]" value="{{ $c->matlamat_kursus->id }}">
                                                     @endif
-                                                    
+
                                                 @elseif ($title == 'KATEGORI KURSUS')
                                                     {{ $c->nama_Kategori_Kursus }}
                                                     <input type="hidden" name="title[]"
@@ -69,7 +69,7 @@
                                                     @if ($status == 'update')
                                                     <input type="hidden" name="id_mt[]" value="{{ $c->matlamat_kursus->id }}">
                                                     @endif
-                                                    
+
                                                 @elseif ($title == 'TAJUK KURSUS')
                                                     {{ $c->tajuk_Kursus }}
                                                     <input type="hidden" name="title[]" value="{{ $c->tajuk_Kursus }}">
@@ -83,7 +83,7 @@
                                                     @if ($status == 'update')
                                                     <input type="hidden" name="id_mt[]" value="{{ $c->id }}">
                                                     @endif
-                                                    
+
                                                 @endif
                                             </td>
                                             @foreach ($c->matlamat_kursus_cm as $k => $cm)

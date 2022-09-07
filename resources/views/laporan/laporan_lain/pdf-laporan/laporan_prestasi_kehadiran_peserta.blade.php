@@ -1,3 +1,5 @@
+
+
 <style type="text/css">
     /* define a few different page types we can refer to from CSS classes */
     /* see http://www.princexml.com/doc/page-size/ */
@@ -195,6 +197,26 @@
                     @endforeach
                 @endforeach
             </tbody>
+
+            {{-- <tbody>
+                @foreach ($kursus as $k)
+                <tr>
+                    <td>{{$k->bidang->nama_Bidang_Kursus}}</td>
+                    <td>{{$k->kursus_nama}}</td>
+                    @if ($k->bilangan_hari>1)
+                        <td>{{date('d/m/Y', strtotime($k->tarikh_mula))}} - {{date('d/m/Y', strtotime($k->tarikh_tamat))}} </td>
+                    @else
+                        <td>{{date('d/m/Y', strtotime($k->tarikh_mula))}}</td>
+                    @endif
+                    <td>{{$k->j_peruntukan}}</td>
+                    <td>{{ $k->$j_kehadiran }}</td>
+                    <td>{{ $k->$j_kehadiran }}</td>
+                    <td>{{ $k->$j_kehadiran }}</td>
+                    <td></td>
+                @endforeach
+                </tr>
+            </tbody> --}}
+
         </table>
     </div>
 
