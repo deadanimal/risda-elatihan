@@ -45,7 +45,7 @@
         </div>
     </div>
 
-    <a id="downloadpdf" style="display: none" download="kehadiran-peserta"
+    <a id="downloadpdf" style="display: none"
             href="{{ route('pdf_kehadiran_peserta') }}">Download</a>
     <a id="downloadexcel" style="display: none" href="{{ route('excel_kehadiran_peserta') }}" download="kehadiran-peserta">Download</a>
 

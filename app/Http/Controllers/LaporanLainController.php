@@ -228,69 +228,115 @@ class LaporanLainController extends Controller
         ]);
     }
 
-    // public function pdf_prestasi_kehadiran()
-    // {
-    //     $bidang_kursus = BidangKursus::with('kodkursus')->get();
-    //     $kursus = JadualKursus::with(['bidang','kategori_kursus','kehadiran','peruntukan']);
-
-    //     $j_peruntukan = 0;
-    //     $j_kehadiran =0;
-    //     $peratusan_kehadiran =0;
-
-    //     foreach($kursus as $k){
-
-    //         $kehadiran = Kehadiran::where('status_kehadiran','HADIR')->orWhere('status_kehadiran_ke_kursus','HADIR')->where('jadual_kursus_id',$k->id)->get();
-
-    //         $peruntukan_peserta = PeruntukanPeserta::where('pp_jadual_kursus',$k->id)->get();
-
-
-    //         $j_peruntukan += count($peruntukan_peserta);
-    //         $j_kehadiran += count($kehadiran);
-    //         $peratusan_kehadiran=($j_peruntukan/$j_kehadiran)*100;
-
-    //     }
-
-    //     $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_prestasi_kehadiran_peserta', [
-    //         'bidang_kursus' => $bidang_kursus,
-    //         'kursus'=>$kursus,'j_peruntukan'=>$j_peruntukan,'j_kehadiran'=>$j_kehadiran
-    //     ])->setPaper('a4', 'landscape');
-
-
-    //     return $pdf->stream('Laporan Prestasi Kehadiran Peserta.' . 'pdf');
-    // }
-
-
-
-
     public function pdf_prestasi_kehadiran()
     {
         $bidang_kursus = BidangKursus::with('kodkursus')->get();
-        $j_kehadiran =0;
+        $kursus = JadualKursus::with(['bidang','kategori_kursus','kehadiran','peruntukan'])->get();
+
+        $j_pengganti = 0;
 
 
-        foreach($bidang_kursus as $bk){
-            $kehadiran = Kehadiran::where('status_kehadiran','HADIR')->orWhere('status_kehadiran_ke_kursus','HADIR')->get();
+        foreach($kursus as $k){
 
-            $j_kehadiran += count($bk->kehadiran);
+            $j_peruntukan_peserta = 0;
+            $j_kehadiran =0;
+
+            $peruntukan_peserta = PeruntukanPeserta::where('pp_jadual_kursus',$k->id)->get();
+
+            foreach ($peruntukan_peserta as $pp) {
+                $pp->pp_peruntukan_calon;
+                $j_peruntukan_peserta+=$pp->pp_peruntukan_calon;
+
+
+            }
+
+            // echo '__'.$j_peruntukan_peserta;
+            // dd('__'.$j_peruntukan_peserta);
+
+
+                $kehadiran = Kehadiran::where('status_kehadiran','HADIR')->orWhere('status_kehadiran_ke_kursus','HADIR')->where('jadual_kursus_id',$k->id)->get();
+
+
+
+                $j_kehadiran =0;
+                $j_tidak_hadir = 0;
+
+
+            // echo '__'.$j_peruntukan_peserta;
+            // dd('__'.$j_peruntukan_peserta);
+
+                $j_kehadiran += count($kehadiran);
+            $peratusan_kehadiran = 0;
+
+
+                if($j_kehadiran==0){
+                    $peratusan_kehadiran = 0;
+                    $j_tidak_hadir = 0;
+                }
+                else{
+                    $j_tidak_hadir = $j_peruntukan_peserta - $j_kehadiran;
+
+                    $peratusan_kehadiran = ($j_kehadiran / $j_peruntukan_peserta)*100;
+                }
+                $j_pp = $j_peruntukan_peserta;
+            // dd('__'.$j_peruntukan_peserta);
+
+                // $k['j_kehadiran'] = $j_kehadiran;
+                // $k['j_peruntukan_peserta'] = $j_peruntukan_peserta;
+                // $k['peratusan_kehadiran'] = $peratusan_kehadiran;
         }
 
 
-        $bidang_kursus['j_kehadiran'] = $j_kehadiran;
-        // $bidang['data'] = $bidang_kursus;
 
-
-
-        // $peruntukan_peserta = PeruntukanPeserta::where('')
+        // dd($j_peruntukan_peserta);
         $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_prestasi_kehadiran_peserta', [
             'bidang_kursus' => $bidang_kursus,
-            'j_kehadiran' =>$j_kehadiran
+            '$j_peruntukan_peserta'=>$j_peruntukan_peserta,
+            'kursus'=>$kursus,
+            // 'j_peruntukan'=>$j_peruntukan,
+            'j_kehadiran'=>$j_kehadiran,
+            'peratusan_kehadiran'=>$peratusan_kehadiran,
+            'j_tidak_hadir'=>$j_tidak_hadir,
+            'j_pp'=>$j_pp
         ])->setPaper('a4', 'landscape');
-
-
 
 
         return $pdf->stream('Laporan Prestasi Kehadiran Peserta.' . 'pdf');
     }
+
+
+
+
+    // public function pdf_prestasi_kehadiran()
+    // {
+        // $bidang_kursus = BidangKursus::with('kodkursus')->get();
+        // $j_kehadiran =0;
+
+        // foreach($bidang_kursus as $bk){
+        //     $kehadiran = Kehadiran::where('status_kehadiran','HADIR')->orWhere('status_kehadiran_ke_kursus','HADIR')->get();
+
+        //     $j_kehadiran += count($bk->kehadiran);
+        // }
+
+
+        // $bidang_kursus['j_kehadiran'] = $j_kehadiran;
+        // // $bidang['data'] = $bidang_kursus;
+
+
+
+        // $peruntukan_peserta = PeruntukanPeserta::where('')
+
+
+    //     $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_prestasi_kehadiran_peserta', [
+    //         'bidang_kursus' => $bidang_kursus,
+    //         'j_kehadiran' =>$j_kehadiran
+    //     ])->setPaper('a4', 'landscape');
+
+
+
+
+    //     return $pdf->stream('Laporan Prestasi Kehadiran Peserta.' . 'pdf');
+    // }
 
     public function pkp()
     {
@@ -360,7 +406,7 @@ class LaporanLainController extends Controller
             }
         }
 
-        $pdf = PDF::loadView('laporan.laporan_lain.excel.laporan_ringkasan_penceramah_kursus', [
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_ringkasan_penceramah_kursus', [
             'penceramah' => $penceramah,
         ])->setPaper('a4', 'landscape');
 
@@ -420,22 +466,20 @@ class LaporanLainController extends Controller
         // $kehadiran = new KehadiranPesertaExport();
         // return $kehadiran->download('KehadiranPeserta.xls');
 
-        return (new KehadiranPesertaExport())->download('KehadiranPeserta.xlsx');
+        return (new KehadiranPesertaExport())->download('Laporan Kehadiran Peserta.xlsx');
     }
 
 
     public function pdf_laporan_kehadiran_peserta()
     {
-        $kehadiran = Kehadiran::with(['staff', 'kursus'])->get();
-
-        // $user = User::with(['staf','data_pk'])->where('id',$kehadiran->no_pekerja)->first();
+        // dd('2');
+        $kehadiran = Kehadiran::with(['staff','kursus'])->get();
+        // $kursus = JadualKursus::with('tempat');
 
         foreach ($kehadiran as $k) {
             $k['user'] = User::find($k->no_pekerja);
+            // $k['tempat'] = JadualKursus::with('tempat');
         }
-
-        // $jadual = JadualKursus::where('id',$kehadiran->jadual_kursus_id)->first();
-        // $tempat = Agensi::where('id',$jadual->kursus_tempat)->first();
 
         $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_kehadiran_peserta', [
             'kehadiran' => $kehadiran,
@@ -479,7 +523,7 @@ class LaporanLainController extends Controller
 
     public function excel_laporan_kewangan_terperinci()
     {
-        return (new KewanganTerperinciExport())->download('KewanganTerperinci.xlsx');
+        return (new KewanganTerperinciExport())->download('Laporan Kewangan Terperinci.xlsx');
     }
 
 

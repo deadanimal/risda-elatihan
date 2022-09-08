@@ -183,16 +183,17 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $bk->nama_Bidang_Kursus }}</td>
                             <td>{{ $jk->kursus_nama }}</td>
+                            {{-- <td>{{ $jk->id }}</td> --}}
                             @if ($jk->bilangan_hari>1)
                             <td>{{date('d/m/Y', strtotime($jk->tarikh_mula))}} - {{date('d/m/Y', strtotime($jk->tarikh_tamat))}} </td>
                             @else
                             <td>{{date('d/m/Y', strtotime($jk->tarikh_mula))}}</td>
                             @endif
-                            <td></td>
-                            <td>{{ $jk->bil_hadir }}</td>
-                            <td>{{ $jk->bil_tidak_hadir }}</td>
+                            <td>{{$j_pp}}</td>
+                            <td>{{ $j_kehadiran }}</td>
+                            <td>{{ $j_tidak_hadir }}</td>
                             <td>{{ $jk->bil_pengganti }}</td>
-                            <td>{{ $jk->peratusan }}%</td>
+                            <td><?php echo(round($peratusan_kehadiran))?>%</td>
                         </tr>
                     @endforeach
                 @endforeach

@@ -13,6 +13,9 @@
             </thead>
             <tbody>
                 <tr>
+                    foreach()
+            {{--<tbody>
+                 <tr>
                     <td>1</td>
                     <td>BAHAGIAN LATIHAN</td>
                     <td></td>
@@ -60,7 +63,7 @@
                     <td></td>
                     <td></td>
                 </tr>
-            </tbody>
+            </tbody>--}}
         </table>
     </div>
 

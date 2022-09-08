@@ -25,7 +25,7 @@ class KehadiranPesertaExport implements FromView
 
     public function view(): View
     {
-        $kehadiran = Kehadiran::with(['staf','kursus','bidang','bidang'])->get();
+        $kehadiran = Kehadiran::with(['staff','kursus'])->get();
         // $kursus = JadualKursus::with('tempat');
 
         foreach ($kehadiran as $k) {
