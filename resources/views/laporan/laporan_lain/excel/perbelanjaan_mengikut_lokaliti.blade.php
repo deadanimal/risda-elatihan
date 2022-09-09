@@ -12,7 +12,19 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                @foreach ($pt as $p)
+                   <tr>
+                    <td> {{$loop->iteration}}</td>
+                    <td>{{$p->nama_PT}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                    @endforeach
+            </tbody>
+            {{--<tbody>
+                 <tr>
                     <td>1</td>
                     <td>BAHAGIAN LATIHAN</td>
                     <td></td>
@@ -60,13 +72,7 @@
                     <td></td>
                     <td></td>
                 </tr>
-            </tbody>
+            </tbody>--}}
         </table>
     </div>
-
 </div>
-<script>
-    $(document).ready(function() {
-        $("th").addClass('fw-bold text-white');
-    });
-</script>

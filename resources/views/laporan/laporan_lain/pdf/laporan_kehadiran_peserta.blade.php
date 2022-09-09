@@ -1,32 +1,8 @@
-<head>
-    <title>Laporan Kehadiran Peserta</title>
-
-    <style type="text/css">
-@page {
-  size: A4 landscape;
-  margin: 30px;
-}
-
-
-
-    table,th,td {
-        border: 1px solid black;
-        border-collapse: collapse;
-        font-size: 10px;
-        padding: 5px;
-        text-transform: capitalize;
-    }
-    td{
-        text-align: center;
-    }
-
-</style>
-</head>
 
 <body>
- <div class="table-responsive scrollbar ">
+ <div>
      {{-- <table class="table text-center table-bordered datatable " style="vertical-align: middle;border-color: #00B64E;"> --}}
-        <table width="100%">
+        <table>
          <thead>
 
              <tr>

@@ -1,3 +1,5 @@
+
+
 <style type="text/css">
     /* define a few different page types we can refer to from CSS classes */
     /* see http://www.princexml.com/doc/page-size/ */
@@ -5,13 +7,15 @@
 
 
     *{
-            font: 12pt "Times New Roman";
             line-height: 1.5;
             /* margin: 10px; */
             margin-right: 20px;
             margin-left: 20px;
             margin-top: 10px;
+     }
 
+     p,b{
+        font: 12pt "Times New Roman";
 
      }
 
@@ -24,6 +28,8 @@
 
     table, td, th {
     border: 1px solid;
+    font: 10pt "Times New Roman";
+
     /* text-align: center; */
     padding: 8px;
     border-collapse: collapse;
@@ -137,8 +143,8 @@
             <div class="column-side">
                 <img src="img/risda_logo.png" alt="PGN" height="80" style="">
             </div>
-            <div class="column-center"><b>PIHAK BERKUASA KEMAJUAN PEKEBUN KECIL PERUSAHAAN GETAH (RISDA)<br>
-                    (KEMENTERIAN PEMBANGUNAN LUAR BANDAR)</b>
+            <div class="column-center"><b>PIHAK BERKUASA KEMAJUAN PEKEBUN KECIL PERUSAHAAN GETAH (RISDA)
+                   <br> (KEMENTERIAN PEMBANGUNAN LUAR BANDAR)</b>
                     <br>Bangunan RISDA, KM 7, Jalan Ampang, Karung Berkunci 11067, 50990 Kuala Lumpur<br>
             </div>
             <div class="column-side">
@@ -149,10 +155,10 @@
         (KEMENTERIAN PEMBANGUNAN LUAR BANDAR)</b>
         <br><small> Bangunan RISDA, KM 7, Jalan Ampang, Karung Berkunci 11067, 50990 Kuala Lumpur</small></div>
         <br> --}}
-        <small style="text-align: center"> LAPORAN PRESTASI KEHADIRAN PESERTA</small>
-        <br>
-
         <hr>
+        <br>
+        <p style="text-align: center"> LAPORAN PRESTASI KEHADIRAN PESERTA</p>
+
 <div class="card-body">
     <div class="table-responsive scrollbar ">
         {{-- <table class="table text-center table-bordered datatable" style="vertical-align: middle;border-color: #00B64E;"> --}}
@@ -177,20 +183,41 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $bk->nama_Bidang_Kursus }}</td>
                             <td>{{ $jk->kursus_nama }}</td>
+                            {{-- <td>{{ $jk->id }}</td> --}}
                             @if ($jk->bilangan_hari>1)
                             <td>{{date('d/m/Y', strtotime($jk->tarikh_mula))}} - {{date('d/m/Y', strtotime($jk->tarikh_tamat))}} </td>
                             @else
                             <td>{{date('d/m/Y', strtotime($jk->tarikh_mula))}}</td>
                             @endif
-                            <td></td>
-                            <td>{{ $jk->bil_hadir }}</td>
-                            <td>{{ $jk->bil_tidak_hadir }}</td>
+                            <td>{{$j_pp}}</td>
+                            <td>{{ $j_kehadiran }}</td>
+                            <td>{{ $j_tidak_hadir }}</td>
                             <td>{{ $jk->bil_pengganti }}</td>
-                            <td>{{ $jk->peratusan }}%</td>
+                            <td><?php echo(round($peratusan_kehadiran))?>%</td>
                         </tr>
                     @endforeach
                 @endforeach
             </tbody>
+
+            {{-- <tbody>
+                @foreach ($kursus as $k)
+                <tr>
+                    <td>{{$k->bidang->nama_Bidang_Kursus}}</td>
+                    <td>{{$k->kursus_nama}}</td>
+                    @if ($k->bilangan_hari>1)
+                        <td>{{date('d/m/Y', strtotime($k->tarikh_mula))}} - {{date('d/m/Y', strtotime($k->tarikh_tamat))}} </td>
+                    @else
+                        <td>{{date('d/m/Y', strtotime($k->tarikh_mula))}}</td>
+                    @endif
+                    <td>{{$k->j_peruntukan}}</td>
+                    <td>{{ $k->$j_kehadiran }}</td>
+                    <td>{{ $k->$j_kehadiran }}</td>
+                    <td>{{ $k->$j_kehadiran }}</td>
+                    <td></td>
+                @endforeach
+                </tr>
+            </tbody> --}}
+
         </table>
     </div>
 

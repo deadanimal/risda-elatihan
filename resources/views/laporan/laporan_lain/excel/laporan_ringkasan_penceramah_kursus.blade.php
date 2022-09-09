@@ -7,27 +7,23 @@
              <th>PENCERAMAH KURSUS</th>
              <th>KOD NAMA KURSUS</th>
              <th>NAMA KURSUS</th>
-             <th>TARIKH MULA</th>
-             <th>TARIKH AKHIR</th>
+             <th>TARIKH KURSUS</th>
              <th>TEMPAT KURSUS</th>
-             <th>BAYARAN PENCERAMAH <br> (RM)</th>
+             <th>BAYARAN PENCERAMAH <br>(RM)</th>
          </tr>
      </thead>
      <tbody>
          @foreach ($penceramah as $p)
              @foreach ($p->penceramahKonsultan as $pk)
                  <tr>
-                     {{-- <td>{{ $pk->tahun }}</td> --}}
-                     <td>{{date('Y', strtotime($pk->jadual_kursus->tarikh_mula))}}</td>
-                     <td>{{ $loop->iteration }}</td>
-                     <td>{{ $p->nama_Agensi }}</td>
+                    <td>{{date('Y', strtotime(($pk->jadual_kursus->tarikh_mula?? '-'))) }}</td>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $p->nama_Agensi }}</td>
                      <td>{{ ($pk->jadual_kursus->kursus_kod_nama_kursus ?? '-')  }}</td>
                      <td>{{ ($pk->jadual_kursus->kursus_nama ?? '-') }}</td>
-                     {{-- <td>{{ $pk->mula }}</td> --}}
-                     <td>{{date('d/m/Y', strtotime($p->jadual_kursus->tarikh_mula))}}</td>
-                     <td>{{date('d/m/Y', strtotime($p->jadual_kursus->tarikh_tamat))}}</td>
-                     {{-- <td>{{ $pk->tamat }}</td> --}}
-                     <td>{{ $pk->tempat }}</td>
+                     <td>{{date('d/m/Y', strtotime(($pk->jadual_kursus->tarikh_mula?? '-'))) }}</td>
+                     {{-- <td>{{date('d/m/Y', strtotime(($pk->jadual_kursus->tarikh_mula?? '-'))) }}</td> --}}
+                     <td>{{ $pk->jadual_kursus->tempat->nama_Agensi }}</td>
                      <td></td>
                  </tr>
              @endforeach

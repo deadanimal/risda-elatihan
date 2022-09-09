@@ -109,5 +109,9 @@
                 document.getElementById('downloadexcel').click();
             }
         }
+        $(document).ready(function() {
+            $("th").addClass('fw-bold text-white');
+        });
     </script>
+
 @endsection

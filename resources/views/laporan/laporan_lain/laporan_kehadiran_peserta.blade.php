@@ -45,9 +45,9 @@
         </div>
     </div>
 
-    <a id="downloadpdf" style="display: none" download="kehadiran-peserta"
-            href="pdf-laporan-kehadiran-peserta">Download</a>
-    <a id="downloadexcel" style="display: none" href="excel-kehadiran-peserta" download="kehadiran-peserta">Download</a>
+    <a id="downloadpdf" style="display: none"
+            href="{{ route('pdf_kehadiran_peserta') }}">Download</a>
+    <a id="downloadexcel" style="display: none" href="{{ route('excel_kehadiran_peserta') }}" download="kehadiran-peserta">Download</a>
 
 
 
@@ -85,6 +85,10 @@
                 document.getElementById('downloadexcel').click();
             }
         }
+        $(document).ready(function() {
+            $("th").addClass('fw-bold text-white');
+        });
     </script>
 
 @endsection
+

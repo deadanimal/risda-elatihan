@@ -22,7 +22,7 @@ class RingkasanPenceramahExport implements FromView
                 $pk['tahun'] = date('Y', strtotime($pk->jadual_kursus->tarikh_mula));
                 $pk['mula'] = date('d/mY', strtotime($pk->jadual_kursus->tarikh_mula));
                 $pk['tamat'] = date('d/m/Y', strtotime($pk->jadual_kursus->tarikh_mula));
-                $pk['tempat'] = Agensi::find($pk->jadual_kursus->kursus_tempat)->nama_Agensi;
+                $pk['tempat'] = Agensi::with('tempat')->find($pk->jadual_kursus->kursus_tempat)->nama_Agensi;
 
             }
         }

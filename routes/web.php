@@ -438,8 +438,8 @@ Route::middleware('auth')->group(function () {
             Route::get('laporan-pencapaian-latihan-mengikut-negeri-excel', [LaporanLainController::class, 'excel_laporan_pencapaian_latihan_mengikut_negeri'])->name('excel_pencapaian_latihan_negeri');
 
             Route::get('laporan-kehadiran-peserta', [LaporanLainController::class, 'laporan_kehadiran_peserta']);
-            Route::get('pdf-laporan-kehadiran-peserta', [LaporanLainController::class, 'pdf_laporan_kehadiran_peserta']);
-            Route::get('excel-kehadiran-peserta', [LaporanLainController::class, 'excel_kehadiran_peserta']);
+            Route::get('laporan-kehadiran-peserta-pdf', [LaporanLainController::class, 'pdf_laporan_kehadiran_peserta'])->name('pdf_kehadiran_peserta');
+            Route::get('laporan-kehadiran-peserta-excel', [LaporanLainController::class, 'excel_kehadiran_peserta'])->name('excel_kehadiran_peserta');
 
             Route::get('laporan-pelaksanaan-latihan-staf', [LaporanLainController::class, 'laporan_pelaksanaan_latihan_staf']);
             Route::get('laporan-pelaksanaan-latihan-staf-excel', [LaporanLainController::class, 'excel_laporan_pelaksanaan_latihan_staf'])->name('excel_pl_staf');
@@ -490,7 +490,7 @@ Route::middleware('auth')->group(function () {
             Route::get('excel-penilaian-penyelia', [LaporanLainController::class, 'excel_laporan_penilaian_penyelia']);
             Route::get('pdf-penilaian-penyelia', [LaporanLainController::class, 'pdf_laporan_penilaian_penyelia']);
 
-            Route::get('laporan-prestasi-kehadiran', [LaporanLainController::class, 'laporan_prestasi_kehadiran']);
+            // Route::get('laporan-prestasi-kehadiran', [LaporanLainController::class, 'laporan_prestasi_kehadiran']);
 
             Route::get('laporan-pencapaian-latihan-kategori', [LaporanLainController::class, 'laporan_pencapaian_latihan_mengikut_kategori']);
             Route::get('laporan-pencapaian-latihan-kategori-pdf', [LaporanLainController::class, 'pdf_laporan_pencapaian_latihan_mengikut_kategori'])->name('pdf_pl_kategori');
@@ -598,7 +598,7 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/delete/{id}', [UtilitiController::class, 'test_user_delete']);
 
-    Route::get('/testing', [UtilitiController::class, 'test_user_list']);
+    Route::get('/testing', [UtilitiControhller::class, 'test_user_list']);
     Route::get('/add_staf', [UtilitiController::class, 'r_espek']);
     Route::delete('/delete/{id}', [UtilitiController::class, 'test_user_delete']);
     Route::put('/update_role/{id}', [UtilitiController::class, 'test_user_update_role']);
