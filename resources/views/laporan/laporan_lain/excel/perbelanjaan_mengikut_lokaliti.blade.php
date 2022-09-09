@@ -12,8 +12,17 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    foreach()
+                @foreach ($pt as $p)
+                   <tr>
+                    <td> {{$loop->iteration}}</td>
+                    <td>{{$p->nama_PT}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                    @endforeach
+            </tbody>
             {{--<tbody>
                  <tr>
                     <td>1</td>
@@ -66,10 +75,4 @@
             </tbody>--}}
         </table>
     </div>
-
 </div>
-<script>
-    $(document).ready(function() {
-        $("th").addClass('fw-bold text-white');
-    });
-</script>

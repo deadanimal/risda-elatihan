@@ -170,9 +170,9 @@ class LaporanLainController extends Controller
     {
         $pt = PusatTanggungjawab::all();
 
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_perbelanjaan_mengikut_lokaliti', [
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_perbelanjaan_mengikut_lokaliti',[
             'pt' => $pt,
-        ]);
+        ])->setPaper('a4', 'landscape');
 
         return $pdf->stream('Pembelanjaan Mengikut Lokaliti.' . 'pdf');
     }
@@ -510,16 +510,99 @@ class LaporanLainController extends Controller
 
     public function laporan_kewangan_terperinci()
     {
-        return view('laporan.laporan_lain.laporan_kewangan_terperinci');
+        $kursus = JadualKursus::with(['bidang','tempat','kehadiran'])->where('kursus_status','1')->get();
+
+        $j_kehadiran = 0;
+
+
+        foreach($kursus as $k){
+            $kehadiran = Kehadiran::where('jadual_kursus_id',$k->id)->where('status_kehadiran_ke_kursus','HADIR')->get();
+
+
+            $j_kehadiran +=count($kehadiran);
+
+        }
+
+
+        return view('laporan.laporan_lain.laporan_kewangan_terperinci',[
+
+        ]);
     }
 
     public function pdf_laporan_kewangan_terperinci()
     {
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_kewangan_terperinci')
-        ->setPaper('a4', 'landscape');
+        // $kehadiran = Kehadiran::with(['kursus'])->where('status_kehadiran_ke_kursus','HADIR')->get();
+        // $jumlah_kehadiran = 0;
+        // $jumlah_kehadiran+=count($kehadiran );
 
-        return $pdf->stream('Laporan Kewangan Terperinci.' . 'pdf');
+        // foreach($kehadiran as $k){
+        //     $kehadiran = Kehadiran::where('jadual_kursus_id',$k->id)->where('status_kehadiran_ke_kursus','HADIR')->get();
+        // }
+
+        $kursus = JadualKursus::with(['bidang','tempat','pengendali'])->where('kursus_status','1')->get();
+        $j_kehadiran = 0;
+        $kehadiran = 0;
+        // dd($kursus);
+
+        foreach ($kursus as $ku) {
+            $pk=PerbelanjaanKursus::where('jadualkursus_id', $ku->id)->first();
+            $hadir = Kehadiran::where('jadual_kursus_id', $ku->id)->get();
+
+            $j_kehadiran +=count($hadir);
+        }
+
+        echo  '__'.$j_kehadiran;
     }
+
+
+    // public function pdf_laporan_kewangan_terperinci()
+    // {
+    //     $kursus = JadualKursus::with(['bidang','tempat','pengendali'])->where('kursus_status','1')->get();
+    //     $j_kehadiran = 0;
+    //     $kehadiran = 0;
+    //     // dd($kursus);
+
+    //     foreach($kursus as $ku){
+    //         $pk=PerbelanjaanKursus::where('jadualkursus_id',$ku->id)->first();
+    //         $hadir = Kehadiran::where('jadual_kursus_id',$ku->id)->get();
+
+
+    //         foreach($hadir as $h){
+    //         // $kehadiran = 0;
+
+    //             $kehadiran = 0;
+    //             if($hadir->status_kehadiran_ke_kursus=="HADIR" &&  $hadir->status_kehadiran_ke_kursus==null){
+    //                 $kehadiran++;
+    //             }
+    //             else if ($hadir->status_kehadiran_ke_kursus=="TIDAK HADIR" &&  $hadir->status_kehadiran_ke_kursus!=null){
+    //                 $kehadiran++;
+    //             }
+    //             else{
+    //                  $kehadiran = 0;
+    //             }
+
+
+    //         }
+    //         // dd($kursus echo "<br>" $j_kehadiran);
+    //         echo  '__'.$kursus. '__'.$j_kehadiran;
+
+
+    //         $ku['j_kehadiran']=($kehadiran);
+    //         $perbelanjaan_kursus=$pk->Jum_LO;
+
+    //     }
+
+    //     // dd($kehadiran);
+    //     $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_kewangan_terperinci',[
+    //         'kursus'=>$kursus,
+    //         'perbelanjaan_kursus'=>$perbelanjaan_kursus,
+    //         'j_kehadiran'=>$j_kehadiran
+    //     ])->setPaper('a4', 'landscape');
+
+    //     return $pdf->stream('Laporan Kewangan Terperinci.' . 'pdf');
+    // }
+
+
 
     public function excel_laporan_kewangan_terperinci()
     {
