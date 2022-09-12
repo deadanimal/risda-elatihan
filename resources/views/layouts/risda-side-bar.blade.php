@@ -1104,7 +1104,7 @@
                                 </ul>
                             </li>
 
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link py-0 dropdown-indicator" href="#laporan-am-staff" role="button"
                                     data-bs-toggle="collapse"
                                     aria-expanded="{{ Request::is('laporan/uls/laporan-am/*') ? 'true' : 'false' }}"
@@ -1144,7 +1144,7 @@
                                     </li>
                                     <hr class="navbar-vertical-divider mx-3">
                                 </ul>
-                            </li>
+                            </li> --}}
 
                             <li class="nav-item">
                                 <a class="nav-link py-0 dropdown-indicator" href="#laporan-kehadiran" role="button"

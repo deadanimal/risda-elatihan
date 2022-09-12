@@ -5,8 +5,8 @@
                 <th rowspan="2">BIL.</th>
                 <th rowspan="2">BIDANG KURSUS</th>
                 <th colspan="3">BILANGAN KURSUS</th>
-                <th colspan="4">KEHADIRAN</th>
-                <th colspan="5">PERBELANJAAN</th>
+                <th colspan="5">KEHADIRAN</th>
+                <th colspan="4">PERBELANJAAN</th>
             </tr>
             <tr>
                 <th>MATLAMAT</th>
@@ -17,8 +17,9 @@
                 <th>LELAKI</th>
                 <th>PEREMPUAN</th>
                 <th>JUMLAH</th>
-
                 <th>PERATUS</th>
+
+
                 <th>MATLAMAT</th>
                 <th>PENCAPAIAN</th>
                 <th>BAKI</th>
@@ -30,9 +31,9 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $bk->nama_Bidang_Kursus }}</td>
-                    <td>{{$bk->j_matlamat_kursus}}</td>
+                    <td>{{ $bk->j_mk}}</td>
                     <td>{{ $bk->pencapaian }}</td>
-                    <td></td>
+                    <td>%</td>
                     <td></td>
                     <td></td>
                     <td></td>
