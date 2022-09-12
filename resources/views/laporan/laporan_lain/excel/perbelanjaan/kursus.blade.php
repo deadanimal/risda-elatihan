@@ -5,9 +5,9 @@
                             <tr>
                                 <th rowspan="2">BIL.</th>
                                 <th rowspan="2">BIDANG</th>
-                                <th rowspan="2">BIL.</th>
-                                <th rowspan="2">KURSUS</th>
-                                <th rowspan="2">BIL.</th>
+                                {{-- <th rowspan="2">BIL.</th> --}}
+                                {{-- <th rowspan="2">KURSUS</th> --}}
+                                {{-- <th rowspan="2">BIL.</th> --}}
                                 <th rowspan="2">TAJUK KURSUS</th>
                                 <th colspan="3">BILANGAN PESERTA</th>
                                 <th rowspan="2">NO LOT.</th>
@@ -35,6 +35,32 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($perbelanjaanKursus as $pk)
+                            <tr>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$pk->jadual_kursus->bidang->nama_Bidang_Kursus}}</td>
+                                <td>{{$pk->jadual_kursus->kursus_nama}}</td>
+                                <td></td>
+                                <td></td>
+                                <td>{{$j_kehadiran}}</td>
+                                <td></td>
+                                <td>RM {{$pk->Jum_LO}}</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            @endforeach
+
                         </tbody>
                     </table>
                 </div>

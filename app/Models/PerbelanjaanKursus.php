@@ -12,7 +12,7 @@ class PerbelanjaanKursus extends Model
 
     public function jadual_kursus()
     {
-        return $this->belongsTo(JadualKursus::class, 'id', 'jadualkursus_id');
+        return $this->belongsTo(JadualKursus::class, 'jadualkursus_id','id');
     }
 
     public function pt()

@@ -89,25 +89,25 @@ class LaporanLainController extends Controller
 
     public function pdf_pencapaian_matlamat_kehadiran()
     {
-        $bidang_kursus = BidangKursus::with('kodkursus')->get();
-        $matlamat_kursus = MatlamatBilanganKursus::where('jenis','bidang')->get();
+        // $bidang_kursus = BidangKursus::with('kodkursus')->get();
+        // $matlamat_kursus = MatlamatBilanganKursus::where('jenis','bidang')->get();
 
-        $j_pencapaian = 0;
-        $j_matlamat_kursus=0;
-        $j_matlamat_kehadiran=0;
-        $j_matlamat_perbelanjaan=0;
+        // $j_pencapaian = 0;
+        // $j_matlamat_kursus=0;
+        // $j_matlamat_kehadiran=0;
+        // $j_matlamat_perbelanjaan=0;
 
-        foreach ($bidang_kursus as $bk) {
-            $bk['pencapaian'] = count($bk->kodkursus);
-            $j_pencapaian += count($bk->kodkursus);
-            $j_matlamat_kursus+=count($matlamat_kursus->jan);
-        }
+        // foreach ($bidang_kursus as $bk) {
+        //     $bk['pencapaian'] = count($bk->kodkursus);
+        //     $j_pencapaian += count($bk->kodkursus);
+        //     $j_matlamat_kursus+=count($matlamat_kursus->jan);
+        // }
 
         // dd($matlamat_kursus->jan);
 
         $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_pencapaian_matlamat_kehadiran', [
-            'bidang_kursus' => $bidang_kursus,
-            'j_pencapaian' => $j_pencapaian,
+            // 'bidang_kursus' => $bidang_kursus,
+            // 'j_pencapaian' => $j_pencapaian,
         ])->setPaper('a4', 'landscape');
 
 
@@ -149,7 +149,7 @@ class LaporanLainController extends Controller
 
     public function pmpt()
     {
-        $perbelanjaan = PerbelanjaanKursus::with(['jadual_kursus', 'pt']);
+        // $perbelanjaan = PerbelanjaanKursus::with(['jadual_kursus', 'pt']);
 
         return (new PerbelanjaanMengikutPTExport())->download('PerbelanjaanMengikutPusatTanggungjawab.xlsx');
     }
@@ -1255,16 +1255,37 @@ class LaporanLainController extends Controller
 
     public function laporan_perbelanjaan_kursus()
     {
-        return view('laporan.laporan_lain.perbelanjaan.kursus');
+        $j_kehadiran = 0;
+        $perbelanjaanKursus = PerbelanjaanKursus::with('jadual_kursus')->get();
+
+        // $kehadiran = Kehadiran::where('jadual_kursus_id',$perbelanjaanKursus->jadualkursus_id)->where('status_kehadiran_ke_kursus','HADIR')->get();
+
+        // $j_kehadiran += count($kehadiran);
+
+        return view('laporan.laporan_lain.perbelanjaan.kursus',[
+            'perbelanjaanKursus'=>$perbelanjaanKursus,
+            'j_kehadiran'=>$j_kehadiran
+        ]);
     }
 
     public function pdf_laporan_perbelanjaan_kursus()
     {
         // dd('2');
         // return view('laporan.laporan_lain.perbelanjaan.kursus');
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.perbelanjaan.kursus')
+        $j_kehadiran = 0;
+        $perbelanjaanKursus = PerbelanjaanKursus::with('jadual_kursus')->get();
+
+        $kehadiran = Kehadiran::where('jadual_kursus_id',$perbelanjaanKursus->jadualkursus_id)->where('status_kehadiran_ke_kursus','HADIR')->get();
+
+        $j_kehadiran += count($kehadiran);
+
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.perbelanjaan.kursus',[
+            'perbelanjaanKursus'=>$perbelanjaanKursus,
+            'j_kehadiran'=>$j_kehadiran
+        ])
         ->setPaper('a4', 'landscape');
 
+        // dd('2');
         return $pdf->stream('Laporan Perbelanjaan Mengikut Kursus.' . 'pdf');
     }
 
