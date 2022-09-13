@@ -14,7 +14,9 @@ class KehadiranPlExport implements FromView
     use Exportable;
     public function view(): View{
 
-    // $pl = KehadiranPusatLatihan::with(['peserta', 'kursus', 'tempat_kursus'])->get()->groupBy('agensi_id');
+    $pl = KehadiranPusatLatihan::with(['peserta', 'kursus', 'tempat_kursus'])->get()->groupBy('agensi_id');
+    $kursus = JadualKursus::where('id',$kehadiran_pl->jadual_kursus_id)->first();
+
     // dd($pl);
     // foreach ($pl as $k) {
     //         // foreach ($k as $l) {

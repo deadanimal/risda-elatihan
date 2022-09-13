@@ -31,6 +31,31 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($perbelanjaanKursus as $pk)
+                            <tr>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$pk->jadual_kursus->bidang->nama_Bidang_Kursus}}</td>
+                                <td></td>
+                                <td></td>
+                                <td>{{$j_kehadiran}}</td>
+                                <td></td>
+                                <td>RM {{$pk->Jum_LO}}</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

@@ -23,6 +23,7 @@ use App\Exports\KemajuanLatihanPlExport;
 use App\Exports\PencapaianLatihanKategoriExport;
 use App\Exports\PencapaianMatlamatExport;
 use App\Exports\PenilaianKeberkesananExport;
+use App\Exports\PerbelanjaanBidangExport;
 use App\Exports\PerbelanjaanKategoriExport;
 use App\Exports\PerbelanjaanMengikutLExport;
 use App\Exports\PerbelanjaanMengikutPTExport;
@@ -60,6 +61,7 @@ class LaporanLainController extends Controller
     {
         $bidang_kursus = BidangKursus::with('kodkursus')->get();
         $j_pencapaian = 0;
+
         foreach ($bidang_kursus as $bk) {
             $bk['pencapaian'] = count($bk->kodkursus);
             $j_pencapaian += count($bk->kodkursus);
@@ -1118,7 +1120,7 @@ class LaporanLainController extends Controller
 
     public function laporan_kehadiran_pusat_latihan()
     {
-        $pl = KehadiranPusatLatihan::groupBy('agensi_id');
+        $pl = KehadiranPusatLatihan::with(['tempat_kursus','kursus'])->get();
 
         // $pl = KehadiranPusatLatihan::with(['tempat_kursus'=> function($query){
         //     $query->groupBy('nama_Agensi');
@@ -1163,14 +1165,20 @@ class LaporanLainController extends Controller
 
     public function pdf_kehadiran_pusat_latihan()
     {
-        // $pl = PusatTanggungjawab::with(['peserta', 'kursus', 'tempat_kursus'])->get()->groupBy('agensi_id');
-        $pl = PusatTanggungjawab::with(['negeri','staff'])->get()->groupBy('Kod_PT');
-        // dd($pl);
-        foreach ($pl as $k) {
-            foreach ($k as $l) {
-                $kursus = JadualKursus::where('id', $l->jadual_kursus_id)->first();
-            }
-        }
+        $pl = KehadiranPusatLatihan::with(['tempat_kursus','peserta','kursus'])->get();
+        $j_kursus = 0;
+
+
+        // foreach($pl as $pl){
+
+        //     $pl['kursus'] = count($pl->kursus);
+        //     $j_kursus += count($pl->kursus);
+        // }
+
+        // $pl = new KehadiranPusatLatihan();
+        // $pl['j_kursus'] = $j_kursus;
+        // $pl['data'] = $pl;
+
 
         // $tahun = substr($pl->user->no_kp, 0, 2);
         // $tahun = (int)$tahun;
@@ -1185,6 +1193,8 @@ class LaporanLainController extends Controller
         // $umur_peserta = $tahun_ini - $tahun_lahir;
         $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.kehadiran.pusat_latihan', [
             'pl' => $pl,
+            'j_kursus'=>$j_kursus,
+
             // 'umur_peserta'=>$umur_peserta
         ])->setPaper('a4', 'landscape');
 
@@ -1216,12 +1226,32 @@ class LaporanLainController extends Controller
     // perbelanjaan
     public function laporan_perbelanjaan_bidang()
     {
-        return view('laporan.laporan_lain.perbelanjaan.bidang');
+        $j_kehadiran = 0;
+        $perbelanjaanKursus = PerbelanjaanKursus::with('jadual_kursus')->get();
+
+        // $kehadiran = Kehadiran::where('jadual_kursus_id',$perbelanjaanKursus->jadualkursus_id)->where('status_kehadiran_ke_kursus','HADIR')->get();
+
+        // $j_kehadiran += count($kehadiran);
+
+        return view('laporan.laporan_lain.perbelanjaan.bidang',[
+            'perbelanjaanKursus'=>$perbelanjaanKursus,
+            'j_kehadiran'=>$j_kehadiran
+        ]);
     }
 
     public function pdf_laporan_perbelanjaan_bidang()
     {
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.perbelanjaan.bidang')
+        $j_kehadiran = 0;
+        $perbelanjaanKursus = PerbelanjaanKursus::with('jadual_kursus')->get();
+
+        // $kehadiran = Kehadiran::where('jadual_kursus_id',$perbelanjaanKursus->jadualkursus_id)->where('status_kehadiran_ke_kursus','HADIR')->get();
+
+        // $j_kehadiran += count($kehadiran);
+
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.perbelanjaan.bidang',[
+            'perbelanjaanKursus'=>$perbelanjaanKursus,
+            'j_kehadiran'=>$j_kehadiran
+        ])
         ->setPaper('a4', 'landscape');
 
         return $pdf->stream('Laporan Perbelanjaan Mengikut Bidang.' . 'pdf');
@@ -1229,19 +1259,42 @@ class LaporanLainController extends Controller
 
     public function excel_laporan_perbelanjaan_bidang()
     {
-        return view('laporan.laporan_lain.perbelanjaan.bidang');
+        // return view('laporan.laporan_lain.perbelanjaan.bidang');
+        return (new PerbelanjaanBidangExport())->download('Perbelanjaan Mengikut Bidang Kursus.xlsx');
+
     }
 
 
     public function laporan_perbelanjaan_kategori()
     {
-        return view('laporan.laporan_lain.perbelanjaan.kategori');
+        $j_kehadiran = 0;
+        $perbelanjaanKursus = PerbelanjaanKursus::with('jadual_kursus')->get();
+
+        // $kehadiran = Kehadiran::where('jadual_kursus_id',$perbelanjaanKursus->jadualkursus_id)->where('status_kehadiran_ke_kursus','HADIR')->get();
+
+        // $j_kehadiran += count($kehadiran);
+
+        return view('laporan.laporan_lain.perbelanjaan.kategori',[
+            'j_kehadiran'=>$j_kehadiran,
+            'perbelanjaanKursus'=>$perbelanjaanKursus
+        ]);
     }
 
     public function pdf_laporan_perbelanjaan_kategori()
     {
+
+        $j_kehadiran = 0;
+        $perbelanjaanKursus = PerbelanjaanKursus::with('jadual_kursus')->get();
+
+        // $kehadiran = Kehadiran::where('jadual_kursus_id',$perbelanjaanKursus->jadualkursus_id)->where('status_kehadiran_ke_kursus','HADIR')->get();
+
+        // $j_kehadiran += count($kehadiran);
+
         // return view('laporan.laporan_lain.perbelanjaan.kategori');
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.perbelanjaan.kategori')
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.perbelanjaan.kategori',[
+            'perbelanjaanKursus'=>$perbelanjaanKursus,
+            'j_kehadiran'=>$j_kehadiran
+        ])
         ->setPaper('a4', 'landscape');
 
         return $pdf->stream('Laporan Perbelanjaan Mengikut Kategori.' . 'pdf');
@@ -1292,7 +1345,7 @@ class LaporanLainController extends Controller
     public function excel_laporan_perbelanjaan_kursus()
     {
         // return view('laporan.laporan_lain.perbelanjaan.kursus');
-        return (new PerbelanjaanKursusExport())->download('Perbelanjaan Mengikut Kategori.xlsx');
+        return (new PerbelanjaanKursusExport())->download('Perbelanjaan Mengikut Kursus.xlsx');
 
     }
 
