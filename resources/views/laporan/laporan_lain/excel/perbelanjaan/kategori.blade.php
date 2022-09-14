@@ -5,7 +5,7 @@
                             <tr>
                                 <th rowspan="2">BIL.</th>
                                 <th rowspan="2">BIDANG</th>
-                                <th rowspan="2">BIL.</th>
+                                {{-- <th rowspan="2">BIL.</th> --}}
                                 <th rowspan="2">KURSUS</th>
                                 <th colspan="3">BILANGAN PESERTA</th>
                                 <th rowspan="2">NO LOT.</th>
@@ -33,6 +33,34 @@
                             </tr>
                         </thead>
                         <tbody>
-                        </tbody>
+                            @foreach ($perbelanjaanKursus as $pk)
+                             <tr>
+                                 <td>{{$loop->iteration}}</td>
+                                 <td>{{$pk->jadual_kursus->kategori_kursus->nama_Kategori_Kursus}}</td>
+                                 {{-- <td></td> --}}
+                                 <td>{{$pk->jadual_kursus->kursus_nama}}</td>
+                                 <td></td>
+                                 <td></td>
+                                 <td>{{$j_kehadiran}}</td>
+                                 <td></td>
+                                 <td>{{$pk->Jum_LO}}</td>
+                                 <td></td>
+                                 <td></td>
+                                 <td></td>
+                                 <td></td>
+                                 <td></td>
+                                 <td></td>
+                                 <td></td>
+                                 <td></td>
+                                 <td></td>
+                                 <td></td>
+                                 <td></td>
+                                 <td></td>
+                                 <td></td>
+                                 <td></td>
+
+
+                             @endforeach
+                         </tbody>
                     </table>
                 </div>

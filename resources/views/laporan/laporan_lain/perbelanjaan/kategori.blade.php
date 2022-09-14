@@ -51,7 +51,7 @@
 
         <hr class="risda-g">
 
-        <a id="downloadpdf" download="LaporanKemajuanLatihan-PusatLatihan" style="display: none"
+        <a id="downloadpdf" download="Laporan Perbelanjaan Mengikut Kategori" style="display: none"
         href="{{ route('pdf-perbelanjaan-kategori') }}">Download</a>
 
         <a id="downloadexcel" style="display: none" href="{{ route('excel-perbelanjaan-kategori') }}">Download</a>
@@ -70,7 +70,10 @@
             </div>
 
             <div class="card-body">
-                <div class="table-responsive scrollbar ">
+                @include(
+                    'laporan.laporan_lain.excel.perbelanjaan.kategori'
+                )
+                {{-- <div class="table-responsive scrollbar ">
                     <table class="table text-center table-bordered datatable"
                         style="vertical-align: middle;border-color: #00B64E;">
                         <thead class="risda-bg-g">
@@ -109,7 +112,7 @@
                     </table>
                 </div>
 
-            </div>
+            </div> --}}
         </div>
     </div>
 

@@ -17,7 +17,7 @@
                 <tr>
                     <td></td>
                     <td>{{$p->pt->nama_PT}}</td>
-                    <td></td>
+                    <td>{{$p->Jum_LO}}</td>
                     <td></td>
                     <td></td>
                     <td></td>

@@ -12,16 +12,15 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($pt as $p)
-                   <tr>
-                    <td> {{$loop->iteration}}</td>
-                    <td>{{$p->nama_PT}}</td>
+                @foreach ($perbelanjaankursus as $pk)
+                <tr>
+                    <td>{{$loop->iteration}}</td>
+                    <td>{{$pk->pt->nama_PT}}</td>
+                    <td>{{$pk->Jum_LO}}</td>
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
-                </tr>
-                    @endforeach
+               @endforeach
             </tbody>
             {{--<tbody>
                  <tr>

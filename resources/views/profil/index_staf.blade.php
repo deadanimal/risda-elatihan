@@ -137,8 +137,8 @@
                                     <div class="col-6">
                                         <div class="mb-3">
                                             <label class="form-label risda-g">NO. PEKERJA</label>
-                                            <input class="form-control" type="text" value="{{ $staf['nopekerja'] }}"
-                                                readonly />
+                                            {{-- <input class="form-control" type="text" value="{{ $staf['nopekerja'] }}"
+                                                readonly /> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -192,13 +192,13 @@
                                     <div class="col-6">
                                         <div class="mb-3">
                                             <label class="form-label risda-g">JAWATAN</label>
-                                            <input class="form-control" type="text" value="{{ $staf['Jawatan'] }}" readonly />
+                                            {{-- <input class="form-control" type="text" value="{{ $staf['Jawatan'] }}" readonly /> --}}
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="mb-3">
                                             <label class="form-label risda-g">GRED</label>
-                                            <input class="form-control" type="text" value="{{ $staf['Gred'] }}" readonly />
+                                            {{-- <input class="form-control" type="text" value="{{ $staf['Gred'] }}" readonly /> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -218,7 +218,7 @@
                                     <div class="col">
                                         <div class="mb-3">
                                             <label class="form-label risda-g">NAMA PUSAT TANGGUNGJAWAB</label>
-                                            <input class="form-control" type="text" value="{{ $staf['NamaPT'] }}" readonly />
+                                            {{-- <input class="form-control" type="text" value="{{ $staf['NamaPT'] }}" readonly /> --}}
                                         </div>
                                     </div>
                                 </div>
