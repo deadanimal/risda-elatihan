@@ -167,7 +167,7 @@
         <tr>
             <td>{{$pl->tempat_kursus->nama_Agensi}}</td>
             <td>{{$pl->kursus->kursus_nama}}</td>
-            
+
         </tr>
         @endforeach
 

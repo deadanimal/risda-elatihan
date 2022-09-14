@@ -15,13 +15,13 @@ class KehadiranPlExport implements FromView
     public function view(): View{
 
     $pl = KehadiranPusatLatihan::with(['peserta', 'kursus', 'tempat_kursus'])->get()->groupBy('agensi_id');
-    $kursus = JadualKursus::where('id',$kehadiran_pl->jadual_kursus_id)->first();
+    // $kursus = JadualKursus::where('id',$pl->jadual_kursus_id)->first();
 
     // dd($pl);
-    // foreach ($pl as $k) {
+    foreach ($pl as $k) {
     //         // foreach ($k as $l) {
-    //             $kursus = JadualKursus::where('id', $l->jadual_kursus_id)->first();
-    //         }
+                $kursus = JadualKursus::where('id', $k->jadual_kursus_id)->first();
+            }
     // }
 
     // $tahun = substr($pl->user->no_kp, 0, 2);
@@ -35,7 +35,7 @@ class KehadiranPlExport implements FromView
 
 
     // $umur_peserta = $tahun_ini - $tahun_lahir;
-
+        dd($kursus);
     return view('laporan.laporan_lain.excel.laporan_kehadiran_pl',[
         // 'pl' => $pl,
     ]);

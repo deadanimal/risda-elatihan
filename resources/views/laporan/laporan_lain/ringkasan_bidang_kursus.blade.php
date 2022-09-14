@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-12">
                 <p class="h4 fw-bold mt-3">
-                    LAPORAN RINGKASAN JENIS KURSUS
+                    LAPORAN RINGKASAN BIDANG KURSUS
                 </p>
             </div>
         </div>

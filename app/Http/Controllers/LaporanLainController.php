@@ -158,22 +158,26 @@ class LaporanLainController extends Controller
 
     public function perbelanjaan_mengikut_lokaliti()
     {
-        $pt = PusatTanggungjawab::all();
-        $response = Http::post('https://libreoffice.prototype.com.my/cetak/LaporanPML', [$pt]);
-        $res = $response->getBody()->getContents();
-        $url = "data:application/pdf;base64," . $res;
+        // $pt = PusatTanggungjawab::all();
+        $perbelanjaankursus = PerbelanjaanKursus::with(['pt'])->get();
+
+        // $response = Http::post('https://libreoffice.prototype.com.my/cetak/LaporanPML', [$pt]);
+        // $res = $response->getBody()->getContents();
+        // $url = "data:application/pdf;base64," . $res;
 
         return view('laporan.laporan_lain.perbelanjaan_mengikut_lokaliti', [
-            'pt' => $pt,
+            'perbelanjaankursus' => $perbelanjaankursus,
         ]);
     }
 
     public function pdf_perbelanjaan_mengikut_lokaliti()
     {
-        $pt = PusatTanggungjawab::all();
+        // $pt = PusatTanggungjawab::all();
+        $perbelanjaankursus = PerbelanjaanKursus::with(['pt'])->get();
 
         $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_perbelanjaan_mengikut_lokaliti',[
-            'pt' => $pt,
+            // 'pt' => $pt,
+            'perbelanjaankursus'=>$perbelanjaankursus
         ])->setPaper('a4', 'landscape');
 
         return $pdf->stream('Pembelanjaan Mengikut Lokaliti.' . 'pdf');
@@ -1165,7 +1169,7 @@ class LaporanLainController extends Controller
 
     public function pdf_kehadiran_pusat_latihan()
     {
-        $pl = KehadiranPusatLatihan::with(['tempat_kursus','peserta','kursus'])->get();
+        $pl = KehadiranPusatLatihan::with(['tempat_kursus','kursus'])->get();
         $j_kursus = 0;
 
 

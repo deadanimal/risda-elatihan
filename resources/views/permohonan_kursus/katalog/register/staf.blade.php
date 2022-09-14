@@ -106,8 +106,8 @@
                                                             <div class="col-lg-6">
                                                                 <div class="mb-3">
                                                                     <label class="form-label risda-g">NO. PEKERJA</label>
-                                                                    <input class="form-control" type="text"
-                                                                        value="{{ $staf['nopekerja'] }}" readonly />
+                                                                    {{-- <input class="form-control" type="text"
+                                                                        value="{{ $staf['nopekerja'] }}" readonly /> --}}
                                                                 </div>
                                                             </div>
                                                         </div>
