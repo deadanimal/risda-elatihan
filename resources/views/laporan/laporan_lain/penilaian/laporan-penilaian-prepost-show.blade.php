@@ -93,8 +93,8 @@
         </div>
     </div>
 
-    <a id="downloadpdf" href="{{ route('pdf_pretest') }}">Download</a>
-<a id="downloadexcel" style="display: none" href="{{ route('excel_pretest') }}" download="penilaian_pretest">Download</a>
+    {{-- <a id="downloadpdf" href="{{ route('pdf_pretest') }}">Download</a>
+    <a id="downloadexcel" style="display: none" href="{{ route('excel_pretest') }}" download="penilaian_pretest">Download</a> --}}
 
 
 

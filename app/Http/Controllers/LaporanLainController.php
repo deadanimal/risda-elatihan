@@ -36,6 +36,7 @@ use App\Models\Kehadiran;
 use App\Models\JadualKursus;
 use App\Models\JawapanPenilaian;
 use App\Models\KehadiranPusatLatihan;
+use App\Models\KursusPenilaian;
 use App\Models\PenceramahKonsultan;
 use App\Models\PenilaianEjenPelaksana;
 use App\Models\PenilaianKeberkesanan;
@@ -782,10 +783,15 @@ class LaporanLainController extends Controller
     }
 
 
-    public function laporan_penilaian_kursus_uls()
+    public function laporan_penilaian_kursus_uls($id)
     {
+        $kursus = JadualKursus::find($id);
+        $penilaianKursus = KursusPenilaian::where('jadual_kursus_id',$kursus->id)->first();
 
-        return view('laporan.laporan_lain.laporan-penilaian-kursus-uls');
+        return view('laporan.laporan_lain.laporan-penilaian-kursus-uls',[
+            'kursus'=>$kursus,
+            'penilaianKursus'=>$penilaianKursus
+        ]);
     }
 
     public function senarai_kursus()
