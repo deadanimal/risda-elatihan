@@ -21,26 +21,30 @@
             <div class="col-8">
                 <div class="row mt-3">
                     <div class="col-lg-4">
-                        <p class="risda-dg h5 mt-2">TARIKH MULA</p>
+                        <p class="risda-dg h5 mt-2">NAMA KURSUS</p>
                     </div>
                     <div class="col-lg-6">
-                        <input type="date" class="form-control">
+                        <input type="text" class="form-control" value="{{$kursus->kursus_nama}}">
                     </div>
                 </div>
                 <div class="row mt-3">
                     <div class="col-lg-4">
-                        <p class="risda-dg h5 mt-2">TARIKH AKHIR</p>
+                        <p class="risda-dg h5 mt-2">TARIKH KURSUS</p>
+
                     </div>
                     <div class="col-lg-6">
-                        <input type="date" class="form-control">
+                        {{-- <input type="date" class="form-control"> --}}
+
+                        <input type="date" class="form-control" value="{{$kursus->tarikh_mula}}" >
+
                     </div>
                 </div>
 
-                <div class="row mt-4">
+                {{-- <div class="row mt-4">
                     <div class="col-lg-10 text-end">
                         <a href="#" class="btn btn-sm btn-primary"> <span class="fas fa-search"></span> Carian</a>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

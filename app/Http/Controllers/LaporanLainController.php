@@ -27,6 +27,7 @@ use App\Exports\PerbelanjaanBidangExport;
 use App\Exports\PerbelanjaanKategoriExport;
 use App\Exports\PerbelanjaanMengikutLExport;
 use App\Exports\PerbelanjaanMengikutPTExport;
+use App\Exports\PrePostTestExport;
 use App\Exports\PrestasiKehadiranExport;
 use App\Exports\RingkasanPenceramahExport;
 use App\Models\Agensi;
@@ -36,6 +37,7 @@ use App\Models\Kehadiran;
 use App\Models\JadualKursus;
 use App\Models\JawapanPenilaian;
 use App\Models\KehadiranPusatLatihan;
+use App\Models\KursusPenilaian;
 use App\Models\PenceramahKonsultan;
 use App\Models\PenilaianEjenPelaksana;
 use App\Models\PenilaianKeberkesanan;
@@ -782,10 +784,15 @@ class LaporanLainController extends Controller
     }
 
 
-    public function laporan_penilaian_kursus_uls()
+    public function laporan_penilaian_kursus_uls($id)
     {
+        $kursus = JadualKursus::find($id);
+        $penilaianKursus = KursusPenilaian::where('jadual_kursus_id',$kursus->id)->first();
 
-        return view('laporan.laporan_lain.laporan-penilaian-kursus-uls');
+        return view('laporan.laporan_lain.laporan-penilaian-kursus-uls',[
+            'kursus'=>$kursus,
+            'penilaianKursus'=>$penilaianKursus
+        ]);
     }
 
     public function senarai_kursus()
@@ -801,54 +808,40 @@ class LaporanLainController extends Controller
     public function laporan_penilaian_prepost_show($id)
     {
         $kursus = JadualKursus::find($id);
-        $pretest = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->get();
+        $pretest = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->where('jenis_penilaian','1')->get();
+        $posttest = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->where('jenis_penilaian','2')->get();
         // $post_test =PostTest::with
 
         // dd($pretest);
               return view('laporan.laporan_lain.penilaian.laporan-penilaian-prepost-show',[
             'kursus'=>$kursus,
-            'pretest'=>$pretest
+            'pretest'=>$pretest,
+            'posttest'=>$posttest
         ]);
     }
     public function excel_laporan_penilaian_prepost_show()
     {
-        //
+        return (new PrePostTestExport())->download('Penilaian Pre Test dan Post Test.xlsx');
+
     }
 
     public function pdf_laporan_penilaian_prepost_show($id)
     {
         $kursus = JadualKursus::find($id);
-        $pretest = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->get();
+        $pretest = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->where('jenis_penilaian','1')->get();
+        $posttest = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->where('jenis_penilaian','2')->get();
 
-        $pdf = PDF::loadView('laporan.laporan_lain.excel.laporan-penilaian-prepost',[
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.penilaian.laporan-penilaian-prepost',[
             'kursus'=>$kursus,
-            'pretest'=>$pretest
-        ]);
+            'pretest'=>$pretest,
+            'posttest'=>$posttest,
+
+        ])->setPaper('a4', 'landscape');
 
         return $pdf->stream('Laporan Penilaian Kursus.'.'pdf');
 
 
     }
-
-    public function laporan_penilaian_prepost_ulpk_show()
-    {
-
-        return view('laporan.laporan_lain.laporan-penilaian-prepost-show_ulpk');
-    }
-
-    public function pdf_laporan_penilaian_prepost_ulpk_show()
-    {
-
-        return view('laporan.laporan_lain.laporan-penilaian-prepost-show_ulpk');
-    }
-
-    public function excel_laporan_penilaian_prepost_ulpk_show()
-    {
-
-        return view('laporan.laporan_lain.laporan-penilaian-prepost-show_ulpk');
-    }
-
-
 
     public function laporan_penilaian_keberkesanan($id){
         // $pk=Kehadiran::with(['staf','kursus','penilaiankeberkesanan'])
@@ -871,11 +864,12 @@ class LaporanLainController extends Controller
 
     }
 
-    public function excel_laporan_penilaian_keberkesanan(){
+    // public function excel_laporan_penilaian_keberkesanan(){
 
-        return (new PenilaianKeberkesananExport())->download('PenilaianKeberkesananKursus.xlsx');
+    //     return (new PrePostTestExport())->download('PenilaianKeberkesananKursus.xlsx');
+    //     // return (new PrePostTestExport())->download('Penilaian Pre Test dan Post Test.xlsx');
 
-    }
+    // }
 
     public function pdf_laporan_penilaian_keberkesanan($id){
         // $pk=Kehadiran::with(['staf','kursus','penilaiankeberkesanan'])

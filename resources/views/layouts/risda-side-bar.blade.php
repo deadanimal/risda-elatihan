@@ -900,17 +900,6 @@
                             id="laporan">
 
                             <li class="nav-item">
-                                <a class="nav-link py-0 dropdown-indicator" href="#laporan-am" role="button"
-                                    data-bs-toggle="collapse"
-                                    aria-expanded="{{ Request::is('laporan/laporan-am/*') ? 'true' : 'false' }}"
-                                    aria-controls="laporan-am">
-                                    <div class="d-flex align-items-center nav-link-side">
-                                        <span class="px-0">Laporan Am</span>
-                                    </div>
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
                                 <a class="nav-link py-0 dropdown-indicator" href="#laporan-lain" role="button"
                                     data-bs-toggle="collapse"
                                     aria-expanded="{{ Request::is('laporan/laporan-lain/*') ? 'true' : 'false' }}"
@@ -1113,6 +1102,7 @@
                                         <span class="px-0">Laporan Lain (ULS)</span>
                                     </div>
                                 </a>
+                                
                                 <ul class="nav-item collapse {{ Request::is('laporan/uls/laporan-lain/*') ? 'show' : 'false' }} my-1"
                                     id="laporan-lain-staf">
 
@@ -1153,31 +1143,68 @@
                                     </li>
 
                                     <li class="nav-item">
-                                        <a class="nav-link {{ Request::is('laporan/uls/laporan-lain/') ? 'active' : '' }} py-0"
-                                            href="/laporan/uls/laporan-lain/">
+                                        <a class="nav-link {{ Request::is('laporan/uls/laporan-lain/laporan-prestasi-kehadiran-peserta') ? 'active' : '' }} py-0"
+                                            href="/laporan/uls/laporan-lain/laporan-prestasi-kehadiran-peserta">
                                             <div class="d-flex align-items-center nav-link-side">
-                                                <span class="px-0">Laporan Kewangan Terperinci</span>
+                                                <span class="px-0">Laporan Prestasi Kehadiran Peserta</span>
                                             </div>
                                         </a>
                                     </li>
 
                                     <li class="nav-item">
-                                        <a class="nav-link {{ Request::is('laporan/uls/laporan-am/laporan-ringkasan-jenis-kursus') ? 'active' : '' }} py-0"
-                                            href="/laporan/uls/laporan-am/laporan-ringkasan-jenis-kursus">
+                                        <a class="nav-link {{ Request::is('laporan/uls/laporan-lain/laporan-penilaian-kursus') ? 'active' : '' }} py-0"
+                                            href="/laporan/uls/laporan-lain/laporan-penilaian-kursus">
                                             <div class="d-flex align-items-center nav-link-side">
-                                                <span class="px-0">Laporan Ringkasan Jenis Kursus</span>
+                                                <span class="px-0">Laporan Penilaian Kursus</span>
                                             </div>
                                         </a>
                                     </li>
 
                                     <li class="nav-item">
-                                        <a class="nav-link {{ Request::is('laporan/uls/laporan-am/laporan-ringkasan-bidang-kursus') ? 'active' : '' }} py-0"
-                                            href="/laporan/uls/laporan-am/laporan-ringkasan-bidang-kursus">
+                                        <a class="nav-link {{ Request::is('laporan/uls/laporan-lain/senarai-kursus') ? 'active' : '' }} py-0"
+                                            href="/laporan/uls/laporan-lain/senarai-kursus">
                                             <div class="d-flex align-items-center nav-link-side">
-                                                <span class="px-0">Laporan Ringkasan Bidang Kursus</span>
+                                                <span class="px-0">Laporan Penilaian Pre Test dan Post Test</span>
                                             </div>
                                         </a>
                                     </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('laporan/uls/laporan-lain/laporan-kehadiran-7-hari-setahun') ? 'active' : '' }} py-0"
+                                            href="/laporan/uls/laporan-lain/laporan-kehadiran-7-hari-setahun">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">Laporan Kehadiran 7 Hari Setahun</span>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('laporan/uls/laporan-lain/laporan-ringkasan-penceramah-kursus') ? 'active' : '' }} py-0"
+                                            href="/laporan/uls/laporan-lain/laporan-ringkasan-penceramah-kursus">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">Laporan Ringkasan Penceramah Kursus</span>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a
+                                            href="#">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">Laporan Pencapaian Latihan Mengikut Pusat Tanggungjawab</span>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('laporan/uls/laporan-lain/laporan-pencapaian-latihan-kategori') ? 'active' : '' }} py-0"
+                                            href="/laporan/uls/laporan-lain/laporan-pencapaian-latihan-kategori">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">Laporan Pencapaian Latihan Mengikut Kategori</span>
+                                            </div>
+                                        </a>
+                                    </li>
+
                                     <hr class="navbar-vertical-divider mx-3">
                                 </ul>
                             </li>

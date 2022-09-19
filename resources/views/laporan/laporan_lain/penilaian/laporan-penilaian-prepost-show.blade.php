@@ -93,8 +93,10 @@
         </div>
     </div>
 
-    <a id="downloadpdf" href="{{ route('pdf_pretest') }}">Download</a>
-<a id="downloadexcel" style="display: none" href="{{ route('excel_pretest') }}" download="penilaian_pretest">Download</a>
+
+    <a id="downloadpdf" style="display: none" download="Laporan Penilaian Pre Test dan Post Test"
+        href="{{ route('pdf_pretest', $kursus->id) }}">Download</a>
+    <a id="downloadexcel" style="display: none" href="{{ route('excel_pretest', $kursus->id) }}" download="Laporan Penilaian Pre Test dan Post Test">Download</a>
 
 
 
@@ -115,7 +117,7 @@
 
         <div class="card-body">
             @include(
-                'laporan.laporan_lain.excel.penilaian.laporan-penilaian-prepost')                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           .laporan_kehadiran_7_hari_setahun'
+                'laporan.laporan_lain.excel.penilaian.laporan-penilaian-prepost')
 
             {{-- <div class="table-responsive scrollbar ">
                 <table class="table text-center table-bordered datatable " border-color: #00B64E;">
@@ -214,13 +216,20 @@
 
         </div> --}}
     </div>
-    </div>
 
     <script>
+        function download(el) {
+            let val = el.value;
+            if (val == "Pdf") {
+                document.getElementById('downloadpdf').click();
+            }
+            if (val == "Excel") {
+                document.getElementById('downloadexcel').click();
+            }
+        }
         $(document).ready(function() {
             $("th").addClass('fw-bold text-white');
         });
     </script>
-
 
 @endsection

@@ -16,4 +16,9 @@ class JawapanPenilaian extends Model
         return $this->belongsTo(User::class,'user_id','id');
     }
 
+    public function kursus()
+    {
+        return $this->belongsTo(JadualKursus::class,'jadual_kursus_id','id');
+    }
+
 }

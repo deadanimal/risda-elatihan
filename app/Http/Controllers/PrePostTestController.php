@@ -41,9 +41,10 @@ class PrePostTestController extends Controller
 
     public function jawabPrePost()
     {
-        $permohonan = Permohonan::with('jadual')->where('no_pekerja', auth()->user()->id)
+        $permohonan = Permohonan::with(['jadual'])->where('no_pekerja', auth()->user()->id)
             ->where('status_permohonan', 4)
-            ->where('dinilai_pre', null)->get()->first();
+            ->get()->first();
+
         // dd($permohonan);
         if ($permohonan == null) {
             alert()->error('Anda tidak membuat sebarang permohonan lagi.', 'Tiada permohonan');
@@ -127,6 +128,7 @@ class PrePostTestController extends Controller
             'jadual_kursus_id' => $jadual_kursus->id,
             'user_id' => auth()->user()->id,
             'markah' => $newMarkah,
+            'jenis_penilaian'=>'1'
         ]);
 
         $permohonan = Permohonan::where('kod_kursus', $request->jadual_kursus_id)->first();
