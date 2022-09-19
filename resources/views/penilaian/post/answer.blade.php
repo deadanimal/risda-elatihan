@@ -47,7 +47,7 @@
                 </div>
             </div>
 
-            @if(($hari_ini>=$aturcara_first->ac_masa_mula)&&($hari_ini < $aturcara_last->ac_masa_tamat))
+            {{-- @if(($hari_ini>=$aturcara_first->ac_masa_mula)&&($hari_ini < $aturcara_last->ac_masa_tamat)) --}}
 
             <div class="row mt-5">
                 <div class="col-12 text-center">
@@ -55,7 +55,7 @@
                 </div>
             </div>
 
-            @else
+            {{-- @else
 
             <div class="row mt-5">
                 <div class="col-12 text-center">
@@ -65,7 +65,7 @@
 
 
 
-            @endif
+            @endif --}}
 
         </div>
     </div>

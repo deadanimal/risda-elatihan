@@ -1,4 +1,41 @@
-<div class="table-responsive scrollbar ">
+
+    <title> Laporan Penilaian Pre Test dan Post Test</title>
+    <style>
+
+        *{
+                line-height: 1.5;
+                /* margin: 20px; */
+                margin-right: 20px;
+                margin-left: 40px;
+                margin-top: 20px;
+         }
+
+         h4{
+             text-align: center;
+         }
+
+         p,b{
+            font: 12pt "Times New Roman";
+         }
+
+
+
+        table, td, th {
+        border: 1px solid;
+        font: 12pt "Times New Roman";
+
+        /* text-align: center; */
+        padding: 8px;
+        border-collapse: collapse;
+
+        }
+        </style>
+
+
+    <h4> Laporan Penilaian Pre Test dan Post Test Untuk Kursus {{$kursus->kursus_nama}} </h4>
+
+
+    <div class="table-responsive scrollbar ">
     <table class="table text-center table-bordered datatable " border-color: #00B64E;">
         <thead class="risda-bg-g" style="vertical-align: middle">
 
@@ -51,6 +88,9 @@
                 <td colspan="2"></td>
 
             </tr>
+
         </tbody>
     </table>
+</div>
+
 </div>
