@@ -29,7 +29,7 @@
                         <p class="risda-dg h5 mt-2">NAMA KURSUS</p>
                     </div>
                     <div class="col-lg-6">
-                        <input type="text" class="form-control" value="{{$kursus->kursus_nama}}">
+                        <input type="text" class="form-control" value="{{$kursus->kursus_nama}}" readonly>
                     </div>
                 </div>
 
@@ -38,7 +38,7 @@
                         <p class="risda-dg h5 mt-2">KOD NAMA KURSUS</p>
                     </div>
                     <div class="col-lg-6">
-                        <input type="date" class="form-control">
+                        <input type="text" class="form-control" value="{{$kursus->kodkursus->kod_Kursus}}" readonly>
                     </div>
                 </div>
 
@@ -48,9 +48,9 @@
                     </div>
                     <div class="col-lg-6">
                         @if($kursus->bilangan_hari==1)
-                           <input type="text" class="form-control"value="{{date('d/m/Y', strtotime($kursus->tarikh_mula))}}">
+                           <input type="text" class="form-control"value="{{date('d/m/Y', strtotime($kursus->tarikh_mula))}}" readonly>
                         @else
-                            <input type="text" class="form-control" value="{{date('d/m/Y', strtotime($kursus->tarikh_mula))}} - {{date('d/m/Y', strtotime($kursus->tarikh_tamat))}}">
+                            <input type="text" class="form-control" value="{{date('d/m/Y', strtotime($kursus->tarikh_mula))}} - {{date('d/m/Y', strtotime($kursus->tarikh_tamat))}}" readonly>
                         @endif
 
                     </div>
@@ -62,33 +62,33 @@
                         <p class="risda-dg h5 mt-2">TEMPOH KURSUS</p>
                     </div>
                     <div class="col-lg-6">
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" value="{{$kursus->bilangan_hari}} Hari" readonly>
                     </div>
                 </div>
 
-                <div class="row mt-3">
+                {{-- <div class="row mt-3">
                     <div class="col-lg-4">
                         <p class="risda-dg h5 mt-2">NAMA PENCERAMAH</p>
                     </div>
                     <div class="col-lg-6">
                         <input type="text" class="form-control">
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="row mt-3">
                     <div class="col-lg-4">
-                        <p class="risda-dg h5 mt-2">AGENSI PENCERAMAH</p>
+                        <p class="risda-dg h5 mt-2">PENGENDALI LATIHAN</p>
                     </div>
                     <div class="col-lg-6">
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" value="{{$kursus->pengendali->nama_Agensi}}" readonly>
                     </div>
                 </div>
 
-                <div class="row mt-4">
+                {{-- <div class="row mt-4">
                     <div class="col-lg-10 text-end">
                         <a href="#" class="btn btn-sm btn-primary"> <span class="fas fa-search"></span> Carian</a>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

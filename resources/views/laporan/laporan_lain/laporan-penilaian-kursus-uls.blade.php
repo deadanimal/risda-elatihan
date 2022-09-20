@@ -33,9 +33,11 @@
 
                     </div>
                     <div class="col-lg-6">
-                        {{-- <input type="date" class="form-control"> --}}
-
-                        <input type="date" class="form-control" value="{{$kursus->tarikh_mula}}" >
+                        @if($kursus->bilangan_hari==1)
+                        <input type="text" class="form-control"value="{{date('d/m/Y', strtotime($kursus->tarikh_mula))}}">
+                     @else
+                         <input type="text" class="form-control" value="{{date('d/m/Y', strtotime($kursus->tarikh_mula))}} - {{date('d/m/Y', strtotime($kursus->tarikh_tamat))}}">
+                     @endif
 
                     </div>
                 </div>

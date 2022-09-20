@@ -23,6 +23,7 @@ use App\Exports\KemajuanLatihanPlExport;
 use App\Exports\PencapaianLatihanKategoriExport;
 use App\Exports\PencapaianMatlamatExport;
 use App\Exports\PenilaianKeberkesananExport;
+use App\Exports\PenilaianKursusExport;
 use App\Exports\PerbelanjaanBidangExport;
 use App\Exports\PerbelanjaanKategoriExport;
 use App\Exports\PerbelanjaanMengikutLExport;
@@ -31,6 +32,7 @@ use App\Exports\PrePostTestExport;
 use App\Exports\PrestasiKehadiranExport;
 use App\Exports\RingkasanPenceramahExport;
 use App\Models\Agensi;
+use App\Models\Aturcara;
 use App\Models\BidangKursus;
 use App\Models\KategoriAgensi;
 use App\Models\Kehadiran;
@@ -787,13 +789,76 @@ class LaporanLainController extends Controller
     public function laporan_penilaian_kursus_uls($id)
     {
         $kursus = JadualKursus::find($id);
-        $penilaianKursus = KursusPenilaian::where('jadual_kursus_id',$kursus->id)->first();
+        $aturcara = Aturcara::where('ac_jadual_kursus',$kursus->id)->get();
+        $peserta = PeruntukanPeserta::where('pp_jadual_kursus',$kursus->id)->get();
+        // $tot_pp = 0;
+        // foreach($peserta as $p){
+        //     $j_peruntukan = 0;
+        //     $j_peruntukan = $peserta->pp_peruntukan_calon;
 
-        return view('laporan.laporan_lain.laporan-penilaian-kursus-uls',[
+        // }
+
+        // $tot_pp +=count($j_peruntukan);
+
+        $j_sesi=0;
+        $j_sesi=count($aturcara);
+
+        $kehadiran = Kehadiran::where('jadual_kursus_id',$kursus->id)->where('status_kehadiran_ke_kursus','HADIR')->get();
+        $j_kehadiran = Kehadiran::where('jadual_kursus_id',$kursus->id)->where('status_kehadiran_ke_kursus','HADIR')->distinct()->get();
+
+        $tot_k = 0;
+        $tot_k +=count($j_kehadiran);
+
+        // $penilaianKursus = KursusPenilaian::where('jadual_kursus_id',$kursus->id)->first();
+
+        return view('laporan.laporan_lain.penilaian.laporan-penilaian-kursus-uls2',[
             'kursus'=>$kursus,
-            'penilaianKursus'=>$penilaianKursus
+            'j_sesi'=>$j_sesi,
+            'kehadiran'=>$kehadiran,
+            'tot_k'=>$tot_k
         ]);
     }
+
+    public function pdf_laporan_penilaian_kursus_uls($id)
+    {
+        $kursus = JadualKursus::find($id);
+        $aturcara = Aturcara::where('ac_jadual_kursus',$kursus->id)->get();
+        $peserta = PeruntukanPeserta::where('pp_jadual_kursus',$kursus->id)->get();
+        // $tot_pp = 0;
+        // foreach($peserta as $p){
+        //     $j_peruntukan = 0;
+        //     $j_peruntukan = $peserta->pp_peruntukan_calon;
+
+        // }
+
+        // $tot_pp +=count($j_peruntukan);
+
+        $j_sesi=0;
+        $j_sesi=count($aturcara);
+
+        $kehadiran = Kehadiran::where('jadual_kursus_id',$kursus->id)->where('status_kehadiran_ke_kursus','HADIR')->get();
+        $j_kehadiran = Kehadiran::where('jadual_kursus_id',$kursus->id)->where('status_kehadiran_ke_kursus','HADIR')->distinct()->get();
+
+        $tot_k = 0;
+        $tot_k +=count($j_kehadiran);
+
+        // $penilaianKursus = KursusPenilaian::where('jadual_kursus_id',$kursus->id)->first();
+
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.penilaian.laporan-penilaian-kursus-uls2',[
+            'kursus'=>$kursus,
+            'j_sesi'=>$j_sesi,
+            'kehadiran'=>$kehadiran,
+            'tot_k'=>$tot_k
+        ])->setPaper('a4', 'landscape');
+
+        return $pdf->stream('Laporan Penilaian Kursus.'.'pdf');
+     }
+
+     public function excel_laporan_penilaian_kursus_uls()
+     {
+         // return (new PenilaianEjenPelaksanaExport())->download('PenilaianEjenPelaksana.xlsx');
+         return (new PenilaianKursusExport())->download('Penilaian Kursus.xlsx');
+     }
 
     public function senarai_kursus()
     {
@@ -838,7 +903,7 @@ class LaporanLainController extends Controller
 
         ])->setPaper('a4', 'landscape');
 
-        return $pdf->stream('Laporan Penilaian Kursus.'.'pdf');
+        return $pdf->stream('Laporan Penilaian Pre Test dan Post Test.'.'pdf');
 
 
     }

@@ -31,25 +31,24 @@
              <tr>
 
                 <td colspan="2"><b>BILANGAN PESERTA MENDAPAT MARKAH MELEBIHI 61%</b></td>
-                <td colspan="2" ></td>
-
-
-
+                <td ></td>
+                <td ></td>
             </tr>
             <tr>
                 <td colspan="2"><b>JUMLAH KESELURUHAN PESERTA</b></td>
-                <td colspan="2"></td>
-
+                <td ></td>
+                <td ></td>
             </tr>
             <tr>
                 <td colspan="2"><b>PERATUSAN LULUS</b></td>
-                <td colspan="2"></td>
+                <td ></td>
+                <td ></td>
 
             </tr>
             <tr>
                 <td colspan="2"><b>PERATUSAN GAGAL</b></td>
-                <td colspan="2"></td>
-
+                <td ></td>
+                <td ></td>
             </tr>
         </tbody>
     </table>
