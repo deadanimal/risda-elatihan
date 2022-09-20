@@ -6,7 +6,7 @@
                 line-height: 1.5;
                 /* margin: 20px; */
                 margin-right: 20px;
-                margin-left: 40px;
+                margin-left: 20px;
                 margin-top: 20px;
          }
 
@@ -23,7 +23,8 @@
         table, td, th {
         border: 1px solid;
         font: 12pt "Times New Roman";
-
+        /* table-layout: fixed; */
+        /* width: 100%; */
         /* text-align: center; */
         padding: 8px;
         border-collapse: collapse;
@@ -32,12 +33,12 @@
         </style>
 
 
-    <h4> Laporan Penilaian Pre Test dan Post Test Untuk Kursus {{$kursus->kursus_nama}} </h4>
+    <h4> Laporan Penilaian Pre Test dan Post Test Untuk Kursus {{$kursus->kursus_nama}} <br>Pada {{date('d-m-Y', strtotime($kursus->tarikh_mula))}}</h4>
 
 
-    <div class="table-responsive scrollbar ">
-    <table class="table text-center table-bordered datatable " border-color: #00B64E;">
-        <thead class="risda-bg-g" style="vertical-align: middle">
+    <div>
+    <table width="100%">
+        <thead>
 
             <tr>
                 <th rowspan="2">BIL.</th>
@@ -55,7 +56,7 @@
             @foreach ($posttest as $posttest)
 
             <tr>
-                <td>{{$loop->iteration}}.</td>
+                <td>{{$loop->iteration}}</td>
                 <td>{{$pretest->peserta->name}}</td>
                 <td style="text-align: center;">{{$pretest->markah}}</td>
                 <td style="text-align: center;">{{$posttest->markah}}</td>
@@ -65,28 +66,27 @@
             @endforeach
             @endforeach
 
-             <tr>
+            <tr>
 
                 <td colspan="2"><b>BILANGAN PESERTA MENDAPAT MARKAH MELEBIHI 61%</b></td>
-                <td colspan="2" ></td>
-
-
-
+                <td ></td>
+                <td ></td>
             </tr>
             <tr>
                 <td colspan="2"><b>JUMLAH KESELURUHAN PESERTA</b></td>
-                <td colspan="2"></td>
-
+                <td ></td>
+                <td ></td>
             </tr>
             <tr>
                 <td colspan="2"><b>PERATUSAN LULUS</b></td>
-                <td colspan="2"></td>
+                <td ></td>
+                <td ></td>
 
             </tr>
             <tr>
                 <td colspan="2"><b>PERATUSAN GAGAL</b></td>
-                <td colspan="2"></td>
-
+                <td ></td>
+                <td ></td>
             </tr>
 
         </tbody>
