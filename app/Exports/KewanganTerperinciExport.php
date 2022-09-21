@@ -15,9 +15,9 @@ class KewanganTerperinciExport implements FromView
     use Exportable;
     public function view(): View
     {
-        // $kursus = JadualKursus::with(['bidang','tempat','pengendali'])->where('kursus_status','1')->get();
-        // $j_kehadiran = 0;
-        // dd($kursus);
+        $kursus = JadualKursus::with(['bidang','tempat','pengendali','kehadiran','perbelanjaan'])->where('kursus_status','1')->get();
+        $j_kehadiran = 0;
+        $kehadiran = 0;
 
         // foreach($kursus as $ku){
         //     $pk=PerbelanjaanKursus::where('jadualkursus_id',$ku->id)->first();
@@ -49,7 +49,7 @@ class KewanganTerperinciExport implements FromView
         return view('laporan.laporan_lain.excel.laporan_kewangan_terperinci',[
             // 'perbelanjaan_kursus'=>$perbelanjaan_kursus,
             // 'j_kehadiran'=>$j_kehadiran,
-            // 'kursus'=>$kursus,
+            'kursus'=>$kursus,
 
         ]);
     }

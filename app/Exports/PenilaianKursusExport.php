@@ -43,9 +43,10 @@ class PenilaianKursusExport implements FromView
         $tot_k = 0;
         $tot_k +=count($j_kehadiran);
         return view('laporan.laporan_lain.excel.penilaian.laporan-penilaian-kursus', [
-        'penilaian' => $penilaian,
-
-
-    ]);
+            'kursus'=>$kursus,
+            'j_sesi'=>$j_sesi,
+            'kehadiran'=>$kehadiran,
+            'tot_k'=>$tot_k
+        ]);
     }
 }

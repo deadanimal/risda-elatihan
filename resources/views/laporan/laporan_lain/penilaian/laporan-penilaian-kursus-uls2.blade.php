@@ -52,9 +52,9 @@
         </div>
     </div>
 
-    <a id="downloadpdf" style="display: none" download="Laporan Penilaian Pre Test dan Post Test"
+    <a id="downloadpdf" style="display: none"
     href="{{ route('pdf_penilaian_kursus', $kursus->id) }}">Download</a>
-    <a id="downloadexcel" style="display: none" href="{{ route('excel_penilaian_kursus', $kursus->id) }}" download="Laporan Penilaian Pre Test dan Post Test">Download</a>
+    <a id="downloadexcel" style="display: none" href="{{ route('excel_penilaian_kursus', $kursus->id) }}">Download</a>
 
 
 
@@ -79,11 +79,20 @@
 
         </div>
 
-    <script>
-        $(document).ready(function() {
-            $("th").addClass('fw-bold text-white');
-        });
-    </script>
 
+<script>
+    function download(el) {
+        let val = el.value;
+        if (val == "Pdf") {
+            document.getElementById('downloadpdf').click();
+        }
+        if (val == "Excel") {
+            document.getElementById('downloadexcel').click();
+        }
+    }
+    $(document).ready(function() {
+        $("th").addClass('fw-bold text-white');
+    });
+</script>
 
 @endsection
