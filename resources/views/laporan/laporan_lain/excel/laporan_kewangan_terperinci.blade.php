@@ -21,25 +21,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- @foreach ($kursus as $k)
+                            @foreach ($kursus as $k)
                             <tr>
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$k->bidang->nama_Bidang_Kursus}}</td>
                                 <td>{{$k->kursus_nama}}</td>
-                                <td>{{$k->kursus_mula}}
-                                    @if($k->bilangan_hari==1)
-                                    <td>{{date('d/m/Y', strtotime($k->tarikh_mula))}}</td>
-                                     @else
-                                    <td>{{date('d/m/Y', strtotime($k->tarikh_mula))}} - {{date('d/m/Y', strtotime($k->tarikh_tamat))}}</td>
-                                    @endif
-                                <td>{{$k->pengendali->namaAgensi}}</td>
+                                @if ($k->bilangan_hari>1)
+                                    <td class="a">{{date('d/m/Y', strtotime($k->tarikh_mula))}} - {{date('d/m/Y', strtotime($k->tarikh_tamat))}} </td>
+                                @else
+                                <td>{{date('d/m/Y', strtotime($k->tarikh_mula))}}</td>
+                                @endif
+                                <td>{{$k->pengendali->nama_Agensi}}</td>
                                 <td>{{$k->kursus_no_ft}}</td>
-                                <td>{{$j_kehadiran}}</td>
-                                <td>{{$k->$perbelanjaan_kursus}}</td>
+                                <td></td>
+                                <td class="a">{{($k->perbelanjaan->Jum_LO?? '-') }}</td>
                                 <td></td>
                                 <td></td>
+                                <td></td>
+                            </tr>
                             @endforeach
-                                </tr> --}}
+
                         </tbody>
                     </table>
         </div>

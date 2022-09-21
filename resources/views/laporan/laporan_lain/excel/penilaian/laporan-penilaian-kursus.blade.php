@@ -1,5 +1,5 @@
 <div class="table-responsive scrollbar ">
-    <table class="table text-center table-bordered datatable " border-color: #00B64E;">
+    <table class="table text-center table-bordered datatable" border-color: #00B64E;">
         <thead class="risda-bg-g" style="vertical-align: middle">
 
             <tr>
@@ -13,17 +13,13 @@
 
             <tr>
             @foreach ($kursus->aturcara as $ka)
-
-                    <th>HARI {{$ka->ac_hari}}</th>
+                <th>HARI {{$ka->ac_hari}}</th>
             @endforeach
-
             </tr>
             <tr>
             @foreach ($kursus->aturcara as $ka)
-
                 <th>SESI {{$ka->ac_sesi}}</th>
             @endforeach
-
             </tr>
 
         </thead>
@@ -55,8 +51,7 @@
             </tr>
             <tr>
                 <td colspan="2">JUMLAH KESELURUHAN PESERTA</td>
-                <td></td>
-                <td></td>
+                <td colspan="{{$j_sesi}}"></td>
                 <td></td>
                 <td></td>
             </tr>
