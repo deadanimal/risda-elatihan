@@ -1,6 +1,36 @@
-<div class="table-responsive scrollbar ">
-    <table class="table text-center table-bordered datatable"
-        style="vertical-align: middle;border-color: #00B64E;">
+<head>
+    <title>Laporan Kemajuan Latihan Mengikut Bidang</title>
+
+    <style type="text/css">
+@page {
+  size:A4 landscape;
+  margin: 30px;
+}
+
+th{
+    font-size: 8px;
+    border: 1px solid black;
+    border-collapse: collapse;
+
+}
+
+    table,td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        font-size: 10px;
+        padding: 8px;
+        text-transform: capitalize;
+    }
+    td{
+        text-align: center;
+    }
+
+</style>
+</head>
+
+
+<div>
+    <table width=100%>
         <thead class="risda-bg-g">
             <tr>
                 <th rowspan="2">BIL.</th>
@@ -27,6 +57,27 @@
             </tr>
         </thead>
         <tbody>
+            @foreach ($bidang_kursus as $bk)
+            <tr>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $bk->nama_Bidang_Kursus }}</td>
+                <td></td>
+                <td>{{ $bk->pencapaian }}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+
+            @endforeach
         </tbody>
     </table>
 </div>

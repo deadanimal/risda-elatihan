@@ -27,7 +27,6 @@ th{
 
 </style>
 </head>
-</head>
 
 <div class="table-responsive scrollbar ">
                 <table width="100%">
@@ -85,10 +84,10 @@ th{
                          <tr>
                             <td>{{$loop->iteration}}</td>
                             <td>{{$k->staff->staf->NamaPT}}</td>
-                            @if($k->kursus->bilangan_hari>1)
 
-                               <td>fdfnfbnf </td>
-                               @endif
+                                <td>
+
+                                </td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
