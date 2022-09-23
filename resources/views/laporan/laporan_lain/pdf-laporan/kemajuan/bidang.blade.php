@@ -2,31 +2,33 @@
     <title>Laporan Kemajuan Latihan Mengikut Bidang</title>
 
     <style type="text/css">
-@page {
-  size:A4 landscape;
-  margin: 30px;
-}
+        *{
+                line-height: 1.5;
+                margin: 20px;
 
-th{
-    font-size: 8px;
-    border: 1px solid black;
-    border-collapse: collapse;
+         }
 
-}
+         .a,h4,td{
+             text-align: center;
+         }
 
-    table,td {
-        border: 1px solid black;
+         p,b{
+            font: 8pt "Times New Roman";
+         }
+
+
+
+        table, td, th {
+        border: 1px solid;
+        font: 5pt "Times New Roman";
+        padding: 5px;
         border-collapse: collapse;
-        font-size: 10px;
-        padding: 8px;
-        text-transform: capitalize;
-    }
-    td{
-        text-align: center;
-    }
 
-</style>
+        }
+        </style>
+
 </head>
+<h4> Laporan Kemajuan Latihan mengikut Bidang Kursus</h4>
 
 
 <div>
@@ -61,21 +63,27 @@ th{
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $bk->nama_Bidang_Kursus }}</td>
-                <td></td>
+               <td> <?php $tot_kursus=array($bk->matlamat_peserta->jan,$bk->matlamat_kursus->feb,$bk->matlamat_kursus->mac,$bk->matlamat_kursus->apr,$bk->matlamat_kursus->mei,$bk->matlamat_kursus->jun,$bk->matlamat_kursus->jul,$bk->matlamat_kursus->ogos,$bk->matlamat_kursus->sept,$bk->matlamat_kursus->okt,$bk->matlamat_kursus->nov,$bk->matlamat_kursus->dis);
+                echo array_sum($tot_kursus);?></td>
                 <td>{{ $bk->pencapaian }}</td>
                 <td></td>
+                <td><?php $tot_peserta=array($bk->matlamat_peserta->jan,$bk->matlamat_peserta->feb,$bk->matlamat_peserta->mac,$bk->matlamat_peserta->apr,$bk->matlamat_peserta->mei,$bk->matlamat_peserta->jun,$bk->matlamat_peserta->jul,$bk->matlamat_peserta->ogos,$bk->matlamat_peserta->sept,$bk->matlamat_peserta->okt,$bk->matlamat_peserta->nov,$bk->matlamat_peserta->dis);
+                    echo array_sum($tot_peserta);?></td>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
+                @if ($bk->matlamat_perbelanjaan==null)
+                    <td>0</td>;
+                    @else
+                    <td><?php $tot_perbelanjaan=array($bk->matlamat_perbelanjaan->jan,$bk->matlamat_perbelanjaan->feb,$bk->matlamat_perbelanjaan->mac,$bk->matlamat_perbelanjaan->apr,$bk->matlamat_perbelanjaan->mei,$bk->matlamat_perbelanjaan->jun,$bk->matlamat_perbelanjaan->jul,$bk->matlamat_perbelanjaan->ogos,$bk->matlamat_perbelanjaan->sept,$bk->matlamat_perbelanjaan->okt,$bk->matlamat_perbelanjaan->nov,$bk->matlamat_perbelanjaan->dis);
+                    echo array_sum($tot_perbelanjaan);?></td>
+                    @endif
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
-
 
             @endforeach
         </tbody>
