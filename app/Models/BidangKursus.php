@@ -41,6 +41,6 @@ class BidangKursus extends Model
 
     public function kategori()
     {
-        return $this->hasMany(BidangKursus::class,'id', 'U_Bidang_Kursus');
+        return $this->hasMany(BidangKursus::class);
     }
 }

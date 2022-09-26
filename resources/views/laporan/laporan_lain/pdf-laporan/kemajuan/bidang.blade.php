@@ -63,8 +63,12 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $bk->nama_Bidang_Kursus }}</td>
-               <td> <?php $tot_kursus=array($bk->matlamat_peserta->jan,$bk->matlamat_kursus->feb,$bk->matlamat_kursus->mac,$bk->matlamat_kursus->apr,$bk->matlamat_kursus->mei,$bk->matlamat_kursus->jun,$bk->matlamat_kursus->jul,$bk->matlamat_kursus->ogos,$bk->matlamat_kursus->sept,$bk->matlamat_kursus->okt,$bk->matlamat_kursus->nov,$bk->matlamat_kursus->dis);
-                echo array_sum($tot_kursus);?></td>
+                @if($bk->matlamat_kursus==null)
+                    <td>0</td>
+                @else
+                    <td><?php $tot_kursus=array($bk->matlamat_kursus->jan,$bk->matlamat_kursus->feb,$bk->matlamat_kursus->mac,$bk->matlamat_kursus->apr,$bk->matlamat_kursus->mei,$bk->matlamat_kursus->jun,$bk->matlamat_kursus->jul,$bk->matlamat_kursus->ogos,$bk->matlamat_kursus->sept,$bk->matlamat_kursus->okt,$bk->matlamat_kursus->nov,$bk->matlamat_kursus->dis);
+                    echo array_sum($tot_kursus);?></td>
+                @endif
                 <td>{{ $bk->pencapaian }}</td>
                 <td></td>
                 <td><?php $tot_peserta=array($bk->matlamat_peserta->jan,$bk->matlamat_peserta->feb,$bk->matlamat_peserta->mac,$bk->matlamat_peserta->apr,$bk->matlamat_peserta->mei,$bk->matlamat_peserta->jun,$bk->matlamat_peserta->jul,$bk->matlamat_peserta->ogos,$bk->matlamat_peserta->sept,$bk->matlamat_peserta->okt,$bk->matlamat_peserta->nov,$bk->matlamat_peserta->dis);
