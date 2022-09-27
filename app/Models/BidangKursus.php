@@ -38,4 +38,9 @@ class BidangKursus extends Model
     {
         return $this->hasOne(MatlamatTahunanPanggilanPeserta::class, 'bidang_ref', 'id');
     }
+
+    public function kategori()
+    {
+        return $this->hasMany(BidangKursus::class);
+    }
 }

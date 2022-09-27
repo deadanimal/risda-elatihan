@@ -38,6 +38,7 @@ use App\Models\KategoriAgensi;
 use App\Models\Kehadiran;
 use App\Models\JadualKursus;
 use App\Models\JawapanPenilaian;
+use App\Models\KategoriKursus;
 use App\Models\KehadiranPusatLatihan;
 use App\Models\KursusPenilaian;
 use App\Models\PenceramahKonsultan;
@@ -49,6 +50,7 @@ use App\Models\PeruntukanPeserta;
 use App\Models\PenilaianPeserta;
 use App\Models\MatlamatBilanganKursus;
 use App\Models\PostTest;
+use App\Models\Negeri;
 use App\Models\Staf;
 use App\Models\User;
 use App\Models\PrePostTest;
@@ -257,7 +259,6 @@ class LaporanLainController extends Controller
                 $pp->pp_peruntukan_calon;
                 $j_peruntukan_peserta+=$pp->pp_peruntukan_calon;
 
-
             }
 
             // echo '__'.$j_peruntukan_peserta;
@@ -275,7 +276,7 @@ class LaporanLainController extends Controller
             // echo '__'.$j_peruntukan_peserta;
             // dd('__'.$j_peruntukan_peserta);
 
-                $j_kehadiran += count($kehadiran);
+            $j_kehadiran += count($kehadiran);
             $peratusan_kehadiran = 0;
 
 
@@ -988,8 +989,14 @@ class LaporanLainController extends Controller
 
     public function pdf_laporan_pencapaian_latihan_mengikut_kategori()
     {
+        // $ptj = PusatTanggungjawab::all();
+        // $kursus = JadualKursus::with(['kategori_kursus','peruntukan'])->get();
+        $kehadiran = Kehadiran::with(['staff','kursus'])->where('status_kehadiran_ke_kursus','HADIR')->get();
 
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_prestasi_kategori')
+
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_prestasi_kategori',[
+            'kehadiran'=>$kehadiran
+        ])
         ->setPaper('a4', 'landscape');
 
         return $pdf->stream('Laporan Pencapaian Latihan Mengikut Kategori.'.'pdf');
@@ -1003,13 +1010,45 @@ class LaporanLainController extends Controller
     // kemajuan
     public function laporan_kemajuan_latihan_bidang()
     {
-        return view('laporan.laporan_lain.kemajuan_latihan.bidang');
+        $bidang_kursus = BidangKursus::with(['kodkursus','matlamat_kursus','matlamat_peserta','matlamat_perbelanjaan'])->get();
+        $j_pencapaian = 0;
+
+        foreach ($bidang_kursus as $bk) {
+            $bk['pencapaian'] = count($bk->kodkursus);
+            $j_pencapaian += count($bk->kodkursus);
+        }
+
+        $bidang = new BidangKursus();
+        $bidang['j_pencapaian'] = $j_pencapaian;
+        $bidang['data'] = $bidang_kursus;
+
+        return view('laporan.laporan_lain.kemajuan_latihan.bidang',[
+            'bidang_kursus' => $bidang_kursus,
+            'j_pencapaian' => $j_pencapaian,
+        ]);
     }
 
     public function pdf_laporan_kemajuan_latihan_bidang()
     {
 
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.kemajuan.bidang')
+        $bidang_kursus = BidangKursus::with(['kodkursus','matlamat_kursus','matlamat_peserta','matlamat_perbelanjaan'])->get();
+        $j_pencapaian = 0;
+
+
+        foreach ($bidang_kursus as $bk) {
+            $bk['pencapaian'] = count($bk->kodkursus);
+            $j_pencapaian += count($bk->kodkursus);
+        }
+
+        $bidang = new BidangKursus();
+        $bidang['j_pencapaian'] = $j_pencapaian;
+        $bidang['data'] = $bidang_kursus;
+
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.kemajuan.bidang',[
+            'bidang_kursus' => $bidang_kursus,
+            'j_pencapaian' => $j_pencapaian,
+
+        ])
         ->setPaper('a4', 'landscape');
 
         return $pdf->stream('Laporan Kemajuan Latihan Mengikut Bidang.' . 'pdf');
@@ -1025,14 +1064,87 @@ class LaporanLainController extends Controller
 
     public function laporan_kemajuan_latihan_kategori()
     {
-        return view('laporan.laporan_lain.kemajuan_latihan.kategori');
+        $kategori_kursus = KategoriKursus::with(['kursus','matlamat_kursus','matlamat_peserta','matlamat_perbelanjaan','matlamat_panggilan_peserta'])->get();
+        $mk = 0;
+        $pencapaian_kursus = 0;
+        $peruntukan_kursus = 0;
+        $t_kehadiran = 0;
+
+
+        foreach($kategori_kursus as $k){
+
+            $k['pencapaian'] = count($k->kursus);
+            $pencapaian_kursus +=count($k->kursus);
+
+
+        $kursus = JadualKursus::with(['kehadiran','peruntukan'])->where('kod_kategori',$k->id)->get();
+
+            // foreach($k->kursus as $ku){
+
+                // $ku['kehadiran']=count($ku->kehadiran);
+                // $t_kehadiran +=count($ku->kehadiran);
+
+            //     $pp_calon  = PeruntukanPeserta::where('pp_jadual_kursus',$ku->id)->get();
+            //     $pp_2=0;
+            //     foreach($ku->pp_calon as $pp){
+            //         $pp_2=$pp_2+($pp->pp_peruntukan_calon);
+
+            //     }
+            // }
+            // dd('__'.$pp_2);
+
+            // foreach($k->kursus as $ku){
+            //         $j_peruntukan_peserta = 0;
+            //         $j_kehadiran =0;
+
+            //         $peruntukan_peserta = PeruntukanPeserta::where('pp_jadual_kursus',$k->id)->get();
+
+            //         foreach ($peruntukan_peserta as $pp) {
+            //             $pp->pp_peruntukan_calon;
+            //             $j_peruntukan_peserta+=$pp->pp_peruntukan_calon;
+            //         }
+
+            //     echo '__'.$j_peruntukan_peserta;
+            }
+
+        return view('laporan.laporan_lain.kemajuan_latihan.kategori',[
+            'kategori_kursus'=>$kategori_kursus,
+            'pencapaian_kursus' =>$pencapaian_kursus,
+            'kursus'=> $kursus
+        ]);
     }
 
     public function pdf_laporan_kemajuan_latihan_kategori()
     {
-        // return view('laporan.laporan_lain.kemajuan_latihan.kategori');
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.kemajuan.kategori')
-        ->setPaper('a4', 'landscape');
+    $kategori_kursus = KategoriKursus::with(['kursus','matlamat_kursus','matlamat_peserta','matlamat_perbelanjaan','matlamat_panggilan_peserta'])->get();
+    $mk = 0;
+    $pencapaian_kursus = 0;
+    $peruntukan_kursus = 0;
+    $t_kehadiran = 0;
+
+        foreach ($kategori_kursus as $k) {
+            $k['pencapaian'] = count($k->kursus);
+            $pencapaian_kursus +=count($k->kursus);
+        }
+
+        $kursus = JadualKursus::with(['kehadiran','peruntukan'])->where('kod_kategori', $k->id)->get();
+
+        foreach ($kursus as $ku) {
+            $kehadiran = Kehadiran::where('jadual_kursus_id', $ku->id)->where('status_kehadiran_ke_kursus', 'HADIR')->get();
+            $t_kehadiran+=count($kehadiran);
+
+        // dd($t_kehadiran);
+
+        }
+
+
+
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.kemajuan.kategori',[
+            'kategori_kursus'=>$kategori_kursus,
+            'pencapaian_kursus' =>$pencapaian_kursus,
+            'kursus'=> $kursus,'t_kehadiran'=>$t_kehadiran
+
+        ])->setPaper('a4', 'landscape');
 
         return $pdf->stream('Laporan Kemajuan Latihan Mengikut Kategori.' . 'pdf');
 
@@ -1070,7 +1182,11 @@ class LaporanLainController extends Controller
 
     public function pdf_laporan_kemajuan_latihan_negeri()
     {
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.kemajuan.negeri')
+        $pt = PusatTanggungjawab::with(['negeri','peruntukan'])->get();
+
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.kemajuan.negeri',[
+            'pt'=>$pt
+        ])
         ->setPaper('a4', 'landscape');
 
         return $pdf->stream('Laporan Kemajuan Latihan Mengikut Negeri.' . 'pdf');

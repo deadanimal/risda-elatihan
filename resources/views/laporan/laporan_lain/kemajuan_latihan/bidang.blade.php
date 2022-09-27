@@ -49,10 +49,10 @@
             </div>
         </div>
 
-        <a id="downloadpdf" download="LaporanKemajuanLatihanMengikutBidang.pdf" style="display: none"
+        <a id="downloadpdf" style="display: none"
         href="{{ route('pdf-kl-bidang') }}">Download</a>
 
-        <a id="downloadexcel" style="display: none" href="{{ route('excel-kl-bidang') }}" download="LaporanKemajuanLatihanMengikutBidang" >Download</a>
+        <a id="downloadexcel" style="display: none" href="{{ route('excel-kl-bidang') }}"  >Download</a>
 
 
         <hr class="risda-g">

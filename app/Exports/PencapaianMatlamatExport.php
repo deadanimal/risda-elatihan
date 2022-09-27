@@ -8,7 +8,7 @@ use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromView;
 
-class PencapaianMatlamatExport implements FromView
+class   PencapaianMatlamatExport implements FromView
 {
     /**
      * @return \Illuminate\Support\Collection

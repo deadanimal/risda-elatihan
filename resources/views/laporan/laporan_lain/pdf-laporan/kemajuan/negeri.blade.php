@@ -1,3 +1,34 @@
+<head>
+    <title>Laporan Kemajuan Latihan Mengikut Negeri</title>
+
+    <style type="text/css">
+        *{
+                line-height: 1.5;
+                margin: 20px;
+
+         }
+
+         .a,h4,td{
+             text-align: center;
+         }
+
+         p,b{
+            font: 8pt "Times New Roman";
+         }
+
+
+
+        table, td, th {
+        border: 1px solid;
+        font: 5pt "Times New Roman";
+        padding: 5px;
+        border-collapse: collapse;
+
+        }
+        </style>
+
+</head>
+<h4> Laporan Kemajuan Latihan mengikut Negeri</h4>
 <div class="table-responsive scrollbar ">
                     <table class="table text-center table-bordered datatable"
                         style="vertical-align: middle;border-color: #00B64E;">
@@ -30,6 +61,14 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($pt as $pt)
+                            <tr>
+                                <td>{{($pt->negeri->Negeri?? '-')}}</td>
+                                <td>{{$loop->iteration}}</td>
+
+
+
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
