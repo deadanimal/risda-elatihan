@@ -63,7 +63,7 @@
                         <tbody>
                             @foreach ($pt as $pt)
                             <tr>
-                                <td>{{($pt->negeri->Negeri ?? '-')}}</td>
+                                <td>{{($pt->negeri->Negeri?? '-')}}</td>
                                 <td>{{$loop->iteration}}</td>
 
 

@@ -13,14 +13,14 @@
          }
 
         p,b{
-            font: 8pt "Times New Roman";
+            font: 10pt "Times New Roman";
          }
 
 
 
         table, td, th {
         border: 1px solid;
-        font: 5pt "Times New Roman";
+        font: 7pt;
         padding: 5px;
         border-collapse: collapse;
 
@@ -31,8 +31,7 @@
 <h4> Laporan Kemajuan Latihan mengikut Kategori Kursus</h4>
 
 <div class="table-responsive scrollbar ">
-                    <table class="table text-center table-bordered datatable"
-                        style="vertical-align: middle;border-color: #00B64E;">
+                    <table width=100%>
                         <thead class="risda-bg-g">
                             <tr>
                                 <th rowspan="2">BIL.</th>
@@ -46,7 +45,7 @@
                                 <th>PENCAPAIAN</th>
                                 <th>PERATUS</th>
                                 <th>MATLAMAT</th>
-                                <th>PANGGILAN PESERTA</th>
+                                <th>MATLAMAT <br>PANGGILAN PESERTA</th>
                                 <th>KEHADIRAN PESERTA</th>
                                 <th>LELAKI</th>
                                 <th>PEREMPUAN</th>
@@ -62,7 +61,8 @@
                             @foreach ($kategori_kursus as $k)
                             <tr>
 
-                                <td>{{ $loop->iteration }}</td>
+                                {{-- <td>{{ $loop->iteration }}</td> --}}
+                                <td>{{ $k->id }}</td>
                                 <td>{{ $k->nama_Kategori_Kursus }}</td>
 
                                 {{-- Bilangan Kursus --}}
@@ -82,7 +82,8 @@
                                 echo(round(($k['pencapaian'])/(array_sum($tot_kursus))*100));?> %</td>
                                 @endif
 
-                                {{--Kehadiran peserta --}}
+                                {{--// Kehadiran peserta
+                                //matlamat kehadiran --}}
                                 @if ($k->matlamat_peserta==null)
                                     <td>0</td>
                                 @else
@@ -90,20 +91,24 @@
                                     echo array_sum($tot_kehadiran);?>
                                 </td>
                                 @endif
-                                <td></td>
-                                <td></td>
+                                {{-- //matlamat panggilan peserta --}}
+                                @if ($k->matlamat_panggilan_peserta==null)
+                                    <td>0</td>
+                                @else
+                                <td><?php $tot_panggilan=array($k->matlamat_panggilan_peserta->jan,$k->matlamat_panggilan_peserta->feb,$k->matlamat_panggilan_peserta->mac,$k->matlamat_panggilan_peserta->apr,$k->matlamat_panggilan_peserta->mei,$k->matlamat_panggilan_peserta->jun,$k->matlamat_panggilan_peserta->jul,$k->matlamat_panggilan_peserta->ogos,$k->matlamat_panggilan_peserta->sept,$k->matlamat_panggilan_peserta->okt,$k->matlamat_panggilan_peserta->nov,$k->matlamat_panggilan_peserta->dis);
+                                    echo array_sum($tot_panggilan);?>
+                                </td>
+                                @endif
+
+                                {{-- //Kehadiran Peserta --}}
+                                <td>{{$t_kehadiran}}</td>
                                  <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
 
-                                {{-- @foreach ($k->kursus as $ku)
-                                <td>{{$ku['peruntukan_calon']}}</td>
-                                <td>{{$ku['kehadiran']}}</td>
-                                <td>
-                                @endforeach --}}
 
-                                {{-- Pernbelanjaan --}}
+                                {{-- Penbelanjaan --}}
                                 @if ($k->matlamat_perbelanjaan==null)
                                     <td>0</td>
                                 @else
