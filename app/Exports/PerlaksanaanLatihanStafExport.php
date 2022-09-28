@@ -14,7 +14,11 @@ class PerlaksanaanLatihanStafExport implements FromView
 
     public function view(): View
     {
+        $kursus = JadualKursus::with(['kehadiran','bidang','tempat','pengendali','peruntukan'])->get();
 
-        return view('laporan.laporan_lain.excel.pelaksanaan_latihan_staf');
+
+        return view('laporan.laporan_lain.excel.pelaksanaan_latihan_staf',[
+            'kursus'=>$kursus
+        ]);
     }
 }

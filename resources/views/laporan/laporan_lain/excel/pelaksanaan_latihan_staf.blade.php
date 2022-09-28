@@ -6,7 +6,7 @@
                         <tr>
                             <th rowspan="3">BIL</th>
                             <th rowspan="3">BIDANG KURSUS</th>
-                            <th rowspan="3">BIL</th>
+                            {{-- <th rowspan="3">BIL</th> --}}
                             <th rowspan="3">NAMA KURSUS</th>
                             <th rowspan="3">TARIKH KURSUS</th>
                             <th rowspan="3">TEMPAT KURSUS</th>
@@ -43,6 +43,32 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($kursus as $k)
+                        <tr>
+                            <td>{{$loop->iteration}}</td>
+                            <td>{{$k->bidang->nama_Bidang_Kursus}}</td>
+                            <td>{{$k->kursus_nama}}</td>
+                            <td>{{$k->tarikh_mula}}</td>
+                            <td>{{$k->tempat->nama_Agensi}}</td>
+                            <td>{{$k->pengendali->nama_Agensi}}</td>
+                            <td>{{$k->kursus_no_ft}}</td>
+
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+
+                        @endforeach
 
                     </tbody>
                 </table>

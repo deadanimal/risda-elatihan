@@ -501,12 +501,21 @@ class LaporanLainController extends Controller
 
     public function laporan_pelaksanaan_latihan_staf()
     {
-        return view('laporan.laporan_lain.pelaksanaan_latihan_staf');
+        $kursus = JadualKursus::with(['kehadiran','bidang','tempat','pengendali'])->get();
+
+        return view('laporan.laporan_lain.pelaksanaan_latihan_staf',[
+            'kursus'=>$kursus
+        ]);
     }
 
     public function pdf_laporan_pelaksanaan_latihan_staf()
     {
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.pelaksanaan_latihan_staf')
+        $kursus = JadualKursus::with(['kehadiran','bidang','tempat','pengendali','peruntukan'])->get();
+        
+
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.pelaksanaan_latihan_staf',[
+            'kursus'=>$kursus
+        ])
         ->setPaper('a4', 'landscape');
 
         return $pdf->stream('Laporan Pelaksanaan Latihan Staf.' . 'pdf');
@@ -1205,7 +1214,14 @@ class LaporanLainController extends Controller
 
     public function pdf_laporan_kemajuan_latihan_daerah()
     {
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.kemajuan.daerah')
+        $ptj = PusatTanggungjawab::with(['negeri','peruntukan'])->get();
+        $j_ptj=0;
+
+        $peserta = PeruntukanPeserta::with(['pt','kursus'])->get();
+
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.kemajuan.daerah',[
+            'pt'=>$peserta
+        ])
         ->setPaper('a4', 'landscape');
 
         return $pdf->stream('Laporan Kemajuan Latihan Mengikut Daerah.' . 'pdf');
