@@ -21,13 +21,16 @@ th{
         padding: 8px;
         text-transform: capitalize;
     }
-    td{
+    h4{
         text-align: center;
     }
 
 </style>
 </head>
 </head>
+
+<h4>Laporan Pencapaian Latihan Mengikut Kategori</h4>
+
 
 <div class="table-responsive scrollbar ">
                 <table width="100%">
@@ -48,55 +51,24 @@ th{
                             <th> 1-6 HARI</th>
                             <th>7 HARI DAN KE ATAS</th>
                         </tr>
-
-                        {{-- <tr>
-                            <th rowspan="2">BIDANG</th>
-                            <th rowspan="2">BIL.</th>
-                            <th rowspan="2">KATEGORI</th>
-                            <th colspan="3">BILANGAN PESERTA</th>
-                            <th rowspan="2">NO LOT</th>
-                            <th rowspan="2">PERUNTUKAN</th>
-                            <th colspan="12">PERBELANJAAN (RM)</th>
-                            <th rowspan="2">JUMLAH (RM)</th>
-                            <th rowspan="2">TANGGUNGAN</th>
-                            <th rowspan="2">BAKI (RM)</th>
-                        </tr>
-                        <tr>
-                            <th>LELAKI</th>
-                            <th>PEREMPUAN</th>
-                            <th>JUMLAH</th>
-                            <th>PERUNTUKAN</th>
-                            <th>ELAUN MAKAN</th>
-                            <th>MAKAN/MINUM</th>
-                            <th>ELAUN PENCERAMAH</th>
-                            <th>ALATAN INPUT</th>
-                            <th>NOTA ALAT TULIS</th>
-                            <th>DOBI</th>
-                            <th>PENYELENGGARAAN DALAMAN</th>
-                            <th>SEWA KENDERAAN</th>
-                            <th>BAYARAN KONSULTAN</th>
-                            <th>PENGINAPAN</th>
-                            <th>INSURANS</th>
-
-                        </tr>
-                    </thead> --}}
                     <tbody>
                         @foreach ($kehadiran as $k)
                          <tr>
                             <td>{{$loop->iteration}}</td>
                             <td>{{$k->staff->staf->NamaPT}}</td>
-                            @if($k->kursus->bilangan_hari>1)
+                            <td>{{$k->kursus->bilangan_hari}}</td>
+                            {{-- @if(($k->kursus->bilangan_hari>1)&&($k->kursus->bilangan_hari<=6))
+                               <td>1</td>
+                            @elseif($k->kursus->bilangan_hari>7)
+                            <td>2</td>
 
-                               <td>fdfnfbnf </td>
-                               @endif
+                               @endif--}}
                                 <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
-
-
                             </tr>
 
 

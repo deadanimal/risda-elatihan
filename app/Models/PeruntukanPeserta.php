@@ -25,9 +25,9 @@ class PeruntukanPeserta extends Model
         return $this->hasOne(Negeri::class, 'U_Negeri_ID', 'pp_negeri');
     }
 
-    public function pusat_tanggungjawab()
-    {
-        return $this->hasOne(PusatTanggungjawab::class, 'kod_PT', 'pp_pusat_tanggungjawab');
-    }
+    // public function pusat_tanggungjawab()
+    // {
+    //     return $this->hasOne(PusatTanggungjawab::class, 'kod_PT', 'pp_pusat_tanggungjawab');
+    // }
 }
 

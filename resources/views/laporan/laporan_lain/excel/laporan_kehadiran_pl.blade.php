@@ -14,17 +14,15 @@
             </tr>
         </thead>
         <tbody>
-             @foreach ($pl as $k)
+           {{-- <td>{{$pl}}</td> --}}
+             {{-- @foreach ($pl as $k)
              <tr>
-                {{-- @foreach ($k  as $l )--}}
-                 {{-- <td>{{$k->tempat_kursus->nama_Agensi}}</td>
-                <td>{{$k->kursus->nama_kursus}}</td> --}}
-                <td>{{$pl->tempat_kursus->nama_Agensi}}</td>
-                <td>{{$pl->kursus->kursus_nama}}</td>
                 <td></td>
-                @endforeach
+                <td></td>
             <tr>
-            {{-- @endforeach --}}
+            @endforeach --}}
+            <td>{{$pl->tempat_kursus}}</td>
+
         </tbody>
     </table>
 </div>

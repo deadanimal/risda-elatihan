@@ -1,33 +1,3 @@
-<head>
-    <title>Laporan Pencapaian Latihan Mengikut Kategori</title>
-
-    <style type="text/css">
-@page {
-  size:A4 landscape;
-  margin: 30px;
-}
-
-th{
-    font-size: 10px;
-    border: 1px solid black;
-    border-collapse: collapse;
-
-}
-
-    table,td {
-        border: 1px solid black;
-        border-collapse: collapse;
-        font-size: 10px;
-        padding: 8px;
-        text-transform: capitalize;
-    }
-    td{
-        text-align: center;
-    }
-
-</style>
-</head>
-
 <div class="table-responsive scrollbar ">
                 <table width="100%">
                     <thead class="risda-bg-g" style="vertical-align: middle">

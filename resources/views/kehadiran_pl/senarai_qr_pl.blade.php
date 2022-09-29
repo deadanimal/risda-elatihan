@@ -75,7 +75,7 @@
                             <td>{{$loop->iteration}}</td>
                             <td>{{$agensi->nama_Agensi}}</td>
                             <td>{{$agensi->alamat_Agensi_baris1}} {{$agensi->alamat_Agensi_baris2}} {{$agensi->alamat_Agensi_baris3}}
-                                <br>{{$agensi->poskod}} {{$agensi->daerah->Daerah}}, {{($agensi->negeri->Negeri?? '') }}</td>
+                                <br>{{$agensi->poskod}} {{($agensi->daerah->Daerah?? '-')}}, {{($agensi->negeri->Negeri?? '') }}</td>
                             <td>
                                     <div class="qrcode" id="{{$agensi->id}}"></div>
                             </td>

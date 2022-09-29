@@ -61,8 +61,8 @@
                             @foreach ($kategori_kursus as $k)
                             <tr>
 
-                                {{-- <td>{{ $loop->iteration }}</td> --}}
-                                <td>{{ $k->id }}</td>
+                                <td>{{ $loop->iteration }}</td>
+                                {{-- <td>{{ $k->id }}</td> --}}
                                 <td>{{ $k->nama_Kategori_Kursus }}</td>
 
                                 {{-- Bilangan Kursus --}}

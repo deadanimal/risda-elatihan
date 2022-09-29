@@ -31,5 +31,7 @@ class PusatTanggungjawab extends Model
         return $this->hasMany(PeruntukanPeserta::class,'id','pp_pusat_tanggungjawab');
     }
 
+ 
+
 
 }
