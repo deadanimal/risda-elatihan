@@ -36,7 +36,7 @@ class Agensi extends Model
 
     public function kehadiran_pl()
     {
-        return $this->hasMany(KehadiranPusatLatihan::class);
+        return $this->belongsTo(KehadiranPusatLatihan::class,'id','agensi_id');
     }
 
 

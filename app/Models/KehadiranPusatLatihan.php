@@ -11,7 +11,7 @@ class KehadiranPusatLatihan extends Model
 
     public function tempat_kursus()
     {
-        return $this->belongsTo(Agensi::class,'agensi_id','id');
+        return $this->hasMany(Agensi::class,'id','agensi_id');
     }
 
     public function peserta()

@@ -511,7 +511,7 @@ class LaporanLainController extends Controller
     public function pdf_laporan_pelaksanaan_latihan_staf()
     {
         $kursus = JadualKursus::with(['kehadiran','bidang','tempat','pengendali','peruntukan'])->get();
-        
+
 
         $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.pelaksanaan_latihan_staf',[
             'kursus'=>$kursus
@@ -1315,6 +1315,18 @@ class LaporanLainController extends Controller
     {
         $pl = KehadiranPusatLatihan::with(['tempat_kursus','kursus'])->get();
 
+        $j_kursus = 0;
+
+        foreach($pl as $pl){
+            $kursus = JadualKursus::where('id',$pl->jadual_kursus_id)->distinct()->get();
+            $j_kursus+=count($kursus);
+
+
+        }
+
+        // dd($j_kursus);
+
+
         // $pl = KehadiranPusatLatihan::with(['tempat_kursus'=> function($query){
         //     $query->groupBy('nama_Agensi');
         // }])->get();
@@ -1343,7 +1355,8 @@ class LaporanLainController extends Controller
 
         // $umur_peserta = $tahun_ini - $tahun_lahir;
         return view('laporan.laporan_lain.kehadiran.pusat_latihan',[
-            'pl' => $pl
+            'pl' => $pl,
+            'j_kursus'=>$j_kursus
 
         ]);
 
@@ -1358,32 +1371,21 @@ class LaporanLainController extends Controller
 
     public function pdf_kehadiran_pusat_latihan()
     {
-        $pl = KehadiranPusatLatihan::with(['tempat_kursus','kursus'])->get();
+        // $agensi = Agensi::where()
+        $pl = KehadiranPusatLatihan::with(['tempat_kursus'])->get()->groupBy('jadual_kursus_id');
+        // $tempat = Agensi::where('id',$pl->agensi_id)->distinct('id')->get();
         $j_kursus = 0;
-
-
+        // $j_kursus = 0;
+        // dd($pl);
         // foreach($pl as $pl){
+            // $kursus = JadualKursus::where('id',$pl->jadual_kursus_id)->distinct('id')->get();
+            // $pl['t_kursus'] = count($pl->kursus);
 
-        //     $pl['kursus'] = count($pl->kursus);
-        //     $j_kursus += count($pl->kursus);
-        // }
+            // $j_kursus += count($pl->kursus);
 
-        // $pl = new KehadiranPusatLatihan();
-        // $pl['j_kursus'] = $j_kursus;
-        // $pl['data'] = $pl;
+            // $ad->getcodes()->distinct()->count('pid');
+            // dd($pl['t_kursus']);
 
-
-        // $tahun = substr($pl->user->no_kp, 0, 2);
-        // $tahun = (int)$tahun;
-        //     if ($tahun <= 30) {
-        //         $tahun_lahir = '20'.$tahun;
-        //     }else{
-        //         $tahun_lahir = '19'.$tahun;
-        //     }
-        // $tahun_ini = date('Y');
-
-
-        // $umur_peserta = $tahun_ini - $tahun_lahir;
         $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.kehadiran.pusat_latihan', [
             'pl' => $pl,
             'j_kursus'=>$j_kursus,
