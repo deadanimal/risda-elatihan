@@ -407,7 +407,7 @@ Route::middleware('auth')->group(function () {
             Route::prefix('laporan-lain')->group(function () {
 
                 Route::get('laporan-pencapaian-matlamat-kehadiran', [LaporanLainController::class, 'pencapaian_matlamat_kehadiran']);
-                Route::get('pdf-laporan-pencapaian-matlamat-kehadiran', [LaporanLainController::class, 'pdf_pencapaian_matlamat_kehadiran']);
+                Route::get('laporan-pencapaian-matlamat-kehadiran-pdf', [LaporanLainController::class, 'pdf_pencapaian_matlamat_kehadiran'])->name('pdf_pmk');
                 Route::get('/pmk', [LaporanLainController::class, 'pmk'])->name('pmk');
 
                 Route::get('laporan-perbelanjaan-mengikut-pusat-tanggungjawab', [LaporanLainController::class, 'perbelanjaan_mengikut_pusat_tanggungjawab']);

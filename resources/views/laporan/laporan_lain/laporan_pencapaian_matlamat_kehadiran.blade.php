@@ -73,11 +73,11 @@
             </div>
         </div>
         <a id="downloadpdf" download="LaporanPencapaianMatlamatKehadiran.pdf" style="display: none"
-            href="pdf-laporan-pencapaian-matlamat-kehadiran">Download</a>
+        href="{{ route('pdf_pmk') }}">Download</a>
 
         <a id="downloadexcel" style="display: none" href="{{ route('pmk') }}">Download</a>
 
-        <hr style="color: rgba(81,179,90, 60%);height:2px;">
+        <hr style="color: rgba(0, 0, 0, 0.6);height:2px;">
 
         <div class="card mt-5">
             <div class="card-body">

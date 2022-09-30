@@ -65,7 +65,8 @@ class LaporanLainController extends Controller
 {
     public function pencapaian_matlamat_kehadiran()
     {
-        $bidang_kursus = BidangKursus::with('kodkursus')->get();
+        $bidang_kursus = BidangKursus::with(['kodkursus','matlamat_kursus'])->get();
+
         $j_pencapaian = 0;
 
         foreach ($bidang_kursus as $bk) {
@@ -97,25 +98,33 @@ class LaporanLainController extends Controller
 
     public function pdf_pencapaian_matlamat_kehadiran()
     {
-        // $bidang_kursus = BidangKursus::with('kodkursus')->get();
-        // $matlamat_kursus = MatlamatBilanganKursus::where('jenis','bidang')->get();
+        $bidang_kursus = BidangKursus::with(['kodkursus','matlamat_kursus','matlamat_peserta'])->get();
 
-        // $j_pencapaian = 0;
-        // $j_matlamat_kursus=0;
-        // $j_matlamat_kehadiran=0;
-        // $j_matlamat_perbelanjaan=0;
+        $j_pencapaian = 0;
+        $j_matlamat_kursus = 0;
 
-        // foreach ($bidang_kursus as $bk) {
-        //     $bk['pencapaian'] = count($bk->kodkursus);
-        //     $j_pencapaian += count($bk->kodkursus);
-        //     $j_matlamat_kursus+=count($matlamat_kursus->jan);
-        // }
+        foreach ($bidang_kursus as $bk) {
+            $bk['pencapaian'] = count($bk->kodkursus);
+            $j_pencapaian += count($bk->kodkursus);
+        
+            $j_matlamat_kursus=($bk->matlamat_kursus->jan+$bk->matlamat_kursus->feb+$bk->matlamat_kursus->mac+$bk->matlamat_kursus->apr+$bk->matlamat_kursus->mei+$bk->matlamat_kursus->jun+$bk->matlamat_kursus->jul+$bk->matlamat_kursus->ogos+$bk->matlamat_kursus->sept+$bk->matlamat_kursus->okt+$bk->matlamat_kursus->nov+$bk->matlamat_kursus->dis);
 
-        // dd($matlamat_kursus->jan);
+            dd($j_matlamat_kursus);
+
+        }
+
+        $bidang = new BidangKursus();
+        $bidang['j_pencapaian'] = $j_pencapaian;
+        $bidang['data'] = $bidang_kursus;
+
+
+
+
 
         $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_pencapaian_matlamat_kehadiran', [
-            // 'bidang_kursus' => $bidang_kursus,
-            // 'j_pencapaian' => $j_pencapaian,
+            'bidang_kursus' => $bidang_kursus,
+            'j_pencapaian' => $j_pencapaian,
+            'j_matlamat_kursus'=>$j_matlamat_kursus
         ])->setPaper('a4', 'landscape');
 
 
@@ -1414,7 +1423,10 @@ class LaporanLainController extends Controller
 
     public function excel_kehadiran_negeri()
 
-    {   return (new KehadiranNegeriExport())->download('KehadiranMengikutNegeriDun.xlsx');
+    {
+        // $kehadiran = Kehadiran::where
+
+        return (new KehadiranNegeriExport())->download('KehadiranMengikutNegeriDun.xlsx');
         // return view('laporan.laporan_lain.kehadiran.negeri');
     }
 
