@@ -103,7 +103,7 @@ class PeruntukanPesertaController extends Controller
         $jadualKursus = JadualKursus::where('id', $id)->firstorFail();
         $negeri = Negeri::all();
         $pusat_tanggungjawab = PusatTanggungjawab::all();
-        $peruntukan_peserta = PeruntukanPeserta::with(['negeri', 'pusat_tanggungjawab'])->where('pp_jadual_kursus', $jadualKursus->id)->get();
+        $peruntukan_peserta = PeruntukanPeserta::with(['negeri', 'pt'])->where('pp_jadual_kursus', $jadualKursus->id)->get();
         $total_calon = PeruntukanPeserta::where('pp_jadual_kursus', $jadualKursus->id)->sum('pp_peruntukan_calon');
 
         return view('pengurusan_kursus.semak_jadual.peruntukan_peserta',[

@@ -306,7 +306,7 @@ class PermohonanController extends Controller
             'jadual'=>$jadual,
             'aturcara'=>$aturcara,
             'agensi'=>$agensi,
-            'hari_ini' => date("d m Y"),
+            'hari_ini' => date("d/m/Y"),
         ]);
         $surat_tawaran->setPaper('a4', 'potrait');
 

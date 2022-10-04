@@ -189,7 +189,7 @@
                             @else
                             <td>{{date('d/m/Y', strtotime($jk->tarikh_mula))}}</td>
                             @endif
-                            <td>{{$j_pp}}</td>
+                            <td>{{$peruntukan_peserta}}</td>
                             <td>{{ $j_kehadiran }}</td>
                             <td>{{ $j_tidak_hadir }}</td>
                             <td>{{ $jk->bil_pengganti }}</td>

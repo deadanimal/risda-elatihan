@@ -1,5 +1,5 @@
 <title>
-    Laporan Kehadiran Mengikut Pusat Latihan
+    Laporan Kehadiran Mengikut Negeri, Parlimen dan Dun
 </title>
 
 <style type="text/css">
@@ -31,7 +31,7 @@
     table, td,th {
     border: 1px solid;
     font: 10pt "Times New Roman";
-    /* padding: 8px; */ 
+    /* padding: 8px; */
     border-collapse: collapse;
     width: 100%;
 
@@ -145,36 +145,45 @@
 
 
 </style>
-<br><h4>Laporan Kehadiran Mengikut Pusat Latihan</h4>
+<br><h4>Laporan Kehadiran Mengikut Negeri, Parlimen dan Dun</h4>
 
-<div class="table-responsive scrollbar ">
-    <table width="100%">
-    <thead class="risda-bg-g">
-        <tr>
-                <th rowspan="2">PUSAT LATIHAN</th>
-                <th rowspan="2">BILANGAN KURSUS</th>
-                <th colspan="3" >BILANGAN PESERTA</th>
-            </tr>
+                <div>
+                    <table width=100%>
+                        <thead>
+                            <tr>
+                                <th rowspan="3">PAKEJ</th>
+                                <th rowspan="2" colspan="5">MAKLUMAT LOKASI</th>
+                                <th colspan="3">MAKLUMAT FIZIKAL</th>
+                                <th rowspan="3">CATATAN</th>
+                            </tr>
+                            <tr>
+                                <th colspan="2">BIL PESERTA</th>
+                                <th rowspan="2">BIL PESERTA</th>
+                            </tr>
+                            <tr>
+                                <th>NEGERI</th>
+                                <th>BIL</th>
+                                <th>PARLIMEN</th>
+                                <th>BIL</th>
+                                <th>DUN</th>
+                                <th>LELAKI</th>
+                                <th>PEREMPUAN</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($ as $item)
 
-            <tr>
-                <th>LELAKI</th>
-                <th>PEREMPUAN</th>
-                <th>JUMLAH</th>
-        </tr>
-     </thead>
-    <tbody>
-        {{-- @foreach ($pl as $pl) --}}
-        <tr>
-            <td>{{($pl->tempat_kursus?? '-')  }}</td>
-            {{-- {{-- <td>{{($pl->kursus->kursus_nama?? '-') }}</td> --}}
-            <td>{{($j_kursus?? '-')  }}</td> --}}
-            {{-- <td>{{ $pl['t_kursus']}}</td>--}}
-
-        </tr>
-        {{-- @endforeach --}}
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
 
 
-        </tbody>
 
-    </table>
-</div>
+
+    <script>
+        $(document).ready(function() {
+            $("th").addClass('fw-bold text-white');
+        });
+    </script>
+

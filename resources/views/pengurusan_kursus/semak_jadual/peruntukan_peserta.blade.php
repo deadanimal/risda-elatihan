@@ -31,7 +31,7 @@
                     <input type="hidden" name="pp_jadual_kursus" value="{{ $jadualKursus->id }}">
                     <div class="row justify-content-lg-center">
                         <div class="col-lg-10 ">
-        
+
                             <div class="row">
                                 <div class="col-lg-3 p-lg-0">
                                     <label class="col-form-label">NEGERI</label>
@@ -47,7 +47,7 @@
                                     </select>
                                 </div>
                             </div>
-        
+
                             <div class="row mt-2">
                                 <div class="col-lg-3 p-lg-0">
                                     <label class="col-form-label">PUSAT TANGGUNGJAWAB</label>
@@ -62,7 +62,7 @@
                                     </select>
                                 </div>
                             </div>
-        
+
                             <div class="row mt-2">
                                 <div class="col-lg-3 p-lg-0">
                                     <label class="col-form-label">PERUNTUKAN CALON</label>
@@ -71,7 +71,7 @@
                                     <input type="number" class="form-control" name="pp_peruntukan_calon">
                                 </div>
                             </div>
-        
+
                             <div class="row mt-3">
                                 <div class="col text-end">
                                     <button class="btn btn-sm btn-primary" type="submit">
@@ -104,7 +104,7 @@
                                     <tr>
                                         <td>{{ $key + 1 }}.</td>
                                         <td>{{$pp->negeri->Negeri}}</td>
-                                        <td>{{$pp->pusat_tanggungjawab->nama_PT}}</td>
+                                        <td>{{$pp->pt->nama_PT}}</td>
                                         <td>{{ $pp->pp_peruntukan_calon }}</td>
                                         <td>
                                             <button class="btn risda-bg-dg text-white" type="button" data-bs-toggle="modal"

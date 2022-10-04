@@ -407,7 +407,7 @@ Route::middleware('auth')->group(function () {
             Route::prefix('laporan-lain')->group(function () {
 
                 Route::get('laporan-pencapaian-matlamat-kehadiran', [LaporanLainController::class, 'pencapaian_matlamat_kehadiran']);
-                Route::get('pdf-laporan-pencapaian-matlamat-kehadiran', [LaporanLainController::class, 'pdf_pencapaian_matlamat_kehadiran']);
+                Route::get('laporan-pencapaian-matlamat-kehadiran-pdf', [LaporanLainController::class, 'pdf_pencapaian_matlamat_kehadiran'])->name('pdf_pmk');
                 Route::get('/pmk', [LaporanLainController::class, 'pmk'])->name('pmk');
 
                 Route::get('laporan-perbelanjaan-mengikut-pusat-tanggungjawab', [LaporanLainController::class, 'perbelanjaan_mengikut_pusat_tanggungjawab']);
@@ -531,6 +531,16 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('ulpk')->group(function () {
 
+            //laporan-lain
+            Route::prefix('laporan-lain')->group(function () {
+
+                Route::get('senarai-kursus', [LaporanLainController::class, 'senarai_kursus_ulpk']);
+                Route::get('laporan-penilaian-prepost/{id}', [LaporanLainController::class, 'laporan_penilaian_prepost_show']);
+                Route::get('laporan-penilaian-prepost-pdf/{id}', [LaporanLainController::class, 'pdf_laporan_penilaian_prepost_ulpk'])->name('pdf_pretest_ulpk');
+                Route::get('laporan-penilaian-prepost-excel/{id}', [LaporanLainController::class, 'excel_laporan_penilaian_prepost_ulpk'])->name('excel_pretest_');
+
+            });
+
             // kemajuan_latihan
             Route::prefix('laporan-kemajuan-latihan')->group(function () {
                 Route::get('mengikut-bidang', [LaporanLainController::class, 'laporan_kemajuan_latihan_bidang']);
@@ -570,6 +580,8 @@ Route::middleware('auth')->group(function () {
                 Route::get('mengikut-negeri-parlimen-dun-pdf', [LaporanLainController::class, 'pdf_kehadiran_negeri']);
                 Route::get('mengikut-negeri-parlimen-dun-excel', [LaporanLainController::class, 'excel_kehadiran_negeri']);
             });
+
+
 
             // perbelanjaan
             Route::prefix('laporan-perbelanjaan')->group(function () {

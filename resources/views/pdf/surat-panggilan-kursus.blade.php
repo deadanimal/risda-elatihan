@@ -1,11 +1,15 @@
 <head>
     <title>Surat Panggilan Ke Kursus {{$jadual->kursus_nama}}</title>
-</head>
 
 <style type="text/css">
     /* define a few different page types we can refer to from CSS classes */
     /* see http://www.princexml.com/doc/page-size/ */
+    table, td,th {
+    border: 1px solid;
+    /* padding: 8px; */
+    border-collapse: collapse;
 
+    }
 
     @page portrait {
       size: A4 portrait;
@@ -180,10 +184,10 @@
                     <th> Tarikh</th>
                     <th>:</th>
                     @if ($jadual->bilangan_hari=="1")
-                    <td style="text-transform: capitalize">{{$jadual->tarikh_mula}}
+                    <td style="text-transform: capitalize">{{date('d-m-Y H:i', strtotime($jadual->tarikh_mula))}}
 
                      @else
-                    <td style="text-transform: capitalize">{{$jadual->tarikh_mula}} hingga {{$jadual->tarikh_tamat}}</td>
+                    <td style="text-transform: capitalize">{{date('d-m-Y H:i', strtotime($jadual->tarikh_mula))}} hingga {{date('d-m-Y H:i', strtotime($jadual->tarikh_tamat))}}</td>
 
                     @endif
                 </tr>
@@ -257,19 +261,19 @@
         @if ($jadual->bilangan_hari=="1")
             <h3 style="text-transform: uppercase">PADA {{date('d-m-Y', strtotime($jadual->tarikh_mula))}}</h3>
          @else
-            <h3 style="text-transform: uppercase">PADA {{date('d-m-Y', strtotime($jadual->tarikh_mula))}} hingga  {{date('d-m-Y', strtotime($jadual->tarikh_tamat))}}</h3>
+            <h3 style="text-transform: uppercase">PADA {{date('d-m-Y', strtotime($jadual->tarikh_mula))}} HINGGA  {{date('d-m-Y', strtotime($jadual->tarikh_tamat))}}</h3>
         @endif
 
 
         <h3 style="text-transform: uppercase">TEMPAT: {{$jadual->tempat->nama_Agensi}}</h3>
 
-        {{-- <table>
+        <table>
             <tr>
                 <td> NEGERI</td>
-                <td>PT @ PRJ </td>
+                <td> PUSAT TANGGUNGJAWAB </td>
                 <td> KUOTA PESERTA/PERKURSUS</td>
             </tr>
-            @foreach ($ptj as $ptj)
+            {{-- @foreach ($ptj as $ptj)
 
             <tr>
 
@@ -278,8 +282,8 @@
                 <td>{{$ptj->pp_peruntukan_calon}}</td>
             </tr>
 
-                @endforeach
-        </table> --}}
+                @endforeach --}}
+        </table>
         <footer>
         <hr>
        MEMACU MASYARAKAT PEKEBUN KECIL MAKMUR DARIPADA SUMBER KOMODITI DAN HASIL BAHARU BERLANDASKAN REVOLUSI PERINDUSTRIAN DIGITAL SERTA TEKNOLOGI HIJAU. </footer>
