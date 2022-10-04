@@ -1,165 +1,138 @@
 
   <head>
     <title>Surat Tawaran Kursus {{$jadual->kursus_nama}}</title>
-</head>
-
-<style type="text/css">
-    /* define a few different page types we can refer to from CSS classes */
-    /* see http://www.princexml.com/doc/page-size/ */
+    <style type="text/css">
+        /* define a few different page types we can refer to from CSS classes */
+        /* see http://www.princexml.com/doc/page-size/ */
 
 
+        @page portrait {
+          size: A4 portrait;
+          margin: 3cm;
+        }
 
-
-
-    @page portrait {
-      size: A4 portrait;
-      margin: 10px;
-    }
-
-
-    /* .page_break {
-      page-break-before: always
-    } */
-
-    body{
-        margin-left: 2em;
-            margin-right: 1em;
-    }
+        .page_break {
+            page-break-before: always;
+            margin-top: 30px;
+        }
 
 
 
-
-    *{
-            font: 12pt "Times New Roman";
-            line-height: 1.25;
-
-            margin-top: 10px;
-
-
-     }
-
-     .justify{
-        text-align: justify;
-     }
+        *{
+                font: 12pt "Times New Roman";
+                line-height: 1.5;
+                margin-right: 20px;
+                margin-top: 10px;
 
 
-    .right {
-        position: absolute;
-        right: 0px;
+         }
 
-    }
-
-    .left {
-        position: absolute;
-        right: 0px;
-    }
-
-    small{
-        font: 8pt;
-        line-height: 1.0;
-    }
-
-    .column-center {
-        float: left;
-        width: 80%;
-        height: auto;
-        text-align: left;
-        line-height: 1.0;
-
-        /* Should be removed. Only for demonstration */
-    }
-    .column-side {
-        float: left;
-        width: 10%;
-        height: auto;
-        text-align: left;
-        font-size: 10pt;
-
-        /* Should be removed. Only for demonstration */
-    }
-    .column-side2 {
-        margin-top: 30px;
-        float: right;
-        width: 10%;
-        padding: 10px;
-        height: auto;
-        /* Should be removed. Only for demonstration */
-    }
-
-    .row:after {
-        content: "";
-        display: table;
-        clear: both;
-        padding-top: 0px;
-    }
-
-    .table-clear{
-        padding:20px;
-        /* padding-top: 5px;
-        padding-bottom:5px;
-        padding-left: 0px;
-        padding-right: 5px; */
-    }
+        th{
+            text-align: justify;
+         }
 
 
+        .right {
+            position: absolute;
+            right: 0px;
 
-    /* footer {
-        page-break-after: always;
-        position: fixed;
-        height: 2em;
-        bottom: 0;
-        width: 100%;
-        color: white;
-        text-align: center;
-        margin-left: 20px;
-        margin-right: 20px;
-        text-transform: uppercase;
-        font-weight: bold;
-    } */
+        }
 
-    /* footer {
-        position: fixed;
-        height: 2em;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        padding-right: 1.5cm;
-        padding-left: 1.5cm;
-        margin-left: 20px;
-            margin-right: 20px;
-        } */
+        .left {
+            position: absolute;
+            right: 0px;
+        }
+
+        small{
+            font: 8pt;
+            line-height: 1.0;
+        }
+
+        .column-center {
+            float: left;
+            width: 80%;
+            height: auto;
+            text-align: left;
+            line-height: 1.0;
+
+            /* Should be removed. Only for demonstration */
+        }
+        .column-side {
+            float: left;
+            width: 10%;
+            height: auto;
+            text-align: left;
+            font-size: 10pt;
+
+            /* Should be removed. Only for demonstration */
+        }
+        .column-side2 {
+            margin-top: 30px;
+            float: right;
+            width: 10%;
+            padding: 10px;
+            height: auto;
+            /* Should be removed. Only for demonstration */
+        }
+
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+            padding-top: 0px;
+        }
+
+        .table-clear{
+            padding-top: 5px;
+            padding-bottom: 5px;
+            /* padding-left: 0px; */
+            /* padding-right: 5px; */
+        }
+
+
 
         footer {
-        /* page-break-after: always; */
-        /* position: absolute; */
-        position: fixed;
-        height: 2em;
-        bottom: 0;
-        text-align: justify;
-        text-transform: uppercase;
-        /* font-weight: bold; */
-        font-size: 9pt;
-        margin-left: 20px;
-        margin-right: 20px;
-    }
+            /* page-break-after: always; */
+            position: fixed;
+            height: 5em;
+            bottom: 0;
+            text-align: justify;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 9pt;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
 
-    footer {
-        clear: both;
-        width: 90%;
-        height: 100px;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin-left: auto;
-        margin-right: auto;
-    }
+        hr{
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        tr {
+            padding-bottom: 1em;
+            }
 
 
+        sup{
+                vertical-align: super;
+                font-size: smaller;
+            }
+
+            p,h5,h3,h4{
+                margin-left: 20px;
+            text-align: justify;
+
+            }
+
+            li{
+                margin-left: 40px;
+            }
 
 
 
-</style>
+    </style>
 <body>
     <p class="portrait">
         <div class="row" style="text-align: center">
@@ -198,17 +171,17 @@
 
         <p>Dengan segala hormatnya, perkara di atas adalah dirujuk.</p>
 
-        <p class="justify"> 2. Sukacita dimaklumkan bahawa, Pihak Pengurusan RISDA telah mencalonkan tuan untuk mengikuti kursus tersebut. Maklumat kursus adalah seperti ketetapan berikut:</p>
-            <p> <table width=100% class="table-clear" style="margin-left:90px">
+        <p> 2. Sukacita dimaklumkan bahawa, Pihak Pengurusan RISDA telah mencalonkan tuan untuk mengikuti kursus tersebut. Maklumat kursus adalah seperti ketetapan berikut:</p>
+             <table width=100% class="table-clear" style="margin-left:20px">
 
-                <tr>
+               <tr>
                     <td> Tarikh</td>
                     <td>:</td>
-                    
+
                     @if($jadual->bilangan_hari=="1")
-                    <td>{{date('d-m-Y', strtotime($jadual->tarikh_mula))}}</td>
+                    <td>{{date('d/m/Y', strtotime($jadual->tarikh_mula))}}</td>
                     @else
-                    <td>{{date('d-m-Y', strtotime($jadual->tarikh_mula))}} hingga {{date('d-m-Y', strtotime($jadual->tarikh_tamat))}}</td>
+                    <td>{{date('d/m/Y', strtotime($jadual->tarikh_mula))}} hingga {{date('d/m/Y', strtotime($jadual->tarikh_tamat))}}</td>
 
                     @endif
 
@@ -219,8 +192,8 @@
                     <td style="align:top">Tempat Kursus & Penginapan</td>
                     <td>:</td>
                     <td>{{$agensi->nama_Agensi}}
-                        <br> {{$agensi->alamat_Agensi_baris1}},{{$agensi->poskod}}  {{$agensi->daerah->Daerah}}
-                        <br> {{$agensi->negeri->Negeri}}</td>
+                        <br> {{$agensi->alamat_Agensi_baris1}},{{$agensi->poskod}}  {{($agensi->daerah->Daerah ?? '-') }}
+                        <br> {{($agensi->negeri->Negeri?? '-') }}</td>
                 </tr>
                 <tr>
                     <td> Kehadiran</td>

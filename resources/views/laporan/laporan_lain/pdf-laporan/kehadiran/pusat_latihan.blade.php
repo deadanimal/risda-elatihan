@@ -31,7 +31,7 @@
     table, td,th {
     border: 1px solid;
     font: 10pt "Times New Roman";
-    /* padding: 8px; */
+    /* padding: 8px; */ 
     border-collapse: collapse;
     width: 100%;
 

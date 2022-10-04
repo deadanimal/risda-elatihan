@@ -28,10 +28,10 @@ class PusatTanggungjawab extends Model
     }
 
     public function peruntukanpeserta(){
-        return $this->hasMany(PeruntukanPeserta::class,'id','pp_pusat_tanggungjawab');
+        return $this->hasMany(PeruntukanPeserta::class,'kod_PT','pp_pusat_tanggungjawab');
     }
 
- 
+
 
 
 }
