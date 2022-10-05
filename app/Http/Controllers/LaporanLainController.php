@@ -29,6 +29,7 @@ use App\Exports\PerbelanjaanKategoriExport;
 use App\Exports\PerbelanjaanMengikutLExport;
 use App\Exports\PerbelanjaanMengikutPTExport;
 use App\Exports\PrePostTestExport;
+use App\Exports\PrepostUlpkExport;
 use App\Exports\PrestasiKehadiranExport;
 use App\Exports\RingkasanPenceramahExport;
 use App\Models\Agensi;
@@ -900,7 +901,7 @@ $peratusan_kehadiran = 0;
         // $post_test =PostTest::with
 
         // dd($pretest);
-              return view('laporan.laporan_lain.penilaian.laporan-penilaian-prepost-show',[
+              return view('laporan.laporan_lain.penilaian.laporan-penilaian-prepost-ulpk',[
             'kursus'=>$kursus,
             'pretest'=>$pretest,
             'posttest'=>$posttest
@@ -909,14 +910,16 @@ $peratusan_kehadiran = 0;
 
     public function excel_laporan_penilaian_prepost_ulpk()
     {
-        return (new PrePostTestExport())->download('Penilaian Pre Test dan Post Test.xlsx');
+        return (new PrepostUlpkExport())->download('Penilaian Pre Test dan Post Test.xlsx');
 
     }
 
     public function pdf_laporan_penilaian_prepost_ulpk($id)
     {
         $kursus = JadualKursus::find($id);
+
         $pretest = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->where('jenis_penilaian','1')->get();
+
         $posttest = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->where('jenis_penilaian','2')->get();
 
         $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.penilaian.laporan-penilaian-prepost',[
@@ -926,7 +929,7 @@ $peratusan_kehadiran = 0;
 
         ])->setPaper('a4', 'landscape');
 
-        return $pdf->stream('Laporan Penilaian Pre Test dan Post Test.'.'pdf');
+        return $pdf->stream('Laporan Penilaian Pre Test dan Post Test (ULPK).'.'pdf');
 
 
     }
