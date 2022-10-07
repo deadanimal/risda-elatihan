@@ -110,7 +110,7 @@ class LaporanLainController extends Controller
 
             $j_matlamat_kursus=($bk->matlamat_kursus->jan+$bk->matlamat_kursus->feb+$bk->matlamat_kursus->mac+$bk->matlamat_kursus->apr+$bk->matlamat_kursus->mei+$bk->matlamat_kursus->jun+$bk->matlamat_kursus->jul+$bk->matlamat_kursus->ogos+$bk->matlamat_kursus->sept+$bk->matlamat_kursus->okt+$bk->matlamat_kursus->nov+$bk->matlamat_kursus->dis);
 
-            dd($j_matlamat_kursus);
+            // dd($j_matlamat_kursus);
 
         }
 
@@ -331,39 +331,6 @@ $peratusan_kehadiran = 0;
     }
 
 
-
-
-    // public function pdf_prestasi_kehadiran()
-    // {
-        // $bidang_kursus = BidangKursus::with('kodkursus')->get();
-        // $j_kehadiran =0;
-
-        // foreach($bidang_kursus as $bk){
-        //     $kehadiran = Kehadiran::where('status_kehadiran','HADIR')->orWhere('status_kehadiran_ke_kursus','HADIR')->get();
-
-        //     $j_kehadiran += count($bk->kehadiran);
-        // }
-
-
-        // $bidang_kursus['j_kehadiran'] = $j_kehadiran;
-        // // $bidang['data'] = $bidang_kursus;
-
-
-
-        // $peruntukan_peserta = PeruntukanPeserta::where('')
-
-
-    //     $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_prestasi_kehadiran_peserta', [
-    //         'bidang_kursus' => $bidang_kursus,
-    //         'j_kehadiran' =>$j_kehadiran
-    //     ])->setPaper('a4', 'landscape');
-
-
-
-
-    //     return $pdf->stream('Laporan Prestasi Kehadiran Peserta.' . 'pdf');
-    // }
-
     public function pkp()
     {
         return (new PrestasiKehadiranExport())->download('Laporan Prestasi Kehadiran Peserta.xlsx');
@@ -563,32 +530,6 @@ $peratusan_kehadiran = 0;
             'kursus'=>$kursus
         ]);
     }
-
-    // public function pdf_laporan_kewangan_terperinci()
-    // {
-    //     // $kehadiran = Kehadiran::with(['kursus'])->where('status_kehadiran_ke_kursus','HADIR')->get();
-    //     // $jumlah_kehadiran = 0;
-    //     // $jumlah_kehadiran+=count($kehadiran );
-
-    //     // foreach($kehadiran as $k){
-    //     //     $kehadiran = Kehadiran::where('jadual_kursus_id',$k->id)->where('status_kehadiran_ke_kursus','HADIR')->get();
-    //     // }
-
-    //     $kursus = JadualKursus::with(['bidang','tempat','pengendali'])->where('kursus_status','1')->get();
-    //     $j_kehadiran = 0;
-    //     $kehadiran = 0;
-    //     // dd($kursus);
-
-    //     // foreach ($kursus as $ku) {
-    //     //     $pk=PerbelanjaanKursus::where('jadualkursus_id', $ku->id)->first();
-    //     //     $hadir = Kehadiran::where('jadual_kursus_id', $ku->id)->get();
-
-    //     //     $j_kehadiran +=count($hadir);
-    //     // }
-
-    //     // echo  '__'.$j_kehadiran;
-    // }
-
 
     public function pdf_laporan_kewangan_terperinci()
     {
@@ -896,15 +837,55 @@ $peratusan_kehadiran = 0;
      public function laporan_penilaian_prepost_ulpk($id)
     {
         $kursus = JadualKursus::find($id);
-        $pretest = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->where('jenis_penilaian','1')->get();
-        $posttest = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->where('jenis_penilaian','2')->get();
-        // $post_test =PostTest::with
 
-        // dd($pretest);
+        $tot_peserta  = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->distinct('user_id')->count();
+
+
+        $pretest = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->where('jenis_penilaian','1')->get();
+
+        $j_cemerlang_pre = 0;
+        $j_cemerlang_post = 0;
+        $j_lulus_pre= 0;
+        $j_lulus_post = 0;
+        $j_gagal_pre = 0;
+        $j_gagal_post = 0;
+
+        foreach($pretest as $pre){
+            if($pre->markah>61){
+                $j_cemerlang_pre++;
+            }
+           elseif(($pre->markah>=50)&&($pre->markah<=61)){
+                $j_lulus_pre++;
+            }
+            else{
+                $j_gagal_pre++;
+            }
+        }
+
+        $posttest = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->where('jenis_penilaian','2')->get();
+
+        foreach($posttest as $post){
+            if($post->markah>61){
+                $j_cemerlang_post++;
+            }
+            elseif(($post->markah>=50)&&($post->markah<=61)){
+                $j_lulus_post++;
+            }
+            else{
+                $j_gagal_post++;
+            }
+        }
               return view('laporan.laporan_lain.penilaian.laporan-penilaian-prepost-ulpk',[
-            'kursus'=>$kursus,
-            'pretest'=>$pretest,
-            'posttest'=>$posttest
+                'kursus'=>$kursus,
+                'pretest'=>$pretest,
+                'posttest'=>$posttest,
+                'j_cemerlang_pre'=>$j_cemerlang_pre,
+                'j_cemerlang_post'=>$j_cemerlang_post,
+                'j_lulus_pre'=>$j_lulus_pre,
+                'j_lulus_post'=>$j_lulus_post,
+                'j_gagal_pre'=>$j_gagal_pre,
+                'j_gagal_post'=>$j_gagal_post,
+                'tot_peserta'=>$tot_peserta
         ]);
     }
 
@@ -918,16 +899,60 @@ $peratusan_kehadiran = 0;
     {
         $kursus = JadualKursus::find($id);
 
+        $tot_peserta  = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->distinct('user_id')->count();
+
+
         $pretest = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->where('jenis_penilaian','1')->get();
+
+        $j_cemerlang_pre = 0;
+        $j_cemerlang_post = 0;
+        $j_lulus_pre= 0;
+        $j_lulus_post = 0;
+        $j_gagal_pre = 0;
+        $j_gagal_post = 0;
+
+        foreach($pretest as $pre){
+            if($pre->markah>61){
+                $j_cemerlang_pre++;
+            }
+           elseif(($pre->markah>=50)&&($pre->markah<=61)){
+                $j_lulus_pre++;
+            }
+            else{
+                $j_gagal_pre++;
+            }
+        }
 
         $posttest = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->where('jenis_penilaian','2')->get();
 
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.penilaian.laporan-penilaian-prepost',[
+        foreach($posttest as $post){
+            if($post->markah>61){
+                $j_cemerlang_post++;
+            }
+            elseif(($post->markah>=50)&&($post->markah<=61)){
+                $j_lulus_post++;
+            }
+            else{
+                $j_gagal_post++;
+            }
+        }
+
+        // dd($tot_peserta );
+
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.penilaian.laporan-penilaian-prepost-ulpk',[
             'kursus'=>$kursus,
             'pretest'=>$pretest,
             'posttest'=>$posttest,
+            'j_cemerlang_pre'=>$j_cemerlang_pre,
+            'j_cemerlang_post'=>$j_cemerlang_post,
+            'j_lulus_pre'=>$j_lulus_pre,
+            'j_lulus_post'=>$j_lulus_post,
+            'j_gagal_pre'=>$j_gagal_pre,
+            'j_gagal_post'=>$j_gagal_post,
+            'tot_peserta'=>$tot_peserta
 
-        ])->setPaper('a4', 'landscape');
+
+        ])->setPaper('a4', 'potrait');
 
         return $pdf->stream('Laporan Penilaian Pre Test dan Post Test (ULPK).'.'pdf');
 
@@ -949,15 +974,98 @@ $peratusan_kehadiran = 0;
     public function laporan_penilaian_prepost_show($id)
     {
         $kursus = JadualKursus::find($id);
+        $tot_peserta  = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->distinct('user_id')->count();
+
+
         $pretest = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->where('jenis_penilaian','1')->get();
+
+        $j_cemerlang_pre = 0;
+        $j_cemerlang_post = 0;
+        $j_lulus_pre= 0;
+        $j_lulus_post = 0;
+        $j_gagal_pre = 0;
+        $j_gagal_post = 0;
+
+        foreach($pretest as $pre){
+            if($pre->markah>61){
+                $j_cemerlang_pre++;
+            }
+           elseif(($pre->markah>=50)&&($pre->markah<=61)){
+                $j_lulus_pre++;
+            }
+            else{
+                $j_gagal_pre++;
+            }
+        }
+
         $posttest = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->where('jenis_penilaian','2')->get();
-        // $post_test =PostTest::with
+
+        //====
+        $arr = [];
+
+        foreach($pretest as $pre){
+            $arr[$pre->user_id]['pretest'] = $pre->markah;
+            $arr[$pre->user_id]['nama'] = $pre->peserta->name;
+        }
+
+        foreach($posttest as $post){
+            $arr[$post->user_id]['posttest'] = $post->markah;
+
+        }
+        // dd($arr);
+        // $arr = [
+        //     '20200' => [
+        //         'nama'=>'abc',
+        //         'pretest'=>100,
+        //         'posttest'=>50
+        //     ],
+        //     '20201' => [
+        //         'nama'=>'abc',
+        //         'pretest'=>100,
+        //         'posttest'=>50
+        //     ],
+        //     '20202' => [
+        //         'nama'=>'abc',
+        //         'pretest'=>100,
+        //         'posttest'=>50
+        //     ],
+        // ];
+
+        //di blade
+        // foreach($arr as $a){
+        //     echo "pretest".$a['pretest'];
+        //     echo "posttest".$a['posttest'];
+        // }
+
+        //====
+
+        foreach($posttest as $post){
+            if($post->markah>61){
+                $j_cemerlang_post++;
+            }
+            elseif(($post->markah>=50)&&($post->markah<=61)){
+                $j_lulus_post++;
+            }
+            else{
+                $j_gagal_post++;
+            }
+        }
+
 
         // dd($pretest);
               return view('laporan.laporan_lain.penilaian.laporan-penilaian-prepost-show',[
-            'kursus'=>$kursus,
-            'pretest'=>$pretest,
-            'posttest'=>$posttest
+                'kursus'=>$kursus,
+                'pretest'=>$pretest,
+                'posttest'=>$posttest,
+                'j_cemerlang_pre'=>$j_cemerlang_pre,
+                'j_cemerlang_post'=>$j_cemerlang_post,
+                'j_lulus_pre'=>$j_lulus_pre,
+                'j_lulus_post'=>$j_lulus_post,
+                'j_gagal_pre'=>$j_gagal_pre,
+                'j_gagal_post'=>$j_gagal_post,
+                'tot_peserta'=>$tot_peserta,
+                'arr'=>$arr
+
         ]);
     }
     public function excel_laporan_penilaian_prepost_show()
@@ -969,13 +1077,55 @@ $peratusan_kehadiran = 0;
     public function pdf_laporan_penilaian_prepost_show($id)
     {
         $kursus = JadualKursus::find($id);
+        $tot_peserta  = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->distinct('user_id')->count();
+
+
         $pretest = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->where('jenis_penilaian','1')->get();
+
+        $j_cemerlang_pre = 0;
+        $j_cemerlang_post = 0;
+        $j_lulus_pre= 0;
+        $j_lulus_post = 0;
+        $j_gagal_pre = 0;
+        $j_gagal_post = 0;
+
+        foreach($pretest as $pre){
+            if($pre->markah>61){
+                $j_cemerlang_pre++;
+            }
+           elseif(($pre->markah>=50)&&($pre->markah<=61)){
+                $j_lulus_pre++;
+            }
+            else{
+                $j_gagal_pre++;
+            }
+        }
+
         $posttest = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->where('jenis_penilaian','2')->get();
 
+        foreach($posttest as $post){
+            if($post->markah>61){
+                $j_cemerlang_post++;
+            }
+            elseif(($post->markah>=50)&&($post->markah<=61)){
+                $j_lulus_post++;
+            }
+            else{
+                $j_gagal_post++;
+            }
+        }
         $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.penilaian.laporan-penilaian-prepost',[
             'kursus'=>$kursus,
             'pretest'=>$pretest,
             'posttest'=>$posttest,
+            'j_cemerlang_pre'=>$j_cemerlang_pre,
+            'j_cemerlang_post'=>$j_cemerlang_post,
+            'j_lulus_pre'=>$j_lulus_pre,
+            'j_lulus_post'=>$j_lulus_post,
+            'j_gagal_pre'=>$j_gagal_pre,
+            'j_gagal_post'=>$j_gagal_post,
+            'tot_peserta'=>$tot_peserta
+
 
         ])->setPaper('a4', 'landscape');
 

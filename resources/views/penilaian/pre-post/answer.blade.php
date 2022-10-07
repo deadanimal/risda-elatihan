@@ -47,7 +47,7 @@
                 </div>
             </div>
 
-            @if($permohonan->jadual->kursus_masa_mula_pre_post_test!=null)
+            @if(($permohonan->dinilai_pre==null)&&($permohonan->jadual->kursus_masa_mula_pre_post_test!=null))
 
             <div class="row mt-5">
                 <div class="col-12 text-center">

@@ -207,6 +207,7 @@ class PostTestController extends Controller
     {
         // $jadual_kursus = PostTest::where('jadual_kursus_id', $id)->get();
         // dd($jadual_kursus);
+        
         return view('penilaian.post.answer2', [
             'jadual_kursus' => $jadual_kursus,
         ]);
