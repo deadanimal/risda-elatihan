@@ -1,8 +1,7 @@
 <div class="table-responsive scrollbar ">
     <table class="table text-center table-bordered datatable " border-color: #00B64E;">
         <thead class="risda-bg-g" style="vertical-align: middle">
-
-            <tr>
+           <tr>
                 <th rowspan="2">BIL.</th>
                 <th rowspan="2">NAMA PESERTA</th>
                 <th colspan="2">KEPUTUSAN PENILAIAN (%)</th>
@@ -13,30 +12,28 @@
                 <th>POST TEST</th>
             </tr>
         </thead>
+
         <tbody>
-           @foreach($arr as $a=>$v){
-                {{-- echo "pretest".$a['pretest'];
-                echo "posttest".$a['posttest'];
-            } --}}
+            @foreach ($pretest as $pretest)
+                @foreach ($posttest as $posttest)
             <tr>
                 <td>{{$loop->iteration}}.</td>
-                <td>{{$v['nama']}}</td>
-                {{-- <td>{{$a['pretest']->name}}}}</td> --}}
-                {{-- @if($pre==null)
+                <td>{{$posttest->peserta->name}}</td>
+                @if($pretest==null)
                     <td style="text-align: center">-</td>
-                @else --}}
-                    <td style="text-align: center">{{$v['pretest']}}</td>
-                {{-- @endif --}}
+                @else
+                    <td style="text-align: center">{{$pretest->markah}}</td>
+                @endif
 
-                {{-- @if($post==null)
+                @if($posttest==null)
                     <td style="text-align: center">-</td>
-                @else --}}
-                    <td style="text-align: center">{{$v['posttest']}}</td>
+                @else
+                    <td style="text-align: center">{{$posttest->markah}}</td>
 
-                {{-- @endif --}}
+                @endif
 
             </tr>
-                {{-- @endforeach --}}
+                @endforeach
             @endforeach
 
             <tr>

@@ -48,14 +48,14 @@
             </div>
 
             {{-- @if(($hari_ini>=$aturcara_first->ac_masa_mula)&&($hari_ini < $aturcara_last->ac_masa_tamat)) --}}
-
+            @if(($permohonan->dinilai_post==null)&&($permohonan->jadual->kursus_masa_mula_pre_post_test!=null))
             <div class="row mt-5">
                 <div class="col-12 text-center">
                     <a href="/penilaian/mula-penilaian-post-test/{{ $permohonan->jadual->id }}" class="btn btn-primary">Mula Penilaian</a>
                 </div>
             </div>
 
-            {{-- @else
+            @else
 
             <div class="row mt-5">
                 <div class="col-12 text-center">
@@ -65,7 +65,7 @@
 
 
 
-            @endif --}}
+            @endif
 
         </div>
     </div>

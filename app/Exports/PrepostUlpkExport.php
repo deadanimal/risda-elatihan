@@ -9,7 +9,7 @@ use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromView;
 // use Maatwebsite\Excel\Concerns\FromCollection;
 
-class PrePostTestExport implements FromView
+class PrepostUlpkExport implements FromView
 {
     use Exportable;
 
@@ -25,6 +25,8 @@ class PrePostTestExport implements FromView
     public function view(): View
     {
             $kursus = $this->collection('id');
+
+
             $tot_peserta  = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->distinct('user_id')->count();
 
 
@@ -63,7 +65,7 @@ class PrePostTestExport implements FromView
                 }
             }
 
-            return view( 'laporan.laporan_lain.excel.penilaian.laporan-penilaian-prepost', [
+            return view( 'laporan.laporan_lain.excel.penilaian.laporan-penilaian-prepost-ulpk', [
                 'kursus'=>$kursus,
                 'pretest'=>$pretest,
                 'posttest'=>$posttest,
