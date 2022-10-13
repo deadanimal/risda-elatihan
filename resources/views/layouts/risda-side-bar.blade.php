@@ -1103,12 +1103,12 @@
                                     </div>
                                 </a>
 
-                                <ul class="nav-item collapse {{ Request::is('laporan/uls/laporan-lain/*') ? 'show' : 'false' }} my-1"
+                                <ul class="nav-item collapse {{ Request::is('laporan/ulpk/laporan-lain/*') ? 'show' : 'false' }} my-1"
                                     id="laporan-lain-ulpk">
 
                                     <li class="nav-item">
                                         <a class="nav-link {{ Request::is('laporan/ulpk/laporan-lain/laporan-penilaian-ejen-pelaksana') ? 'active' : '' }} py-0"
-                                            href="laporan/ulpk/laporan-lain/laporan-penilaian-ejen-pelaksana">
+                                            href="/laporan/ulpk/laporan-lain/laporan-penilaian-ejen-pelaksana">
                                             <div class="d-flex align-items-center nav-link-side">
                                                 <span class="px-0">Laporan Penilaian Ejen Pelaksana</span>
                                             </div>
@@ -1117,7 +1117,7 @@
 
                                     <li class="nav-item">
                                         <a class="nav-link {{ Request::is('laporan/ulpk/laporan-lain/senarai-kursus') ? 'active' : '' }} py-0"
-                                            href="laporan/ulpk/laporan-lain/senarai-kursus">
+                                            href="/laporan/ulpk/laporan-lain/senarai-kursus">
                                             <div class="d-flex align-items-center nav-link-side">
                                                 <span class="px-0">Laporan Penilaian Pre Test & Post Test</span>
                                             </div>
@@ -1231,8 +1231,10 @@
                                         </a>
                                     </li>
 
+
+
                                     <li class="nav-item">
-                                        <a class="nav-link {{ Request::is('laporan/uls/laporan-lain/laporan-penilaian-kursus') ? 'active' : '' }} py-0"
+                                        <a class="nav-link {{ Request::is('laporan/uls/laporan-lain/laporan-penilaian-kursus/{id}') ? 'active' : '' }} py-0"
                                             href="/laporan/uls/laporan-lain/laporan-penilaian-kursus">
                                             <div class="d-flex align-items-center nav-link-side">
                                                 <span class="px-0">Laporan Penilaian Kursus</span>
@@ -1241,7 +1243,7 @@
                                     </li>
 
                                     <li class="nav-item">
-                                        <a class="nav-link {{ Request::is('laporan/uls/laporan-lain/senarai-kursus') ? 'active' : '' }} py-0"
+                                        <a class="nav-link {{ Request::is('/laporan/uls/laporan-lain/laporan-penilaian-prepost/{id}') ? 'active' : '' }} py-0"
                                             href="/laporan/uls/laporan-lain/senarai-kursus">
                                             <div class="d-flex align-items-center nav-link-side">
                                                 <span class="px-0">Laporan Penilaian Pre Test dan Post Test</span>

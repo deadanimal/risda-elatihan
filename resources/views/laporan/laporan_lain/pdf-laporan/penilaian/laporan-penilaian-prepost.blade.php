@@ -2,9 +2,16 @@
     <title> Laporan Penilaian Pre Test dan Post Test</title>
     <style>
 
+        table,th,td {
+                    border: 1px solid;
+                    border-collapse: collapse;
+                    padding: 8px;
+            font: 9pt "Times New Roman";
+
+        }
+
         *{
-                line-height: 1.5;
-                /* margin: 20px; */
+
                 margin-right: 20px;
                 margin-left: 20px;
                 margin-top: 20px;
@@ -14,22 +21,13 @@
              text-align: center;
          }
 
-         p,b{
-            font: 12pt "Times New Roman";
+         p{
+            font: 8pt "Times New Roman";
          }
 
 
 
-        table, td, th {
-        border: 1px solid;
-        font: 12pt "Times New Roman";
-        /* table-layout: fixed; */
-        /* width: 100%; */
-        /* text-align: center; */
-        padding: 8px;
-        border-collapse: collapse;
 
-        }
         </style>
 
 
@@ -37,7 +35,7 @@
 
 
     <div>
-    <table width="100%">
+    <table style="width: 100%">
         <thead>
 
             <tr>
@@ -52,44 +50,50 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($pretest as $pretest)
-            @foreach ($posttest as $posttest)
+            @foreach($arr as $a=>$v)
+             <tr style="text-align: center" >
+                 <td>{{$loop->iteration}}.</td>
+                 <td>{{$v['nama']}}</td>
+                 {{-- <td>{{$a['pretest']->name}}}}</td> --}}
+                 @if(!isset($v['pretest']))
+                     <td style="text-align: center">-</td>
+                 @else
+                     <td style="text-align: center">{{$v['pretest']}}</td>
+                 @endif
 
-            <tr>
-                <td>{{$loop->iteration}}</td>
-                <td>{{$pretest->peserta->name}}</td>
-                <td style="text-align: center;">{{$pretest->markah}}</td>
-                <td style="text-align: center;">{{$posttest->markah}}</td>
+                 @if(!isset($v['posttest']))
 
+                     <td style="text-align: center">-</td>
+                 @else
+                     <td style="text-align: center">{{$v['posttest']}}</td>
 
-            </tr>
-            @endforeach
-            @endforeach
+                 @endif
 
-            <tr>
+             </tr>
+             @endforeach
 
-                <td colspan="2"><b>BILANGAN PESERTA MENDAPAT MARKAH MELEBIHI 61%</b></td>
-                <td ></td>
-                <td ></td>
-            </tr>
-            <tr>
-                <td colspan="2"><b>JUMLAH KESELURUHAN PESERTA</b></td>
-                <td ></td>
-                <td ></td>
-            </tr>
-            <tr>
-                <td colspan="2"><b>PERATUSAN LULUS</b></td>
-                <td ></td>
-                <td ></td>
+             <tr>
 
-            </tr>
-            <tr>
-                <td colspan="2"><b>PERATUSAN GAGAL</b></td>
-                <td ></td>
-                <td ></td>
-            </tr>
+                 <td colspan="2" style="text-align: left"><b>BILANGAN PESERTA MENDAPAT MARKAH MELEBIHI 61%</b></td>
+                 <td style="text-align: center">{{$j_cemerlang_pre}}</td>
+                 <td style="text-align: center">{{$j_cemerlang_post}}</td>
+             </tr>
+             <tr>
+                 <td colspan="2" style="text-align: left"><b>JUMLAH KESELURUHAN PESERTA</b></td>
+                 <td style="text-align: center" colspan="2">{{$tot_peserta}}</td>
+             </tr>
+             <tr>
+                 <td colspan="2" style="text-align: left"><b>PERATUSAN LULUS</b></td>
+                 <td style="text-align: center"><?php echo(round((($j_cemerlang_pre+$j_lulus_pre)/$tot_peserta)*100));?> </td>
+                 <td style="text-align: center"><?php echo(round((($j_cemerlang_post+$j_lulus_post)/$tot_peserta)*100));?> </td>
+             </tr>
+             <tr>
+                 <td colspan="2" style="text-align: left"><b>PERATUSAN GAGAL</b><br> <small>[Peserta Yang Mendapat Markah Kurang Daripada 50 %]</small></td>
+                 <td style="text-align: center"><?php echo(round(($j_gagal_pre/$tot_peserta)*100));?> </td>
+                 <td style="text-align: center"><?php echo(round(($j_gagal_post/$tot_peserta)*100));?> </td>
+             </tr>
 
-        </tbody>
+         </tbody>
     </table>
 </div>
 

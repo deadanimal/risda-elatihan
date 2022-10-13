@@ -56,7 +56,7 @@ use App\Models\Staf;
 use App\Models\User;
 use App\Models\PrePostTest;
 use App\Policies\PreTestPolicy;
-
+use Illuminate\Support\Facades\DB;
 use function PHPUnit\Framework\isEmpty;
 use Illuminate\Support\Facades\Http;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -111,7 +111,6 @@ class LaporanLainController extends Controller
             $j_matlamat_kursus=($bk->matlamat_kursus->jan+$bk->matlamat_kursus->feb+$bk->matlamat_kursus->mac+$bk->matlamat_kursus->apr+$bk->matlamat_kursus->mei+$bk->matlamat_kursus->jun+$bk->matlamat_kursus->jul+$bk->matlamat_kursus->ogos+$bk->matlamat_kursus->sept+$bk->matlamat_kursus->okt+$bk->matlamat_kursus->nov+$bk->matlamat_kursus->dis);
 
             // dd($j_matlamat_kursus);
-
         }
 
         $bidang = new BidangKursus();
@@ -191,7 +190,7 @@ class LaporanLainController extends Controller
         // $pt = PusatTanggungjawab::all();
         $perbelanjaankursus = PerbelanjaanKursus::with(['pt'])->get();
 
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_perbelanjaan_mengikut_lokaliti',[
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_perbelanjaan_mengikut_lokaliti', [
             // 'pt' => $pt,
             'perbelanjaankursus'=>$perbelanjaankursus
         ])->setPaper('a4', 'landscape');
@@ -258,57 +257,56 @@ class LaporanLainController extends Controller
         $j_pengganti = 0;
 
 
-foreach ($kursus as $k) {
-    $j_peruntukan_peserta = 0;
-    $j_kehadiran =0;
+        foreach ($kursus as $k) {
+            $j_peruntukan_peserta = 0;
+            $j_kehadiran =0;
 
-    $peruntukan_peserta = PeruntukanPeserta::where('pp_jadual_kursus', $k->id)->sum('pp_peruntukan_calon');
-    // dd($peruntukan_peserta);
+            $peruntukan_peserta = PeruntukanPeserta::where('pp_jadual_kursus', $k->id)->sum('pp_peruntukan_calon');
+            // dd($peruntukan_peserta);
 
-    $kehadiran = Kehadiran::where('status_kehadiran','HADIR')->orWhere('status_kehadiran_ke_kursus','HADIR')->where('jadual_kursus_id',$k->id)->get();
-
-
-
-    $j_kehadiran =0;
-    $j_tidak_hadir = 0;
+            $kehadiran = Kehadiran::where('status_kehadiran', 'HADIR')->orWhere('status_kehadiran_ke_kursus', 'HADIR')->where('jadual_kursus_id', $k->id)->get();
 
 
-// echo '__'.$j_peruntukan_peserta;
-// dd('__'.$j_peruntukan_peserta);
 
-$j_kehadiran += count($kehadiran);
-$peratusan_kehadiran = 0;
+            $j_kehadiran =0;
+            $j_tidak_hadir = 0;
 
-
-    if($j_kehadiran==0){
-        $peratusan_kehadiran = 0;
-        $j_tidak_hadir = 0;
-    }
-    else{
-        $j_tidak_hadir = $peruntukan_peserta - $j_kehadiran;
-
-        $peratusan_kehadiran = ($j_kehadiran / $peruntukan_peserta)*100;
-    }
-}
-
-            // $peruntukan_peserta = PeruntukanPeserta::where('pp_jadual_kursus',$k->id)->get();
-
-            // foreach ($peruntukan_peserta as $pp) {
-            //     $pp->pp_peruntukan_calon;
-            //     $j_peruntukan_peserta+=$pp->pp_peruntukan_calon;
-            // }
 
             // echo '__'.$j_peruntukan_peserta;
             // dd('__'.$j_peruntukan_peserta);
 
+            $j_kehadiran += count($kehadiran);
+            $peratusan_kehadiran = 0;
 
 
-                // $j_pp = $peruntukan_peserta;
-            // dd('__'.$j_peruntukan_peserta);
+            if ($j_kehadiran==0) {
+                $peratusan_kehadiran = 0;
+                $j_tidak_hadir = 0;
+            } else {
+                $j_tidak_hadir = $peruntukan_peserta - $j_kehadiran;
 
-                // $k['j_kehadiran'] = $j_kehadiran;
-                // $k['j_peruntukan_peserta'] = $j_peruntukan_peserta;
-                // $k['peratusan_kehadiran'] = $peratusan_kehadiran;
+                $peratusan_kehadiran = ($j_kehadiran / $peruntukan_peserta)*100;
+            }
+        }
+
+        // $peruntukan_peserta = PeruntukanPeserta::where('pp_jadual_kursus',$k->id)->get();
+
+        // foreach ($peruntukan_peserta as $pp) {
+            //     $pp->pp_peruntukan_calon;
+            //     $j_peruntukan_peserta+=$pp->pp_peruntukan_calon;
+        // }
+
+        // echo '__'.$j_peruntukan_peserta;
+        // dd('__'.$j_peruntukan_peserta);
+
+
+
+        // $j_pp = $peruntukan_peserta;
+        // dd('__'.$j_peruntukan_peserta);
+
+        // $k['j_kehadiran'] = $j_kehadiran;
+        // $k['j_peruntukan_peserta'] = $j_peruntukan_peserta;
+        // $k['peratusan_kehadiran'] = $peratusan_kehadiran;
 
 
 
@@ -356,8 +354,6 @@ $peratusan_kehadiran = 0;
         // dd('2');
         return (new Kehadiran7HariSetahunExport())->download('Laporan Kehadiran 7 Hari Setahun.xlsx');
         // return (new Kehadiran7HariSetahunExport)->download('Kehadiran7.xls', \Maatwebsite\Excel\Excel::XLS);
-
-
     }
 
     public function laporan_ringkasan_penceramah_kursus()
@@ -427,14 +423,11 @@ $peratusan_kehadiran = 0;
         ])->setPaper('a4', 'landscape');
 
         return $pdf->download('Laporan Pencapaian Latihan Mengikut Negeri.' . 'pdf');
-
     }
 
     public function excel_laporan_pencapaian_latihan_mengikut_negeri()
     {
-
         return (new PencapaianLatihanNegeriExport())->download('Pencapaian Latihan Mengikut Negeri.xlsx');
-
     }
 
     public function laporan_kehadiran_peserta()
@@ -485,7 +478,7 @@ $peratusan_kehadiran = 0;
     {
         $kursus = JadualKursus::with(['kehadiran','bidang','tempat','pengendali'])->get();
 
-        return view('laporan.laporan_lain.pelaksanaan_latihan_staf',[
+        return view('laporan.laporan_lain.pelaksanaan_latihan_staf', [
             'kursus'=>$kursus
         ]);
     }
@@ -495,7 +488,7 @@ $peratusan_kehadiran = 0;
         $kursus = JadualKursus::with(['kehadiran','bidang','tempat','pengendali','peruntukan'])->get();
 
 
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.pelaksanaan_latihan_staf',[
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.pelaksanaan_latihan_staf', [
             'kursus'=>$kursus
         ])
         ->setPaper('a4', 'landscape');
@@ -512,35 +505,34 @@ $peratusan_kehadiran = 0;
 
     public function laporan_kewangan_terperinci()
     {
-        $kursus = JadualKursus::with(['bidang','tempat','pengendali','kehadiran','perbelanjaan'])->where('kursus_status','1')->get();
+        $kursus = JadualKursus::with(['bidang','tempat','pengendali','kehadiran','perbelanjaan'])->where('kursus_status', '1')->get();
         $j_kehadiran = 0;
         $kehadiran = 0;
 
 
-        foreach($kursus as $k){
-            $kehadiran = Kehadiran::where('jadual_kursus_id',$k->id)->where('status_kehadiran_ke_kursus','HADIR')->get();
+        foreach ($kursus as $k) {
+            $kehadiran = Kehadiran::where('jadual_kursus_id', $k->id)->where('status_kehadiran_ke_kursus', 'HADIR')->get();
 
 
             $j_kehadiran +=count($kehadiran);
-
         }
 
 
-        return view('laporan.laporan_lain.laporan_kewangan_terperinci',[
+        return view('laporan.laporan_lain.laporan_kewangan_terperinci', [
             'kursus'=>$kursus
         ]);
     }
 
     public function pdf_laporan_kewangan_terperinci()
     {
-        $kursus = JadualKursus::with(['bidang','tempat','pengendali','kehadiran','perbelanjaan'])->where('kursus_status','1')->get();
+        $kursus = JadualKursus::with(['bidang','tempat','pengendali','kehadiran','perbelanjaan'])->where('kursus_status', '1')->get();
         $j_kehadiran = 0;
         $kehadiran = 0;
         // dd($kursus);
 
-        foreach($kursus as $ku){
-            $pk=PerbelanjaanKursus::where('jadualkursus_id',$ku->id)->first();
-            $hadir = Kehadiran::where('jadual_kursus_id',$ku->id)->get();
+        foreach ($kursus as $ku) {
+            $pk=PerbelanjaanKursus::where('jadualkursus_id', $ku->id)->first();
+            $hadir = Kehadiran::where('jadual_kursus_id', $ku->id)->get();
 
 
             // foreach($hadir as $h){
@@ -565,11 +557,10 @@ $peratusan_kehadiran = 0;
 
             $ku['j_kehadiran']=($kehadiran);
             // $perbelanjaan_kursus=$pk->Jum_LO;
-
         }
 
         // dd($kehadiran);
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_kewangan_terperinci',[
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_kewangan_terperinci', [
             'kursus'=>$kursus,
             // 'perbelanjaan_kursus'=>$perbelanjaan_kursus,
             'j_kehadiran'=>$j_kehadiran
@@ -592,7 +583,6 @@ $peratusan_kehadiran = 0;
 
         $kursus = JadualKursus::with(['kategori_kursus','bidang','kodkursus','kehadiran'])->get();
         foreach ($kursus as $k) {
-
             $bilangan_peserta += count($k->kehadiran);
         }
 
@@ -602,7 +592,7 @@ $peratusan_kehadiran = 0;
 
 
         // dd($kursus);
-        return view('laporan.laporan_lain.ringkasan_jenis_kursus',[
+        return view('laporan.laporan_lain.ringkasan_jenis_kursus', [
             'kursus'=>$kursus,
             'bilangan_peserta'=>$bilangan_peserta
         ]);
@@ -614,7 +604,6 @@ $peratusan_kehadiran = 0;
 
         $kursus = JadualKursus::with(['kategori_kursus','bidang','kodkursus','kehadiran'])->get();
         foreach ($kursus as $k) {
-
             $bilangan_peserta += count($k->kehadiran);
         }
 
@@ -638,7 +627,6 @@ $peratusan_kehadiran = 0;
 
         $kursus = JadualKursus::with(['kategori_kursus','bidang','kodkursus','kehadiran'])->get();
         foreach ($kursus as $k) {
-
             $bilangan_peserta += count($k->kehadiran);
         }
 
@@ -648,7 +636,7 @@ $peratusan_kehadiran = 0;
 
 
         // dd($kursus);
-        return view('laporan.laporan_lain.ringkasan_bidang_kursus',[
+        return view('laporan.laporan_lain.ringkasan_bidang_kursus', [
             'kursus'=>$kursus,
             'bilangan_peserta'=>$bilangan_peserta
         ]);
@@ -657,21 +645,32 @@ $peratusan_kehadiran = 0;
     public function pdf_laporan_ringkasan_bidang_kursus()
     {
         $bilangan_peserta=0;
+        $bil_bidang = 0;
 
-        $kursus = JadualKursus::with(['kategori_kursus','bidang','kodkursus','kehadiran'])->get();
-        foreach ($kursus as $k) {
+        // $bidang = JadualKursus::with(['bidang'])->distinct()->get(['kursus_bidang']);
+        $kursus = JadualKursus::with(['bidang','perbelanjaan'])->get();
+        $bidang = BidangKursus::with(['jadual_kursus'])->get();
+        // $kursus = DB::table('jadual_kursuses')->where('kursus_unit_latihan','=','Staf')
+        //         ->groupBy('kursus_bidang')
+        //         ->get();
+        // $kursus = JadualKursus::with(['kehadiran','perbelanjaan'])->where('kursus_bidang',$bidang->id)->get();
 
-            $bilangan_peserta += count($k->kehadiran);
-        }
 
-
-        // dd($kursus);
-        return view('laporan.laporan_lain.pdf-laporan.laporan_ringkasan_bidang_kursus',[
+        // foreach ($kursus as $k) {
+        //     // $bilangan_peserta += count($k->kehadiran);
+        //     $bidang = BidangKursus::where('id',$k->kursus_bidang)->first();
+        //     // $bil_bidang +=count($k->bidang);
+        // }
+            // dd($kursus);
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_ringkasan_bidang_kursus', [
             'kursus'=>$kursus,
-            'bilangan_peserta'=>$bilangan_peserta
-        ]);
-    }
+            'bidang'=>$bidang,
+            'bilangan_peserta'=>$bilangan_peserta,
+            'bil_bidang'=> $bil_bidang
+        ])->setPaper('a4', 'landscape');
 
+        return $pdf->stream('Laporan Ringkasan Bidang Kursus.' . 'pdf');
+    }
 
     public function excel_laporan_ringkasan_bidang_kursus()
     {
@@ -792,6 +791,8 @@ $peratusan_kehadiran = 0;
     //     $bil = PeruntukanPeserta::where('pp_jadual_kursus', $ku->id)->get()->first();
     //     foreach ($bil as $b) {
     //         $sum = $sum + $b->pp_peruntukan_calon;
+
+
     //     }
     //     $kursus['bilangan'] = $sum;
     // }
@@ -838,10 +839,11 @@ $peratusan_kehadiran = 0;
     {
         $kursus = JadualKursus::find($id);
 
-        $tot_peserta  = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->distinct('user_id')->count();
+
+        $tot_peserta  = JawapanPenilaian::with('peserta')->where('jadual_kursus_id',$kursus->id)->distinct('user_id')->count();
 
 
-        $pretest = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->where('jenis_penilaian','1')->get();
+        $pretest = JawapanPenilaian::with('peserta')->where('jadual_kursus_id',$kursus->id)->where('jenis_penilaian','1')->get();
 
         $j_cemerlang_pre = 0;
         $j_cemerlang_post = 0;
@@ -862,7 +864,23 @@ $peratusan_kehadiran = 0;
             }
         }
 
-        $posttest = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->where('jenis_penilaian','2')->get();
+        $posttest = JawapanPenilaian::with('peserta')->where('jadual_kursus_id',$kursus->id)->where('jenis_penilaian','2')->get();
+
+
+
+
+        $arr = [];
+
+        foreach($pretest as $pre){
+            $arr[$pre->user_id]['pretest'] = $pre->markah;
+            $arr[$pre->user_id]['nama'] = $pre->peserta->name;
+        }
+
+        foreach($posttest as $post){
+            $arr[$post->user_id]['posttest'] = $post->markah;
+
+        }
+
 
         foreach($posttest as $post){
             if($post->markah>61){
@@ -875,7 +893,16 @@ $peratusan_kehadiran = 0;
                 $j_gagal_post++;
             }
         }
-              return view('laporan.laporan_lain.penilaian.laporan-penilaian-prepost-ulpk',[
+
+        // dd($tot_peserta);
+
+        if ($tot_peserta == 0) {
+            alert()->error('Tiada peserta yang membuat penilaian.', 'Tiada Penilaian');
+            return back();
+            }
+
+            else {
+                return view('laporan.laporan_lain.penilaian.laporan-penilaian-prepost-ulpk', [
                 'kursus'=>$kursus,
                 'pretest'=>$pretest,
                 'posttest'=>$posttest,
@@ -885,8 +912,10 @@ $peratusan_kehadiran = 0;
                 'j_lulus_post'=>$j_lulus_post,
                 'j_gagal_pre'=>$j_gagal_pre,
                 'j_gagal_post'=>$j_gagal_post,
-                'tot_peserta'=>$tot_peserta
-        ]);
+                'tot_peserta'=>$tot_peserta,
+                'arr'=>$arr
+                    ]);
+        }
     }
 
     public function excel_laporan_penilaian_prepost_ulpk()
@@ -899,10 +928,10 @@ $peratusan_kehadiran = 0;
     {
         $kursus = JadualKursus::find($id);
 
-        $tot_peserta  = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->distinct('user_id')->count();
+        $tot_peserta  = JawapanPenilaian::with('peserta')->where('jadual_kursus_id',$kursus->id)->distinct('user_id')->count();
 
 
-        $pretest = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->where('jenis_penilaian','1')->get();
+        $pretest = JawapanPenilaian::with('peserta')->where('jadual_kursus_id',$kursus->id)->where('jenis_penilaian','1')->get();
 
         $j_cemerlang_pre = 0;
         $j_cemerlang_post = 0;
@@ -923,7 +952,7 @@ $peratusan_kehadiran = 0;
             }
         }
 
-        $posttest = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->where('jenis_penilaian','2')->get();
+        $posttest = JawapanPenilaian::with('peserta')->where('jadual_kursus_id',$kursus->id)->where('jenis_penilaian','2')->get();
 
         foreach($posttest as $post){
             if($post->markah>61){
@@ -935,6 +964,20 @@ $peratusan_kehadiran = 0;
             else{
                 $j_gagal_post++;
             }
+        }
+
+        $arr = [];
+
+        foreach($pretest as $pre){
+            $arr[$pre->user_id]['pretest'] = $pre->markah;
+            $arr[$pre->user_id]['nama'] = $pre->peserta->name;
+        }
+
+        foreach($posttest as $post){
+            $arr[$post->user_id]['posttest'] = $post->markah;
+            $arr[$post->user_id]['nama'] = $post->peserta->name;
+
+
         }
 
         // dd($tot_peserta );
@@ -949,8 +992,8 @@ $peratusan_kehadiran = 0;
             'j_lulus_post'=>$j_lulus_post,
             'j_gagal_pre'=>$j_gagal_pre,
             'j_gagal_post'=>$j_gagal_post,
-            'tot_peserta'=>$tot_peserta
-
+            'tot_peserta'=>$tot_peserta,
+            'arr'=>$arr
 
         ])->setPaper('a4', 'potrait');
 
@@ -974,10 +1017,10 @@ $peratusan_kehadiran = 0;
     public function laporan_penilaian_prepost_show($id)
     {
         $kursus = JadualKursus::find($id);
-        $tot_peserta  = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->distinct('user_id')->count();
+        $tot_peserta  = JawapanPenilaian::with('peserta')->where('jadual_kursus_id',$kursus->id)->distinct('user_id')->count();
 
 
-        $pretest = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->where('jenis_penilaian','1')->get();
+        $pretest = JawapanPenilaian::with('peserta')->where('jadual_kursus_id',$kursus->id)->where('jenis_penilaian','1')->get();
 
         $j_cemerlang_pre = 0;
         $j_cemerlang_post = 0;
@@ -998,7 +1041,7 @@ $peratusan_kehadiran = 0;
             }
         }
 
-        $posttest = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->where('jenis_penilaian','2')->get();
+        $posttest = JawapanPenilaian::with('peserta')->where('jadual_kursus_id',$kursus->id)->where('jenis_penilaian','2')->get();
 
         //====
         $arr = [];
@@ -1010,6 +1053,8 @@ $peratusan_kehadiran = 0;
 
         foreach($posttest as $post){
             $arr[$post->user_id]['posttest'] = $post->markah;
+            $arr[$post->user_id]['nama'] = $post->peserta->name;
+
 
         }
         // dd($arr);
@@ -1052,8 +1097,13 @@ $peratusan_kehadiran = 0;
         }
 
 
-        // dd($pretest);
-              return view('laporan.laporan_lain.penilaian.laporan-penilaian-prepost-show',[
+        if ($tot_peserta == 0) {
+            alert()->error('Tiada peserta yang membuat penilaian.', 'Tiada Penilaian');
+            return back();
+            }
+
+            else {
+                return view('laporan.laporan_lain.penilaian.laporan-penilaian-prepost-show', [
                 'kursus'=>$kursus,
                 'pretest'=>$pretest,
                 'posttest'=>$posttest,
@@ -1066,7 +1116,8 @@ $peratusan_kehadiran = 0;
                 'tot_peserta'=>$tot_peserta,
                 'arr'=>$arr
 
-        ]);
+                    ]);
+            }
     }
     public function excel_laporan_penilaian_prepost_show()
     {
@@ -1114,6 +1165,22 @@ $peratusan_kehadiran = 0;
                 $j_gagal_post++;
             }
         }
+
+        $arr = [];
+
+        foreach($pretest as $pre){
+            $arr[$pre->user_id]['pretest'] = $pre->markah;
+            $arr[$pre->user_id]['nama'] = $pre->peserta->name;
+        }
+
+        foreach($posttest as $post){
+            $arr[$post->user_id]['posttest'] = $post->markah;
+            $arr[$post->user_id]['nama'] = $post->peserta->name;
+
+
+        }
+
+
         $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.penilaian.laporan-penilaian-prepost',[
             'kursus'=>$kursus,
             'pretest'=>$pretest,
@@ -1124,10 +1191,11 @@ $peratusan_kehadiran = 0;
             'j_lulus_post'=>$j_lulus_post,
             'j_gagal_pre'=>$j_gagal_pre,
             'j_gagal_post'=>$j_gagal_post,
-            'tot_peserta'=>$tot_peserta
+            'tot_peserta'=>$tot_peserta,
+            'arr'=>$arr
 
 
-        ])->setPaper('a4', 'landscape');
+        ])->setPaper('a4', 'potrait');
 
         return $pdf->stream('Laporan Penilaian Pre Test dan Post Test.'.'pdf');
 
@@ -1728,6 +1796,7 @@ $peratusan_kehadiran = 0;
     {
         $j_kehadiran = 0;
         $perbelanjaanKursus = PerbelanjaanKursus::with('jadual_kursus')->get();
+        // $kursus = JadualKursus::with('bidang')->where('id',$perbelanjaanKursus->jadualkursus_id)->get();
 
         // $kehadiran = Kehadiran::where('jadual_kursus_id',$perbelanjaanKursus->jadualkursus_id)->where('status_kehadiran_ke_kursus','HADIR')->get();
 

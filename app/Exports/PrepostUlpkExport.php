@@ -65,6 +65,19 @@ class PrepostUlpkExport implements FromView
                 }
             }
 
+            $arr = [];
+
+            foreach($pretest as $pre){
+                $arr[$pre->user_id]['pretest'] = $pre->markah;
+                $arr[$pre->user_id]['nama'] = $pre->peserta->name;
+            }
+
+            foreach($posttest as $post){
+                $arr[$post->user_id]['posttest'] = $post->markah;
+
+            }
+
+
             return view( 'laporan.laporan_lain.excel.penilaian.laporan-penilaian-prepost-ulpk', [
                 'kursus'=>$kursus,
                 'pretest'=>$pretest,
@@ -75,7 +88,8 @@ class PrepostUlpkExport implements FromView
                 'j_lulus_post'=>$j_lulus_post,
                 'j_gagal_pre'=>$j_gagal_pre,
                 'j_gagal_post'=>$j_gagal_post,
-                'tot_peserta'=>$tot_peserta
+                'tot_peserta'=>$tot_peserta,
+                'arr'=>$arr
 
             ]);
     }
