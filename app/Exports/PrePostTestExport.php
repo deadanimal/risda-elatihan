@@ -25,10 +25,10 @@ class PrePostTestExport implements FromView
     public function view(): View
     {
             $kursus = $this->collection('id');
-            $tot_peserta  = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->distinct('user_id')->count();
+            $tot_peserta  = JawapanPenilaian::with('peserta')->where('jadual_kursus_id',$kursus->id)->distinct('user_id')->count();
 
 
-            $pretest = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->where('jenis_penilaian','1')->get();
+            $pretest = JawapanPenilaian::with('peserta')->where('jadual_kursus_id',$kursus->id)->where('jenis_penilaian','1')->get();
 
             $j_cemerlang_pre = 0;
             $j_cemerlang_post = 0;
@@ -49,7 +49,7 @@ class PrePostTestExport implements FromView
                 }
             }
 
-            $posttest = JawapanPenilaian::where('jadual_kursus_id',$kursus->id)->where('jenis_penilaian','2')->get();
+            $posttest = JawapanPenilaian::with('peserta')->where('jadual_kursus_id',$kursus->id)->where('jenis_penilaian','2')->get();
 
             foreach($posttest as $post){
                 if($post->markah>61){
@@ -63,6 +63,18 @@ class PrePostTestExport implements FromView
                 }
             }
 
+            $arr = [];
+
+            foreach($pretest as $pre){
+                $arr[$pre->user_id]['pretest'] = $pre->markah;
+                $arr[$pre->user_id]['nama'] = $pre->peserta->name;
+            }
+
+            foreach($posttest as $post){
+                $arr[$post->user_id]['posttest'] = $post->markah;
+
+            }
+
             return view( 'laporan.laporan_lain.excel.penilaian.laporan-penilaian-prepost', [
                 'kursus'=>$kursus,
                 'pretest'=>$pretest,
@@ -73,7 +85,8 @@ class PrePostTestExport implements FromView
                 'j_lulus_post'=>$j_lulus_post,
                 'j_gagal_pre'=>$j_gagal_pre,
                 'j_gagal_post'=>$j_gagal_post,
-                'tot_peserta'=>$tot_peserta
+                'tot_peserta'=>$tot_peserta,
+                'arr'=>$arr
 
             ]);
     }

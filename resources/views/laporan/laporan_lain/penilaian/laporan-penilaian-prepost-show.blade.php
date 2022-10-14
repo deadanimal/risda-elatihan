@@ -94,9 +94,9 @@
     </div>
 
 
-    <a id="downloadpdf" style="display: none" download="Laporan Penilaian Pre Test dan Post Test"
+    <a id="downloadpdf" style="display: none"
         href="{{ route('pdf_pretest', $kursus->id) }}">Download</a>
-    <a id="downloadexcel" style="display: none" href="{{ route('excel_pretest', $kursus->id) }}" download="Laporan Penilaian Pre Test dan Post Test">Download</a>
+    <a id="downloadexcel" style="display: none" href="{{ route('excel_pretest', $kursus->id) }}">Download</a>
 
 
 
