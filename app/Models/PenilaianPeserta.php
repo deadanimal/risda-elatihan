@@ -12,11 +12,11 @@ class PenilaianPeserta extends Model
 
     public function kursus()
     {
-        return $this->belongsTo(JadualKursus::class, 'kod_kursus', 'id');
+        return $this->belongsTo(JadualKursus::class, 'id_jadual', 'id');
     }
 
     public function peserta()
     {
-        return $this->belongsTo(JadualKursus::class, 'kod_kursus', 'id');
+        return $this->belongsTo(User::class, 'nama_peserta', 'name');
     }
 }

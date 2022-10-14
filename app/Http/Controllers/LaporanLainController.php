@@ -681,20 +681,14 @@ class LaporanLainController extends Controller
     {
 
 
-        $penilaian = PenilaianPeserta::with('kursus');
+        $penilaian = PenilaianPeserta::with(['kursus'] )->distinct()->get(['id_jadual','nama_peserta']);
 
-        // foreach ($kursus as $k) {
-        //     $k['kehadiran'] = Kehadiran::find($k->jadual_kursus_id);
-        //     $k['penilaian'] = PenilaianPeserta::find($k->id_jadual);
-        // }
+        // $bidang = JadualKursus::with(['bidang'])->distinct()->get(['kursus_bidang']);
 
 
 
-        // $jumlah_peserta = count($kursus['kehadiran']);
-        // $jumlah_penilaian=count($kursus['penilaian']);
 
-
-        // dd($kursus);
+        // dd($penilaian);
         return view('laporan.laporan_lain.penilaian_peserta', [
             'penilaian' => $penilaian,
             // 'jumlah_peserta'=>$jumlah_peserta,
@@ -704,11 +698,27 @@ class LaporanLainController extends Controller
 
     public function pdf_laporan_penilaian_peserta()
     {
-        $penilaian = PenilaianPeserta::with(['kursus'])->get();
+        $penilaian = PenilaianPeserta::with(['kursus'])->distinct()->get(['id_jadual']);
+
+        $tot_penilaian = 0;
+
+        $tot_peserta = 0;
+
+        $tot_penilaian +=count($penilaian);
 
 
+        foreach($penilaian as $p){
+            // $tot_penilaian +=count($p);
+            // $tot_peserta  = Kehadiran::with('peserta')->where('status_kehadiran_ke_kursus','HADIR')->count();
+        $tot_peserta  = Kehadiran::with('peserta')->where('status_kehadiran_ke_kursus','HADIR')->count();
+
+        }
+
+        // $penilaian = PenilaianPeserta::with(['kursus'] )->distinct()->get(['id_jadual']);
+
+        // dd($penilaian);
         $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_penilaian_peserta', [
-            'penilaian' => $penilaian
+            'penilaian' => $penilaian,'tot_peserta'=>$tot_peserta,'tot_penilaian'=>$tot_penilaian
         ])->setPaper('a4', 'landscape');
 
         return $pdf->stream('Laporan Penilaian Peserta.' . 'pdf');

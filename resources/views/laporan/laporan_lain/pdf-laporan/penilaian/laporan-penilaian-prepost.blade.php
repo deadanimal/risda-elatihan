@@ -25,11 +25,7 @@
             font: 8pt "Times New Roman";
          }
 
-
-
-
         </style>
-
 
     <h4> Laporan Penilaian Pre Test dan Post Test Untuk Kursus {{$kursus->kursus_nama}} <br>Pada {{date('d-m-Y', strtotime($kursus->tarikh_mula))}}</h4>
 
