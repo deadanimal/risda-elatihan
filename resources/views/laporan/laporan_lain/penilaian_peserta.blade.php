@@ -44,9 +44,9 @@
             </div>
         </div>
 
-        <a id="downloadpdf" style="display: none" download="PenilaianPeserta"
-        href="pdf-penilaian-peserta">Download</a>
-        <a id="downloadexcel" style="display: none" href="excel-penilaian-peserta" download="PenilaianPeserta">Download</a>
+        <a id="downloadpdf" style="display: none"
+        href="{{ route('pdf_penilaian_peserta') }}">Download</a>
+        <a id="downloadexcel" style="display: none" href="{{ route('excel_penilaian_peserta') }}">Download</a>
 
         <hr style="color: rgba(81,179,90, 60%);height:2px;">
 

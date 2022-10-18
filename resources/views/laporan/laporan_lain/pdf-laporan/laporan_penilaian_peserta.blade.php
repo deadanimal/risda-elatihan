@@ -7,7 +7,7 @@
                     border-collapse: collapse;
                     padding: 8px;
             font: 9pt "Times New Roman";
-
+            text-align: center;
         }
 
         *{
@@ -51,7 +51,6 @@
                     <th>NO. FT</th>
                     <th>JUMLAH PESERTA</th>
                     <th>JUMLAH PENILAIAN</th>
-                    <th>NAMA KONSULTAN/PENCERAMAH</th>
                     <th>MARKAH %</th>
                 </tr>
             </thead>
@@ -76,8 +75,7 @@
                         <td>{{$p->kursus->kursus_no_ft}}</td>
                         <td>{{$tot_peserta}}</td>
                         <td>{{$tot_penilaian}}</td>
-                        <td></td>
-                        <td></td>
+                        <td>0.00%</td>
                     </tr>
                 @endforeach
             </tbody>

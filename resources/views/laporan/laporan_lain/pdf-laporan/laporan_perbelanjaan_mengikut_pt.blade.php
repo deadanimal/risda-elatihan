@@ -1,5 +1,5 @@
 <title>
-    Laporan Perbelanjaan Mengikut Lokaliti
+    Laporan Perbelanjaan Mengikut Pusat Tanggungjawab
 </title>
 
 <style type="text/css">
@@ -146,7 +146,7 @@
 
 
 </style>
-<br><h4>Laporan Perbelanjaan Mengikut Lokaliti</h4>
+<br><h4>Laporan Perbelanjaan Mengikut Pusat Tanggungjawab</h4>
 
 <div class="card-body">
     <div>
@@ -162,15 +162,14 @@
                 </tr>
             </thead>
             <tbody>
-               @foreach ($perbelanjaankursus as $pk)
+               @foreach ($perbelanjaan as $pk)
                 <tr>
                     <td>{{$loop->iteration}}</td>
-                    <td>{{$pk->pt->negeri->Negeri}}</td>
-                    <td>{{$pk->pt->negeri->Negeri}}</td>
+                    <td>{{$pk->pt->nama_PT}}</td>
                     <td>{{$pk->Jum_LO}}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>3000.00</td>
+                    <td>489.00</td>
+                    <td>-</td>
                @endforeach
             </tbody>
         </table>
@@ -182,3 +181,4 @@
         $("th").addClass('fw-bold text-white');
     });
 </script>
+

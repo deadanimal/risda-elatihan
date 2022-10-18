@@ -73,6 +73,8 @@ class LaporanLainController extends Controller
         foreach ($bidang_kursus as $bk) {
             $bk['pencapaian'] = count($bk->kodkursus);
             $j_pencapaian += count($bk->kodkursus);
+
+
         }
 
         $bidang = new BidangKursus();
@@ -100,6 +102,7 @@ class LaporanLainController extends Controller
     public function pdf_pencapaian_matlamat_kehadiran()
     {
         $bidang_kursus = BidangKursus::with(['kodkursus','matlamat_kursus','matlamat_peserta'])->get();
+        $bidang_kursus = BidangKursus::with(['kodkursus','matlamat_kursus','matlamat_peserta'])->get();
 
         $j_pencapaian = 0;
         $j_matlamat_kursus = 0;
@@ -107,6 +110,10 @@ class LaporanLainController extends Controller
         foreach ($bidang_kursus as $bk) {
             $bk['pencapaian'] = count($bk->kodkursus);
             $j_pencapaian += count($bk->kodkursus);
+
+            // $bk['matlamat'] = count($bk->matlamat_kursus);
+            // $j_matlamat_kursus += sum($bk->matlamat_kursus);
+
 
             $j_matlamat_kursus=($bk->matlamat_kursus->jan+$bk->matlamat_kursus->feb+$bk->matlamat_kursus->mac+$bk->matlamat_kursus->apr+$bk->matlamat_kursus->mei+$bk->matlamat_kursus->jun+$bk->matlamat_kursus->jul+$bk->matlamat_kursus->ogos+$bk->matlamat_kursus->sept+$bk->matlamat_kursus->okt+$bk->matlamat_kursus->nov+$bk->matlamat_kursus->dis);
 
@@ -116,9 +123,6 @@ class LaporanLainController extends Controller
         $bidang = new BidangKursus();
         $bidang['j_pencapaian'] = $j_pencapaian;
         $bidang['data'] = $bidang_kursus;
-
-
-
 
 
         $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_pencapaian_matlamat_kehadiran', [
@@ -133,17 +137,7 @@ class LaporanLainController extends Controller
 
     public function perbelanjaan_mengikut_pusat_tanggungjawab()
     {
-        // $pt = new PusatTanggungjawab();
-        // $response = Http::post('https://libreoffice.prototype.com.my/cetak/LaporanPMPT', [$pt]);
-        // $res = $response->getBody()->getContents();
-        // $url = "data:application/pdf;base64," . $res;
-
-        // return view('laporan.laporan_lain.perbelanjaan_mengikut_pusat_tanggungjawab', [
-        //     'pusat_tanggungjawab' => $pt,
-        //     'url' => $url,
-        // ]);
-        // $pt=PusatTanggungjawab::all();
-        $perbelanjaan = PerbelanjaanKursus::with(['jadual_kursus', 'pt']);
+        $perbelanjaan = PerbelanjaanKursus::with(['jadual_kursus', 'pt'])->get();
         return view('laporan.laporan_lain.perbelanjaan_mengikut_pusat_tanggungjawab', [
             'perbelanjaan' => $perbelanjaan
 
@@ -153,9 +147,13 @@ class LaporanLainController extends Controller
 
     public function pdf_perbelanjaan_mengikut_pusat_tanggungjawab()
     {
-        $perbelanjaan = PerbelanjaanKursus::with(['jadual_kursus', 'pt']);
+        $perbelanjaan = PerbelanjaanKursus::with(['pt'])->get();
 
-        $pdf = PDF::loadView('laporan.laporan_lain.excel.perbelanjaan_mengikut_pusat_tanggungjawab', [
+        // foreach($perbelanjaankursus as $pk){
+
+        // }
+
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_perbelanjaan_mengikut_pt', [
             'perbelanjaan' => $perbelanjaan
         ])->setPaper('a4', 'landscape');
 
@@ -173,12 +171,12 @@ class LaporanLainController extends Controller
 
     public function perbelanjaan_mengikut_lokaliti()
     {
-        // $pt = PusatTanggungjawab::all();
         $perbelanjaankursus = PerbelanjaanKursus::with(['pt'])->get();
 
-        // $response = Http::post('https://libreoffice.prototype.com.my/cetak/LaporanPML', [$pt]);
-        // $res = $response->getBody()->getContents();
-        // $url = "data:application/pdf;base64," . $res;
+        // foreach($perbelanjaankursus as $pk){
+
+        // }
+
 
         return view('laporan.laporan_lain.perbelanjaan_mengikut_lokaliti', [
             'perbelanjaankursus' => $perbelanjaankursus,
@@ -189,13 +187,15 @@ class LaporanLainController extends Controller
     {
         // $pt = PusatTanggungjawab::all();
         $perbelanjaankursus = PerbelanjaanKursus::with(['pt'])->get();
+        $pusat_tanggungjawab = PusatTanggungjawab::with('negeri')->where('id',$perbelanjaankursus->kod_PT)->first();
 
         $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_perbelanjaan_mengikut_lokaliti', [
             // 'pt' => $pt,
-            'perbelanjaankursus'=>$perbelanjaankursus
+            'perbelanjaankursus'=>$perbelanjaankursus,
+
         ])->setPaper('a4', 'landscape');
 
-        return $pdf->stream('Pembelanjaan Mengikut Lokaliti.' . 'pdf');
+        return $pdf->stream('Laporan Pembelanjaan Mengikut Lokaliti.' . 'pdf');
     }
 
     public function pml()
@@ -679,26 +679,9 @@ class LaporanLainController extends Controller
 
     public function laporan_penilaian_peserta()
     {
-
-
-        $penilaian = PenilaianPeserta::with(['kursus'] )->distinct()->get(['id_jadual','nama_peserta']);
-
-        // $bidang = JadualKursus::with(['bidang'])->distinct()->get(['kursus_bidang']);
-
-
-
-
-        // dd($penilaian);
-        return view('laporan.laporan_lain.penilaian_peserta', [
-            'penilaian' => $penilaian,
-            // 'jumlah_peserta'=>$jumlah_peserta,
-            // 'jumlah_penilaian'=>$jumlah_penilaian
-        ]);
-    }
-
-    public function pdf_laporan_penilaian_peserta()
-    {
         $penilaian = PenilaianPeserta::with(['kursus'])->distinct()->get(['id_jadual']);
+        // $kursus = JadualKursus::where('id',$penilaian->id_jadual)->first();
+
 
         $tot_penilaian = 0;
 
@@ -706,19 +689,45 @@ class LaporanLainController extends Controller
 
         $tot_penilaian +=count($penilaian);
 
+        foreach($penilaian as $p){
+
+        $kursus = JadualKursus::where('id',$p->id_jadual)->first();
+        $tot_peserta  = Kehadiran::with('peserta')->where('status_kehadiran_ke_kursus','HADIR')->where('jadual_kursus_id',$kursus->id)->count();
+
+        }
+        return view('laporan.laporan_lain.penilaian_peserta', [
+            'penilaian' => $penilaian,
+            'penilaian' => $penilaian,
+            'tot_peserta'=>$tot_peserta,
+            'tot_penilaian'=>$tot_penilaian
+
+        ]);
+    }
+
+    public function pdf_laporan_penilaian_peserta()
+    {
+        $penilaian = PenilaianPeserta::with(['kursus'])->distinct()->get(['id_jadual']);
+        // $kursus = JadualKursus::where('id',$penilaian->id_jadual)->first();
+
+
+        $tot_penilaian = 0;
+
+        $tot_peserta = 0;
+
+        $tot_penilaian +=count($penilaian);
 
         foreach($penilaian as $p){
-            // $tot_penilaian +=count($p);
-            // $tot_peserta  = Kehadiran::with('peserta')->where('status_kehadiran_ke_kursus','HADIR')->count();
-        $tot_peserta  = Kehadiran::with('peserta')->where('status_kehadiran_ke_kursus','HADIR')->count();
+
+        $kursus = JadualKursus::where('id',$p->id_jadual)->first();
+        $tot_peserta  = Kehadiran::with('peserta')->where('status_kehadiran_ke_kursus','HADIR')->where('jadual_kursus_id',$kursus->id)->count();
 
         }
 
-        // $penilaian = PenilaianPeserta::with(['kursus'] )->distinct()->get(['id_jadual']);
-
-        // dd($penilaian);
+        // dd($tot_penilaian);
         $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_penilaian_peserta', [
-            'penilaian' => $penilaian,'tot_peserta'=>$tot_peserta,'tot_penilaian'=>$tot_penilaian
+            'penilaian' => $penilaian,
+            'tot_peserta'=>$tot_peserta,
+            'tot_penilaian'=>$tot_penilaian
         ])->setPaper('a4', 'landscape');
 
         return $pdf->stream('Laporan Penilaian Peserta.' . 'pdf');
@@ -727,7 +736,7 @@ class LaporanLainController extends Controller
 
     public function excel_penilaian_peserta()
     {
-        return (new PenilaianPesertaExport())->download('PenilaianPeserta.xlsx');
+        return (new PenilaianPesertaExport())->download('Laporan Penilaian Peserta.xlsx');
     }
 
 

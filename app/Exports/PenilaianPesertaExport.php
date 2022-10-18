@@ -3,6 +3,8 @@
 namespace App\Exports;
 
 use App\Models\PenilaianPeserta;
+use App\Models\JadualKursus;
+use App\Models\Kehadiran;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\Exportable;
@@ -20,17 +22,28 @@ class PenilaianPesertaExport implements FromView
 
     public function view(): View
     {
-        $penilaian = PenilaianPeserta::with(['kursus'])->get();
+        $penilaian = PenilaianPeserta::with(['kursus'])->distinct()->get(['id_jadual']);
+        // $kursus = JadualKursus::where('id',$penilaian->id_jadual)->first();
 
 
-        // foreach ($penilaian as $p) {
-        //     $p['user'] = User::find($p->nama_peserta);
-        // }
+        $tot_penilaian = 0;
 
-        return view('laporan.laporan_lain.excel.laporan_penilaian_peserta', [
-        'penilaian' => $penilaian,
+        $tot_peserta = 0;
+
+        $tot_penilaian +=count($penilaian);
+
+        foreach ($penilaian as $p) {
+            $kursus = JadualKursus::where('id', $p->id_jadual)->first();
+            $tot_peserta  = Kehadiran::with('peserta')->where('status_kehadiran_ke_kursus', 'HADIR')->where('jadual_kursus_id', $kursus->id)->count();
+
+            return view('laporan.laporan_lain.excel.laporan_penilaian_peserta', [
+            'penilaian' => $penilaian,
+            'penilaian' => $penilaian,
+            'tot_peserta'=>$tot_peserta,
+            'tot_penilaian'=>$tot_penilaian
 
 
     ]);
+        }
     }
 }

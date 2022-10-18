@@ -94,7 +94,7 @@
         </div>
     </div>
 
-    <a id="downloadpdf" download="" style="display: none"
+    <a id="downloadpdf"  style="display: none"
         href="pdf-laporan-perbelanjaan-mengikut-pusat-tanggungjawab"></a>
 
     <a id="downloadexcel" style="display: none" href="{{ route('pmpt') }}"></a>
