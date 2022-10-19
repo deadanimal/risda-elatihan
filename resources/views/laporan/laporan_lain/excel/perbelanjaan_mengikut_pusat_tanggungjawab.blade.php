@@ -15,18 +15,15 @@
 
                 @foreach ($perbelanjaan as $p)
                 <tr>
-                    <td></td>
+                    <td>{{$loop->iteration}}</td>
                     <td>{{$p->pt->nama_PT}}</td>
                     <td>{{$p->Jum_LO}}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>3000.00</td>
+                    <td>489.00</td>
+                    <td>-</td>
                 </tr>
 
                 @endforeach
-
-                 {{-- @endforeach --}}
-
              </tbody>
          </table>
      </div>

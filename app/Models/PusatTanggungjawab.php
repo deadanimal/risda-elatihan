@@ -9,10 +9,6 @@ class PusatTanggungjawab extends Model
 {
     use HasFactory;
 
-    public function staff()
-    {
-        return $this->hasMany(Staf::class, 'kod_PT', 'Kod_PT');
-    }
 
     public function negeri()
     {
@@ -29,6 +25,11 @@ class PusatTanggungjawab extends Model
 
     public function peruntukanpeserta(){
         return $this->hasMany(PeruntukanPeserta::class,'kod_PT','pp_pusat_tanggungjawab');
+    }
+
+    public function ahli_pt()
+    {
+        return $this->hasMany(Staf::class,'NamaPT');
     }
 
 
