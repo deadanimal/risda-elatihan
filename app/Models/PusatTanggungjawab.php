@@ -27,6 +27,11 @@ class PusatTanggungjawab extends Model
         return $this->hasMany(PeruntukanPeserta::class,'kod_PT','pp_pusat_tanggungjawab');
     }
 
+    public function ahli_pt()
+    {
+        return $this->hasMany(Staf::class,'NamaPT');
+    }
+
 
 
 

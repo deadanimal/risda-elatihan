@@ -47,7 +47,6 @@
 
     <hr style="color: rgba(81,179,90, 60%);height:2px;">
     <a id="downloadpdf" style="display: none" href="{{ route('pdf_pl_kategori') }}"></a>
-
     <a id="downloadexcel" style="display: none" href="{{ route('excel_pl_kategori') }}"></a>
 
     <div class="card mt-5 ">
@@ -116,7 +115,6 @@
             </div> --}}
 
         </div>
-    </div>
     </div>
 
     <script>

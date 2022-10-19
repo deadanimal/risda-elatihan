@@ -1298,18 +1298,108 @@ class LaporanLainController extends Controller
 
     public function laporan_pencapaian_latihan_mengikut_kategori()
     {
-        return view('laporan.laporan_lain.laporan-pencapaian_latihan-kategori');
+        $staf = Staf::with('pt')->distinct()->get(['NamaPT']);
+        // $kehadiran = Kehadiran::with('staff')->where('status_kehadiran_ke_kursus','HADIR')->where('no_pekerja',$staf->id_Pengguna)->distinct('jadual_kursus_id')->get();
+        $kehadiran = Kehadiran::with('kursus','staff','staff.staf')->where('status_kehadiran_ke_kursus','HADIR')->get();
+        // dd($kehadiran);
+        $ptj = [];
+        foreach($kehadiran as $k){
+            if (!isset($ptj[$k->staff->staf->NamaPT])) {
+                $ptj[$k->staff->staf->NamaPT]['0'] = 0;
+                $ptj[$k->staff->staf->NamaPT]['1_6'] = 0;
+                $ptj[$k->staff->staf->NamaPT]['7'] = 0;
+            }
+
+            if(!isset($ptj[$k->staff->staf->NamaPT][$k->jadual_kursus_id])){
+                // echo "<br>_BILHARIs:".$k->kursus->bilangan_hari;
+                //get kursus bilangan hari
+                if($k->kursus->bilangan_hari == 0){
+                    $ptj[$k->staff->staf->NamaPT]['0'] += 1;
+                }elseif($k->kursus->bilangan_hari>0 && $k->kursus->bilangan_hari <= 6){
+                    $ptj[$k->staff->staf->NamaPT]['1_6'] += 1;
+                }elseif($k->kursus->bilangan_hari > 7){
+                    $ptj[$k->staff->staf->NamaPT]['7'] += 1;
+                }
+            }
+        }
+        return view('laporan.laporan_lain.laporan-pencapaian_latihan-kategori',[
+            'staf'=>$staf,
+            'ptj'=>$ptj,
+
+        ]);
     }
 
     public function pdf_laporan_pencapaian_latihan_mengikut_kategori()
     {
-        // $ptj = PusatTanggungjawab::all();
-        // $kursus = JadualKursus::with(['kategori_kursus','peruntukan'])->get();
-        $kehadiran = Kehadiran::with(['staff','kursus'])->where('status_kehadiran_ke_kursus','HADIR')->get();
+//         // $ptj = PusatTanggungjawab::all();
+//         // $kursus = JadualKursus::with(['kategori_kursus','peruntukan'])->get();
+//         // $kehadiran = Kehadiran::with(['staff','kursus'])->where('status_kehadiran_ke_kursus','HADIR')->get();
+//         $kehadiran_0=0;
+//         $kehadiran_1=0;
+//         $kehadiran_7=0;
 
+// foreach ($kehadiran as $k) {
+//     // $ptj = PusatTanggungjawab::where('n');
+//     $kursus = JadualKursus::where('id', $k->jadual_kursus_id)->first();
+
+//     if (($kursus->bilangan_hari>=1)&&($kursus->bilangan_hari<=6)) {
+//         $kehadiran_1++;
+//     } elseif ($k->kursus->bilangan_hari>7) {
+//         $kehadiran_7++;
+//     } else {
+//         $kehadiran_0++;
+//     }
+
+
+    $staf = Staf::with('pt')->distinct()->get(['NamaPT']);
+    // $kehadiran = Kehadiran::with('staff')->where('status_kehadiran_ke_kursus','HADIR')->where('no_pekerja',$staf->id_Pengguna)->distinct('jadual_kursus_id')->get();
+    $kehadiran = Kehadiran::with('kursus','staff','staff.staf')->where('status_kehadiran_ke_kursus','HADIR')->get();
+    // dd($kehadiran);
+    $ptj = [];
+    foreach($kehadiran as $k){
+        if (!isset($ptj[$k->staff->staf->NamaPT])) {
+            $ptj[$k->staff->staf->NamaPT]['0'] = 0;
+            $ptj[$k->staff->staf->NamaPT]['1_6'] = 0;
+            $ptj[$k->staff->staf->NamaPT]['7'] = 0;
+        }
+
+        if(!isset($ptj[$k->staff->staf->NamaPT][$k->jadual_kursus_id])){
+            // echo "<br>_BILHARIs:".$k->kursus->bilangan_hari;
+            //get kursus bilangan hari
+            if($k->kursus->bilangan_hari == 0){
+                $ptj[$k->staff->staf->NamaPT]['0'] += 1;
+            }elseif($k->kursus->bilangan_hari>0 && $k->kursus->bilangan_hari <= 6){
+                $ptj[$k->staff->staf->NamaPT]['1_6'] += 1;
+            }elseif($k->kursus->bilangan_hari > 7){
+                $ptj[$k->staff->staf->NamaPT]['7'] += 1;
+            }
+        }
+    }
+    // exit();
+    // dd($ptj);
+
+    //     $kehadiran_0=0;
+    //     $kehadiran_1=0;
+    //     $kehadiran_7=0;
+
+    // foreach($kehadiran as $k)
+    // {
+    //     $kursus = JadualKursus::where('id',$k->jadual_kursus_id)->get();
+
+    // if (($kursus->bilangan_hari>=1)&&($kursus->bilangan_hari<=6)) {
+    //     $kehadiran_1++;
+    // } elseif ($k->kursus->bilangan_hari>7) {
+    //     $kehadiran_7++;
+    // } else {
+    //     $kehadiran_0++;
+    // }
+    // }
+
+        // dd($staf);
 
         $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_prestasi_kategori',[
-            'kehadiran'=>$kehadiran
+            'staf'=>$staf,
+            'ptj'=>$ptj,
         ])
         ->setPaper('a4', 'landscape');
 

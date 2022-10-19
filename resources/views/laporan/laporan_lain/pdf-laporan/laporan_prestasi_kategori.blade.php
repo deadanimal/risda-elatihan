@@ -25,6 +25,10 @@ th{
         text-align: center;
     }
 
+    td{
+        text-align: center"
+    }
+
 </style>
 </head>
 </head>
@@ -52,29 +56,35 @@ th{
                             <th>7 HARI DAN KE ATAS</th>
                         </tr>
                     <tbody>
-                        @foreach ($kehadiran as $k)
+                        @foreach ($ptj as $key=>$k)
                          <tr>
                             <td>{{$loop->iteration}}</td>
-                            <td>{{$k->staff->staf->NamaPT}}</td>
-                            <td>{{$k->kursus->bilangan_hari}}</td>
-                            {{-- @if(($k->kursus->bilangan_hari>1)&&($k->kursus->bilangan_hari<=6))
-                               <td>1</td>
-                            @elseif($k->kursus->bilangan_hari>7)
-                            <td>2</td>
+                            <td>{{$key}}</td>
+                            <td>
+                                {{ $ptj[$key]['0'] }}
+                            </td>
+                            <td>
+                                {{ $ptj[$key]['1_6'] }}
+                            </td>
+                            <td>
+                                {{ $ptj[$key]['7'] }}
+                            </td>
+                            {{-- <td>{{bilangan_hari}}</td> --}}
+                            {{-- <td>{{$kehadiran_0}}</td>
+                            <td>{{$kehadiran_1}}</td>
+                            <td>{{$kehadiran_7}}</td> --}}
 
-                               @endif--}}
+                                <td>
+                                    {{ $ptj[$key]['0']+$ptj[$key]['1_6']+$ptj[$key]['7'] }}
+                                </td>
+                                <td>{{ ($ptj[$key]['0'] != 0 ? ($ptj[$key]['0'] / ($ptj[$key]['0']+$ptj[$key]['1_6']+$ptj[$key]['7']))*100:'0') }}</td>
+                                <td>{{ ($ptj[$key]['1_6'] != 0 ? ($ptj[$key]['1_6'] / ($ptj[$key]['0']+$ptj[$key]['1_6']+$ptj[$key]['7']))*100:'0') }}</td>
+                                <td>{{ ($ptj[$key]['7'] != 0 ? ($ptj[$key]['7'] / ($ptj[$key]['0']+$ptj[$key]['1_6']+$ptj[$key]['7']))*100 :'0') }}</td>
+
+                                {{-- <td></td>
                                 <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td></td> --}}
                             </tr>
-
-
-
-
-
                         @endforeach
 
 
