@@ -101,25 +101,25 @@ class LaporanLainController extends Controller
 
     public function pdf_pencapaian_matlamat_kehadiran()
     {
-        $bidang_kursus = BidangKursus::with(['kodkursus','matlamat_kursus','matlamat_peserta'])->get();
-        $bidang_kursus = BidangKursus::with(['kodkursus','matlamat_kursus','matlamat_peserta'])->get();
-
+        $bidang_kursus = BidangKursus::with(['kodkursus','matlamat_kursus','matlamat_peserta','jadual_kursus'])->get();
+        $kursus = JadualKursus::with(['kehadiran'])->get();
+        $j_hadir = [];
         $j_pencapaian = 0;
         $j_matlamat_kursus = 0;
 
-        foreach ($bidang_kursus as $bk) {
-            $bk['pencapaian'] = count($bk->kodkursus);
-            $j_pencapaian += count($bk->kodkursus);
+    foreach ($bidang_kursus as $bk) {
+    $bk['pencapaian'] = count($bk->kodkursus);
+    $j_pencapaian += count($bk->kodkursus);
 
-            // $bk['matlamat'] = count($bk->matlamat_kursus);
-            // $j_matlamat_kursus += sum($bk->matlamat_kursus);
+    $j_matlamat_kursus=($bk->matlamat_kursus->jan+$bk->matlamat_kursus->feb+$bk->matlamat_kursus->mac+$bk->matlamat_kursus->apr+$bk->matlamat_kursus->mei+$bk->matlamat_kursus->jun+$bk->matlamat_kursus->jul+$bk->matlamat_kursus->ogos+$bk->matlamat_kursus->sept+$bk->matlamat_kursus->okt+$bk->matlamat_kursus->nov+$bk->matlamat_kursus->dis);
 
+    // dd($j_matlamat_kursus);
 
-            $j_matlamat_kursus=($bk->matlamat_kursus->jan+$bk->matlamat_kursus->feb+$bk->matlamat_kursus->mac+$bk->matlamat_kursus->apr+$bk->matlamat_kursus->mei+$bk->matlamat_kursus->jun+$bk->matlamat_kursus->jul+$bk->matlamat_kursus->ogos+$bk->matlamat_kursus->sept+$bk->matlamat_kursus->okt+$bk->matlamat_kursus->nov+$bk->matlamat_kursus->dis);
+}
 
-            // dd($j_matlamat_kursus);
-        }
-
+    foreach($kursus as $ku){
+        
+    }
         $bidang = new BidangKursus();
         $bidang['j_pencapaian'] = $j_pencapaian;
         $bidang['data'] = $bidang_kursus;
@@ -128,7 +128,8 @@ class LaporanLainController extends Controller
         $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_pencapaian_matlamat_kehadiran', [
             'bidang_kursus' => $bidang_kursus,
             'j_pencapaian' => $j_pencapaian,
-            'j_matlamat_kursus'=>$j_matlamat_kursus
+            'j_matlamat_kursus'=>$j_matlamat_kursus,
+            'j_hadir'=>$j_hadir,
         ])->setPaper('a4', 'landscape');
 
 
@@ -508,18 +509,20 @@ class LaporanLainController extends Controller
         $kursus = JadualKursus::with(['bidang','tempat','pengendali','kehadiran','perbelanjaan'])->where('kursus_status', '1')->get();
         $j_kehadiran = 0;
         $kehadiran = 0;
+        $hadir = [];
 
+        foreach ($kursus as $ku) {
+            $pk=PerbelanjaanKursus::where('jadualkursus_id', $ku->id)->first();
+            $hadir[$ku->id] = Kehadiran::with('kursus')->where('jadual_kursus_id',$ku->id)->where('status_kehadiran_ke_kursus', 'HADIR')->count();
 
-        foreach ($kursus as $k) {
-            $kehadiran = Kehadiran::where('jadual_kursus_id', $k->id)->where('status_kehadiran_ke_kursus', 'HADIR')->get();
+        // echo  $ku->kursus_nama.'->' .$hadir.'___';
 
-
-            $j_kehadiran +=count($kehadiran);
         }
 
-
         return view('laporan.laporan_lain.laporan_kewangan_terperinci', [
-            'kursus'=>$kursus
+            'kursus'=>$kursus,
+            // 'perbelanjaan_kursus'=>$perbelanjaan_kursus,
+            'hadir'=>$hadir,
         ]);
     }
 
@@ -528,42 +531,26 @@ class LaporanLainController extends Controller
         $kursus = JadualKursus::with(['bidang','tempat','pengendali','kehadiran','perbelanjaan'])->where('kursus_status', '1')->get();
         $j_kehadiran = 0;
         $kehadiran = 0;
-        // dd($kursus);
+        $hadir = [];
 
         foreach ($kursus as $ku) {
+
+            // if (!isset($jadualkursus[$ku->perbelanjaan->jadualkursus_id])) {
             $pk=PerbelanjaanKursus::where('jadualkursus_id', $ku->id)->first();
-            $hadir = Kehadiran::where('jadual_kursus_id', $ku->id)->get();
+            // $jadualkursus[$ku->perbelanjaan->jadualkursus_id]['peruntukan'] =
+            $hadir[$ku->id] = Kehadiran::with('kursus')->where('jadual_kursus_id',$ku->id)->where('status_kehadiran_ke_kursus', 'HADIR')->count();
 
+        // echo  $ku->kursus_nama.'->' .$hadir.'___';
 
-            // foreach($hadir as $h){
-            // // $kehadiran = 0;
-
-            //     $kehadiran = 0;
-            //     if($hadir->status_kehadiran_ke_kursus=="HADIR" &&  $hadir->status_kehadiran_ke_kursus==null){
-            //         $kehadiran++;
-            //     }
-            //     else if ($hadir->status_kehadiran_ke_kursus=="TIDAK HADIR" &&  $hadir->status_kehadiran_ke_kursus!=null){
-            //         $kehadiran++;
-            //     }
-            //     else{
-            //          $kehadiran = 0;
-            //     }
-
-
-
-            // dd($kursus echo "<br>" $j_kehadiran);
-            // echo  '__'.$kursus. '__'.$j_kehadiran;
-
-
-            $ku['j_kehadiran']=($kehadiran);
-            // $perbelanjaan_kursus=$pk->Jum_LO;
         }
+
+                // dd($hadir);
 
         // dd($kehadiran);
         $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_kewangan_terperinci', [
             'kursus'=>$kursus,
             // 'perbelanjaan_kursus'=>$perbelanjaan_kursus,
-            'j_kehadiran'=>$j_kehadiran
+            'hadir'=>$hadir,
         ])->setPaper('a4', 'landscape');
 
         return $pdf->stream('Laporan Kewangan Terperinci.' . 'pdf');
@@ -679,22 +666,21 @@ class LaporanLainController extends Controller
 
     public function laporan_penilaian_peserta()
     {
-        $penilaian = PenilaianPeserta::with(['kursus'])->distinct()->get(['id_jadual']);
-        // $kursus = JadualKursus::where('id',$penilaian->id_jadual)->first();
-
-
-        $tot_penilaian = 0;
+        $penilaian = PenilaianPeserta::with(['kursus','kursus.bidang','kursus.pengendali','kursus.tempat'])->distinct()->get(['id_jadual','nama_peserta']);
+        $tot_penilaian[]= 0;
 
         $tot_peserta = 0;
 
-        $tot_penilaian +=count($penilaian);
+        // $tot_penilaian +=count($penilaian);
 
         foreach($penilaian as $p){
-
-        $kursus = JadualKursus::where('id',$p->id_jadual)->first();
+// echo '<br>'.count((array)$p->kursus->id);
+        $kursus = JadualKursus::with(['tempat','pengendali','bidang','kodkursus'])->where('id',$p->id_jadual)->first();
+        $tot_penilaian[$kursus->id]=count((array)$p->kursus->id);
         $tot_peserta  = Kehadiran::with('peserta')->where('status_kehadiran_ke_kursus','HADIR')->where('jadual_kursus_id',$kursus->id)->count();
 
         }
+        // exit();
         return view('laporan.laporan_lain.penilaian_peserta', [
             'penilaian' => $penilaian,
             'penilaian' => $penilaian,
@@ -706,22 +692,29 @@ class LaporanLainController extends Controller
 
     public function pdf_laporan_penilaian_peserta()
     {
-        $penilaian = PenilaianPeserta::with(['kursus'])->distinct()->get(['id_jadual']);
+        $penilaian = PenilaianPeserta::with(['kursus'])->distinct()->get(['id_jadual','nama_peserta']);
+        $tot_penilaian[]= 0;
+
+
+        // $tot_penilaian  = PenilaianPeserta::distinct('id_jadual')->count();
+
+        // $tot_penilaian = PenilaianPeserta::distinct('id_jadual')->->count();
         // $kursus = JadualKursus::where('id',$penilaian->id_jadual)->first();
 
 
-        $tot_penilaian = 0;
 
         $tot_peserta = 0;
 
-        $tot_penilaian +=count($penilaian);
+        // $tot_penilaian +=count($penilaian);
 
         foreach($penilaian as $p){
-
-        $kursus = JadualKursus::where('id',$p->id_jadual)->first();
+// echo '<br>'.count((array)$p->kursus->id);
+        $kursus = JadualKursus::with(['tempat','pengendali','bidang'])->where('id',$p->id_jadual)->first();
+        $tot_penilaian[$kursus->id]=count((array)$p->kursus->id);
         $tot_peserta  = Kehadiran::with('peserta')->where('status_kehadiran_ke_kursus','HADIR')->where('jadual_kursus_id',$kursus->id)->count();
 
         }
+        // exit();
 
         // dd($tot_penilaian);
         $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_penilaian_peserta', [

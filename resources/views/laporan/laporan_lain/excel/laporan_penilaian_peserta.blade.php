@@ -24,22 +24,22 @@
                 @foreach ($penilaian as $p)
                 <tr>
 
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ ($p->kursus->bidang->nama_Bidang_Kursus ?? '-') }}</td>
-                        <td>{{($p->kursus->kursus_nama?? '-')}}</td>
-                        <td>{{ ($p->kursus->kodkursus->kod_Kursus ?? '-') }}</td>
-                        @if($p->kursus->bilangan_hari>1)
-                            <td>{{date('d/m/Y', strtotime($p->kursus->tarikh_mula))}}
-                            <br>-<br>{{date('d/m/Y', strtotime($p->kursus->tarikh_tamat))}}</td>
-                        @else
-                            <td>{{date('d/m/Y', strtotime($p->kursus->tarikh_mula))}}
-                        @endif
-                        <td>{{($p->kursus->tempat->nama_Agensi?? '-') }} </td>
-                        <td>{{($p->kursus->pengendali->nama_Agensi?? '-') }} </td>
-                        <td>{{$p->kursus->kursus_no_ft}}</td>
-                        <td>{{$tot_peserta}}</td>
-                        <td>{{$tot_penilaian}}</td>
-                        <td>0.00%</td>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ ($p->kursus->bidang->nama_Bidang_Kursus ?? '-') }}</td>
+                    <td>{{($p->kursus->id?? '-')}}</td>
+                    <td>{{ ($p->kursus->kodkursus->kod_Kursus ?? '-') }}</td>
+                    @if($p->kursus->bilangan_hari>1)
+                        <td>{{date('d/m/Y', strtotime($p->kursus->tarikh_mula))}}
+                        <br>-<br>{{date('d/m/Y', strtotime($p->kursus->tarikh_tamat))}}</td>
+                    @else
+                        <td>{{date('d/m/Y', strtotime($p->kursus->tarikh_mula))}}
+                    @endif
+                    <td>{{($p->kursus->tempat->nama_Agensi?? '-') }} </td>
+                    <td>{{($p->kursus->pengendali->nama_Agensi?? '-') }} </td>
+                    <td>{{$p->kursus->kursus_no_ft}}</td>
+                    <td>{{$tot_peserta}}</td>
+                    <td>{{$tot_penilaian[$p->kursus->id]}}</td>
+                    <td>0.00%</td>
                     </tr>
                 @endforeach
             </tbody>

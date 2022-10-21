@@ -74,7 +74,7 @@
                         <td>{{($p->kursus->pengendali->nama_Agensi?? '-') }} </td>
                         <td>{{$p->kursus->kursus_no_ft}}</td>
                         <td>{{$tot_peserta}}</td>
-                        <td>{{$tot_penilaian}}</td>
+                        <td>{{$tot_penilaian[$p->kursus->id]}}</td>
                         <td>0.00%</td>
                     </tr>
                 @endforeach

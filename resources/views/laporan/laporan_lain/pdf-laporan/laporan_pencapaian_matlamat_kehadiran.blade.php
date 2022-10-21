@@ -201,8 +201,8 @@
                             echo array_sum($tot_peserta);?> </td>
                         @endif
                     <td>Lelaki</td>
-                    <td>Peremppuan</td>
-                    <td>J</td>
+                    <td>Perempuan</td>
+                    <td>{{$j_hadir[$k->jadual_kursus]}}</td>
                     <td></td>
                     @if ($k->matlamat_perbelanjaan==null)
                         <td>0</td>
@@ -210,9 +210,9 @@
                         <td> <?php $tot_perbelanjaan=array($k->matlamat_perbelanjaan->jan,$k->matlamat_perbelanjaan->feb,$k->matlamat_perbelanjaan->mac,$k->matlamat_perbelanjaan->apr,$k->matlamat_perbelanjaan->mei,$k->matlamat_perbelanjaan->jun,$k->matlamat_perbelanjaan->jul,$k->matlamat_perbelanjaan->ogos,$k->matlamat_perbelanjaan->sept,$k->matlamat_perbelanjaan->okt,$k->matlamat_perbelanjaan->nov,$k->matlamat_perbelanjaan->dis);
                             echo array_sum($tot_perbelanjaan);?> </td>
                         @endif
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
                 </tr>
             @endforeach
             <tr style="">
