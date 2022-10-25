@@ -842,13 +842,6 @@
                                         </div>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link py-0" href="/penilaian/keberkesanan-kursus">
-                                        <div class="d-flex align-items-center nav-link-side">
-                                            <span class="px-0">PENILAIAN KEBERKESANAN KURSUS</span>
-                                        </div>
-                                    </a>
-                                </li>
                             @endcan
 
                             @can('cipta penilaian')
@@ -865,6 +858,14 @@
                                     <a class="nav-link py-0" href="/penilaian/penilaian-kursus-us">
                                         <div class="d-flex align-items-center nav-link-side">
                                             <span class="px-0">PENILAIAN KURSUS</span>
+                                        </div>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link py-0" href="/penilaian/keberkesanan-kursus">
+                                        <div class="d-flex align-items-center nav-link-side">
+                                            <span class="px-0">PENILAIAN KEBERKESANAN KURSUS</span>
                                         </div>
                                     </a>
                                 </li>
@@ -1082,6 +1083,7 @@
                                         </a>
                                     </li>
 
+
                                     <li class="nav-item">
                                         <a class="nav-link {{ Request::is('laporan/uls/laporan-am/laporan-ringkasan-bidang-kursus') ? 'active' : '' }} py-0"
                                             href="/laporan/uls/laporan-am/laporan-ringkasan-bidang-kursus">
@@ -1090,6 +1092,17 @@
                                             </div>
                                         </a>
                                     </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::is('laporan/uls/laporan-am/laporan-kehadiran-peserta') ? 'active' : '' }} py-0"
+                                            href="/laporan/uls/laporan-am/laporan-kehadiran-peserta">
+                                            <div class="d-flex align-items-center nav-link-side">
+                                                <span class="px-0">Laporan Kehadiran Peserta</span>
+                                            </div>
+                                        </a>
+                                    </li>
+
+
                                     <hr class="navbar-vertical-divider mx-3">
                                 </ul>
                             </li>
@@ -1153,19 +1166,10 @@
                                     </li>
 
                                     <li class="nav-item">
-                                        <a class="nav-link {{ Request::is('laporan/uls/laporan-lain/laporan-penilaian-kursus/{id}') ? 'active' : '' }} py-0"
-                                            href="/laporan/uls/laporan-lain/laporan-penilaian-kursus">
-                                            <div class="d-flex align-items-center nav-link-side">
-                                                <span class="px-0">Laporan Penilaian Kursus</span>
-                                            </div>
-                                        </a>
-                                    </li>
-
-                                    <li class="nav-item">
-                                        <a class="nav-link {{ Request::is('/laporan/uls/laporan-lain/laporan-penilaian-prepost/{id}') ? 'active' : '' }} py-0"
+                                        <a class="nav-link {{ Request::is('/laporan/uls/laporan-lain/senarai-kursus') ? 'active' : '' }} py-0"
                                             href="/laporan/uls/laporan-lain/senarai-kursus">
                                             <div class="d-flex align-items-center nav-link-side">
-                                                <span class="px-0">Laporan Penilaian Pre Test dan Post Test</span>
+                                                <span class="px-0">Laporan Penilaian </span>
                                             </div>
                                         </a>
                                     </li>

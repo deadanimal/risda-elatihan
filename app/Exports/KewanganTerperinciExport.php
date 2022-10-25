@@ -15,41 +15,25 @@ class KewanganTerperinciExport implements FromView
     use Exportable;
     public function view(): View
     {
-        $kursus = JadualKursus::with(['bidang','tempat','pengendali','kehadiran','perbelanjaan'])->where('kursus_status','1')->get();
+        $kursus = JadualKursus::with(['bidang','tempat','pengendali','kehadiran','perbelanjaan'])->where('kursus_status', '1')->get();
         $j_kehadiran = 0;
         $kehadiran = 0;
+        $hadir = [];
 
-        // foreach($kursus as $ku){
-        //     $pk=PerbelanjaanKursus::where('jadualkursus_id',$ku->id)->first();
-        //     $hadir = Kehadiran::where('jadual_kursus_id',$ku->id)->get();
+        foreach ($kursus as $ku) {
+            // if (!isset($jadualkursus[$ku->perbelanjaan->jadualkursus_id])) {
+            $pk=PerbelanjaanKursus::where('jadualkursus_id', $ku->id)->first();
+            // $jadualkursus[$ku->perbelanjaan->jadualkursus_id]['peruntukan'] =
+            $hadir[$ku->id] = Kehadiran::with('kursus')->where('jadual_kursus_id', $ku->id)->where('status_kehadiran_ke_kursus', 'HADIR')->count();
 
-
-        //     foreach($hadir as $h){
-        //         $kehadiran = 0;
-
-
-        //         if($hadir->status_kehadiran_ke_kursus=="HADIR" &&  $hadir->status_kehadiran_ke_kursus==null){
-        //             $kehadiran++;
-        //         }
-        //         else if ($hadir->status_kehadiran_ke_kursus=="TIDAK HADIR" &&  $hadir->status_kehadiran_ke_kursus!=null){
-        //             $kehadiran++;
-        //         }
-        //         else{
-        //              $kehadiran = 0;
-        //         }
-        //     }
-        //     $ku['j_kehadiran']+=count($kehadiran);
-        //     $perbelanjaan_kursus=$pk->Jum_LO;
-
-
-        // }
-
+            // echo  $ku->kursus_nama.'->' .$hadir.'___';
+        }
 
 
         return view('laporan.laporan_lain.excel.laporan_kewangan_terperinci',[
-            // 'perbelanjaan_kursus'=>$perbelanjaan_kursus,
-            // 'j_kehadiran'=>$j_kehadiran,
             'kursus'=>$kursus,
+            // 'perbelanjaan_kursus'=>$perbelanjaan_kursus,
+            'hadir'=>$hadir,
 
         ]);
     }

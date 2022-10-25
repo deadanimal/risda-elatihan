@@ -72,7 +72,7 @@
                 </div>
             </div>
         </div>
-        <a id="downloadpdf" download="LaporanPencapaianMatlamatKehadiran.pdf" style="display: none"
+        <a id="downloadpdf" style="display: none"
         href="{{ route('pdf_pmk') }}">Download</a>
 
         <a id="downloadexcel" style="display: none" href="{{ route('pmk') }}">Download</a>

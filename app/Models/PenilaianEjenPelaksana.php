@@ -12,7 +12,7 @@ class PenilaianEjenPelaksana extends Model
 
     public function penceramahKonsultan()
     {
-        return $this->hasMany(PenceramahKonsultan::class,'penceramah_konsultan_id','id');
+        return $this->belongsTo(PenceramahKonsultan::class,'penceramah_konsultan_id','id');
     }
 
 

@@ -32,15 +32,18 @@ class PenilaianEjenPelaksanaController extends Controller
 
     // //    dd($kursus);
 
-        $ejen=PenceramahKonsultan::with(['agensi', 'jadual_kursus'])->get();
+        $ejen=PenceramahKonsultan::with(['penilaianejen','agensi', 'jadual_kursus'])->get();
         $hari_ini = date('Y-m-d');
 
-            // $penilaian_ejen=PenilaianEjenPelaksana::where('jadual_kursus_id',$ejen->pc_jadual_kursus)->first();
+        $kursus = JadualKursus::where('kursus_status','1')->get();
 
+            // $penilaian_ejen=PenilaianEjenPelaksana::where('jadual_kursus_id',$ejen->pc_jadual_kursus)->first();
+    // dd($ejen);
 
         return view('penilaian.ejen-pelaksana.index',[
             'ejen'=>$ejen,
-            'hari_ini'=>$hari_ini
+            'hari_ini'=>$hari_ini,
+            'kursus'=>$kursus
             // 'penilaian'=>$penilaian
 
         ]);
@@ -112,6 +115,7 @@ class PenilaianEjenPelaksanaController extends Controller
     {
         $penilaian_ejen = PenilaianEjenPelaksana::find($id);
         $kursus = JadualKursus::where('id',$penilaian_ejen->jadual_kursus_id)->first();
+
 
         return view('penilaian.ejen-pelaksana.show',[
             'kursus'=>$kursus,

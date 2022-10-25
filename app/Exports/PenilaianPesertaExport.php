@@ -33,7 +33,7 @@ class PenilaianPesertaExport implements FromView
         $tot_penilaian +=count($penilaian);
 
         foreach ($penilaian as $p) {
-            $kursus = JadualKursus::where('id', $p->id_jadual)->first();
+            $kursus = JadualKursus::with(['bidang','pengendali','tempat','kodkursus'])->where('id', $p->id_jadual)->first();
             $tot_peserta  = Kehadiran::with('peserta')->where('status_kehadiran_ke_kursus', 'HADIR')->where('jadual_kursus_id', $kursus->id)->count();
 
             return view('laporan.laporan_lain.excel.laporan_penilaian_peserta', [

@@ -77,8 +77,11 @@
 
                             @foreach ($ejen as $ejen)
                                 <tr>
-                                    <td>
+                                    {{-- <td>
                                         {{ $loop->iteration }}
+                                    </td> --}}
+                                     <td>
+                                        {{ $ejen->id }}
                                     </td>
 
                                     <td>
@@ -99,7 +102,7 @@
                                     </td>
 
 
-                                        @if($ejen->penilaianejen===null)
+                                        @if (count($ejen->penilaianejen) == 0)
                                             @if($hari_ini>=$ejen->jadual_kursus->tarikh_tamat)
 
                                             <td>
@@ -119,11 +122,14 @@
 
                                             @endif
                                         @else
-                                            <td>
-                                                <a class="btn btn-primary btn-sm" href="/penilaian/ejen-pelaksana/{{$ejen->penilaianejen->id}}">
+                                            @foreach($ejen->penilaianejen as $a)
+                                             <td>
+                                                <a class="btn btn-primary btn-sm" href="/penilaian/ejen-pelaksana/{{$a->id}}">
                                                     Papar Penilaian
                                                 </a>
                                             </td>
+                                            @endforeach
+                                            {{-- <td>{{$ejen->penilaianejen}}</td> --}}
                                             @endif
 
                                     </td>
