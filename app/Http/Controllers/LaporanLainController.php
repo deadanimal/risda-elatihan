@@ -81,16 +81,9 @@ class LaporanLainController extends Controller
         $bidang['j_pencapaian'] = $j_pencapaian;
         $bidang['data'] = $bidang_kursus;
 
-        // $response = Http::post('https://libreoffice.prototype.com.my/cetak/LaporanPMK', [$bidang]);
-
-        // $res = $response->getBody()->getContents();
-
-        // $url = "data:application/pdf;base64," . $res;
-
         return view('laporan.laporan_lain.laporan_pencapaian_matlamat_kehadiran', [
             'bidang_kursus' => $bidang_kursus,
             'j_pencapaian' => $j_pencapaian,
-            // 'url' => $url,
         ]);
     }
     public function pmk()
@@ -116,13 +109,11 @@ class LaporanLainController extends Controller
     // dd($j_matlamat_kursus);
 
 }
-
-    foreach($kursus as $ku){
-        
-    }
         $bidang = new BidangKursus();
         $bidang['j_pencapaian'] = $j_pencapaian;
         $bidang['data'] = $bidang_kursus;
+
+
 
 
         $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_pencapaian_matlamat_kehadiran', [
@@ -141,8 +132,6 @@ class LaporanLainController extends Controller
         $perbelanjaan = PerbelanjaanKursus::with(['jadual_kursus', 'pt'])->get();
         return view('laporan.laporan_lain.perbelanjaan_mengikut_pusat_tanggungjawab', [
             'perbelanjaan' => $perbelanjaan
-
-
         ]);
     }
 
@@ -343,7 +332,15 @@ class LaporanLainController extends Controller
     public function pdf_laporan_kehadiran_7_hari_setahun()
     {
         // return view('laporan.laporan_lain.laporan_kehadiran_7_hari_setahun');
-        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_kehadiran_7_hari_setahun')
+        $peserta = Staf::with(['pengguna'])->distinct('Gred')->get();
+
+        foreach($peserta as $p){
+
+        }
+
+        $pdf = PDF::loadView('laporan.laporan_lain.pdf-laporan.laporan_kehadiran_7_hari_setahun',[
+            'peserta'=>$peserta
+        ])
         ->setPaper('a4', 'landscape');
 
 
@@ -361,7 +358,7 @@ class LaporanLainController extends Controller
     {
         $id_penceramah = KategoriAgensi::where('Kategori_Agensi', 'Penceramah')->first()->id;
 
-        $penceramah = Agensi::where('kategori_agensi', $id_penceramah)->with('penceramahKonsultan')->get();
+        $penceramah = Agensi::with(['penceramahKonsultan','penceramahKonsultan.jadual_kursus.tempat'])->where('kategori_agensi', $id_penceramah)->get();
 
         // foreach ($penceramah as $p) {
         //     foreach ($p->penceramahKonsultan as $pk) {
@@ -433,7 +430,7 @@ class LaporanLainController extends Controller
 
     public function laporan_kehadiran_peserta()
     {
-        $kehadiran = Kehadiran::with(['staff', 'kursus'])->orderBy('jadual_kursus_id')->get();
+        $kehadiran = Kehadiran::with(['staff', 'kursus','kursus.bidang','kursus.tempat','kursus.pengendali','kursus.kategori_kursus','staff.staf'])->orderBy('jadual_kursus_id')->get();
         // $kursus = JadualKursus::with('tempat');
 
         foreach ($kehadiran as $k) {
@@ -779,13 +776,20 @@ class LaporanLainController extends Controller
 
         // $penilaianKursus = KursusPenilaian::where('jadual_kursus_id',$kursus->id)->first();
         // dd($tot_pp);
-        return view('laporan.laporan_lain.penilaian.laporan-penilaian-kursus-uls2',[
-            'kursus'=>$kursus,
-            'j_sesi'=>$j_sesi,
-            'kehadiran'=>$kehadiran,
-            'tot_k'=>$tot_k,
-            // 'tot_p'=>$tot_pp
-        ]);
+        if ($tot_k == 0) {
+            alert()->error('Tiada peserta yang membuat penilaian.', 'Tiada Penilaian');
+            return back();
+        }
+
+        else {
+            return view('laporan.laporan_lain.penilaian.laporan-penilaian-kursus-uls2', [
+                'kursus'=>$kursus,
+                'j_sesi'=>$j_sesi,
+                'kehadiran'=>$kehadiran,
+                'tot_k'=>$tot_k,
+                // 'tot_p'=>$tot_pp
+            ]);
+        }
     }
 
     public function pdf_laporan_penilaian_kursus_uls($id)
@@ -1667,6 +1671,7 @@ class LaporanLainController extends Controller
         // $umur_peserta = $tahun_ini - $tahun_lahir;
 
         // dd($kehadiran_pl);
+
         return view('laporan.laporan_lain.kehadiran.umur_jantina', [
             'kehadiran_pl' => $kehadiran_pl,
             // 'tot_kursus'=>$tot_kursus,

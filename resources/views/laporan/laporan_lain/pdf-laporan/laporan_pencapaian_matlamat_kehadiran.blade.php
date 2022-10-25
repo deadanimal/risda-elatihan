@@ -202,7 +202,8 @@
                         @endif
                     <td>Lelaki</td>
                     <td>Perempuan</td>
-                    <td>{{$j_hadir[$k->jadual_kursus]}}</td>
+                    {{-- <td>{{$j_hadir[$k->jadual_kursus]}}</td> --}}
+                    <td></td>
                     <td></td>
                     @if ($k->matlamat_perbelanjaan==null)
                         <td>0</td>

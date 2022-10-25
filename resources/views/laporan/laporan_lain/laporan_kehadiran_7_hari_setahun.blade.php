@@ -43,9 +43,9 @@
             </div>
         </div>
 
-        <a id="downloadpdf" style="display: none" download="Laporan Kehadiran 7 Hari Setahun"
+        <a id="downloadpdf" style="display: none"
             href="{{ route('pdf_kehadiran_7_setahun') }}">Download</a>
-    <a id="downloadexcel" style="display: none" href="{{ route('excel_kehadiran_7_setahun') }}" download="Laporan Kehadiran 7 Hari Setahun">Download</a>
+    <a id="downloadexcel" style="display: none" href="{{ route('excel_kehadiran_7_setahun') }}">Download</a>
 
 
 

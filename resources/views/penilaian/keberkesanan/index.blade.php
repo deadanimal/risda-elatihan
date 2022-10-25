@@ -32,10 +32,10 @@
                     <div class="col-8">
                         <select class="form-select" required>
                             <option hidden>SILA PILIH</option>
-                            {{-- @foreach ($kehadiran->user as $kk)
-                                        <option value={{$kk->id}}>{{$k->name}}</option>
-                                    @endforeach --}}
-                            {{-- <input type="text" class="form-control" value="{{ $jadual_kursus->kursus_nama }}" readonly> --}}
+                            @foreach ($kehadiran as $k)
+                                        <option value={{ $k->staff['id'] }}>{{ $k->staff['name'] }}</option>
+                                    @endforeach
+                            {{-- <input type="text" class="form-control" value="{{ $k->staff['name'] }}" readonly> --}}
                         </select>
                     </div>
                 </div>

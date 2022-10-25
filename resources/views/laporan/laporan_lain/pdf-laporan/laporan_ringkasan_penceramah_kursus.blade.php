@@ -41,7 +41,7 @@
 
 
 <h4> Laporan Ringkasan Penceramah Kursus </h4>
-<table  style="vertical-align: middle;border-color: #00B64E;">
+<table  style="vertical-align: middle;text-style:center;border-color: #00B64E;">
     <thead class="risda-bg-g">
 
         <tr>
@@ -67,7 +67,7 @@
                     <td>{{date('d/m/Y', strtotime(($pk->jadual_kursus->tarikh_mula?? '-'))) }}</td>
                     {{-- <td>{{date('d/m/Y', strtotime(($pk->jadual_kursus->tarikh_mula?? '-'))) }}</td> --}}
                     <td>{{ $pk->jadual_kursus->tempat->nama_Agensi }}</td>
-                    <td></td>
+                    <td>-</td>
                 </tr>
             @endforeach
         @endforeach

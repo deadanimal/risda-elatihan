@@ -67,7 +67,7 @@
                     <td>{{date('d/m/Y', strtotime(($pk->jadual_kursus->tarikh_mula?? '-'))) }}</td>
                     {{-- <td>{{date('d/m/Y', strtotime(($pk->jadual_kursus->tarikh_mula?? '-'))) }}</td> --}}
                     <td>{{ $pk->jadual_kursus->tempat->nama_Agensi }}</td>
-                    <td></td>
+                    <td>-</td>
                 </tr>
             @endforeach
         @endforeach
