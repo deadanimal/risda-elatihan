@@ -298,7 +298,7 @@
                             <select name="kursus_staf_yang_bertanggungjawab" class="form-control">
                                 <option value="" selected hidden>Sila Pilih</option>
                                 @foreach ($staf_bertanggungjawab as $sb)
-                                    <option value="{{ $sb->pengguna->name }}">{{ $sb->pengguna->name }}</option>
+                                    <option value="{{ $sb->pengguna->name ?? '' }}">{{ $sb->pengguna->name ?? '' }}</option>
                                 @endforeach
                             </select>
                         </div>
