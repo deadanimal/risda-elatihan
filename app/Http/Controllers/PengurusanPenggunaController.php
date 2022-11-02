@@ -44,7 +44,7 @@ class PengurusanPenggunaController extends Controller
             'gred' => Staf::orderBy('Gred', 'asc')->get()->groupBy('Gred'),
             'namaPT' => Staf::get()->groupBy('NamaPT'),
         ]);
-        
+
     }
 
     public function filter_staf(Request $request)
@@ -336,6 +336,7 @@ class PengurusanPenggunaController extends Controller
         if (empty($request->status)) {
             $request->status = null;
         }
+        
         $user = User::find($id);
         $user->status_akaun = $request->status;
         $user->save();

@@ -51,7 +51,7 @@
 
         <hr class="risda-g">
 
-        <a id="downloadpdf" download="LaporanKemajuanLatihan-Negeri" style="display: none"
+        <a id="downloadpdf" style="display: none"
         href="{{ route('pdf-kl-negeri') }}">Download</a>
 
         <a id="downloadexcel" style="display: none" href="{{ route('excel-kl-negeri') }}">Download</a>

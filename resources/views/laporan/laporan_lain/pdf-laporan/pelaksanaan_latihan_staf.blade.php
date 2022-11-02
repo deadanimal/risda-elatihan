@@ -4,11 +4,12 @@
     <style type="text/css">
 @page {
   size:A4 landscape;
-  margin: 30px;
+  margin-right: 20px;
+  margin-left: 20px;
 }
 
 th{
-    font-size: 6px;
+    font-size:7px;
     border: 1px solid black;
     border-collapse: collapse;
 
@@ -45,11 +46,10 @@ th{
                             <th rowspan="3">TEMPAT KURSUS</th>
                             <th rowspan="3">ANJURAN</th>
                             <th rowspan="3">NO.FT</th>
-                            <th colspan="9">BILANGAN PESERTA</th>
+                            <th colspan="6">BILANGAN PESERTA</th>
                             <th colspan="5">KATEGORI</th>
                         </tr>
                         <tr>
-                            <th colspan="3">BILANGAN</th>
                             <th colspan="3">KEHADIRAN</th>
                             <th colspan="3">PERATUS KEHADIRAN</th>
                             <th>A</th>
@@ -59,9 +59,6 @@ th{
                             <th>E</th>
                         </tr>
                         <tr>
-                            <th>LELAKI</th>
-                            <th>PEREMPUAN</th>
-                            <th>JUMLAH BILANGAN PESERTA</th>
                             <th>LELAKI</th>
                             <th>PEREMPUAN</th>
                             <th>JUMLAH BILANGAN PESERTA</th>
@@ -88,10 +85,7 @@ th{
 
                             <td></td>
                             <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{$hadir[$k->id]}}</td></td>
                             <td></td>
                             <td></td>
                             <td></td>

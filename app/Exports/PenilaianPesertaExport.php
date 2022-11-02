@@ -22,7 +22,7 @@ class PenilaianPesertaExport implements FromView
 
     public function view(): View
     {
-        $penilaian = PenilaianPeserta::with(['kursus'])->distinct()->get(['id_jadual']);
+        $penilaian = PenilaianPeserta::with(['kursus','kursus.kodkursus','kursus.bidang'])->distinct()->get(['id_jadual']);
         // $kursus = JadualKursus::where('id',$penilaian->id_jadual)->first();
 
 
