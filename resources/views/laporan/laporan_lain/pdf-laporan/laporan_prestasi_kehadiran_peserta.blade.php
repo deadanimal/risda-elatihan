@@ -1,5 +1,5 @@
 
-
+<title>Laporan Prestasi Kehadiran Peserta</title>
 <style type="text/css">
     /* define a few different page types we can refer to from CSS classes */
     /* see http://www.princexml.com/doc/page-size/ */
@@ -165,8 +165,9 @@
             <table width="100%" style="text-transformation:capitalize">
             <thead class="risda-bg-g">
                 <tr>
-                    <th>BIL.</th>
                     <th>BIDANG KURSUS</th>
+
+                    <th>BIL.</th>
                     <th>NAMA KURSUS</th>
                     <th>TARIKH KURSUS</th>
                     <th>BIL PANGGILAN</th>
@@ -180,8 +181,9 @@
                 @foreach ($bidang_kursus as $bk)
                     @foreach ($bk->jadual_kursus as $jk)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $bk->nama_Bidang_Kursus }}</td>
+                            <td>{{ $loop->iteration }}</td>
+
                             <td>{{ $jk->kursus_nama }}</td>
                             {{-- <td>{{ $jk->id }}</td> --}}
                             @if ($jk->bilangan_hari>1)
@@ -189,34 +191,22 @@
                             @else
                             <td>{{date('d/m/Y', strtotime($jk->tarikh_mula))}}</td>
                             @endif
-                            <td>{{$peruntukan_peserta}}</td>
-                            <td>{{ $j_kehadiran }}</td>
-                            <td>{{ $j_tidak_hadir }}</td>
-                            <td>{{ $jk->bil_pengganti }}</td>
-                            <td><?php echo(round($peratusan_kehadiran))?>%</td>
+
+                            <td>{{$peruntukan_peserta[$jk->id]}}</td>
+
+                            <td>{{$hadir[$jk->id]}}</td>
+                            <td>{{$tidak_hadir[$jk->id]}}</td>
+                            <td>{{$pengganti[$jk->id]}}</td>
+                            @if(($hadir[$jk->id]==0)&&($pengganti[$jk->id]==0))
+                            <td>0%</td>
+                            @else
+                            <td><?php echo(round(((($hadir[$jk->id])+($pengganti[$jk->id]))/$peruntukan_peserta[$jk->id])*100))?>%</td>
+                            @endif
                         </tr>
                     @endforeach
                 @endforeach
             </tbody>
 
-            {{-- <tbody>
-                @foreach ($kursus as $k)
-                <tr>
-                    <td>{{$k->bidang->nama_Bidang_Kursus}}</td>
-                    <td>{{$k->kursus_nama}}</td>
-                    @if ($k->bilangan_hari>1)
-                        <td>{{date('d/m/Y', strtotime($k->tarikh_mula))}} - {{date('d/m/Y', strtotime($k->tarikh_tamat))}} </td>
-                    @else
-                        <td>{{date('d/m/Y', strtotime($k->tarikh_mula))}}</td>
-                    @endif
-                    <td>{{$k->j_peruntukan}}</td>
-                    <td>{{ $k->$j_kehadiran }}</td>
-                    <td>{{ $k->$j_kehadiran }}</td>
-                    <td>{{ $k->$j_kehadiran }}</td>
-                    <td></td>
-                @endforeach
-                </tr>
-            </tbody> --}}
 
         </table>
     </div>

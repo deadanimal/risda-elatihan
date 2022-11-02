@@ -47,7 +47,7 @@
 
     <hr class="risda-g">
 
-    <a id="downloadpdf" download="LaporanKemajuanLatihan-PusatLatihan" style="display: none"
+    <a id="downloadpdf" style="display: none"
     href="{{ route('pdf_pl_staf') }}">Download</a>
 
     <a id="downloadexcel" style="display: none" href="{{ route('excel_pl_staf') }}">Download</a>

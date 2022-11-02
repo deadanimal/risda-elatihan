@@ -21,22 +21,6 @@
             <div class="col-8">
                 <div class="row mt-3">
                     <div class="col-lg-3">
-                        <p class="risda-dg h5 mt-2">TARIKH MULA</p>
-                    </div>
-                    <div class="col-lg-4">
-                        <input type="date" class="form-control">
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-lg-3">
-                        <p class="risda-dg h5 mt-2">TARIKH AKHIR</p>
-                    </div>
-                    <div class="col-lg-4">
-                        <input type="date" class="form-control">
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-lg-3">
                         <p class="risda-dg h5 mt-2">TAHUN</p>
                     </div>
                     <div class="col-lg-3">
@@ -93,76 +77,6 @@
                 </div>
 
                 <div class="table-responsive scrollbar mt-3">
-                    {{-- <table class="table text-center table-bordered datatable" id="tab"
-                        style="vertical-align: middle;border-color: #00B64E;">
-                        <caption style="display: none">LAPORAN PENCAPAIAN MATLAMAT KEHADIRAN</caption>
-                        <thead class="risda-bg-g">
-                            <tr>
-                                <th rowspan="2">BIL.</th>
-                                <th rowspan="2">BIDANG KURSUS</th>
-                                <th colspan="3">BILANGAN KURSUS</th>
-                                <th colspan="4">KEHADIRAN</th>
-                                <th colspan="5">PERBELANJAAN</th>
-                            </tr>
-                            <tr>
-                                <th>MATLAMAT</th>
-                                <th>PENCAPAIAN</th>
-                                <th>PERATUS</th>
-
-                                <th>MATLAMAT</th>
-                                <th>LELAKI</th>
-                                <th>PEREMPUAN</th>
-                                <th>JUMLAH</th>
-
-                                <th>PERATUS</th>
-                                <th>MATLAMAT</th>
-                                <th>PENCAPAIAN</th>
-                                <th>BAKI</th>
-                                <th>JUMLAH</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($bidang_kursus as $bk)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $bk->nama_Bidang_Kursus }}</td>
-                                    <td></td>
-                                    <td>{{ count($bk->kodkursus) }}</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            @endforeach
-                            <tr>
-                                <td style="background-color: #009640">
-                                    <p style="color: #009640">a</p>
-                                </td>
-                                <td class="h5 risda-g">
-                                    JUMLAH
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table> --}}
-
                     @include(
                         'laporan.laporan_lain.excel.laporan_pencapaian_matlamat_kehadiran'
                     )

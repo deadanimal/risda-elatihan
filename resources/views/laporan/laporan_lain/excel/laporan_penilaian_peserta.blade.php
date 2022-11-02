@@ -26,7 +26,7 @@
 
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ ($p->kursus->bidang->nama_Bidang_Kursus ?? '-') }}</td>
-                    <td>{{($p->kursus->id?? '-')}}</td>
+                    <td>{{($p->kursus->kursus_nama?? '-')}}</td>
                     <td>{{ ($p->kursus->kodkursus->kod_Kursus ?? '-') }}</td>
                     @if($p->kursus->bilangan_hari>1)
                         <td>{{date('d/m/Y', strtotime($p->kursus->tarikh_mula))}}
