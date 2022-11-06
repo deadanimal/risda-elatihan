@@ -632,7 +632,7 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/delete/{id}', [UtilitiController::class, 'test_user_delete']);
 
-    Route::get('/testing', [UtilitiControhller::class, 'test_user_list']);
+    Route::get('/testing', [UtilitiController::class, 'test_user_list']);
     Route::get('/add_staf', [UtilitiController::class, 'r_espek']);
     Route::delete('/delete/{id}', [UtilitiController::class, 'test_user_delete']);
     Route::put('/update_role/{id}', [UtilitiController::class, 'test_user_update_role']);

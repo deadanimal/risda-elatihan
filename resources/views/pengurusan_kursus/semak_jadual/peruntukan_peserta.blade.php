@@ -165,7 +165,7 @@
                         <label class="col-form-label">JUMLAH CALON</label>
                     </div>
                     <div class="col-lg-6">
-                        <input type="text" disabled value="{{ $total_calon }}" class="form-control text-center">
+                        <input type="text" disabled class="form-control text-center">
                     </div>
                 </div>
             </div>
