@@ -57,6 +57,7 @@
             </div>
         </form>
 
+        @if (Auth::user()->jenis_pengguna=="Peserta ULS ")
 
         <div class="row mt-5" id="katalog_normal">
             @foreach ($jadual as $j)
@@ -124,6 +125,10 @@
                     </div>
                 @endif
             @endforeach
+        
+
+        @endif
+
         </div>
 
         <div class="row mt-5" id="katalog_katkur"></div>

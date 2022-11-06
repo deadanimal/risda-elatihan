@@ -202,9 +202,8 @@ class PermohonanController extends Controller
         $permohonan->save();
 
         if ($permohonan->status_permohonan == '4') {
-
-
             Mail::to('azyfays@gmail.com')->send(new PermohonanLulus($permohonan, $agensi));
+            
         } elseif ($permohonan->status_permohonan == '5') {
 
             Mail::to('azyfays@gmail.com')->send(new PermohonanGagal($permohonan));
