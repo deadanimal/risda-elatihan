@@ -264,7 +264,7 @@ Route::middleware('auth')->group(function () {
             Route::get('statuspermohonan', [PermohonanController::class, 'indexULPK']);
             Route::get('statuspermohonan/nota_rujukan/{id}', [PermohonanController::class, 'nota_rujukan']);
             Route::get('katelog-kursus', [PermohonanController::class, 'katalog_ulpk']);
-            Route::get('kehadiran/{kod_kursus}', [KehadiranController::class, 'indexULPK']);
+            Route::get('kehadiran/{id}', [KehadiranController::class, 'indexULPK']);
         });
 
         //rekod kehadiran
@@ -606,7 +606,7 @@ Route::middleware('auth')->group(function () {
     });
 
     //Urus Setia ULPK
-    Route::group(['prefix' => 'us-ulpk', 'middleware' => ['UlpkUrusSetia', 'Superadmin BTM']], function () {
+    Route::group(['prefix' => 'us-ulpk', 'middleware' => ['UlpkUrusSetia', 'Superadmin BTM','Urus Setia ULPK']], function () {
 
         Route::prefix('kehadiran')->group(function () {
             //dari QR  - merekod kehadiran

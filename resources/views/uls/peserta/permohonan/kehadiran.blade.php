@@ -92,7 +92,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="card mt-5">
             {{-- table kehadiran SEBELUM KE KURSUS --}}
             <div class="table-responsive scrollbar rounded" id="table-kehadiran-sebelum-kursus">
@@ -264,7 +264,7 @@
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#pengesahan-kehadiran{{ $k->id }}">
                                                     Pengesahan Kehadiran
-                                                </button> 
+                                                </button>
                                             @else
                                                 @if($k->status_ke_kursus['status_kehadiran_ke_kursus'] == 'TIDAK HADIR')
                                                     <button class="btn btn-primary mx-0" type="button" onclick=""
@@ -276,7 +276,7 @@
                                                     -
                                                 @endif
                                             @endif
-                                            
+
                                         @else
                                             {{ $k->status_ke_kursus['alasan_ketidakhadiran_ke_kursus'] ?? '' }}
                                         @endif
@@ -329,8 +329,8 @@
                                                                         </select> --}}
                                                                     </div>
                                                                     <input type="hidden" name="jenis_input" value="1">
-                                                                    <input type="hidden" name="id_keh"
-                                                                        value="{{ $k->status_ke_kursus['id'] }}">
+                                                                    {{-- <input type="hidden" name="id_keh"
+                                                                        value="{{ $k->status_ke_kursus['id'] }}"> --}}
 
                                                                 </div>
                                                                 <div class="col-8 d-inline-flex mt-5">

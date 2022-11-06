@@ -87,7 +87,7 @@
 
                                                                                 @if (($p->status_permohonan == 4)||($p->status_permohonan == 6))
                                                                                     <a class="btn btn-primary btn-sm"
-                                                                                        href="/uls/permohonan/kehadiran/{{ $p->kod_kursus }}">Kehadiran</a>
+                                                                                        href="/ulpk/permohonan/kehadiran/{{ $p->kod_kursus }}">Kehadiran</a>
 
                                                                                         <a class="btn btn-primary btn-sm" href="/cetak_surat_tawaran/{{$p->id}}">
                                                                                             Cetak Surat Tawaran

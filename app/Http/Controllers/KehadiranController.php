@@ -80,11 +80,65 @@ class KehadiranController extends Controller
             'aturcara'=>$aturcara,
         ]);
     }
-    public function indexULPK($kod_kursus)
+    public function indexULPK($id)
     {
-        $kod_kursus = KodKursus::where('kod_Kursus', $kod_kursus)->firstorFail();
+        // dd($kod_kursus);
+        // $kod_kursus = KodKursus::where('kod_Kursus', $kod_kursus)->firstorFail();
+        // return view('ulpk.peserta.permohonan.kehadiran', [
+        //     'kod_kursus' => $kod_kursus,
+        // ]);
+
+        $permohonan = Permohonan::find($id);
+        function displayTarikh($date1, $date2, $format = 'Y-m-d')
+        {
+            $dates = array();
+            $current = strtotime($date1);
+            $date2 = strtotime($date2);
+            $stepVal = '+1 day';
+            while ($current <= $date2) {
+                $dates[] = date($format, $current);
+                $current = strtotime($stepVal, $current);
+            }
+            return $dates;
+        }
+
+        $kod_kursuss = JadualKursus::where('id', $permohonan->kod_kursus)->firstorFail();
+        $aturcara = Aturcara::with(['jadual'])->where('ac_jadual_kursus', $permohonan->kod_kursus)
+            ->orderBy('ac_hari', 'ASC')
+            ->orderBy('ac_sesi', 'ASC')
+            ->get();
+
+        foreach ($aturcara as $key => $ac) {
+            $kehadiran = Kehadiran::where('kod_kursus', $kod_kursuss->kursus_kod_nama_kursus)
+            ->where('no_pekerja', $permohonan->no_pekerja)
+            ->where('jadual_kursus_ref', $ac->id)
+            ->first();
+
+            if ($kehadiran == null) {
+                $ac['status_kehadiran'] = null;
+                $ac['status_ke_kursus'] = null;
+            }else {
+                $ac['status_kehadiran'] = $kehadiran;
+                if ($kehadiran['status_kehadiran_ke_kursus'] == null) {
+                    $ac['status_ke_kursus'] = null;
+                } else {
+                    $ac['status_ke_kursus'] = $kehadiran;
+                }
+            }
+        }
+
+        $hari = ['Pertama', 'Kedua', 'Ketiga', 'Keempat', 'Kelima', 'Keenam'];
+
+        $date = displayTarikh($kod_kursuss->tarikh_mula, $kod_kursuss->tarikh_tamat);
+
         return view('ulpk.peserta.permohonan.kehadiran', [
-            'kod_kursus' => $kod_kursus,
+            'kod_kursus' => $kod_kursuss,
+            // 'kehadiran' => $kehadiran,
+            'hari' => $hari,
+            'date' => $date,
+            'id_jadual' => $permohonan->kod_kursus,
+            'aturcara'=>$aturcara,
+           
         ]);
     }
 

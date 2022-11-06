@@ -34,13 +34,14 @@ class SemakPermohonanController extends Controller
     {
         $check = Auth::user()->jenis_pengguna;
 
-        $pemohon = Permohonan::with(['jadual', 'peserta', 'data_staf', 'data_pk'])->get();
+        // $pemohon = Permohonan::with(['jadual', 'peserta', 'data_staf', 'data_pk'])->get();
         $kategori = KategoriAgensi::where('Kategori_Agensi', 'Tempat Kursus')->first()->id;
         $tempat = Agensi::with('kategori')->where('kategori_agensi', $kategori)->get();
 
         if (str_contains($check, 'ULS')) {
             if (str_contains($check, 'Penyokong')) {
-                $pemohon = Permohonan::with(['jadual', 'peserta', 'data_staf', 'data_pk'])->where('status_permohonan', '!=', '0')->get();
+                $jadual = JadualKursus::where('kursus_unit_latihan','Staf')->get();
+                $pemohon = Permohonan::with(['jadual', 'peserta', 'data_staf'])->where('status_permohonan', '!=', '0')->get();
             }
             foreach ($pemohon as $key => $p) {
                 if ($p->peserta == null) {
@@ -56,6 +57,8 @@ class SemakPermohonanController extends Controller
                 'tempat' => $tempat
             ]);
         } elseif (str_contains($check, 'ULPK')) {
+        $pemohon = Permohonan::with(['jadual', 'peserta','data_pk'])->get();
+
             $pekebun_kecil = [];
             foreach ($pemohon as $key => $p) {
                 if ($p->peserta == null) {
@@ -71,6 +74,7 @@ class SemakPermohonanController extends Controller
                 'tempat' => $tempat
             ]);
         } else {
+        $pemohon = Permohonan::with(['jadual', 'peserta', 'data_staf', 'data_pk'])->get();
 
             $staf = [];
             $pekebun_kecil = [];
