@@ -73,7 +73,7 @@ class KehadiranController extends Controller
 
         return view('uls.peserta.permohonan.kehadiran', [
             'kod_kursus' => $kod_kursuss,
-            'kehadiran' => $kehadiran,
+            // 'kehadiran' => $kehadiran,
             'hari' => $hari,
             'date' => $date,
             'id_jadual' => $permohonan->kod_kursus,
@@ -176,7 +176,7 @@ class KehadiranController extends Controller
                 if ($permohonan == null) {
                     alert()->error('ANDA TIDAK MENDAFTAR KURSUS INI', 'GAGAL');
                     return back();
-                } 
+                }
             }
         }
         $kehadiran = Kehadiran::where('kod_kursus', $request->jadual_kursus)->where('jadual_kursus_ref', $id)->where('no_pekerja', $request->nama_peserta)->first();
